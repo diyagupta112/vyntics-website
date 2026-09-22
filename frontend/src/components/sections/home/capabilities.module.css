@@ -1,0 +1,212 @@
+.section {
+  min-height: calc(100svh - 5rem);
+  display: grid;
+  align-items: center;
+  padding-block: clamp(1.75rem, 3.5vh, 2.75rem);
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+  background:
+    radial-gradient(circle at 94% 4%, rgb(37 99 235 / 9%), transparent 28rem),
+    var(--color-background);
+  scroll-margin-top: 5rem;
+}
+
+.headingBlock {
+  margin-bottom: clamp(1.5rem, 3vh, 2.25rem);
+  display: grid;
+  gap: 0.55rem;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 1.5rem;
+  height: 1px;
+  content: "";
+  background: currentColor;
+}
+
+.headingBlock h2 {
+  font-size: clamp(2.25rem, 4vw, 3.45rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.headingBlock > p:last-child {
+  max-width: 38rem;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.55;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.85rem;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.card {
+  position: relative;
+  min-height: clamp(19rem, 43vh, 22rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  overflow: hidden;
+  padding: clamp(1.25rem, 2vw, 1.65rem);
+  border: 1px solid var(--color-border);
+  border-radius: 1.35rem;
+  outline: none;
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  box-shadow: 0 16px 45px rgb(11 11 15 / 5%);
+  cursor: pointer;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  transition:
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+  transform-origin: 50% 50%;
+  will-change: transform, filter, opacity;
+}
+
+.card::before {
+  position: absolute;
+  inset: auto -35% -45% 12%;
+  z-index: -1;
+  height: 12rem;
+  content: "";
+  border-radius: 50%;
+  background: rgb(37 99 235 / 14%);
+  filter: blur(35px);
+  opacity: 0;
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.number {
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.icon {
+  width: 3.25rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 24%, transparent);
+  border-radius: 0.9rem;
+  background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  transition: color 260ms ease, background-color 260ms ease, transform 260ms ease;
+}
+
+.cardCopy {
+  margin-top: auto;
+}
+
+.card h3 {
+  max-width: 13ch;
+  font-size: clamp(1.18rem, 1.55vw, 1.45rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.card p {
+  margin-top: 0.85rem;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  padding-top: 0.85rem;
+  color: var(--color-primary);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.75rem;
+  font-weight: 720;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .card:focus-visible {
+    border-color: color-mix(in srgb, var(--color-primary) 52%, var(--color-border));
+    box-shadow: 0 24px 65px rgb(20 83 219 / 14%);
+  }
+
+  .card:hover::before,
+  .card:focus-visible::before {
+    opacity: 1;
+    transform: translateY(-1rem);
+  }
+
+  .card:hover .icon,
+  .card:focus-visible .icon {
+    color: #ffffff;
+    background: var(--color-primary);
+    transform: rotate(-5deg) scale(1.06);
+  }
+
+}
+
+@media (max-width: 1050px) {
+  .section {
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card {
+    min-height: 18rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .section {
+    padding-block: 3.5rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 16rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card::before,
+  .icon {
+    transition: none;
+  }
+
+}

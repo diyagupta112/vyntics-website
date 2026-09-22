@@ -1,0 +1,35 @@
+.toggle {
+  width: 2.7rem;
+  height: 2.7rem;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-foreground);
+  background: var(--color-surface);
+  box-shadow: 0 5px 16px rgb(11 11 15 / 8%);
+  cursor: pointer;
+  transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.toggle:hover,
+.toggle:focus-visible {
+  color: var(--color-white);
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  outline: none;
+  transform: translateY(-1px) rotate(6deg);
+}
+
+.icon,
+.icon svg {
+  width: 1.18rem;
+  height: 1.18rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle {
+    transition: none;
+  }
+}

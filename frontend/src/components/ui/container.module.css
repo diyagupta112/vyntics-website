@@ -1,0 +1,8 @@
+.container {
+  width: min(100% - 2rem, var(--content-width));
+  margin-inline: auto;
+}
+
+.container:where(section) {
+  padding-block: 5rem;
+}

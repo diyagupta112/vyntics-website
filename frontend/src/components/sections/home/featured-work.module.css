@@ -1,0 +1,254 @@
+.section {
+  min-height: calc(100svh - 5rem);
+  display: grid;
+  align-items: center;
+  padding-block: clamp(1.5rem, 3vh, 2.25rem);
+  overflow: hidden;
+  background: var(--color-background);
+  scroll-margin-top: 5rem;
+}
+
+.headingBlock {
+  max-width: 62rem;
+  margin-bottom: clamp(1.15rem, 2.25vh, 1.75rem);
+  display: grid;
+  gap: 0.5rem;
+}
+
+.eyebrow {
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.headingBlock h2 {
+  max-width: 22ch;
+  font-size: clamp(2.2rem, 3.5vw, 3.35rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.headingBlock > p:last-child {
+  max-width: 44rem;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.5vw, 1.13rem);
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: 1.75rem;
+  background: var(--color-surface);
+  box-shadow: 0 35px 90px rgb(11 11 15 / 11%);
+  transition: box-shadow 250ms ease;
+}
+
+.card:hover {
+  box-shadow: 0 42px 110px rgb(20 83 219 / 16%);
+}
+
+.cardGrid {
+  min-height: 22rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(22rem, 0.95fr);
+  gap: 1rem;
+  padding: 1rem;
+  transform-style: preserve-3d;
+}
+
+.visual {
+  position: relative;
+  min-height: 20rem;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1.2rem;
+  background: #09090b;
+  box-shadow: 0 22px 55px rgb(11 11 15 / 24%);
+}
+
+.visual img {
+  object-fit: cover;
+  object-position: center;
+}
+
+.projectType {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  padding: 0.58rem 0.78rem;
+  color: #ffffff;
+  border: 1px solid rgb(255 255 255 / 16%);
+  border-radius: 999px;
+  background: rgb(11 11 15 / 72%);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(10px);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.9rem;
+  padding: clamp(1.1rem, 2vw, 1.65rem);
+}
+
+.client {
+  margin: 0.65rem 0 0.55rem;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 720;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.content h3 {
+  font-size: clamp(1.65rem, 2.5vw, 2.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.summary {
+  margin-top: 0.8rem;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.leadMetric {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+}
+
+.leadMetric strong {
+  color: var(--color-primary);
+  font-size: clamp(3rem, 4.5vw, 4.4rem);
+  line-height: 0.85;
+  letter-spacing: -0.065em;
+}
+
+.leadMetric span {
+  color: var(--color-muted);
+  font-size: 0.84rem;
+}
+
+.proofPoints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.proofPoints li {
+  padding: 0.42rem 0.62rem;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 620;
+}
+
+.cardFooter {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  list-style: none;
+}
+
+.stack li {
+  padding: 0.38rem 0.58rem;
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-background);
+  font-size: 0.7rem;
+  font-weight: 620;
+}
+
+.caseStudyLink {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.2rem;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 720;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  transition: opacity 180ms ease;
+}
+
+.caseStudyLink:hover {
+  opacity: 0.72;
+}
+
+.caseStudyLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 0.3rem;
+  border-radius: 0.15rem;
+}
+
+@media (max-width: 900px) {
+  .section {
+    min-height: auto;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .visual {
+    min-height: clamp(19rem, 58vw, 27rem);
+  }
+
+  .content {
+    padding-top: 1rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .card,
+  .visual {
+    border-radius: 1.1rem;
+  }
+
+  .cardGrid {
+    min-height: auto;
+    padding: 0.65rem;
+  }
+
+  .visual {
+    min-height: 18rem;
+  }
+
+  .content {
+    padding: 1.25rem 0.65rem 1rem;
+  }
+
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .visual,
+  .content {
+    transform: none;
+  }
+
+  .card {
+    transition: none;
+  }
+}

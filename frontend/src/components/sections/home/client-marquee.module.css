@@ -1,0 +1,144 @@
+.section {
+  padding-block: clamp(4rem, 8vw, 7rem);
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-background);
+}
+
+.headingContainer {
+  margin-bottom: 2.5rem;
+}
+
+.heading {
+  color: var(--color-muted);
+  font-size: clamp(0.86rem, 1.5vw, 1rem);
+  font-weight: 550;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+}
+
+.track {
+  width: max-content;
+  display: flex;
+  animation: marquee 32s linear infinite;
+  will-change: transform;
+}
+
+.group {
+  display: flex;
+  gap: 1.4rem;
+  padding-right: 1.4rem;
+}
+
+.card {
+  position: relative;
+  width: clamp(14rem, 18vw, 16rem);
+  height: 7rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgb(11 11 15 / 12%);
+  border-radius: 1rem;
+  background: var(--color-client-card);
+  box-shadow: 0 12px 35px rgb(11 11 15 / 5%);
+  transform-origin: center;
+  transition: transform 300ms ease, filter 300ms ease;
+}
+
+.logo {
+  width: 13.125rem;
+  height: 4.75rem;
+  display: block;
+  background-image: url("/images/client-logos-source.png");
+  background-repeat: no-repeat;
+  background-size: 1407px 305px;
+  filter: var(--client-logo-filter);
+}
+
+.proEd {
+  background-position: -146px -127px;
+}
+
+.iturbe {
+  background-position: -427px -127px;
+}
+
+.rollout {
+  background-position: -701px -127px;
+}
+
+.smgq {
+  background-position: -985px -127px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    z-index: 1;
+    filter: brightness(1.1);
+    transform: scale(1.05);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-block: 3.5rem;
+  }
+
+  .headingContainer {
+    margin-bottom: 2rem;
+  }
+
+  .heading {
+    max-width: 28rem;
+    line-height: 1.6;
+  }
+
+  .track {
+    animation-duration: 28s;
+  }
+
+  .card {
+    width: 14rem;
+    height: 6.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .track {
+    animation: none;
+  }
+
+  .card {
+    transition: none;
+  }
+
+  .card:hover {
+    filter: none;
+    transform: none;
+  }
+
+  .group[aria-hidden="true"] {
+    display: none;
+  }
+}
