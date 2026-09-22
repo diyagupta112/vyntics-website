@@ -1,0 +1,14 @@
+{
+  "name": "@vyntics/types",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "node -e \"console.log('No types package build configured yet.')\"",
+    "lint": "node -e \"console.log('No types lint configured yet.')\"",
+    "test": "node -e \"console.log('No types tests configured yet.')\"",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "format": "node -e \"console.log('No formatter configured yet.')\""
+  }
+}

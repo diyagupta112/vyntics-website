@@ -1,0 +1,13 @@
+{
+  "name": "@vyntics/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node -e \"console.log('Install the chosen web framework for apps/web, then replace this script.')\"",
+    "build": "node -e \"console.log('No web build configured yet.')\"",
+    "lint": "node -e \"console.log('No web lint configured yet.')\"",
+    "test": "node -e \"console.log('No web tests configured yet.')\"",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "format": "node -e \"console.log('No formatter configured yet.')\""
+  }
+}

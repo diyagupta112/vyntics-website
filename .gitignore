@@ -1,0 +1,66 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+.next/
+.nuxt/
+.svelte-kit/
+dist/
+build/
+coverage/
+out/
+storybook-static/
+
+# environment
+.env
+.env.*
+!.env.example
+
+# local config
+*.local
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS/editor
+.DS_Store
+.AppleDouble
+.LSOverride
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Supabase
+.branches/
+.temp/
+.supabase/
+
+# hosting
+.vercel/
+.netlify/
+
+# caches
+.turbo/
+.eslintcache
+.cache/
+.parcel-cache/
+
+# TypeScript
+*.tsbuildinfo
+
+# test artifacts
+playwright-report/
+test-results/
+cypress/screenshots/
+cypress/videos/
+
+# package manager
+.npmrc
+pnpm-lock.yaml.tmp
