@@ -1,0 +1,2 @@
+"""Vyntics FastAPI application package."""
+
