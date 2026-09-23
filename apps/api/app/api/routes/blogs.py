@@ -1,0 +1,136 @@
+"""Public and administrative Blog API routes."""
+
+from uuid import UUID
+
+from fastapi import APIRouter, HTTPException, Response, status
+
+from app.api.dependencies.blogs import BlogServiceDependency
+from app.schemas.blogs import (
+    BlogAdminResponse,
+    BlogCreateRequest,
+    BlogDetailResponse,
+    BlogListResponse,
+    BlogUpdateRequest,
+)
+from app.services.blogs import (
+    BlogNotFoundError,
+    BlogSlugConflictError,
+    BlogValidationError,
+)
+
+router = APIRouter(prefix="/blogs", tags=["blogs"])
+admin_router = APIRouter(prefix="/admin/blogs", tags=["admin blogs"])
+
+
+@router.get("", response_model=BlogListResponse)
+async def list_blogs(service: BlogServiceDependency) -> BlogListResponse:
+    """List published Blogs ordered by publication time descending."""
+
+    blogs = await service.list_published()
+    return BlogListResponse(data=blogs)
+
+
+@router.get("/{slug}", response_model=BlogDetailResponse)
+async def get_blog(slug: str, service: BlogServiceDependency) -> object:
+    """Return one published Blog by slug."""
+
+    try:
+        return await service.get_published_by_slug(slug)
+    except BlogNotFoundError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Blog not found.",
+        ) from None
+
+
+@admin_router.get("", response_model=list[BlogAdminResponse])
+async def list_admin_blogs(
+    service: BlogServiceDependency,
+) -> list[object]:
+    """List Blogs in every status for future authenticated administration."""
+
+    return await service.list_all()
+
+
+@admin_router.get("/{blog_id}", response_model=BlogAdminResponse)
+async def get_admin_blog(
+    blog_id: UUID,
+    service: BlogServiceDependency,
+) -> object:
+    """Return one Blog by UUID regardless of publication status."""
+
+    try:
+        return await service.get_by_id(blog_id)
+    except BlogNotFoundError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Blog not found.",
+        ) from None
+
+
+@router.post(
+    "",
+    response_model=BlogAdminResponse,
+    status_code=status.HTTP_201_CREATED,
+)
+async def create_blog(
+    request: BlogCreateRequest,
+    service: BlogServiceDependency,
+) -> object:
+    """Create a Blog; authentication will be added in the auth phase."""
+
+    try:
+        return await service.create(request)
+    except BlogSlugConflictError:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="A Blog with this slug already exists.",
+        ) from None
+
+
+@router.patch("/{blog_id}", response_model=BlogAdminResponse)
+async def update_blog(
+    blog_id: UUID,
+    request: BlogUpdateRequest,
+    service: BlogServiceDependency,
+) -> object:
+    """Update a Blog; authentication will be added in the auth phase."""
+
+    try:
+        return await service.update(blog_id, request)
+    except BlogNotFoundError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Blog not found.",
+        ) from None
+    except BlogSlugConflictError:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail="A Blog with this slug already exists.",
+        ) from None
+    except BlogValidationError as error:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=str(error),
+        ) from None
+
+
+@router.delete(
+    "/{blog_id}",
+    status_code=status.HTTP_204_NO_CONTENT,
+    response_class=Response,
+)
+async def delete_blog(
+    blog_id: UUID,
+    service: BlogServiceDependency,
+) -> Response:
+    """Hard-delete a Blog; authentication will be added in the auth phase."""
+
+    try:
+        await service.delete(blog_id)
+    except BlogNotFoundError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Blog not found.",
+        ) from None
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

@@ -801,37 +801,617 @@ invented as part of database connectivity.
 
 ------------------------------------------------------------------------
 
-## Phase 6 --- Blogs
+## Phase 6 — Blogs
 
--   [ ] Blog model.
--   [ ] Blog schemas.
--   [ ] Repository/data access.
--   [ ] Service layer.
--   [ ] `GET /blogs`.
--   [ ] `GET /blogs/{slug}`.
--   [ ] Published-content filtering.
--   [ ] Unique slug handling.
--   [ ] SEO validation.
--   [ ] Structured-content validation.
--   [ ] 404 behavior.
--   [ ] Unit/integration/API contract tests.
+### Confirmed Phase 6 API contract decisions
+
+These decisions are authoritative for the Phase 6 implementation and resolve
+the previously open Blog contract questions.
+
+#### Public listing order
+
+- `GET /blogs` returns published Blogs ordered by `published_at DESC`.
+
+#### Admin mutation responses
+
+- `POST /blogs` returns `201 Created`.
+- `PATCH /blogs/{id}` returns `200 OK`.
+- Both endpoints return the same admin Blog response containing exactly:
+  `id`, `slug`, `title`, `seo_title`, `meta_description`, `author`, `category`,
+  `excerpt`, `cover_image_url`, `read_time`, `content`, `status`,
+  `published_at`, `created_at`, and `updated_at`.
+- The admin Blog response does not expose `created_by` or `updated_by`.
+- `DELETE /blogs/{id}` performs a hard delete and returns `204 No Content`.
+- Blog deletion does not introduce archived or soft-delete behavior.
+
+#### Publishing behavior
+
+- When a Blog enters `status=published`, the backend sets `published_at`.
+- While a Blog remains published, the backend preserves its existing
+  `published_at`.
+- When a Blog moves from `published` to `draft` or `unpublished`, the backend
+  clears `published_at`.
+
+#### Cover image behavior
+
+- `cover_image_url` is optional for draft and unpublished Blogs.
+- `cover_image_url` is required when `status=published`.
+
+#### Audit logging
+
+- Blog mutations use the actions `create`, `update`, and `delete`.
+- Blog audit records use `resource_type=blog`.
+- The audit actor is nullable until authentication is implemented.
+- Audit context may contain the Blog slug, status, and changed field names.
+- Audit context must never contain full Blog content.
+
+#### Validation
+
+- Required strings must be non-empty.
+- `status` must be one of `draft`, `published`, or `unpublished`.
+- URL fields must contain valid URLs.
+- `content` must be a JSON object.
+- Do not invent SEO length limits.
+- Do not invent a Tiptap-specific content structure.
+
+#### Errors
+
+- Use FastAPI's standard error response format: `{"detail": "..."}`.
+- Return `404 Not Found` for missing Blog resources.
+- Return `409 Conflict` for Blog slug conflicts.
+- Use the appropriate standard validation response for invalid request data.
+
+#### Contract boundaries
+
+- Existing Phase 4 schemas and established frontend API contracts remain the
+  source of truth.
+- Do not infer request fields solely from the database model.
+- Do not add archived, scheduled, duplicate, or other Blog functionality.
+
+- [ ] Use the existing Blog model from the database layer.
+- [ ] Use the existing Blog Pydantic schemas and extend them only where a required Phase 6 request schema is missing.
+- [ ] Implement Blog repository/data access.
+- [ ] Implement Blog service layer.
+- [ ] Implement Blog API routes.
+
+### Public endpoints
+
+- [ ] `GET /blogs` — return all published blogs using the established public list response contract.
+  - [ ] Return only published blogs.
+  - [ ] Do not expose full `content`, `seo_title`, or `meta_description` in the list response.
+- [ ] `GET /blogs/{slug}` — return a single published blog using the established public detail response contract.
+  - [ ] Return the full public Blog detail including SEO fields and structured `content`.
+  - [ ] Return `404 Not Found` when the slug does not match a published blog.
+
+### Admin endpoints
+
+The following endpoints are intended for authenticated and authorized Admin Panel usage. Authentication and authorization enforcement will be implemented in the later authentication phase. Do not introduce temporary, mock, or fake authentication in Phase 6.
+
+- [ ] `POST /blogs` — create a new blog.
+  - [ ] Request body uses the established Blog request schema.
+  - [ ] Support `slug`, `title`, `seo_title`, `meta_description`, `author`, `category`, `excerpt`, `cover_image_url`, `read_time`, `content`, and `status`.
+  - [ ] Allow only the existing Blog statuses: `draft`, `published`, and `unpublished`.
+  - [ ] Do not accept backend-managed fields such as `id`, `created_at`, `updated_at`, `created_by`, or `updated_by` from the client.
+  - [ ] Validate required fields, SEO fields, structured content, slug uniqueness, and status.
+  - [ ] Return an appropriate conflict response when the slug already exists.
+
+- [ ] `PATCH /blogs/{id}` — update an existing blog.
+  - [ ] Request body uses the established Blog update/request schema.
+  - [ ] Support updating the established Blog fields.
+  - [ ] The Blog `id` is provided through the URL path, not the request body.
+  - [ ] Do not accept backend-managed fields from the client.
+  - [ ] Validate supplied fields, SEO fields, structured content, slug uniqueness when changed, and status.
+  - [ ] Return `404 Not Found` when the Blog does not exist.
+  - [ ] Return an appropriate conflict response when the updated slug conflicts with another Blog.
+
+- [ ] `DELETE /blogs/{id}` — delete a Blog according to the established backend deletion behavior.
+  - [ ] No request body.
+  - [ ] Return `404 Not Found` when the Blog does not exist.
+  - [ ] Do not introduce an `archived` or other new deletion status.
+
+### Blog rules and validation
+
+- [ ] Published-content filtering for public endpoints.
+- [ ] Unique slug handling and conflict detection.
+- [ ] SEO validation.
+- [ ] Structured-content validation.
+- [ ] Preserve the existing Blog statuses: `draft`, `published`, and `unpublished`.
+- [ ] Return appropriate validation errors for invalid request data.
+- [ ] Do not introduce `archived`, `scheduled`, or any other new Blog statuses.
+- [ ] Do not introduce additional Blog endpoints outside this Phase 6 scope.
+- [ ] Use the existing API contracts and Pydantic schemas as the source of truth for API request and response shapes.
+- [ ] Do not infer API request fields solely from the database model.
+- [ ] Integrate important admin mutations with the existing audit-log design.
+
+### Architecture and database
+
+- [ ] Follow the existing FastAPI → service → repository → AsyncSession architecture.
+- [ ] Use the existing async database/session infrastructure from Phase 5.
+- [ ] Keep repository methods responsible for database access.
+- [ ] Keep transaction ownership in the service/application layer.
+- [ ] Wire all Blog routes into the FastAPI application.
+- [ ] Do not modify the existing Node/TypeScript API scaffold.
+
+### Testing and verification
+
+- [ ] Repository/unit tests for Blog data access.
+- [ ] Service-layer tests for Blog business logic.
+- [ ] API contract tests for all Blog endpoints.
+- [ ] Validation tests for Blog request schemas.
+- [ ] Duplicate slug tests.
+- [ ] Published-content filtering tests.
+- [ ] `404 Not Found` tests.
+- [ ] Database integration tests against PostgreSQL/Supabase.
+- [ ] Verify all Blog endpoints through FastAPI Swagger.
+- [ ] Use Swagger to create a real Blog with `POST /blogs`.
+- [ ] Verify the created Blog is persisted correctly in the development Supabase `blogs` table.
+- [ ] Use Swagger to verify `GET`, `PATCH`, and `DELETE` behavior against the development database.
+- [ ] Run the complete backend test suite after implementation.
+
+### Phase 6 — Additional Work: Admin Blog Read Endpoints
+
+**Status:** Identified and planned; not yet implemented.
+
+#### Purpose
+
+The public Blog GET endpoints intentionally expose only published content. The
+Admin Panel requires separate read endpoints so administrators can view and
+manage Blogs regardless of publication status.
+
+#### Admin listing endpoint
+
+- [ ] `GET /admin/blogs` — return Blogs with all supported statuses:
+  `draft`, `published`, and `unpublished`.
+- [ ] Do not apply the public published-only filter to this endpoint.
+- [ ] Use the established admin Blog response shape and existing schemas where
+  appropriate.
+- [ ] Do not introduce new Blog fields or statuses.
+- [ ] Treat this as a conceptually admin-protected operation. Authentication and
+  authorization are not implemented yet; do not add fake or temporary
+  authentication for this work.
+
+#### Admin detail endpoint
+
+- [ ] `GET /admin/blogs/{id}` — return a specific Blog by its database UUID,
+  regardless of whether its status is `draft`, `published`, or `unpublished`.
+- [ ] Use the established admin Blog response shape.
+- [ ] Return `404 Not Found` when the Blog does not exist.
+- [ ] Use the database ID rather than the slug because the Admin Panel may edit
+  the slug.
+- [ ] Treat this as a conceptually admin-protected operation. Authentication and
+  authorization are not implemented yet; do not add fake or temporary
+  authentication for this work.
+
+#### Public/admin separation
+
+Public operations remain unchanged:
+
+- `GET /blogs` — published Blogs only.
+- `GET /blogs/{slug}` — published Blog detail only.
+
+Admin operations are:
+
+- `GET /admin/blogs` — all Blog statuses.
+- `GET /admin/blogs/{id}` — a specific Blog regardless of status.
+- `POST /blogs` — existing admin create operation.
+- `PATCH /blogs/{id}` — existing admin update operation.
+- `DELETE /blogs/{id}` — existing admin hard-delete operation.
+
+Do not add an `include_drafts` query parameter or change the behavior of either
+public GET endpoint. Do not introduce archived or scheduled statuses, new Blog
+statuses, soft deletion, duplicate-post functionality, fake authentication, or
+authorization implementation.
+
+#### Additional testing and verification
+
+- [ ] Verify `GET /admin/blogs` returns draft Blogs.
+- [ ] Verify `GET /admin/blogs` returns published Blogs.
+- [ ] Verify `GET /admin/blogs` returns unpublished Blogs.
+- [ ] Verify `GET /admin/blogs/{id}` returns a draft Blog.
+- [ ] Verify `GET /admin/blogs/{id}` returns a published Blog.
+- [ ] Verify `GET /admin/blogs/{id}` returns an unpublished Blog.
+- [ ] Verify `GET /admin/blogs/{id}` returns `404 Not Found` for an unknown ID.
+- [ ] Verify public `GET /blogs` continues returning published Blogs only.
+- [ ] Verify public `GET /blogs/{slug}` continues returning published Blogs only.
+- [ ] Verify the admin endpoints against the real Supabase database where
+  possible.
+- [ ] Verify Swagger/OpenAPI exposes both new admin endpoints correctly.
 
 ------------------------------------------------------------------------
 
-## Phase 7 --- Case Studies
+## Phase 7 — Case Studies
 
--   [ ] Case study model.
--   [ ] Schemas.
--   [ ] Repository.
--   [ ] Service.
--   [ ] `GET /case-studies`.
--   [ ] `GET /case-studies/{slug}`.
--   [ ] Tech stack/tags.
--   [ ] Structured content.
--   [ ] Image/video references.
--   [ ] Unique slug.
--   [ ] Published-content behavior.
--   [ ] Tests.
+- [ ] Case study model.
+- [ ] Schemas.
+- [ ] Repository.
+- [ ] Service.
+- [ ] `GET /case-studies`.
+- [ ] `GET /case-studies/{slug}`.
+- [ ] Tech stack/tags.
+- [ ] Structured content.
+- [ ] Image/video references.
+- [ ] Unique slug.
+- [ ] Published-content behavior.
+- [ ] Tests.
+
+### Phase 7 — API Scope and Confirmed Behavior
+
+Case Studies follow the same overall public/admin separation established during the Blogs phase.
+
+The existing Phase 4 public Case Study schemas remain the source of truth for the public API. Phase 7 must add the create, update, and admin response schemas defined below; those schemas do not already exist and must not be inferred solely from the SQLAlchemy model or database table.
+
+The database contains these Case Study fields:
+
+- `id`
+- `slug`
+- `title`
+- `seo_title`
+- `meta_description`
+- `client_name`
+- `excerpt`
+- `cover_image_url`
+- `tech_stack`
+- `tags`
+- `content`
+- `status`
+- `published_at`
+- `created_by`
+- `updated_by`
+- `created_at`
+- `updated_at`
+
+The API contracts below deliberately separate client-editable fields, public response fields, admin response fields, and backend-managed fields. Do not introduce additional Case Study fields.
+
+### Case Study Request Contracts
+
+#### Create request
+
+The request body for `POST /case-studies` contains exactly these client-editable fields:
+
+- `slug`
+- `title`
+- `seo_title`
+- `meta_description`
+- `client_name`
+- `excerpt`
+- `cover_image_url`
+- `tech_stack`
+- `tags`
+- `content`
+- `status`
+
+The client must not provide these backend-managed fields:
+
+- `id`
+- `published_at`
+- `created_by`
+- `updated_by`
+- `created_at`
+- `updated_at`
+
+All create fields are required except `cover_image_url`, which may be omitted or `null` for `draft` and `unpublished` Case Studies. A valid `cover_image_url` is required when the requested status is `published`.
+
+#### Update request
+
+The request body for `PATCH /case-studies/{id}` uses the same editable field set as the create request, with every field optional and omittable so the request can represent a partial update.
+
+- Omitted fields retain their current values.
+- The Case Study UUID is supplied only through the path and must not appear in the request body.
+- Backend-managed fields are not accepted in the request body.
+- Explicit `null` is rejected for database-required fields: `slug`, `title`, `seo_title`, `meta_description`, `client_name`, `excerpt`, `tech_stack`, `tags`, `content`, and `status`.
+- `cover_image_url` may be explicitly set to `null` only when the resulting Case Study status is `draft` or `unpublished`.
+- The resulting resource, after combining stored values with supplied changes, must satisfy every publication and validation rule in this section.
+
+### Case Study Admin Response Contract
+
+The admin response used by create, update, admin list, and admin detail contains exactly:
+
+- `id`
+- `slug`
+- `title`
+- `seo_title`
+- `meta_description`
+- `client_name`
+- `excerpt`
+- `cover_image_url`
+- `tech_stack`
+- `tags`
+- `content`
+- `status`
+- `published_at`
+- `created_at`
+- `updated_at`
+
+Do not expose `created_by` or `updated_by` in this Phase 7 response contract. They remain internal ownership fields until the authentication contract is implemented.
+
+### Public Case Study Endpoints
+
+#### `GET /case-studies`
+
+Public Case Study listing endpoint.
+
+Behavior:
+
+- Return only Case Studies with `status=published`.
+- Order results by `published_at DESC`.
+- Preserve the existing Phase 4 public list response envelope and item schema.
+- Each public list item contains `id`, `slug`, `title`, `client_name`, `excerpt`, `cover_image_url`, `tech_stack`, `tags`, and `published_at`.
+- Do not expose `content`, `seo_title`, `meta_description`, `status`, ownership fields, or administrative timestamps in the public list response.
+
+#### `GET /case-studies/{slug}`
+
+Public Case Study detail endpoint.
+
+Behavior:
+
+- Return only a published Case Study.
+- Resolve the Case Study using its `slug`.
+- Preserve the existing Phase 4 public detail response schema.
+- The public detail response contains `id`, `slug`, `title`, `seo_title`, `meta_description`, `client_name`, `excerpt`, `cover_image_url`, `tech_stack`, `tags`, `content`, and `published_at`.
+- Do not expose `status`, ownership fields, or administrative timestamps in the public detail response.
+- Return HTTP `404` when the slug does not correspond to a published Case Study.
+
+Public endpoints must not expose draft or unpublished Case Studies.
+
+### Admin Case Study Mutation Endpoints
+
+The Admin Panel requires create, update, and delete operations.
+
+These operations are conceptually admin-protected, but authentication and authorization are intentionally deferred to a later phase.
+
+#### `POST /case-studies`
+
+Create a Case Study.
+
+Request body must use the Phase 7 create request contract defined above.
+
+Response:
+
+- HTTP `201 Created`.
+- Return the Phase 7 admin Case Study response contract defined above.
+
+Validation:
+
+- Required string fields must be non-empty.
+- `status` must be one of:
+  - `draft`
+  - `published`
+  - `unpublished`
+- URL fields must be valid URLs.
+- `tech_stack` must be an array of strings.
+- `tags` must be an array of strings.
+- `content` must be a JSON object.
+- `slug` must be unique.
+- Return HTTP `409` for duplicate slug.
+
+#### `PATCH /case-studies/{id}`
+
+Update a Case Study.
+
+Behavior:
+
+- Use the Phase 7 partial-update request contract defined above.
+- The Case Study database UUID is provided through the path.
+- The ID must not be accepted in the request body.
+- Return HTTP `200 OK`.
+- Return the Phase 7 admin Case Study response contract defined above.
+- Return HTTP `404` when the Case Study does not exist.
+- Return HTTP `409` when the requested slug conflicts with another Case Study.
+- Apply validation to the resulting resource, not only to fields present in the patch.
+
+#### `DELETE /case-studies/{id}`
+
+Delete a Case Study.
+
+Behavior:
+
+- Perform a hard delete.
+- Return HTTP `204 No Content`.
+- Return HTTP `404` when the Case Study does not exist.
+- Do not introduce soft deletion.
+- Do not introduce an archived status.
+
+### Admin Case Study Read Endpoints
+
+The Admin Panel must be able to view and manage Case Studies regardless of publication status.
+
+These endpoints are additional Phase 7 work and are separate from the public read endpoints.
+
+#### `GET /admin/case-studies`
+
+Admin Case Study listing endpoint.
+
+Behavior:
+
+- Return all Case Studies regardless of status.
+- Include:
+  - `draft`
+  - `published`
+  - `unpublished`
+- Do not apply the public published-only filter.
+- Return a JSON array of Phase 7 admin Case Study response objects.
+- This endpoint is conceptually an admin operation.
+
+#### `GET /admin/case-studies/{id}`
+
+Admin Case Study detail endpoint.
+
+Behavior:
+
+- Return one Case Study using its database UUID.
+- Return the Case Study regardless of status:
+  - `draft`
+  - `published`
+  - `unpublished`
+- Return the Phase 7 admin Case Study response contract.
+- Return HTTP `404` when the Case Study does not exist.
+- Use the database UUID rather than the slug because the slug may be edited by the Admin Panel.
+
+### Status
+
+Only the following Case Study statuses are supported:
+
+- `draft`
+- `published`
+- `unpublished`
+
+Do not introduce:
+
+- `archived`
+- `scheduled`
+- any other status
+
+### Published Timestamp Behavior
+
+Case Studies follow the confirmed publication timestamp behavior established for Blogs:
+
+- When a Case Study enters `published` status, set `published_at`.
+- While a Case Study remains `published`, preserve its existing `published_at`.
+- When a Case Study moves from `published` to `draft` or `unpublished`, clear `published_at`.
+
+### Cover Image Behavior
+
+`cover_image_url` follows the established publication behavior:
+
+- Optional for `draft`.
+- Optional for `unpublished`.
+- Required when `status=published`.
+
+The API must reject a published Case Study that does not have a valid `cover_image_url`.
+
+### Tech Stack and Tags
+
+Case Studies support the established:
+
+- `tech_stack`
+- `tags`
+
+Both fields use arrays of strings in requests and responses, matching the existing PostgreSQL array columns and public schemas.
+
+Do not introduce alternative representations or additional fields.
+
+### Structured Content
+
+Case Study `content` is structured JSON.
+
+The API must validate that `content` is a JSON object according to the established schema/contract.
+
+Do not invent a Tiptap-specific content structure or additional content requirements unless they already exist in the established Case Study contract.
+
+### Image and Video References
+
+The existing Phase 7 scope includes image/video references.
+
+Image and video references may be represented only inside the structured `content` object. Phase 7 must not add dedicated image/video columns, request fields, response fields, or a media-library model. No provider-specific or editor-specific nested content structure is required beyond validating that `content` is a JSON object.
+
+### Unique Slug
+
+Case Study slugs must be unique.
+
+Behavior:
+
+- Creating a Case Study with an existing slug returns HTTP `409`.
+- Updating a Case Study to use another existing Case Study's slug returns HTTP `409`.
+- Updating a Case Study while retaining its own existing slug is allowed.
+
+### Error Handling
+
+Use the standard FastAPI error response structure:
+
+```json
+{
+  "detail": "..."
+}
+```
+
+- Return HTTP `404` for a missing Case Study in admin detail, update, or delete operations.
+- Return HTTP `404` from public detail when the slug is missing or belongs to a non-published Case Study.
+- Return HTTP `409` for create or update slug conflicts.
+- Let FastAPI return its standard HTTP `422` validation response for malformed UUID path values and invalid request data.
+- Do not expose database exception details in API responses.
+
+### Audit Logging
+
+Every successful Case Study mutation must create an audit log in the same transaction as the mutation:
+
+- `POST /case-studies` uses action `create`.
+- `PATCH /case-studies/{id}` uses action `update`.
+- `DELETE /case-studies/{id}` uses action `delete`.
+- `resource_type` is `case_study`.
+- The actor is nullable until authentication is implemented.
+- Audit context may contain the Case Study slug, status, and changed field names.
+- Audit context must not contain full structured content, credentials, tokens, private data, or other sensitive values.
+
+Repositories and services must not silently commit. The service owns the mutation and audit-log transaction boundary and rolls back the entire operation when either part fails.
+
+### Application Structure
+
+Implement Phase 7 through the established layering:
+
+```text
+FastAPI route
+  -> Case Study service
+    -> Case Study repository
+      -> AsyncSession
+```
+
+- Routes handle HTTP input/output and dependency injection.
+- The service applies validation, publication lifecycle, conflict handling, audit logging, and transaction boundaries.
+- The repository performs SQLAlchemy queries and persistence without committing independently.
+- Use the existing asynchronous database session dependency.
+- Do not use `create_all()`, add Alembic, or change the Supabase migration source of truth.
+
+### Phase 7 Testing Requirements
+
+Automated tests must cover:
+
+- public list returns only published Case Studies and orders them by `published_at DESC`;
+- public detail returns a published Case Study by slug;
+- public detail returns `404` for missing, draft, and unpublished slugs;
+- create returns `201` and the exact admin response shape;
+- partial update returns `200`, preserves omitted values, and returns the exact admin response shape;
+- delete hard-deletes the Case Study and returns `204` with no response body;
+- admin list returns all three supported statuses;
+- admin detail returns draft, published, and unpublished Case Studies by UUID;
+- missing-resource behavior for admin detail, update, and delete;
+- invalid UUID path validation;
+- duplicate slug conflicts on create and update, including allowing an unchanged slug on the same Case Study;
+- accepted statuses and rejection of unsupported statuses;
+- the complete `published_at` lifecycle when entering, remaining in, and leaving `published` status;
+- cover image requirements based on the resulting status, including PATCH requests;
+- non-empty required strings and valid URL enforcement;
+- `tech_stack` and `tags` array-of-strings validation;
+- JSON-object validation for `content` and rejection of non-object JSON values;
+- public responses exclude admin-only fields and admin responses match their explicit contract;
+- image/video references remain inside structured content without new API fields;
+- create, update, and delete audit records use the required action/resource metadata and safe context;
+- mutation and audit logging are atomic, including rollback behavior.
+
+Use the established test isolation and database fixtures. Do not substitute SQLite for PostgreSQL-specific behavior.
+
+### Manual Verification
+
+After automated tests pass:
+
+- Verify all seven Phase 7 routes in generated OpenAPI/Swagger documentation.
+- Exercise public and admin read behavior for `draft`, `published`, and `unpublished` records.
+- Exercise create, partial update, duplicate-slug, publication lifecycle, cover-image, validation, and hard-delete behavior.
+- Verify in Supabase PostgreSQL that mutations, hard deletion, timestamps, status changes, and audit rows match the documented behavior.
+- Do not claim real Supabase verification unless it was actually performed successfully.
+
+### Authentication and Phase Boundaries
+
+Admin Case Study operations are conceptually protected but remain unauthenticated until the planned authentication phase. Do not add temporary credentials, fake authentication, authorization roles, or ownership behavior in Phase 7.
+
+Phase 7 is limited to Case Study schemas, repository, service, routes, audit integration, and tests required by this section. Do not add:
+
+- new database fields or migrations;
+- new statuses such as `scheduled` or `archived`;
+- soft deletion;
+- a media library or storage integration;
+- analytics;
+- unrelated admin functionality;
+- other resource APIs.
 
 ------------------------------------------------------------------------
 

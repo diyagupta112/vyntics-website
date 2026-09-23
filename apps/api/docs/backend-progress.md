@@ -4,8 +4,9 @@
 
 ## Current phase
 
-Phase 5 — Database connectivity foundation implemented; live Supabase
-PostgreSQL verification is blocked by missing local `DATABASE_URL` loading.
+Phase 6 — Blog API, including the additional admin read endpoints, is complete.
+Phase 7 — Case Studies is implemented and verified through automated contract,
+repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
 
 ## Phase 1 — FastAPI Bootstrap
 
@@ -70,9 +71,10 @@ Completed foundation:
 
 Remaining Phase 3 work:
 
-- [ ] Initialize approved Supabase CLI project configuration.
-- [ ] Apply migrations to an empty local Supabase database.
-- [ ] Add PostgreSQL integration tests against the migrated local database.
+- [x] Applied the approved initial migration to the configured Supabase PostgreSQL
+  database and verified all eight expected application tables.
+- [x] Added PostgreSQL integration coverage against the migrated configured
+  database.
 - [ ] Decide and implement RLS only after access policies are explicitly approved.
 
 ## Phase 4 — Pydantic API Schemas
@@ -125,15 +127,130 @@ Remaining Phase 3 work:
 
 Live verification result:
 
-- [ ] The real Supabase PostgreSQL connection was not verified. The expected
-  `apps/api/.env` file exists, but the application detected no configured
-  `DATABASE_URL`, and a key-presence-only check found no `DATABASE_URL`
-  assignment. No `.env` value was printed or modified.
+- [x] The configured Supabase Session Pooler connection was verified with
+  `SELECT 1` without printing or modifying its credentials.
+- [x] The standalone connectivity command uses a Windows Selector event loop so
+  Psycopg async mode works on Windows.
+
+## Phase 6 — Blogs
+
+- [x] Added public `GET /blogs` with published-only filtering and
+  `published_at DESC` ordering.
+- [x] Added public `GET /blogs/{slug}` with published-only visibility and 404
+  behavior for missing or non-public Blogs.
+- [x] Added admin `POST /blogs`, `PATCH /blogs/{id}`, and hard-delete
+  `DELETE /blogs/{id}` operations without temporary or fake authentication.
+- [x] Added strict Blog create/update request schemas and the confirmed admin
+  response schema without exposing ownership fields.
+- [x] Enforced non-empty required strings, valid URLs, JSON-object content,
+  approved statuses, unique slugs, and the published cover-image requirement.
+- [x] Implemented the confirmed `published_at` transition rules.
+- [x] Added repository/service separation with service-owned commit/rollback
+  boundaries and no repository commits.
+- [x] Added create/update/delete audit events with nullable actors and safe
+  context that excludes full Blog content.
+- [x] Added unit/API tests for repositories, services, routes, validation,
+  filtering, ordering, errors, publication transitions, audit logging, and
+  response contracts.
+- [x] Added an opt-in Blog lifecycle integration test against configured
+  PostgreSQL/Supabase with cleanup.
+- [x] Verified Swagger/OpenAPI exposes all five Blog operations and the Blog
+  create/update request schemas.
+- [x] Verified the live full-stack Blog lifecycle against Supabase: create 201,
+  list/detail 200, update 200, and hard delete 204; temporary rows were cleaned.
+- [ ] Authentication and authorization remain deferred to the approved auth
+  phase.
+
+### Additional Phase 6 work identified during manual verification
+
+**Status:** Implemented and verified.
+
+The manual Swagger/Supabase verification established the following sequence:
+
+1. `POST /blogs` was manually tested.
+2. The Blog was successfully inserted into Supabase.
+3. `GET /blogs` initially returned no result because the created Blog had
+   `status=draft`.
+4. The Blog was changed to `status=published`.
+5. `GET /blogs` and `GET /blogs/{slug}` then returned the Blog as expected.
+6. This confirmed that the public published-only behavior is working.
+7. During this verification, the Admin Panel requirement to read draft and
+   unpublished Blogs was identified.
+8. The following additional admin read endpoints are therefore planned:
+   - `GET /admin/blogs`
+   - `GET /admin/blogs/{id}`
+
+Completed additional work:
+
+- [x] Added `GET /admin/blogs`, returning Blogs in `draft`, `published`, and
+  `unpublished` states using the established admin Blog response shape.
+- [x] Added `GET /admin/blogs/{id}`, returning a Blog by database UUID regardless
+  of status and returning 404 when it does not exist.
+- [x] Kept both endpoints structurally ready for later authentication and
+  authorization without adding fake or temporary security.
+- [x] Added repository, service, API contract, UUID-validation, status-coverage,
+  OpenAPI, public-regression, and PostgreSQL integration tests.
+- [x] Verified Swagger exposes and executes both admin endpoints.
+- [x] Verified through Swagger that the admin listing includes draft,
+  published, and unpublished Blogs.
+- [x] Verified through Swagger that UUID detail requests return known draft and
+  published Blogs.
+- [x] Verified against Supabase that admin reads include all three statuses,
+  while public listing/detail behavior remains published-only.
+- [x] Removed all temporary Blogs and audit rows created for verification.
+
+Existing public Blog GET behavior remains unchanged.
+
+## Phase 7 — Case Studies preparation
+
+- [x] Reviewed the Phase 7 plan against the existing Case Study SQLAlchemy
+  model, Supabase migration, and Phase 4 public schemas.
+- [x] Identified the prior documentation gap: the plan referred to established
+  Case Study create, update, and admin schemas that do not exist.
+- [x] Corrected the plan by defining the create request, partial-update request,
+  and admin response contracts explicitly while preserving the existing public
+  list and detail contracts.
+- [x] Documented public and admin route behavior, status visibility,
+  publication timestamp lifecycle, slug conflicts, cover-image rules,
+  validation, structured content, array fields, audit logging, testing, manual
+  Swagger/Supabase verification, architecture layering, deferred
+  authentication, and Phase 7 boundaries.
+- [x] Verified that the corrected contract does not conflict with the existing
+  Case Study model, migration, or public schemas.
+- [x] Added strict Case Study create and partial-update request schemas and the
+  exact admin response schema without exposing ownership fields.
+- [x] Added public `GET /case-studies` and `GET /case-studies/{slug}` with
+  published-only visibility and `published_at DESC` list ordering.
+- [x] Added unprefixed admin mutations: `POST /case-studies`,
+  `PATCH /case-studies/{id}`, and hard-delete `DELETE /case-studies/{id}`.
+- [x] Added admin reads at `GET /admin/case-studies` and
+  `GET /admin/case-studies/{id}` with all-status visibility.
+- [x] Enforced the three approved statuses, non-empty required strings, valid
+  URLs, JSON-object content, array-of-string tech stack/tags, unique slugs, and
+  the published cover-image requirement.
+- [x] Implemented the documented `published_at` transition rules.
+- [x] Added repository/service separation with service-owned commit/rollback
+  boundaries and no repository commits.
+- [x] Added atomic create/update/delete audit logging with nullable actors and
+  safe context that excludes full Case Study content.
+- [x] Added focused schema, repository, service, API/OpenAPI, and opt-in
+  PostgreSQL integration tests.
+- [x] Verified the Case Study lifecycle against the configured Supabase
+  PostgreSQL database with temporary records and cleanup.
+- [ ] Manual Swagger UI execution has not yet been performed; generated OpenAPI
+  route and schema coverage is verified automatically.
+- [ ] Authentication and authorization remain deferred to the approved auth
+  phase.
 
 ## Validation
 
 ```text
-58 tests passed, 1 opt-in integration test skipped
+156 tests passed, 3 opt-in integration tests skipped in the default suite
+56 focused Case Study tests passed, 1 opt-in integration test skipped
+Real Case Study PostgreSQL lifecycle integration test -> 1 passed
+69 focused schema/repository/service/API tests passed
+30 focused Blog tests passed, 1 opt-in integration test skipped
+Real Blog PostgreSQL integration test -> 1 passed
 GET /health -> 200
 GET /docs   -> 200 (Swagger UI)
 Environment-backed application title -> verified
@@ -151,28 +268,43 @@ Async application connection pool      -> verified
 FastAPI database lifecycle/disposal    -> verified
 Session dependency rollback/no-commit  -> verified
 Python compileall                       -> passed
-Real Supabase SELECT 1                 -> not run; DATABASE_URL unavailable
+Real Supabase SELECT 1                 -> previously verified
+Live POST /blogs                       -> 201
+Live GET /blogs                        -> 200; created published Blog present
+Live GET /blogs/{slug}                 -> 200
+Live PATCH /blogs/{id}                 -> 200; published_at transition verified
+Live DELETE /blogs/{id}                -> 204; hard delete verified
+Swagger GET /admin/blogs               -> 200; all three statuses verified
+Swagger GET /admin/blogs/{id}          -> 200 for draft and published UUIDs
+Public listing regression              -> draft/unpublished excluded
+Public detail regression               -> published 200; hidden statuses 404
+Case Study OpenAPI routes/schemas       -> verified
+Case Study public/admin separation      -> verified
+Case Study publication lifecycle        -> verified
+Case Study audit transaction behavior   -> verified
+Python compileall after Phase 7          -> passed
 ```
 
 ## Deferred by design
 
-- A live Supabase/PostgreSQL connection has not been tested because the current
-  local settings load no `DATABASE_URL`.
-- The Supabase CLI and local Docker-backed Supabase environment are not available on this machine.
-- The migration has not yet been applied to PostgreSQL; current schema verification is static only.
+- Plain Uvicorn and the pre-existing connectivity integration test select the
+  incompatible Proactor event loop on this Windows/Python environment. Live
+  async Psycopg verification succeeds under a Selector event loop; the shared
+  SQLAlchemy engine/session architecture remains unchanged.
+- The Supabase CLI and local Docker-backed Supabase environment are not available
+  on this machine; verification used the configured hosted Supabase database.
 - RLS policies are intentionally not created because direct-client access rules are not approved.
 - The final error contract remains a later phase.
 - Supabase Auth and Storage clients are not configured.
 - Storage bucket names and policies remain Phase 13 decisions.
 - External integrations are not initialized.
-- Resource APIs and business workflows are not implemented.
+- Resource APIs and business workflows other than Blogs and Case Studies are
+  not implemented.
 - Docker and AWS deployment are not configured.
 
 The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Add or save the real Session Pooler `DATABASE_URL` in the untracked
-`apps/api/.env`, then run `python -m app.db.connectivity` and the opt-in
-PostgreSQL integration test. After connectivity succeeds, apply/review the
-approved migration state before claiming full database integration validation.
+Phase 7 is complete. Stop before Phase 8; Careers implementation requires a
+separate approved task.

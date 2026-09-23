@@ -9,7 +9,13 @@ import pytest
 from fastapi import UploadFile
 from pydantic import ValidationError
 
-from app.schemas.blogs import BlogDetailResponse, BlogListResponse
+from app.schemas.blogs import (
+    BlogAdminResponse,
+    BlogCreateRequest,
+    BlogDetailResponse,
+    BlogListResponse,
+    BlogUpdateRequest,
+)
 from app.schemas.careers import CareerDetailResponse, CareerListItem, CareerListResponse
 from app.schemas.case_studies import (
     CaseStudyDetailResponse,
@@ -113,6 +119,111 @@ def test_blog_response_omits_internal_orm_fields() -> None:
 
     assert set(payload["data"][0]) == set(_blog_list_item())
     assert "status" not in payload["data"][0]
+
+
+def _blog_create_request(**overrides: object) -> dict[str, object]:
+    payload: dict[str, object] = {
+        "slug": "phase-6-blog",
+        "title": "Phase 6 Blog",
+        "seo_title": "Phase 6 Blog | Vyntics",
+        "meta_description": "Phase 6 schema validation.",
+        "author": "Vyntics",
+        "category": "Engineering",
+        "excerpt": "A focused Blog schema test.",
+        "cover_image_url": None,
+        "read_time": 5,
+        "content": {"type": "doc", "content": []},
+        "status": "draft",
+    }
+    payload.update(overrides)
+    return payload
+
+
+def test_blog_create_request_validates_confirmed_contract() -> None:
+    draft = BlogCreateRequest.model_validate(_blog_create_request())
+    published = BlogCreateRequest.model_validate(
+        _blog_create_request(
+            status="published",
+            cover_image_url="https://example.com/cover.jpg",
+        )
+    )
+
+    assert draft.cover_image_url is None
+    assert published.status == "published"
+
+    with pytest.raises(ValidationError, match="cover_image_url is required"):
+        BlogCreateRequest.model_validate(
+            _blog_create_request(status="published", cover_image_url=None)
+        )
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("title", "   "),
+        ("status", "scheduled"),
+        ("cover_image_url", "not-a-url"),
+        ("content", ["not", "an", "object"]),
+    ],
+)
+def test_blog_create_request_rejects_invalid_contract_values(
+    field: str,
+    value: object,
+) -> None:
+    with pytest.raises(ValidationError):
+        BlogCreateRequest.model_validate(_blog_create_request(**{field: value}))
+
+
+@pytest.mark.parametrize(
+    "field",
+    ["id", "created_at", "updated_at", "created_by", "updated_by"],
+)
+def test_blog_requests_reject_backend_managed_fields(field: str) -> None:
+    with pytest.raises(ValidationError, match="Extra inputs are not permitted"):
+        BlogCreateRequest.model_validate(
+            _blog_create_request(**{field: "client-controlled"})
+        )
+
+    with pytest.raises(ValidationError, match="Extra inputs are not permitted"):
+        BlogUpdateRequest.model_validate({"title": "Updated", field: "invalid"})
+
+
+def test_blog_update_allows_omission_but_rejects_required_field_null() -> None:
+    assert BlogUpdateRequest().model_dump(exclude_unset=True) == {}
+    assert BlogUpdateRequest(cover_image_url=None).cover_image_url is None
+
+    with pytest.raises(ValidationError, match="field cannot be null"):
+        BlogUpdateRequest(title=None)
+
+
+def test_blog_admin_response_matches_confirmed_fields() -> None:
+    response = BlogAdminResponse.model_validate(
+        {
+            **_blog_create_request(),
+            "id": RESOURCE_ID,
+            "published_at": None,
+            "created_at": PUBLISHED_AT,
+            "updated_at": PUBLISHED_AT,
+        }
+    )
+
+    assert set(response.model_dump()) == {
+        "id",
+        "slug",
+        "title",
+        "seo_title",
+        "meta_description",
+        "author",
+        "category",
+        "excerpt",
+        "cover_image_url",
+        "read_time",
+        "content",
+        "status",
+        "published_at",
+        "created_at",
+        "updated_at",
+    }
 
 
 def test_case_study_list_preserves_tech_stack_and_tags() -> None:
