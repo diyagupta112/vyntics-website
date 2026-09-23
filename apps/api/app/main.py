@@ -30,6 +30,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         finally:
             if database is not None:
                 await dispose_database(database)
+            application.state.database = None
 
     application = FastAPI(
         title=settings.app_name,

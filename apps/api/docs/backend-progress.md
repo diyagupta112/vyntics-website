@@ -4,8 +4,8 @@
 
 ## Current phase
 
-Phase 4 — Pydantic API schemas complete; Phase 3 PostgreSQL integration
-validation remains pending.
+Phase 5 — Database connectivity foundation implemented; live Supabase
+PostgreSQL verification is blocked by missing local `DATABASE_URL` loading.
 
 ## Phase 1 — FastAPI Bootstrap
 
@@ -99,10 +99,41 @@ Remaining Phase 3 work:
 - [x] Did not add routes, service/repository logic, authentication, storage, or
   database changes.
 
+## Phase 5 — Database Connectivity Foundation
+
+- [x] Verified the settings layer reads `DATABASE_URL` as a masked `SecretStr`
+  from environment variables and dotenv files.
+- [x] Retained SQLAlchemy 2.x async operation through Psycopg 3.
+- [x] Verified the engine uses SQLAlchemy's application-side
+  `AsyncAdaptedQueuePool` with `pool_pre_ping` enabled.
+- [x] Retained lazy engine construction with no import-time connection attempt.
+- [x] Completed FastAPI lifespan ownership of database resources and now clears
+  the disposed resource from application state during shutdown.
+- [x] Retained one `AsyncSession` per request/task with `expire_on_commit=False`.
+- [x] Corrected normal dependency shutdown so async-generator closure is not
+  misclassified as a request failure.
+- [x] Verified failed dependency consumers are rolled back and the database
+  dependency never commits implicitly. Repository/service transaction behavior
+  remains for those future layers to implement explicitly.
+- [x] Added an explicit `SELECT 1` connectivity command at
+  `python -m app.db.connectivity`; no public database-health endpoint was added.
+- [x] Added an opt-in real PostgreSQL integration test controlled by
+  `RUN_DATABASE_INTEGRATION_TESTS=1`.
+- [x] Updated `.env.example` with a placeholder-only Supabase Session Pooler URL.
+- [x] Kept Supabase migrations as the only schema migration source of truth;
+  no Alembic or `metadata.create_all()` was added.
+
+Live verification result:
+
+- [ ] The real Supabase PostgreSQL connection was not verified. The expected
+  `apps/api/.env` file exists, but the application detected no configured
+  `DATABASE_URL`, and a key-presence-only check found no `DATABASE_URL`
+  assignment. No `.env` value was printed or modified.
+
 ## Validation
 
 ```text
-53 tests passed (including 27 Phase 4 schema tests)
+58 tests passed, 1 opt-in integration test skipped
 GET /health -> 200
 GET /docs   -> 200 (Swagger UI)
 Environment-backed application title -> verified
@@ -115,11 +146,18 @@ Migration structure/parity checks     -> verified statically
 Pydantic public contract schemas       -> verified
 Backend-controlled request fields      -> rejected
 Schema tests require no database       -> verified
+Dotenv DATABASE_URL loading            -> verified with placeholder template
+Async application connection pool      -> verified
+FastAPI database lifecycle/disposal    -> verified
+Session dependency rollback/no-commit  -> verified
+Python compileall                       -> passed
+Real Supabase SELECT 1                 -> not run; DATABASE_URL unavailable
 ```
 
 ## Deferred by design
 
-- A live Supabase/PostgreSQL connection has not been configured or tested.
+- A live Supabase/PostgreSQL connection has not been tested because the current
+  local settings load no `DATABASE_URL`.
 - The Supabase CLI and local Docker-backed Supabase environment are not available on this machine.
 - The migration has not yet been applied to PostgreSQL; current schema verification is static only.
 - RLS policies are intentionally not created because direct-client access rules are not approved.
@@ -134,7 +172,7 @@ The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Review the Phase 4 schemas and contract tests. Phase 5 API infrastructure has
-not started. Separately, initialize an approved local Supabase environment,
-apply the initial migration to an empty database, and run the still-pending
-PostgreSQL integration tests before claiming live database validation.
+Add or save the real Session Pooler `DATABASE_URL` in the untracked
+`apps/api/.env`, then run `python -m app.db.connectivity` and the opt-in
+PostgreSQL integration test. After connectivity succeeds, apply/review the
+approved migration state before claiming full database integration validation.

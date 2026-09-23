@@ -1,2 +1,1 @@
-"""Database package reserved for Phase 3."""
-
+"""SQLAlchemy database engine, session, model, and connectivity infrastructure."""

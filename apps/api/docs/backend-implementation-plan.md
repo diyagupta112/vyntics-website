@@ -772,22 +772,32 @@ Public responses must match the approved contracts exactly.
 
 ------------------------------------------------------------------------
 
-## Phase 5 --- API Infrastructure
+## Phase 5 --- Database Connectivity Foundation
 
--   [ ] Router registration.
--   [ ] Standard HTTP status handling.
--   [ ] 400/422 validation handling.
--   [ ] 401 authentication handling.
--   [ ] 403 authorization handling.
--   [ ] 404 handling.
--   [ ] 409 conflict handling.
--   [ ] Safe 500 handling.
--   [ ] Structured logging.
--   [ ] Transaction handling.
--   [ ] Request ID/correlation ID if adopted.
--   [ ] Pagination infrastructure where required.
+-   [ ] Load `DATABASE_URL` from backend-only environment configuration.
+-   [ ] Support the Supabase PostgreSQL Session Pooler through SQLAlchemy's
+    asynchronous Psycopg 3 dialect.
+-   [ ] Use an application-side asynchronous connection pool with connection
+    pre-ping.
+-   [ ] Initialize engine/session resources during the FastAPI lifespan without
+    connecting at import time.
+-   [ ] Dispose the engine during application shutdown.
+-   [ ] Provide one request/task-scoped `AsyncSession` through a FastAPI
+    dependency.
+-   [ ] Roll back failed request work without silently committing transactions.
+-   [ ] Provide an explicit development/test connectivity check without adding a
+    public production endpoint.
+-   [ ] Add an opt-in integration test against the configured PostgreSQL
+    database.
 
-Never expose raw DB errors.
+Supabase SQL migrations remain the sole schema migration source of truth. Do
+not use `metadata.create_all()` or add Alembic. Raw database errors and database
+credentials must not be exposed through public API responses or connectivity
+command output.
+
+HTTP error contracts, authentication responses, pagination, and other broader
+API infrastructure remain in their dedicated later phases; they are not
+invented as part of database connectivity.
 
 ------------------------------------------------------------------------
 
@@ -1230,7 +1240,7 @@ SEO metadata fields required by Blogs and Case Studies remain in scope.
 2.  Configuration
 3.  Database + SQLAlchemy
 4.  Pydantic schemas
-5.  API infrastructure/errors
+5.  Database connectivity foundation
 6.  Blogs
 7.  Case Studies
 8.  Careers

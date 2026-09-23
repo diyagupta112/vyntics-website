@@ -1,9 +1,26 @@
 """Tests for environment-backed application settings."""
 
+from pathlib import Path
+
 from fastapi.testclient import TestClient
 
 from app.core.config import Environment, Settings
 from app.main import create_app
+
+
+def test_database_url_loads_from_dotenv_without_exposing_secret(
+    monkeypatch,
+) -> None:
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    env_file = Path(__file__).resolve().parents[1] / ".env.example"
+
+    settings = Settings(_env_file=env_file)
+
+    assert settings.database_url is not None
+    assert settings.database_url.get_secret_value().startswith(
+        "postgresql+psycopg://"
+    )
+    assert "PASSWORD" not in repr(settings)
 
 
 def test_settings_load_from_environment(monkeypatch) -> None:
