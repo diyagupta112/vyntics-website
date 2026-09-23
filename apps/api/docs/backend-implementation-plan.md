@@ -111,9 +111,7 @@ apps/api/
 │   ├── core/
 │   └── db/
 ├── tests/
-├── alembic/
-├── alembic.ini
-├── requirements.txt
+├── pyproject.toml
 └── ...
 ```
 
@@ -171,6 +169,20 @@ Panel.
 
 FastAPI does not implement Google OAuth itself. It verifies the
 authenticated Supabase identity/token and performs authorization.
+
+Supabase Auth and the Vyntics application database have separate
+responsibilities:
+
+-   **Supabase Auth** is the authentication identity/source of truth.
+-   **`admin_users`** maps a Supabase identity through the unique
+    `auth_user_id` and stores Vyntics-specific role and active state.
+-   **FastAPI** will use the authenticated Supabase identity and the
+    matching `admin_users` record to enforce authorization.
+
+The initial application roles are `superadmin` and `admin`. Their
+permission matrix is deferred to the authentication/authorization
+phase. There is no generic public `users` table and no separate roles
+table.
 
 ### AWS
 
@@ -505,14 +517,32 @@ invent it.
 Core entities:
 
 ``` text
-blog_posts
+admin_users
+blogs
 case_studies
-careers / jobs
+careers
 job_applications
 team_members
 contact_submissions
-audit/log records
+audit_logs
 ```
+
+## Admin Users
+
+Support:
+
+-   UUID primary key
+-   unique Supabase Auth user UUID in `auth_user_id`
+-   administrator email for application/audit display
+-   role (`superadmin` or `admin`)
+-   active flag, defaulting to active
+-   audit timestamps
+
+Supabase Auth remains the authentication source of truth. The
+`admin_users` table is the Vyntics application-level administrator
+identity and authorization record. Disabling an administrator does not
+delete the record. No generic public `users` table or separate roles
+table is part of this schema.
 
 ## Blogs
 
@@ -567,9 +597,13 @@ Support:
 -   experience
 -   short description
 -   structured detail sections
--   open/public status
 -   published timestamp
 -   audit timestamps
+-   creator/updater references where applicable
+
+Careers intentionally have no status, active, visible, or archived
+column at this stage. The future Admin Panel workflow for removing a
+career from public presentation is not defined by this schema.
 
 ## Job Applications
 
@@ -599,6 +633,7 @@ Support:
 -   display order
 -   visibility flag
 -   timestamps
+-   creator/updater references where applicable
 
 ## Contact Submissions
 
@@ -615,38 +650,39 @@ Support:
 -   internal notes
 -   submitted timestamp
 -   resolved timestamp
--   resolved by
+-   resolver reference to `admin_users`
+
+## Audit Logs
+
+Support:
+
+-   UUID primary key
+-   nullable administrator actor reference for system-generated events
+-   actor email snapshot where applicable
+-   action
+-   resource type
+-   nullable resource UUID
+-   JSONB context
+-   event timestamp
+
+Audit context must not store credentials, tokens, secrets, private
+message contents, or other unnecessary sensitive data.
 
 ------------------------------------------------------------------------
 
-# 8. Alembic
+# 8. Database Migrations
 
-Use Alembic for SQLAlchemy/application database migrations **if this is
-confirmed as the team's migration source of truth**.
-
-Tasks:
-
--   [ ] Add Alembic.
--   [ ] Add `alembic.ini`.
--   [ ] Add `alembic/`.
--   [ ] Configure DB URL from environment.
--   [ ] Configure `env.py`.
--   [ ] Connect SQLAlchemy metadata.
--   [ ] Create/review initial migration.
--   [ ] Test upgrade from an empty development DB.
--   [ ] Test downgrade where appropriate.
-
-Important: the repository also contains:
+Supabase SQL migrations are the only database schema migration source
+of truth:
 
 ``` text
 supabase/migrations/
 ```
 
-Do **not** maintain two independent migration systems for the same
-tables.
-
-Before the first real migration is created, confirm whether Alembic or
-Supabase migrations are the source of truth.
+Do not add Alembic and do not use SQLAlchemy `metadata.create_all()` as
+a schema-management mechanism. Schema changes must be represented by
+reviewed SQL migrations that can reproduce the schema from an empty
+Supabase PostgreSQL database.
 
 Supabase Auth and Storage remain Supabase-managed.
 
@@ -709,7 +745,7 @@ Database credentials/project setup can be completed manually.
 -   [ ] Configure UUIDs/timestamps.
 -   [ ] Configure JSON/JSONB structured content.
 -   [ ] Configure PostgreSQL arrays where required.
--   [ ] Configure Alembic.
+-   [ ] Create Supabase SQL migrations.
 -   [ ] Review initial migration.
 -   [ ] Add DB integration tests.
 
@@ -861,6 +897,7 @@ Email automation is a separate concern.
 -   [ ] Define token/session input.
 -   [ ] Implement Supabase token verification.
 -   [ ] Extract authenticated user identity.
+-   [ ] Resolve the identity to the matching active `admin_users` record.
 -   [ ] Reject missing/invalid/expired credentials.
 -   [ ] Create reusable auth dependency.
 -   [ ] Keep public endpoints public where intended.
@@ -871,7 +908,9 @@ Email automation is a separate concern.
 -   [ ] Test 401 and 403 cases.
 
 Google OAuth remains in Supabase Auth/Admin Panel. FastAPI handles
-verification and authorization.
+verification and authorization. Supabase Auth establishes who the user
+is; `admin_users` stores Vyntics-specific role and active state; FastAPI
+enforces the later-approved role/permission rules.
 
 The `@vyntics.com` restriction must not exist only as a frontend check.
 

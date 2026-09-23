@@ -376,6 +376,25 @@ This is enforced at the backend/application layer for protected API operations.
 
 FastAPI is therefore **not the authentication provider**. It acts as the API/application layer and performs the necessary authorization checks before allowing protected operations.
 
+### Application Administrator Identity
+
+Supabase Auth is the authentication identity/source of truth. A Vyntics
+`admin_users` database table separately stores application-level
+administrator identity and authorization data:
+
+-   a unique `auth_user_id` maps to the Supabase Auth user UUID;
+-   initial roles are `superadmin` and `admin`;
+-   `is_active` controls whether the administrator may continue using
+    the Admin Panel;
+-   disabled administrators remain stored to preserve administrative
+    history.
+
+FastAPI will later resolve an authenticated Supabase user to the
+matching active `admin_users` record and enforce the approved
+role/permission rules. Those rules are not implemented in the database
+schema phase. There is no generic public `users` table and no separate
+roles table.
+
 ### Vyntics Account Restriction
 
 Only Google accounts using the Vyntics domain should be allowed to access the Admin Panel:
@@ -395,8 +414,11 @@ The exact enforcement mechanism can be finalized during implementation, but the 
 
 ## 7. Admin Roles & Settings
 
-A separate `admin-users` or `roles` API/module is **not part of the
-current API scope**.
+A separate admin-users or roles API/module is **not part of the current
+API scope**. The `admin_users` database table exists only as the
+application-level administrator identity, role, and active-state store;
+it does not introduce a new public API resource or Admin Panel product
+module.
 
 Admin-related configuration and role management will be handled under
 the **Settings** section of the Admin Panel.
@@ -404,8 +426,9 @@ the **Settings** section of the Admin Panel.
 This keeps the primary API/resource structure focused on actual Vyntics
 website content and operational workflows.
 
-The exact role structure and permissions will be finalized as part of
-the Settings and authorization implementation.
+The initial stored roles are `superadmin` and `admin`. Their exact
+permissions will be finalized as part of the Settings and authorization
+implementation and enforced by FastAPI.
 
 ------------------------------------------------------------------------
 
@@ -594,8 +617,10 @@ workflow.
 A dedicated admin-user/roles endpoint is not part of the current API
 list.
 
-Admin users and role-related functionality will be handled through
-Settings and the authentication/authorization layer.
+The internal `admin_users` database table maps Supabase Auth identities
+to Vyntics roles and active state. Role-related behavior will be handled
+through Settings and the authentication/authorization layer; this does
+not add a separate public API module.
 
 ------------------------------------------------------------------------
 
@@ -738,13 +763,14 @@ The client applications are **not intended to directly access the underlying app
 3. **AWS is used for backend hosting/infrastructure.**
 4. **Supabase Storage is used for application file storage.**
 5. **Supabase Auth with Google OAuth provides authentication for the Admin Panel.**
-6. **Only Vyntics Google accounts (`@vyntics.com`) should be allowed to authenticate to the Admin Panel.**
-7. **The Public Website and Admin Panel communicate with the FastAPI backend rather than directly accessing the underlying application data or storage services.**
-8. **FastAPI performs authorization checks for protected API operations; it is not the authentication provider.**
-9. **Public and protected operations are separated through backend authorization.**
-10. **File management happens within the relevant content workflow rather than through a separate Media Library.**
-11. **SEO and Analytics are deferred.**
-12. **The content-generation system remains separate from the Admin Panel and will be integrated through a controlled backend interface later.**
+6. **The `admin_users` table stores Vyntics-specific administrator identity, role, and active state, mapped to Supabase Auth through `auth_user_id`.**
+7. **Only Vyntics Google accounts (`@vyntics.com`) should be allowed to authenticate to the Admin Panel.**
+8. **The Public Website and Admin Panel communicate with the FastAPI backend rather than directly accessing the underlying application data or storage services.**
+9. **FastAPI performs authorization checks using the authenticated Supabase identity and application-level admin data; it is not the authentication provider.**
+10. **Public and protected operations are separated through backend authorization.**
+11. **File management happens within the relevant content workflow rather than through a separate Media Library.**
+12. **SEO and Analytics are deferred.**
+13. **The content-generation system remains separate from the Admin Panel and will be integrated through a controlled backend interface later.**
 
 ---
 
