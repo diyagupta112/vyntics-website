@@ -21,6 +21,8 @@
 .marquee {
   width: 100%;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
 }
 
 .track {
@@ -37,6 +39,8 @@
 }
 
 .card {
+  --dot-one: var(--color-primary);
+  --dot-two: var(--color-lavender);
   position: relative;
   width: clamp(14rem, 18vw, 16rem);
   height: 7rem;
@@ -47,11 +51,54 @@
   border-radius: 1rem;
   background: var(--color-client-card);
   box-shadow: 0 12px 35px rgb(11 11 15 / 5%);
-  transform-origin: center;
-  transition: transform 300ms ease, filter 300ms ease;
+}
+
+.hoverPattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--dot-one) 94%, transparent) 1px,
+      transparent 1.35px
+    ),
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--dot-two) 92%, transparent) 0.9px,
+      transparent 1.3px
+    );
+  background-size: 6px 6px;
+  background-position: 0 0, 3px 3px;
+  opacity: 0;
+  clip-path: circle(0% at 50% 50%);
+  transition:
+    clip-path 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 100ms ease;
+}
+
+.proEdEffect {
+  --dot-one: #16a34a;
+  --dot-two: #86efac;
+}
+
+.iturbeEffect {
+  --dot-one: #f97316;
+  --dot-two: #ef4444;
+}
+
+.rolloutEffect {
+  --dot-one: #2563eb;
+  --dot-two: #7dd3fc;
+}
+
+.smgqEffect {
+  --dot-one: #7c3aed;
+  --dot-two: #f472b6;
 }
 
 .logo {
+  position: relative;
+  z-index: 1;
   width: 13.125rem;
   height: 4.75rem;
   display: block;
@@ -78,10 +125,13 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    z-index: 1;
-    filter: brightness(1.1);
-    transform: scale(1.05);
+  .track:hover {
+    animation-play-state: paused;
+  }
+
+  .card:hover .hoverPattern {
+    opacity: 1;
+    clip-path: circle(75% at 50% 50%);
   }
 }
 
@@ -129,13 +179,8 @@
     animation: none;
   }
 
-  .card {
+  .hoverPattern {
     transition: none;
-  }
-
-  .card:hover {
-    filter: none;
-    transform: none;
   }
 
   .group[aria-hidden="true"] {

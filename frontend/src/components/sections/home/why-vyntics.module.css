@@ -1,0 +1,269 @@
+.section {
+  min-height: calc(100svh - 5rem);
+  display: grid;
+  align-items: center;
+  padding-block: clamp(2.25rem, 4.5vh, 3.5rem);
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+  background:
+    radial-gradient(circle at 50% 25%, color-mix(in srgb, var(--color-lavender) 30%, transparent), transparent 26rem),
+    var(--color-background);
+  scroll-margin-top: 5rem;
+}
+
+.headingBlock {
+  max-width: 57rem;
+  margin-inline: auto;
+  display: grid;
+  justify-items: center;
+  gap: 0.65rem;
+  text-align: center;
+}
+
+.badge {
+  padding: 0.48rem 0.8rem;
+  color: var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 26%, var(--color-border));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary) 7%, var(--color-surface));
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.headingBlock h2 {
+  max-width: 18ch;
+  font-size: clamp(2.2rem, 4.2vw, 3.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.headingBlock > p:last-child {
+  max-width: 42rem;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.55;
+  text-wrap: balance;
+}
+
+.grid {
+  margin-top: clamp(1.75rem, 3.5vh, 2.75rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  --feature-a: #ec4899;
+  --feature-b: #fbcfe8;
+  position: relative;
+  min-height: clamp(17.5rem, 37vh, 19rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(1.25rem, 2vw, 1.7rem);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 1.5rem;
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  box-shadow: 0 22px 55px rgb(11 11 15 / 7%);
+  isolation: isolate;
+}
+
+.card:nth-child(2) {
+  --feature-a: #16a34a;
+  --feature-b: #86efac;
+}
+
+.card:nth-child(3) {
+  --feature-a: #f97316;
+  --feature-b: #fed7aa;
+}
+
+.card::before {
+  position: absolute;
+  inset: 32% -20% -45%;
+  z-index: -1;
+  content: "";
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--feature-a) 20%, transparent), transparent 66%);
+  opacity: 0;
+  transform: scale(0.65);
+  transition: opacity 450ms ease, transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.number {
+  align-self: flex-start;
+  color: color-mix(in srgb, var(--color-foreground) 28%, transparent);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+}
+
+.orb {
+  position: relative;
+  width: 6.25rem;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 28%, var(--color-border));
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow:
+    0 0 0 0.65rem color-mix(in srgb, var(--color-lavender) 22%, transparent),
+    0 20px 45px color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+.orbGlow {
+  position: absolute;
+  inset: -1.65rem;
+  z-index: -1;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--color-primary) 48%, transparent), transparent 42%, color-mix(in srgb, var(--color-lavender) 68%, transparent), transparent 80%);
+  opacity: 0.6;
+  filter: blur(0.5rem);
+}
+
+.icon {
+  width: 2.5rem;
+  color: var(--color-primary);
+}
+
+.icon svg {
+  width: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.copy {
+  width: 100%;
+  text-align: center;
+}
+
+.copy h3 {
+  font-size: clamp(1.3rem, 2vw, 1.65rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.copy p {
+  margin-top: 0.75rem;
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card {
+    transition: border-color 250ms ease, transform 250ms ease, box-shadow 250ms ease;
+  }
+
+  .orb,
+  .icon {
+    transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .orbGlow {
+    transition: opacity 300ms ease;
+  }
+
+  .card:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 42%, var(--color-border));
+    box-shadow: 0 30px 75px color-mix(in srgb, var(--color-primary) 14%, transparent);
+    transform: translateY(-0.45rem);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .card:hover .orb {
+    transform: scale(1.06);
+  }
+
+  .card:hover .orbGlow {
+    background: conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--feature-a) 68%, transparent), transparent 42%, color-mix(in srgb, var(--feature-b) 82%, transparent), transparent 80%);
+  }
+
+  .card:nth-child(1):hover .orbGlow {
+    opacity: 1;
+    animation: orb-spin 4.5s linear infinite;
+  }
+
+  .card:nth-child(1):hover .icon {
+    animation: icon-spark 900ms ease-in-out infinite alternate;
+  }
+
+  .card:nth-child(2):hover .orbGlow {
+    opacity: 1;
+    animation: orb-breathe 1.25s ease-in-out infinite alternate;
+  }
+
+  .card:nth-child(2):hover .icon {
+    animation: icon-connect 800ms ease-in-out infinite alternate;
+  }
+
+  .card:nth-child(3):hover .orbGlow {
+    opacity: 1;
+    animation: orb-spin 3.75s linear infinite reverse;
+  }
+
+  .card:nth-child(3):hover .icon {
+    animation: icon-rise 850ms ease-in-out infinite alternate;
+  }
+}
+
+@keyframes orb-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes orb-breathe {
+  from { opacity: 0.55; transform: scale(0.82); }
+  to { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes icon-spark {
+  to { transform: scale(1.12) rotate(7deg); }
+}
+
+@keyframes icon-connect {
+  to { transform: scale(0.9); }
+}
+
+@keyframes icon-rise {
+  to { transform: translateY(-0.4rem) scale(1.06); }
+}
+
+@media (max-width: 800px) {
+  .section {
+    min-height: auto;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 19rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card::before,
+  .orb,
+  .orbGlow,
+  .icon {
+    transition: none;
+    animation: none !important;
+  }
+}

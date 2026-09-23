@@ -1,0 +1,240 @@
+.section {
+  min-height: calc(100svh - 5rem);
+  display: grid;
+  align-items: center;
+  padding-block: clamp(3.5rem, 7vh, 6rem);
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+  background:
+    radial-gradient(circle at 50% 54%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 30rem),
+    radial-gradient(circle at 78% 30%, color-mix(in srgb, var(--color-lavender) 36%, transparent), transparent 25rem),
+    var(--color-background);
+  scroll-margin-top: 5rem;
+}
+
+.headingBlock {
+  max-width: 48rem;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 1.6rem;
+  height: 1px;
+  content: "";
+  background: currentColor;
+}
+
+.headingBlock h2 {
+  font-size: clamp(2.2rem, 3.8vw, 3.35rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.headingBlock > p:last-child {
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+}
+
+.process {
+  position: relative;
+  height: 23rem;
+  margin-top: clamp(2.25rem, 4vh, 3.5rem);
+}
+
+.route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.routeBase,
+.routeActive,
+.arrowHead {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.routeBase {
+  stroke: color-mix(in srgb, var(--color-foreground) 13%, transparent);
+  stroke-width: 2;
+}
+
+.routeActive {
+  stroke: var(--color-primary);
+  stroke-width: 4;
+  stroke-dasharray: 0.055 0.165;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.arrowHead {
+  opacity: 0.42;
+  stroke: var(--color-primary);
+  stroke-width: 3;
+  transition: opacity 180ms ease;
+}
+
+.steps {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  list-style: none;
+}
+
+.step {
+  width: min(100%, 17rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  align-self: center;
+  padding: 1px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--color-primary) 44%, var(--color-border)), var(--color-border));
+  box-shadow: 0 22px 55px rgb(11 11 15 / 8%);
+}
+
+.stepInner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.45rem, 2.2vw, 1.85rem);
+  border-radius: inherit;
+  background: var(--color-surface);
+}
+
+.stepLabel {
+  color: var(--color-primary);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.step h3 {
+  margin-top: 0.65rem;
+  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.description {
+  margin-top: 0.75rem;
+  color: var(--color-muted);
+  font-size: clamp(0.76rem, 1vw, 0.88rem);
+  line-height: 1.48;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .step {
+    transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+  }
+
+  .step:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 28px 65px color-mix(in srgb, var(--color-primary) 16%, transparent);
+  }
+
+  .process:has(.step:hover) .routeActive {
+    opacity: 1;
+    animation: route-flow 1.25s linear infinite;
+  }
+
+  .process:has(.step:hover) .arrowHead {
+    opacity: 1;
+    animation: arrow-pulse 650ms ease-in-out infinite alternate;
+  }
+}
+
+@keyframes route-flow {
+  to {
+    stroke-dashoffset: -0.44;
+  }
+}
+
+@keyframes arrow-pulse {
+  to {
+    stroke-width: 5;
+  }
+}
+
+@media (max-width: 900px) {
+  .section {
+    min-height: auto;
+  }
+
+  .process {
+    height: auto;
+    margin-top: 2.75rem;
+  }
+
+  .route {
+    display: none;
+  }
+
+  .steps {
+    height: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .step,
+  .step:nth-child(even) {
+    width: min(100%, 17rem);
+    align-self: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .step,
+  .step:nth-child(even) {
+    width: min(100%, 19rem);
+  }
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .routeActive {
+    opacity: 0.6;
+    transition: none;
+    animation: none !important;
+  }
+
+  .arrowHead {
+    opacity: 1;
+    transition: none;
+    animation: none !important;
+  }
+
+  .step {
+    transition: none;
+  }
+}

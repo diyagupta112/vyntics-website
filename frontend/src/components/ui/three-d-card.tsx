@@ -6,9 +6,10 @@ import type { MouseEvent, ReactNode } from "react";
 type ThreeDCardProps = {
   children: ReactNode;
   className?: string;
+  wrapperClassName?: string;
 };
 
-export function ThreeDCard({ children, className }: ThreeDCardProps) {
+export function ThreeDCard({ children, className, wrapperClassName }: ThreeDCardProps) {
   const reduceMotion = useReducedMotion();
   const rawRotateX = useMotionValue(0);
   const rawRotateY = useMotionValue(0);
@@ -32,7 +33,7 @@ export function ThreeDCard({ children, className }: ThreeDCardProps) {
   };
 
   return (
-    <div style={{ perspective: "1200px" }}>
+    <div className={wrapperClassName} style={{ perspective: "1200px" }}>
       <motion.div
         className={className}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}

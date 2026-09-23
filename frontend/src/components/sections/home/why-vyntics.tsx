@@ -1,0 +1,79 @@
+import type { ReactNode } from "react";
+import { Container } from "@/components/ui/container";
+import styles from "./why-vyntics.module.css";
+
+type Feature = {
+  number: string;
+  title: string;
+  description: string;
+  icon: ReactNode;
+};
+
+const features: Feature[] = [
+  {
+    number: "01",
+    title: "Direct Expert Access",
+    description: "Work directly with the engineers designing and building your system—no account-manager layer and no handoffs.",
+    icon: (
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path d="m16 3 2.2 7.8L26 13l-7.8 2.2L16 23l-2.2-7.8L6 13l7.8-2.2L16 3Z" />
+        <path d="m25 21 .9 3.1L29 25l-3.1.9L25 29l-.9-3.1L21 25l3.1-.9L25 21Z" />
+      </svg>
+    ),
+  },
+  {
+    number: "02",
+    title: "Built for Production",
+    description: "Custom AI and data systems engineered for real workloads, measurable outcomes, and long-term maintainability—not demo-day prototypes.",
+    icon: (
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="8" cy="16" r="3" />
+        <circle cx="24" cy="8" r="3" />
+        <circle cx="24" cy="24" r="3" />
+        <path d="m10.7 14.7 10.6-5.4M10.7 17.3l10.6 5.4" />
+      </svg>
+    ),
+  },
+  {
+    number: "03",
+    title: "Ownership Without Lock-In",
+    description: "Clear documentation, a clean handoff, and systems you fully own—with our team still available as your ambitions grow.",
+    icon: (
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M5 25V13m0 12h22" />
+        <path d="m8 20 6-6 4 3 8-9" />
+        <path d="M20 8h6v6" />
+      </svg>
+    ),
+  },
+];
+
+export function WhyVyntics() {
+  return (
+    <section id="why-vyntics" className={styles.section} aria-labelledby="why-vyntics-title">
+      <Container>
+        <div className={styles.headingBlock}>
+          <p className={styles.badge}>Why Vyntics</p>
+          <h2 id="why-vyntics-title">Built by experts. Owned by you.</h2>
+          <p>No black boxes or delivery layers—just accountable engineering from the first conversation through production and scale.</p>
+        </div>
+
+        <div className={styles.grid}>
+          {features.map((feature) => (
+            <article className={styles.card} key={feature.number}>
+              <span className={styles.number}>{feature.number}</span>
+              <div className={styles.orb}>
+                <span className={styles.orbGlow} aria-hidden="true" />
+                <span className={styles.icon}>{feature.icon}</span>
+              </div>
+              <div className={styles.copy}>
+                <h3>{feature.title}</h3>
+                <p>{feature.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}

@@ -6,7 +6,8 @@
   overflow: hidden;
   border-top: 1px solid var(--color-border);
   background:
-    radial-gradient(circle at 94% 4%, rgb(37 99 235 / 9%), transparent 28rem),
+    radial-gradient(circle at 94% 4%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 30rem),
+    radial-gradient(circle at 8% 92%, color-mix(in srgb, var(--color-lavender) 22%, transparent), transparent 25rem),
     var(--color-background);
   scroll-margin-top: 5rem;
 }

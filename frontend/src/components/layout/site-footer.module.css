@@ -1,6 +1,157 @@
 .footer {
+  position: relative;
   margin-top: auto;
-  padding-block: 2rem;
+  overflow: hidden;
+  color: var(--color-foreground);
+  border-top: 1px solid var(--color-border);
+  background:
+    radial-gradient(circle at 58% -25%, color-mix(in srgb, var(--color-primary) 11%, transparent), transparent 36rem),
+    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--color-lavender) 28%, transparent), transparent 28rem),
+    var(--color-background);
+}
+
+.footer::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.18;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--color-primary) 15%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 15%, transparent) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+  mask-image: linear-gradient(to bottom, black, transparent 72%);
+}
+
+.footer > div { position: relative; }
+
+.mainGrid {
+  padding-block: clamp(3.75rem, 8vw, 6.5rem) clamp(3rem, 6vw, 5rem);
+  display: grid;
+  grid-template-columns: minmax(16rem, 1.5fr) repeat(3, minmax(9.5rem, 0.75fr));
+  gap: clamp(2.5rem, 6vw, 6.5rem);
+}
+
+.brandColumn { max-width: 22rem; }
+
+.brand {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--color-foreground);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.logoBox {
+  width: 3rem;
+  height: 3rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 0.85rem;
+  background: var(--color-surface);
+}
+
+.logoBox img { width: 2.3rem; height: auto; }
+
+.brandColumn > p {
+  margin-top: 1.45rem;
+  color: var(--color-muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.primaryLink,
+.demoLink {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--color-foreground);
+  font-weight: 680;
+}
+
+.primaryLink { margin-top: 1.55rem; }
+.primaryLink svg,
+.demoLink svg {
+  width: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  transition: transform 180ms ease;
+}
+.primaryLink:hover svg,
+.demoLink:hover svg { transform: translateX(0.25rem); }
+
+.linkColumn h2 {
+  color: var(--color-foreground);
+  font-size: 0.84rem;
+  font-weight: 720;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.linkColumn ul {
+  margin-top: 1.3rem;
+  display: grid;
+  gap: 0.9rem;
+  list-style: none;
+}
+
+.linkColumn a,
+.linkColumn li > span {
+  color: var(--color-muted);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  transition: color 180ms ease;
+}
+
+.linkColumn a:hover { color: var(--color-primary); }
+.contactList { gap: 0.85rem !important; }
+
+.demoLink {
+  margin-top: 1.6rem;
+  padding-bottom: 0.28rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem !important;
+}
+
+.bottomBar {
+  padding-block: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
   color: var(--color-muted);
   border-top: 1px solid var(--color-border);
+  font-size: 0.78rem;
+}
+
+.bottomBar p:last-child { letter-spacing: 0.04em; }
+
+@media (max-width: 960px) {
+  .mainGrid { grid-template-columns: 1.25fr repeat(2, 1fr); }
+  .brandColumn { grid-column: 1 / -1; max-width: 30rem; }
+}
+
+@media (max-width: 640px) {
+  .mainGrid { grid-template-columns: 1fr 1fr; column-gap: 2rem; }
+  .brandColumn,
+  .linkColumn:last-child { grid-column: 1 / -1; }
+  .bottomBar { align-items: flex-start; flex-direction: column; gap: 0.5rem; }
+}
+
+@media (max-width: 420px) {
+  .mainGrid { grid-template-columns: 1fr; }
+  .brandColumn,
+  .linkColumn:last-child { grid-column: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryLink svg,
+  .demoLink svg,
+  .linkColumn a { transition: none; }
 }

@@ -1,0 +1,113 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
+import { Container } from "@/components/ui/container";
+import styles from "./contact-cta.module.css";
+
+type SubmitState = "idle" | "submitting" | "success" | "error";
+
+export function ContactCta() {
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [feedback, setFeedback] = useState("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitState("submitting");
+    setFeedback("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+
+    const payload = {
+      name: String(formData.get("name") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim(),
+      company: String(formData.get("company") ?? "").trim() || undefined,
+      subject: String(formData.get("subject") ?? "").trim(),
+      message: String(formData.get("message") ?? "").trim(),
+      source_page: window.location.pathname || "/",
+    };
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/contact-us`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) throw new Error(`Contact request failed with status ${response.status}`);
+
+      form.reset();
+      setSubmitState("success");
+      setFeedback("Thanks—your message has been sent. We’ll get back to you shortly.");
+    } catch {
+      setSubmitState("error");
+      setFeedback("We couldn’t send your message. Please try again or email contact@vyntics.com.");
+    }
+  };
+
+  return (
+    <section id="contact" className={styles.section} aria-labelledby="contact-title">
+      <Container className={styles.layout}>
+        <div className={styles.content}>
+          <p className={styles.eyebrow}>Let&apos;s work together</p>
+          <h2 id="contact-title">Ready to Transform Your Data?</h2>
+          <p className={styles.intro}>Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.</p>
+
+          <a className={styles.emailLink} href="mailto:contact@vyntics.com">
+            <span aria-hidden="true">→</span> contact@vyntics.com
+          </a>
+
+          <address className={styles.contactDetails}>
+            <a href="tel:+917062104893">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.5 4.7 4.7c-.8.4-1.2 1.3-.9 2.2 1.8 6.1 6.2 10.5 12.3 12.3.9.3 1.8-.1 2.2-.9l1.2-2.5c.3-.7.1-1.5-.5-1.9l-3-2c-.6-.4-1.4-.3-1.9.2l-1.3 1.3a12.3 12.3 0 0 1-3.2-3.2l1.3-1.3c.5-.5.6-1.3.2-1.9l-2-3c-.4-.6-1.2-.8-1.9-.5Z" /></svg>
+              +91 70621 04893
+            </a>
+            <p>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z" /><circle cx="12" cy="10" r="2" /></svg>
+              72 Krishna Nagar, Agra Road, Jaipur, Rajasthan
+            </p>
+          </address>
+        </div>
+
+        <form className={styles.form} onSubmit={handleSubmit} noValidate={false}>
+          <div className={styles.twoColumns}>
+            <label>
+              <span>Full name</span>
+              <input name="name" type="text" autoComplete="name" required placeholder="Your name" />
+            </label>
+            <label>
+              <span>Work email</span>
+              <input name="email" type="email" autoComplete="email" required placeholder="you@company.com" />
+            </label>
+          </div>
+
+          <div className={styles.twoColumns}>
+            <label>
+              <span>Company <small>Optional</small></span>
+              <input name="company" type="text" autoComplete="organization" placeholder="Company name" />
+            </label>
+            <label>
+              <span>Subject</span>
+              <input name="subject" type="text" required placeholder="How can we help?" />
+            </label>
+          </div>
+
+          <label>
+            <span>Project details</span>
+            <textarea name="message" required rows={5} placeholder="Tell us about your project, challenge, or goal." />
+          </label>
+
+          <button type="submit" disabled={submitState === "submitting"}>
+            {submitState === "submitting" ? "Sending…" : "Send message"}
+            {submitState !== "submitting" && <span aria-hidden="true">→</span>}
+          </button>
+
+          <p className={`${styles.feedback} ${submitState === "error" ? styles.error : ""}`} role="status" aria-live="polite">
+            {feedback}
+          </p>
+        </form>
+      </Container>
+    </section>
+  );
+}

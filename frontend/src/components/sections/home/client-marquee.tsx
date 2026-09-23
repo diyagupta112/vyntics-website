@@ -2,10 +2,10 @@ import { Container } from "@/components/ui/container";
 import styles from "./client-marquee.module.css";
 
 const clients = [
-  { name: "ProEd", logoClass: styles.proEd },
-  { name: "Iturbe Properties", logoClass: styles.iturbe },
-  { name: "Rollout IT", logoClass: styles.rollout },
-  { name: "SMGQ Law", logoClass: styles.smgq },
+  { name: "ProEd", logoClass: styles.proEd, effectClass: styles.proEdEffect },
+  { name: "Iturbe Properties", logoClass: styles.iturbe, effectClass: styles.iturbeEffect },
+  { name: "Rollout IT", logoClass: styles.rollout, effectClass: styles.rolloutEffect },
+  { name: "SMGQ Law", logoClass: styles.smgq, effectClass: styles.smgqEffect },
 ] as const;
 
 const marqueeClients = [...clients, ...clients];
@@ -14,7 +14,8 @@ function LogoGroup({ duplicate = false }: { duplicate?: boolean }) {
   return (
     <div className={styles.group} aria-hidden={duplicate || undefined}>
       {marqueeClients.map((client, index) => (
-        <div className={styles.card} key={`${client.name}-${index}`}>
+        <div className={`${styles.card} ${client.effectClass}`} key={`${client.name}-${index}`}>
+          <span className={styles.hoverPattern} aria-hidden="true" />
           <span
             className={`${styles.logo} ${client.logoClass}`}
             role={duplicate || index >= clients.length ? undefined : "img"}
