@@ -130,6 +130,14 @@ def test_team_member_type_and_contact_defaults() -> None:
     assert str(ContactSubmission.__table__.c.status.server_default.arg) == "'new'"
 
 
+def test_team_member_visibility_is_removed_and_urls_remain_nullable() -> None:
+    columns = TeamMember.__table__.c
+
+    assert "is_visible" not in columns
+    assert columns.photo_url.nullable is True
+    assert columns.linkedin_url.nullable is True
+
+
 def test_important_indexes_are_registered() -> None:
     expected_indexes = {
         "ix_blogs_status_published_at",
@@ -137,7 +145,6 @@ def test_important_indexes_are_registered() -> None:
         "ix_careers_published_at",
         "ix_job_applications_career_id",
         "ix_job_applications_status_submitted_at",
-        "ix_team_members_visible_order",
         "ix_contact_submissions_status_submitted_at",
         "ix_audit_logs_actor_created_at",
         "ix_audit_logs_resource_created_at",

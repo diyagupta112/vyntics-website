@@ -4,12 +4,10 @@ from datetime import datetime
 from uuid import UUID as UUIDValue
 
 from sqlalchemy import (
-    Boolean,
     CheckConstraint,
     DateTime,
     FetchedValue,
     ForeignKey,
-    Index,
     Integer,
     Text,
     text,
@@ -30,7 +28,6 @@ class TeamMember(Base):
             "member_type IN ('leadership', 'team')",
             name="ck_team_members_member_type",
         ),
-        Index("ix_team_members_visible_order", "is_visible", "display_order"),
     )
 
     id: Mapped[UUIDValue] = mapped_column(
@@ -45,7 +42,6 @@ class TeamMember(Base):
     linkedin_url: Mapped[str | None] = mapped_column(Text)
     display_order: Mapped[int] = mapped_column(Integer, nullable=False)
     member_type: Mapped[str] = mapped_column(Text, nullable=False)
-    is_visible: Mapped[bool] = mapped_column(Boolean, nullable=False)
     created_by: Mapped[UUIDValue | None] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("admin_users.id"),
@@ -68,4 +64,3 @@ class TeamMember(Base):
 
     creator: Mapped[AdminUser | None] = relationship(foreign_keys=[created_by])
     updater: Mapped[AdminUser | None] = relationship(foreign_keys=[updated_by])
-

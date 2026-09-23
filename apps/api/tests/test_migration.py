@@ -16,9 +16,26 @@ EXPECTED_TABLES = {
 
 def _initial_migration() -> Path:
     repository_root = Path(__file__).resolve().parents[3]
-    migrations = sorted((repository_root / "supabase" / "migrations").glob("*.sql"))
-    assert len(migrations) == 1
-    return migrations[0]
+    migration = (
+        repository_root
+        / "supabase"
+        / "migrations"
+        / "20260923073155_initial_application_schema.sql"
+    )
+    assert migration.is_file()
+    return migration
+
+
+def _team_visibility_migration() -> Path:
+    repository_root = Path(__file__).resolve().parents[3]
+    migration = (
+        repository_root
+        / "supabase"
+        / "migrations"
+        / "20260923175653_remove_team_member_visibility.sql"
+    )
+    assert migration.is_file()
+    return migration
 
 
 def test_initial_migration_creates_only_approved_tables() -> None:
@@ -61,3 +78,14 @@ def test_migration_uses_supabase_sql_without_alembic() -> None:
     assert "jsonb" in sql
     assert "text[]" in sql
     assert "alembic" not in sql
+
+
+def test_team_visibility_forward_migration_is_narrow() -> None:
+    sql = _team_visibility_migration().read_text(encoding="utf-8").lower()
+
+    assert "drop index if exists public.ix_team_members_visible_order" in sql
+    assert "alter table public.team_members" in sql
+    assert "drop column is_visible" in sql
+    assert "add column" not in sql
+    assert "create table" not in sql
+    assert "display_order" not in sql

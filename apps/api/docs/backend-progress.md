@@ -9,8 +9,9 @@ Phase 7 — Case Studies is implemented and verified through automated contract,
 repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
 Phase 11 — Contact Us is implemented and verified through automated schema,
 repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
-Phase 10 — Our Team is documented and prepared for implementation, but its
-application and database migration work have not started.
+Phase 10 — Our Team is implemented and verified through automated schema,
+repository, service, API, OpenAPI, migration, and real Supabase PostgreSQL
+tests.
 
 ## Phase 1 — FastAPI Bootstrap
 
@@ -266,8 +267,34 @@ Existing public Blog GET behavior remains unchanged.
   require valid HTTP(S) URLs.
 - [x] Defined exact request/response fields, validation, display ordering,
   member types, errors, audit behavior, testing, and manual verification.
-- [ ] Phase 10 implementation has not started; no migration, ORM, schema,
-  repository, service, route, or test changes have been made.
+- [x] Added and applied the forward Supabase migration that drops
+  `ix_team_members_visible_order` and `team_members.is_visible` without
+  rewriting the initial migration or adding a replacement lifecycle field.
+- [x] Recorded migration version `20260923175653` in the Supabase migration
+  ledger in the same transaction as the schema change.
+- [x] Updated ORM metadata to remove `is_visible` and its visibility index while
+  preserving nullable `photo_url` and `linkedin_url` columns.
+- [x] Added strict create and partial-update request schemas and corrected the
+  shared response so both URL fields may be `null`.
+- [x] Added repository/service layering with list ordering solely by
+  `display_order ASC`, UUID detail lookup, and no repository commits.
+- [x] Added shared `GET /our-team` and `GET /our-team/{id}` routes and the
+  unprefixed `POST`, `PATCH`, and hard-delete `DELETE` mutation routes.
+- [x] Added no duplicate `/admin` Team routes and no fake authentication or
+  authorization.
+- [x] Added atomic create/update/delete audit logging using
+  `resource_type=team_member`, nullable actors, and safe context that excludes
+  biographies and profile URLs.
+- [x] Added schema, repository, service, API/OpenAPI, migration, ORM metadata,
+  and opt-in PostgreSQL lifecycle tests.
+- [x] Verified against the configured Supabase PostgreSQL database that the
+  visibility column/index are absent and create, ordered reads, detail,
+  partial update, nullable URL clearing, hard deletion, audit rows, and cleanup
+  work as documented.
+- [ ] The manual Swagger/Supabase sequence has not been performed; generated
+  OpenAPI and the real database lifecycle were verified automatically.
+- [ ] Authentication and authorization remain deferred to the approved auth
+  phase.
 
 ## Phase 11 — Contact Us documentation preparation
 
@@ -316,7 +343,14 @@ Existing public Blog GET behavior remains unchanged.
 ## Validation
 
 ```text
-204 tests passed, 4 opt-in integration tests skipped in the default suite
+256 tests passed, 5 opt-in integration tests skipped in the default suite
+261 tests passed with all configured PostgreSQL integration tests enabled under
+the required Windows Selector event-loop policy
+68 focused Team schema/repository/service/API/model/migration tests passed
+Real Team PostgreSQL lifecycle integration test -> 1 passed
+Team visibility migration                     -> applied and ledger-recorded
+Live team_members.is_visible column            -> absent
+Live ix_team_members_visible_order index        -> absent
 48 focused Contact Submission tests passed, 1 opt-in integration test skipped
 Real Contact Submission PostgreSQL lifecycle integration test -> 1 passed
 56 focused Case Study tests passed, 1 opt-in integration test skipped
@@ -361,6 +395,10 @@ Contact public/admin separation          -> verified
 Contact backend-managed fields           -> verified
 Contact delete audit transaction         -> verified
 Python compileall after Phase 11         -> passed
+Team OpenAPI exact five-operation surface -> verified
+Team nullable URL contract                -> verified
+Team mutation/audit atomicity              -> verified
+Python compileall after Phase 10           -> passed
 ```
 
 ## Deferred by design
@@ -376,14 +414,13 @@ Python compileall after Phase 11         -> passed
 - Supabase Auth and Storage clients are not configured.
 - Storage bucket names and policies remain Phase 13 decisions.
 - External integrations are not initialized.
-- Resource APIs and business workflows other than Blogs, Case Studies, and
-  Contact Submissions are not implemented.
+- Resource APIs and business workflows other than Blogs, Case Studies, Team
+  Members, and Contact Submissions are not implemented.
 - Docker and AWS deployment are not configured.
 
 The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Phase 11 is complete. Phase 10 documentation is implementation-ready, but the
-required migration and application implementation have not started. Further
-work requires a separate approved task.
+Phase 10 and Phase 11 are complete. The next unimplemented roadmap work is
+Phase 8 — Careers; it requires a separate approved task.

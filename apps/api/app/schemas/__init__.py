@@ -27,7 +27,12 @@ from app.schemas.contact import (
     ContactSubmissionReceipt,
 )
 from app.schemas.job_applications import JobApplicationCreateRequest
-from app.schemas.team import TeamListResponse, TeamMemberResponse
+from app.schemas.team import (
+    TeamListResponse,
+    TeamMemberCreateRequest,
+    TeamMemberResponse,
+    TeamMemberUpdateRequest,
+)
 
 __all__ = [
     "BlogDetailResponse",
@@ -50,5 +55,7 @@ __all__ = [
     "ContactSubmissionReceipt",
     "JobApplicationCreateRequest",
     "TeamListResponse",
+    "TeamMemberCreateRequest",
     "TeamMemberResponse",
+    "TeamMemberUpdateRequest",
 ]
