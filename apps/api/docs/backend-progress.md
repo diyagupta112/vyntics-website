@@ -4,8 +4,8 @@
 
 ## Current phase
 
-Phase 3 — Database + SQLAlchemy: schema/model foundation complete;
-PostgreSQL integration validation pending.
+Phase 4 — Pydantic API schemas complete; Phase 3 PostgreSQL integration
+validation remains pending.
 
 ## Phase 1 — FastAPI Bootstrap
 
@@ -75,10 +75,34 @@ Remaining Phase 3 work:
 - [ ] Add PostgreSQL integration tests against the migrated local database.
 - [ ] Decide and implement RLS only after access policies are explicitly approved.
 
+## Phase 4 — Pydantic API Schemas
+
+- [x] Added shared Pydantic v2 request and response schema foundations.
+- [x] Configured request schemas to reject undeclared/client-controlled fields.
+- [x] Configured response schemas for mapping or ORM-attribute input while exposing
+  only declared public contract fields.
+- [x] Added public blog list-item, list-envelope, and detail response schemas.
+- [x] Added public case-study list-item, list-envelope, and detail response schemas.
+- [x] Added public career list-item, list-envelope, and detail response schemas.
+- [x] Added the multipart job-application request schema with applicant-only fields.
+- [x] Added the public team-member and team-list response schemas.
+- [x] Added the public contact-submission request schema.
+- [x] Added UUID, datetime, HTTP URL, email, enum, list, and structured JSON typing
+  where required by the approved contracts.
+- [x] Added approved resume filename-extension validation without implementing
+  upload/storage behavior.
+- [x] Added `email-validator` for Pydantic `EmailStr` validation.
+- [x] Added focused schema contract tests for valid payloads, required fields,
+  internal-field exclusion, member types, structured content, URLs, emails, and
+  resume extensions.
+- [x] Confirmed Phase 4 runs without a database or Supabase credentials.
+- [x] Did not add routes, service/repository logic, authentication, storage, or
+  database changes.
+
 ## Validation
 
 ```text
-26 tests passed
+53 tests passed (including 27 Phase 4 schema tests)
 GET /health -> 200
 GET /docs   -> 200 (Swagger UI)
 Environment-backed application title -> verified
@@ -88,6 +112,9 @@ Database-optional application startup -> verified
 Eight-table ORM metadata              -> verified
 PostgreSQL DDL compilation            -> verified
 Migration structure/parity checks     -> verified statically
+Pydantic public contract schemas       -> verified
+Backend-controlled request fields      -> rejected
+Schema tests require no database       -> verified
 ```
 
 ## Deferred by design
@@ -96,7 +123,7 @@ Migration structure/parity checks     -> verified statically
 - The Supabase CLI and local Docker-backed Supabase environment are not available on this machine.
 - The migration has not yet been applied to PostgreSQL; current schema verification is static only.
 - RLS policies are intentionally not created because direct-client access rules are not approved.
-- API schemas and final error contracts remain later phases.
+- The final error contract remains a later phase.
 - Supabase Auth and Storage clients are not configured.
 - Storage bucket names and policies remain Phase 13 decisions.
 - External integrations are not initialized.
@@ -107,6 +134,7 @@ The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Initialize an approved local Supabase environment, apply the initial
-migration to an empty database, and run PostgreSQL integration tests.
-Do not begin Phase 4 until that validation is reviewed.
+Review the Phase 4 schemas and contract tests. Phase 5 API infrastructure has
+not started. Separately, initialize an approved local Supabase environment,
+apply the initial migration to an empty database, and run the still-pending
+PostgreSQL integration tests before claiming live database validation.
