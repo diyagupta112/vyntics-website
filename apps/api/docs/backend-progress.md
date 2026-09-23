@@ -9,6 +9,8 @@ Phase 7 — Case Studies is implemented and verified through automated contract,
 repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
 Phase 11 — Contact Us is implemented and verified through automated schema,
 repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
+Phase 10 — Our Team is documented and prepared for implementation, but its
+application and database migration work have not started.
 
 ## Phase 1 — FastAPI Bootstrap
 
@@ -244,6 +246,29 @@ Existing public Blog GET behavior remains unchanged.
 - [ ] Authentication and authorization remain deferred to the approved auth
   phase.
 
+## Phase 10 — Our Team documentation preparation
+
+- [x] Reviewed the existing Team Member ORM model, initial Supabase migration,
+  Phase 4 response schema, database conventions, and prior API patterns.
+- [x] Identified the outdated `is_visible` design in the model, migration,
+  index, architecture-era behavior, and Phase 10 checklist.
+- [x] Documented complete removal of `is_visible` with no replacement status,
+  active, hidden, archived, or soft-delete behavior.
+- [x] Documented the requirement for a new forward Supabase migration that
+  removes the visibility index and column without rewriting the applied
+  historical migration.
+- [x] Defined shared `GET /our-team` and `GET /our-team/{id}` endpoints for both
+  the public website and Admin Panel, with no duplicate admin reads.
+- [x] Defined `POST /our-team`, `PATCH /our-team/{id}`, and hard-delete
+  `DELETE /our-team/{id}` as mutation endpoints with deferred authentication.
+- [x] Resolved the URL-field contract: `photo_url` and `linkedin_url` are both
+  optional and nullable in create, PATCH, and all responses; non-null values
+  require valid HTTP(S) URLs.
+- [x] Defined exact request/response fields, validation, display ordering,
+  member types, errors, audit behavior, testing, and manual verification.
+- [ ] Phase 10 implementation has not started; no migration, ORM, schema,
+  repository, service, route, or test changes have been made.
+
 ## Phase 11 — Contact Us documentation preparation
 
 - [x] Reviewed the existing Contact Submission ORM model, Supabase migration,
@@ -359,5 +384,6 @@ The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Phase 11 is complete. Stop before any additional implementation phase; further
+Phase 11 is complete. Phase 10 documentation is implementation-ready, but the
+required migration and application implementation have not started. Further
 work requires a separate approved task.

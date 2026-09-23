@@ -1451,15 +1451,377 @@ Phase 7 is limited to Case Study schemas, repository, service, routes, audit int
 
 ## Phase 10 --- Our Team
 
--   [ ] Team member model.
--   [ ] Response schema.
--   [ ] Repository/service.
--   [ ] `GET /our-team`.
--   [ ] Filter visible members.
--   [ ] Sort by `display_order`.
--   [ ] Return `member_type`.
--   [ ] Hide `is_visible`.
--   [ ] Tests.
+-   [ ] Create a new Supabase migration that removes `is_visible`.
+-   [ ] Update the Team Member ORM model for the corrected schema.
+-   [ ] Add the create and partial-update request schemas defined below.
+-   [ ] Correct the shared Team Member response schema defined below.
+-   [ ] Add repository and service layers.
+-   [ ] Implement the two shared read endpoints.
+-   [ ] Implement the three administrative mutation endpoints.
+-   [ ] Add create, update, and delete audit logging.
+-   [ ] Add unit, API-contract, migration, and PostgreSQL integration tests.
+
+### Phase 10 Product and Database Decision
+
+A Team member has exactly two lifecycle states:
+
+- the Team member exists;
+- the Team member has been hard-deleted.
+
+The existing `is_visible` field is no longer part of the product design and
+must be removed completely during Phase 10 implementation. It must not appear
+in ORM models, Pydantic schemas, repository filters, request bodies, response
+bodies, or Admin Panel behavior. There is no visibility toggle.
+
+Do not replace `is_visible` with `status`, `active`, `hidden`, `archived`, or
+any other lifecycle/visibility field.
+
+The already-applied initial migration created `team_members.is_visible` and
+the `ix_team_members_visible_order` index. Do not rewrite that historical
+migration. Phase 10 implementation requires one new forward migration that:
+
+- removes the existing visibility-based index that depends on `is_visible`;
+- removes the `is_visible` column safely;
+- does not add a replacement visibility/status column;
+- does not add a uniqueness constraint to `display_order`.
+
+Supabase SQL migrations remain the only database migration source of truth.
+The new migration must be reproducible and verified against PostgreSQL before
+Phase 10 is considered complete.
+
+### Phase 10 API Surface
+
+Shared reads used by both the public website and Admin Panel:
+
+- `GET /our-team`
+- `GET /our-team/{id}`
+
+Mutations with administrative intent:
+
+- `POST /our-team`
+- `PATCH /our-team/{id}`
+- `DELETE /our-team/{id}`
+
+Do not add `/admin/our-team`, `/admin/team`, or duplicate administrative read
+routes. Because there is no hidden state, the same read operations return the
+complete Team collection to both clients.
+
+Authentication and authorization for mutation routes are deferred to the
+approved authentication phase. Phase 10 must not add fake authentication,
+temporary credentials, or role checks.
+
+### Team Member Fields
+
+After the Phase 10 migration, the database model contains:
+
+- `id`
+- `name`
+- `role`
+- `bio`
+- `photo_url`
+- `linkedin_url`
+- `display_order`
+- `member_type`
+- `created_by`
+- `updated_by`
+- `created_at`
+- `updated_at`
+
+Do not add fields such as status, active/inactive, visibility, archived, slug,
+email, phone, department, or employee status.
+
+Client-editable fields are:
+
+- `name`
+- `role`
+- `bio`
+- `photo_url`
+- `linkedin_url`
+- `display_order`
+- `member_type`
+
+Backend-managed fields are:
+
+- `id`
+- `created_by`
+- `updated_by`
+- `created_at`
+- `updated_at`
+
+`is_visible` is neither client-editable nor backend-managed after the new
+migration; it no longer exists.
+
+### Shared Team Member Response Contract
+
+The existing `TeamMemberResponse` is the Phase 4 response foundation, but it
+currently conflicts with the corrected nullable URL contract. Phase 10 must
+update it rather than pretending it is already correct.
+
+The shared response used by list, detail, create, and update contains exactly:
+
+- `id`
+- `name`
+- `role`
+- `bio`
+- `photo_url`
+- `linkedin_url`
+- `display_order`
+- `member_type`
+
+`photo_url` and `linkedin_url` are optional and nullable HTTP(S) URL values:
+
+- return the validated URL when present;
+- return `null` when absent.
+
+Do not expose `created_by`, `updated_by`, `created_at`, or `updated_at`. Do not
+expose `is_visible`.
+
+The public and Admin Panel consumers use this same response shape. Do not add a
+separate admin response schema.
+
+### Shared Team Read Endpoints
+
+#### `GET /our-team`
+
+- Return every existing Team member.
+- Do not filter by visibility, status, type, or any other field.
+- Order results by `display_order ASC`.
+- Return the existing list envelope shape: `{"data": [...]}`.
+- Each item uses the shared Team Member response contract.
+- `display_order` is not unique. If values are equal, no additional product
+  ordering rule is defined.
+- Do not add pagination, filtering, searching, or client-selected sorting.
+
+#### `GET /our-team/{id}`
+
+- Resolve one Team member by database UUID.
+- Return the shared Team Member response contract.
+- Return HTTP `404 Not Found` with the standard FastAPI
+  `{"detail": "..."}` shape when the member does not exist.
+- Let FastAPI return its standard HTTP `422` response when the path value is not
+  a valid UUID.
+
+### Create Contract
+
+#### `POST /our-team`
+
+The request contains exactly these client-controlled fields:
+
+- `name` — required;
+- `role` — required;
+- `bio` — required;
+- `photo_url` — optional and nullable;
+- `linkedin_url` — optional and nullable;
+- `display_order` — required integer;
+- `member_type` — required and limited to `leadership` or `team`.
+
+Both URL fields may be omitted or explicitly set to `null`. When non-null,
+each must be a valid HTTP(S) URL according to the existing Pydantic URL
+validation convention. Do not add `NOT NULL` constraints or defaults for
+either URL field.
+
+The request must reject unknown fields and backend-controlled fields,
+including `id`, `created_by`, `updated_by`, `created_at`, `updated_at`, and
+`is_visible`.
+
+Success response:
+
+- Return HTTP `201 Created`.
+- Return the shared Team Member response contract.
+
+### Partial Update Contract
+
+#### `PATCH /our-team/{id}`
+
+Use partial-update semantics consistent with Blogs and Case Studies. Every
+client-editable field may be omitted:
+
+- omitted fields retain their existing values;
+- `name`, `role`, `bio`, `display_order`, and `member_type` reject explicit
+  `null` because their database columns remain required;
+- `photo_url` and `linkedin_url` may each be supplied as a valid HTTP(S) URL or
+  explicitly set to `null`;
+- the UUID is supplied only through the path;
+- backend-managed fields, `is_visible`, and unknown fields are rejected.
+
+Return HTTP `200 OK` with the shared Team Member response contract. Return HTTP
+`404 Not Found` when the UUID does not identify a Team member. Invalid UUIDs
+and invalid request values use FastAPI's standard HTTP `422` response.
+
+Do not add a PUT endpoint.
+
+### Delete Contract
+
+#### `DELETE /our-team/{id}`
+
+- Perform a hard delete.
+- Return HTTP `204 No Content` with an empty response body.
+- Return HTTP `404 Not Found` when the Team member does not exist.
+- Let FastAPI return HTTP `422` for an invalid UUID path value.
+- Do not implement soft deletion, visibility toggles, archived records, or a
+  replacement status field.
+
+### Validation
+
+- Trim surrounding whitespace from `name`, `role`, and `bio`; reject empty or
+  whitespace-only values.
+- Allow only `leadership` and `team` for `member_type`.
+- Require `display_order` to be an integer. The existing database contract does
+  not define a minimum, maximum, or uniqueness rule, so Phase 10 must not
+  invent one.
+- `photo_url` and `linkedin_url` are optional and nullable. Validate each
+  non-null value as an HTTP(S) URL using the existing project convention.
+- Reject backend-managed fields, `is_visible`, and all other undeclared fields.
+- Do not invent maximum string lengths because the existing PostgreSQL columns
+  are unrestricted `text` and no API limits are approved.
+- Use standard FastAPI validation responses for invalid input.
+
+### Repository and Service Architecture
+
+Use the established layering:
+
+```text
+FastAPI route
+  -> Team Member service
+    -> Team Member repository
+      -> AsyncSession
+```
+
+- The repository performs SQLAlchemy queries and stages persistence changes.
+- The repository does not commit.
+- The service owns mutation and audit-log commit/rollback boundaries.
+- Use the existing asynchronous database/session lifecycle.
+- The list repository query orders solely by `display_order ASC` and applies no
+  visibility filter.
+
+### Audit Logging
+
+Create audit events for all successful Team mutations:
+
+- `POST /our-team` uses action `create`;
+- `PATCH /our-team/{id}` uses action `update`;
+- `DELETE /our-team/{id}` uses action `delete`;
+- `resource_type` is `team_member`;
+- the actor remains nullable until authentication is implemented;
+- context may contain safe metadata such as `member_type`, `display_order`, and
+  changed field names;
+- context must not contain full biographies, profile URLs, credentials,
+  tokens, or unnecessary private data.
+
+The mutation and its audit event must commit atomically. Audit failure must
+roll back the mutation. Do not introduce a separate audit system.
+
+### Access Boundary
+
+Shared/public reads:
+
+- `GET /our-team`
+- `GET /our-team/{id}`
+
+Administrative mutation intent:
+
+- `POST /our-team`
+- `PATCH /our-team/{id}`
+- `DELETE /our-team/{id}`
+
+Authentication and authorization are deferred. Do not add fake authentication
+or role checks in Phase 10.
+
+### Phase 10 Testing Requirements
+
+Automated tests must cover:
+
+Shared reads:
+
+- list returns every existing Team member without visibility filtering;
+- list orders solely by `display_order ASC`;
+- list returns the `{"data": [...]}` envelope and exact item fields;
+- detail returns one member by UUID;
+- missing detail returns `404`;
+- invalid UUID detail returns `422`;
+- nullable `photo_url` and `linkedin_url` serialize as `null`.
+
+Create:
+
+- successful creation returns `201` and the shared response contract;
+- required-field and trimmed/non-empty string validation;
+- both approved `member_type` values and rejection of other values;
+- integer `display_order` validation without invented range/uniqueness rules;
+- omitted and explicit-null URL fields;
+- valid non-null URL fields and invalid URL rejection;
+- rejection of backend-managed fields, `is_visible`, and unknown fields;
+- create audit event and atomic rollback behavior.
+
+Update:
+
+- partial-update behavior preserves omitted fields;
+- explicit-null rejection for database-required fields;
+- URL replacement and explicit clearing to `null`;
+- member type, string, URL, and display-order validation;
+- rejection of backend-managed fields, `is_visible`, and unknown fields;
+- missing member returns `404` and invalid UUID returns `422`;
+- successful update returns `200` and the shared response contract;
+- update audit event contains safe changed-field metadata;
+- audit failure rolls back the update.
+
+Delete:
+
+- successful hard deletion returns `204` with no body;
+- the row is actually removed;
+- missing member returns `404` and invalid UUID returns `422`;
+- delete audit event uses `resource_type=team_member` and safe context;
+- audit failure rolls back deletion.
+
+Database and migration:
+
+- statically verify the new migration removes `is_visible` and its dependent
+  visibility index without rewriting the initial migration;
+- verify ORM metadata no longer contains `is_visible` or a visibility index;
+- run an opt-in PostgreSQL/Supabase lifecycle integration test;
+- verify the live schema no longer contains `is_visible` after applying the new
+  migration;
+- verify create, ordered reads, detail, partial update, deletion, audit rows,
+  and cleanup against PostgreSQL;
+- do not substitute SQLite for PostgreSQL-specific verification;
+- do not claim real database verification unless it actually succeeds.
+
+### Manual Swagger and Supabase Verification
+
+After implementation, migration application, and automated tests pass:
+
+1. Create a Team member through Swagger.
+2. Confirm the record exists in Supabase.
+3. Confirm `is_visible` is absent from the live `team_members` schema.
+4. Call `GET /our-team` and confirm the member appears.
+5. Call `GET /our-team/{id}` and confirm the detail response.
+6. Create multiple Team members with different `display_order` values.
+7. Confirm `GET /our-team` returns them in `display_order` order.
+8. Update a member through `PATCH /our-team/{id}`.
+9. Confirm the updated record in Supabase.
+10. Delete the member through `DELETE /our-team/{id}`.
+11. Confirm the delete returns HTTP `204`.
+12. Confirm the record no longer exists in Supabase.
+13. Confirm `GET /our-team` no longer returns the deleted member.
+
+Do not add testing-only behavior and do not claim this sequence was completed
+until it was actually performed.
+
+### Phase 10 Scope Boundaries
+
+Phase 10 does not include:
+
+- authentication or authorization;
+- fake authentication or role checks;
+- visibility toggles or `is_visible`;
+- replacement status, active, hidden, or archived fields;
+- soft deletion;
+- employee lifecycle/status management;
+- pagination, search, filtering, or alternate sorting;
+- separate admin GET endpoints;
+- email notifications;
+- analytics;
+- unrelated Admin Panel UI work;
+- unrelated APIs or phases.
 
 ------------------------------------------------------------------------
 
