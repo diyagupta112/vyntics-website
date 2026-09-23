@@ -7,6 +7,8 @@
 Phase 6 — Blog API, including the additional admin read endpoints, is complete.
 Phase 7 — Case Studies is implemented and verified through automated contract,
 repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
+Phase 11 — Contact Us is implemented and verified through automated schema,
+repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
 
 ## Phase 1 — FastAPI Bootstrap
 
@@ -242,10 +244,56 @@ Existing public Blog GET behavior remains unchanged.
 - [ ] Authentication and authorization remain deferred to the approved auth
   phase.
 
+## Phase 11 — Contact Us documentation preparation
+
+- [x] Reviewed the existing Contact Submission ORM model, Supabase migration,
+  Phase 4 request schema, database/session infrastructure, and prior resource
+  implementation patterns.
+- [x] Expanded the previous high-level Phase 11 checklist into an explicit,
+  implementation-ready API contract.
+- [x] Defined public `POST /contact-us` separately from the admin list, detail,
+  and hard-delete endpoints.
+- [x] Defined the exact public request, public receipt, and admin response
+  fields, including backend-managed field boundaries.
+- [x] Documented validation, ordering, errors, transaction ownership, delete
+  audit logging, automated tests, and manual Swagger/Supabase verification.
+- [x] Explicitly deferred email automation, authentication, authorization,
+  status management, notes/resolution workflows, and unrelated scope.
+- [x] Verified that the prepared contract is compatible with the existing
+  Contact Submission model, migration, and database conventions.
+- [x] Added strict Contact Submission request validation and exact public
+  receipt and admin response schemas.
+- [x] Added public `POST /contact-us`, returning HTTP 201 with only `id`,
+  `status`, and `submitted_at`.
+- [x] Added `GET /admin/contact-submissions`, ordered by `submitted_at DESC`,
+  and `GET /admin/contact-submissions/{id}`.
+- [x] Added hard-delete `DELETE /admin/contact-submissions/{id}` with HTTP 204
+  and standard missing/invalid-UUID behavior.
+- [x] Kept the public submission unauthenticated and added no fake
+  authentication to the deferred admin routes.
+- [x] Enforced valid emails, trimmed non-empty required strings, nullable
+  optional company, simple non-empty source-page references, and strict
+  rejection of unknown/backend-managed request fields.
+- [x] Added repository/service layering with service-owned commit and rollback
+  boundaries and no repository commits.
+- [x] Kept public submission audit-free and added atomic, safe audit logging for
+  admin hard deletion using `resource_type=contact_submission`.
+- [x] Added focused schema, repository, service, API/OpenAPI, and opt-in
+  PostgreSQL integration tests.
+- [x] Verified the Contact Submission lifecycle against the configured
+  Supabase PostgreSQL database with temporary data and cleanup.
+- [ ] The manual Swagger/Supabase sequence has not been performed; generated
+  OpenAPI and the real database lifecycle were verified automatically.
+- [ ] Authentication and authorization remain deferred to the approved auth
+  phase.
+- [ ] Email automation remains deferred and was not implemented.
+
 ## Validation
 
 ```text
-156 tests passed, 3 opt-in integration tests skipped in the default suite
+204 tests passed, 4 opt-in integration tests skipped in the default suite
+48 focused Contact Submission tests passed, 1 opt-in integration test skipped
+Real Contact Submission PostgreSQL lifecycle integration test -> 1 passed
 56 focused Case Study tests passed, 1 opt-in integration test skipped
 Real Case Study PostgreSQL lifecycle integration test -> 1 passed
 69 focused schema/repository/service/API tests passed
@@ -283,6 +331,11 @@ Case Study public/admin separation      -> verified
 Case Study publication lifecycle        -> verified
 Case Study audit transaction behavior   -> verified
 Python compileall after Phase 7          -> passed
+Contact OpenAPI routes/schemas           -> verified
+Contact public/admin separation          -> verified
+Contact backend-managed fields           -> verified
+Contact delete audit transaction         -> verified
+Python compileall after Phase 11         -> passed
 ```
 
 ## Deferred by design
@@ -298,13 +351,13 @@ Python compileall after Phase 7          -> passed
 - Supabase Auth and Storage clients are not configured.
 - Storage bucket names and policies remain Phase 13 decisions.
 - External integrations are not initialized.
-- Resource APIs and business workflows other than Blogs and Case Studies are
-  not implemented.
+- Resource APIs and business workflows other than Blogs, Case Studies, and
+  Contact Submissions are not implemented.
 - Docker and AWS deployment are not configured.
 
 The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Phase 7 is complete. Stop before Phase 8; Careers implementation requires a
-separate approved task.
+Phase 11 is complete. Stop before any additional implementation phase; further
+work requires a separate approved task.

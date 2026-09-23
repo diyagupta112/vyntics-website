@@ -21,7 +21,11 @@ from app.schemas.case_studies import (
     CaseStudyListResponse,
     CaseStudyUpdateRequest,
 )
-from app.schemas.contact import ContactCreateRequest
+from app.schemas.contact import (
+    ContactCreateRequest,
+    ContactSubmissionAdminResponse,
+    ContactSubmissionReceipt,
+)
 from app.schemas.job_applications import JobApplicationCreateRequest
 from app.schemas.team import TeamListResponse, TeamMemberResponse
 
@@ -42,6 +46,8 @@ __all__ = [
     "CaseStudyListResponse",
     "CaseStudyUpdateRequest",
     "ContactCreateRequest",
+    "ContactSubmissionAdminResponse",
+    "ContactSubmissionReceipt",
     "JobApplicationCreateRequest",
     "TeamListResponse",
     "TeamMemberResponse",

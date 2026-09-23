@@ -1465,20 +1465,311 @@ Phase 7 is limited to Case Study schemas, repository, service, routes, audit int
 
 ## Phase 11 --- Contact Us
 
--   [ ] Contact model.
--   [ ] Request schema.
--   [ ] `POST /contact-us`.
--   [ ] Validate email.
--   [ ] Validate required strings.
--   [ ] Validate `source_page`.
--   [ ] Set backend-managed status/timestamp.
--   [ ] Persist submission.
--   [ ] Reject client-controlled internal fields.
--   [ ] Finalize success response before implementation is considered
-    complete.
--   [ ] Tests.
+-   [ ] Use the existing Contact Submission model.
+-   [ ] Complete the request and response schemas defined below.
+-   [ ] Implement the public submission endpoint.
+-   [ ] Implement the admin list, detail, and hard-delete endpoints.
+-   [ ] Add repository and service layers.
+-   [ ] Enforce validation and backend-managed fields.
+-   [ ] Add delete audit logging.
+-   [ ] Add unit, API-contract, and PostgreSQL integration tests.
 
-Email automation is a separate concern.
+### Phase 11 API Contract
+
+Phase 11 implements one public submission operation and three conceptually
+administrative operations. The public endpoint must remain usable without
+authentication. Authentication and authorization for the admin endpoints are
+deferred to the approved authentication phase; Phase 11 must not add fake,
+temporary, or testing-only authentication.
+
+The existing `ContactCreateRequest` is only the current Phase 4 request-schema
+foundation. Phase 11 must tighten its validation and add the response schemas
+defined below. Do not refer to nonexistent established response schemas.
+
+### Public Contact Submission
+
+#### `POST /contact-us`
+
+This endpoint is public. A website visitor does not need an authenticated
+session or admin identity to submit the form.
+
+The JSON request body contains exactly:
+
+- `name` — required string;
+- `email` — required valid email address;
+- `company` — optional string and may be omitted or `null`;
+- `subject` — required string;
+- `message` — required string;
+- `source_page` — required string identifying the website page from which the
+  form was submitted.
+
+The request must reject undeclared fields, including all backend-managed or
+internal fields:
+
+- `id`
+- `status`
+- `submitted_at`
+- `notes`
+- `resolved_at`
+- `resolved_by`
+
+Success response:
+
+- Return HTTP `201 Created`.
+- Return a public submission receipt containing exactly `id`, `status`, and
+  `submitted_at`.
+- `id` is the database-generated submission UUID.
+- `status` is `new`.
+- `submitted_at` is the database-generated timezone-aware creation timestamp.
+- Do not echo the visitor's name, email, company, subject, message, or source
+  page in the public success response.
+
+Example response:
+
+```json
+{
+  "id": "7fd6ff67-1db4-4dd7-81a2-c9e1df99f7f5",
+  "status": "new",
+  "submitted_at": "2026-09-23T12:00:00Z"
+}
+```
+
+### Admin Contact Submission Responses
+
+Phase 11 must add an admin response schema containing exactly:
+
+- `id`
+- `name`
+- `email`
+- `company`
+- `subject`
+- `message`
+- `source_page`
+- `status`
+- `notes`
+- `submitted_at`
+- `resolved_at`
+- `resolved_by`
+
+Nullable fields remain nullable according to the existing model:
+
+- `company`
+- `notes`
+- `resolved_at`
+- `resolved_by`
+
+The response exposes existing administrative data only. Phase 11 does not add
+status changes, note editing, resolution actions, or new fields.
+
+### Admin Contact Submission List
+
+#### `GET /admin/contact-submissions`
+
+- Return a JSON array of admin Contact Submission response objects.
+- Return all stored submissions regardless of status.
+- Order submissions by `submitted_at DESC` so the newest submission appears
+  first.
+- Do not add pagination, filtering, searching, client-selected ordering, or
+  query parameters in Phase 11.
+- This endpoint is intended for authenticated administrators, but enforcement
+  is deferred. Implement it without fake authentication until the real auth
+  phase supplies the shared dependency.
+
+### Admin Contact Submission Detail
+
+#### `GET /admin/contact-submissions/{id}`
+
+- Resolve the submission using its database UUID.
+- Return one admin Contact Submission response object.
+- Return HTTP `404 Not Found` with the standard FastAPI `{"detail": "..."}`
+  shape when the UUID does not identify a submission.
+- Let FastAPI return its standard HTTP `422` validation response when the path
+  value is not a valid UUID.
+- Authentication and authorization are deferred; do not add fake
+  authentication.
+
+### Admin Contact Submission Deletion
+
+#### `DELETE /admin/contact-submissions/{id}`
+
+- This operation has admin-only intent; authentication and authorization are
+  deferred without a temporary substitute.
+- Perform a hard delete.
+- Return HTTP `204 No Content` with an empty response body after success.
+- Return HTTP `404 Not Found` when the UUID does not identify a submission.
+- Let FastAPI return HTTP `422` for an invalid UUID path value.
+- There is no public Contact Submission delete endpoint.
+- Do not introduce soft deletion.
+
+### Validation
+
+- Validate `email` using the existing Pydantic email type.
+- Trim surrounding whitespace from required string fields and reject empty or
+  whitespace-only `name`, `subject`, `message`, and `source_page` values.
+- `company` remains optional and nullable. Do not make it required.
+- `source_page` is a non-empty page reference such as `/` or `/contact`.
+  Do not require a fully qualified URL or invent a complex URL/path policy.
+- Reject unknown request fields through the existing strict request-schema
+  configuration.
+- Do not introduce maximum lengths because neither the approved contract nor
+  the PostgreSQL `text` columns establish them.
+- Invalid request data uses FastAPI's standard HTTP `422` validation response.
+
+### Backend-Managed Fields
+
+The backend owns the following values and the public request cannot set or
+override them:
+
+- `status` is created as `new`, matching the existing database default.
+- `submitted_at` is generated when the row is inserted, using the existing
+  timezone-aware database default.
+- `id` is generated by PostgreSQL.
+- `notes`, `resolved_at`, and `resolved_by` remain nullable internal fields.
+
+Phase 11 does not define additional status values or behavior for notes,
+resolution timestamps, or resolver identities.
+
+### Public and Admin Access Boundary
+
+Public:
+
+- `POST /contact-us`
+
+Administrative intent, with authentication/authorization deferred:
+
+- `GET /admin/contact-submissions`
+- `GET /admin/contact-submissions/{id}`
+- `DELETE /admin/contact-submissions/{id}`
+
+Do not require authentication for `POST /contact-us`. Do not add fake auth to
+the admin routes.
+
+### Repository and Service Architecture
+
+Use the established layering:
+
+```text
+FastAPI route
+  -> Contact Submission service
+    -> Contact Submission repository
+      -> AsyncSession
+```
+
+- Routes own HTTP input/output and dependency injection.
+- The repository owns SQLAlchemy queries and staging persistence operations.
+- The repository must not commit transactions.
+- The service owns commit and rollback boundaries for creation and deletion.
+- Use the existing asynchronous engine, session factory, request-scoped
+  `AsyncSession`, and database lifecycle.
+- Supabase SQL migrations remain the only migration source of truth. The
+  existing model and migration already support this contract; Phase 11 does not
+  require a new migration.
+
+### Audit Logging
+
+- Public `POST /contact-us` does not create an audit log. It is a visitor
+  submission, and the existing contract does not require a public-submission
+  audit event.
+- Successful admin deletion creates an audit event in the same transaction as
+  the hard delete.
+- Use action `delete` and `resource_type=contact_submission`.
+- The actor remains nullable until authentication is implemented.
+- Audit context may contain only safe operational metadata such as the stored
+  status.
+- Audit context must not contain the visitor's name, email, company, subject,
+  message, source page, internal notes, credentials, tokens, or other private
+  or sensitive data.
+- If audit persistence fails, the delete transaction must roll back.
+
+### Email Automation
+
+Email automation is outside Phase 11:
+
+- no internal notification email;
+- no visitor confirmation or reply email;
+- no SMTP, Resend, Brevo, or other email-provider integration;
+- no email retry or delivery-status workflow.
+
+The persisted Contact Submission record is the Phase 11 source of truth. A
+future approved email phase may send an internal notification to the Vyntics
+team and a confirmation/reply email to the visitor.
+
+### Phase 11 Testing Requirements
+
+Automated tests must cover:
+
+Public submission:
+
+- `POST /contact-us` returns `201` and the exact public receipt contract;
+- successful persistence of every client-provided field;
+- database-generated UUID, `status=new`, and `submitted_at` values;
+- missing required fields;
+- invalid email addresses;
+- empty and whitespace-only required strings;
+- valid non-empty `source_page` references and rejection of empty values;
+- optional/nullable `company` behavior;
+- rejection of unknown and backend-managed request fields;
+- no public authentication requirement;
+- no public submission audit record.
+
+Administrative operations:
+
+- admin list returns all stored submissions in `submitted_at DESC` order;
+- admin list and detail match the exact admin response contract;
+- admin detail returns a submission by UUID;
+- admin detail and delete return `404` for missing submissions;
+- invalid UUID path values return `422`;
+- successful hard deletion returns `204` with no response body;
+- deletion actually removes the database record;
+- deletion creates the required safe audit record;
+- audit failure rolls back the deletion;
+- no fake authentication dependency is introduced.
+
+Database/integration coverage:
+
+- provide an opt-in PostgreSQL/Supabase integration test using the configured
+  database;
+- verify creation, generated backend fields, admin list/detail visibility,
+  deletion, audit persistence, and cleanup;
+- do not substitute SQLite for PostgreSQL integration behavior;
+- do not claim real database verification unless it was executed successfully.
+
+### Manual Swagger and Supabase Verification
+
+After implementation and automated tests pass:
+
+1. Submit a Contact Us request through Swagger using `POST /contact-us`.
+2. Confirm the request succeeds with HTTP `201` and the documented receipt.
+3. Confirm the record exists in Supabase PostgreSQL.
+4. Confirm its status is `new`.
+5. Confirm `submitted_at` was generated.
+6. Confirm it appears in `GET /admin/contact-submissions`.
+7. Confirm `GET /admin/contact-submissions/{id}` returns the expected record.
+8. Delete it through `DELETE /admin/contact-submissions/{id}`.
+9. Confirm the record is removed from Supabase and the safe delete audit row
+   exists.
+10. Confirm `POST /contact-us` works without authentication.
+
+Do not add Swagger-only or testing-only bypass behavior. Do not claim this
+manual verification is complete until it has actually been performed.
+
+### Phase 11 Scope Boundaries
+
+Phase 11 does not include:
+
+- email notifications or visitor confirmation emails;
+- SMTP, Resend, Brevo, or other email infrastructure;
+- authentication or authorization;
+- fake authentication;
+- Admin Panel UI implementation;
+- pagination, search, filtering, or configurable sorting;
+- contact status management beyond the initial backend-created `new` status;
+- notes management;
+- resolved/replied workflows;
+- analytics;
+- soft deletion;
+- additional Contact Submission endpoints;
+- unrelated APIs or later phases.
 
 ------------------------------------------------------------------------
 
