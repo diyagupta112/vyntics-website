@@ -4,7 +4,6 @@
   align-items: center;
   padding-block: clamp(2.75rem, 6vh, 5rem);
   overflow: hidden;
-  border-top: 1px solid var(--color-border);
   background:
     linear-gradient(color-mix(in srgb, var(--color-border) 34%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in srgb, var(--color-border) 34%, transparent) 1px, transparent 1px),

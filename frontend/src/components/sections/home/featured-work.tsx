@@ -71,6 +71,8 @@ const projects = [
   },
 ] as const;
 
+const AUTOPLAY_INTERVAL_MS = 2000;
+
 function ArrowIcon({ direction }: { direction: "left" | "right" }) {
   return (
     <svg aria-hidden="true" viewBox="0 0 20 20">
@@ -94,7 +96,7 @@ export function FeaturedWork() {
     const autoplay = window.setInterval(() => {
       setDirection(1);
       setCurrentIndex((index) => (index + 1) % projects.length);
-    }, 4500);
+    }, AUTOPLAY_INTERVAL_MS);
 
     return () => window.clearInterval(autoplay);
   }, [currentIndex, isPaused, reduceMotion]);
@@ -189,10 +191,6 @@ export function FeaturedWork() {
           </div>
 
           <div className={styles.carouselNavigation} aria-label="Featured work carousel controls">
-            <span className={styles.slideCount} aria-live="polite">
-              <strong>{String(currentIndex + 1).padStart(2, "0")}</strong>
-              <span>/ {String(projects.length).padStart(2, "0")}</span>
-            </span>
             <button type="button" onClick={() => navigate(-1)} aria-label="Previous featured project"><ArrowIcon direction="left" /></button>
             <button type="button" onClick={() => navigate(1)} aria-label="Next featured project"><ArrowIcon direction="right" /></button>
           </div>

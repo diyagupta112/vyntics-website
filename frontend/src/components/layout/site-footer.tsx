@@ -15,6 +15,7 @@ const solutionLinks = [
 const exploreLinks = [
   { label: "Featured Work", href: "/#work" },
   { label: "How We Work", href: "/#approach" },
+  { label: "Latest Insights", href: "/#blogs" },
   { label: "Why Vyntics", href: "/#why-vyntics" },
   { label: "Client Stories", href: "/#testimonials" },
 ];
@@ -74,7 +75,6 @@ export function SiteFooter() {
             <h2>Get in touch</h2>
             <ul className={styles.contactList}>
               <li><a href="mailto:contact@vyntics.com">contact@vyntics.com</a></li>
-              <li><a href="tel:+917062104893">+91 70621 04893</a></li>
               <li><span>Jaipur, Rajasthan, India</span></li>
             </ul>
             <Link className={styles.demoLink} href="/#contact">

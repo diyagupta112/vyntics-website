@@ -3,7 +3,6 @@
   margin-top: auto;
   overflow: hidden;
   color: var(--color-foreground);
-  border-top: 1px solid var(--color-border);
   background:
     radial-gradient(circle at 58% -25%, color-mix(in srgb, var(--color-primary) 11%, transparent), transparent 36rem),
     radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--color-lavender) 28%, transparent), transparent 28rem),

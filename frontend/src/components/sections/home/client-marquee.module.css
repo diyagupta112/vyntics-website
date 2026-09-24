@@ -1,8 +1,6 @@
 .section {
   padding-block: clamp(4rem, 8vw, 7rem);
   overflow: hidden;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
   background: var(--color-background);
 }
 

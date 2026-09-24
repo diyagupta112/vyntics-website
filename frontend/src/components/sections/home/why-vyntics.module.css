@@ -4,9 +4,8 @@
   align-items: center;
   padding-block: clamp(2.25rem, 4.5vh, 3.5rem);
   overflow: hidden;
-  border-top: 1px solid var(--color-border);
   background:
-    radial-gradient(circle at 50% 25%, color-mix(in srgb, var(--color-lavender) 30%, transparent), transparent 26rem),
+    radial-gradient(circle at 50% 25%, color-mix(in srgb, var(--color-lavender) 18%, transparent), transparent 26rem),
     var(--color-background);
   scroll-margin-top: 5rem;
 }
@@ -22,10 +21,10 @@
 
 .badge {
   padding: 0.48rem 0.8rem;
-  color: var(--color-primary);
-  border: 1px solid color-mix(in srgb, var(--color-primary) 26%, var(--color-border));
+  color: color-mix(in srgb, var(--color-primary) 78%, var(--color-muted));
+  border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border));
   border-radius: 999px;
-  background: color-mix(in srgb, var(--color-primary) 7%, var(--color-surface));
+  background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));
   font-size: 0.72rem;
   font-weight: 750;
   letter-spacing: 0.17em;
@@ -69,7 +68,7 @@
   border: 1px solid var(--color-border);
   border-radius: 1.5rem;
   background: color-mix(in srgb, var(--color-surface) 94%, transparent);
-  box-shadow: 0 22px 55px rgb(11 11 15 / 7%);
+  box-shadow: 0 18px 45px rgb(11 11 15 / 5%);
   isolation: isolate;
 }
 
@@ -89,7 +88,7 @@
   z-index: -1;
   content: "";
   border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--feature-a) 20%, transparent), transparent 66%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--feature-a) 10%, transparent), transparent 66%);
   opacity: 0;
   transform: scale(0.65);
   transition: opacity 450ms ease, transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -109,12 +108,12 @@
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 28%, var(--color-border));
+  border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border));
   border-radius: 50%;
   background: var(--color-surface);
   box-shadow:
-    0 0 0 0.65rem color-mix(in srgb, var(--color-lavender) 22%, transparent),
-    0 20px 45px color-mix(in srgb, var(--color-primary) 15%, transparent);
+    0 0 0 0.65rem color-mix(in srgb, var(--color-lavender) 12%, transparent),
+    0 18px 38px color-mix(in srgb, var(--color-primary) 8%, transparent);
 }
 
 .orbGlow {
@@ -122,14 +121,14 @@
   inset: -1.65rem;
   z-index: -1;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--color-primary) 48%, transparent), transparent 42%, color-mix(in srgb, var(--color-lavender) 68%, transparent), transparent 80%);
-  opacity: 0.6;
+  background: conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--color-primary) 28%, transparent), transparent 42%, color-mix(in srgb, var(--color-lavender) 38%, transparent), transparent 80%);
+  opacity: 0.35;
   filter: blur(0.5rem);
 }
 
 .icon {
   width: 2.5rem;
-  color: var(--color-primary);
+  color: color-mix(in srgb, var(--color-primary) 82%, var(--color-muted));
 }
 
 .icon svg {
@@ -174,8 +173,8 @@
   }
 
   .card:hover {
-    border-color: color-mix(in srgb, var(--color-primary) 42%, var(--color-border));
-    box-shadow: 0 30px 75px color-mix(in srgb, var(--color-primary) 14%, transparent);
+    border-color: color-mix(in srgb, var(--color-primary) 28%, var(--color-border));
+    box-shadow: 0 26px 65px color-mix(in srgb, var(--color-primary) 8%, transparent);
     transform: translateY(-0.45rem);
   }
 
@@ -189,11 +188,11 @@
   }
 
   .card:hover .orbGlow {
-    background: conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--feature-a) 68%, transparent), transparent 42%, color-mix(in srgb, var(--feature-b) 82%, transparent), transparent 80%);
+    background: conic-gradient(from 0deg, transparent, color-mix(in srgb, var(--feature-a) 42%, transparent), transparent 42%, color-mix(in srgb, var(--feature-b) 52%, transparent), transparent 80%);
   }
 
   .card:nth-child(1):hover .orbGlow {
-    opacity: 1;
+    opacity: 0.65;
     animation: orb-spin 4.5s linear infinite;
   }
 
@@ -202,7 +201,7 @@
   }
 
   .card:nth-child(2):hover .orbGlow {
-    opacity: 1;
+    opacity: 0.65;
     animation: orb-breathe 1.25s ease-in-out infinite alternate;
   }
 
@@ -211,7 +210,7 @@
   }
 
   .card:nth-child(3):hover .orbGlow {
-    opacity: 1;
+    opacity: 0.65;
     animation: orb-spin 3.75s linear infinite reverse;
   }
 

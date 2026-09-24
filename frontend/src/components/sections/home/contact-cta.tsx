@@ -59,10 +59,6 @@ export function ContactCta() {
           </a>
 
           <address className={styles.contactDetails}>
-            <a href="tel:+917062104893">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.2 3.5 4.7 4.7c-.8.4-1.2 1.3-.9 2.2 1.8 6.1 6.2 10.5 12.3 12.3.9.3 1.8-.1 2.2-.9l1.2-2.5c.3-.7.1-1.5-.5-1.9l-3-2c-.6-.4-1.4-.3-1.9.2l-1.3 1.3a12.3 12.3 0 0 1-3.2-3.2l1.3-1.3c.5-.5.6-1.3.2-1.9l-2-3c-.4-.6-1.2-.8-1.9-.5Z" /></svg>
-              +91 70621 04893
-            </a>
             <p>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z" /><circle cx="12" cy="10" r="2" /></svg>
               72 Krishna Nagar, Agra Road, Jaipur, Rajasthan

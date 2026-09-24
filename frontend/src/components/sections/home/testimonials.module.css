@@ -4,7 +4,6 @@
   align-items: center;
   padding-block: clamp(2rem, 4vh, 3.25rem);
   overflow: hidden;
-  border-top: 1px solid var(--color-border);
   background: radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--color-lavender) 30%, transparent), transparent 29rem), var(--color-background);
   scroll-margin-top: 5rem;
 }

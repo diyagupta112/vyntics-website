@@ -1,4 +1,5 @@
 import { Approach } from "@/components/sections/home/approach";
+import { BlogShowcase } from "@/components/sections/home/blog-showcase";
 import { Capabilities } from "@/components/sections/home/capabilities";
 import { ClientMarquee } from "@/components/sections/home/client-marquee";
 import { ContactCta } from "@/components/sections/home/contact-cta";
@@ -14,9 +15,10 @@ export default function HomePage() {
       <ClientMarquee />
       <FeaturedWork />
       <Capabilities />
-      <Approach />
-      <WhyVyntics />
       <Testimonials />
+      <Approach />
+      <BlogShowcase />
+      <WhyVyntics />
       <ContactCta />
     </>
   );

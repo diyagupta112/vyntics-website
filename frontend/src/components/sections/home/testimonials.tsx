@@ -19,6 +19,8 @@ const testimonials: Testimonial[] = [
   { text: "Using this ERP, our online presence and conversions significantly improved, boosting business performance.", name: "Hassan Ali", role: "E-commerce Manager" },
 ];
 
+const AUTOPLAY_INTERVAL_MS = 2000;
+
 function Arrow({ direction }: { direction: "left" | "right" }) {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -39,7 +41,7 @@ export function Testimonials() {
 
     const autoplay = window.setInterval(() => {
       setCurrentIndex((index) => (index + 1) % testimonials.length);
-    }, 4500);
+    }, AUTOPLAY_INTERVAL_MS);
 
     return () => window.clearInterval(autoplay);
   }, [currentIndex, isPaused, reduceMotion]);
@@ -98,7 +100,6 @@ export function Testimonials() {
 
           <div className={styles.controls}>
             <button type="button" onClick={() => move(-1)} aria-label="Previous testimonial"><Arrow direction="left" /></button>
-            <span><strong>{String(currentIndex + 1).padStart(2, "0")}</strong> / {String(testimonials.length).padStart(2, "0")}</span>
             <button type="button" onClick={() => move(1)} aria-label="Next testimonial"><Arrow direction="right" /></button>
           </div>
         </div>

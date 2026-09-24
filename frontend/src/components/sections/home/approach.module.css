@@ -4,7 +4,6 @@
   align-items: center;
   padding-block: clamp(3.5rem, 7vh, 6rem);
   overflow: hidden;
-  border-top: 1px solid var(--color-border);
   background:
     radial-gradient(circle at 50% 54%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 30rem),
     radial-gradient(circle at 78% 30%, color-mix(in srgb, var(--color-lavender) 36%, transparent), transparent 25rem),
