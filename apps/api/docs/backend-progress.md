@@ -307,6 +307,111 @@ Existing public Blog GET behavior remains unchanged.
   operations, response fields, ordering, generated/preserved `published_at`,
   duplicate slug, restricted delete, missing behavior, and empty 204 bodies.
 
+## Phase 9 — Job Applications documentation preparation
+
+- [x] Reviewed the architecture, implementation plan, progress record, Job
+  Application ORM model and migration, existing multipart request schema,
+  finalized Careers behavior, prior resource APIs, repository/service/dependency
+  layering, audit implementation, error conventions, and storage direction.
+- [x] Confirmed Job Applications remain a separate API family and finalized
+  public `POST /careers/{slug}/apply` plus the four approved administrative
+  list, detail, PATCH, and hard-delete routes.
+- [x] Finalized the complete status set as `new`, `reviewing`, `shortlisted`,
+  `rejected`, and `hired`, with public submissions always starting at `new` and
+  status changes reserved for future authenticated Admin Panel users.
+- [x] Defined exact applicant-controlled, backend-managed, PATCH-editable, and
+  immutable field boundaries, including explicit-null behavior for status and
+  notes.
+- [x] Defined separate minimal public receipt, administrative list-item, detail,
+  and update response contracts without exposing the ORM universally.
+- [x] Defined the Career-scoped unpaginated admin list, `submitted_at DESC`
+  ordering, empty-list behavior, and all table fields needed without per-row
+  detail requests.
+- [x] Finalized hard deletion with HTTP 204, Career preservation, resume cleanup,
+  missing-resource behavior, and no soft or cascade deletion.
+- [x] Preserved the Career foreign key's `ON DELETE RESTRICT` behavior and the
+  Phase 8 HTTP 409 mapping for Careers that have applications.
+- [x] Defined create/update/delete audit events with
+  `resource_type=job_application`, nullable deferred actors, atomic database
+  mutation/audit behavior, and context that excludes applicant PII, note text,
+  cover letters, and resume data.
+- [x] Documented exact existing resume extension validation and the approved
+  private, backend-managed Supabase Storage boundary.
+- [x] Recorded bucket, object path, stored-reference format, private/signed
+  access, signed-URL lifetime, MIME/content inspection, maximum size, and
+  cross-system compensation as Phase 9 storage implementation details because
+  the current repository does not define them.
+- [x] Defined validation, safe errors, automated PostgreSQL/Supabase tests, and
+  manual Swagger/database/storage verification with temporary-data cleanup.
+- [x] Made no implementation, schema, migration, route, repository, service,
+  dependency, test, frontend, or unrelated documentation change.
+
+### Phase 9 implementation
+
+- [x] Added the exact five-operation Job Applications API surface: public
+  `POST /careers/{slug}/apply` plus the finalized Career-scoped admin list and
+  admin detail, PATCH, and hard-delete routes.
+- [x] Added strict multipart create, status/notes PATCH, minimal public receipt,
+  admin list-item, and admin detail response schemas with the five approved
+  statuses and no universal ORM serialization.
+- [x] Added Job Application repository/service/dependency layering with
+  Career-scoped `submitted_at DESC` reads, service-owned commit/rollback
+  boundaries, and no repository commits.
+- [x] Implemented private backend-managed Supabase resume storage using the
+  existing project URL and service-role configuration rather than adding a
+  second storage architecture.
+- [x] Finalized the resume-specific implementation settings as private bucket
+  `job-resumes`, opaque `{application_id}/resume.{ext}` object paths stored in
+  `resume_url`, five-minute signed admin download URLs, and a 5 MiB maximum.
+- [x] Added strict extension/MIME/signature matching for PDF, legacy DOC, and
+  DOCX files, including empty, oversized, mismatched, and malformed rejection.
+- [x] Kept stored resume paths and permanent public URLs out of public responses;
+  admin list/detail responses receive short-lived backend-generated signed URLs.
+- [x] Added upload compensation when database creation fails, storage-first
+  application deletion so storage failure preserves the database row, and
+  cleanup of the stored object before the hard-delete transaction commits.
+- [x] Added safe HTTP handling for missing resources, validation failures,
+  unavailable/unconfigured storage, and persistence failure without returning
+  raw database or storage details.
+- [x] Added atomic create/update/delete audit events using
+  `resource_type=job_application`, nullable actors, and exact safe context that
+  excludes applicant PII, notes, cover letters, resume references, and signed
+  URLs.
+- [x] Preserved Career `ON DELETE RESTRICT`, verified application deletion leaves
+  its Career intact, and added no migration or Career model/lifecycle change.
+- [x] Added focused schema/API/OpenAPI, repository, service, storage, privacy,
+  cleanup, audit, and opt-in PostgreSQL integration coverage.
+- [x] Verified the service lifecycle and the complete FastAPI HTTP lifecycle
+  against the configured Supabase PostgreSQL database under the required
+  Windows Selector event loop, with temporary database data cleaned up.
+- [ ] Live Supabase Storage upload/sign/delete verification remains pending
+  because the current environment has no `SUPABASE_URL` or
+  `SUPABASE_SERVICE_ROLE_KEY`; the API returns a safe HTTP 503 while storage is
+  unconfigured. The private `job-resumes` bucket must exist before deployment.
+- [ ] Authentication and authorization remain deferred to the approved auth
+  phase; no fake authentication was added.
+
+### Temporary Phase 9 verification adjustment
+
+- [x] Temporarily made the public `resume` multipart field optional so Job
+  Application verification can continue before Supabase resume storage is
+  configured. The finalized product contract still requires a resume once
+  storage is available.
+- [x] Added and applied forward migration `20260925180000` to make
+  `job_applications.resume_url` nullable without rewriting the initial migration;
+  the version was recorded in the Supabase migration ledger.
+- [x] No-resume creation stores a genuine SQL `NULL`, creates no fake URL or
+  storage reference, and performs no upload, signing, or deletion call.
+- [x] Administrative list/detail responses return `resume_url: null` for these
+  temporary no-resume applications; applications that do have stored resume
+  references continue to use the existing signed-access behavior.
+- [x] Verified both no-resume and resume-present lifecycles against the
+  configured Supabase PostgreSQL database with temporary-data cleanup.
+- [ ] When resume storage is ready, restore the required request field and
+  non-null response/model contract, resolve or remove any temporary rows with
+  null resume references, and add a forward migration restoring the database
+  `NOT NULL` constraint.
+
 ## Phase 10 — Our Team documentation preparation
 
 - [x] Reviewed the existing Team Member ORM model, initial Supabase migration,
@@ -403,6 +508,20 @@ Existing public Blog GET behavior remains unchanged.
 ## Validation
 
 ```text
+399 tests passed, 8 opt-in integration tests skipped in the default suite
+117 focused optional-resume/schema/model/migration/Phase 9 tests passed
+Temporary no-resume PostgreSQL HTTP lifecycle -> passed with cleanup
+Existing resume-present PostgreSQL lifecycle  -> passed with cleanup
+55 focused Job Application tests passed, 2 opt-in integration tests skipped
+Real Job Application PostgreSQL service lifecycle -> passed with cleanup
+Real Job Application FastAPI HTTP lifecycle       -> passed with cleanup
+Phase 9 OpenAPI exact five-operation surface      -> verified
+Phase 9 public/admin response separation          -> verified
+Phase 9 status/notes PATCH contract               -> verified
+Phase 9 private signed resume access contract     -> verified with mock Storage
+Phase 9 upload/delete cleanup behavior            -> verified
+Phase 9 create/update/delete safe audit context   -> verified
+Python compileall after Phase 9                    -> passed
 339 tests passed, 6 opt-in integration tests skipped in the default suite
 83 focused Career tests passed, 1 opt-in integration test skipped
 Real Career PostgreSQL lifecycle/restricted-delete integration test -> 1 passed
@@ -482,16 +601,24 @@ Python compileall after Phase 10           -> passed
   on this machine; verification used the configured hosted Supabase database.
 - RLS policies are intentionally not created because direct-client access rules are not approved.
 - The final error contract remains a later phase.
-- Supabase Auth and Storage clients are not configured.
-- Storage bucket names and policies remain Phase 13 decisions.
+- Supabase Auth remains unconfigured. The Phase 9 Supabase resume-storage
+  adapter is implemented, but the current environment has no Supabase URL or
+  service-role key and live private-bucket verification therefore remains
+  pending.
+- General storage buckets and policies remain Phase 13 decisions. Phase 9 uses
+  the resume-specific private `job-resumes` bucket, opaque stored references,
+  five-minute signed access, 5 MiB limit, content inspection, and compensating
+  cleanup defined by the finalized implementation.
 - External integrations are not initialized.
 - Resource APIs and business workflows other than Blogs, Case Studies,
-  Careers, Team Members, and Contact Submissions are not implemented.
+  Careers, Job Applications, Team Members, and Contact Submissions are not
+  implemented.
 - Docker and AWS deployment are not configured.
 
 The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Phases 6, 7, 8, 10, and 11 are complete. The next unimplemented roadmap work is
-Phase 9 — Job Applications; it requires a separate approved task.
+Phases 6, 7, 8, 9, 10, and 11 are implemented. Phase 9 still requires deployment
+configuration and live verification of the private `job-resumes` Supabase
+Storage bucket; authentication/authorization remains assigned to its later phase.

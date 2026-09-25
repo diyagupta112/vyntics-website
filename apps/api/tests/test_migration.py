@@ -38,6 +38,18 @@ def _team_visibility_migration() -> Path:
     return migration
 
 
+def _optional_job_resume_migration() -> Path:
+    repository_root = Path(__file__).resolve().parents[3]
+    migration = (
+        repository_root
+        / "supabase"
+        / "migrations"
+        / "20260925180000_allow_job_application_without_resume.sql"
+    )
+    assert migration.is_file()
+    return migration
+
+
 def test_initial_migration_creates_only_approved_tables() -> None:
     sql = _initial_migration().read_text(encoding="utf-8").lower()
     created_tables = {
@@ -89,3 +101,13 @@ def test_team_visibility_forward_migration_is_narrow() -> None:
     assert "add column" not in sql
     assert "create table" not in sql
     assert "display_order" not in sql
+
+
+def test_optional_job_resume_forward_migration_is_narrow() -> None:
+    sql = _optional_job_resume_migration().read_text(encoding="utf-8").lower()
+
+    assert "alter table public.job_applications" in sql
+    assert "alter column resume_url drop not null" in sql
+    assert "create table" not in sql
+    assert "drop column" not in sql
+    assert "career_id" not in sql

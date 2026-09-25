@@ -38,7 +38,7 @@ class JobApplication(Base):
     name: Mapped[str] = mapped_column(Text, nullable=False)
     email: Mapped[str] = mapped_column(Text, nullable=False)
     phone: Mapped[str] = mapped_column(Text, nullable=False)
-    resume_url: Mapped[str] = mapped_column(Text, nullable=False)
+    resume_url: Mapped[str | None] = mapped_column(Text)
     cover_letter: Mapped[str | None] = mapped_column(Text)
     status: Mapped[str] = mapped_column(
         Text,

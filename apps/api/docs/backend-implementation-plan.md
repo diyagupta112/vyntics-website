@@ -1810,20 +1810,364 @@ Phase 8 does not include:
 
 ## Phase 9 --- Job Applications
 
--   [ ] Application model.
--   [ ] Multipart handling.
--   [ ] Applicant validation.
--   [ ] Resume extension validation.
--   [ ] Resume MIME/content validation.
--   [ ] File-size limits.
--   [ ] Slug-to-job resolution.
--   [ ] Career-existence eligibility check; no separate open/status field.
--   [ ] Backend-managed storage.
--   [ ] Application creation.
--   [ ] Initial status `new`.
--   [ ] Prevent client-controlled internal fields.
--   [ ] Upload failure cleanup/transaction behavior.
--   [ ] Tests for valid, invalid, oversized, and missing/deleted-Career applications.
+-   [ ] Preserve the existing Job Application model and Career relationship.
+-   [ ] Add the public multipart application-submission operation.
+-   [ ] Add the Career-scoped administrative list operation.
+-   [ ] Add administrative detail, partial-update, and hard-delete operations.
+-   [ ] Add the exact public receipt, admin list-item, admin detail, and PATCH schemas defined below.
+-   [ ] Enforce the five-value Job Application status lifecycle.
+-   [ ] Validate applicant data and resume filename extensions.
+-   [ ] Finalize and implement the deferred Supabase Storage details identified below.
+-   [ ] Prevent client control of backend-managed and administrative fields.
+-   [ ] Add create, update, and delete audit logging with safe metadata only.
+-   [ ] Add repository/service/dependency layers with service-owned transaction boundaries.
+-   [ ] Add schema, repository, service, API/OpenAPI, storage, audit, and PostgreSQL integration tests.
+
+### Phase 9 Product and Database Decision
+
+Job Applications are a separate API family from Career CRUD. Career operations
+continue to create, read, update, and delete Career records. Phase 9 owns public
+application submission and administrative application management.
+
+The existing `job_applications` table and ORM model contain exactly:
+
+- `id`
+- `career_id`
+- `name`
+- `email`
+- `phone`
+- `resume_url`
+- `cover_letter`
+- `status`
+- `notes`
+- `submitted_at`
+
+Do not add creation/update timestamps, ownership columns, soft-delete fields, or
+a Career availability field. An existing Career is open and available; a
+deleted Career is unavailable.
+
+The existing `career_id` foreign key uses `ON DELETE RESTRICT`. Applications
+must never be cascade-deleted with a Career. A Career with any related Job
+Application cannot be deleted and continues to use the Phase 8 HTTP `409`
+mapping. Hard-deleting a Job Application does not modify or delete its Career.
+
+### Status Lifecycle
+
+The complete and exclusive Job Application status set is:
+
+- `new` --- submitted and not yet reviewed;
+- `reviewing` --- actively under administrative review;
+- `shortlisted` --- moved forward in the recruitment process;
+- `rejected` --- rejected;
+- `hired` --- selected or hired.
+
+`new` is the initial status for every public submission. Only an
+authenticated/authorized Admin Panel user may change status once the deferred
+authentication phase is implemented. Public applicants never provide or change
+status. Do not add any other status or infer transition restrictions beyond the
+five allowed stored values.
+
+Phase 9 implementation must enforce this status set at the request/service
+boundary. The current database column remains non-null with its existing
+`new` default; this documentation-only contract does not alter the migration or
+model.
+
+### Phase 9 API Surface and Authentication Boundary
+
+Public:
+
+- `POST /careers/{slug}/apply`
+
+Administrative intent:
+
+- `GET /admin/careers/{career_id}/applications`
+- `GET /admin/job-applications/{id}`
+- `PATCH /admin/job-applications/{id}`
+- `DELETE /admin/job-applications/{id}`
+
+The public submission remains unauthenticated. The four Admin Panel operations
+contain private applicant data and must be protected when the approved
+authentication/authorization phase is implemented. Phase 9 must not add fake
+authentication, temporary credentials, or provisional role checks. No public
+read endpoint for Job Applications is permitted.
+
+### Public Submission Contract
+
+#### `POST /careers/{slug}/apply`
+
+Accept `multipart/form-data` with exactly these applicant-controlled fields:
+
+- `name` --- required string;
+- `email` --- required valid email;
+- `phone` --- required string;
+- `resume` --- required uploaded file;
+- `cover_letter` --- optional nullable string.
+
+The request must reject `career_id`, `status`, `submitted_at`, `resume_url`,
+`notes`, IDs, creation/update timestamps, ownership fields, and every other
+undeclared field. The existing schema defines `name` and `phone` as required
+plain strings and `cover_letter` as an optional plain string; it establishes no
+trimming, non-empty, phone-format, maximum-length, or cover-letter-content rule.
+Do not invent those validations during Phase 9 without a separate decision.
+
+Processing order and outcome:
+
+1. Resolve `{slug}` through the existing exact, case-sensitive Career slug lookup.
+2. Return HTTP `404 Not Found` with `{"detail": "Career not found."}` if no Career exists.
+3. Treat an existing Career as open and available; do not inspect or add a status flag.
+4. Validate applicant data and the resume.
+5. Store the private resume through backend-managed Supabase Storage behavior.
+6. Create the Job Application with the resolved `career_id`, stored resume
+   reference, initial status `new`, `notes=null`, and backend/database-generated
+   `id` and `submitted_at`.
+7. Create the safe application `create` audit event in the database transaction.
+8. Return HTTP `201 Created` with the public receipt defined below.
+
+The narrow public receipt contains exactly:
+
+- `id`
+- `status` --- always the literal `new` for this response
+- `submitted_at`
+
+It intentionally omits `career_id`, all applicant data, `resume_url`,
+`cover_letter`, `notes`, audit data, ownership data, and storage internals. The
+Career is already identified by the request slug, so the internal foreign key is
+not repeated publicly.
+
+### Resume Validation and Storage Boundary
+
+The existing request schema performs a case-insensitive filename-suffix check
+and accepts exactly:
+
+- `.pdf`
+- `.doc`
+- `.docx`
+
+The existing schema does not yet validate MIME/content type, file signatures,
+file size, or malicious content. Phase 9 must validate the file beyond its name,
+but the exact MIME/content allowlist and inspection mechanism remain storage and
+security implementation details because the repository does not define them.
+No maximum file size is currently approved; do not invent one in documentation.
+
+Supabase Storage is the approved provider. Resumes are private, uploads are
+backend-managed, and `resume_url` stores the backend's storage reference. It
+must not be exposed by a public endpoint or treated as an automatically public
+URL. The Admin Panel must be able to open a resume through authenticated backend
+behavior.
+
+The exact bucket name, object path/naming convention, stored reference format,
+signed/private access mechanism, signed-URL lifetime, and maximum size are not
+defined. These must be finalized as Phase 9 storage implementation details in
+alignment with Phase 13's storage abstraction and private-CV requirements; they
+must not be replaced with another storage architecture.
+
+Submission must not create a database row when upload fails. If an upload
+succeeds but database creation fails, implementation must compensate so the
+uploaded object is not orphaned. A delete must not report success until the
+application record and its stored resume have both been handled without leaving
+an orphan. The exact cross-system sequencing and compensation strategy must be
+finalized with the storage details and tested for failure paths.
+
+### Admin List Contract
+
+#### `GET /admin/careers/{career_id}/applications`
+
+Return every Job Application belonging to the Career UUID, ordered by
+`submitted_at DESC`. The response is an unpaginated JSON array, matching the
+existing administrative-list convention; Phase 9 must not introduce a new
+pagination framework. An existing Career with no applications returns HTTP 200
+with `[]`.
+
+The list item contains exactly:
+
+- `id`
+- `name`
+- `email`
+- `phone`
+- `status`
+- `submitted_at`
+- `resume_url`
+
+This provides every required Admin Panel table value without a detail request
+per row. It omits `career_id` because the route scopes the result, and omits
+`cover_letter` and `notes` because they belong in detail. `resume_url` is an
+administrative resume reference/link produced through the finalized private
+storage-access behavior, not permission for direct public storage access.
+
+Return HTTP `404 Not Found` with `{"detail": "Career not found."}` when
+`career_id` identifies no Career. An invalid UUID uses FastAPI's standard HTTP
+`422` validation response.
+
+### Admin Detail Contract
+
+#### `GET /admin/job-applications/{id}`
+
+Return the administrative detail response containing exactly:
+
+- `id`
+- `career_id`
+- `name`
+- `email`
+- `phone`
+- `resume_url`
+- `cover_letter`
+- `status`
+- `notes`
+- `submitted_at`
+
+`cover_letter` and `notes` may be `null`. The response exposes no audit data,
+storage credentials, ownership fields, or fields absent from the current model.
+Return HTTP `404 Not Found` with `{"detail": "Job Application not found."}`
+when the application does not exist. An invalid UUID receives the standard HTTP
+`422` response.
+
+### Admin Partial-Update Contract
+
+#### `PATCH /admin/job-applications/{id}`
+
+Only these fields are accepted:
+
+- `status` --- optional by omission, non-null, and restricted to the five approved values;
+- `notes` --- optional by omission and nullable string.
+
+Omitted fields retain their stored values. Explicit `status: null` is invalid
+because the database column is non-null. Explicit `notes: null` clears the
+notes. The repository establishes no trimming, non-empty, or maximum-length
+rule for notes, so Phase 9 must not invent one. An empty JSON object is a valid
+no-op PATCH and returns the unchanged detail response.
+
+Reject `career_id`, `submitted_at`, `resume_url`, applicant name, email, phone,
+cover letter, application ID, timestamps, ownership/internal fields, and every
+other undeclared field through the strict request-schema convention.
+
+Success returns HTTP 200 with the exact administrative detail response. A
+missing application returns HTTP `404` with
+`{"detail": "Job Application not found."}`. Invalid UUIDs, invalid status
+values, explicit null status, and undeclared fields use FastAPI's standard HTTP
+`422` response. Persist the update and its safe audit event atomically.
+
+### Admin Hard-Delete Contract
+
+#### `DELETE /admin/job-applications/{id}`
+
+Hard-delete the Job Application and handle its private stored resume so no
+orphaned resume remains. Do not add soft deletion. Do not delete or modify the
+associated Career.
+
+Success returns HTTP `204 No Content` with an empty body. A missing application
+returns HTTP `404` with `{"detail": "Job Application not found."}`. An invalid
+UUID receives the standard HTTP `422` response. Preserve the safe delete audit
+record after the application row is removed. Storage deletion failure must be
+handled without exposing storage internals or falsely returning success; the
+exact compensation behavior is part of the deferred Phase 9 storage decision.
+
+### Response Schema Summary
+
+Phase 9 must define four distinct strict response contracts:
+
+1. Public submission receipt: `id`, `status`, `submitted_at`.
+2. Admin list item: `id`, `name`, `email`, `phone`, `status`, `submitted_at`, `resume_url`.
+3. Admin detail: `id`, `career_id`, `name`, `email`, `phone`, `resume_url`,
+   `cover_letter`, `status`, `notes`, `submitted_at`.
+4. Admin update response: the same exact schema as admin detail.
+
+Do not serialize the ORM model directly as a universal response. Public output
+must not contain applicant data, administrative notes, or the private resume
+reference. List output must not contain cover letters or notes.
+
+### Audit Contract
+
+Create audit records for application `create`, `update`, and `delete` using:
+
+- `resource_type="job_application"`;
+- `resource_id` equal to the Job Application UUID;
+- nullable `actor_id` and `actor_email` while authentication is deferred;
+- safe context only.
+
+Create context contains exactly `career_id` (serialized as a string) and
+`status`. Update context contains exactly `career_id` (serialized as a string),
+the resulting `status`, and sorted `changed_fields`; it must never contain the
+notes value. Delete context contains exactly `career_id` (serialized as a
+string) and the last stored `status`. Never put applicant name, email, phone,
+cover-letter content, resume contents, resume file data, a resume reference,
+storage credentials, or a signed access token in audit context. Database
+mutation and audit insertion must share the service-owned transaction;
+repositories must not commit.
+
+### Error Contract
+
+- Missing Career on submission or Career-scoped listing: HTTP `404` with the
+  standard FastAPI detail shape.
+- Missing Job Application on detail, PATCH, or DELETE: HTTP `404` with the
+  standard FastAPI detail shape.
+- Invalid email, missing required multipart fields, invalid UUID, invalid
+  status, explicit null status, undeclared fields, or rejected resume:
+  HTTP `422` using the standard validation shape where FastAPI/Pydantic owns
+  validation.
+- There is no duplicate-application or other uniqueness/conflict rule in the
+  current model, so Phase 9 must not invent HTTP `409` behavior for duplicates.
+- Database, upload, private-access, and storage-cleanup failures must be mapped
+  to safe responses, rolled back/compensated where applicable, and never expose
+  raw exceptions, SQL, constraint names, stack traces, bucket details, object
+  paths, credentials, or storage-provider internals. The repository does not
+  establish one exact project-wide status code or error body for these
+  infrastructure failures; finalize that mapping during implementation rather
+  than inventing it in this contract.
+
+### Automated Testing Contract
+
+Use the existing PostgreSQL/Supabase testing approach; do not introduce SQLite.
+Add tests for:
+
+1. successful multipart submission and exact public receipt;
+2. exact case-sensitive Career slug resolution;
+3. missing Career `404` behavior;
+4. required applicant fields and valid email enforcement;
+5. accepted resume filename extensions, case-insensitive suffixes, invalid
+   filenames, unsupported types, and finalized MIME/content/size behavior;
+6. backend-generated `id`, initial `new` status, and `submitted_at`;
+7. rejection of client-controlled `career_id`, status, timestamps,
+   `resume_url`, notes, IDs, and other undeclared fields;
+8. upload failure, database failure after upload, and orphan cleanup behavior;
+9. Career-scoped listing, `submitted_at DESC` ordering, empty `[]`, exact list
+   fields, no unnecessary detail fields, and no per-row detail dependency;
+10. admin detail success, exact nullable fields, missing `404`, and invalid UUID;
+11. all five accepted statuses and rejection of every other status;
+12. status update, notes update, explicit notes clearing, omitted-field
+    preservation, empty PATCH, explicit null-status rejection, and rejection of
+    every non-editable field;
+13. update atomicity and safe update audit context;
+14. hard-delete success with an empty 204 body, missing `404`, resume cleanup,
+    storage failure behavior, and surviving safe delete audit event;
+15. create audit behavior with nullable actor fields and no private data;
+16. deleting an application leaves its Career unchanged;
+17. a Career with applications remains protected by `ON DELETE RESTRICT` and
+    the established Phase 8 HTTP `409` response;
+18. public endpoints expose no admin-only information;
+19. generated OpenAPI contains exactly the five Phase 9 operations and their
+    distinct request/response schemas.
+
+### Manual Swagger and Supabase Verification
+
+After automated tests pass, verify against the configured PostgreSQL/Supabase
+environment:
+
+1. create a temporary Career;
+2. submit valid multipart applications through
+   `POST /careers/{slug}/apply` and confirm the minimal receipt;
+3. verify missing-Career, invalid-email, missing-field, and invalid-resume errors;
+4. verify `GET /admin/careers/{career_id}/applications` returns every table
+   field newest-first without per-row detail calls;
+5. verify admin detail returns the cover letter, notes, Career reference, and a
+   usable private resume reference/access mechanism;
+6. PATCH status through the approved lifecycle values and update/clear notes;
+7. verify invalid statuses and non-editable fields are rejected;
+8. verify create/update/delete audit events contain safe metadata only;
+9. verify deleting a Career with applications still returns the established
+   conflict and preserves all applications;
+10. hard-delete an application, confirm HTTP 204 with an empty body, confirm its
+    Career remains, and confirm its uploaded resume is not orphaned;
+11. clean up every temporary database row and uploaded test object.
 
 ------------------------------------------------------------------------
 

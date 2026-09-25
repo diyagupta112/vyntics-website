@@ -91,6 +91,7 @@ def test_job_application_relationship_restricts_career_deletion() -> None:
     assert Career.applications.property.back_populates == "career"
     assert Career.applications.property.passive_deletes == "all"
     assert str(JobApplication.__table__.c.status.server_default.arg) == "'new'"
+    assert JobApplication.__table__.c.resume_url.nullable is True
 
 
 def test_admin_managed_foreign_keys_reference_admin_users() -> None:

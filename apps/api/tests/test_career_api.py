@@ -224,5 +224,6 @@ def test_openapi_exposes_exact_five_operations_and_request_schemas(career_api) -
     assert paths["/careers"]["post"]["requestBody"]["content"]["application/json"]["schema"]["$ref"].endswith("/CareerCreateRequest")
     assert paths["/careers/{career_id}"]["patch"]["requestBody"]["content"]["application/json"]["schema"]["$ref"].endswith("/CareerUpdateRequest")
     assert "/admin/careers" not in paths
-    assert "/careers/{slug}/apply" not in paths
+    assert set(paths["/careers/{slug}/apply"]) == {"post"}
+    assert paths["/careers/{slug}/apply"]["post"]["tags"] == ["job applications"]
     assert "put" not in paths["/careers/{career_id}"]

@@ -61,6 +61,9 @@ def test_settings_load_from_environment(monkeypatch) -> None:
     assert settings.supabase_project_id == "example-project"
     assert settings.auth_allowed_email_domain == "vyntics.com"
     assert settings.storage_provider == "supabase"
+    assert settings.job_resumes_bucket == "job-resumes"
+    assert settings.resume_signed_url_ttl_seconds == 300
+    assert settings.resume_max_bytes == 5 * 1024 * 1024
     assert settings.resend_api_key is not None
     assert settings.sentry_dsn is not None
     assert "example-service-key" not in repr(settings)

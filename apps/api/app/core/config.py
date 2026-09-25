@@ -79,6 +79,20 @@ class Settings(BaseSettings):
         default="supabase",
         validation_alias="STORAGE_PROVIDER",
     )
+    job_resumes_bucket: str = Field(
+        default="job-resumes",
+        validation_alias="STORAGE_JOB_RESUMES_BUCKET",
+    )
+    resume_signed_url_ttl_seconds: int = Field(
+        default=300,
+        gt=0,
+        validation_alias="STORAGE_RESUME_SIGNED_URL_TTL_SECONDS",
+    )
+    resume_max_bytes: int = Field(
+        default=5 * 1024 * 1024,
+        gt=0,
+        validation_alias="STORAGE_RESUME_MAX_BYTES",
+    )
 
     # External integrations
     resend_api_key: SecretStr | None = Field(

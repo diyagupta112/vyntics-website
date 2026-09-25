@@ -308,6 +308,16 @@ def test_job_application_accepts_required_fields_and_optional_cover_letter() -> 
     assert request_with_letter.cover_letter == "I would like to apply."
 
 
+def test_job_application_temporarily_accepts_omitted_resume() -> None:
+    request = JobApplicationCreateRequest(
+        name="Applicant Name",
+        email="applicant@example.com",
+        phone="+1 555 0100",
+    )
+
+    assert request.resume is None
+
+
 @pytest.mark.parametrize(
     "internal_field",
     ["id", "career_id", "status", "submitted_at", "resume_url", "notes"],
