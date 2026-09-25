@@ -1,6 +1,6 @@
 # Backend Progress
 
-**Last updated:** 2026-09-23
+**Last updated:** 2026-09-25
 
 ## Current phase
 
@@ -12,6 +12,9 @@ repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
 Phase 10 — Our Team is implemented and verified through automated schema,
 repository, service, API, OpenAPI, migration, and real Supabase PostgreSQL
 tests.
+Phase 8 — Careers is implemented and verified through schema, repository,
+service, API/OpenAPI, full-suite, live Supabase PostgreSQL, and manual live API
+checks.
 
 ## Phase 1 — FastAPI Bootstrap
 
@@ -247,6 +250,63 @@ Existing public Blog GET behavior remains unchanged.
 - [ ] Authentication and authorization remain deferred to the approved auth
   phase.
 
+## Phase 8 — Careers documentation preparation
+
+- [x] Reviewed the architecture, implementation plan, progress record, Career
+  ORM model, initial Supabase migration, existing public Career schemas, prior
+  resource APIs, audit implementation, and Job Application model/schema.
+- [x] Replaced the former open/close wording with the product decision that a
+  Career's existence means it is open and available.
+- [x] Confirmed there is no Career status, visibility, active, archived,
+  closed, or soft-delete state and that `published_at` is not a lifecycle flag.
+- [x] Defined the exact five-operation Phase 8 API surface: two shared reads
+  and three administrative-intent mutations, with PATCH and no PUT or duplicate
+  admin reads.
+- [x] Defined exact create, partial-update, public list, and public detail
+  fields, including backend-managed field rejection and public ownership-field
+  exclusion.
+- [x] Documented non-null behavior, `{}` omission defaults for `nice_to_have`
+  and `benefits`, and explicit-null rejection for all editable fields.
+- [x] Documented backend-generated, immutable, timezone-aware `published_at`
+  behavior and the frontend's date-only presentation requirement.
+- [x] Documented established slug behavior: surrounding-whitespace trimming,
+  empty-value rejection, otherwise exact preservation, case-sensitive stored
+  matching/uniqueness, and HTTP `409` duplicate handling.
+- [x] Defined `published_at DESC` list ordering, errors, repository/service
+  boundaries, safe atomic audit events with `resource_type=career`, automated
+  tests, and manual Swagger/Supabase verification.
+- [x] Kept Job Applications and `POST /careers/{slug}/apply` in Phase 9.
+- [x] Documented `ON DELETE RESTRICT`: a Career with applications cannot be
+  deleted, applications are never cascade-deleted, and raw integrity errors
+  must never reach clients.
+- [x] Finalized restricted deletion as HTTP `409 Conflict` with the safe detail
+  `Career cannot be deleted while job applications exist.` This is the
+  narrowest mapping for a valid delete request blocked by current relational
+  state and exposes no database details.
+- [x] Added strict Career create and partial-update request schemas, including
+  trimmed non-empty strings, unmodified slug preservation, JSON-object
+  validation, `{}` defaults, explicit-null rejection, and backend-field
+  rejection.
+- [x] Added repository/service layering with all-record reads ordered by
+  `published_at DESC`, exact case-sensitive slug matching, backend-generated
+  `published_at`, preserved update timestamps, and no repository commits.
+- [x] Added shared `GET /careers` and `GET /careers/{slug}` plus unprefixed
+  `POST /careers`, `PATCH /careers/{id}`, and hard-delete
+  `DELETE /careers/{id}`.
+- [x] Added no PUT, duplicate admin reads, fake authentication, lifecycle
+  fields, migration, or Phase 9 application endpoint.
+- [x] Added atomic create/update/delete audit logging with nullable actors,
+  `resource_type=career`, and safe metadata excluding Career content.
+- [x] Added safe `ON DELETE RESTRICT` handling that rolls back the transaction,
+  preserves Job Applications, and hides raw integrity errors.
+- [x] Added focused schema, repository, service, API/OpenAPI, and opt-in
+  PostgreSQL lifecycle/restriction tests.
+- [x] Verified the complete Career lifecycle and restricted deletion against
+  the configured Supabase PostgreSQL database with cleanup.
+- [x] Verified the live FastAPI `/docs`, generated OpenAPI surface, all five
+  operations, response fields, ordering, generated/preserved `published_at`,
+  duplicate slug, restricted delete, missing behavior, and empty 204 bodies.
+
 ## Phase 10 — Our Team documentation preparation
 
 - [x] Reviewed the existing Team Member ORM model, initial Supabase migration,
@@ -343,6 +403,17 @@ Existing public Blog GET behavior remains unchanged.
 ## Validation
 
 ```text
+339 tests passed, 6 opt-in integration tests skipped in the default suite
+83 focused Career tests passed, 1 opt-in integration test skipped
+Real Career PostgreSQL lifecycle/restricted-delete integration test -> 1 passed
+Live Career Swagger/API verification       -> passed with temporary-data cleanup
+Career OpenAPI exact five-operation surface -> verified
+Career list published_at DESC ordering      -> verified
+Career generated/preserved published_at     -> verified
+Career duplicate slug                       -> 409 verified
+Career delete with applications             -> 409; application preserved
+Career successful hard delete               -> 204 with empty body
+Python compileall after Phase 8              -> passed
 256 tests passed, 5 opt-in integration tests skipped in the default suite
 261 tests passed with all configured PostgreSQL integration tests enabled under
 the required Windows Selector event-loop policy
@@ -414,13 +485,13 @@ Python compileall after Phase 10           -> passed
 - Supabase Auth and Storage clients are not configured.
 - Storage bucket names and policies remain Phase 13 decisions.
 - External integrations are not initialized.
-- Resource APIs and business workflows other than Blogs, Case Studies, Team
-  Members, and Contact Submissions are not implemented.
+- Resource APIs and business workflows other than Blogs, Case Studies,
+  Careers, Team Members, and Contact Submissions are not implemented.
 - Docker and AWS deployment are not configured.
 
 The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Phase 10 and Phase 11 are complete. The next unimplemented roadmap work is
-Phase 8 — Careers; it requires a separate approved task.
+Phases 6, 7, 8, 10, and 11 are complete. The next unimplemented roadmap work is
+Phase 9 — Job Applications; it requires a separate approved task.

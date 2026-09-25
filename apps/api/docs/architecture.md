@@ -236,15 +236,22 @@ Responsible for job listings shown on the Vyntics website.
 
 Expected operations include:
 
--   Retrieve currently available jobs
+-   Retrieve all currently available jobs
 -   Retrieve individual job listings
 -   Create job listings
 -   Edit job listings
--   Open/close job listings
+-   Delete job listings that are no longer available
 -   Manage job descriptions and relevant job information
 
 The public website will consume the public-facing career data, while
 authorized Admin Panel users will manage the listings.
+
+A Career record's existence represents that the job is open and available.
+There is no separate open, closed, active, visible, archived, or soft-delete
+state, and `published_at` is not a lifecycle flag. Removing availability is a
+hard delete. A Career that has related Job Applications cannot be deleted;
+the database relationship uses `ON DELETE RESTRICT`, and applications are
+never cascade-deleted with a Career.
 
 ------------------------------------------------------------------------
 
@@ -573,6 +580,7 @@ DELETE /blogs/{id}
 
 POST /careers
 PATCH /careers/{id}
+DELETE /careers/{id}
 
 GET /job-applications
 PATCH /job-applications/{id}

@@ -411,13 +411,13 @@ Validate both extension and MIME/content type as appropriate.
 Backend must:
 
 1.  Resolve the career slug to the internal job.
-2.  Confirm the job exists.
-3.  Confirm it is open/accepting applications.
-4.  Validate applicant data.
-5.  Validate the resume.
-6.  Store the resume through backend-managed storage.
-7.  Create the application.
-8.  Set internal fields.
+2.  Confirm the Career record exists; existence itself means the job is open
+    and accepting applications.
+3.  Validate applicant data.
+4.  Validate the resume.
+5.  Store the resume through backend-managed storage.
+6.  Create the application.
+7.  Set internal fields.
 
 Frontend must not submit:
 
@@ -601,9 +601,10 @@ Support:
 -   audit timestamps
 -   creator/updater references where applicable
 
-Careers intentionally have no status, active, visible, or archived
-column at this stage. The future Admin Panel workflow for removing a
-career from public presentation is not defined by this schema.
+Careers intentionally have no status, active, visible, closed, or archived
+column. A Career record's existence means it is open and publicly available;
+removing it from availability is a hard delete. `published_at` is not a
+lifecycle flag.
 
 ## Job Applications
 
@@ -1417,16 +1418,393 @@ Phase 7 is limited to Case Study schemas, repository, service, routes, audit int
 
 ## Phase 8 --- Careers
 
--   [ ] Career/job model.
--   [ ] Schemas.
--   [ ] Repository.
--   [ ] Service.
--   [ ] `GET /careers`.
--   [ ] `GET /careers/{slug}`.
--   [ ] Public/open-job filtering.
--   [ ] Slug validation.
--   [ ] Closed/non-existent job behavior.
--   [ ] Tests.
+-   [ ] Use the existing Career model and migration without adding lifecycle fields.
+-   [ ] Add the create and partial-update request schemas defined below.
+-   [ ] Use the existing public list and detail response schemas.
+-   [ ] Add repository and service layers.
+-   [ ] Implement the two shared read endpoints and three administrative mutation endpoints defined below.
+-   [ ] Add create, update, and delete audit logging.
+-   [ ] Add schema, repository, service, API/OpenAPI, and PostgreSQL integration tests.
+
+### Phase 8 Product and Lifecycle Decision
+
+A Career has exactly two availability states:
+
+- the Career record exists and is open/available;
+- the Career record has been hard-deleted and is no longer available.
+
+There is no separate closed state. Phase 8 must not add or infer `status`,
+`is_open`, `is_active`, `is_visible`, `visibility`, `archived`, `closed`, soft
+deletion, or any equivalent lifecycle field or behavior. `published_at` is a
+creation/publication timestamp, not an open/closed indicator.
+
+Because every existing Career is available, public website and Admin Panel
+reads share the same two endpoints. Do not add duplicate `/admin/careers` read
+routes.
+
+### Phase 8 API Surface
+
+Shared reads used by both the public website and Admin Panel:
+
+- `GET /careers`
+- `GET /careers/{slug}`
+
+Mutations with administrative intent:
+
+- `POST /careers`
+- `PATCH /careers/{id}`
+- `DELETE /careers/{id}`
+
+This is the complete Phase 8 Career API family. Do not add `PUT`, separate
+admin reads, lifecycle actions, filters, or other Career endpoints.
+Authentication and authorization for mutations are deferred to the approved
+authentication phase. Do not add fake authentication, temporary credentials,
+role checks, or a fabricated administrator identity.
+
+`POST /careers/{slug}/apply` belongs exclusively to Phase 9 and must not be
+implemented as part of Career CRUD.
+
+### Career Fields and Ownership
+
+The existing Career model and database table contain exactly:
+
+- `id`
+- `slug`
+- `title`
+- `location`
+- `employment_type`
+- `department`
+- `experience`
+- `short_description`
+- `description`
+- `responsibilities`
+- `requirements`
+- `nice_to_have`
+- `benefits`
+- `published_at`
+- `created_by`
+- `updated_by`
+- `created_at`
+- `updated_at`
+
+Client-editable fields are `slug`, `title`, `location`, `employment_type`,
+`department`, `experience`, `short_description`, `description`,
+`responsibilities`, `requirements`, `nice_to_have`, and `benefits`.
+
+Backend-managed fields are `id`, `published_at`, `created_by`, `updated_by`,
+`created_at`, and `updated_at`. Requests must reject these fields and every
+other undeclared field through the existing strict request-schema convention.
+`created_by` and `updated_by` remain nullable until real authentication is
+implemented; Phase 8 must not fabricate actor or ownership values.
+
+All twelve client-editable database columns are non-null. `nice_to_have` and
+`benefits` alone may be omitted during creation, in which case each uses the
+existing empty JSON-object default (`{}`). Explicit `null` is invalid for every
+client-editable Career field on create and PATCH. During PATCH, omission means
+the stored value remains unchanged.
+
+The field-level contract is:
+
+| Field | Create request | Nullable | Managed by | Public response | PATCH editable |
+| --- | --- | --- | --- | --- | --- |
+| `id` | not accepted | no | backend/database | list and detail | no |
+| `slug` | required | no | client | list and detail | yes |
+| `title` | required | no | client | list and detail | yes |
+| `location` | required | no | client | list and detail | yes |
+| `employment_type` | required | no | client | list and detail | yes |
+| `department` | required | no | client | list and detail | yes |
+| `experience` | required | no | client | list and detail | yes |
+| `short_description` | required | no | client | list and detail | yes |
+| `description` | required | no | client | detail only | yes |
+| `responsibilities` | required | no | client | detail only | yes |
+| `requirements` | required | no | client | detail only | yes |
+| `nice_to_have` | optional; defaults to `{}` | no | client/default | detail only | yes |
+| `benefits` | optional; defaults to `{}` | no | client/default | detail only | yes |
+| `published_at` | not accepted; generated | no | backend | list and detail | no |
+| `created_by` | not accepted | yes | backend/auth | not returned | no |
+| `updated_by` | not accepted | yes | backend/auth | not returned | no |
+| `created_at` | not accepted; generated | no | database | not returned | no |
+| `updated_at` | not accepted; generated | no | database | not returned | no |
+
+### Response Contracts
+
+Phase 8 uses the established public Career response schemas for every read and
+successful mutation. Do not add an administrative response schema and do not
+expose ownership or administrative timestamp fields.
+
+The list response is the existing `CareerListResponse` envelope
+`{"data": [...]}`. Each `CareerListItem` contains exactly `id`, `slug`,
+`title`, `location`, `employment_type`, `department`, `experience`,
+`short_description`, and `published_at`.
+
+The existing `CareerDetailResponse`, used by detail, create, and update,
+contains exactly `id`, `slug`, `title`, `location`, `employment_type`,
+`department`, `experience`, `short_description`, `description`,
+`responsibilities`, `requirements`, `nice_to_have`, `benefits`, and
+`published_at`.
+
+No Career response exposes `created_by`, `updated_by`, `created_at`, or
+`updated_at` in Phase 8.
+
+### Shared Career Read Endpoints
+
+#### `GET /careers`
+
+- Return every existing Career record; existence itself represents current availability.
+- Apply no status, open, visibility, or other lifecycle filter.
+- Order results by `published_at DESC`.
+- Return the existing `CareerListResponse` envelope and `CareerListItem` fields defined above.
+- Do not add pagination, searching, filtering, query parameters, or client-selected sorting.
+
+#### `GET /careers/{slug}`
+
+- Resolve a Career by its stored slug and return the existing `CareerDetailResponse`.
+- Return HTTP `404 Not Found` with the standard FastAPI `{"detail": "..."}` shape when no Career has the supplied slug.
+- There is no closed-Career response state. A removed Career no longer exists and therefore returns `404`.
+
+### Create Contract
+
+#### `POST /careers`
+
+The JSON request contains these required fields:
+
+- `slug` — string;
+- `title` — string;
+- `location` — string;
+- `employment_type` — string;
+- `department` — string;
+- `experience` — string;
+- `short_description` — string;
+- `description` — JSON object;
+- `responsibilities` — JSON object;
+- `requirements` — JSON object.
+
+The request may also contain:
+
+- `nice_to_have` — optional JSON object; omission produces `{}`;
+- `benefits` — optional JSON object; omission produces `{}`.
+
+Neither optional field is nullable. Supplying `null` is invalid.
+
+Success behavior:
+
+- Return HTTP `201 Created` with the exact `CareerDetailResponse`.
+- Generate `id`, `published_at`, `created_at`, and `updated_at` in the backend or database according to the existing architecture.
+- Keep `created_by` and `updated_by` backend-managed and nullable while authentication is deferred.
+- Reject client-supplied backend-managed or undeclared fields.
+- Enforce unique slugs and return HTTP `409 Conflict` for a duplicate using the standard FastAPI `{"detail": "..."}` error shape.
+- Create the Career and its `create` audit event atomically.
+
+### Partial Update Contract
+
+#### `PATCH /careers/{id}`
+
+Every client-editable field is optional in the partial-update request:
+
+- `slug`
+- `title`
+- `location`
+- `employment_type`
+- `department`
+- `experience`
+- `short_description`
+- `description`
+- `responsibilities`
+- `requirements`
+- `nice_to_have`
+- `benefits`
+
+Behavior:
+
+- Omitted fields retain their existing values.
+- Explicit `null` is rejected for every editable field because all underlying columns are non-null.
+- Empty JSON objects remain valid values for all structured-content fields; no more specific nested content structure is established.
+- The Career UUID is supplied through the path and must not appear in the request body.
+- `published_at`, ownership fields, administrative timestamps, and undeclared fields are rejected.
+- Return HTTP `200 OK` with the exact `CareerDetailResponse`.
+- Return HTTP `404 Not Found` when the UUID does not identify a Career.
+- Return HTTP `409 Conflict` when a changed slug belongs to another Career; retaining the Career's own slug is allowed.
+- Let FastAPI return its standard HTTP `422` response for invalid UUIDs or invalid request data.
+- Create the Career update and its `update` audit event atomically.
+
+Do not add a `PUT` endpoint.
+
+### `published_at` Contract
+
+`published_at` remains the existing non-null, timezone-aware PostgreSQL
+`TIMESTAMPTZ`/API datetime value. It is backend-managed:
+
+- the backend automatically sets it to the current timezone-aware timestamp when the Career is created;
+- the client cannot supply it during creation;
+- the client cannot supply or change it through PATCH;
+- every update preserves the existing value;
+- it is not an open/closed, status, visibility, or application-eligibility flag.
+
+The public and Admin Panel frontends should format this timestamp as a
+date-only label such as `September 23, 2026`. They should not display the time,
+seconds, timezone, or raw ISO timestamp. This is presentation behavior only;
+the database column and API field must remain a timestamp and must not change
+to `DATE`.
+
+### Slug and Field Validation
+
+Career validation follows the established Blog and Case Study request-schema convention:
+
+- trim leading and trailing whitespace from `slug` and every other required string field;
+- reject an empty or whitespace-only string;
+- preserve the trimmed slug exactly as supplied: do not lowercase it, generate it from the title, replace internal whitespace, add separators, or perform any other normalization;
+- internal whitespace is preserved;
+- slug lookup and uniqueness use the stored PostgreSQL `text` value, so values that differ only by letter case are distinct under the existing contract;
+- enforce the existing unique database constraint;
+- return HTTP `409 Conflict` for duplicate slugs on create or update, using the standard FastAPI error shape;
+- validate `description`, `responsibilities`, `requirements`, `nice_to_have`, and `benefits` as JSON objects;
+- do not invent enum values for `employment_type`, `department`, `experience`, or other unrestricted `text` columns;
+- do not invent maximum lengths or a more specific structured-content format.
+
+### Error Handling
+
+Use the existing FastAPI conventions:
+
+- missing Career detail, update, or delete returns HTTP `404` with
+  `{"detail": "Career not found."}`;
+- duplicate slug on create or update returns HTTP `409` with
+  `{"detail": "A Career with this slug already exists."}`;
+- invalid UUID path values and invalid request bodies use FastAPI's standard
+  HTTP `422` validation response;
+- database exception details are never returned to the client.
+
+The restricted-delete integrity mapping is the one explicit unresolved item
+described in the delete contract below; do not reuse or invent a response
+without finalizing that implementation decision.
+
+### Delete Contract
+
+#### `DELETE /careers/{id}`
+
+- Perform a hard delete.
+- Return HTTP `204 No Content` with no response body after successful deletion.
+- Return HTTP `404 Not Found` when the UUID does not identify a Career.
+- Let FastAPI return HTTP `422` for an invalid UUID path value.
+- Do not implement soft deletion or a replacement lifecycle field.
+- Do not delete, detach, or otherwise mutate related Job Applications.
+
+The existing `job_applications.career_id` foreign key is non-null and uses
+`ON DELETE RESTRICT`. Therefore a Career with one or more related Job
+Applications cannot be deleted, and Job Applications must never be
+cascade-deleted as a consequence of Career deletion.
+
+The backend currently has an established HTTP `409 Conflict` mapping for
+unique-slug integrity conflicts, but it has no established mapping for an
+`ON DELETE RESTRICT` integrity conflict. The exact HTTP status/detail mapping
+for this restricted-delete case is an explicit Phase 8 implementation decision
+that must be finalized before the route is implemented. Regardless of the
+chosen mapping, the service must roll back safely and the API must never expose
+raw SQL, constraint names, database exception text, credentials, or stack
+traces.
+
+### Audit Logging
+
+Every successful Career mutation creates an audit record in the same transaction as the mutation:
+
+- `POST /careers` uses action `create`;
+- `PATCH /careers/{id}` uses action `update`;
+- `DELETE /careers/{id}` uses action `delete`;
+- `resource_type` is `career`;
+- `resource_id` is the Career UUID;
+- `actor_id` and `actor_email` remain `null` until authentication supplies a real actor;
+- context may contain safe metadata such as the Career slug, department, employment type, and changed field names;
+- context must not contain full descriptions, responsibilities, requirements, nice-to-have content, benefits, credentials, tokens, applicant information, or other sensitive/private content.
+
+The service owns the mutation and audit transaction. Audit failure rolls back
+the mutation. A restricted or otherwise failed deletion must not commit a
+delete audit event.
+
+### Repository and Service Architecture
+
+Use the established layering:
+
+```text
+FastAPI route
+  -> Career service
+    -> Career repository
+      -> AsyncSession
+```
+
+- Routes own HTTP input/output and dependency injection.
+- The repository performs SQLAlchemy queries and stages persistence changes without committing.
+- The service applies Career rules, conflict handling, audit logging, and commit/rollback boundaries.
+- Use the existing asynchronous engine, session dependency, and lifecycle.
+- Supabase SQL migrations remain the sole migration source of truth. The existing schema supports this contract; Phase 8 requires no migration.
+
+### Phase 8 Testing Requirements
+
+Automated tests must cover at least:
+
+1. `GET /careers` returns all existing Careers.
+2. `GET /careers` orders Careers by `published_at DESC`.
+3. `GET /careers/{slug}` returns an existing Career.
+4. A missing detail slug returns `404`.
+5. `POST /careers` creates a Career and returns `201` with the exact detail response.
+6. Creation automatically sets a timezone-aware `published_at`.
+7. Create rejects client control of `published_at`.
+8. PATCH preserves `published_at`.
+9. PATCH rejects client attempts to modify `published_at`.
+10. Omitted `nice_to_have` and `benefits` become `{}`, while explicit `null` is rejected.
+11. Required strings, strict fields, JSON-object fields, and explicit-null behavior match this contract.
+12. Duplicate slugs return `409` on create and update, while an unchanged slug remains valid.
+13. PATCH updates every editable field and returns `200` with the exact detail response.
+14. PATCH preserves every omitted field.
+15. PATCH returns `404` for a missing Career.
+16. DELETE hard-deletes a Career with no applications.
+17. Successful DELETE returns `204` with no response body.
+18. DELETE returns `404` for a missing Career.
+19. Deleting a Career with related Job Applications is rejected safely using the Phase 8 mapping once finalized; no raw database error is exposed and no Job Application is deleted.
+20. Successful create, update, and delete operations create the required safe, atomic audit events; failed mutations do not.
+21. Job Applications and `POST /careers/{slug}/apply` remain separate and untouched.
+
+Also test invalid UUID paths, exact public response-field exposure, slug
+trimming/preservation behavior, rejection of backend-managed and unknown
+fields, service rollback, and repository non-commit behavior.
+
+Use the established test isolation and the opt-in PostgreSQL/Supabase
+integration approach. Do not substitute SQLite for PostgreSQL-specific
+behavior, especially uniqueness and `ON DELETE RESTRICT`. Do not claim real
+database verification unless it actually succeeds.
+
+### Manual Swagger and Supabase Verification
+
+After Phase 8 implementation and automated tests pass:
+
+1. Verify the exact five-operation Career surface in generated OpenAPI/Swagger.
+2. Create a Career through `POST /careers` without `published_at`.
+3. Confirm the response is `201`, the Career exists in Supabase, and `published_at` was generated as a timezone-aware timestamp.
+4. Confirm the Career appears in `GET /careers` and can be retrieved through `GET /careers/{slug}`.
+5. Create multiple Careers and confirm `GET /careers` uses `published_at DESC` ordering.
+6. Update a Career through `PATCH /careers/{id}` and confirm omitted fields and `published_at` are preserved.
+7. Confirm Swagger does not allow `published_at` in create or PATCH requests.
+8. Exercise a duplicate-slug create or update and confirm the documented `409` response without database details.
+9. Confirm missing detail, update, and delete behavior.
+10. Delete a Career without applications and confirm `204`, an empty response body, removal from Supabase, and the safe audit row.
+11. Where practical, create or use a related Job Application and confirm the Career deletion is rejected safely without deleting the application or exposing a raw integrity error.
+
+Do not add Swagger-only or testing-only bypass behavior. Do not claim this
+manual sequence was completed until it was actually performed.
+
+### Phase 8 Scope Boundaries
+
+Phase 8 does not include:
+
+- authentication, authorization, fake authentication, or role checks;
+- `POST /careers/{slug}/apply` or any other Job Application endpoint;
+- Job Application model, schema, repository, service, storage, status, or workflow changes;
+- lifecycle/status/visibility fields or behaviors;
+- soft deletion or cascade deletion of Job Applications;
+- separate admin Career reads;
+- `PUT` or other unapproved Career routes;
+- pagination, search, filtering, or configurable sorting;
+- database migrations or model changes;
+- frontend implementation beyond documenting date-only presentation;
+- storage, email, analytics, or unrelated APIs and phases.
 
 ------------------------------------------------------------------------
 
@@ -1439,13 +1817,13 @@ Phase 7 is limited to Case Study schemas, repository, service, routes, audit int
 -   [ ] Resume MIME/content validation.
 -   [ ] File-size limits.
 -   [ ] Slug-to-job resolution.
--   [ ] Open-job check.
+-   [ ] Career-existence eligibility check; no separate open/status field.
 -   [ ] Backend-managed storage.
 -   [ ] Application creation.
 -   [ ] Initial status `new`.
 -   [ ] Prevent client-controlled internal fields.
 -   [ ] Upload failure cleanup/transaction behavior.
--   [ ] Tests for valid/invalid/oversized/closed-job applications.
+-   [ ] Tests for valid, invalid, oversized, and missing/deleted-Career applications.
 
 ------------------------------------------------------------------------
 
@@ -2274,7 +2652,7 @@ Include:
 -   401
 -   403
 -   404
--   closed job
+-   missing or deleted Career for a job application
 -   invalid resume
 -   oversized resume
 -   malformed content
