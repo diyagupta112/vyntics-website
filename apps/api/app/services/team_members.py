@@ -4,6 +4,7 @@ from uuid import UUID
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.auth.models import AuthenticatedAdmin
 from app.db.models.audit_log import AuditLog
 from app.db.models.team_member import TeamMember
 from app.repositories.audit_logs import AuditLogRepository
@@ -42,7 +43,12 @@ class TeamMemberService:
             raise TeamMemberNotFoundError
         return team_member
 
-    async def create(self, request: TeamMemberCreateRequest) -> TeamMember:
+    async def create(
+        self,
+        request: TeamMemberCreateRequest,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> TeamMember:
         """Create and audit a Team member in one transaction."""
 
         team_member = TeamMember(**request.model_dump(mode="json"))
@@ -53,6 +59,7 @@ class TeamMemberService:
                     action="create",
                     team_member=team_member,
                     context=self._safe_context(team_member),
+                    actor=actor,
                 )
             )
             await self._team_members.refresh(team_member)
@@ -66,6 +73,8 @@ class TeamMemberService:
         self,
         team_member_id: UUID,
         request: TeamMemberUpdateRequest,
+        *,
+        actor: AuthenticatedAdmin | None = None,
     ) -> TeamMember:
         """Apply supplied Team Member fields and audit actual changes."""
 
@@ -93,6 +102,7 @@ class TeamMemberService:
                     action="update",
                     team_member=team_member,
                     context=context,
+                    actor=actor,
                 )
             )
             await self._team_members.refresh(team_member)
@@ -102,7 +112,12 @@ class TeamMemberService:
             raise
         return team_member
 
-    async def delete(self, team_member_id: UUID) -> None:
+    async def delete(
+        self,
+        team_member_id: UUID,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> None:
         """Hard-delete and audit a Team member in one transaction."""
 
         team_member = await self._team_members.get_by_id(team_member_id)
@@ -113,6 +128,7 @@ class TeamMemberService:
             action="delete",
             team_member=team_member,
             context=self._safe_context(team_member),
+            actor=actor,
         )
         try:
             await self._team_members.delete(team_member)
@@ -135,12 +151,13 @@ class TeamMemberService:
         action: str,
         team_member: TeamMember,
         context: dict[str, object],
+        actor: AuthenticatedAdmin | None = None,
     ) -> AuditLog:
         """Build an approved non-sensitive Team Member audit record."""
 
         return AuditLog(
-            actor_id=None,
-            actor_email=None,
+            actor_id=actor.admin_id if actor is not None else None,
+            actor_email=actor.admin_email if actor is not None else None,
             action=action,
             resource_type="team_member",
             resource_id=team_member.id,

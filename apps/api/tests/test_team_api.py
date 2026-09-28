@@ -5,6 +5,7 @@ from uuid import UUID
 
 import pytest
 from fastapi.testclient import TestClient
+from tests.auth_helpers import authenticate_test_admin
 
 from app.api.dependencies.team_members import get_team_member_service
 from app.core.config import Environment, Settings
@@ -52,6 +53,7 @@ def _body(**overrides: object) -> dict[str, object]:
 def team_api() -> tuple[TestClient, AsyncMock]:
     service = AsyncMock(spec=TeamMemberService)
     application = create_app(Settings(_env_file=None, environment=Environment.TEST))
+    authenticate_test_admin(application)
     application.dependency_overrides[get_team_member_service] = lambda: service
     with TestClient(application) as client:
         yield client, service

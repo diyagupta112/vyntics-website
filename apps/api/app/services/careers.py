@@ -7,6 +7,7 @@ from uuid import UUID
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.auth.models import AuthenticatedAdmin
 from app.db.models.audit_log import AuditLog
 from app.db.models.career import Career
 from app.repositories.audit_logs import AuditLogRepository
@@ -51,7 +52,12 @@ class CareerService:
             raise CareerNotFoundError
         return career
 
-    async def create(self, request: CareerCreateRequest) -> Career:
+    async def create(
+        self,
+        request: CareerCreateRequest,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> Career:
         """Create and audit a Career in one transaction."""
 
         if await self._careers.slug_exists(request.slug):
@@ -68,6 +74,7 @@ class CareerService:
                     action="create",
                     career=career,
                     context=self._safe_context(career),
+                    actor=actor,
                 )
             )
             await self._careers.refresh(career)
@@ -84,6 +91,8 @@ class CareerService:
         self,
         career_id: UUID,
         request: CareerUpdateRequest,
+        *,
+        actor: AuthenticatedAdmin | None = None,
     ) -> Career:
         """Apply supplied Career fields while preserving publication time."""
 
@@ -116,6 +125,7 @@ class CareerService:
                     action="update",
                     career=career,
                     context=context,
+                    actor=actor,
                 )
             )
             await self._careers.refresh(career)
@@ -128,7 +138,12 @@ class CareerService:
             raise
         return career
 
-    async def delete(self, career_id: UUID) -> None:
+    async def delete(
+        self,
+        career_id: UUID,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> None:
         """Hard-delete and audit a Career while preserving applications."""
 
         career = await self._careers.get_by_id(career_id)
@@ -139,6 +154,7 @@ class CareerService:
             action="delete",
             career=career,
             context=self._safe_context(career),
+            actor=actor,
         )
         try:
             await self._careers.delete(career)
@@ -164,12 +180,13 @@ class CareerService:
         action: str,
         career: Career,
         context: dict[str, object],
+        actor: AuthenticatedAdmin | None = None,
     ) -> AuditLog:
         """Build the approved Career audit record."""
 
         return AuditLog(
-            actor_id=None,
-            actor_email=None,
+            actor_id=actor.admin_id if actor is not None else None,
+            actor_email=actor.admin_email if actor is not None else None,
             action=action,
             resource_type="career",
             resource_id=career.id,

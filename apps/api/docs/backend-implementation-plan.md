@@ -164,11 +164,13 @@ authenticated FastAPI request
 authorization/application logic
 ```
 
-Only authorized `@vyntics.com` Google accounts are allowed for the Admin
-Panel.
+There is currently no Admin Panel application or URL. Google provider setup is
+complete in Supabase, but browser login cannot be tested end to end until that
+future client exists.
 
 FastAPI does not implement Google OAuth itself. It verifies the
-authenticated Supabase identity/token and performs authorization.
+authenticated Supabase bearer token and resolves the verified identity to a
+matching active `admin_users` record. Authorization is a subsequent phase.
 
 Supabase Auth and the Vyntics application database have separate
 responsibilities:
@@ -176,13 +178,13 @@ responsibilities:
 -   **Supabase Auth** is the authentication identity/source of truth.
 -   **`admin_users`** maps a Supabase identity through the unique
     `auth_user_id` and stores Vyntics-specific role and active state.
--   **FastAPI** will use the authenticated Supabase identity and the
-    matching `admin_users` record to enforce authorization.
+-   **FastAPI** verifies the bearer token and requires a matching active
+    `admin_users` record; later it will enforce authorization.
 
-The initial application roles are `superadmin` and `admin`. Their
-permission matrix is deferred to the authentication/authorization
-phase. There is no generic public `users` table and no separate roles
-table.
+The initial application roles are `superadmin` and `admin`. Phase 12 applies the
+approved minimal rule that both active roles may use current protected
+operations; no current operation is explicitly superadmin-only. There is no
+generic public `users` table and no separate roles table.
 
 ### AWS
 
@@ -842,7 +844,7 @@ the previously open Blog contract questions.
 
 - Blog mutations use the actions `create`, `update`, and `delete`.
 - Blog audit records use `resource_type=blog`.
-- The audit actor is nullable until authentication is implemented.
+- Protected Blog mutations record the authenticated administrator as actor.
 - Audit context may contain the Blog slug, status, and changed field names.
 - Audit context must never contain full Blog content.
 
@@ -967,9 +969,8 @@ manage Blogs regardless of publication status.
 - [ ] Use the established admin Blog response shape and existing schemas where
   appropriate.
 - [ ] Do not introduce new Blog fields or statuses.
-- [ ] Treat this as a conceptually admin-protected operation. Authentication and
-  authorization are not implemented yet; do not add fake or temporary
-  authentication for this work.
+- [x] Require Phase 12 authenticated active-admin access without fake or
+  temporary authentication.
 
 #### Admin detail endpoint
 
@@ -979,9 +980,8 @@ manage Blogs regardless of publication status.
 - [ ] Return `404 Not Found` when the Blog does not exist.
 - [ ] Use the database ID rather than the slug because the Admin Panel may edit
   the slug.
-- [ ] Treat this as a conceptually admin-protected operation. Authentication and
-  authorization are not implemented yet; do not add fake or temporary
-  authentication for this work.
+- [x] Require Phase 12 authenticated active-admin access without fake or
+  temporary authentication.
 
 #### Public/admin separation
 
@@ -1158,7 +1158,7 @@ Public endpoints must not expose draft or unpublished Case Studies.
 
 The Admin Panel requires create, update, and delete operations.
 
-These operations are conceptually admin-protected, but authentication and authorization are intentionally deferred to a later phase.
+These operations require Phase 12 authenticated active-admin access.
 
 #### `POST /case-studies`
 
@@ -1339,7 +1339,7 @@ Every successful Case Study mutation must create an audit log in the same transa
 - `PATCH /case-studies/{id}` uses action `update`.
 - `DELETE /case-studies/{id}` uses action `delete`.
 - `resource_type` is `case_study`.
-- The actor is nullable until authentication is implemented.
+- Protected Case Study mutations record the authenticated administrator as actor.
 - Audit context may contain the Case Study slug, status, and changed field names.
 - Audit context must not contain full structured content, credentials, tokens, private data, or other sensitive values.
 
@@ -1457,9 +1457,9 @@ Mutations with administrative intent:
 
 This is the complete Phase 8 Career API family. Do not add `PUT`, separate
 admin reads, lifecycle actions, filters, or other Career endpoints.
-Authentication and authorization for mutations are deferred to the approved
-authentication phase. Do not add fake authentication, temporary credentials,
-role checks, or a fabricated administrator identity.
+Career mutations require Phase 12 authenticated active-admin access. No fake
+authentication, temporary credentials, or fabricated administrator identity is
+used.
 
 `POST /careers/{slug}/apply` belongs exclusively to Phase 9 and must not be
 implemented as part of Career CRUD.
@@ -1590,7 +1590,9 @@ Success behavior:
 
 - Return HTTP `201 Created` with the exact `CareerDetailResponse`.
 - Generate `id`, `published_at`, `created_at`, and `updated_at` in the backend or database according to the existing architecture.
-- Keep `created_by` and `updated_by` backend-managed and nullable while authentication is deferred.
+- Keep `created_by` and `updated_by` backend-managed and nullable; Phase 12
+  records authenticated identity in audit events without redefining these
+  Career fields.
 - Reject client-supplied backend-managed or undeclared fields.
 - Enforce unique slugs and return HTTP `409 Conflict` for a duplicate using the standard FastAPI `{"detail": "..."}` error shape.
 - Create the Career and its `create` audit event atomically.
@@ -2100,7 +2102,8 @@ Create audit records for application `create`, `update`, and `delete` using:
 
 - `resource_type="job_application"`;
 - `resource_id` equal to the Job Application UUID;
-- nullable `actor_id` and `actor_email` while authentication is deferred;
+- anonymous actor fields for public creation, and authenticated administrator
+  actor fields for protected update/delete operations;
 - safe context only.
 
 Create context contains exactly `career_id` (serialized as a string) and
@@ -2250,9 +2253,8 @@ Do not add `/admin/our-team`, `/admin/team`, or duplicate administrative read
 routes. Because there is no hidden state, the same read operations return the
 complete Team collection to both clients.
 
-Authentication and authorization for mutation routes are deferred to the
-approved authentication phase. Phase 10 must not add fake authentication,
-temporary credentials, or role checks.
+Team mutation routes require Phase 12 authenticated active-admin access without
+fake authentication or temporary credentials.
 
 ### Team Member Fields
 
@@ -2446,7 +2448,7 @@ Create audit events for all successful Team mutations:
 - `PATCH /our-team/{id}` uses action `update`;
 - `DELETE /our-team/{id}` uses action `delete`;
 - `resource_type` is `team_member`;
-- the actor remains nullable until authentication is implemented;
+- protected Team mutations record the authenticated administrator as actor;
 - context may contain safe metadata such as `member_type`, `display_order`, and
   changed field names;
 - context must not contain full biographies, profile URLs, credentials,
@@ -2468,8 +2470,7 @@ Administrative mutation intent:
 - `PATCH /our-team/{id}`
 - `DELETE /our-team/{id}`
 
-Authentication and authorization are deferred. Do not add fake authentication
-or role checks in Phase 10.
+Phase 12 now requires authenticated active-admin access for these mutations.
 
 ### Phase 10 Testing Requirements
 
@@ -2691,8 +2692,7 @@ status changes, note editing, resolution actions, or new fields.
   shape when the UUID does not identify a submission.
 - Let FastAPI return its standard HTTP `422` validation response when the path
   value is not a valid UUID.
-- Authentication and authorization are deferred; do not add fake
-  authentication.
+- Phase 12 requires authenticated active-admin access.
 
 ### Admin Contact Submission Deletion
 
@@ -2779,7 +2779,7 @@ FastAPI route
 - Successful admin deletion creates an audit event in the same transaction as
   the hard delete.
 - Use action `delete` and `resource_type=contact_submission`.
-- The actor remains nullable until authentication is implemented.
+- Protected deletion records the authenticated administrator as actor.
 - Audit context may contain only safe operational metadata such as the stored
   status.
 - Audit context must not contain the visitor's name, email, company, subject,
@@ -2881,25 +2881,165 @@ Phase 11 does not include:
 
 ## Phase 12 --- Supabase Auth
 
--   [ ] Define token/session input.
--   [ ] Implement Supabase token verification.
--   [ ] Extract authenticated user identity.
--   [ ] Resolve the identity to the matching active `admin_users` record.
--   [ ] Reject missing/invalid/expired credentials.
--   [ ] Create reusable auth dependency.
--   [ ] Keep public endpoints public where intended.
--   [ ] Define authorization dependency.
--   [ ] Apply roles/permissions to protected routes.
--   [ ] Protect admin mutations.
--   [ ] Protect logs/admin data.
--   [ ] Test 401 and 403 cases.
+### Goal
 
-Google OAuth remains in Supabase Auth/Admin Panel. FastAPI handles
-verification and authorization. Supabase Auth establishes who the user
-is; `admin_users` stores Vyntics-specific role and active state; FastAPI
-enforces the later-approved role/permission rules.
+Establish real Supabase-based authentication for the FastAPI backend.
+Authentication identifies the caller and resolves that identity to an active
+Vyntics `admin_users` record. Phase 12 also applies the approved minimal
+authorization rule to the current administrative API surface.
 
-The `@vyntics.com` restriction must not exist only as a frontend check.
+There is currently no Admin Panel application or URL. Phase 12 implements the
+backend authentication and authorization foundation without adding a browser
+login flow, fake authentication, new roles, or invented permissions.
+
+### Authentication Foundation
+
+-   [x] Define the HTTP authentication input expected by FastAPI.
+-   [x] Implement Supabase access-token verification.
+-   [x] Extract authenticated Supabase user identity.
+-   [x] Resolve the identity to `admin_users` using `auth_user_id`.
+-   [x] Require the matching `admin_users` record to be active.
+-   [x] Reject missing credentials.
+-   [x] Reject malformed credentials.
+-   [x] Reject invalid credentials.
+-   [x] Reject expired credentials.
+-   [x] Create a reusable FastAPI authentication dependency.
+-   [x] Keep existing public endpoints public.
+-   [x] Add focused authentication tests for success and failure cases.
+
+#### HTTP Authentication Input
+
+FastAPI expects a Supabase access token in the standard bearer header:
+
+```text
+Authorization: Bearer <access_token>
+```
+
+The bearer token is the source of authenticated identity. The backend must
+independently verify the token, extract the verified Supabase user UUID, find
+the `admin_users` row whose `auth_user_id` matches that UUID, and require
+`is_active=true`. It must never accept a client-supplied email address or
+`admin_user_id` as proof of identity.
+
+The implementation verifies the token through the configured Supabase
+project's `/auth/v1/user` endpoint using the existing reusable asynchronous
+HTTP client and server-side Supabase settings. It does not decode and trust an
+unverified JWT payload or introduce a local JWT secret.
+
+The request uses `SUPABASE_ANON_KEY` as the `apikey` and sends the user's access
+token separately as `Authorization: Bearer <access_token>`.
+`SUPABASE_SERVICE_ROLE_KEY` is reserved for privileged server-side operations
+and must never be used for this user-token verification request. Neither
+backend setting belongs in frontend source code.
+
+Authentication failures return HTTP `401 Unauthorized`. This includes missing
+or malformed authorization input, invalid or expired tokens, no matching
+`admin_users` row, and an inactive matching row. HTTP `403 Forbidden` is
+reserved for the later case where a successfully authenticated caller lacks
+permission for an operation.
+
+#### Intended Authentication Flow
+
+```text
+Google
+  â†“
+Supabase Auth
+  â†“
+Supabase access token
+  â†“
+Future Admin Panel
+  â†“ Authorization: Bearer <access_token>
+FastAPI authentication dependency
+  â†“
+Verify Supabase token
+  â†“
+Extract authenticated Supabase user identity
+  â†“
+Find matching admin_users record by auth_user_id
+  â†“
+Require is_active = true
+  â†“
+Authenticated Vyntics admin context
+```
+
+The Admin Panel portion is future work. Phase 12 does not add an Admin Panel
+application, an Admin Panel URL, or a browser end-to-end Google login test.
+
+#### Security Requirements
+
+- Never use a hardcoded user, email, token, fake JWT, or local/fake auth path.
+- Never trust client-supplied email or `admin_user_id` as identity proof.
+- Never expose Supabase service-role credentials to clients.
+- Never use `SUPABASE_SERVICE_ROLE_KEY` to verify a user access token; use the
+  dedicated `SUPABASE_ANON_KEY` only as the `/auth/v1/user` API key.
+- Treat a rejected Supabase API key as a safe service/configuration failure,
+  not as an invalid or expired user token.
+- Do not store access tokens in application or database tables.
+- Do not add a generic `users` table or replace `admin_users`.
+- Do not change the database schema during Phase 12.
+- Google OAuth being enabled does not authorize a user as a Vyntics admin;
+  FastAPI must still verify the token and resolve an active `admin_users` row.
+
+#### Authentication Tests
+
+Focused Phase 12 tests cover:
+
+1. Valid Supabase token plus active matching `admin_users` row authenticates.
+2. Missing `Authorization` header returns `401`.
+3. Malformed `Authorization` header returns `401`.
+4. Invalid token returns `401`.
+5. Expired token returns `401`.
+6. Valid token with no matching `admin_users` row returns `401`.
+7. Valid token with an inactive matching `admin_users` row returns `401`.
+8. Existing public endpoints remain accessible without authentication where
+   their approved API contracts define them as public.
+
+Browser/Google-login end-to-end tests are deferred until an Admin Panel exists.
+
+#### Completed Manual Provider Setup
+
+-   [x] Enabled Google under Supabase Authentication â†’ Sign In / Providers.
+-   [x] Created the Google Cloud project for future Vyntics admin authentication.
+-   [x] Created a Google OAuth Web Application client.
+-   [x] Added the Supabase Auth callback URL as the authorized redirect URI.
+-   [x] Entered the Google Client ID and Client Secret in Supabase.
+-   [x] Kept Skip nonce checks off.
+-   [x] Kept Allow users without an email off.
+-   [x] Confirmed the Supabase Google provider is shown as enabled.
+
+The Google Client Secret must never be written into repository documentation.
+No Admin Panel authorized JavaScript origin is configured because no Admin
+Panel exists. Provider configuration is complete, but end-to-end login is not
+claimed as verified.
+
+### Authorization / API Protection
+
+The approved minimal authorization boundary is implemented as part of Phase 12:
+
+-   [x] Define a reusable role authorization dependency.
+-   [x] Allow active `admin` and `superadmin` users to use current protected
+    operations.
+-   [x] Apply authentication to every current `/admin/...` route.
+-   [x] Protect Blog, Case Study, Career, and Team Member mutations.
+-   [x] Protect Job Application administrative reads and mutations.
+-   [x] Protect Contact Submission administrative reads and deletion.
+-   [x] Test `401` and `403` behavior.
+-   [x] Verify public endpoints remain accessible without authentication.
+
+Supabase Auth establishes identity; `admin_users` stores Vyntics-specific role
+and active state; FastAPI enforces the current membership boundary. No existing
+operation is documented as superadmin-only, so Phase 12 does not invent one.
+The reusable role dependency returns `403` when a future explicitly approved
+operation requires a role the authenticated administrator does not have.
+
+Public without authentication: health/docs, published Blog reads, published
+Case Study reads, Career reads, Team Member reads, Contact Us submission, and
+Job Application submission.
+
+Protected: admin Blog and Case Study reads; Blog, Case Study, Career, and Team
+Member mutations; all `/admin/job-applications` and admin Career-application
+operations; and admin Contact Submission reads/deletion. There is no audit-log
+API route in the current backend to protect.
 
 ------------------------------------------------------------------------
 

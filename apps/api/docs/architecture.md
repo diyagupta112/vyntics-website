@@ -344,13 +344,15 @@ implementation.
 
 ## 6. Authentication & Authorization
 
-Authentication for the Admin Panel will use **Supabase Auth with Google OAuth**.
-
-The intended requirement is that only users with a valid **`@vyntics.com` Google account** can access the Admin Panel.
+Authentication for the future Admin Panel will use **Supabase Auth with Google
+OAuth**. There is currently no Admin Panel application, URL, or browser login
+flow. Phase 12 establishes both backend authentication and the approved
+authorization/API-protection boundary for the existing routes.
 
 ### Authentication Flow
 
-For the Admin Panel, authentication happens before access to the protected FastAPI APIs:
+For the future Admin Panel, authentication will happen before access to
+protected FastAPI APIs:
 
 ```text
 Admin User
@@ -373,7 +375,16 @@ FastAPI APIs
 Supabase / Other Services
 ```
 
-Only authenticated Vyntics users should be able to access the protected Admin Panel APIs exposed by FastAPI.
+The complete intended request path is Google OAuth â†’ Supabase Auth â†’ Supabase
+access token â†’ future Admin Panel â†’ `Authorization: Bearer <access_token>` â†’
+FastAPI authentication dependency â†’ verified Supabase identity â†’ matching
+`admin_users.auth_user_id` â†’ `is_active=true` â†’ authenticated Vyntics admin
+context.
+
+The bearer access token is the source of authenticated identity. FastAPI must
+independently verify it and must not trust an email address, `admin_user_id`,
+hardcoded user, hardcoded token, fake JWT, or another client-supplied identity
+value as proof of authentication.
 
 ### Authentication vs Authorization
 
@@ -381,15 +392,27 @@ Only authenticated Vyntics users should be able to access the protected Admin Pa
 
 > "Who is this user?"
 
-This is handled by **Supabase Auth + Google OAuth**.
+FastAPI establishes this by verifying the Supabase access token, extracting the
+verified Supabase user UUID, and resolving it to a matching active
+`admin_users` record. Missing, malformed, invalid, or expired credentials are
+authentication failures. A verified identity with no matching active
+`admin_users` record also does not authenticate as a Vyntics administrator.
+These failures return HTTP `401 Unauthorized`.
 
 **Authorization** answers:
 
 > "What is this authenticated user allowed to do?"
 
-This is enforced at the backend/application layer for protected API operations.
+This is enforced at the backend/application layer using approved role and
+permission rules. HTTP `403 Forbidden` means the caller is authenticated but
+is not authorized for the requested operation. The current minimal rule allows
+both active `admin` and `superadmin` records to use protected operations; no
+current operation is documented as superadmin-only.
 
-FastAPI is therefore **not the authentication provider**. It acts as the API/application layer and performs the necessary authorization checks before allowing protected operations.
+FastAPI is therefore **not the authentication provider**. Supabase Auth issues
+the identity token; FastAPI verifies it, resolves the application administrator,
+and performs authorization checks. Intentionally public endpoints remain
+public without a token.
 
 ### Application Administrator Identity
 
@@ -404,11 +427,56 @@ administrator identity and authorization data:
 -   disabled administrators remain stored to preserve administrative
     history.
 
-FastAPI will later resolve an authenticated Supabase user to the
-matching active `admin_users` record and enforce the approved
-role/permission rules. Those rules are not implemented in the database
-schema phase. There is no generic public `users` table and no separate
-roles table.
+Phase 12 resolves an authenticated Supabase user to the matching active
+`admin_users` record through `auth_user_id` and uses its stored role. There is no generic
+public `users` table and no separate roles table. Access tokens are not stored
+in application/database tables, and Supabase service-role credentials must
+never be exposed to clients.
+
+FastAPI verifies user access tokens by calling the configured project's
+`/auth/v1/user` endpoint with `SUPABASE_ANON_KEY` in the `apikey` header and the
+user access token in `Authorization: Bearer <access_token>`. The privileged
+`SUPABASE_SERVICE_ROLE_KEY` is not used for user-token verification and remains
+reserved for privileged server-side operations such as private Storage access.
+Both settings are backend configuration in this project and must not be placed
+in frontend source code; any future Admin Panel client configuration must be
+defined separately.
+
+### Current Google Provider Setup
+
+The manual provider configuration is complete:
+
+- Supabase Authentication â†’ Sign In / Providers â†’ Google is enabled.
+- A Google Cloud project and OAuth Web Application client were created for
+  future Vyntics admin authentication.
+- The Supabase Auth callback URL is the Google client's authorized redirect URI.
+- The Google Client ID and Client Secret are configured in Supabase; the secret
+  is not stored in repository documentation.
+- Skip nonce checks is off.
+- Allow users without an email is off.
+
+This provider setup has not been tested through an Admin Panel because that
+application does not exist yet. No Admin Panel JavaScript origin is configured.
+Enabling Google OAuth authenticates a Google identity but does not itself make
+that identity a Vyntics administrator; FastAPI must still verify the token and
+resolve an active `admin_users` record.
+
+### Protected and Public Route Boundary
+
+Public access remains available for health and API documentation, public Blog
+and Case Study reads, Career reads, Team Member reads, Contact Us submission,
+and Job Application submission.
+
+Authentication is required for admin Blog and Case Study reads; Blog, Case
+Study, Career, and Team Member mutations; Job Application administrative reads
+and mutations; and Contact Submission administrative reads and deletion. Both
+current roles may use these operations. The reusable role gate returns `403`
+for an authenticated administrator whose role is insufficient when a future
+operation is explicitly assigned a narrower role.
+
+Protected mutations pass the authenticated database administrator ID and email
+to the existing atomic audit-log flow. Tokens, OAuth secrets, resume contents,
+and other sensitive request data are never written to audit context.
 
 ### Vyntics Account Restriction
 
@@ -423,7 +491,9 @@ user@gmail.com
 user@othercompany.com
 ```
 
-The exact enforcement mechanism can be finalized during implementation, but the intended access rule is that only Vyntics accounts can access the Admin Panel.
+The intended account policy remains limited to Vyntics administrators. An
+email value alone is never sufficient proof: successful backend authentication
+requires a verified Supabase identity mapped to an active `admin_users` row.
 
 ---
 
@@ -502,8 +572,10 @@ storage services.
 
 ### Authentication
 
-Authentication for the Admin Panel will use **Supabase Auth with Google
-OAuth**, with access restricted to Vyntics accounts.
+Authentication for the future Admin Panel will use **Supabase Auth with Google
+OAuth**. The Google provider is configured, and FastAPI token verification,
+active `admin_users` resolution, authorization, and current-route protection
+are implemented. Browser login remains future Admin Panel work.
 
 ### Simplified Infrastructure Model
 
@@ -556,7 +628,9 @@ Protected operations
 ```
 
 The same backend can therefore serve different types of clients while
-enforcing different authorization requirements.
+enforcing different authorization requirements. The Admin Panel portion of this
+diagram describes the target client state, not a currently verified browser
+flow.
 
 ------------------------------------------------------------------------
 
@@ -778,12 +852,12 @@ The client applications are **not intended to directly access the underlying app
 2. **FastAPI is the primary backend/application and API layer.**
 3. **AWS is used for backend hosting/infrastructure.**
 4. **Supabase Storage is used for application file storage.**
-5. **Supabase Auth with Google OAuth provides authentication for the Admin Panel.**
+5. **Supabase Auth with Google OAuth will provide authentication for the future Admin Panel; provider configuration is complete, but end-to-end login is not yet verified.**
 6. **The `admin_users` table stores Vyntics-specific administrator identity, role, and active state, mapped to Supabase Auth through `auth_user_id`.**
-7. **Only Vyntics Google accounts (`@vyntics.com`) should be allowed to authenticate to the Admin Panel.**
+7. **A verified Google/Supabase identity must map to an active `admin_users` record before it is authenticated as a Vyntics administrator; email or domain alone is not identity proof.**
 8. **The Public Website and Admin Panel communicate with the FastAPI backend rather than directly accessing the underlying application data or storage services.**
-9. **FastAPI performs authorization checks using the authenticated Supabase identity and application-level admin data; it is not the authentication provider.**
-10. **Public and protected operations are separated through backend authorization.**
+9. **Phase 12 makes FastAPI verify the Supabase bearer token and resolve an active application administrator; FastAPI is not the authentication provider.**
+10. **Public and protected operations are separated through backend authentication and authorization.**
 11. **File management happens within the relevant content workflow rather than through a separate Media Library.**
 12. **SEO and Analytics are deferred.**
 13. **The content-generation system remains separate from the Admin Panel and will be integrated through a controlled backend interface later.**

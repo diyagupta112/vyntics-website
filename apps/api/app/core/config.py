@@ -59,6 +59,10 @@ class Settings(BaseSettings):
         default=None,
         validation_alias="SUPABASE_URL",
     )
+    supabase_anon_key: SecretStr | None = Field(
+        default=None,
+        validation_alias="SUPABASE_ANON_KEY",
+    )
     supabase_service_role_key: SecretStr | None = Field(
         default=None,
         validation_alias="SUPABASE_SERVICE_ROLE_KEY",

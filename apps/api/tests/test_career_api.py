@@ -6,6 +6,7 @@ from uuid import UUID
 
 import pytest
 from fastapi.testclient import TestClient
+from tests.auth_helpers import authenticate_test_admin
 
 from app.api.dependencies.careers import get_career_service
 from app.core.config import Environment, Settings
@@ -81,6 +82,7 @@ def career_api() -> tuple[TestClient, AsyncMock]:
             debug=False,
         )
     )
+    authenticate_test_admin(application)
     application.dependency_overrides[get_career_service] = lambda: service
     with TestClient(application) as client:
         yield client, service

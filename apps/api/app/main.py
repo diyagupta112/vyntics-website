@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.router import api_router
+from app.auth.supabase import SupabaseTokenVerifier
 from app.core.config import Settings, get_settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging_config import configure_logging
@@ -17,6 +18,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     """Create and configure the FastAPI application."""
     settings = settings or get_settings()
     configure_logging(settings.log_level)
+    auth_verifier = SupabaseTokenVerifier(settings)
 
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
@@ -28,6 +30,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         try:
             yield
         finally:
+            await auth_verifier.aclose()
             if database is not None:
                 await dispose_database(database)
             application.state.database = None
@@ -39,6 +42,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     )
     application.state.settings = settings
     application.state.database = None
+    application.state.auth_verifier = auth_verifier
 
     application.add_middleware(
         CORSMiddleware,

@@ -37,6 +37,7 @@ def test_settings_load_from_environment(monkeypatch) -> None:
         "postgresql://example:secret@localhost:5432/vyntics",
     )
     monkeypatch.setenv("SUPABASE_URL", "https://example.supabase.co")
+    monkeypatch.setenv("SUPABASE_ANON_KEY", "example-anon-key")
     monkeypatch.setenv("SUPABASE_SERVICE_ROLE_KEY", "example-service-key")
     monkeypatch.setenv("SUPABASE_PROJECT_ID", "example-project")
     monkeypatch.setenv("AUTH_ALLOWED_EMAIL_DOMAIN", "vyntics.com")
@@ -57,6 +58,7 @@ def test_settings_load_from_environment(monkeypatch) -> None:
     assert settings.database_url is not None
     assert settings.database_url.get_secret_value().startswith("postgresql://")
     assert str(settings.supabase_url) == "https://example.supabase.co/"
+    assert settings.supabase_anon_key is not None
     assert settings.supabase_service_role_key is not None
     assert settings.supabase_project_id == "example-project"
     assert settings.auth_allowed_email_domain == "vyntics.com"
@@ -67,6 +69,7 @@ def test_settings_load_from_environment(monkeypatch) -> None:
     assert settings.resend_api_key is not None
     assert settings.sentry_dsn is not None
     assert "example-service-key" not in repr(settings)
+    assert "example-anon-key" not in repr(settings)
     assert "example-resend-key" not in repr(settings)
 
 

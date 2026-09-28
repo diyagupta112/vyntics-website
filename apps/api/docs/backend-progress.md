@@ -167,8 +167,7 @@ Live verification result:
   create/update request schemas.
 - [x] Verified the live full-stack Blog lifecycle against Supabase: create 201,
   list/detail 200, update 200, and hard delete 204; temporary rows were cleaned.
-- [ ] Authentication and authorization remain deferred to the approved auth
-  phase.
+- [x] Authentication and authorization were added in Phase 12.
 
 ### Additional Phase 6 work identified during manual verification
 
@@ -248,8 +247,7 @@ Existing public Blog GET behavior remains unchanged.
   PostgreSQL database with temporary records and cleanup.
 - [ ] Manual Swagger UI execution has not yet been performed; generated OpenAPI
   route and schema coverage is verified automatically.
-- [ ] Authentication and authorization remain deferred to the approved auth
-  phase.
+- [x] Authentication and authorization were added in Phase 12.
 
 ## Phase 8 — Careers documentation preparation
 
@@ -384,8 +382,8 @@ Existing public Blog GET behavior remains unchanged.
   because the current environment has no `SUPABASE_URL` or
   `SUPABASE_SERVICE_ROLE_KEY`; the API returns a safe HTTP 503 while storage is
   unconfigured. The private `job-resumes` bucket must exist before deployment.
-- [ ] Authentication and authorization remain deferred to the approved auth
-  phase; no fake authentication was added.
+- [x] Authentication and authorization were added in Phase 12 without fake
+  credentials or identities.
 
 ### Temporary Phase 9 verification adjustment
 
@@ -477,8 +475,7 @@ Existing public Blog GET behavior remains unchanged.
   work as documented.
 - [ ] The manual Swagger/Supabase sequence has not been performed; generated
   OpenAPI and the real database lifecycle were verified automatically.
-- [ ] Authentication and authorization remain deferred to the approved auth
-  phase.
+- [x] Authentication and authorization were added in Phase 12.
 
 ## Phase 11 — Contact Us documentation preparation
 
@@ -520,13 +517,75 @@ Existing public Blog GET behavior remains unchanged.
   Supabase PostgreSQL database with temporary data and cleanup.
 - [ ] The manual Swagger/Supabase sequence has not been performed; generated
   OpenAPI and the real database lifecycle were verified automatically.
-- [ ] Authentication and authorization remain deferred to the approved auth
-  phase.
+- [x] Authentication and authorization were added in Phase 12.
 - [ ] Email automation remains deferred and was not implemented.
+
+## Phase 12 â€” Supabase Auth implementation
+
+- [x] Implemented Phase 12 authentication and authorization cohesively.
+- [x] Defined the authentication input as `Authorization: Bearer <access_token>`
+  and implemented Supabase verification through the configured project's
+  authenticated-user endpoint without trusting decoded JWT payloads.
+- [x] Corrected `/auth/v1/user` verification to use the dedicated
+  `SUPABASE_ANON_KEY` as `apikey`; `SUPABASE_SERVICE_ROLE_KEY` remains reserved
+  for privileged server-side operations and is never used for user-token
+  verification.
+- [x] Distinguished Supabase API-key/configuration rejection (`503`) from an
+  invalid or expired user access token (`401`) without exposing upstream
+  credentials or error details.
+- [x] Defined authenticated identity resolution through the verified Supabase
+  user UUID and matching `admin_users.auth_user_id`, with `is_active=true`
+  required for successful Vyntics administrator authentication.
+- [x] Defined HTTP `401 Unauthorized` for unsuccessful authentication and
+  implemented HTTP `403 Forbidden` for an authenticated-but-not-authorized
+  role decision.
+- [x] Documented that client-supplied email, `admin_user_id`, hardcoded users,
+  hardcoded tokens, fake JWTs, and local/fake authentication are never accepted
+  as identity proof.
+- [x] Documented that access tokens are not stored in application/database
+  tables, service-role credentials remain server-side, the existing
+  `admin_users` model remains authoritative for Vyntics admin mapping, and no
+  schema change or generic `users` table is required.
+- [x] Recorded completed manual setup: Google is enabled in Supabase Auth; the
+  Google Cloud project and OAuth Web Application client exist; the Supabase
+  callback is the authorized redirect URI; Client ID and Client Secret are
+  configured in Supabase; Skip nonce checks and Allow users without an email
+  remain off.
+- [x] Documented that Google provider enablement does not authorize a Vyntics
+  administrator and that no Admin Panel URL, JavaScript origin, or browser E2E
+  login verification exists yet because the Admin Panel has not been built.
+- [x] Added a typed authenticated-admin context containing the verified
+  Supabase identity and authoritative `admin_users` identity, role, and active
+  state.
+- [x] Added one reusable Bearer authentication dependency and one reusable role
+  authorization dependency; missing/invalid authentication returns `401`, and
+  insufficient authenticated role returns `403`.
+- [x] Enforced the configured `auth_allowed_email_domain` using exact,
+  case-insensitive domain comparison before the administrator lookup.
+- [x] Protected all current `/admin/...` reads and mutations plus Blog, Case
+  Study, Career, and Team Member mutations.
+- [x] Kept Blog, Case Study, Career, and Team Member public reads, Contact Us
+  submission, and Job Application submission public.
+- [x] Passed authenticated administrator IDs and database emails into the
+  existing atomic audit events for protected mutations; public Job Application
+  creation remains an anonymous audit event.
+- [x] Implemented focused verification, authentication, authorization,
+  route-boundary, public-regression, and audit-actor tests.
+- [x] Confirmed no current operation is documented as superadmin-only; both
+  active `admin` and `superadmin` records can use current protected operations.
+- [x] Confirmed no schema or migration change was required.
 
 ## Validation
 
 ```text
+459 tests passed, 8 opt-in integration tests skipped after Phase 12 Auth fix
+57 focused Phase 12 authentication/authorization/audit/config tests passed
+239 broader affected API/service tests passed after Phase 12 Auth fix
+Supabase anon-key selection and service-role exclusion -> verified
+Supabase API-key rejection -> safe 503 verified
+Phase 12 OpenAPI Bearer security boundary -> verified
+Phase 12 authenticated PostgreSQL HTTP lifecycle -> passed with cleanup
+Python compileall after Phase 12 -> passed
 405 tests passed, 8 opt-in integration tests skipped in the default suite
 108 focused Career/Job Application/model/migration tests passed, 3 opt-in skipped
 Career/application migration 20260925190000 -> applied and ledger-recorded
@@ -629,10 +688,12 @@ Python compileall after Phase 10           -> passed
   on this machine; verification used the configured hosted Supabase database.
 - RLS policies are intentionally not created because direct-client access rules are not approved.
 - The final error contract remains a later phase.
-- Supabase Auth remains unconfigured. The Phase 9 Supabase resume-storage
-  adapter is implemented, but the current environment has no Supabase URL or
-  service-role key and live private-bucket verification therefore remains
-  pending.
+- The Supabase Google provider and Phase 12 FastAPI authentication/authorization
+  are implemented. No Admin Panel exists, so browser end-to-end Google login
+  verification remains pending and is not claimed as complete.
+- The Phase 9 Supabase resume-storage adapter is implemented, but the current
+  environment has no Supabase URL or service-role key and live private-bucket
+  verification therefore remains pending.
 - General storage buckets and policies remain Phase 13 decisions. Phase 9 uses
   the resume-specific private `job-resumes` bucket, opaque stored references,
   five-minute signed access, 5 MiB limit, content inspection, and compensating
@@ -647,6 +708,8 @@ The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Phases 6, 7, 8, 9, 10, and 11 are implemented. Phase 9 still requires deployment
+Phases 6 through 12 are implemented. Phase 9 still requires deployment
 configuration and live verification of the private `job-resumes` Supabase
-Storage bucket; authentication/authorization remains assigned to its later phase.
+Storage bucket. The future Admin Panel must implement its Supabase browser login
+and send access tokens to the now-protected APIs; that browser flow cannot be
+verified until the Admin Panel exists. Phase 13 remains separate Storage work.

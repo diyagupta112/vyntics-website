@@ -6,6 +6,7 @@ from uuid import UUID
 
 import pytest
 from fastapi.testclient import TestClient
+from tests.auth_helpers import authenticate_test_admin
 
 from app.api.dependencies.contact_submissions import (
     get_contact_submission_service,
@@ -64,6 +65,7 @@ def contact_api() -> tuple[TestClient, AsyncMock]:
     application = create_app(
         Settings(_env_file=None, environment=Environment.TEST)
     )
+    authenticate_test_admin(application)
     application.dependency_overrides[
         get_contact_submission_service
     ] = lambda: service

@@ -4,6 +4,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Response, status
 
+from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.contact_submissions import (
     ContactSubmissionServiceDependency,
 )
@@ -37,9 +38,10 @@ async def create_contact_submission(
 
 @admin_router.get("", response_model=list[ContactSubmissionAdminResponse])
 async def list_contact_submissions(
+    _admin: AuthenticatedAdminDependency,
     service: ContactSubmissionServiceDependency,
 ) -> list[object]:
-    """List every submission newest-first; authentication is deferred."""
+    """List every submission newest-first for an administrator."""
 
     return await service.list_all()
 
@@ -50,9 +52,10 @@ async def list_contact_submissions(
 )
 async def get_contact_submission(
     submission_id: UUID,
+    _admin: AuthenticatedAdminDependency,
     service: ContactSubmissionServiceDependency,
 ) -> object:
-    """Return one submission by UUID; authentication is deferred."""
+    """Return one submission by UUID for an administrator."""
 
     try:
         return await service.get_by_id(submission_id)
@@ -70,12 +73,13 @@ async def get_contact_submission(
 )
 async def delete_contact_submission(
     submission_id: UUID,
+    admin: AuthenticatedAdminDependency,
     service: ContactSubmissionServiceDependency,
 ) -> Response:
-    """Hard-delete a submission; authentication is deferred."""
+    """Hard-delete a submission as an authenticated administrator."""
 
     try:
-        await service.delete(submission_id)
+        await service.delete(submission_id, actor=admin)
     except ContactSubmissionNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

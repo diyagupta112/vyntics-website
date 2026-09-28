@@ -17,6 +17,7 @@ from fastapi import (
 from fastapi.exceptions import RequestValidationError
 from pydantic import EmailStr, ValidationError
 
+from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.job_applications import JobApplicationServiceDependency
 from app.schemas.job_applications import (
     JobApplicationAdminDetail,
@@ -116,6 +117,7 @@ async def create_job_application(
 )
 async def list_job_applications(
     career_id: UUID,
+    _admin: AuthenticatedAdminDependency,
     service: JobApplicationServiceDependency,
 ) -> list[JobApplicationAdminListItem]:
     """List one Career's applications newest-first."""
@@ -136,6 +138,7 @@ async def list_job_applications(
 
 @admin_router.get("", response_model=list[JobApplicationAdminListItem])
 async def list_all_job_applications(
+    _admin: AuthenticatedAdminDependency,
     service: JobApplicationServiceDependency,
 ) -> list[JobApplicationAdminListItem]:
     """List all current and historical Job Applications newest-first."""
@@ -152,6 +155,7 @@ async def list_all_job_applications(
 @admin_router.get("/{application_id}", response_model=JobApplicationAdminDetail)
 async def get_job_application(
     application_id: UUID,
+    _admin: AuthenticatedAdminDependency,
     service: JobApplicationServiceDependency,
 ) -> JobApplicationAdminDetail:
     """Return one complete administrative application response."""
@@ -177,12 +181,13 @@ async def get_job_application(
 async def update_job_application(
     application_id: UUID,
     request: JobApplicationUpdateRequest,
+    admin: AuthenticatedAdminDependency,
     service: JobApplicationServiceDependency,
 ) -> JobApplicationAdminDetail:
     """Update only an application's status and notes."""
 
     try:
-        return await service.update(application_id, request)
+        return await service.update(application_id, request, actor=admin)
     except JobApplicationNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -207,12 +212,13 @@ async def update_job_application(
 )
 async def delete_job_application(
     application_id: UUID,
+    admin: AuthenticatedAdminDependency,
     service: JobApplicationServiceDependency,
 ) -> Response:
     """Hard-delete an application and its private resume."""
 
     try:
-        await service.delete(application_id)
+        await service.delete(application_id, actor=admin)
     except JobApplicationNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

@@ -9,9 +9,12 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import delete
 
+from app.api.dependencies.auth import require_authenticated_admin
 from app.api.dependencies.job_applications import get_resume_storage
+from app.auth.models import AuthenticatedAdmin
 from app.core.config import Settings
 from app.db.models.audit_log import AuditLog
+from app.db.models.admin_user import AdminUser
 from app.db.models.career import Career
 from app.db.models.job_application import JobApplication
 from app.db.session import create_database, dispose_database
@@ -62,11 +65,45 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
     storage = PrivateTestStorage()
     application.dependency_overrides[get_resume_storage] = lambda: storage
     run_id = uuid4()
+    auth_user_id = uuid4()
+    admin_id = uuid4()
+    admin_email = f"phase-12-{run_id}@vyntics.com"
+    authenticated_admin = AuthenticatedAdmin(
+        supabase_user_id=auth_user_id,
+        supabase_email=admin_email,
+        admin_id=admin_id,
+        admin_auth_user_id=auth_user_id,
+        admin_email=admin_email,
+        role="admin",
+        is_active=True,
+    )
+    application.dependency_overrides[require_authenticated_admin] = (
+        lambda: authenticated_admin
+    )
     slug = f"phase-9-api-{run_id}"
     empty_slug = f"phase-9-empty-{run_id}"
     career_id: UUID | None = None
     empty_career_id: UUID | None = None
     application_id: UUID | None = None
+
+    async def setup_admin() -> None:
+        database = create_database(settings)
+        try:
+            async with database.session_factory() as session:
+                session.add(
+                    AdminUser(
+                        id=admin_id,
+                        auth_user_id=auth_user_id,
+                        email=admin_email,
+                        role="admin",
+                        is_active=True,
+                    )
+                )
+                await session.commit()
+        finally:
+            await dispose_database(database)
+
+    _run(setup_admin())
 
     try:
         with TestClient(
@@ -237,6 +274,9 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
                         await session.execute(
                             delete(Career).where(Career.id == empty_career_id)
                         )
+                    await session.execute(
+                        delete(AdminUser).where(AdminUser.id == admin_id)
+                    )
                     await session.commit()
             finally:
                 await dispose_database(database)

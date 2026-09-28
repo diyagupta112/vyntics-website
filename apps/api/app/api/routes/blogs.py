@@ -4,6 +4,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Response, status
 
+from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.blogs import BlogServiceDependency
 from app.schemas.blogs import (
     BlogAdminResponse,
@@ -45,9 +46,10 @@ async def get_blog(slug: str, service: BlogServiceDependency) -> object:
 
 @admin_router.get("", response_model=list[BlogAdminResponse])
 async def list_admin_blogs(
+    _admin: AuthenticatedAdminDependency,
     service: BlogServiceDependency,
 ) -> list[object]:
-    """List Blogs in every status for future authenticated administration."""
+    """List Blogs in every status for authenticated administration."""
 
     return await service.list_all()
 
@@ -55,6 +57,7 @@ async def list_admin_blogs(
 @admin_router.get("/{blog_id}", response_model=BlogAdminResponse)
 async def get_admin_blog(
     blog_id: UUID,
+    _admin: AuthenticatedAdminDependency,
     service: BlogServiceDependency,
 ) -> object:
     """Return one Blog by UUID regardless of publication status."""
@@ -75,12 +78,13 @@ async def get_admin_blog(
 )
 async def create_blog(
     request: BlogCreateRequest,
+    admin: AuthenticatedAdminDependency,
     service: BlogServiceDependency,
 ) -> object:
-    """Create a Blog; authentication will be added in the auth phase."""
+    """Create a Blog as an authenticated administrator."""
 
     try:
-        return await service.create(request)
+        return await service.create(request, actor=admin)
     except BlogSlugConflictError:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -92,12 +96,13 @@ async def create_blog(
 async def update_blog(
     blog_id: UUID,
     request: BlogUpdateRequest,
+    admin: AuthenticatedAdminDependency,
     service: BlogServiceDependency,
 ) -> object:
-    """Update a Blog; authentication will be added in the auth phase."""
+    """Update a Blog as an authenticated administrator."""
 
     try:
-        return await service.update(blog_id, request)
+        return await service.update(blog_id, request, actor=admin)
     except BlogNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -122,12 +127,13 @@ async def update_blog(
 )
 async def delete_blog(
     blog_id: UUID,
+    admin: AuthenticatedAdminDependency,
     service: BlogServiceDependency,
 ) -> Response:
-    """Hard-delete a Blog; authentication will be added in the auth phase."""
+    """Hard-delete a Blog as an authenticated administrator."""
 
     try:
-        await service.delete(blog_id)
+        await service.delete(blog_id, actor=admin)
     except BlogNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

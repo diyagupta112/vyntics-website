@@ -7,6 +7,7 @@ from uuid import UUID
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.auth.models import AuthenticatedAdmin
 from app.db.models.audit_log import AuditLog
 from app.db.models.blog import Blog
 from app.repositories.audit_logs import AuditLogRepository
@@ -68,7 +69,12 @@ class BlogService:
             raise BlogNotFoundError
         return blog
 
-    async def create(self, request: BlogCreateRequest) -> Blog:
+    async def create(
+        self,
+        request: BlogCreateRequest,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> Blog:
         """Create and audit a Blog in one transaction."""
 
         if await self._blogs.slug_exists(request.slug):
@@ -85,6 +91,7 @@ class BlogService:
                     action="create",
                     blog=blog,
                     context={"slug": blog.slug, "status": blog.status},
+                    actor=actor,
                 )
             )
             await self._blogs.refresh(blog)
@@ -98,7 +105,13 @@ class BlogService:
 
         return blog
 
-    async def update(self, blog_id: UUID, request: BlogUpdateRequest) -> Blog:
+    async def update(
+        self,
+        blog_id: UUID,
+        request: BlogUpdateRequest,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> Blog:
         """Update permitted Blog fields and apply publication transitions."""
 
         blog = await self._blogs.get_by_id(blog_id)
@@ -146,6 +159,7 @@ class BlogService:
                         "status": blog.status,
                         "changed_fields": sorted(set(changed_fields)),
                     },
+                    actor=actor,
                 )
             )
             await self._blogs.refresh(blog)
@@ -159,7 +173,12 @@ class BlogService:
 
         return blog
 
-    async def delete(self, blog_id: UUID) -> None:
+    async def delete(
+        self,
+        blog_id: UUID,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> None:
         """Hard-delete a Blog and preserve an audit event."""
 
         blog = await self._blogs.get_by_id(blog_id)
@@ -170,6 +189,7 @@ class BlogService:
             action="delete",
             blog=blog,
             context={"slug": blog.slug, "status": blog.status},
+            actor=actor,
         )
 
         try:
@@ -186,12 +206,13 @@ class BlogService:
         action: str,
         blog: Blog,
         context: dict[str, object],
+        actor: AuthenticatedAdmin | None = None,
     ) -> AuditLog:
         """Build the approved non-sensitive Blog audit record."""
 
         return AuditLog(
-            actor_id=None,
-            actor_email=None,
+            actor_id=actor.admin_id if actor is not None else None,
+            actor_email=actor.admin_email if actor is not None else None,
             action=action,
             resource_type="blog",
             resource_id=blog.id,

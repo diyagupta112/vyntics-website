@@ -4,6 +4,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Response, status
 
+from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.careers import CareerServiceDependency
 from app.schemas.careers import (
     CareerCreateRequest,
@@ -51,12 +52,13 @@ async def get_career(
 )
 async def create_career(
     request: CareerCreateRequest,
+    admin: AuthenticatedAdminDependency,
     service: CareerServiceDependency,
 ) -> object:
-    """Create a Career; authentication is deferred."""
+    """Create a Career as an authenticated administrator."""
 
     try:
-        return await service.create(request)
+        return await service.create(request, actor=admin)
     except CareerSlugConflictError:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -68,12 +70,13 @@ async def create_career(
 async def update_career(
     career_id: UUID,
     request: CareerUpdateRequest,
+    admin: AuthenticatedAdminDependency,
     service: CareerServiceDependency,
 ) -> object:
-    """Partially update a Career; authentication is deferred."""
+    """Partially update a Career as an authenticated administrator."""
 
     try:
-        return await service.update(career_id, request)
+        return await service.update(career_id, request, actor=admin)
     except CareerNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -93,12 +96,13 @@ async def update_career(
 )
 async def delete_career(
     career_id: UUID,
+    admin: AuthenticatedAdminDependency,
     service: CareerServiceDependency,
 ) -> Response:
-    """Hard-delete a Career; authentication is deferred."""
+    """Hard-delete a Career as an authenticated administrator."""
 
     try:
-        await service.delete(career_id)
+        await service.delete(career_id, actor=admin)
     except CareerNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

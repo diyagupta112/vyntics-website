@@ -9,6 +9,7 @@ from uuid import UUID, uuid4
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.auth.models import AuthenticatedAdmin
 from app.db.models.audit_log import AuditLog
 from app.db.models.job_application import JobApplication
 from app.repositories.audit_logs import AuditLogRepository
@@ -158,6 +159,8 @@ class JobApplicationService:
         self,
         application_id: UUID,
         request: JobApplicationUpdateRequest,
+        *,
+        actor: AuthenticatedAdmin | None = None,
     ) -> JobApplicationAdminDetail:
         """Update only supplied status/notes fields and audit real changes."""
 
@@ -178,6 +181,7 @@ class JobApplicationService:
                         action="update",
                         application=application,
                         context=context,
+                        actor=actor,
                     )
                 )
                 await self._applications.refresh(application)
@@ -190,7 +194,12 @@ class JobApplicationService:
 
         return await self._to_detail(application)
 
-    async def delete(self, application_id: UUID) -> None:
+    async def delete(
+        self,
+        application_id: UUID,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> None:
         """Delete the private resume, then hard-delete and audit the row."""
 
         application = await self._require_application(application_id)
@@ -200,6 +209,7 @@ class JobApplicationService:
             action="delete",
             application=application,
             context=self._safe_context(application),
+            actor=actor,
         )
         try:
             await self._applications.delete(application)
@@ -273,10 +283,11 @@ class JobApplicationService:
         action: str,
         application: JobApplication,
         context: dict[str, object],
+        actor: AuthenticatedAdmin | None = None,
     ) -> AuditLog:
         return AuditLog(
-            actor_id=None,
-            actor_email=None,
+            actor_id=actor.admin_id if actor is not None else None,
+            actor_email=actor.admin_email if actor is not None else None,
             action=action,
             resource_type="job_application",
             resource_id=application.id,

@@ -6,6 +6,7 @@ from uuid import UUID
 
 import pytest
 from fastapi.testclient import TestClient
+from tests.auth_helpers import authenticate_test_admin
 
 from app.api.dependencies.job_applications import (
     get_job_application_service,
@@ -90,6 +91,7 @@ def job_application_api() -> tuple[TestClient, AsyncMock]:
     application = create_app(
         Settings(_env_file=None, environment=Environment.TEST, debug=False)
     )
+    authenticate_test_admin(application)
     application.dependency_overrides[get_job_application_service] = lambda: service
     with TestClient(application, raise_server_exceptions=False) as client:
         yield client, service

@@ -7,6 +7,7 @@ from uuid import UUID
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.auth.models import AuthenticatedAdmin
 from app.db.models.audit_log import AuditLog
 from app.db.models.case_study import CaseStudy
 from app.repositories.audit_logs import AuditLogRepository
@@ -71,7 +72,12 @@ class CaseStudyService:
             raise CaseStudyNotFoundError
         return case_study
 
-    async def create(self, request: CaseStudyCreateRequest) -> CaseStudy:
+    async def create(
+        self,
+        request: CaseStudyCreateRequest,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> CaseStudy:
         """Create and audit a Case Study in one transaction."""
 
         if await self._case_studies.slug_exists(request.slug):
@@ -91,6 +97,7 @@ class CaseStudyService:
                         "slug": case_study.slug,
                         "status": case_study.status,
                     },
+                    actor=actor,
                 )
             )
             await self._case_studies.refresh(case_study)
@@ -108,6 +115,8 @@ class CaseStudyService:
         self,
         case_study_id: UUID,
         request: CaseStudyUpdateRequest,
+        *,
+        actor: AuthenticatedAdmin | None = None,
     ) -> CaseStudy:
         """Update permitted fields and apply publication transitions."""
 
@@ -159,6 +168,7 @@ class CaseStudyService:
                         "status": case_study.status,
                         "changed_fields": sorted(set(changed_fields)),
                     },
+                    actor=actor,
                 )
             )
             await self._case_studies.refresh(case_study)
@@ -172,7 +182,12 @@ class CaseStudyService:
 
         return case_study
 
-    async def delete(self, case_study_id: UUID) -> None:
+    async def delete(
+        self,
+        case_study_id: UUID,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> None:
         """Hard-delete a Case Study and preserve an audit event."""
 
         case_study = await self._case_studies.get_by_id(case_study_id)
@@ -183,6 +198,7 @@ class CaseStudyService:
             action="delete",
             case_study=case_study,
             context={"slug": case_study.slug, "status": case_study.status},
+            actor=actor,
         )
 
         try:
@@ -199,12 +215,13 @@ class CaseStudyService:
         action: str,
         case_study: CaseStudy,
         context: dict[str, object],
+        actor: AuthenticatedAdmin | None = None,
     ) -> AuditLog:
         """Build an approved non-sensitive Case Study audit record."""
 
         return AuditLog(
-            actor_id=None,
-            actor_email=None,
+            actor_id=actor.admin_id if actor is not None else None,
+            actor_email=actor.admin_email if actor is not None else None,
             action=action,
             resource_type="case_study",
             resource_id=case_study.id,

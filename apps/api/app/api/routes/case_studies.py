@@ -4,6 +4,7 @@ from uuid import UUID
 
 from fastapi import APIRouter, HTTPException, Response, status
 
+from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.case_studies import CaseStudyServiceDependency
 from app.schemas.case_studies import (
     CaseStudyAdminResponse,
@@ -53,6 +54,7 @@ async def get_case_study(
 
 @admin_router.get("", response_model=list[CaseStudyAdminResponse])
 async def list_admin_case_studies(
+    _admin: AuthenticatedAdminDependency,
     service: CaseStudyServiceDependency,
 ) -> list[object]:
     """List Case Studies in every status for future administration."""
@@ -63,6 +65,7 @@ async def list_admin_case_studies(
 @admin_router.get("/{case_study_id}", response_model=CaseStudyAdminResponse)
 async def get_admin_case_study(
     case_study_id: UUID,
+    _admin: AuthenticatedAdminDependency,
     service: CaseStudyServiceDependency,
 ) -> object:
     """Return one Case Study by UUID regardless of publication status."""
@@ -83,12 +86,13 @@ async def get_admin_case_study(
 )
 async def create_case_study(
     request: CaseStudyCreateRequest,
+    admin: AuthenticatedAdminDependency,
     service: CaseStudyServiceDependency,
 ) -> object:
-    """Create a Case Study; authentication is deferred."""
+    """Create a Case Study as an authenticated administrator."""
 
     try:
-        return await service.create(request)
+        return await service.create(request, actor=admin)
     except CaseStudySlugConflictError:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
@@ -100,12 +104,13 @@ async def create_case_study(
 async def update_case_study(
     case_study_id: UUID,
     request: CaseStudyUpdateRequest,
+    admin: AuthenticatedAdminDependency,
     service: CaseStudyServiceDependency,
 ) -> object:
-    """Update a Case Study; authentication is deferred."""
+    """Update a Case Study as an authenticated administrator."""
 
     try:
-        return await service.update(case_study_id, request)
+        return await service.update(case_study_id, request, actor=admin)
     except CaseStudyNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -130,12 +135,13 @@ async def update_case_study(
 )
 async def delete_case_study(
     case_study_id: UUID,
+    admin: AuthenticatedAdminDependency,
     service: CaseStudyServiceDependency,
 ) -> Response:
-    """Hard-delete a Case Study; authentication is deferred."""
+    """Hard-delete a Case Study as an authenticated administrator."""
 
     try:
-        await service.delete(case_study_id)
+        await service.delete(case_study_id, actor=admin)
     except CaseStudyNotFoundError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

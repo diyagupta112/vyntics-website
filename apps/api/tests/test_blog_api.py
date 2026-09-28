@@ -6,6 +6,7 @@ from uuid import UUID
 
 import pytest
 from fastapi.testclient import TestClient
+from tests.auth_helpers import authenticate_test_admin
 
 from app.api.dependencies.blogs import get_blog_service
 from app.core.config import Environment, Settings
@@ -73,6 +74,7 @@ def blog_api() -> tuple[TestClient, AsyncMock]:
     application = create_app(
         Settings(_env_file=None, environment=Environment.TEST)
     )
+    authenticate_test_admin(application)
     application.dependency_overrides[get_blog_service] = lambda: service
     with TestClient(application) as client:
         yield client, service
