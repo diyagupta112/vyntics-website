@@ -1,0 +1,73 @@
+:root {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-500: #737373;
+  --color-gray-700: #404040;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 2rem;
+  --space-8: 2.5rem;
+  --space-10: 3rem;
+  --space-12: 4rem;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-card-title: 1rem;
+  --font-size-section-title: 1.25rem;
+  --font-size-page-title: 1.75rem;
+
+  --radius-control: 0.5rem;
+  --radius-card: 0.625rem;
+  --focus-ring: 2px solid var(--color-black);
+  --focus-offset: 2px;
+  --sidebar-width: 16rem;
+  --header-height: 4rem;
+  --content-max-width: 90rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  background: var(--color-white);
+  color: var(--color-black);
+  font-family: "DM Sans Variable", "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  background: var(--color-white);
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--color-black);
+  color: var(--color-white);
+}

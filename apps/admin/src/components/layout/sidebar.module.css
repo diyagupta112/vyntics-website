@@ -1,0 +1,118 @@
+.sidebar {
+  background: var(--color-white);
+  border-right: 1px solid var(--color-gray-200);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: var(--space-6) var(--space-4);
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0 var(--space-2) var(--space-8);
+  text-decoration: none;
+}
+
+.brand:focus-visible,
+.navigationItem:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.brandName {
+  color: var(--color-black);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.brandContext,
+.phaseNote,
+.soon {
+  color: var(--color-gray-500);
+  font-size: var(--font-size-xs);
+}
+
+.navigation {
+  flex: 1;
+}
+
+.navigation ul {
+  display: grid;
+  gap: var(--space-1);
+  list-style: none;
+}
+
+.navigationItem {
+  align-items: center;
+  border-radius: var(--radius-control);
+  color: var(--color-gray-700);
+  display: flex;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  justify-content: space-between;
+  min-height: 2.5rem;
+  padding: var(--space-2) var(--space-3);
+  text-decoration: none;
+}
+
+a.navigationItem:hover {
+  background: var(--color-gray-50);
+  color: var(--color-black);
+}
+
+.navigationItem.active {
+  background: var(--color-gray-100);
+  color: var(--color-black);
+  font-weight: 600;
+}
+
+.unavailable {
+  color: var(--color-gray-500);
+}
+
+.soon {
+  margin-left: var(--space-2);
+  white-space: nowrap;
+}
+
+.phaseNote {
+  border-top: 1px solid var(--color-gray-200);
+  margin: var(--space-6) var(--space-2) 0;
+  padding-top: var(--space-4);
+}
+
+@media (max-width: 52rem) {
+  .sidebar {
+    border-bottom: 1px solid var(--color-gray-200);
+    border-right: 0;
+    height: auto;
+    padding: var(--space-4) var(--space-5);
+    position: static;
+  }
+
+  .brand {
+    margin: 0 0 var(--space-4);
+  }
+
+  .navigation ul {
+    display: flex;
+    gap: var(--space-2);
+    overflow-x: auto;
+    padding-bottom: var(--space-1);
+  }
+
+  .navigationItem {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    white-space: nowrap;
+  }
+
+  .soon,
+  .phaseNote {
+    display: none;
+  }
+}
