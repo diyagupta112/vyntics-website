@@ -30,11 +30,12 @@ class JobApplication(Base):
         primary_key=True,
         server_default=text("gen_random_uuid()"),
     )
-    career_id: Mapped[UUIDValue] = mapped_column(
+    career_id: Mapped[UUIDValue | None] = mapped_column(
         UUID(as_uuid=True),
-        ForeignKey("careers.id", ondelete="RESTRICT"),
-        nullable=False,
+        ForeignKey("careers.id", ondelete="SET NULL"),
     )
+    career_title_snapshot: Mapped[str] = mapped_column(Text, nullable=False)
+    career_slug_snapshot: Mapped[str] = mapped_column(Text, nullable=False)
     name: Mapped[str] = mapped_column(Text, nullable=False)
     email: Mapped[str] = mapped_column(Text, nullable=False)
     phone: Mapped[str] = mapped_column(Text, nullable=False)
@@ -52,5 +53,5 @@ class JobApplication(Base):
         server_default=text("now()"),
     )
 
-    career: Mapped[Career] = relationship(back_populates="applications")
+    career: Mapped[Career | None] = relationship(back_populates="applications")
 

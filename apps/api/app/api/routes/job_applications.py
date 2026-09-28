@@ -134,6 +134,21 @@ async def list_job_applications(
         ) from None
 
 
+@admin_router.get("", response_model=list[JobApplicationAdminListItem])
+async def list_all_job_applications(
+    service: JobApplicationServiceDependency,
+) -> list[JobApplicationAdminListItem]:
+    """List all current and historical Job Applications newest-first."""
+
+    try:
+        return await service.list_all()
+    except ResumeStorageError:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Resume storage is temporarily unavailable.",
+        ) from None
+
+
 @admin_router.get("/{application_id}", response_model=JobApplicationAdminDetail)
 async def get_job_application(
     application_id: UUID,

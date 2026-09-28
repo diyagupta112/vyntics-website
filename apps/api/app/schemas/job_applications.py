@@ -72,6 +72,9 @@ class JobApplicationAdminListItem(ResponseSchema):
     """Application fields required by the Admin Panel table."""
 
     id: UUID
+    career_id: UUID | None
+    career_title_snapshot: str
+    career_slug_snapshot: str
     name: str
     email: EmailStr
     phone: str
@@ -83,6 +86,5 @@ class JobApplicationAdminListItem(ResponseSchema):
 class JobApplicationAdminDetail(JobApplicationAdminListItem):
     """Complete approved administrative application response."""
 
-    career_id: UUID
     cover_letter: str | None
     notes: str | None

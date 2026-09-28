@@ -16,7 +16,6 @@ from app.db.models.job_application import JobApplication
 from app.db.session import create_database, dispose_database
 from app.schemas.careers import CareerCreateRequest, CareerUpdateRequest
 from app.services.careers import (
-    CareerDeletionConflictError,
     CareerNotFoundError,
     CareerService,
 )
@@ -54,7 +53,7 @@ def _request(slug: str, title: str) -> CareerCreateRequest:
     not RUN_DATABASE_INTEGRATION_TESTS,
     reason="set RUN_DATABASE_INTEGRATION_TESTS=1 to use the configured database",
 )
-def test_career_lifecycle_and_delete_restriction_against_postgresql() -> None:
+def test_career_lifecycle_preserves_applications_against_postgresql() -> None:
     async def exercise() -> None:
         settings = Settings()
         assert settings.database_url is not None, "DATABASE_URL is not configured"
@@ -98,6 +97,8 @@ def test_career_lifecycle_and_delete_restriction_against_postgresql() -> None:
 
                 application = JobApplication(
                     career_id=older_id,
+                    career_title_snapshot=updated.title,
+                    career_slug_snapshot=updated.slug,
                     name="Temporary Applicant",
                     email="temporary@example.com",
                     phone="0000000000",
@@ -109,21 +110,26 @@ def test_career_lifecycle_and_delete_restriction_against_postgresql() -> None:
                 application_id = application.id
                 application_ids.append(application_id)
 
-                with pytest.raises(CareerDeletionConflictError):
-                    await service.delete(older_id)
-                assert await session.get(Career, older_id) is not None
-                assert await session.get(JobApplication, application_id) is not None
+                original_status = application.status
+                original_notes = application.notes
+                await service.delete(older_id)
+                assert await session.get(Career, older_id) is None
 
                 persisted_application = await session.get(
                     JobApplication,
                     application_id,
                 )
                 assert persisted_application is not None
+                await session.refresh(persisted_application)
+                assert persisted_application.career_id is None
+                assert persisted_application.career_title_snapshot == updated.title
+                assert persisted_application.career_slug_snapshot == updated.slug
+                assert persisted_application.status == original_status
+                assert persisted_application.notes == original_notes
                 await session.delete(persisted_application)
                 await session.commit()
                 application_ids.clear()
 
-                await service.delete(older_id)
                 await service.delete(newer_id)
                 with pytest.raises(CareerNotFoundError):
                     await service.get_by_slug(older_slug)

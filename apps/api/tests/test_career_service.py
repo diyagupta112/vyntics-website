@@ -14,7 +14,6 @@ from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.careers import CareerRepository
 from app.schemas.careers import CareerCreateRequest, CareerUpdateRequest
 from app.services.careers import (
-    CareerDeletionConflictError,
     CareerNotFoundError,
     CareerService,
     CareerSlugConflictError,
@@ -189,7 +188,7 @@ def test_delete_hard_deletes_and_audits_atomically() -> None:
     session.commit.assert_awaited_once_with()
 
 
-def test_restricted_delete_rolls_back_and_hides_integrity_error() -> None:
+def test_delete_failure_rolls_back() -> None:
     repository = AsyncMock(spec=CareerRepository)
     repository.get_by_id.return_value = _career()
     audits = AsyncMock(spec=AuditLogRepository)
@@ -200,10 +199,9 @@ def test_restricted_delete_rolls_back_and_hides_integrity_error() -> None:
         Exception("fk_job_applications_career_id"),
     )
 
-    with pytest.raises(CareerDeletionConflictError) as raised:
+    with pytest.raises(IntegrityError):
         asyncio.run(service.delete(CAREER_ID))
 
-    assert "fk_job_applications" not in str(raised.value)
     session.rollback.assert_awaited_once_with()
 
 

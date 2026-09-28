@@ -12,7 +12,6 @@ from app.schemas.careers import (
     CareerUpdateRequest,
 )
 from app.services.careers import (
-    CareerDeletionConflictError,
     CareerNotFoundError,
     CareerSlugConflictError,
 )
@@ -104,10 +103,5 @@ async def delete_career(
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Career not found.",
-        ) from None
-    except CareerDeletionConflictError:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Career cannot be deleted while job applications exist.",
         ) from None
     return Response(status_code=status.HTTP_204_NO_CONTENT)

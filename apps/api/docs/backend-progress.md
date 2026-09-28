@@ -72,7 +72,8 @@ Completed foundation:
 - [x] Registered all models in shared SQLAlchemy metadata.
 - [x] Added UUID primary keys, timestamps, JSONB structured content, and PostgreSQL arrays where approved.
 - [x] Added approved relationships to `admin_users` for content ownership, contact resolution, and audit actors.
-- [x] Added the career/application foreign key with `ON DELETE RESTRICT`.
+- [x] The Phase 8/9 correction migration replaces the initial restrictive
+  Career foreign key with nullable `career_id` and `ON DELETE SET NULL`.
 - [x] Added the initial Supabase SQL migration at `supabase/migrations/20260923073155_initial_application_schema.sql`.
 - [x] Added reusable database-managed `updated_at` triggers for tables that have `updated_at`.
 - [x] Added static model, metadata, constraint, relationship, index, and migration tests.
@@ -276,13 +277,8 @@ Existing public Blog GET behavior remains unchanged.
   boundaries, safe atomic audit events with `resource_type=career`, automated
   tests, and manual Swagger/Supabase verification.
 - [x] Kept Job Applications and `POST /careers/{slug}/apply` in Phase 9.
-- [x] Documented `ON DELETE RESTRICT`: a Career with applications cannot be
-  deleted, applications are never cascade-deleted, and raw integrity errors
-  must never reach clients.
-- [x] Finalized restricted deletion as HTTP `409 Conflict` with the safe detail
-  `Career cannot be deleted while job applications exist.` This is the
-  narrowest mapping for a valid delete request blocked by current relational
-  state and exposes no database details.
+- [x] Corrected Career deletion so related Job Applications never block a hard
+  delete and are retained through nullable `career_id` plus `ON DELETE SET NULL`.
 - [x] Added strict Career create and partial-update request schemas, including
   trimmed non-empty strings, unmodified slug preservation, JSON-object
   validation, `{}` defaults, explicit-null rejection, and backend-field
@@ -297,12 +293,12 @@ Existing public Blog GET behavior remains unchanged.
   fields, migration, or Phase 9 application endpoint.
 - [x] Added atomic create/update/delete audit logging with nullable actors,
   `resource_type=career`, and safe metadata excluding Career content.
-- [x] Added safe `ON DELETE RESTRICT` handling that rolls back the transaction,
-  preserves Job Applications, and hides raw integrity errors.
+- [x] Career deletion now returns HTTP 204 even when applications exist; the
+  database nulls their Career foreign keys without deleting the applications.
 - [x] Added focused schema, repository, service, API/OpenAPI, and opt-in
   PostgreSQL lifecycle/restriction tests.
-- [x] Verified the complete Career lifecycle and restricted deletion against
-  the configured Supabase PostgreSQL database with cleanup.
+- [x] Verified the complete Career lifecycle and application-preserving
+  deletion against the configured Supabase PostgreSQL database with cleanup.
 - [x] Verified the live FastAPI `/docs`, generated OpenAPI surface, all five
   operations, response fields, ordering, generated/preserved `published_at`,
   duplicate slug, restricted delete, missing behavior, and empty 204 bodies.
@@ -314,7 +310,7 @@ Existing public Blog GET behavior remains unchanged.
   finalized Careers behavior, prior resource APIs, repository/service/dependency
   layering, audit implementation, error conventions, and storage direction.
 - [x] Confirmed Job Applications remain a separate API family and finalized
-  public `POST /careers/{slug}/apply` plus the four approved administrative
+  public `POST /careers/{slug}/apply` plus the five approved administrative
   list, detail, PATCH, and hard-delete routes.
 - [x] Finalized the complete status set as `new`, `reviewing`, `shortlisted`,
   `rejected`, and `hired`, with public submissions always starting at `new` and
@@ -329,8 +325,8 @@ Existing public Blog GET behavior remains unchanged.
   detail requests.
 - [x] Finalized hard deletion with HTTP 204, Career preservation, resume cleanup,
   missing-resource behavior, and no soft or cascade deletion.
-- [x] Preserved the Career foreign key's `ON DELETE RESTRICT` behavior and the
-  Phase 8 HTTP 409 mapping for Careers that have applications.
+- [x] Corrected the Career relationship to `ON DELETE SET NULL`; applications
+  are historical records and no longer block Career deletion.
 - [x] Defined create/update/delete audit events with
   `resource_type=job_application`, nullable deferred actors, atomic database
   mutation/audit behavior, and context that excludes applicant PII, note text,
@@ -348,9 +344,9 @@ Existing public Blog GET behavior remains unchanged.
 
 ### Phase 9 implementation
 
-- [x] Added the exact five-operation Job Applications API surface: public
-  `POST /careers/{slug}/apply` plus the finalized Career-scoped admin list and
-  admin detail, PATCH, and hard-delete routes.
+- [x] Added the six-operation Job Applications API surface: public
+  `POST /careers/{slug}/apply`, global and Career-scoped admin lists, and admin
+  detail, PATCH, and hard-delete routes.
 - [x] Added strict multipart create, status/notes PATCH, minimal public receipt,
   admin list-item, and admin detail response schemas with the five approved
   statuses and no universal ORM serialization.
@@ -377,8 +373,8 @@ Existing public Blog GET behavior remains unchanged.
   `resource_type=job_application`, nullable actors, and exact safe context that
   excludes applicant PII, notes, cover letters, resume references, and signed
   URLs.
-- [x] Preserved Career `ON DELETE RESTRICT`, verified application deletion leaves
-  its Career intact, and added no migration or Career model/lifecycle change.
+- [x] Preserved application hard-delete behavior while correcting Career hard
+  deletion to retain applications with a null foreign key and snapshots.
 - [x] Added focused schema/API/OpenAPI, repository, service, storage, privacy,
   cleanup, audit, and opt-in PostgreSQL integration coverage.
 - [x] Verified the service lifecycle and the complete FastAPI HTTP lifecycle
@@ -411,6 +407,29 @@ Existing public Blog GET behavior remains unchanged.
   non-null response/model contract, resolve or remove any temporary rows with
   null resume references, and add a forward migration restoring the database
   `NOT NULL` constraint.
+
+### Phase 8 + Phase 9 Career/application retention correction
+
+- [x] Added forward migration `20260925190000` without rewriting the applied
+  initial schema. It backfills `career_title_snapshot` and
+  `career_slug_snapshot`, makes both snapshots non-null, makes `career_id`
+  nullable, and replaces the restrictive foreign key with `ON DELETE SET NULL`.
+- [x] Career hard deletion now succeeds with HTTP 204 whether or not
+  applications exist. It removes the Career from list/detail reads and prevents
+  future submissions through the deleted slug without deleting applications.
+- [x] Public application creation captures the current Career ID, title, and
+  slug. Snapshot values remain unchanged during application status/notes PATCH.
+- [x] Added `GET /admin/job-applications`, ordered by `submitted_at DESC`, for
+  current and historical applications. The existing current-Career-scoped list
+  remains available at `GET /admin/careers/{career_id}/applications`.
+- [x] Admin list/detail/PATCH responses expose nullable `career_id` and the
+  retained Career title/slug snapshots so deleted-Career applications remain
+  identifiable without constructing a fake Career object.
+- [x] Preserved the five statuses, status/notes-only PATCH contract, optional
+  resume verification behavior, hard application deletion, and safe Career and
+  Job Application audit logging.
+- [x] Added focused model, migration, repository, service, API/OpenAPI, and
+  PostgreSQL lifecycle coverage for current and historical applications.
 
 ## Phase 10 — Our Team documentation preparation
 
@@ -508,14 +527,23 @@ Existing public Blog GET behavior remains unchanged.
 ## Validation
 
 ```text
-399 tests passed, 8 opt-in integration tests skipped in the default suite
+405 tests passed, 8 opt-in integration tests skipped in the default suite
+108 focused Career/Job Application/model/migration tests passed, 3 opt-in skipped
+Career/application migration 20260925190000 -> applied and ledger-recorded
+Live ON DELETE SET NULL retention lifecycle -> passed with cleanup
+Live historical Job Application HTTP flow   -> passed with cleanup
+Live Career retention service lifecycle     -> passed with cleanup
+Live resume-present application lifecycle   -> passed with cleanup
+FastAPI startup and corrected OpenAPI        -> passed
+Python compileall after correction           -> passed
+399 tests passed, 8 opt-in integration tests skipped before correction
 117 focused optional-resume/schema/model/migration/Phase 9 tests passed
 Temporary no-resume PostgreSQL HTTP lifecycle -> passed with cleanup
 Existing resume-present PostgreSQL lifecycle  -> passed with cleanup
 55 focused Job Application tests passed, 2 opt-in integration tests skipped
 Real Job Application PostgreSQL service lifecycle -> passed with cleanup
 Real Job Application FastAPI HTTP lifecycle       -> passed with cleanup
-Phase 9 OpenAPI exact five-operation surface      -> verified
+Phase 9 OpenAPI six-operation surface             -> verified
 Phase 9 public/admin response separation          -> verified
 Phase 9 status/notes PATCH contract               -> verified
 Phase 9 private signed resume access contract     -> verified with mock Storage
@@ -524,13 +552,13 @@ Phase 9 create/update/delete safe audit context   -> verified
 Python compileall after Phase 9                    -> passed
 339 tests passed, 6 opt-in integration tests skipped in the default suite
 83 focused Career tests passed, 1 opt-in integration test skipped
-Real Career PostgreSQL lifecycle/restricted-delete integration test -> 1 passed
+Real Career PostgreSQL retention lifecycle integration test -> 1 passed
 Live Career Swagger/API verification       -> passed with temporary-data cleanup
 Career OpenAPI exact five-operation surface -> verified
 Career list published_at DESC ordering      -> verified
 Career generated/preserved published_at     -> verified
 Career duplicate slug                       -> 409 verified
-Career delete with applications             -> 409; application preserved
+Career delete with applications             -> 204; application retained with null FK
 Career successful hard delete               -> 204 with empty body
 Python compileall after Phase 8              -> passed
 256 tests passed, 5 opt-in integration tests skipped in the default suite

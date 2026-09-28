@@ -54,6 +54,8 @@ def _application(**overrides: object) -> JobApplication:
     values: dict[str, object] = {
         "id": APPLICATION_ID,
         "career_id": CAREER_ID,
+        "career_title_snapshot": "Senior Engineer",
+        "career_slug_snapshot": "senior-engineer",
         "name": "Ada Applicant",
         "email": "ada@example.com",
         "phone": "123",
@@ -90,12 +92,18 @@ def _service():
 
 def test_create_resolves_career_uploads_sets_backend_fields_and_audits() -> None:
     service, session, applications, careers, audits, storage = _service()
-    careers.get_by_slug.return_value = SimpleNamespace(id=CAREER_ID)
+    careers.get_by_slug.return_value = SimpleNamespace(
+        id=CAREER_ID,
+        title="Senior Engineer",
+        slug="senior-engineer",
+    )
 
     created = asyncio.run(service.create("Senior-Engineer", _request()))
 
     careers.get_by_slug.assert_awaited_once_with("Senior-Engineer")
     assert created.id == APPLICATION_ID and created.career_id == CAREER_ID
+    assert created.career_title_snapshot == "Senior Engineer"
+    assert created.career_slug_snapshot == "senior-engineer"
     assert created.status == "new" and created.notes is None
     assert created.submitted_at == NOW and created.resume_url == OBJECT_PATH
     storage.upload.assert_awaited_once()
@@ -115,7 +123,11 @@ def test_create_without_resume_persists_null_and_skips_storage() -> None:
     session = AsyncMock(spec=AsyncSession)
     applications = AsyncMock(spec=JobApplicationRepository)
     careers = AsyncMock(spec=CareerRepository)
-    careers.get_by_slug.return_value = SimpleNamespace(id=CAREER_ID)
+    careers.get_by_slug.return_value = SimpleNamespace(
+        id=CAREER_ID,
+        title="Senior Engineer",
+        slug="senior-engineer",
+    )
     audits = AsyncMock(spec=AuditLogRepository)
     service = JobApplicationService(
         session,
@@ -168,7 +180,11 @@ def test_create_missing_career_does_not_read_or_upload_resume() -> None:
 
 def test_create_database_failure_rolls_back_and_cleans_uploaded_resume() -> None:
     service, session, applications, careers, _, storage = _service()
-    careers.get_by_slug.return_value = SimpleNamespace(id=CAREER_ID)
+    careers.get_by_slug.return_value = SimpleNamespace(
+        id=CAREER_ID,
+        title="Senior Engineer",
+        slug="senior-engineer",
+    )
     applications.add.side_effect = RuntimeError("raw database details")
     with pytest.raises(JobApplicationPersistenceError) as raised:
         asyncio.run(service.create("job", _request()))
@@ -192,6 +208,27 @@ def test_list_requires_career_preserves_repository_order_and_signs_urls() -> Non
     careers.get_by_id.return_value = None
     with pytest.raises(JobApplicationCareerNotFoundError):
         asyncio.run(service.list_for_career(CAREER_ID))
+
+
+def test_global_list_includes_current_and_historical_applications() -> None:
+    service, _, applications, _, _, storage = _service()
+    current = _application()
+    historical = _application(
+        id=UUID("6713947a-7261-4174-811a-fdc93769658e"),
+        career_id=None,
+        career_title_snapshot="Historical Career",
+        career_slug_snapshot="historical-career",
+        resume_url=None,
+    )
+    applications.list_all.return_value = [current, historical]
+
+    returned = asyncio.run(service.list_all())
+
+    assert [item.id for item in returned] == [current.id, historical.id]
+    assert returned[0].career_id == CAREER_ID
+    assert returned[1].career_id is None
+    assert returned[1].career_title_snapshot == "Historical Career"
+    storage.create_access_url.assert_awaited_once_with(OBJECT_PATH)
 
 
 def test_detail_returns_signed_complete_response_and_missing_raises() -> None:
@@ -274,6 +311,28 @@ def test_update_without_resume_completes_without_storage_access() -> None:
     applications.refresh.assert_awaited_once_with(application)
     audits.add.assert_awaited_once()
     session.commit.assert_awaited_once_with()
+
+
+def test_historical_application_update_preserves_career_snapshots() -> None:
+    service, _, applications, _, _, _ = _service()
+    application = _application(
+        career_id=None,
+        career_title_snapshot="Historical Career",
+        career_slug_snapshot="historical-career",
+        resume_url=None,
+    )
+    applications.get_by_id.return_value = application
+
+    detail = asyncio.run(
+        service.update(
+            APPLICATION_ID,
+            JobApplicationUpdateRequest(status="hired", notes="Retained."),
+        )
+    )
+
+    assert detail.career_id is None
+    assert detail.career_title_snapshot == "Historical Career"
+    assert detail.career_slug_snapshot == "historical-career"
 
 
 def test_update_failure_rolls_back_and_hides_database_details() -> None:

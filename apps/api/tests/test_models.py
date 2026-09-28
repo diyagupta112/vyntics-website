@@ -81,15 +81,18 @@ def test_careers_have_no_status_or_visibility_fields() -> None:
     assert "archived" not in columns
 
 
-def test_job_application_relationship_restricts_career_deletion() -> None:
+def test_job_application_relationship_preserves_history_after_career_deletion() -> None:
     career_id = JobApplication.__table__.c.career_id
     foreign_key = next(iter(career_id.foreign_keys))
 
     assert foreign_key.target_fullname == "careers.id"
-    assert foreign_key.ondelete == "RESTRICT"
+    assert foreign_key.ondelete == "SET NULL"
+    assert career_id.nullable is True
     assert JobApplication.career.property.back_populates == "applications"
     assert Career.applications.property.back_populates == "career"
     assert Career.applications.property.passive_deletes == "all"
+    assert JobApplication.__table__.c.career_title_snapshot.nullable is False
+    assert JobApplication.__table__.c.career_slug_snapshot.nullable is False
     assert str(JobApplication.__table__.c.status.server_default.arg) == "'new'"
     assert JobApplication.__table__.c.resume_url.nullable is True
 

@@ -88,6 +88,8 @@ class JobApplicationService:
         application = JobApplication(
             id=application_id,
             career_id=career.id,
+            career_title_snapshot=career.title,
+            career_slug_snapshot=career.slug,
             name=request.name,
             email=str(request.email),
             phone=request.phone,
@@ -120,6 +122,16 @@ class JobApplicationService:
                 "Job Application could not be persisted."
             ) from error
         return application
+
+    async def list_all(self) -> list[JobApplicationAdminListItem]:
+        """Return all current and historical applications newest-first."""
+
+        applications = await self._applications.list_all()
+        return list(
+            await asyncio.gather(
+                *(self._to_list_item(application) for application in applications)
+            )
+        )
 
     async def list_for_career(
         self,
@@ -211,6 +223,9 @@ class JobApplicationService:
     ) -> JobApplicationAdminListItem:
         return JobApplicationAdminListItem(
             id=application.id,
+            career_id=application.career_id,
+            career_title_snapshot=application.career_title_snapshot,
+            career_slug_snapshot=application.career_slug_snapshot,
             name=application.name,
             email=application.email,
             phone=application.phone,
@@ -230,7 +245,6 @@ class JobApplicationService:
         list_item = await self._to_list_item(application)
         return JobApplicationAdminDetail(
             **list_item.model_dump(),
-            career_id=application.career_id,
             cover_letter=application.cover_letter,
             notes=application.notes,
         )
@@ -238,7 +252,11 @@ class JobApplicationService:
     @staticmethod
     def _safe_context(application: JobApplication) -> dict[str, object]:
         return {
-            "career_id": str(application.career_id),
+            "career_id": (
+                str(application.career_id)
+                if application.career_id is not None
+                else None
+            ),
             "status": application.status,
         }
 

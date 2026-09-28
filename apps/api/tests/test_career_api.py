@@ -12,7 +12,6 @@ from app.core.config import Environment, Settings
 from app.db.models.career import Career
 from app.main import create_app
 from app.services.careers import (
-    CareerDeletionConflictError,
     CareerNotFoundError,
     CareerService,
     CareerSlugConflictError,
@@ -201,17 +200,6 @@ def test_delete_returns_empty_204_and_safe_errors(career_api) -> None:
     missing = client.delete(f"/careers/{CAREER_ID}")
     assert missing.status_code == 404
     assert missing.json() == {"detail": "Career not found."}
-
-    service.delete.side_effect = CareerDeletionConflictError(
-        "database details must remain hidden"
-    )
-    restricted = client.delete(f"/careers/{CAREER_ID}")
-    assert restricted.status_code == 409
-    assert restricted.json() == {
-        "detail": "Career cannot be deleted while job applications exist."
-    }
-    assert "database" not in restricted.text.lower()
-
 
 def test_openapi_exposes_exact_five_operations_and_request_schemas(career_api) -> None:
     client, _ = career_api

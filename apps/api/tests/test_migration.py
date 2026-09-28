@@ -50,6 +50,18 @@ def _optional_job_resume_migration() -> Path:
     return migration
 
 
+def _historical_job_application_migration() -> Path:
+    repository_root = Path(__file__).resolve().parents[3]
+    migration = (
+        repository_root
+        / "supabase"
+        / "migrations"
+        / "20260925190000_preserve_job_applications_after_career_deletion.sql"
+    )
+    assert migration.is_file()
+    return migration
+
+
 def test_initial_migration_creates_only_approved_tables() -> None:
     sql = _initial_migration().read_text(encoding="utf-8").lower()
     created_tables = {
@@ -63,11 +75,24 @@ def test_initial_migration_creates_only_approved_tables() -> None:
     assert "blog_posts" not in sql
 
 
-def test_migration_preserves_application_history() -> None:
+def test_initial_migration_originally_restricted_career_deletion() -> None:
     sql = _initial_migration().read_text(encoding="utf-8").lower()
 
     assert "references public.careers (id)\n        on delete restrict" in sql
     assert "on delete cascade" not in sql
+
+
+def test_forward_migration_preserves_applications_and_career_identity() -> None:
+    sql = _historical_job_application_migration().read_text(encoding="utf-8").lower()
+
+    assert "add column career_title_snapshot text" in sql
+    assert "add column career_slug_snapshot text" in sql
+    assert "update public.job_applications as application" in sql
+    assert "alter column career_id drop not null" in sql
+    assert "drop constraint if exists fk_job_applications_career_id" in sql
+    assert "on delete set null" in sql
+    assert "on delete cascade" not in sql
+    assert "create table" not in sql
 
 
 def test_migration_careers_have_no_status_column() -> None:

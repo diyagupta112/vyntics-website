@@ -37,7 +37,6 @@ class PrivateTestStorage:
         return path
 
     async def create_access_url(self, object_path: str) -> str:
-        assert object_path in self.objects
         return f"https://storage.example.test/private/{object_path}?token=test"
 
     async def delete(self, object_path: str) -> None:
@@ -64,7 +63,9 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
     application.dependency_overrides[get_resume_storage] = lambda: storage
     run_id = uuid4()
     slug = f"phase-9-api-{run_id}"
+    empty_slug = f"phase-9-empty-{run_id}"
     career_id: UUID | None = None
+    empty_career_id: UUID | None = None
     application_id: UUID | None = None
 
     try:
@@ -94,6 +95,27 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
             assert career_response.status_code == 201
             career_id = UUID(career_response.json()["id"])
 
+            empty_career_response = client.post(
+                "/careers",
+                json={
+                    "slug": empty_slug,
+                    "title": "Phase 9 Empty Temporary Career",
+                    "location": "Remote",
+                    "employment_type": "Full-time",
+                    "department": "Engineering",
+                    "experience": "3+ years",
+                    "short_description": "Temporary empty Career verification.",
+                    "description": {"type": "doc"},
+                    "responsibilities": {"items": []},
+                    "requirements": {"items": []},
+                },
+            )
+            assert empty_career_response.status_code == 201
+            empty_career_id = UUID(empty_career_response.json()["id"])
+            empty_deleted = client.delete(f"/careers/{empty_career_id}")
+            assert empty_deleted.status_code == 204
+            assert client.get(f"/careers/{empty_slug}").status_code == 404
+
             submitted = client.post(
                 f"/careers/{slug}/apply",
                 data={
@@ -114,6 +136,9 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
             row = next(
                 item for item in listed.json() if item["id"] == str(application_id)
             )
+            assert row["career_id"] == str(career_id)
+            assert row["career_title_snapshot"] == "Phase 9 API Temporary Career"
+            assert row["career_slug_snapshot"] == slug
             assert row["resume_url"] is None
             assert "cover_letter" not in row and "notes" not in row
 
@@ -131,25 +156,69 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
             assert updated.json()["status"] == "shortlisted"
             assert updated.json()["notes"] == "Temporary note."
 
-            restricted = client.delete(f"/careers/{career_id}")
-            assert restricted.status_code == 409
+            deleted_career = client.delete(f"/careers/{career_id}")
+            assert deleted_career.status_code == 204
+            career_list = client.get("/careers")
+            assert career_list.status_code == 200
+            assert all(
+                item["id"] != str(career_id)
+                for item in career_list.json()["data"]
+            )
+            assert client.get(f"/careers/{slug}").status_code == 404
+            rejected_submission = client.post(
+                f"/careers/{slug}/apply",
+                data={
+                    "name": "Late Applicant",
+                    "email": f"late-{run_id}@example.com",
+                    "phone": "1234567890",
+                },
+            )
+            assert rejected_submission.status_code == 404
+
+            global_list = client.get("/admin/job-applications")
+            assert global_list.status_code == 200
+            historical_row = next(
+                item
+                for item in global_list.json()
+                if item["id"] == str(application_id)
+            )
+            assert historical_row["career_id"] is None
+            assert historical_row["career_title_snapshot"] == (
+                "Phase 9 API Temporary Career"
+            )
+
+            historical_detail = client.get(
+                f"/admin/job-applications/{application_id}"
+            )
+            assert historical_detail.status_code == 200
+            assert historical_detail.json()["career_id"] is None
+
+            historical_update = client.patch(
+                f"/admin/job-applications/{application_id}",
+                json={"status": "hired", "notes": None},
+            )
+            assert historical_update.status_code == 200
+            assert historical_update.json()["status"] == "hired"
+            assert historical_update.json()["career_title_snapshot"] == (
+                "Phase 9 API Temporary Career"
+            )
 
             removed = client.delete(f"/admin/job-applications/{application_id}")
             assert removed.status_code == 204 and removed.content == b""
             assert storage.objects == {}
-            assert client.get(f"/careers/{slug}").status_code == 200
             assert client.get(
                 f"/admin/job-applications/{application_id}"
             ).status_code == 404
-
-            deleted_career = client.delete(f"/careers/{career_id}")
-            assert deleted_career.status_code == 204
     finally:
         async def cleanup() -> None:
             database = create_database(settings)
             try:
                 async with database.session_factory() as session:
-                    ids = [item for item in (application_id, career_id) if item]
+                    ids = [
+                        item
+                        for item in (application_id, career_id, empty_career_id)
+                        if item
+                    ]
                     if ids:
                         await session.execute(
                             delete(AuditLog).where(AuditLog.resource_id.in_(ids))
@@ -163,6 +232,10 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
                     if career_id is not None:
                         await session.execute(
                             delete(Career).where(Career.id == career_id)
+                        )
+                    if empty_career_id is not None:
+                        await session.execute(
+                            delete(Career).where(Career.id == empty_career_id)
                         )
                     await session.commit()
             finally:

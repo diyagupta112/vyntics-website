@@ -1673,9 +1673,8 @@ Use the existing FastAPI conventions:
   HTTP `422` validation response;
 - database exception details are never returned to the client.
 
-The restricted-delete integrity mapping is the one explicit unresolved item
-described in the delete contract below; do not reuse or invent a response
-without finalizing that implementation decision.
+Career deletion is not a conflict when applications exist. The database sets
+their nullable foreign keys to `null` while preserving the application rows.
 
 ### Delete Contract
 
@@ -1686,21 +1685,14 @@ without finalizing that implementation decision.
 - Return HTTP `404 Not Found` when the UUID does not identify a Career.
 - Let FastAPI return HTTP `422` for an invalid UUID path value.
 - Do not implement soft deletion or a replacement lifecycle field.
-- Do not delete, detach, or otherwise mutate related Job Applications.
+- Do not delete related Job Applications.
 
-The existing `job_applications.career_id` foreign key is non-null and uses
-`ON DELETE RESTRICT`. Therefore a Career with one or more related Job
-Applications cannot be deleted, and Job Applications must never be
-cascade-deleted as a consequence of Career deletion.
-
-The backend currently has an established HTTP `409 Conflict` mapping for
-unique-slug integrity conflicts, but it has no established mapping for an
-`ON DELETE RESTRICT` integrity conflict. The exact HTTP status/detail mapping
-for this restricted-delete case is an explicit Phase 8 implementation decision
-that must be finalized before the route is implemented. Regardless of the
-chosen mapping, the service must roll back safely and the API must never expose
-raw SQL, constraint names, database exception text, credentials, or stack
-traces.
+The nullable `job_applications.career_id` foreign key uses `ON DELETE SET NULL`.
+A Career with related applications is permanently deleted with HTTP `204`; the
+applications survive with `career_id=null` and retain their non-null
+`career_title_snapshot` and `career_slug_snapshot` values. The deleted Career
+no longer appears in Career reads, and its slug can no longer accept a public
+application.
 
 ### Audit Logging
 
@@ -1716,8 +1708,7 @@ Every successful Career mutation creates an audit record in the same transaction
 - context must not contain full descriptions, responsibilities, requirements, nice-to-have content, benefits, credentials, tokens, applicant information, or other sensitive/private content.
 
 The service owns the mutation and audit transaction. Audit failure rolls back
-the mutation. A restricted or otherwise failed deletion must not commit a
-delete audit event.
+the mutation. A failed deletion must not commit a delete audit event.
 
 ### Repository and Service Architecture
 
@@ -1734,7 +1725,9 @@ FastAPI route
 - The repository performs SQLAlchemy queries and stages persistence changes without committing.
 - The service applies Career rules, conflict handling, audit logging, and commit/rollback boundaries.
 - Use the existing asynchronous engine, session dependency, and lifecycle.
-- Supabase SQL migrations remain the sole migration source of truth. The existing schema supports this contract; Phase 8 requires no migration.
+- Supabase SQL migrations remain the sole migration source of truth. The
+  correction uses a forward migration rather than rewriting the applied
+  initial schema.
 
 ### Phase 8 Testing Requirements
 
@@ -1758,7 +1751,9 @@ Automated tests must cover at least:
 16. DELETE hard-deletes a Career with no applications.
 17. Successful DELETE returns `204` with no response body.
 18. DELETE returns `404` for a missing Career.
-19. Deleting a Career with related Job Applications is rejected safely using the Phase 8 mapping once finalized; no raw database error is exposed and no Job Application is deleted.
+19. Deleting a Career with related Job Applications returns `204`, preserves
+    each application, sets its `career_id` to `null`, and retains its Career
+    title/slug snapshots.
 20. Successful create, update, and delete operations create the required safe, atomic audit events; failed mutations do not.
 21. Job Applications and `POST /careers/{slug}/apply` remain separate and untouched.
 
@@ -1768,7 +1763,7 @@ fields, service rollback, and repository non-commit behavior.
 
 Use the established test isolation and the opt-in PostgreSQL/Supabase
 integration approach. Do not substitute SQLite for PostgreSQL-specific
-behavior, especially uniqueness and `ON DELETE RESTRICT`. Do not claim real
+behavior, especially uniqueness and `ON DELETE SET NULL`. Do not claim real
 database verification unless it actually succeeds.
 
 ### Manual Swagger and Supabase Verification
@@ -1785,7 +1780,9 @@ After Phase 8 implementation and automated tests pass:
 8. Exercise a duplicate-slug create or update and confirm the documented `409` response without database details.
 9. Confirm missing detail, update, and delete behavior.
 10. Delete a Career without applications and confirm `204`, an empty response body, removal from Supabase, and the safe audit row.
-11. Where practical, create or use a related Job Application and confirm the Career deletion is rejected safely without deleting the application or exposing a raw integrity error.
+11. Create or use a related Job Application, delete the Career with `204`, and
+    confirm the application remains with `career_id=null` and unchanged
+    historical Career snapshots.
 
 Do not add Swagger-only or testing-only bypass behavior. Do not claim this
 manual sequence was completed until it was actually performed.
@@ -1833,6 +1830,8 @@ The existing `job_applications` table and ORM model contain exactly:
 
 - `id`
 - `career_id`
+- `career_title_snapshot`
+- `career_slug_snapshot`
 - `name`
 - `email`
 - `phone`
@@ -1844,12 +1843,14 @@ The existing `job_applications` table and ORM model contain exactly:
 
 Do not add creation/update timestamps, ownership columns, soft-delete fields, or
 a Career availability field. An existing Career is open and available; a
-deleted Career is unavailable.
+deleted Career is unavailable for new submissions.
 
-The existing `career_id` foreign key uses `ON DELETE RESTRICT`. Applications
-must never be cascade-deleted with a Career. A Career with any related Job
-Application cannot be deleted and continues to use the Phase 8 HTTP `409`
-mapping. Hard-deleting a Job Application does not modify or delete its Career.
+`career_id` is nullable and its foreign key uses `ON DELETE SET NULL`.
+Applications are historical records: deleting a Career never cascade-deletes
+them. Every application stores non-null `career_title_snapshot` and
+`career_slug_snapshot` values captured at submission time. Those snapshots do
+not change when the Career or application is later updated. Hard-deleting a Job
+Application does not modify or delete a current Career.
 
 ### Status Lifecycle
 
@@ -1880,12 +1881,13 @@ Public:
 
 Administrative intent:
 
+- `GET /admin/job-applications`
 - `GET /admin/careers/{career_id}/applications`
 - `GET /admin/job-applications/{id}`
 - `PATCH /admin/job-applications/{id}`
 - `DELETE /admin/job-applications/{id}`
 
-The public submission remains unauthenticated. The four Admin Panel operations
+The public submission remains unauthenticated. The five Admin Panel operations
 contain private applicant data and must be protected when the approved
 authentication/authorization phase is implemented. Phase 9 must not add fake
 authentication, temporary credentials, or provisional role checks. No public
@@ -1900,7 +1902,7 @@ Accept `multipart/form-data` with exactly these applicant-controlled fields:
 - `name` --- required string;
 - `email` --- required valid email;
 - `phone` --- required string;
-- `resume` --- required uploaded file;
+- `resume` --- temporarily optional until the Storage phase is available;
 - `cover_letter` --- optional nullable string.
 
 The request must reject `career_id`, `status`, `submitted_at`, `resume_url`,
@@ -1915,11 +1917,12 @@ Processing order and outcome:
 1. Resolve `{slug}` through the existing exact, case-sensitive Career slug lookup.
 2. Return HTTP `404 Not Found` with `{"detail": "Career not found."}` if no Career exists.
 3. Treat an existing Career as open and available; do not inspect or add a status flag.
-4. Validate applicant data and the resume.
-5. Store the private resume through backend-managed Supabase Storage behavior.
-6. Create the Job Application with the resolved `career_id`, stored resume
-   reference, initial status `new`, `notes=null`, and backend/database-generated
-   `id` and `submitted_at`.
+4. Validate applicant data and any supplied resume.
+5. When a resume is omitted, keep `resume_url=null` without creating fake
+   storage behavior or a fake URL.
+6. Create the Job Application with the resolved `career_id`, immutable Career
+   title/slug snapshots, initial status `new`, `notes=null`, and
+   backend/database-generated `id` and `submitted_at`.
 7. Create the safe application `create` audit event in the database transaction.
 8. Return HTTP `201 Created` with the public receipt defined below.
 
@@ -1970,6 +1973,14 @@ finalized with the storage details and tested for failure paths.
 
 ### Admin List Contract
 
+#### `GET /admin/job-applications`
+
+Return every Job Application ordered by `submitted_at DESC`, including current
+Career applications and historical applications whose Career has been deleted.
+The unpaginated response returns `[]` when no applications exist. Historical
+rows expose `career_id=null` together with their retained Career title and slug
+snapshots.
+
 #### `GET /admin/careers/{career_id}/applications`
 
 Return every Job Application belonging to the Career UUID, ordered by
@@ -1981,6 +1992,9 @@ with `[]`.
 The list item contains exactly:
 
 - `id`
+- `career_id`
+- `career_title_snapshot`
+- `career_slug_snapshot`
 - `name`
 - `email`
 - `phone`
@@ -1989,7 +2003,8 @@ The list item contains exactly:
 - `resume_url`
 
 This provides every required Admin Panel table value without a detail request
-per row. It omits `career_id` because the route scopes the result, and omits
+per row. `career_id` distinguishes current and historical applications, while
+the snapshot fields always identify the original Career. The list omits
 `cover_letter` and `notes` because they belong in detail. `resume_url` is an
 administrative resume reference/link produced through the finalized private
 storage-access behavior, not permission for direct public storage access.
@@ -2006,6 +2021,8 @@ Return the administrative detail response containing exactly:
 
 - `id`
 - `career_id`
+- `career_title_snapshot`
+- `career_slug_snapshot`
 - `name`
 - `email`
 - `phone`
@@ -2015,7 +2032,8 @@ Return the administrative detail response containing exactly:
 - `notes`
 - `submitted_at`
 
-`cover_letter` and `notes` may be `null`. The response exposes no audit data,
+`career_id`, `cover_letter`, `notes`, and temporarily `resume_url` may be
+`null`. The response exposes no audit data,
 storage credentials, ownership fields, or fields absent from the current model.
 Return HTTP `404 Not Found` with `{"detail": "Job Application not found."}`
 when the application does not exist. An invalid UUID receives the standard HTTP
@@ -2066,9 +2084,10 @@ exact compensation behavior is part of the deferred Phase 9 storage decision.
 Phase 9 must define four distinct strict response contracts:
 
 1. Public submission receipt: `id`, `status`, `submitted_at`.
-2. Admin list item: `id`, `name`, `email`, `phone`, `status`, `submitted_at`, `resume_url`.
-3. Admin detail: `id`, `career_id`, `name`, `email`, `phone`, `resume_url`,
-   `cover_letter`, `status`, `notes`, `submitted_at`.
+2. Admin list item: `id`, nullable `career_id`, `career_title_snapshot`,
+   `career_slug_snapshot`, `name`, `email`, `phone`, `status`, `submitted_at`,
+   and nullable `resume_url`.
+3. Admin detail: the list fields plus `cover_letter` and `notes`.
 4. Admin update response: the same exact schema as admin detail.
 
 Do not serialize the ORM model directly as a universal response. Public output
@@ -2085,7 +2104,8 @@ Create audit records for application `create`, `update`, and `delete` using:
 - safe context only.
 
 Create context contains exactly `career_id` (serialized as a string) and
-`status`. Update context contains exactly `career_id` (serialized as a string),
+`status`. Update context contains exactly `career_id` (serialized as a string
+or `null` for a historical application),
 the resulting `status`, and sorted `changed_fields`; it must never contain the
 notes value. Delete context contains exactly `career_id` (serialized as a
 string) and the last stored `status`. Never put applicant name, email, phone,
@@ -2141,10 +2161,11 @@ Add tests for:
     storage failure behavior, and surviving safe delete audit event;
 15. create audit behavior with nullable actor fields and no private data;
 16. deleting an application leaves its Career unchanged;
-17. a Career with applications remains protected by `ON DELETE RESTRICT` and
-    the established Phase 8 HTTP `409` response;
+17. deleting a Career preserves its applications through `ON DELETE SET NULL`
+    and retained title/slug snapshots;
 18. public endpoints expose no admin-only information;
-19. generated OpenAPI contains exactly the five Phase 9 operations and their
+19. generated OpenAPI contains the public submission and five administrative
+    operations with their
     distinct request/response schemas.
 
 ### Manual Swagger and Supabase Verification
@@ -2163,8 +2184,9 @@ environment:
 6. PATCH status through the approved lifecycle values and update/clear notes;
 7. verify invalid statuses and non-editable fields are rejected;
 8. verify create/update/delete audit events contain safe metadata only;
-9. verify deleting a Career with applications still returns the established
-   conflict and preserves all applications;
+9. delete a Career with applications, confirm HTTP 204, and verify every
+   application remains globally accessible with `career_id=null` and retained
+   title/slug snapshots;
 10. hard-delete an application, confirm HTTP 204 with an empty body, confirm its
     Career remains, and confirm its uploaded resume is not orphaned;
 11. clean up every temporary database row and uploaded test object.

@@ -31,15 +31,18 @@ CAREER_ID = UUID("b6aa692a-6527-4266-a495-1080e742d210")
 SUBMITTED_AT = datetime(2026, 9, 25, 12, 0, tzinfo=timezone.utc)
 SIGNED_URL = "https://example.supabase.co/storage/v1/object/sign/job-resumes/file?token=x"
 LIST_FIELDS = {
-    "id", "name", "email", "phone", "status", "submitted_at", "resume_url",
+    "id", "career_id", "career_title_snapshot", "career_slug_snapshot",
+    "name", "email", "phone", "status", "submitted_at", "resume_url",
 }
-DETAIL_FIELDS = LIST_FIELDS | {"career_id", "cover_letter", "notes"}
+DETAIL_FIELDS = LIST_FIELDS | {"cover_letter", "notes"}
 
 
 def _application(**overrides: object) -> JobApplication:
     values: dict[str, object] = {
         "id": APPLICATION_ID,
         "career_id": CAREER_ID,
+        "career_title_snapshot": "Senior Engineer",
+        "career_slug_snapshot": "senior-engineer",
         "name": "Ada Applicant",
         "email": "ada@example.com",
         "phone": "+91 9999999999",
@@ -56,6 +59,9 @@ def _application(**overrides: object) -> JobApplication:
 def _list_item(**overrides: object) -> JobApplicationAdminListItem:
     values: dict[str, object] = {
         "id": APPLICATION_ID,
+        "career_id": CAREER_ID,
+        "career_title_snapshot": "Senior Engineer",
+        "career_slug_snapshot": "senior-engineer",
         "name": "Ada Applicant",
         "email": "ada@example.com",
         "phone": "+91 9999999999",
@@ -231,6 +237,31 @@ def test_admin_list_returns_exact_fields_and_maps_missing(job_application_api) -
     assert missing.status_code == 404
 
 
+def test_global_admin_list_includes_current_and_historical_applications(
+    job_application_api,
+) -> None:
+    client, service = job_application_api
+    service.list_all.return_value = [
+        _list_item(),
+        _list_item(
+            id=UUID("6713947a-7261-4174-811a-fdc93769658e"),
+            career_id=None,
+            career_title_snapshot="Historical Career",
+            career_slug_snapshot="historical-career",
+        ),
+    ]
+
+    response = client.get("/admin/job-applications")
+
+    assert response.status_code == 200
+    assert all(set(item) == LIST_FIELDS for item in response.json())
+    assert response.json()[0]["career_id"] == str(CAREER_ID)
+    assert response.json()[1]["career_id"] is None
+    assert response.json()[1]["career_title_snapshot"] == "Historical Career"
+    service.list_all.return_value = []
+    assert client.get("/admin/job-applications").json() == []
+
+
 def test_admin_detail_returns_exact_fields_and_404(job_application_api) -> None:
     client, service = job_application_api
     service.get_by_id.return_value = _detail()
@@ -327,6 +358,7 @@ def test_openapi_exposes_exact_phase_nine_operations(job_application_api) -> Non
     paths = client.get("/openapi.json").json()["paths"]
     assert set(paths["/careers/{slug}/apply"]) == {"post"}
     assert set(paths["/admin/careers/{career_id}/applications"]) == {"get"}
+    assert set(paths["/admin/job-applications"]) == {"get"}
     assert set(paths["/admin/job-applications/{application_id}"]) == {
         "get", "patch", "delete",
     }

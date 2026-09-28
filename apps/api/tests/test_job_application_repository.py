@@ -16,6 +16,23 @@ CAREER_ID = UUID("b6aa692a-6527-4266-a495-1080e742d210")
 APPLICATION_ID = UUID("674da2ca-a558-4dd0-a1eb-d71e1073defe")
 
 
+def test_list_all_orders_current_and_historical_applications_newest_first() -> None:
+    applications = [SimpleNamespace(id=APPLICATION_ID)]
+    result = MagicMock()
+    result.all.return_value = applications
+    session = AsyncMock(spec=AsyncSession)
+    session.scalars.return_value = result
+    repository = JobApplicationRepository(session)
+
+    returned = asyncio.run(repository.list_all())
+    statement = session.scalars.await_args.args[0]
+    sql = str(statement.compile(dialect=postgresql.dialect()))
+
+    assert returned == applications
+    assert "WHERE" not in sql
+    assert "ORDER BY job_applications.submitted_at DESC" in sql
+
+
 def test_list_for_career_filters_and_orders_newest_first() -> None:
     applications = [SimpleNamespace(id=APPLICATION_ID)]
     result = MagicMock()
@@ -41,6 +58,8 @@ def test_get_add_refresh_delete_never_commit() -> None:
     application = JobApplication(
         id=APPLICATION_ID,
         career_id=CAREER_ID,
+        career_title_snapshot="Senior Engineer",
+        career_slug_snapshot="senior-engineer",
         name="Ada",
         email="ada@example.com",
         phone="1",

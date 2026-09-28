@@ -22,10 +22,6 @@ class CareerSlugConflictError(ValueError):
     """Raised when a Career slug is already in use."""
 
 
-class CareerDeletionConflictError(ValueError):
-    """Raised when related Job Applications restrict Career deletion."""
-
-
 class CareerService:
     """Coordinate Career rules, persistence, auditing, and transactions."""
 
@@ -133,7 +129,7 @@ class CareerService:
         return career
 
     async def delete(self, career_id: UUID) -> None:
-        """Hard-delete and audit a Career unless applications restrict it."""
+        """Hard-delete and audit a Career while preserving applications."""
 
         career = await self._careers.get_by_id(career_id)
         if career is None:
@@ -148,9 +144,6 @@ class CareerService:
             await self._careers.delete(career)
             await self._audit_logs.add(audit_log)
             await self._session.commit()
-        except IntegrityError as error:
-            await self._session.rollback()
-            raise CareerDeletionConflictError from error
         except Exception:
             await self._session.rollback()
             raise

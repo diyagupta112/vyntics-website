@@ -14,6 +14,15 @@ class JobApplicationRepository:
     def __init__(self, session: AsyncSession) -> None:
         self._session = session
 
+    async def list_all(self) -> list[JobApplication]:
+        """Return every application newest-first, including historical rows."""
+
+        statement = select(JobApplication).order_by(
+            JobApplication.submitted_at.desc()
+        )
+        result = await self._session.scalars(statement)
+        return list(result.all())
+
     async def list_for_career(self, career_id: UUID) -> list[JobApplication]:
         """Return one Career's applications newest-first."""
 

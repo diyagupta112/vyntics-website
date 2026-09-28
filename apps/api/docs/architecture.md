@@ -249,9 +249,10 @@ authorized Admin Panel users will manage the listings.
 A Career record's existence represents that the job is open and available.
 There is no separate open, closed, active, visible, archived, or soft-delete
 state, and `published_at` is not a lifecycle flag. Removing availability is a
-hard delete. A Career that has related Job Applications cannot be deleted;
-the database relationship uses `ON DELETE RESTRICT`, and applications are
-never cascade-deleted with a Career.
+hard delete. A Career can be deleted even when Job Applications exist. The
+nullable `job_applications.career_id` relationship uses `ON DELETE SET NULL`,
+so applications are never cascade-deleted and remain available as historical
+records with their Career title and slug snapshots.
 
 ------------------------------------------------------------------------
 
@@ -268,6 +269,13 @@ Expected operations include:
 -   View applications from the Admin Panel
 -   Update application status
 -   Add internal notes where required
+
+Administrative reads include both a global application list and a
+Career-scoped list for existing Careers. Historical applications remain
+available after Career deletion: their `career_id` becomes `null`, while
+`career_title_snapshot` and `career_slug_snapshot` retain the original Career
+identity. New applications cannot be submitted for a deleted Career because
+public submission still resolves an existing Career by slug.
 
 Job applications contain private information and therefore require
 appropriate authentication and authorization.
