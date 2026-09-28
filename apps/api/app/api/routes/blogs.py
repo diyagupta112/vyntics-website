@@ -1,8 +1,9 @@
 """Public and administrative Blog API routes."""
 
+from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, Response, status
+from fastapi import APIRouter, File, HTTPException, Response, UploadFile, status
 
 from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.blogs import BlogServiceDependency
@@ -18,6 +19,8 @@ from app.services.blogs import (
     BlogSlugConflictError,
     BlogValidationError,
 )
+from app.storage.supabase import StorageError
+from app.storage.uploads import UploadValidationError
 
 router = APIRouter(prefix="/blogs", tags=["blogs"])
 admin_router = APIRouter(prefix="/admin/blogs", tags=["admin blogs"])
@@ -118,6 +121,54 @@ async def update_blog(
             status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
             detail=str(error),
         ) from None
+
+
+@router.put("/{blog_id}/cover-image", response_model=BlogAdminResponse)
+async def upload_blog_cover(
+    blog_id: UUID,
+    file: Annotated[UploadFile, File()],
+    admin: AuthenticatedAdminDependency,
+    service: BlogServiceDependency,
+) -> object:
+    """Upload or replace a Blog's backend-managed cover image."""
+
+    try:
+        return await service.upload_cover(blog_id, file, actor=admin)
+    except BlogNotFoundError:
+        raise HTTPException(status_code=404, detail="Blog not found.") from None
+    except UploadValidationError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from None
+    except StorageError:
+        raise HTTPException(
+            status_code=503,
+            detail="Image storage is temporarily unavailable.",
+        ) from None
+
+
+@router.delete(
+    "/{blog_id}/cover-image",
+    status_code=status.HTTP_204_NO_CONTENT,
+    response_class=Response,
+)
+async def delete_blog_cover(
+    blog_id: UUID,
+    admin: AuthenticatedAdminDependency,
+    service: BlogServiceDependency,
+) -> Response:
+    """Remove a draft or unpublished Blog's managed cover image."""
+
+    try:
+        await service.delete_cover(blog_id, actor=admin)
+    except BlogNotFoundError:
+        raise HTTPException(status_code=404, detail="Blog not found.") from None
+    except BlogValidationError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from None
+    except StorageError:
+        raise HTTPException(
+            status_code=503,
+            detail="Image storage is temporarily unavailable.",
+        ) from None
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.delete(

@@ -18,6 +18,8 @@ from app.services.blogs import (
     BlogSlugConflictError,
     BlogValidationError,
 )
+from app.storage.supabase import StorageError
+from app.storage.uploads import UploadValidationError
 
 
 BLOG_ID = UUID("5326b73c-022f-4cc7-8291-8904d3ef01fc")
@@ -306,6 +308,46 @@ def test_delete_blog_returns_204_and_404(blog_api) -> None:
     assert missing.json() == {"detail": "Blog not found."}
 
 
+def test_cover_file_endpoints_upload_delete_and_map_errors(blog_api) -> None:
+    client, service = blog_api
+    uploaded_blog = _blog()
+    uploaded_blog.cover_image_url = (
+        "https://project/storage/blog-covers/id/hash.jpg"
+    )
+    service.upload_cover.return_value = uploaded_blog
+
+    uploaded = client.put(
+        f"/blogs/{BLOG_ID}/cover-image",
+        files={"file": ("cover.jpg", b"\xff\xd8\xffimage", "image/jpeg")},
+    )
+    assert uploaded.status_code == 200
+    assert uploaded.json()["cover_image_url"].endswith("/id/hash.jpg")
+    service.upload_cover.assert_awaited_once()
+
+    deleted = client.delete(f"/blogs/{BLOG_ID}/cover-image")
+    assert deleted.status_code == 204 and deleted.content == b""
+    service.delete_cover.assert_awaited_once()
+
+    service.delete_cover.side_effect = BlogValidationError("published cover")
+    protected = client.delete(f"/blogs/{BLOG_ID}/cover-image")
+    assert protected.status_code == 422
+
+    service.upload_cover.side_effect = UploadValidationError("bad image")
+    invalid = client.put(
+        f"/blogs/{BLOG_ID}/cover-image",
+        files={"file": ("cover.jpg", b"bad", "image/jpeg")},
+    )
+    assert invalid.status_code == 422 and invalid.json() == {"detail": "bad image"}
+
+    service.upload_cover.side_effect = StorageError("provider internals")
+    unavailable = client.put(
+        f"/blogs/{BLOG_ID}/cover-image",
+        files={"file": ("cover.jpg", b"bad", "image/jpeg")},
+    )
+    assert unavailable.status_code == 503
+    assert "provider internals" not in unavailable.text
+
+
 def test_openapi_exposes_blog_request_and_response_schemas(blog_api) -> None:
     client, _ = blog_api
 
@@ -321,6 +363,10 @@ def test_openapi_exposes_blog_request_and_response_schemas(blog_api) -> None:
     ].endswith("/BlogUpdateRequest")
     assert "201" in post["responses"]
     assert "200" in patch["responses"]
+    assert set(schema["paths"]["/blogs/{blog_id}/cover-image"]) == {
+        "put",
+        "delete",
+    }
 
     admin_list = schema["paths"]["/admin/blogs"]["get"]
     admin_detail = schema["paths"]["/admin/blogs/{blog_id}"]["get"]

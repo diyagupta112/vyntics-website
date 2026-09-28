@@ -354,9 +354,10 @@ Existing public Blog GET behavior remains unchanged.
 - [x] Implemented private backend-managed Supabase resume storage using the
   existing project URL and service-role configuration rather than adding a
   second storage architecture.
-- [x] Finalized the resume-specific implementation settings as private bucket
-  `job-resumes`, opaque `{application_id}/resume.{ext}` object paths stored in
-  `resume_url`, five-minute signed admin download URLs, and a 5 MiB maximum.
+- [x] Phase 13 superseded the initial resume-specific defaults with private
+  bucket `job-applications`, opaque
+  `{application_id}/{content_digest}.{validated_extension}` paths stored in
+  `resume_url`, five-minute signed admin download URLs, and a 10 MB maximum.
 - [x] Added strict extension/MIME/signature matching for PDF, legacy DOC, and
   DOCX files, including empty, oversized, mismatched, and malformed rejection.
 - [x] Kept stored resume paths and permanent public URLs out of public responses;
@@ -379,9 +380,10 @@ Existing public Blog GET behavior remains unchanged.
   against the configured Supabase PostgreSQL database under the required
   Windows Selector event loop, with temporary database data cleaned up.
 - [ ] Live Supabase Storage upload/sign/delete verification remains pending
-  because the current environment has no `SUPABASE_URL` or
-  `SUPABASE_SERVICE_ROLE_KEY`; the API returns a safe HTTP 503 while storage is
-  unconfigured. The private `job-resumes` bucket must exist before deployment.
+  because the configured `SUPABASE_SERVICE_ROLE_KEY` is not currently a
+  recognized privileged server-key format. The API returns a safe HTTP 503 for
+  failed provider operations; the private `job-applications` bucket is already
+  provisioned.
 - [x] Authentication and authorization were added in Phase 12 without fake
   credentials or identities.
 
@@ -575,9 +577,60 @@ Existing public Blog GET behavior remains unchanged.
   active `admin` and `superadmin` records can use current protected operations.
 - [x] Confirmed no schema or migration change was required.
 
+## Phase 13 — Supabase Storage implementation
+
+- [x] Confirmed the server-owned architecture is Admin Panel → FastAPI →
+  Supabase Storage; no direct browser mutation path or broad authenticated-user
+  Storage policy was introduced.
+- [x] Added a shared asynchronous Supabase Storage gateway with centralized
+  safe error mapping, public URL generation, private signed URL generation,
+  upload/delete operations, and legacy/current server-key header handling.
+- [x] Added one application-lifetime Storage HTTP client created and closed by
+  the FastAPI lifespan rather than request-local network clients.
+- [x] Configured the manually provisioned public `blog-covers`,
+  `case-study-covers`, and `team-photos` buckets at 5 MB, and private
+  `job-applications` resume bucket at 10 MB.
+- [x] Preserved the Phase 12 credential split: `SUPABASE_ANON_KEY` verifies
+  users and server-only `SUPABASE_SERVICE_ROLE_KEY` performs privileged
+  Storage operations.
+- [x] Added shared JPEG/PNG/WebP and PDF/DOC/DOCX validation covering empty
+  files, byte limits, extension, declared MIME, and actual signature/content.
+- [x] Added server-generated
+  `{resource_id}/{content_digest}.{validated_extension}` paths; client
+  filenames are ignored for naming and clients cannot select buckets or paths.
+- [x] Added authenticated `PUT`/`DELETE` Blog cover, Case Study cover, and Team
+  photo subresources while retaining all existing JSON CRUD contracts.
+- [x] Kept published Blog and Case Study covers mandatory and Team photos
+  optional.
+- [x] Implemented upload → database commit → guarded previous-object cleanup,
+  including new-upload compensation on persistence failure and sanitized
+  logging for post-commit cleanup failure.
+- [x] Limited public-object deletion to URLs proven to match the configured
+  Supabase origin and expected bucket; arbitrary external URLs are not deleted.
+- [x] Refactored the Phase 9 resume adapter onto the shared gateway, changed its
+  configured private bucket to `job-applications`, raised validation to 10 MB,
+  and retained short-lived admin-only signed URLs.
+- [x] Kept multipart resumes optional and `resume_url` nullable. The read-only
+  database inspection found four existing Job Applications and four null resume
+  references, so no `NOT NULL` migration or placeholder URL was added.
+- [x] Preserved authenticated audit actors and safe context without file bytes,
+  URLs, paths, applicant data, provider bodies, tokens, or credentials.
+- [x] Added focused gateway, validator, naming, cleanup, compensation,
+  authentication, endpoint, published-cover, resume, and audit regression tests.
+- [ ] Live Storage upload/sign/delete verification remains blocked until
+  `SUPABASE_SERVICE_ROLE_KEY` contains a valid privileged Supabase server key.
+
 ## Validation
 
 ```text
+486 tests passed, 8 opt-in integration tests skipped after Phase 13
+219 focused Phase 13/auth/resource/resume tests passed
+Shared Storage legacy/current credential headers -> verified with mock HTTP
+Public and signed URL generation               -> verified with mock HTTP
+Image/resume validation and digest naming      -> verified
+Replacement compensation/external URL guard    -> verified
+New endpoint authentication/OpenAPI contracts  -> verified
+Python compileall after Phase 13                -> passed
 459 tests passed, 8 opt-in integration tests skipped after Phase 12 Auth fix
 57 focused Phase 12 authentication/authorization/audit/config tests passed
 239 broader affected API/service tests passed after Phase 12 Auth fix
@@ -691,13 +744,13 @@ Python compileall after Phase 10           -> passed
 - The Supabase Google provider and Phase 12 FastAPI authentication/authorization
   are implemented. No Admin Panel exists, so browser end-to-end Google login
   verification remains pending and is not claimed as complete.
-- The Phase 9 Supabase resume-storage adapter is implemented, but the current
-  environment has no Supabase URL or service-role key and live private-bucket
-  verification therefore remains pending.
-- General storage buckets and policies remain Phase 13 decisions. Phase 9 uses
-  the resume-specific private `job-resumes` bucket, opaque stored references,
-  five-minute signed access, 5 MiB limit, content inspection, and compensating
-  cleanup defined by the finalized implementation.
+- The Phase 13 gateway and all four resource workflows are implemented. Live
+  hosted Storage verification remains pending because the configured
+  `SUPABASE_SERVICE_ROLE_KEY` does not currently have a recognized privileged
+  Supabase server-key format. This is a deployment/configuration prerequisite;
+  credentials were not changed by the implementation.
+- Storage RLS policies for browser roles remain intentionally absent. FastAPI
+  owns authorization and uses its server-only privileged credential.
 - External integrations are not initialized.
 - Resource APIs and business workflows other than Blogs, Case Studies,
   Careers, Job Applications, Team Members, and Contact Submissions are not
@@ -708,8 +761,9 @@ The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
-Phases 6 through 12 are implemented. Phase 9 still requires deployment
-configuration and live verification of the private `job-resumes` Supabase
-Storage bucket. The future Admin Panel must implement its Supabase browser login
-and send access tokens to the now-protected APIs; that browser flow cannot be
-verified until the Admin Panel exists. Phase 13 remains separate Storage work.
+Phases 6 through 13 are implemented. Phase 13 requires a valid privileged
+Supabase server credential before live upload, public URL, signed URL, and
+deletion verification can be completed against the four provisioned buckets.
+The future Admin Panel must implement its Supabase browser login and send access
+tokens to the protected APIs; that browser flow cannot be verified until the
+Admin Panel exists.

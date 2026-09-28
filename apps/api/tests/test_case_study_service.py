@@ -21,6 +21,7 @@ from app.services.case_studies import (
     CaseStudySlugConflictError,
     CaseStudyValidationError,
 )
+from app.storage.uploads import PublicImageStorage
 
 
 CASE_STUDY_ID = UUID("a610eff3-433a-405f-b58c-f4f1d1648e80")
@@ -273,3 +274,24 @@ def test_audit_failure_rolls_back_mutation_transaction() -> None:
 
     session.rollback.assert_awaited_once_with()
     session.commit.assert_not_awaited()
+
+
+def test_published_case_study_cover_cannot_be_deleted() -> None:
+    case_study = _case_study(status="published", published_at=NOW)
+    repository = AsyncMock(spec=CaseStudyRepository)
+    repository.get_by_id.return_value = case_study
+    audits = AsyncMock(spec=AuditLogRepository)
+    storage = AsyncMock(spec=PublicImageStorage)
+    session = AsyncMock(spec=AsyncSession)
+    service = CaseStudyService(
+        session,
+        case_study_repository=repository,
+        audit_repository=audits,
+        image_storage=storage,
+    )
+
+    with pytest.raises(CaseStudyValidationError, match="draft or unpublished"):
+        asyncio.run(service.delete_cover(CASE_STUDY_ID))
+
+    session.commit.assert_not_awaited()
+    storage.delete_managed_url.assert_not_awaited()

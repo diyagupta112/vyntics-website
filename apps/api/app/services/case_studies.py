@@ -1,11 +1,13 @@
 """Case Study application logic and transaction boundaries."""
 
+import logging
 from collections.abc import Callable
 from datetime import datetime, timezone
 from uuid import UUID
 
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import UploadFile
 
 from app.auth.models import AuthenticatedAdmin
 from app.db.models.audit_log import AuditLog
@@ -16,6 +18,11 @@ from app.schemas.case_studies import (
     CaseStudyCreateRequest,
     CaseStudyUpdateRequest,
 )
+from app.storage.supabase import StorageConfigurationError, StorageError
+from app.storage.uploads import PublicImageStorage
+
+
+logger = logging.getLogger(__name__)
 
 
 class CaseStudyNotFoundError(LookupError):
@@ -40,11 +47,13 @@ class CaseStudyService:
         case_study_repository: CaseStudyRepository | None = None,
         audit_repository: AuditLogRepository | None = None,
         clock: Callable[[], datetime] | None = None,
+        image_storage: PublicImageStorage | None = None,
     ) -> None:
         self._session = session
         self._case_studies = case_study_repository or CaseStudyRepository(session)
         self._audit_logs = audit_repository or AuditLogRepository(session)
         self._clock = clock or (lambda: datetime.now(timezone.utc))
+        self._image_storage = image_storage
 
     async def list_published(self) -> list[CaseStudy]:
         """Return Case Studies eligible for public listing."""
@@ -123,6 +132,7 @@ class CaseStudyService:
         case_study = await self._case_studies.get_by_id(case_study_id)
         if case_study is None:
             raise CaseStudyNotFoundError
+        previous_cover_url = case_study.cover_image_url
 
         updates = request.model_dump(exclude_unset=True, mode="json")
         next_slug = updates.get("slug", case_study.slug)
@@ -180,6 +190,12 @@ class CaseStudyService:
             await self._session.rollback()
             raise
 
+        if "cover_image_url" in changed_fields and self._image_storage is not None:
+            await self._cleanup_previous_cover(
+                self._image_storage,
+                previous_cover_url,
+                case_study.id,
+            )
         return case_study
 
     async def delete(
@@ -200,6 +216,7 @@ class CaseStudyService:
             context={"slug": case_study.slug, "status": case_study.status},
             actor=actor,
         )
+        previous_cover_url = case_study.cover_image_url
 
         try:
             await self._case_studies.delete(case_study)
@@ -208,6 +225,117 @@ class CaseStudyService:
         except Exception:
             await self._session.rollback()
             raise
+
+        if self._image_storage is not None:
+            await self._cleanup_previous_cover(
+                self._image_storage,
+                previous_cover_url,
+                case_study.id,
+            )
+
+    async def upload_cover(
+        self,
+        case_study_id: UUID,
+        upload: UploadFile,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> CaseStudy:
+        """Replace a Case Study cover with a backend-managed object."""
+
+        case_study = await self.get_by_id(case_study_id)
+        storage = self._require_image_storage()
+        previous_url = case_study.cover_image_url
+        stored = await storage.upload(case_study.id, upload)
+        case_study.cover_image_url = stored.public_url
+        try:
+            await self._audit_logs.add(
+                self._build_audit_log(
+                    action="update",
+                    case_study=case_study,
+                    context={
+                        "slug": case_study.slug,
+                        "status": case_study.status,
+                        "changed_fields": ["cover_image_url"],
+                    },
+                    actor=actor,
+                )
+            )
+            await self._case_studies.refresh(case_study)
+            await self._session.commit()
+        except Exception:
+            await self._session.rollback()
+            try:
+                await storage.delete_path(stored.object_path)
+            except StorageError:
+                logger.warning(
+                    "Could not remove an unreferenced Case Study cover after rollback.",
+                    extra={"resource_type": "case_study", "resource_id": str(case_study.id)},
+                )
+            raise
+        await self._cleanup_previous_cover(storage, previous_url, case_study.id)
+        return case_study
+
+    async def delete_cover(
+        self,
+        case_study_id: UUID,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> None:
+        """Clear and clean up a draft or unpublished Case Study cover."""
+
+        case_study = await self.get_by_id(case_study_id)
+        if case_study.status == "published":
+            raise CaseStudyValidationError(
+                "Published Case Studies must be changed to draft or unpublished before deleting their cover."
+            )
+        previous_url = case_study.cover_image_url
+        if previous_url is None:
+            return
+        storage = self._require_image_storage()
+        case_study.cover_image_url = None
+        try:
+            await self._audit_logs.add(
+                self._build_audit_log(
+                    action="update",
+                    case_study=case_study,
+                    context={
+                        "slug": case_study.slug,
+                        "status": case_study.status,
+                        "changed_fields": ["cover_image_url"],
+                    },
+                    actor=actor,
+                )
+            )
+            await self._case_studies.refresh(case_study)
+            await self._session.commit()
+        except Exception:
+            await self._session.rollback()
+            raise
+        await self._cleanup_previous_cover(storage, previous_url, case_study.id)
+
+    def _require_image_storage(self) -> PublicImageStorage:
+        if self._image_storage is None:
+            raise StorageConfigurationError("Storage is not configured.")
+        return self._image_storage
+
+    @staticmethod
+    async def _cleanup_previous_cover(
+        storage: PublicImageStorage,
+        previous_url: str | None,
+        case_study_id: UUID,
+    ) -> None:
+        if previous_url is None:
+            return
+        try:
+            await storage.delete_managed_url(str(previous_url), case_study_id)
+        except StorageError:
+            logger.warning(
+                "Could not clean up a previous Case Study cover.",
+                extra={
+                    "resource_type": "case_study",
+                    "resource_id": str(case_study_id),
+                },
+            )
 
     @staticmethod
     def _build_audit_log(

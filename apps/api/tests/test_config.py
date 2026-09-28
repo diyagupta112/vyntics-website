@@ -42,6 +42,12 @@ def test_settings_load_from_environment(monkeypatch) -> None:
     monkeypatch.setenv("SUPABASE_PROJECT_ID", "example-project")
     monkeypatch.setenv("AUTH_ALLOWED_EMAIL_DOMAIN", "vyntics.com")
     monkeypatch.setenv("STORAGE_PROVIDER", "supabase")
+    monkeypatch.setenv("STORAGE_BLOG_COVERS_BUCKET", "blog-covers")
+    monkeypatch.setenv("STORAGE_CASE_STUDY_COVERS_BUCKET", "case-study-covers")
+    monkeypatch.setenv("STORAGE_TEAM_PHOTOS_BUCKET", "team-photos")
+    monkeypatch.setenv("STORAGE_JOB_RESUMES_BUCKET", "job-applications")
+    monkeypatch.setenv("STORAGE_IMAGE_MAX_BYTES", "5242880")
+    monkeypatch.setenv("STORAGE_RESUME_MAX_BYTES", "10485760")
     monkeypatch.setenv("RESEND_API_KEY", "example-resend-key")
     monkeypatch.setenv("SENTRY_DSN", "https://example@sentry.invalid/1")
 
@@ -63,9 +69,13 @@ def test_settings_load_from_environment(monkeypatch) -> None:
     assert settings.supabase_project_id == "example-project"
     assert settings.auth_allowed_email_domain == "vyntics.com"
     assert settings.storage_provider == "supabase"
-    assert settings.job_resumes_bucket == "job-resumes"
+    assert settings.blog_covers_bucket == "blog-covers"
+    assert settings.case_study_covers_bucket == "case-study-covers"
+    assert settings.team_photos_bucket == "team-photos"
+    assert settings.job_resumes_bucket == "job-applications"
+    assert settings.image_max_bytes == 5 * 1024 * 1024
     assert settings.resume_signed_url_ttl_seconds == 300
-    assert settings.resume_max_bytes == 5 * 1024 * 1024
+    assert settings.resume_max_bytes == 10 * 1024 * 1024
     assert settings.resend_api_key is not None
     assert settings.sentry_dsn is not None
     assert "example-service-key" not in repr(settings)

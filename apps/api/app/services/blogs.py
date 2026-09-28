@@ -1,11 +1,13 @@
 """Blog application logic and transaction boundaries."""
 
+import logging
 from collections.abc import Callable
 from datetime import datetime, timezone
 from uuid import UUID
 
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import UploadFile
 
 from app.auth.models import AuthenticatedAdmin
 from app.db.models.audit_log import AuditLog
@@ -13,6 +15,11 @@ from app.db.models.blog import Blog
 from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.blogs import BlogRepository
 from app.schemas.blogs import BlogCreateRequest, BlogUpdateRequest
+from app.storage.supabase import StorageConfigurationError, StorageError
+from app.storage.uploads import PublicImageStorage
+
+
+logger = logging.getLogger(__name__)
 
 
 class BlogNotFoundError(LookupError):
@@ -37,11 +44,13 @@ class BlogService:
         blog_repository: BlogRepository | None = None,
         audit_repository: AuditLogRepository | None = None,
         clock: Callable[[], datetime] | None = None,
+        image_storage: PublicImageStorage | None = None,
     ) -> None:
         self._session = session
         self._blogs = blog_repository or BlogRepository(session)
         self._audit_logs = audit_repository or AuditLogRepository(session)
         self._clock = clock or (lambda: datetime.now(timezone.utc))
+        self._image_storage = image_storage
 
     async def list_published(self) -> list[Blog]:
         """Return Blogs eligible for the public listing."""
@@ -117,6 +126,7 @@ class BlogService:
         blog = await self._blogs.get_by_id(blog_id)
         if blog is None:
             raise BlogNotFoundError
+        previous_cover_url = blog.cover_image_url
 
         updates = request.model_dump(exclude_unset=True, mode="json")
         next_slug = updates.get("slug", blog.slug)
@@ -171,6 +181,12 @@ class BlogService:
             await self._session.rollback()
             raise
 
+        if "cover_image_url" in changed_fields and self._image_storage is not None:
+            await self._cleanup_previous_cover(
+                self._image_storage,
+                previous_cover_url,
+                blog.id,
+            )
         return blog
 
     async def delete(
@@ -191,6 +207,7 @@ class BlogService:
             context={"slug": blog.slug, "status": blog.status},
             actor=actor,
         )
+        previous_cover_url = blog.cover_image_url
 
         try:
             await self._blogs.delete(blog)
@@ -199,6 +216,114 @@ class BlogService:
         except Exception:
             await self._session.rollback()
             raise
+
+        if self._image_storage is not None:
+            await self._cleanup_previous_cover(
+                self._image_storage,
+                previous_cover_url,
+                blog.id,
+            )
+
+    async def upload_cover(
+        self,
+        blog_id: UUID,
+        upload: UploadFile,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> Blog:
+        """Replace a Blog cover with a validated backend-managed object."""
+
+        blog = await self.get_by_id(blog_id)
+        storage = self._require_image_storage()
+        previous_url = blog.cover_image_url
+        stored = await storage.upload(blog.id, upload)
+        blog.cover_image_url = stored.public_url
+        try:
+            await self._audit_logs.add(
+                self._build_audit_log(
+                    action="update",
+                    blog=blog,
+                    context={
+                        "slug": blog.slug,
+                        "status": blog.status,
+                        "changed_fields": ["cover_image_url"],
+                    },
+                    actor=actor,
+                )
+            )
+            await self._blogs.refresh(blog)
+            await self._session.commit()
+        except Exception:
+            await self._session.rollback()
+            try:
+                await storage.delete_path(stored.object_path)
+            except StorageError:
+                logger.warning(
+                    "Could not remove an unreferenced Blog cover after rollback.",
+                    extra={"resource_type": "blog", "resource_id": str(blog.id)},
+                )
+            raise
+        await self._cleanup_previous_cover(storage, previous_url, blog.id)
+        return blog
+
+    async def delete_cover(
+        self,
+        blog_id: UUID,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> None:
+        """Clear and clean up a draft or unpublished Blog cover."""
+
+        blog = await self.get_by_id(blog_id)
+        if blog.status == "published":
+            raise BlogValidationError(
+                "Published Blogs must be changed to draft or unpublished before deleting their cover."
+            )
+        previous_url = blog.cover_image_url
+        if previous_url is None:
+            return
+        storage = self._require_image_storage()
+        blog.cover_image_url = None
+        try:
+            await self._audit_logs.add(
+                self._build_audit_log(
+                    action="update",
+                    blog=blog,
+                    context={
+                        "slug": blog.slug,
+                        "status": blog.status,
+                        "changed_fields": ["cover_image_url"],
+                    },
+                    actor=actor,
+                )
+            )
+            await self._blogs.refresh(blog)
+            await self._session.commit()
+        except Exception:
+            await self._session.rollback()
+            raise
+        await self._cleanup_previous_cover(storage, previous_url, blog.id)
+
+    def _require_image_storage(self) -> PublicImageStorage:
+        if self._image_storage is None:
+            raise StorageConfigurationError("Storage is not configured.")
+        return self._image_storage
+
+    @staticmethod
+    async def _cleanup_previous_cover(
+        storage: PublicImageStorage,
+        previous_url: str | None,
+        blog_id: UUID,
+    ) -> None:
+        if previous_url is None:
+            return
+        try:
+            await storage.delete_managed_url(str(previous_url), blog_id)
+        except StorageError:
+            logger.warning(
+                "Could not clean up a previous Blog cover.",
+                extra={"resource_type": "blog", "resource_id": str(blog_id)},
+            )
 
     @staticmethod
     def _build_audit_log(

@@ -2,18 +2,20 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from io import BytesIO
-from pathlib import Path
 from typing import Protocol
-from urllib.parse import quote
 from uuid import UUID
 from zipfile import BadZipFile, ZipFile
 
-import httpx
 from fastapi import UploadFile
 
 from app.core.config import Settings
+from app.storage.supabase import (
+    StorageConfigurationError,
+    StorageError,
+    SupabaseStorageGateway,
+)
+from app.storage.uploads import FileTypeRule, PreparedUpload, prepare_upload
 
 
 RESUME_MIME_TYPES = {
@@ -32,21 +34,9 @@ class ResumeValidationError(ValueError):
     """Raised when an uploaded resume violates the approved file contract."""
 
 
-class ResumeStorageError(RuntimeError):
-    """Raised when a private resume storage operation fails safely."""
-
-
-class ResumeStorageConfigurationError(ResumeStorageError):
-    """Raised when required Supabase Storage settings are unavailable."""
-
-
-@dataclass(frozen=True, slots=True)
-class PreparedResume:
-    """Validated resume bytes ready for private storage."""
-
-    content: bytes
-    extension: str
-    content_type: str
+ResumeStorageError = StorageError
+ResumeStorageConfigurationError = StorageConfigurationError
+PreparedResume = PreparedUpload
 
 
 class ResumeStorage(Protocol):
@@ -64,33 +54,15 @@ class ResumeStorage(Protocol):
 
 async def prepare_resume(upload: UploadFile, *, max_bytes: int) -> PreparedResume:
     """Read and validate size, extension, MIME type, and file signature."""
-
-    extension = Path(upload.filename or "").suffix.lower()
-    expected_mime = RESUME_MIME_TYPES.get(extension)
-    if expected_mime is None:
-        raise ResumeValidationError("Unsupported resume file extension.")
-
-    supplied_mime = (upload.content_type or "").split(";", 1)[0].strip().lower()
-    if supplied_mime != expected_mime:
-        raise ResumeValidationError("Resume content type does not match its extension.")
-
     try:
-        content = await upload.read(max_bytes + 1)
-    finally:
-        await upload.close()
-
-    if not content:
-        raise ResumeValidationError("Resume file must not be empty.")
-    if len(content) > max_bytes:
-        raise ResumeValidationError("Resume file exceeds the maximum allowed size.")
-    if not _content_matches_extension(extension, content):
-        raise ResumeValidationError("Resume content does not match its extension.")
-
-    return PreparedResume(
-        content=content,
-        extension=extension,
-        content_type=expected_mime,
-    )
+        return await prepare_upload(
+            upload,
+            max_bytes=max_bytes,
+            rules=RESUME_RULES,
+            label="resume",
+        )
+    except ValueError as error:
+        raise ResumeValidationError(str(error)) from error
 
 
 def _content_matches_extension(extension: str, content: bytes) -> bool:
@@ -111,6 +83,20 @@ def _content_matches_extension(extension: str, content: bytes) -> bool:
     )
 
 
+RESUME_RULES = tuple(
+    FileTypeRule(
+        extensions=frozenset({extension}),
+        content_type=content_type,
+        stored_extension=extension,
+        matches_content=lambda content, extension=extension: _content_matches_extension(
+            extension,
+            content,
+        ),
+    )
+    for extension, content_type in RESUME_MIME_TYPES.items()
+)
+
+
 class SupabaseResumeStorage:
     """Private resume storage implemented through the Supabase Storage API."""
 
@@ -118,84 +104,34 @@ class SupabaseResumeStorage:
         self,
         settings: Settings,
         *,
-        client: httpx.AsyncClient | None = None,
+        gateway: SupabaseStorageGateway,
     ) -> None:
-        if settings.supabase_url is None or settings.supabase_service_role_key is None:
-            raise ResumeStorageConfigurationError(
-                "Resume storage is not configured."
-            )
-
-        self._base_url = f"{str(settings.supabase_url).rstrip('/')}/storage/v1"
+        self._gateway = gateway
         self._bucket = settings.job_resumes_bucket
         self._ttl_seconds = settings.resume_signed_url_ttl_seconds
-        service_key = settings.supabase_service_role_key.get_secret_value()
-        self._headers = {
-            "apikey": service_key,
-            "Authorization": f"Bearer {service_key}",
-        }
-        self._client = client
 
     async def upload(self, application_id: UUID, resume: PreparedResume) -> str:
         """Upload to an opaque per-application path without public access."""
 
-        object_path = f"{application_id}/resume{resume.extension}"
-        url = self._object_url(object_path)
-        headers = {
-            **self._headers,
-            "Content-Type": resume.content_type,
-            "cache-control": "no-store",
-            "x-upsert": "false",
-        }
-        await self._request("POST", url, headers=headers, content=resume.content)
+        object_path = resume.object_path(application_id)
+        await self._gateway.upload(
+            self._bucket,
+            object_path,
+            resume.content,
+            resume.content_type,
+        )
         return object_path
 
     async def create_access_url(self, object_path: str) -> str:
         """Create a five-minute signed download URL for an admin response."""
 
-        url = (
-            f"{self._base_url}/object/sign/{quote(self._bucket, safe='')}/"
-            f"{quote(object_path, safe='/')}"
+        return await self._gateway.create_signed_url(
+            self._bucket,
+            object_path,
+            self._ttl_seconds,
         )
-        response = await self._request(
-            "POST",
-            url,
-            headers=self._headers,
-            json={"expiresIn": self._ttl_seconds},
-        )
-        try:
-            signed_path = response.json()["signedURL"]
-        except (KeyError, TypeError, ValueError) as error:
-            raise ResumeStorageError("Resume access could not be created.") from error
-
-        if not isinstance(signed_path, str) or not signed_path.startswith("/"):
-            raise ResumeStorageError("Resume access could not be created.")
-        return f"{self._base_url}{signed_path}"
 
     async def delete(self, object_path: str) -> None:
         """Remove one resume from the configured private bucket."""
 
-        url = f"{self._base_url}/object/{quote(self._bucket, safe='')}"
-        await self._request(
-            "DELETE",
-            url,
-            headers=self._headers,
-            json={"prefixes": [object_path]},
-        )
-
-    def _object_url(self, object_path: str) -> str:
-        return (
-            f"{self._base_url}/object/{quote(self._bucket, safe='')}/"
-            f"{quote(object_path, safe='/')}"
-        )
-
-    async def _request(self, method: str, url: str, **kwargs: object) -> httpx.Response:
-        try:
-            if self._client is not None:
-                response = await self._client.request(method, url, **kwargs)
-            else:
-                async with httpx.AsyncClient(timeout=30.0) as client:
-                    response = await client.request(method, url, **kwargs)
-            response.raise_for_status()
-            return response
-        except (httpx.HTTPError, OSError) as error:
-            raise ResumeStorageError("Resume storage operation failed.") from error
+        await self._gateway.delete(self._bucket, object_path)

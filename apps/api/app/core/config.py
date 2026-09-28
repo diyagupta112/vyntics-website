@@ -83,9 +83,26 @@ class Settings(BaseSettings):
         default="supabase",
         validation_alias="STORAGE_PROVIDER",
     )
+    blog_covers_bucket: str = Field(
+        default="blog-covers",
+        validation_alias="STORAGE_BLOG_COVERS_BUCKET",
+    )
+    case_study_covers_bucket: str = Field(
+        default="case-study-covers",
+        validation_alias="STORAGE_CASE_STUDY_COVERS_BUCKET",
+    )
+    team_photos_bucket: str = Field(
+        default="team-photos",
+        validation_alias="STORAGE_TEAM_PHOTOS_BUCKET",
+    )
     job_resumes_bucket: str = Field(
-        default="job-resumes",
+        default="job-applications",
         validation_alias="STORAGE_JOB_RESUMES_BUCKET",
+    )
+    image_max_bytes: int = Field(
+        default=5 * 1024 * 1024,
+        gt=0,
+        validation_alias="STORAGE_IMAGE_MAX_BYTES",
     )
     resume_signed_url_ttl_seconds: int = Field(
         default=300,
@@ -93,7 +110,7 @@ class Settings(BaseSettings):
         validation_alias="STORAGE_RESUME_SIGNED_URL_TTL_SECONDS",
     )
     resume_max_bytes: int = Field(
-        default=5 * 1024 * 1024,
+        default=10 * 1024 * 1024,
         gt=0,
         validation_alias="STORAGE_RESUME_MAX_BYTES",
     )

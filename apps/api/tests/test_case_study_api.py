@@ -299,6 +299,30 @@ def test_delete_returns_204_and_404(case_study_api) -> None:
     assert missing.json() == {"detail": "Case Study not found."}
 
 
+def test_cover_file_endpoints_upload_delete_and_protect_published(
+    case_study_api,
+) -> None:
+    client, service = case_study_api
+    uploaded_case_study = _case_study()
+    uploaded_case_study.cover_image_url = (
+        "https://project/storage/case-study-covers/id/hash.png"
+    )
+    service.upload_cover.return_value = uploaded_case_study
+    uploaded = client.put(
+        f"/case-studies/{CASE_STUDY_ID}/cover-image",
+        files={"file": ("cover.png", b"\x89PNG\r\n\x1a\nimage", "image/png")},
+    )
+    assert uploaded.status_code == 200
+    assert uploaded.json()["cover_image_url"].endswith("/id/hash.png")
+
+    deleted = client.delete(f"/case-studies/{CASE_STUDY_ID}/cover-image")
+    assert deleted.status_code == 204
+
+    service.delete_cover.side_effect = CaseStudyValidationError("published cover")
+    protected = client.delete(f"/case-studies/{CASE_STUDY_ID}/cover-image")
+    assert protected.status_code == 422
+
+
 def test_openapi_exposes_exact_seven_routes_and_schemas(case_study_api) -> None:
     client, _ = case_study_api
     schema = client.get("/openapi.json").json()
@@ -314,6 +338,9 @@ def test_openapi_exposes_exact_seven_routes_and_schemas(case_study_api) -> None:
     assert set(public_collection) == {"get", "post"}
     assert set(public_detail) == {"get"}
     assert set(mutation_detail) == {"patch", "delete"}
+    assert set(
+        schema["paths"]["/case-studies/{case_study_id}/cover-image"]
+    ) == {"put", "delete"}
     assert public_collection["post"]["requestBody"]["content"][
         "application/json"
     ]["schema"]["$ref"].endswith("/CaseStudyCreateRequest")

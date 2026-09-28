@@ -153,11 +153,28 @@ def test_delete_returns_empty_204_and_maps_errors(team_api) -> None:
     assert missing.status_code == 404 and invalid.status_code == 422
 
 
+def test_photo_file_endpoints_upload_and_delete(team_api) -> None:
+    client, service = team_api
+    service.upload_photo.return_value = _member(
+        photo_url="https://project/storage/team-photos/id/hash.webp"
+    )
+    uploaded = client.put(
+        f"/our-team/{MEMBER_ID}/photo",
+        files={"file": ("photo.webp", b"RIFF\x04\x00\x00\x00WEBPimage", "image/webp")},
+    )
+    assert uploaded.status_code == 200
+    assert uploaded.json()["photo_url"].endswith("/id/hash.webp")
+
+    deleted = client.delete(f"/our-team/{MEMBER_ID}/photo")
+    assert deleted.status_code == 204 and deleted.content == b""
+
+
 def test_openapi_exposes_exact_five_operations(team_api) -> None:
     client, _ = team_api
     paths = client.get("/openapi.json").json()["paths"]
 
     assert set(paths["/our-team"]) == {"get", "post"}
     assert set(paths["/our-team/{team_member_id}"]) == {"get", "patch", "delete"}
+    assert set(paths["/our-team/{team_member_id}/photo"]) == {"put", "delete"}
     assert "/admin/our-team" not in paths
     assert "/admin/team" not in paths

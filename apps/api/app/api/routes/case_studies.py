@@ -1,8 +1,9 @@
 """Public and administrative Case Study API routes."""
 
+from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, Response, status
+from fastapi import APIRouter, File, HTTPException, Response, UploadFile, status
 
 from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.case_studies import CaseStudyServiceDependency
@@ -18,6 +19,8 @@ from app.services.case_studies import (
     CaseStudySlugConflictError,
     CaseStudyValidationError,
 )
+from app.storage.supabase import StorageError
+from app.storage.uploads import UploadValidationError
 
 router = APIRouter(prefix="/case-studies", tags=["case studies"])
 admin_router = APIRouter(
@@ -126,6 +129,54 @@ async def update_case_study(
             status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
             detail=str(error),
         ) from None
+
+
+@router.put("/{case_study_id}/cover-image", response_model=CaseStudyAdminResponse)
+async def upload_case_study_cover(
+    case_study_id: UUID,
+    file: Annotated[UploadFile, File()],
+    admin: AuthenticatedAdminDependency,
+    service: CaseStudyServiceDependency,
+) -> object:
+    """Upload or replace a Case Study's backend-managed cover."""
+
+    try:
+        return await service.upload_cover(case_study_id, file, actor=admin)
+    except CaseStudyNotFoundError:
+        raise HTTPException(status_code=404, detail="Case Study not found.") from None
+    except UploadValidationError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from None
+    except StorageError:
+        raise HTTPException(
+            status_code=503,
+            detail="Image storage is temporarily unavailable.",
+        ) from None
+
+
+@router.delete(
+    "/{case_study_id}/cover-image",
+    status_code=status.HTTP_204_NO_CONTENT,
+    response_class=Response,
+)
+async def delete_case_study_cover(
+    case_study_id: UUID,
+    admin: AuthenticatedAdminDependency,
+    service: CaseStudyServiceDependency,
+) -> Response:
+    """Remove a draft or unpublished Case Study cover."""
+
+    try:
+        await service.delete_cover(case_study_id, actor=admin)
+    except CaseStudyNotFoundError:
+        raise HTTPException(status_code=404, detail="Case Study not found.") from None
+    except CaseStudyValidationError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from None
+    except StorageError:
+        raise HTTPException(
+            status_code=503,
+            detail="Image storage is temporarily unavailable.",
+        ) from None
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.delete(

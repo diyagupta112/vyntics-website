@@ -30,7 +30,7 @@ from app.storage.resumes import ResumeStorageError, ResumeValidationError
 APPLICATION_ID = UUID("674da2ca-a558-4dd0-a1eb-d71e1073defe")
 CAREER_ID = UUID("b6aa692a-6527-4266-a495-1080e742d210")
 SUBMITTED_AT = datetime(2026, 9, 25, 12, 0, tzinfo=timezone.utc)
-SIGNED_URL = "https://example.supabase.co/storage/v1/object/sign/job-resumes/file?token=x"
+SIGNED_URL = "https://example.supabase.co/storage/v1/object/sign/job-applications/file?token=x"
 LIST_FIELDS = {
     "id", "career_id", "career_title_snapshot", "career_slug_snapshot",
     "name", "email", "phone", "status", "submitted_at", "resume_url",
@@ -374,4 +374,4 @@ def test_unconfigured_storage_dependency_returns_none() -> None:
         Settings(_env_file=None, environment=Environment.TEST, debug=False)
     )
     request = type("Request", (), {"app": application})()
-    assert get_resume_storage(request) is None
+    assert get_resume_storage(request, None) is None

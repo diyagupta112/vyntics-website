@@ -19,6 +19,7 @@ from app.storage.resumes import (
     SupabaseResumeStorage,
     prepare_resume,
 )
+from app.storage.supabase import SupabaseStorageGateway
 
 
 APPLICATION_ID = UUID("674da2ca-a558-4dd0-a1eb-d71e1073defe")
@@ -100,7 +101,7 @@ def _settings(**overrides: object) -> Settings:
         "debug": False,
         "supabase_url": "https://project.supabase.co",
         "supabase_service_role_key": "service-secret",
-        "job_resumes_bucket": "job-resumes",
+        "job_resumes_bucket": "job-applications",
         "resume_signed_url_ttl_seconds": 300,
     }
     values.update(overrides)
@@ -109,7 +110,10 @@ def _settings(**overrides: object) -> Settings:
 
 def test_storage_requires_supabase_configuration() -> None:
     with pytest.raises(ResumeStorageConfigurationError):
-        SupabaseResumeStorage(Settings(_env_file=None, debug=False))
+        SupabaseStorageGateway(
+            Settings(_env_file=None, debug=False),
+            httpx.AsyncClient(),
+        )
 
 
 def test_storage_upload_sign_and_delete_use_private_api_contract() -> None:
@@ -120,13 +124,15 @@ def test_storage_upload_sign_and_delete_use_private_api_contract() -> None:
         if "/object/sign/" in str(request.url):
             return httpx.Response(
                 200,
-                json={"signedURL": "/object/sign/job-resumes/path?token=private"},
+                json={"signedURL": "/object/sign/job-applications/path?token=private"},
             )
         return httpx.Response(200, json={})
 
     async def exercise() -> tuple[str, str]:
         async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
-            storage = SupabaseResumeStorage(_settings(), client=client)
+            settings = _settings()
+            gateway = SupabaseStorageGateway(settings, client)
+            storage = SupabaseResumeStorage(settings, gateway=gateway)
             path = await storage.upload(
                 APPLICATION_ID,
                 PreparedResume(b"%PDF-1.7", ".pdf", "application/pdf"),
@@ -136,14 +142,14 @@ def test_storage_upload_sign_and_delete_use_private_api_contract() -> None:
             return path, signed_url
 
     path, signed_url = asyncio.run(exercise())
-    assert path == f"{APPLICATION_ID}/resume.pdf"
+    assert path.startswith(f"{APPLICATION_ID}/") and path.endswith(".pdf")
     assert signed_url.startswith("https://project.supabase.co/storage/v1/object/sign/")
     assert "token=private" in signed_url
     assert [request.method for request in requests] == ["POST", "POST", "DELETE"]
     assert requests[0].headers["authorization"] == "Bearer service-secret"
     assert requests[0].headers["content-type"] == "application/pdf"
     assert b'"expiresIn":300' in requests[1].content
-    assert f'"{APPLICATION_ID}/resume.pdf"'.encode() in requests[2].content
+    assert f'"{path}"'.encode() in requests[2].content
     assert all("service-secret" not in str(request.url) for request in requests)
 
 
@@ -153,7 +159,9 @@ def test_storage_wraps_provider_errors_without_leaking_response() -> None:
 
     async def exercise() -> None:
         async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
-            storage = SupabaseResumeStorage(_settings(), client=client)
+            settings = _settings()
+            gateway = SupabaseStorageGateway(settings, client)
+            storage = SupabaseResumeStorage(settings, gateway=gateway)
             await storage.create_access_url("private/path.pdf")
 
     with pytest.raises(ResumeStorageError) as raised:

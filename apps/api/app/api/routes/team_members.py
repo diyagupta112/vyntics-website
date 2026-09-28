@@ -1,8 +1,9 @@
 """Shared-read and administrative-intent Team Member routes."""
 
+from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, Response, status
+from fastapi import APIRouter, File, HTTPException, Response, UploadFile, status
 
 from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.team_members import TeamMemberServiceDependency
@@ -13,6 +14,8 @@ from app.schemas.team import (
     TeamMemberUpdateRequest,
 )
 from app.services.team_members import TeamMemberNotFoundError
+from app.storage.supabase import StorageError
+from app.storage.uploads import UploadValidationError
 
 router = APIRouter(prefix="/our-team", tags=["our team"])
 
@@ -73,6 +76,52 @@ async def update_team_member(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Team member not found.",
         ) from None
+
+
+@router.put("/{team_member_id}/photo", response_model=TeamMemberResponse)
+async def upload_team_member_photo(
+    team_member_id: UUID,
+    file: Annotated[UploadFile, File()],
+    admin: AuthenticatedAdminDependency,
+    service: TeamMemberServiceDependency,
+) -> object:
+    """Upload or replace a Team member's backend-managed photo."""
+
+    try:
+        return await service.upload_photo(team_member_id, file, actor=admin)
+    except TeamMemberNotFoundError:
+        raise HTTPException(status_code=404, detail="Team member not found.") from None
+    except UploadValidationError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from None
+    except StorageError:
+        raise HTTPException(
+            status_code=503,
+            detail="Image storage is temporarily unavailable.",
+        ) from None
+
+
+@router.delete(
+    "/{team_member_id}/photo",
+    status_code=status.HTTP_204_NO_CONTENT,
+    response_class=Response,
+)
+async def delete_team_member_photo(
+    team_member_id: UUID,
+    admin: AuthenticatedAdminDependency,
+    service: TeamMemberServiceDependency,
+) -> Response:
+    """Remove a Team member's optional managed photo."""
+
+    try:
+        await service.delete_photo(team_member_id, actor=admin)
+    except TeamMemberNotFoundError:
+        raise HTTPException(status_code=404, detail="Team member not found.") from None
+    except StorageError:
+        raise HTTPException(
+            status_code=503,
+            detail="Image storage is temporarily unavailable.",
+        ) from None
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.delete(

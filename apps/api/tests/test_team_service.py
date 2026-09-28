@@ -12,6 +12,7 @@ from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.team_members import TeamMemberRepository
 from app.schemas.team import TeamMemberCreateRequest, TeamMemberUpdateRequest
 from app.services.team_members import TeamMemberNotFoundError, TeamMemberService
+from app.storage.uploads import PublicImageStorage, StoredPublicObject
 
 MEMBER_ID = UUID("ce8e3179-52a8-4109-b5b4-1c8f896d10b1")
 
@@ -138,3 +139,33 @@ def test_audit_failure_rolls_back_each_mutation(operation: str) -> None:
 
     session.rollback.assert_awaited_once_with()
     session.commit.assert_not_awaited()
+
+
+def test_photo_upload_uses_actor_and_cleans_previous_url_after_commit() -> None:
+    member = _member()
+    repository = AsyncMock(spec=TeamMemberRepository)
+    repository.get_by_id.return_value = member
+    audits = AsyncMock(spec=AuditLogRepository)
+    storage = AsyncMock(spec=PublicImageStorage)
+    storage.upload.return_value = StoredPublicObject(
+        "https://project/storage/v1/object/public/team-photos/id/new.jpg",
+        f"{MEMBER_ID}/new.jpg",
+    )
+    session = AsyncMock(spec=AsyncSession)
+    service = TeamMemberService(
+        session,
+        team_member_repository=repository,
+        audit_repository=audits,
+        image_storage=storage,
+    )
+
+    updated = asyncio.run(service.upload_photo(MEMBER_ID, AsyncMock()))
+
+    assert updated.photo_url.endswith("/new.jpg")
+    session.commit.assert_awaited_once_with()
+    storage.delete_managed_url.assert_awaited_once_with(
+        "https://example.com/jane.jpg", MEMBER_ID
+    )
+    audit = audits.add.await_args.args[0]
+    assert audit.context["changed_fields"] == ["photo_url"]
+    assert "new.jpg" not in str(audit.context)

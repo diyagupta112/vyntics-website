@@ -5,6 +5,7 @@ from typing import Annotated
 from fastapi import Depends, Request
 
 from app.api.dependencies.database import DatabaseSession
+from app.api.dependencies.storage import StorageGatewayDependency
 from app.core.config import Settings
 from app.services.job_applications import JobApplicationService
 from app.storage.resumes import (
@@ -13,13 +14,16 @@ from app.storage.resumes import (
 )
 
 
-def get_resume_storage(request: Request) -> ResumeStorage | None:
+def get_resume_storage(
+    request: Request,
+    gateway: StorageGatewayDependency,
+) -> ResumeStorage | None:
     """Return configured storage, or none while resume storage is unavailable."""
 
     settings: Settings = request.app.state.settings
-    if settings.supabase_url is None or settings.supabase_service_role_key is None:
+    if gateway is None:
         return None
-    return SupabaseResumeStorage(settings)
+    return SupabaseResumeStorage(settings, gateway=gateway)
 
 
 ResumeStorageDependency = Annotated[

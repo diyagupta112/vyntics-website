@@ -3,6 +3,7 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
 
+import httpx
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,6 +13,7 @@ from app.core.config import Settings, get_settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging_config import configure_logging
 from app.db.session import Database, create_database, dispose_database
+from app.storage.supabase import SupabaseStorageGateway
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -23,17 +25,31 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(application: FastAPI) -> AsyncIterator[None]:
         database: Database | None = None
+        storage_client: httpx.AsyncClient | None = None
         if settings.database_url is not None:
             database = create_database(settings)
 
         application.state.database = database
+        application.state.storage_gateway = None
+        if (
+            settings.supabase_url is not None
+            and settings.supabase_service_role_key is not None
+        ):
+            storage_client = httpx.AsyncClient(timeout=30.0)
+            application.state.storage_gateway = SupabaseStorageGateway(
+                settings,
+                storage_client,
+            )
         try:
             yield
         finally:
             await auth_verifier.aclose()
+            if storage_client is not None:
+                await storage_client.aclose()
             if database is not None:
                 await dispose_database(database)
             application.state.database = None
+            application.state.storage_gateway = None
 
     application = FastAPI(
         title=settings.app_name,
@@ -43,6 +59,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     application.state.settings = settings
     application.state.database = None
     application.state.auth_verifier = auth_verifier
+    application.state.storage_gateway = None
 
     application.add_middleware(
         CORSMiddleware,

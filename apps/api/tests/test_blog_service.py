@@ -8,6 +8,7 @@ from uuid import UUID
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.auth.models import AuthenticatedAdmin
 from app.db.models.blog import Blog
 from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.blogs import BlogRepository
@@ -18,10 +19,13 @@ from app.services.blogs import (
     BlogSlugConflictError,
     BlogValidationError,
 )
+from app.storage.uploads import PublicImageStorage, StoredPublicObject
 
 
 BLOG_ID = UUID("5326b73c-022f-4cc7-8291-8904d3ef01fc")
 NOW = datetime(2026, 9, 23, 12, 0, tzinfo=timezone.utc)
+ADMIN_ID = UUID("11111111-1111-4111-8111-111111111111")
+AUTH_USER_ID = UUID("22222222-2222-4222-8222-222222222222")
 
 
 def _blog(*, status: str = "draft", published_at: datetime | None = None) -> Blog:
@@ -62,15 +66,90 @@ def _create_request(*, status: str = "draft") -> BlogCreateRequest:
     )
 
 
-def _service(blog_repository: BlogRepository, audit_repository: AuditLogRepository):
+def _service(
+    blog_repository: BlogRepository,
+    audit_repository: AuditLogRepository,
+    image_storage: PublicImageStorage | None = None,
+):
     session = AsyncMock(spec=AsyncSession)
     service = BlogService(
         session,
         blog_repository=blog_repository,
         audit_repository=audit_repository,
         clock=lambda: NOW,
+        image_storage=image_storage,
     )
     return service, session
+
+
+def test_cover_replacement_commits_then_cleans_previous_managed_object() -> None:
+    blog = _blog()
+    blogs = AsyncMock(spec=BlogRepository)
+    blogs.get_by_id.return_value = blog
+    audits = AsyncMock(spec=AuditLogRepository)
+    storage = AsyncMock(spec=PublicImageStorage)
+    storage.upload.return_value = StoredPublicObject(
+        "https://project/storage/v1/object/public/blog-covers/id/new.jpg",
+        f"{BLOG_ID}/new.jpg",
+    )
+    service, session = _service(blogs, audits, storage)
+
+    actor = AuthenticatedAdmin(
+        supabase_user_id=AUTH_USER_ID,
+        supabase_email="admin@vyntics.com",
+        admin_id=ADMIN_ID,
+        admin_auth_user_id=AUTH_USER_ID,
+        admin_email="admin@vyntics.com",
+        role="admin",
+        is_active=True,
+    )
+    updated = asyncio.run(service.upload_cover(BLOG_ID, AsyncMock(), actor=actor))
+
+    assert updated.cover_image_url.endswith("/new.jpg")
+    session.commit.assert_awaited_once_with()
+    storage.delete_managed_url.assert_awaited_once_with(
+        "https://example.com/cover.jpg", BLOG_ID
+    )
+    audit = audits.add.await_args.args[0]
+    assert audit.actor_id == ADMIN_ID
+    assert audit.actor_email == "admin@vyntics.com"
+    assert audit.context["changed_fields"] == ["cover_image_url"]
+    assert "new.jpg" not in str(audit.context)
+
+
+def test_cover_upload_persistence_failure_deletes_new_object() -> None:
+    blog = _blog()
+    blogs = AsyncMock(spec=BlogRepository)
+    blogs.get_by_id.return_value = blog
+    audits = AsyncMock(spec=AuditLogRepository)
+    storage = AsyncMock(spec=PublicImageStorage)
+    storage.upload.return_value = StoredPublicObject(
+        "https://project/storage/v1/object/public/blog-covers/id/new.jpg",
+        f"{BLOG_ID}/new.jpg",
+    )
+    service, session = _service(blogs, audits, storage)
+    session.commit.side_effect = RuntimeError("database failure")
+
+    with pytest.raises(RuntimeError, match="database failure"):
+        asyncio.run(service.upload_cover(BLOG_ID, AsyncMock()))
+
+    session.rollback.assert_awaited_once_with()
+    storage.delete_path.assert_awaited_once_with(f"{BLOG_ID}/new.jpg")
+    storage.delete_managed_url.assert_not_awaited()
+
+
+def test_published_blog_cover_cannot_be_deleted() -> None:
+    blog = _blog(status="published", published_at=NOW)
+    blogs = AsyncMock(spec=BlogRepository)
+    blogs.get_by_id.return_value = blog
+    storage = AsyncMock(spec=PublicImageStorage)
+    service, session = _service(blogs, AsyncMock(spec=AuditLogRepository), storage)
+
+    with pytest.raises(BlogValidationError, match="draft or unpublished"):
+        asyncio.run(service.delete_cover(BLOG_ID))
+
+    session.commit.assert_not_awaited()
+    storage.delete_managed_url.assert_not_awaited()
 
 
 def test_create_published_blog_sets_timestamp_and_audits() -> None:
