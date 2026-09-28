@@ -1,6 +1,6 @@
 # Vyntics Admin Panel — Implementation Plan
 
-**Status:** Planning / source of truth for Admin Panel implementation  
+**Status:** Active implementation roadmap and technical source of truth — Phases A–D complete; Phase E planned
 **Application:** `apps/admin`  
 **Backend:** FastAPI (`apps/api`)  
 **Auth:** Supabase Auth  
@@ -12,6 +12,12 @@
 ## 1. Purpose
 
 This document is the implementation source of truth for the Vyntics Admin Panel.
+
+It serves three purposes at the same time:
+
+1. the phase-based delivery roadmap;
+2. the implementation plan for each Admin Panel feature;
+3. the technical contract reference connecting the Admin UI to the current FastAPI APIs.
 
 The Admin Panel is a separate application from `apps/web`. It is an internal CMS/admin interface used by authorized Vyntics administrators to manage the content and operational records exposed by the existing FastAPI backend.
 
@@ -29,6 +35,8 @@ The implementation should prioritize:
 - reusable UI and API infrastructure;
 - strong loading, empty, error, and confirmation states;
 - accessibility and responsive behavior.
+
+The current FastAPI implementation and the concrete contracts recorded in this document are authoritative. `apps/admin/docs/admin-panel-design-doc.md` is historical and must not be used to restore obsolete architecture, modules, or requirements.
 
 ---
 
@@ -100,23 +108,25 @@ The Admin Panel must never use the Supabase service/secret key.
 
 ---
 
-## 3. Current `apps/admin` starting point
+## 3. Current implementation status and principles
 
-The current Admin Panel is an empty TypeScript workspace.
+The Admin Panel is a Next.js 16 App Router application using strict TypeScript, React, CSS Modules, DM Sans, Vitest, Testing Library, and ESLint.
 
-There is currently:
+The completed foundation includes:
 
-- no selected frontend framework;
-- no router;
-- no UI system;
-- no API client;
-- no Supabase browser client;
-- no authentication UI;
-- no screens;
-- no tests;
-- no production build system.
+- application and route-group structure;
+- responsive authentication and dashboard shells;
+- shared UI primitives and design tokens;
+- real Supabase browser authentication;
+- cookie-backed session persistence and restoration;
+- protected routes and FastAPI-backed admin authorization;
+- one shared authenticated FastAPI client;
+- typed API errors and response handling;
+- automated tests, typechecking, linting, and production builds.
 
-Existing structural directories include:
+The Admin Panel remains feature-incomplete. Blogs are complete; Case Studies, Careers, Job Applications, Our Team, and Contact Submissions follow in that order, followed by final hardening and production readiness.
+
+### 3.1 Current structure
 
 ```text
 apps/admin/
@@ -132,7 +142,32 @@ apps/admin/
 └── tsconfig.json
 ```
 
-The implementation may establish the actual application architecture inside this scaffold.
+### 3.2 Phase status summary
+
+| Phase | Name | Status |
+|---|---|---|
+| A | Admin Panel Foundation | Complete |
+| B | Authentication & Route Protection | Complete |
+| C | Authenticated API Foundation | Complete |
+| D | Blogs | Complete |
+| E | Case Studies | Planned |
+| F | Careers | Planned |
+| G | Job Applications | Planned |
+| H | Our Team | Planned |
+| I | Contact Submissions | Planned |
+| J | Hardening & Production Readiness | Planned |
+
+### 3.3 Implementation principles and constraints
+
+- FastAPI is the application and authorization boundary.
+- Supabase Auth provides identity and browser sessions; authentication alone does not grant Admin Panel access.
+- The shared `apiClient` is the only general FastAPI client. Feature phases may add typed feature modules that use it, but must not create competing HTTP or authentication layers.
+- The browser must never contain a Supabase service-role/server secret, database credential, or private Storage credential.
+- The Admin Panel must not access Supabase database tables or mutate Supabase Storage directly.
+- Existing JSON CRUD contracts remain separate from dedicated multipart file endpoints.
+- Backend validation and lifecycle rules remain authoritative.
+- New UI behavior must be documented before implementation when it introduces a meaningful design or interaction decision.
+- A phase must satisfy its definition of done before the next phase begins.
 
 ---
 
@@ -235,7 +270,7 @@ Roles:
 
 ## 5.2 Frontend responsibilities
 
-Implement:
+Implemented foundation:
 
 - Supabase browser client;
 - login;
@@ -272,7 +307,7 @@ There is no backend pending-admin state.
 
 # 6. API client
 
-Create one reusable API layer.
+One reusable authenticated API layer is implemented under `src/lib/api` and must be used by all future feature integrations.
 
 Responsibilities:
 
@@ -286,6 +321,18 @@ Responsibilities:
 - handling structured FastAPI 422 validation errors;
 - handling 401/403/409/422/503;
 - typed request/response models.
+
+The shared client currently supports:
+
+- `GET`, `POST`, `PATCH`, `PUT`, and `DELETE`;
+- current Supabase session/access-token retrieval without separate token storage;
+- `Authorization: Bearer <access_token>`;
+- JSON and raw body requests, including future multipart usage;
+- JSON, empty `204`, and non-JSON responses;
+- typed authentication, permission, validation, not-found, conflict, service-unavailable, network, and unexpected errors;
+- safe FastAPI `422` validation details without retaining submitted input values.
+
+The low-level client does not redirect or make feature-specific UI decisions. Existing authentication and protected-route boundaries remain responsible for recovery and navigation.
 
 FastAPI has no global `/api` prefix.
 
@@ -862,11 +909,49 @@ Suggested routes:
 
 ## 13.2 Endpoints
 
+Public submission creation:
+
+```http
+POST /contact-us
+```
+
+- no Admin authentication is required;
+- success returns `201 Created`;
+- the request body accepts only the visitor-controlled fields below;
+- the public response is the minimal receipt below and does not expose administrative metadata.
+
+Public request body:
+
+| Field | Type | Required | Validation |
+|---|---|---:|---|
+| name | string | yes | trimmed, minimum length 1 |
+| email | email string | yes | valid email address |
+| company | string or null | no | optional |
+| subject | string | yes | trimmed, minimum length 1 |
+| message | string | yes | trimmed, minimum length 1 |
+| source_page | string | yes | trimmed, minimum length 1 |
+
+Public `201` receipt:
+
+| Field | Type | Behavior |
+|---|---|---|
+| id | UUID | persisted submission identifier |
+| status | `new` | initial backend-generated status |
+| submitted_at | datetime | backend-generated submission time |
+
+Administrative reads and deletion:
+
 ```http
 GET /admin/contact-submissions
 GET /admin/contact-submissions/{id}
 DELETE /admin/contact-submissions/{id}
 ```
+
+- all three Admin endpoints require an authenticated, authorized Admin;
+- the list returns all submissions newest-first;
+- `{id}` is the Contact Submission UUID;
+- missing detail/delete targets return `404`;
+- successful deletion is permanent and returns an empty `204 No Content` response.
 
 There is currently no PATCH/status-resolution endpoint.
 
@@ -891,6 +976,23 @@ Display:
 - status
 - submitted_at
 - notes/resolution metadata only if returned by the backend response
+
+The Admin response contract contains:
+
+| Field | Type / nullability |
+|---|---|
+| id | UUID |
+| name | string |
+| email | email string |
+| company | string or null |
+| subject | string |
+| message | string |
+| source_page | string |
+| status | string |
+| notes | string or null |
+| submitted_at | datetime |
+| resolved_at | datetime or null |
+| resolved_by | UUID or null |
 
 Do not expose or invent fields not returned by the actual response contract.
 
@@ -1047,9 +1149,9 @@ Required baseline:
 
 # 19. Testing strategy
 
-The Admin Panel currently has no tests.
+The Admin Panel has an established Vitest and Testing Library foundation. Completed Phase A–C behavior is covered by automated tests, and each feature phase must extend—not weaken—the suite.
 
-The final implementation should establish:
+The implementation strategy includes:
 
 ### Unit tests
 
@@ -1082,6 +1184,14 @@ For:
 - upload workflows;
 - error handling.
 
+Existing foundation coverage includes:
+
+- shared UI primitives and shell behavior;
+- login rendering, validation, loading, password visibility, email/password authentication, and Google OAuth initiation;
+- protected-route and logout behavior;
+- backend admin-authorization status handling;
+- authenticated API requests, bearer headers, supported methods, response parsing, validation details, and typed error mapping.
+
 ### E2E
 
 At minimum, cover critical paths:
@@ -1107,15 +1217,15 @@ Exact browser matrix is a tooling decision to be finalized during foundation set
 
 The Admin Panel needs browser-safe configuration only.
 
-Expected categories:
+Required browser-safe variables:
 
 ```text
-Supabase public URL
-Supabase anon/publishable key
-FastAPI base URL
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+NEXT_PUBLIC_API_BASE_URL
 ```
 
-The exact environment variable names must be established during Phase A and documented.
+Local values may be supplied through an ignored `apps/admin/.env` or `.env.local`. The application must be restarted after changing `NEXT_PUBLIC_*` variables.
 
 Never add:
 
@@ -1168,103 +1278,389 @@ The current backend contracts and this document are the source of truth.
 
 ---
 
-# 23. Implementation order
+# 23. Phase roadmap
 
-## Phase A — Admin Foundation
+Sections 5–20 retain the shared technical, UI, authentication, API, feature-contract, Storage, validation, testing, and environment requirements. The phase descriptions below define delivery scope and point back to those detailed contracts; they do not replace or weaken them.
 
-Establish:
+The authoritative implementation order is:
 
-- framework;
-- routing;
-- build/dev tooling;
-- styling;
-- DM Sans;
-- design tokens;
-- environment configuration;
-- testing stack;
-- application structure.
+| Phase | Delivery | Status |
+|---|---|---|
+| A | Admin Panel Foundation | Complete |
+| B | Authentication & Route Protection | Complete |
+| C | Authenticated API Foundation | Complete |
+| D | Blogs | Complete |
+| E | Case Studies | Planned |
+| F | Careers | Planned |
+| G | Job Applications | Planned |
+| H | Our Team | Planned |
+| I | Contact Submissions | Planned |
+| J | Hardening & Production Readiness | Planned |
 
-## Phase B — Authentication
+## 23.1 Phase A — Admin Panel Foundation
 
-Implement:
+**Status:** Complete
 
-- Supabase browser auth;
-- login;
-- session persistence;
-- protected routes;
-- logout;
-- unauthorized behavior.
+### Goal
 
-## Phase C — Admin Shell
+Establish a production-capable frontend foundation without implementing real authentication or feature CRUD.
 
-Implement:
+### Scope delivered
 
-- sidebar;
-- header/account area;
-- page layout;
-- dashboard;
-- reusable UI primitives.
+- Next.js 16 and React Admin application using the App Router;
+- strict TypeScript and path aliases;
+- route groups for public authentication and protected application areas;
+- DM Sans, global design tokens, CSS Modules, and the monochrome visual system;
+- responsive login shell, Admin shell, sidebar, header, and dashboard shell;
+- shared `Button`, `Input`, `Card`, `FormField`, `PageHeader`, and layout primitives;
+- Vitest, Testing Library, ESLint, typecheck, and production-build tooling;
+- browser-safe environment-variable conventions;
+- intentionally non-functional login shell, with real authentication deferred to Phase B;
+- no fake metrics, mock authenticated user, or feature data.
 
-## Phase D — API Client
+### Verification
 
-Implement:
-
-- typed API client;
-- auth headers;
-- errors;
-- multipart;
-- request/response models.
-
-## Phase E — Blogs
-
-## Phase F — Case Studies
-
-## Phase G — Careers
-
-## Phase H — Job Applications
-
-## Phase I — Our Team
-
-## Phase J — Contact Submissions
-
-## Phase K — Hardening
-
-Implement:
-
-- full test coverage;
-- accessibility;
-- responsive checks;
-- production build;
+- foundation component tests;
+- TypeScript strict-mode check;
 - lint;
-- typecheck;
-- E2E critical paths.
+- production build;
+- manual route and responsive-shell review.
+
+### Definition of done
+
+The Admin application builds and runs with stable routing, styling, reusable primitives, responsive shells, and an automated quality-check foundation, while making no claim that authentication or CRUD is implemented.
+
+## 23.2 Phase B — Authentication & Route Protection
+
+**Status:** Complete
+
+### Goal
+
+Provide real browser authentication and prevent unauthenticated or unauthorized access to the Admin workspace.
+
+### Scope delivered
+
+- shared browser-safe Supabase client using only the public URL and anon/publishable key;
+- email/password sign-in;
+- Google OAuth with the Next.js callback route;
+- cookie-backed session persistence, restoration, refresh, and auth-state handling;
+- protected `/dashboard` and future application routes;
+- FastAPI admin-authorization check after Supabase authentication;
+- enforcement of the backend `vyntics.com`, active `admin_users`, and role contract by FastAPI;
+- logout and post-logout route protection;
+- safe authentication, permission-denied, and service-unavailable states for `401`, `403`, and `503` behavior;
+- documented responsive 55/45 login layout and accessible login controls;
+- no public signup, invitation, password-reset, or admin-user management UI.
+
+Detailed authentication and authorization requirements remain in Section 5.
+
+### Verification
+
+- login rendering, validation, loading, duplicate-submission, visibility-toggle, password sign-in, and OAuth tests;
+- protected-route, session-state, authorization-status, and logout tests;
+- full test suite, typecheck, lint, and production build;
+- local verification that `/login` loads and logged-out `/dashboard` redirects to `/login`;
+- real provider flows require valid local browser-safe Supabase configuration and provider setup.
+
+### Definition of done
+
+A real Supabase session can be created and restored, FastAPI remains the authorization authority, unauthorized users cannot enter the application area, and logout removes access without exposing server credentials.
+
+## 23.3 Phase C — Authenticated API Foundation
+
+**Status:** Complete
+
+### Goal
+
+Create the one reusable, feature-agnostic FastAPI client used by all later Admin features.
+
+### Scope delivered
+
+- shared `src/lib/api` client, types, and typed error model;
+- `NEXT_PUBLIC_API_BASE_URL` and safe relative-path URL construction;
+- current Supabase session/access-token retrieval for every request;
+- bearer authorization without separate token storage or browser JWT decoding;
+- `GET`, `POST`, `PATCH`, `PUT`, and `DELETE` support;
+- JSON headers and serialization when a JSON body is supplied;
+- raw body support for multipart workflows used by feature-specific file endpoints;
+- JSON, empty `204`, and non-JSON response handling;
+- typed handling for `401`, `403`, `422`, `404`, `409`, `503`, network failures, and unexpected responses;
+- preservation of useful sanitized FastAPI validation details;
+- no redirects in the low-level client; feature-specific API modules are added only by later feature phases and consume this shared client.
+
+The detailed shared client contract remains in Section 6.
+
+### Verification
+
+- focused tests for authenticated requests, bearer headers, absent sessions, all supported methods, body handling, response forms, validation details, HTTP error mapping, network failures, and unsafe paths;
+- Phase B regression tests;
+- full test suite, typecheck, lint, and production build;
+- configured FastAPI health endpoint verified locally.
+
+### Definition of done
+
+Future features can communicate with FastAPI through one strictly typed authenticated client, with predictable response parsing and safe error classification, without introducing another auth or HTTP abstraction.
+
+## 23.4 Phase D — Blogs
+
+**Status:** Complete
+
+### Goal
+
+Deliver the first complete authenticated content-management workflow using the shared API foundation.
+
+### Scope delivered
+
+- Blog list using the protected administrative list contract;
+- Blog detail/edit loading through the protected administrative detail contract;
+- create, update, and permanent-delete workflows;
+- explicit handling of `draft`, `published`, and `unpublished` lifecycle values;
+- supported title, slug, author, category, excerpt, read-time, structured content, SEO title, and meta-description fields;
+- deliberate request construction that excludes backend-managed ownership, publication, and timestamp fields;
+- backend-authoritative slug and validation behavior, including conflict and validation feedback;
+- managed cover preview, upload, replacement, and deletion through the dedicated multipart endpoints;
+- JPEG/PNG/WebP and 5 MB client validation, while retaining backend authority;
+- prevention of cover deletion from a published Blog and clear backend `422` feedback;
+- destructive confirmation and correct post-delete navigation/state refresh;
+- loading, empty, error, mutation, and success states;
+- responsive and keyboard-accessible list, form, actions, and upload UI;
+- a typed Blogs feature module that consumes the shared `apiClient`, not a separate client.
+
+The detailed Blog endpoint, field, status, Storage, and backend-managed-field contract remains in Section 8. Shared table, form, delete, upload, validation, and error requirements remain in Sections 7 and 14–18.
+
+### Verification
+
+- unit tests for Blog transformations and validation helpers;
+- component tests for list, form, lifecycle controls, delete confirmation, and cover controls;
+- integration tests for list/detail/create/update/delete and cover upload/replacement/deletion;
+- regressions for published-cover deletion protection, `401`, `403`, `404`, `409`, `422`, and `503` states;
+- typecheck, lint, full tests, production build, responsive/accessibility review, and manual verification against FastAPI.
+
+### Definition of done
+
+An authorized administrator can manage the complete existing Blog contract—including lifecycle, SEO, slug, deletion, and cover workflows—without invented fields, endpoints, or direct Supabase data/Storage access.
+
+## 23.5 Phase E — Case Studies
+
+**Status:** Planned
+
+### Goal
+
+Deliver Case Study management using the established content and upload patterns.
+
+### Scope
+
+- list, detail/edit, create, update, and permanent-delete workflows;
+- all currently documented fields, including slug, SEO metadata, client name, excerpt, technology stack, tags, structured content, and status;
+- `draft`, `published`, and `unpublished` lifecycle handling;
+- managed cover upload, replacement, preview, and deletion;
+- published-cover requirements and deletion protection;
+- loading, empty, error, confirmation, mutation, responsive, and accessible states;
+- typed Case Study integration through the shared `apiClient`.
+
+The exact Case Study endpoints, methods, fields, status lifecycle, and cover behavior remain in Section 9. Shared Storage and error rules remain in Sections 14–16.
+
+### Verification
+
+- focused unit, component, and integration tests for CRUD, arrays/tags, lifecycle behavior, and cover workflows;
+- relevant authentication, authorization, validation, conflict, not-found, and service-error regressions;
+- typecheck, lint, full tests, production build, and real-backend manual verification.
+
+### Definition of done
+
+The complete existing Case Study contract is manageable through a consistent Admin UI without adding fields, states, or endpoints.
+
+## 23.6 Phase F — Careers
+
+**Status:** Planned
+
+### Goal
+
+Provide Career management that accurately reflects the current hard-delete availability model.
+
+### Scope
+
+- list using the existing public Career read endpoint because no separate Admin list/detail API exists;
+- create, detail/edit, update, and permanent-delete workflows;
+- all documented Career fields and object behavior for responsibilities, requirements, `nice_to_have`, and benefits;
+- omission behavior where the backend contract does not accept explicit `null`;
+- backend-generated `published_at` displayed only where useful and never treated as editable or as an availability switch;
+- no `status`, `is_open`, `is_active`, draft, archive, or soft-delete controls;
+- clear UI communication that an existing record is available and deletion makes it unavailable;
+- deletion confirmation while preserving historical Job Applications according to the backend relationship contract;
+- typed integration through the shared `apiClient` with complete loading/error states.
+
+The exact Career endpoints, fields, lifecycle exclusions, `published_at`, and deletion contract remain in Section 10.
+
+### Verification
+
+- tests for list/create/edit/delete, object-field omission, absence of invented availability controls, and historical-application expectations;
+- authorization and standard API-error regressions;
+- typecheck, lint, full tests, production build, and real-backend manual verification.
+
+### Definition of done
+
+Administrators can manage the exact existing Career contract, with permanent deletion and backend-generated publication metadata represented accurately.
+
+## 23.7 Phase G — Job Applications
+
+**Status:** Planned
+
+### Goal
+
+Provide authorized review and limited management of submitted Job Applications.
+
+### Scope
+
+- global application list and application detail;
+- career-specific application list using the documented Admin endpoint;
+- status transitions limited to `new`, `reviewing`, `shortlisted`, `rejected`, and `hired`;
+- notes editing, including the documented nullable/clear behavior;
+- PATCH payloads limited to `status` and `notes`;
+- permanent-delete confirmation using the existing delete endpoint;
+- nullable resume handling and a clear “No resume attached” state;
+- temporary viewing/downloading using only backend-issued short-lived signed URLs;
+- no permanent public resume URL and no raw Storage path display;
+- handling of expired signed URLs;
+- correct display of historical Career title/slug snapshots when `career_id` is null after Career deletion;
+- typed integration through the shared `apiClient` and safe handling of sensitive applicant data.
+
+The exact global and career-specific endpoints, PATCH limitations, statuses, resume behavior, and historical Career relationship remain in Section 11. Private Storage rules remain in Sections 14 and 24 of the style guide.
+
+### Verification
+
+- tests for global/career lists, detail, status/notes patching, explicit notes clearing, deletion, missing resume, signed URL use/expiration, and deleted-Career history;
+- authentication, authorization, validation, not-found, conflict, and service-error regressions;
+- typecheck, lint, full tests, production build, and authorized real-backend manual verification.
+
+### Definition of done
+
+Authorized administrators can review and update only the allowed Job Application fields, access private resumes safely, and handle applications independently of a live Career record.
+
+## 23.8 Phase H — Our Team
+
+**Status:** Planned
+
+### Goal
+
+Deliver Team Member management with deterministic ordering and managed optional photos.
+
+### Scope
+
+- list/detail using the existing public read endpoints;
+- protected create, update, and permanent-delete workflows;
+- name, role, bio, LinkedIn URL, display order, and `member_type` fields;
+- `leadership` and `team` member types only;
+- ordering behavior based on the documented `display_order` contract;
+- optional managed photo preview, upload, replacement, and deletion;
+- JPEG/PNG/WebP and 5 MB client validation with backend authority;
+- no invented visibility, status, archive, or publish controls;
+- typed integration through the shared `apiClient`.
+
+The exact Team endpoints, fields, member types, display order, LinkedIn validation, and photo behavior remain in Section 12.
+
+### Verification
+
+- tests for CRUD, member types, display order, LinkedIn validation presentation, and optional photo workflows;
+- authentication, authorization, upload-validation, not-found, and service-error regressions;
+- typecheck, lint, full tests, production build, responsive review, and real-backend manual verification.
+
+### Definition of done
+
+Administrators can manage the complete current Team contract and optional photos without invented lifecycle fields or direct Storage access.
+
+## 23.9 Phase I — Contact Submissions
+
+**Status:** Planned
+
+### Goal
+
+Provide a focused administrative inbox for reading and permanently deleting Contact Submissions.
+
+### Scope
+
+- Admin list and detail screens using the protected endpoints;
+- display only fields returned by the current response contract, including submission identity, contact information, company, subject, message, source page, status, submission time, and returned notes/resolution metadata where present;
+- permanent-delete confirmation;
+- loading, empty, error, and responsive long-message states;
+- no edit, assignment, mark-resolved, or status-transition controls because no PATCH/status-resolution endpoint exists;
+- awareness that public submission creation remains a public website/backend workflow and is not recreated as an Admin mutation;
+- typed integration through the shared `apiClient`.
+
+The exact public create/receipt contract, Admin list/detail/delete contract, and explicit absence of a PATCH workflow remain in Section 13. The Admin UI must not redefine or duplicate the public website's submission workflow.
+
+### Verification
+
+- tests for list, detail, empty/error states, permanent-delete confirmation, and absence of unsupported workflow controls;
+- authentication, authorization, not-found, and service-error regressions;
+- typecheck, lint, full tests, production build, and real-backend manual verification.
+
+### Definition of done
+
+Authorized administrators can safely read and delete submissions while the UI makes no unsupported promise of editing or resolution workflow.
+
+## 23.10 Phase J — Hardening & Production Readiness
+
+**Status:** Planned
+
+### Goal
+
+Harden the complete Admin Panel and produce a verified release candidate.
+
+### Scope
+
+- final desktop, tablet, and mobile review across every route;
+- keyboard, focus, form-label, semantic HTML, dialog, table, contrast, and status-meaning accessibility review;
+- shared component, spacing, typography, action, table, form, dialog, and notification consistency review;
+- loading, empty, error, mutation, retry, and destructive-confirmation review;
+- Supabase session restoration, refresh, expiration, logout, OAuth callback, unauthenticated, unauthorized, and service-unavailable edge cases;
+- API error mapping and user-message review across `401`, `403`, `404`, `409`, `422`, `503`, network, and unexpected failures;
+- production build and runtime verification;
+- browser-safe environment configuration review;
+- review that no access tokens, private applicant data, service-role/server secrets, raw Storage paths, stack traces, or infrastructure details are exposed;
+- final critical-path manual smoke testing against the real backend and Supabase services;
+- production-readiness checklist and documented remaining operational prerequisites.
+
+### Verification
+
+- full unit, component, integration, and approved E2E suite;
+- typecheck, lint, and production build;
+- supported-browser and responsive checks;
+- accessibility review;
+- authenticated real-backend smoke tests for all implemented modules;
+- configuration and browser-exposure review.
+
+### Definition of done
+
+All implemented modules satisfy their contracts and quality gates, no critical accessibility/security/configuration issue remains, and the Admin Panel is ready for deployment approval.
 
 ---
 
-# 24. Implementation discipline
+# 24. Phase workflow and implementation discipline
 
-Codex must not:
+Every future phase follows this sequence:
+
+1. Define the phase's UI/UX requirements where applicable.
+2. Update or review documentation when the phase introduces meaningful UI/UX or architectural decisions.
+3. Use the detailed backend/API contract in this document and the current FastAPI implementation as the source of truth.
+4. Implement only the approved phase scope.
+5. Run focused and complete automated tests.
+6. Run TypeScript typechecking.
+7. Run lint.
+8. Run the production build.
+9. Perform manual verification against the real backend and providers where applicable.
+10. Review the complete phase changes for scope, security, contracts, and unintended regressions.
+11. The user manually commits, pushes, and creates a pull request.
+12. Start the next phase only after the current phase satisfies its definition of done.
+
+Implementation agents must not:
 
 - commit;
 - push;
 - switch branches;
 - merge;
-- rebase.
+- rebase;
+- silently expand a phase into unrelated application or backend work;
+- invent missing fields, endpoints, states, permissions, or persistence behavior.
 
-Each implementation phase should follow:
-
-```text
-Implement
-→ run tests
-→ run typecheck/lint/build where available
-→ manual verification
-→ report results
-→ user commits
-→ user pushes
-→ PR
-```
-
-Do not silently expand a phase into unrelated backend changes.
-
-If an API contract is insufficient for a requested UI feature, stop and identify the missing backend contract rather than inventing one.
-
+If an API contract is insufficient for a requested UI feature, stop and identify the missing contract rather than inventing one.

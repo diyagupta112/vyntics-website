@@ -16,9 +16,12 @@ describe("Sidebar", () => {
       "aria-current",
       "page",
     );
+    expect(screen.getByRole("link", { name: "Blogs" })).toHaveAttribute(
+      "href",
+      "/blogs",
+    );
 
     for (const label of [
-      "Blogs",
       "Case Studies",
       "Careers",
       "Job Applications",

@@ -7,7 +7,7 @@ import styles from "./sidebar.module.css";
 
 const navigation = [
   { label: "Dashboard", href: "/dashboard", available: true },
-  { label: "Blogs", href: "/blogs", available: false },
+  { label: "Blogs", href: "/blogs", available: true },
   { label: "Case Studies", href: "/case-studies", available: false },
   { label: "Careers", href: "/careers", available: false },
   { label: "Job Applications", href: "/job-applications", available: false },
