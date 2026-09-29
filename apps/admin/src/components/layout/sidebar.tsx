@@ -11,7 +11,7 @@ const navigation = [
   { label: "Case Studies", href: "/case-studies", available: true },
   { label: "Careers", href: "/careers", available: true },
   { label: "Job Applications", href: "/job-applications", available: true },
-  { label: "Team Members", href: "/team", available: false },
+  { label: "Team Members", href: "/team", available: true },
   { label: "Contact Submissions", href: "/contact", available: false },
 ] as const;
 

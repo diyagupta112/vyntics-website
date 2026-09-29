@@ -1135,6 +1135,123 @@ Do not introduce gradients, unrelated colors, a new component library, or a sepa
 
 This subsection defines Job Applications visual and interaction requirements only. It does not define routing mechanics, API changes, backend or database behavior, authentication, dependencies, or specific component implementation. It does not document unrelated future features.
 
+## 23.4 Our Team / Team Members UI/UX
+
+The Team Members experience should provide a clean, image-focused overview inspired by the card composition and hierarchy of the current public Vyntics Team section. The Admin Panel must interpret that visual reference through its own established design system rather than copying the public website's implementation or introducing a separate visual language.
+
+### Team Members listing
+
+The Team Members page should use a card-based layout. Each Team Member should appear as an individual card that prominently displays:
+
+- the Team Member photo;
+- the Team Member name;
+- the Team Member role.
+
+The listing should provide a clear visual overview of the team without displaying the member's biography or description. Cards should remain focused, easy to scan, and free from unnecessary administrative metadata.
+
+### Card visual hierarchy
+
+Each Team Member card should use this hierarchy:
+
+1. Team Member photo;
+2. Team Member name;
+3. Team Member role.
+
+The photo should be the primary visual element. The name should be immediately readable, with the role presented as secondary information beneath it.
+
+Do not add the full biography or description to the card. Do not overload the card with information that belongs in the detail experience.
+
+The overall card composition may take visual inspiration from the clean, image-led public Vyntics Team section while retaining the Admin Panel's typography, borders, spacing, controls, and restrained monochrome treatment.
+
+### Team page header
+
+The page should have a clear **Team Members** heading. A prominent **Create New Team Member** button should appear at the top right of the page header and use the existing primary-button styling.
+
+This should be the primary creation action and must remain easy to locate across supported viewport sizes.
+
+### Opening a Team Member
+
+Selecting anywhere on a Team Member card should open that member's management and detail experience. The card itself should be the primary entry point, with a clear focus state and keyboard-accessible behavior.
+
+The administrator should not need to locate a small Edit button inside the card simply to open the Team Member.
+
+The detail/edit experience should provide access to:
+
+- complete Team Member information;
+- biography or description;
+- photo management;
+- editing;
+- deletion.
+
+The exact field hierarchy should follow the current Team Member data contract and may be finalized during implementation.
+
+### Team Member detail experience
+
+The Team Member detail/edit experience should display the complete information associated with the selected member. This is where the full biography or description belongs.
+
+The page should clearly distinguish:
+
+- viewable information;
+- editable fields;
+- photo-management controls;
+- the **Save Changes** action;
+- the destructive Delete action.
+
+The biography must remain in the detail/edit experience and must not be repeated on the listing card.
+
+### Edit behavior
+
+Editing should use the established Admin Panel form hierarchy and controls. The experience should support only fields defined by the current Team Member contract.
+
+The save action should follow existing conventions for prominence, loading and disabled states, duplicate-submission prevention, validation, success feedback, and safe API-error presentation.
+
+### Delete behavior
+
+Deletion should be available from the Team Member detail/edit experience and use the existing destructive confirmation-dialog pattern. The confirmation should clearly identify the Team Member being removed.
+
+Do not place an unnecessarily prominent destructive action on every listing card. The listing should remain visually focused on opening and reviewing Team Members.
+
+### Create behavior
+
+Selecting **Create New Team Member** should open the Team Member creation experience. Creation should use the same visual hierarchy, field patterns, validation treatment, and responsive form behavior as editing.
+
+### Responsive behavior
+
+On desktop, Team Member cards should use a clean responsive grid with consistent sizing and spacing. The photo, name, and role hierarchy should remain visually balanced, and the Create New Team Member action should remain visible in the page header.
+
+On mobile, cards should collapse naturally into a single-column or another appropriate narrow layout without horizontal scrolling. Photos should remain prominent, names and roles should remain readable, and the primary creation action should remain easy to access.
+
+### Design-system consistency
+
+Team Members must reuse:
+
+- DM Sans;
+- the existing monochrome color palette;
+- the existing spacing scale;
+- the existing typography hierarchy;
+- the existing card patterns;
+- the existing button hierarchy;
+- the existing form controls;
+- the existing dialog and confirmation patterns;
+- the existing loading, empty, and error-state patterns;
+- the existing responsive behavior.
+
+The public website reference informs only the card composition and image/name/role hierarchy. Do not copy its implementation, styling system, or public-site behavior into the Admin Panel.
+
+### Information intentionally excluded from cards
+
+Unless a future approved design-system requirement explicitly changes the listing, do not display the following on Team Member cards:
+
+- biography or description;
+- full LinkedIn URL;
+- created or updated timestamps;
+- internal identifiers;
+- administrative metadata.
+
+### Scope boundary
+
+This subsection defines visual and interaction requirements for the Admin Panel Team Members experience only. It does not define or change backend API contracts, database schema, Storage architecture, authentication, public website implementation, or the behavior of the public Team section.
+
 ---
 
 # 24. Resume UI

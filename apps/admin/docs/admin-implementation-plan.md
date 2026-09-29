@@ -1,6 +1,6 @@
 # Vyntics Admin Panel — Implementation Plan
 
-**Status:** Active implementation roadmap and technical source of truth — Phases A–G complete; Phase H planned
+**Status:** Active implementation roadmap and technical source of truth — Phases A–H complete; Phase I planned
 **Application:** `apps/admin`  
 **Backend:** FastAPI (`apps/api`)  
 **Auth:** Supabase Auth  
@@ -124,7 +124,7 @@ The completed foundation includes:
 - typed API errors and response handling;
 - automated tests, typechecking, linting, and production builds.
 
-The Admin Panel remains feature-incomplete. Blogs, Case Studies, Careers, and Job Applications are complete; Our Team and Contact Submissions follow in that order, followed by final hardening and production readiness.
+The Admin Panel remains feature-incomplete. Blogs, Case Studies, Careers, Job Applications, and Our Team are complete; Contact Submissions follows, followed by final hardening and production readiness.
 
 ### 3.1 Current structure
 
@@ -153,7 +153,7 @@ apps/admin/
 | E | Case Studies | Complete |
 | F | Careers | Complete |
 | G | Job Applications | Complete |
-| H | Our Team | Planned |
+| H | Our Team | Complete |
 | I | Contact Submissions | Planned |
 | J | Hardening & Production Readiness | Planned |
 
@@ -1294,7 +1294,7 @@ The authoritative implementation order is:
 | E | Case Studies | Complete |
 | F | Careers | Complete |
 | G | Job Applications | Complete |
-| H | Our Team | Planned |
+| H | Our Team | Complete |
 | I | Contact Submissions | Planned |
 | J | Hardening & Production Readiness | Planned |
 
@@ -1545,20 +1545,21 @@ Authorized administrators can review and update only the allowed Job Application
 
 ## 23.8 Phase H — Our Team
 
-**Status:** Planned
+**Status:** Complete
 
 ### Goal
 
 Deliver Team Member management with deterministic ordering and managed optional photos.
 
-### Scope
+### Scope delivered
 
-- list/detail using the existing public read endpoints;
+- responsive, image-led card list and detail using the existing public read endpoints;
 - protected create, update, and permanent-delete workflows;
 - name, role, bio, LinkedIn URL, display order, and `member_type` fields;
 - `leadership` and `team` member types only;
 - ordering behavior based on the documented `display_order` contract;
 - optional managed photo preview, upload, replacement, and deletion;
+- card navigation that keeps biographies and administrative metadata in the detail/edit experience;
 - JPEG/PNG/WebP and 5 MB client validation with backend authority;
 - no invented visibility, status, archive, or publish controls;
 - typed integration through the shared `apiClient`.

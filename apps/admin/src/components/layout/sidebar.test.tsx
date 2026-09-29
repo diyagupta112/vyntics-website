@@ -31,9 +31,12 @@ describe("Sidebar", () => {
     expect(
       screen.getByRole("link", { name: "Job Applications" }),
     ).toHaveAttribute("href", "/job-applications");
+    expect(screen.getByRole("link", { name: "Team Members" })).toHaveAttribute(
+      "href",
+      "/team",
+    );
 
     for (const label of [
-      "Team Members",
       "Contact Submissions",
     ]) {
       expect(screen.getByText(label)).toHaveAttribute("aria-disabled", "true");

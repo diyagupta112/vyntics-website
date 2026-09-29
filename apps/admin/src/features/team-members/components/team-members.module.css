@@ -1,0 +1,72 @@
+.page,
+.form,
+.section,
+.fields,
+.feedback,
+.state,
+.memberGrid,
+.memberCard,
+.cardCopy,
+.photoControl,
+.skeletonGrid {
+  display: grid;
+}
+
+.page { gap: var(--space-7); }
+.memberGrid,
+.skeletonGrid {
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 16rem));
+}
+.memberCard { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); color: inherit; gap: 0; overflow: hidden; text-decoration: none; }
+.memberCard:hover { border-color: var(--color-gray-500); }
+.memberCard:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.memberPhoto,
+.photoPlaceholder { aspect-ratio: 4/5; width: 100%; }
+.memberPhoto { object-fit: cover; }
+.photoPlaceholder { align-items: center; background: var(--color-gray-100); color: var(--color-gray-500); display: flex; justify-content: center; }
+.cardCopy { gap: var(--space-1); padding: var(--space-4); }
+.cardCopy h2 { font-size: var(--font-size-card-title); }
+.cardCopy p,
+.muted,
+.sectionHeading p { color: var(--color-gray-500); }
+.primaryLink,
+.secondaryLink { align-items: center; border: 1px solid var(--color-black); border-radius: var(--radius-control); display: inline-flex; font-size: var(--font-size-sm); font-weight: 600; justify-content: center; min-height: 2.75rem; padding: var(--space-3) var(--space-4); text-decoration: none; }
+.primaryLink { background: var(--color-black); color: var(--color-white); }
+.secondaryLink { background: var(--color-white); border-color: var(--color-gray-300); color: var(--color-black); }
+.primaryLink:focus-visible,
+.secondaryLink:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.state { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); gap: var(--space-3); justify-items: start; padding: var(--space-8); }
+.form { gap: var(--space-6); }
+.section { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); gap: var(--space-5); padding: var(--space-6); }
+.sectionHeading { display: grid; gap: var(--space-1); }
+.sectionHeading h2 { font-size: var(--font-size-section-title); }
+.fields { gap: var(--space-5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.full { grid-column: 1/-1; }
+.bioArea { min-height: 14rem; }
+.formActions,
+.actions,
+.dangerZone { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.feedback { background: var(--color-gray-50); border-left: 3px solid var(--color-black); gap: var(--space-1); padding: var(--space-3) var(--space-4); }
+.photoControl { gap: var(--space-4); }
+.detailPhoto,
+.detailPlaceholder { aspect-ratio: 4/5; border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); max-width: 28rem; width: 100%; }
+.detailPhoto { object-fit: cover; }
+.detailPlaceholder { align-items: center; background: var(--color-gray-100); color: var(--color-gray-500); display: flex; justify-content: center; }
+.fileInput { display: block; max-width: 100%; }
+.dangerZone { border: 1px solid var(--color-gray-300); border-radius: var(--radius-card); justify-content: space-between; padding: var(--space-5); }
+.dialogBackdrop { align-items: center; background: rgb(0 0 0 / 50%); display: flex; inset: 0; justify-content: center; padding: var(--space-5); position: fixed; z-index: 50; }
+.dialog { background: var(--color-white); border-radius: var(--radius-card); box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%); display: grid; gap: var(--space-4); max-width: 30rem; padding: var(--space-6); width: 100%; }
+.skeleton { animation: pulse 1.2s ease-in-out infinite alternate; background: var(--color-gray-100); border-radius: var(--radius-card); height: 22rem; }
+@keyframes pulse { to { background: var(--color-gray-200); } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+@media (max-width: 48rem) {
+  .fields { grid-template-columns: 1fr; }
+  .full { grid-column: auto; }
+  .section { padding: var(--space-5); }
+  .formActions > * { width: 100%; }
+}
+@media (max-width: 32rem) {
+  .dangerZone { align-items: stretch; flex-direction: column; }
+  .actions > * { width: 100%; }
+}
