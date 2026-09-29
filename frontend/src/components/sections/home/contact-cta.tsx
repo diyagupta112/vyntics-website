@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { Container } from "@/components/ui/container";
+import { siteConfig } from "@/config/site";
 import styles from "./contact-cta.module.css";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -50,8 +51,8 @@ export function ContactCta() {
     <section id="contact" className={styles.section} aria-labelledby="contact-title">
       <Container className={styles.layout}>
         <div className={styles.content}>
-          <p className={styles.eyebrow}>Let&apos;s work together</p>
-          <h2 id="contact-title">Ready to Transform Your Data?</h2>
+          <p className={styles.eyebrow}>Get in touch</p>
+          <h2 id="contact-title">Let&apos;s look at your data together</h2>
           <p className={styles.intro}>Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.</p>
 
           <a className={styles.emailLink} href="mailto:contact@vyntics.com">
@@ -59,10 +60,10 @@ export function ContactCta() {
           </a>
 
           <address className={styles.contactDetails}>
-            <p>
+            <a href={siteConfig.mapHref} target="_blank" rel="noreferrer" aria-label={`Open ${siteConfig.address} in Google Maps`}>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z" /><circle cx="12" cy="10" r="2" /></svg>
-              72 Krishna Nagar, Agra Road, Jaipur, Rajasthan
-            </p>
+              {siteConfig.address}
+            </a>
           </address>
         </div>
 

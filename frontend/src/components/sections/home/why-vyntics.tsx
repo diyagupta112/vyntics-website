@@ -12,8 +12,8 @@ type Feature = {
 const features: Feature[] = [
   {
     number: "01",
-    title: "Direct Expert Access",
-    description: "Work directly with the engineers designing and building your system—no account-manager layer and no handoffs.",
+    title: "Direct access to the engineers",
+    description: "The people you talk to on the first call are the people who build your system. There are no account managers and no passing the work to a different team.",
     icon: (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <path d="m16 3 2.2 7.8L26 13l-7.8 2.2L16 23l-2.2-7.8L6 13l7.8-2.2L16 3Z" />
@@ -24,7 +24,7 @@ const features: Feature[] = [
   {
     number: "02",
     title: "Built for Production",
-    description: "Custom AI and data systems engineered for real workloads, measurable outcomes, and long-term maintainability—not demo-day prototypes.",
+    description: "We build for real workloads and real users. Every system is made to keep running after launch, not just to look good in a demo.",
     icon: (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <circle cx="8" cy="16" r="3" />
@@ -36,8 +36,8 @@ const features: Feature[] = [
   },
   {
     number: "03",
-    title: "Ownership Without Lock-In",
-    description: "Clear documentation, a clean handoff, and systems you fully own—with our team still available as your ambitions grow.",
+    title: "You own it",
+    description: "Everything we build comes with documentation and a clean handoff. The code and systems are yours, and you can hire us again or not.",
     icon: (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <path d="M5 25V13m0 12h22" />
@@ -55,7 +55,7 @@ export function WhyVyntics() {
         <div className={styles.headingBlock}>
           <p className={styles.badge}>Why Vyntics</p>
           <h2 id="why-vyntics-title">Built by experts. Owned by you.</h2>
-          <p>No black boxes or delivery layers—just accountable engineering from the first conversation through production and scale.</p>
+          <p>No layers between you and the people doing the work. You deal with the same engineers from the first call through launch and after.</p>
         </div>
 
         <div className={styles.grid}>

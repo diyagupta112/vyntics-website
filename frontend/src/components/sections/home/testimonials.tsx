@@ -70,8 +70,8 @@ export function Testimonials() {
     <section id="testimonials" className={styles.section} aria-labelledby="testimonials-title">
       <Container>
         <div className={styles.headingBlock}>
-          <p className={styles.eyebrow}>Testimonials</p>
-          <h2 id="testimonials-title">What our users say</h2>
+          <p className={styles.eyebrow}>In their words</p>
+          <h2 id="testimonials-title">Straight from our clients</h2>
           <p>Discover how teams streamline their operations with thoughtfully built systems.</p>
         </div>
 

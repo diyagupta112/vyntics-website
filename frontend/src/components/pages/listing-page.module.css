@@ -1,0 +1,157 @@
+.hero {
+  padding-block: clamp(4.25rem, 8vw, 6.5rem);
+  background:
+    radial-gradient(circle at 82% 16%, color-mix(in srgb, var(--color-primary) 8%, transparent), transparent 24rem),
+    var(--color-background);
+}
+
+.eyebrow,
+.label {
+  color: var(--color-brand);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.detailHero h1 {
+  max-width: 17ch;
+  margin-top: 0.9rem;
+  font-size: clamp(2.75rem, 5.2vw, 5.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.hero > div > p:last-child,
+.detailSummary {
+  max-width: 45rem;
+  margin-top: 1.35rem;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  line-height: 1.65;
+}
+
+.section { padding-block: clamp(3.75rem, 7vw, 5.75rem); border-top: 1px solid var(--color-border); }
+.sectionHeading { max-width: 42rem; }
+
+.sectionHeading h2,
+.detailGrid h2,
+.cta h2 {
+  margin-top: 0.65rem;
+  font-size: clamp(1.85rem, 3vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.cardGrid {
+  margin-top: clamp(2rem, 4vw, 3.25rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  min-height: 17rem;
+  padding: clamp(1.4rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--color-surface) 95%, var(--color-primary));
+  box-shadow: 0 1rem 3rem rgb(11 11 15 / 3%);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.cardMeta { color: var(--color-primary); font-size: 0.66rem; font-weight: 750; letter-spacing: 0.1em; text-transform: uppercase; }
+.card h2,
+.card h3 { max-width: 25ch; margin-top: 1.25rem; font-size: clamp(1.35rem, 2vw, 1.85rem); line-height: 1.12; letter-spacing: -0.04em; }
+.card > p { margin-top: 0.7rem; max-width: 38rem; color: var(--color-muted); font-size: 0.86rem; line-height: 1.65; }
+.cardFooter { margin-top: auto; padding-top: 1.4rem; display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+.cardFooter ul,
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; }
+.cardFooter li,
+.tags li { padding: 0.36rem 0.56rem; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-muted); font-size: 0.65rem; }
+.cardFooter a,
+.textLink { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.4rem; color: var(--color-primary); font-size: 0.8rem; font-weight: 700; }
+.cardFooter svg,
+.textLink svg,
+.cta svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 180ms ease; }
+
+.technologyGroups {
+  margin-top: clamp(2rem, 4vw, 3.25rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.technologyGroup {
+  min-height: 15rem;
+  padding: 1.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-surface);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.technologyGroup h3 { font-size: 1.05rem; letter-spacing: -0.025em; }
+.technologyGroup p { margin-top: 0.65rem; color: var(--color-muted); font-size: 0.84rem; line-height: 1.6; }
+.technologyGroup .tags { margin-top: 1.25rem; }
+
+.detailHero { padding-block: clamp(4.25rem, 8vw, 6.5rem); background: radial-gradient(circle at 80% 15%, color-mix(in srgb, var(--color-primary) 8%, transparent), transparent 24rem); }
+.metric { margin-top: 2.5rem; display: flex; align-items: baseline; gap: 0.7rem; }
+.metric strong { color: var(--color-primary); font-size: clamp(2.6rem, 5vw, 4.8rem); letter-spacing: -0.06em; }
+.metric span { color: var(--color-muted); font-size: 0.9rem; }
+.detailGrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 1fr); gap: clamp(2.5rem, 7vw, 6rem); }
+.detailGrid p { margin-top: 0.9rem; color: var(--color-muted); font-size: 0.92rem; line-height: 1.7; }
+.detailGrid ul { list-style: none; border-top: 1px solid var(--color-border); }
+.detailGrid li { padding-block: 1rem; border-bottom: 1px solid var(--color-border); font-size: 0.92rem; font-weight: 650; }
+
+.cta { padding-block: clamp(3.75rem, 7vw, 5.5rem); color: #fff; background: #0b0b0f; }
+.cta > div { display: flex; align-items: end; justify-content: space-between; gap: 3rem; }
+.cta h2 { max-width: 20ch; }
+.cta .label { color: #8fb5ff; }
+.cta a { flex: 0 0 auto; padding: 0.82rem 1.1rem; display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgb(255 255 255 / 25%); border-radius: 999px; font-size: 0.9rem; font-weight: 700; transition: background-color 180ms ease, border-color 180ms ease; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero > div > *,
+  .detailHero > div > * { animation: riseIn 600ms both; }
+  .hero > div > :nth-child(2),
+  .detailHero > div > :nth-child(2) { animation-delay: 70ms; }
+  .hero > div > :nth-child(3),
+  .detailHero > div > :nth-child(3) { animation-delay: 130ms; }
+  .detailHero > div > :nth-child(4) { animation-delay: 190ms; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover,
+  .technologyGroup:hover { transform: translateY(-0.3rem); border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border)); box-shadow: 0 1.25rem 3rem rgb(20 83 219 / 8%); }
+  .cardFooter a:hover svg,
+  .textLink:hover svg,
+  .cta a:hover svg { transform: translateX(0.22rem); }
+  .cta a:hover { border-color: rgb(255 255 255 / 55%); background: rgb(255 255 255 / 8%); }
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 760px) {
+  .hero,
+  .detailHero { padding-block: 3.75rem 4.5rem; }
+  .cardGrid,
+  .technologyGroups,
+  .detailGrid { grid-template-columns: 1fr; }
+  .cta > div { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 440px) {
+  .hero h1,
+  .detailHero h1 { font-size: clamp(2.45rem, 13vw, 3.2rem); }
+  .cardFooter { align-items: flex-start; flex-direction: column; }
+}
+

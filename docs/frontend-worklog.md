@@ -17,3 +17,4 @@
 - Reworked the blog showcase into a single-panel horizontal expanding-card queue with vertical rails, a 1.5-second autoplay interval, immediate hover/focus pause, and click, dot, and arrow controls.
 - Changed the blog gallery into an overlapping card deck whose hovered card pauses autoplay, rises above the pack, and expands to reveal its complete article summary and metadata.
 - Restored the horizontal expanding-card queue with a shorter heading, viewport-contained desktop layout, vertical preview rails, 1.5-second queue rotation, and hover/click/dot/arrow interaction.
+- Refined the blog queue into an overlapping card stack: hovering raises and expands one card while compressed cards remain behind it with readable article headings.

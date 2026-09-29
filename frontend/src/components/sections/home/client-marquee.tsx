@@ -33,7 +33,7 @@ export function ClientMarquee() {
     <section className={styles.section} aria-labelledby="client-marquee-title">
       <Container className={styles.headingContainer}>
         <p id="client-marquee-title" className={styles.heading}>
-          Trusted by teams across law, real estate, IT &amp; EdTech
+          Law firms, real estate, IT and EdTech teams have put their data with us
         </p>
       </Container>
 

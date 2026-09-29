@@ -5,14 +5,14 @@ import styles from "./hero.module.css";
 export function Hero() {
   return (
     <Container as="section" className={styles.hero}>
-      <p className={styles.eyebrow}>AI & ANALYTICS THAT DELIVER</p>
+      <p className={styles.eyebrow}>Data engineering, analytics and custom AI</p>
       <h1>
         Data and AI, built by experts you actually talk to.
       </h1>
       <p className={styles.intro}>
-        No handoffs, no black boxes. Our small team of data &amp; AI engineers
-        builds RAG systems, pipelines, and custom models at 95%+ accuracy, and
-        stays your direct point of contact through launch.
+        No account managers, no handoffs. The engineers who scope your project are 
+        the ones who build it. Our compliance chatbot answers across 20,000+ 
+        documents with a source on every reply.
       </p>
       <Link className={styles.cta} href="/#contact">
         Book a strategy call

@@ -4,18 +4,36 @@ import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import styles from "./site-footer.module.css";
 
-const solutionLinks = [
-  { label: "Custom AI Solutions", href: "/#services-ai" },
-  { label: "Data Engineering", href: "/#services-data" },
-  { label: "Analytics & BI", href: "/#services-analytics" },
-  { label: "Cloud Solutions", href: "/#services-cloud" },
-  { label: "More Services", href: "/#services-others" },
+const serviceGroups = [
+  {
+    label: "Custom AI Solutions",
+    href: "/services/ai",
+    items: ["RAG Assistants", "AI Agents", "Document Automation", "Workflow Automation", "LLM Integrations"],
+  },
+  {
+    label: "Data Engineering",
+    href: "/services/data",
+    items: ["Data Pipelines", "ETL & ELT", "Data Warehousing", "Data Integration", "Data Quality"],
+  },
+  {
+    label: "Analytics & BI",
+    href: "/services/data",
+    items: ["Power BI", "Tableau", "Amazon QuickSight", "KPI Dashboards", "Executive Reporting"],
+  },
+  {
+    label: "Cloud Solutions",
+    href: "/services/cloud",
+    items: ["Cloud Architecture", "Cloud Migration", "Cost Optimization", "DevOps & Infrastructure", "Reliability Monitoring"],
+  },
 ];
 
 const exploreLinks = [
-  { label: "Featured Work", href: "/#work" },
+  { label: "About us", href: "/about" },
+  { label: "Our team", href: "/team" },
+  { label: "Case studies", href: "/case-studies" },
   { label: "How We Work", href: "/#approach" },
-  { label: "Latest Insights", href: "/#blogs" },
+  { label: "Latest Insights", href: "/blog" },
+  { label: "Technologies", href: "/technologies" },
   { label: "Why Vyntics", href: "/#why-vyntics" },
   { label: "Client Stories", href: "/#testimonials" },
 ];
@@ -28,9 +46,44 @@ function ArrowIcon() {
   );
 }
 
+function MapPinIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M6.5 9.5V18M6.5 6.5v.01M10.5 18v-4.8c0-2.1 1.2-3.7 3.4-3.7 2.3 0 3.6 1.5 3.6 4.2V18M10.5 9.5V18" />
+    </svg>
+  );
+}
+
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="4" y="4" width="16" height="16" rx="4" />
+      <circle cx="12" cy="12" r="3.5" />
+      <circle cx="17.3" cy="6.8" r=".7" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function TwitterIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m5 4 14 16M19 4 5 20" />
+    </svg>
+  );
+}
+
 export function SiteFooter() {
   return (
-    <footer className={styles.footer}>
+    <footer id="footer" className={styles.footer}>
       <Container>
         <div className={styles.mainGrid}>
           <div className={styles.brandColumn}>
@@ -49,37 +102,48 @@ export function SiteFooter() {
             </a>
           </div>
 
-          <nav className={styles.linkColumn} aria-label="Footer solutions">
-            <h2>Solutions</h2>
-            <ul>
-              {solutionLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {serviceGroups.map((group) => (
+            <nav className={styles.linkColumn} aria-label={group.label} key={group.label}>
+              <h2><Link href={group.href}>{group.label}</Link></h2>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item}><Link href={group.href}>{item}</Link></li>
+                ))}
+              </ul>
+            </nav>
+          ))}
 
           <nav className={styles.linkColumn} aria-label="Explore Vyntics">
             <h2>Explore</h2>
             <ul>
               {exploreLinks.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
+                <li key={link.href}><Link href={link.href}>{link.label}</Link></li>
               ))}
             </ul>
           </nav>
 
-          <div className={styles.linkColumn}>
+          <div className={`${styles.linkColumn} ${styles.contactColumn}`}>
             <h2>Get in touch</h2>
             <ul className={styles.contactList}>
               <li><a href="mailto:contact@vyntics.com">contact@vyntics.com</a></li>
-              <li><span>Jaipur, Rajasthan, India</span></li>
+              <li>
+                <a
+                  className={styles.mapLink}
+                  href={siteConfig.mapHref}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${siteConfig.address} in Google Maps`}
+                >
+                  <MapPinIcon />
+                  <span>{siteConfig.address}</span>
+                </a>
+              </li>
             </ul>
-            <Link className={styles.demoLink} href="/#contact">
-              Book a strategy call <ArrowIcon />
-            </Link>
+            <div className={styles.socialLinks} aria-label="Vyntics social media">
+              <a href={siteConfig.socialLinks.linkedin} target="_blank" rel="noreferrer" aria-label="Vyntics on LinkedIn"><LinkedInIcon /></a>
+              <a href={siteConfig.socialLinks.instagram} target="_blank" rel="noreferrer" aria-label="Vyntics on Instagram"><InstagramIcon /></a>
+              <a href={siteConfig.socialLinks.twitter} target="_blank" rel="noreferrer" aria-label="Vyntics on X, formerly Twitter"><TwitterIcon /></a>
+            </div>
           </div>
         </div>
 

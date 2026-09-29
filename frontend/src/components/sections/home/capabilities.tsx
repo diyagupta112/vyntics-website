@@ -13,7 +13,7 @@ const capabilities = [
     scope: "RAG · Agents · Automation",
     title: "Custom AI Solutions",
     description:
-      "RAG chatbots and assistants grounded in your own data—with verified citations, 95%+ accuracy, and agentic automation across your tools.",
+      "AI that answers from your data and cites where it got each answer. Our RAG systems run at 95%+ accuracy in production.",
   },
   {
     number: "02",
@@ -22,7 +22,7 @@ const capabilities = [
     scope: "Pipelines · ETL · Warehousing",
     title: "Data Engineering & Management",
     description:
-      "Reliable pipelines, ETL, and cloud warehousing that turn scattered data into one clean, governed, query-ready source of truth.",
+      "We pull your scattered data into one clean, reliable place: pipelines, ETL and a cloud warehouse your team can query.",
   },
   {
     number: "03",
@@ -31,7 +31,7 @@ const capabilities = [
     scope: "Dashboards · Reporting · BI",
     title: "Data Analytics & BI",
     description:
-      "Power BI, Tableau, and QuickSight reporting with clearly defined metrics—so your data drives decisions instead of more questions.",
+      "Dashboards in Power BI, Tableau or QuickSight, built around metrics your team has agreed on, so nobody argues about whose number is right.",
   },
   {
     number: "04",
@@ -40,16 +40,16 @@ const capabilities = [
     scope: "Architecture · Migration · FinOps",
     title: "Cloud Solutions",
     description:
-      "Architecture, migration, and cost optimization across AWS, GCP, and Azure—sized for your real workload, not over-provisioned.",
+      "We set up, move and tune your systems on AWS, GCP or Azure, sized to what you actually run so you stop paying for idle capacity.",
   },
   {
     number: "05",
     anchor: "services-others",
     shortLabel: "MORE",
     scope: "APIs · Integrations · Consulting",
-    title: "More Services",
+    title: "Backend & Integrations",
     description:
-      "Backend systems, third-party integrations, workflow automation, and hands-on technical consulting tailored to your product and team.",
+      "Backend services, API integrations and workflow automation, plus hands-on engineering help when your team needs an extra pair of hands.",
   },
 ] as const;
 
@@ -63,8 +63,8 @@ export function Capabilities() {
     <section id="services" className={styles.section} aria-labelledby="capabilities-title">
       <Container>
         <header className={styles.headingBlock}>
-          <p className={styles.eyebrow}>Capabilities</p>
-          <h2 id="capabilities-title">What We Build For You</h2>
+          <p className={styles.eyebrow}>Services</p>
+          <h2 id="capabilities-title">From raw data to working AI</h2>
           <p>From custom AI to the data foundations it runs on—end to end.</p>
         </header>
 
