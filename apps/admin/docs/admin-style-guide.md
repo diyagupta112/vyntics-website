@@ -994,6 +994,147 @@ Careers must reuse:
 
 Do not introduce gradients, unrelated colors, a new component library, or a separate Careers visual language.
 
+## 23.3 Job Applications UI/UX
+
+The Job Applications experience should support quick discovery, comparison, and review while making the current applicant scope immediately clear. These requirements define visual and interaction behavior only; they do not change the documented backend contract.
+
+### Job Applications overview
+
+The page should provide a two-level navigation and discovery experience that lets the administrator choose between:
+
+- **All Applicants**;
+- applicants associated with one specific Career.
+
+The current selection must remain visually clear so the administrator can immediately understand whether the displayed applications span all Careers or belong to one role.
+
+### All Applicants
+
+A prominent **All Applicants** action, card, or button should appear near the top of the page. Selecting it should display applications across all Careers rather than restricting the view to one Career.
+
+The All Applicants entry must remain easy to find and activate after a specific Career has been selected. Its selected and unselected states should follow the existing focus, active, and card or button patterns without relying on color alone.
+
+### Career cards
+
+Below the All Applicants entry, display compact navigation cards for the available Careers. These cards should be smaller and more concise than the Career management cards on the Careers page because their purpose is applicant discovery and scope selection, not Career management.
+
+Each card should clearly show the Career title. Selecting a card should display only the applications associated with that Career and should give the selected card a clear, accessible active state.
+
+The intended discovery flows are:
+
+```text
+Job Applications
+-> All Applicants
+-> all applications
+```
+
+or:
+
+```text
+Job Applications
+-> Career card
+-> applicants for that Career
+```
+
+### Applicants table
+
+Applications should use a clean, compact table optimized for scanning and comparison. The primary columns are:
+
+- Name;
+- Email;
+- Mobile;
+- Status;
+- Resume;
+- Details.
+
+Columns, row spacing, alignment, and action placement should remain consistent with the existing Admin Panel table patterns. Readability must not be sacrificed for density.
+
+### Resume action
+
+The Resume column should provide a clear view or download action when a resume is available. The control must use an understandable text label, accessible name, or supporting tooltip and must not rely on an unexplained icon alone.
+
+Resume access must follow the existing private-storage security model. The UI must not reveal raw Storage paths, permanent public URLs, credentials, provider details, or other private implementation information.
+
+When no resume is available, display the established **No resume attached** state rather than an inactive or misleading download action.
+
+### Status
+
+The Status column should use the existing compact status-badge language. Status text must remain readable and visually distinguishable within the monochrome design system, and meaning must never depend on color alone.
+
+### Expandable applicant details
+
+Each applicant row should expand and collapse to reveal additional application information. The whole row should offer a comfortably sized interaction target; the administrator should not need to select only a small Details control.
+
+The row must also retain a visible Details or information control as an obvious secondary affordance. Both interactions should affect the same expanded state:
+
+- selecting the row expands or collapses its details;
+- selecting the Details control expands or collapses its details.
+
+The expanded area should appear immediately associated with its applicant row through spacing, borders, background treatment, or another restrained existing pattern.
+
+### Expanded details
+
+The expanded area should present the additional information available from the documented Job Applications contract in clear, logical groups rather than as an unstructured block.
+
+Related identity, Career, application, and administrative information should be grouped consistently. Longer content, including notes and other descriptive information, should receive sufficient width and spacing for comfortable reading.
+
+The expanded content must remain visually connected to the originating row and should not appear to belong to the next applicant.
+
+### Row interaction and accessibility
+
+Expandable rows must be keyboard accessible and show a visible focus state. Assistive technology must be able to identify the expansion control and determine whether the details are expanded or collapsed.
+
+Interactive controls inside a row must retain distinct behavior:
+
+- selecting Resume performs the resume action and must not toggle row expansion;
+- selecting Details explicitly toggles expansion;
+- other row actions must not accidentally trigger expansion;
+- focus order and accessible names must make each available action understandable.
+
+The row should provide a generous interaction area without creating invalid or confusing nested interactive controls.
+
+### Responsive behavior
+
+The Career navigation cards should collapse naturally on smaller screens while keeping the selected scope clear.
+
+The applicants table must remain usable when all desktop columns cannot fit comfortably. Use an appropriate responsive table treatment that preserves access to primary applicant information, status, Resume, and Details rather than compressing content into unreadable columns.
+
+Expanded details must remain readable on mobile, with long content wrapping naturally and without requiring horizontal page scrolling for normal review.
+
+### Visual hierarchy
+
+Use this overall hierarchy:
+
+1. Job Applications page heading;
+2. All Applicants action;
+3. Career-specific navigation cards;
+4. current applicant scope or context;
+5. applicants table;
+6. expanded applicant details.
+
+The selected scope should be apparent before the administrator begins reviewing table rows.
+
+### Design-system consistency
+
+Job Applications must reuse:
+
+- DM Sans;
+- the existing monochrome color palette;
+- the existing spacing scale;
+- the existing typography hierarchy;
+- the existing card patterns;
+- the existing table patterns;
+- the existing button hierarchy;
+- the existing status badges;
+- the existing dialogs and notification patterns;
+- the existing loading, empty, and error-state patterns;
+- the existing responsive behavior.
+
+Do not introduce gradients, unrelated colors, a new component library, or a separate Job Applications visual language.
+
+### Scope boundary
+
+This subsection defines Job Applications visual and interaction requirements only. It does not define routing mechanics, API changes, backend or database behavior, authentication, dependencies, or specific component implementation. It does not document unrelated future features.
+
 ---
 
 # 24. Resume UI

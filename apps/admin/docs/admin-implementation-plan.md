@@ -1,6 +1,6 @@
 # Vyntics Admin Panel — Implementation Plan
 
-**Status:** Active implementation roadmap and technical source of truth — Phases A–F complete; Phase G planned
+**Status:** Active implementation roadmap and technical source of truth — Phases A–G complete; Phase H planned
 **Application:** `apps/admin`  
 **Backend:** FastAPI (`apps/api`)  
 **Auth:** Supabase Auth  
@@ -124,7 +124,7 @@ The completed foundation includes:
 - typed API errors and response handling;
 - automated tests, typechecking, linting, and production builds.
 
-The Admin Panel remains feature-incomplete. Blogs, Case Studies, and Careers are complete; Job Applications, Our Team, and Contact Submissions follow in that order, followed by final hardening and production readiness.
+The Admin Panel remains feature-incomplete. Blogs, Case Studies, Careers, and Job Applications are complete; Our Team and Contact Submissions follow in that order, followed by final hardening and production readiness.
 
 ### 3.1 Current structure
 
@@ -152,7 +152,7 @@ apps/admin/
 | D | Blogs | Complete |
 | E | Case Studies | Complete |
 | F | Careers | Complete |
-| G | Job Applications | Planned |
+| G | Job Applications | Complete |
 | H | Our Team | Planned |
 | I | Contact Submissions | Planned |
 | J | Hardening & Production Readiness | Planned |
@@ -1293,7 +1293,7 @@ The authoritative implementation order is:
 | D | Blogs | Complete |
 | E | Case Studies | Complete |
 | F | Careers | Complete |
-| G | Job Applications | Planned |
+| G | Job Applications | Complete |
 | H | Our Team | Planned |
 | I | Contact Submissions | Planned |
 | J | Hardening & Production Readiness | Planned |
@@ -1508,20 +1508,22 @@ Administrators can manage the exact existing Career contract, with permanent del
 
 ## 23.7 Phase G — Job Applications
 
-**Status:** Planned
+**Status:** Complete
 
 ### Goal
 
 Provide authorized review and limited management of submitted Job Applications.
 
-### Scope
+### Scope delivered
 
-- global application list and application detail;
-- career-specific application list using the documented Admin endpoint;
+- global and Career-specific application lists with an always-available All Applicants scope and compact Career navigation cards;
+- automatic consumption of the Careers `careerId` query context;
+- responsive applicant table with one-at-a-time, whole-row keyboard-accessible detail expansion and a separate Details control;
 - status transitions limited to `new`, `reviewing`, `shortlisted`, `rejected`, and `hired`;
 - notes editing, including the documented nullable/clear behavior;
 - PATCH payloads limited to `status` and `notes`;
 - permanent-delete confirmation using the existing delete endpoint;
+- deletion that removes the row while preserving the selected applicant scope;
 - nullable resume handling and a clear “No resume attached” state;
 - temporary viewing/downloading using only backend-issued short-lived signed URLs;
 - no permanent public resume URL and no raw Storage path display;

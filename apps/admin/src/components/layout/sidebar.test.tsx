@@ -28,9 +28,11 @@ describe("Sidebar", () => {
       "href",
       "/careers",
     );
+    expect(
+      screen.getByRole("link", { name: "Job Applications" }),
+    ).toHaveAttribute("href", "/job-applications");
 
     for (const label of [
-      "Job Applications",
       "Team Members",
       "Contact Submissions",
     ]) {
