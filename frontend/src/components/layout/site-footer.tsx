@@ -29,7 +29,8 @@ const serviceGroups = [
 
 const exploreLinks = [
   { label: "About us", href: "/about" },
-  { label: "Our team", href: "/team" },
+  { label: "Career", href: "/careers" },
+  { label: "Rewards", href: "/rewards" },
   { label: "Case studies", href: "/case-studies" },
   { label: "How We Work", href: "/#approach" },
   { label: "Latest Insights", href: "/blog" },

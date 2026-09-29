@@ -27,7 +27,7 @@
 .card:not(.activeCard) .artwork { filter: saturate(0.72) brightness(0.68); transform: scale(1.06); }
 .artwork::before { position: absolute; inset: 0; content: ""; background-image: linear-gradient(rgb(255 255 255 / 8%) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 8%) 1px, transparent 1px); background-size: 3rem 3rem; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
 .artwork::after { position: absolute; width: 14rem; aspect-ratio: 1; right: -3rem; top: 14%; content: ""; border: 1px solid rgb(255 255 255 / 28%); border-radius: 50%; box-shadow: 0 0 0 2.7rem rgb(255 255 255 / 5%), 0 0 0 5.4rem rgb(255 255 255 / 4%); }
-.motif { position: absolute; top: 1.1rem; left: 1.1rem; color: rgb(255 255 255 / 76%); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.66rem; letter-spacing: 0.16em; white-space: nowrap; }
+.motif { position: absolute; top: 1.1rem; left: 1.1rem; color: rgb(255 255 255 / 76%); font-size: 0.66rem; letter-spacing: 0.16em; white-space: nowrap; }
 .orbit { position: absolute; width: 0.48rem; aspect-ratio: 1; top: 48%; right: 4rem; border-radius: 50%; background: var(--color-white); box-shadow: 0 0 1.8rem var(--color-white); }
 .overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgb(5 6 10 / 4%) 10%, rgb(5 6 10 / 18%) 40%, rgb(5 6 10 / 96%) 93%); }
 

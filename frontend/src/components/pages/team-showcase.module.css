@@ -1,15 +1,22 @@
 .page {
-  --team-accent: #d6c29d;
-  --team-panel: rgb(13 48 51 / 88%);
-  --team-border: rgb(214 194 157 / 26%);
+  --team-accent: #1453db;
+  --team-panel: #ffffff;
+  --team-border: rgb(11 11 15 / 12%);
   min-height: calc(100svh - 5rem);
+  scroll-margin-top: 5rem;
   padding-block: clamp(3.5rem, 6vw, 5.5rem) clamp(5rem, 8vw, 7rem);
   overflow: hidden;
-  color: #f8f5ed;
+  color: #0b0b0f;
   background:
-    radial-gradient(circle at 50% 34%, rgb(42 105 107 / 25%), transparent 28rem),
-    radial-gradient(circle at 10% 100%, rgb(36 82 83 / 20%), transparent 24rem),
-    linear-gradient(145deg, #09282b, #061719 70%);
+    linear-gradient(rgb(20 83 219 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(20 83 219 / 4%) 1px, transparent 1px),
+    radial-gradient(circle at 50% 34%, rgb(20 83 219 / 10%), transparent 28rem),
+    #ffffff;
+  background-size: 4.5rem 4.5rem, 4.5rem 4.5rem, auto, auto;
+}
+
+.teamContainer {
+  width: min(100% - 2rem, 88rem);
 }
 
 .heading {
@@ -35,11 +42,10 @@
   gap: clamp(1rem, 3vw, 2.25rem);
 }
 
-.titleRow h1 {
-  color: #fff;
-  font-family: Georgia, "Times New Roman", serif;
+.titleRow h2 {
+  color: #0b0b0f;
   font-size: clamp(2.8rem, 5vw, 4.8rem);
-  font-weight: 400;
+  font-weight: 650;
   line-height: 1;
   letter-spacing: -0.045em;
   white-space: nowrap;
@@ -59,17 +65,17 @@
 .intro {
   max-width: 34rem;
   margin: 0.9rem auto 0;
-  color: rgb(255 255 255 / 58%);
+  color: rgb(11 11 15 / 60%);
   font-size: 0.88rem;
   line-height: 1.6;
 }
 
 .teamStage {
   position: relative;
-  width: min(100%, 68rem);
+  width: min(100%, 78rem);
   margin: clamp(5.5rem, 8vw, 7rem) auto 0;
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 1.25fr) minmax(0, 0.9fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1.28fr) minmax(0, 0.9fr);
   align-items: center;
   gap: clamp(1.25rem, 3vw, 2.5rem);
 }
@@ -99,20 +105,20 @@
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 4.2rem;
+  gap: 4.7rem;
 }
 
 .memberCard {
   position: relative;
-  min-height: 9.5rem;
-  padding: 3.4rem 1.1rem 1.25rem;
-  color: #f8f5ed;
+  min-height: 10.5rem;
+  padding: 3.75rem 1.15rem 1.3rem;
+  color: #0b0b0f;
   border: 1px solid var(--team-border);
   border-radius: 1.1rem;
   background:
-    linear-gradient(145deg, rgb(255 255 255 / 5%), transparent 65%),
+    linear-gradient(145deg, rgb(20 83 219 / 4%), transparent 65%),
     var(--team-panel);
-  box-shadow: 0 1.5rem 3.5rem rgb(0 0 0 / 22%);
+  box-shadow: 0 1.25rem 3.5rem rgb(11 11 15 / 7%);
   text-align: center;
   backdrop-filter: blur(0.75rem);
   transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease;
@@ -120,9 +126,9 @@
 
 .memberCard::before {
   position: absolute;
-  top: -1.8rem;
+  top: -1.95rem;
   left: 50%;
-  width: 4.3rem;
+  width: 4.7rem;
   aspect-ratio: 1;
   content: "";
   border-top: 1px solid var(--team-border);
@@ -134,22 +140,25 @@
 .memberPortrait {
   position: absolute;
   z-index: 2;
-  top: -2.7rem;
+  top: -2.95rem;
   left: 50%;
-  width: 5.4rem;
+  width: 5.9rem;
   aspect-ratio: 1;
   display: grid;
   place-items: center;
   color: #fff;
-  border: 0.25rem solid #0b292c;
+  border: 0.25rem solid #ffffff;
   border-radius: 0.8rem;
   box-shadow: 0 0.9rem 2rem rgb(0 0 0 / 25%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   transform: translateX(-50%);
 }
 
 .memberPortrait span {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.65rem;
+  font-size: 1.8rem;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -162,9 +171,8 @@
 .memberCard h3 {
   position: relative;
   z-index: 1;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.3rem;
-  font-weight: 400;
+  font-size: 1.35rem;
+  font-weight: 650;
   line-height: 1.1;
 }
 
@@ -173,7 +181,7 @@
   z-index: 1;
   margin-top: 0.45rem;
   color: var(--team-accent);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   line-height: 1.35;
 }
 
@@ -187,57 +195,60 @@
 .founderCard {
   position: relative;
   width: 100%;
-  min-height: 27rem;
-  padding: 7rem clamp(1.5rem, 3vw, 2.5rem) 2.25rem;
+  min-height: 30rem;
+  padding: 8rem clamp(1.6rem, 3vw, 2.7rem) 2.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  color: #f8f5ed;
+  color: #0b0b0f;
   border: 1px solid var(--team-border);
   border-radius: 1.5rem;
   background:
-    radial-gradient(circle at 50% 8%, rgb(214 194 157 / 12%), transparent 12rem),
-    linear-gradient(155deg, rgb(255 255 255 / 6%), transparent 55%),
-    rgb(10 41 44 / 94%);
-  box-shadow: 0 2rem 5rem rgb(0 0 0 / 30%);
+    radial-gradient(circle at 50% 8%, rgb(20 83 219 / 10%), transparent 12rem),
+    linear-gradient(155deg, rgb(20 83 219 / 4%), transparent 55%),
+    #ffffff;
+  box-shadow: 0 2rem 5rem rgb(20 83 219 / 11%);
   text-align: center;
 }
 
 .founderCard::before {
   position: absolute;
-  top: -3.25rem;
+  top: -3.6rem;
   left: 50%;
-  width: 7.5rem;
+  width: 8.3rem;
   aspect-ratio: 1;
   content: "";
   border-top: 1px solid var(--team-border);
   border-left: 1px solid var(--team-border);
-  background: rgb(10 41 44 / 98%);
+  background: #ffffff;
   transform: translateX(-50%) rotate(45deg);
 }
 
 .founderPortrait {
   position: absolute;
   z-index: 2;
-  top: -5.2rem;
+  top: -5.75rem;
   left: 50%;
-  width: 10.4rem;
+  width: 11.5rem;
   aspect-ratio: 1;
   display: grid;
   place-items: center;
   color: #fff;
-  border: 0.4rem solid #0a292c;
+  border: 0.4rem solid #ffffff;
   border-radius: 1rem;
   background:
     radial-gradient(circle at 35% 22%, rgb(255 255 255 / 18%), transparent 32%),
     linear-gradient(145deg, #b39a70, #5e4e36 80%);
   box-shadow: 0 1.5rem 3.5rem rgb(0 0 0 / 32%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   transform: translateX(-50%);
 }
 
 .founderPortrait span {
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 4.2rem;
+  font-size: 4.3rem;
+  font-weight: 600;
   line-height: 1;
 }
 
@@ -249,11 +260,10 @@
   text-transform: uppercase;
 }
 
-.founderCard h2 {
+.founderCard h3 {
   margin-top: 0.5rem;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.5rem, 4vw, 3.6rem);
-  font-weight: 400;
+  font-size: clamp(2.55rem, 3.7vw, 3.75rem);
+  font-weight: 650;
   line-height: 1;
   letter-spacing: -0.045em;
 }
@@ -261,17 +271,42 @@
 .founderBio {
   max-width: 25rem;
   margin: 1.1rem auto 0;
-  color: rgb(255 255 255 / 60%);
-  font-size: 0.83rem;
+  color: rgb(11 11 15 / 60%);
+  font-size: 0.9rem;
   line-height: 1.65;
 }
 
 .compactCard {
-  width: min(100%, 14rem);
-  min-height: 8rem;
-  margin-top: 4.2rem;
-  padding-top: 3.2rem;
+  width: min(100%, 15.8rem);
+  min-height: 8.6rem;
+  margin-top: 4.7rem;
+  padding-top: 3.5rem;
 }
+
+.linkedinLink {
+  position: relative;
+  z-index: 3;
+  width: 1.9rem;
+  aspect-ratio: 1;
+  margin: 0.85rem auto 0;
+  display: grid;
+  place-items: center;
+  color: var(--team-accent);
+  border: 1px solid rgb(20 83 219 / 24%);
+  border-radius: 50%;
+  transition: color 180ms ease, background-color 180ms ease, transform 180ms ease;
+}
+
+.linkedinLink svg {
+  width: 0.9rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.placeholderCard { overflow: hidden; }
 
 @media (prefers-reduced-motion: no-preference) {
   .heading > * { animation: riseIn 650ms both; }
@@ -286,12 +321,13 @@
 @media (hover: hover) and (pointer: fine) {
   .memberCard:hover {
     transform: translateY(-0.35rem);
-    border-color: rgb(214 194 157 / 58%);
-    background-color: rgb(18 60 63 / 94%);
+    border-color: rgb(20 83 219 / 42%);
+    background-color: rgb(245 248 255 / 98%);
   }
 
   .founderCard:hover .founderPortrait { transform: translateX(-50%) translateY(-0.25rem); }
   .founderPortrait { transition: transform 220ms ease; }
+  .linkedinLink:hover { color: #fff; background: var(--team-accent); transform: translateY(-0.15rem); }
 }
 
 @keyframes riseIn {
@@ -339,4 +375,3 @@
   .sideColumn { grid-template-columns: 1fr; }
   .founderCard { min-height: 23rem; padding-inline: 1.3rem; }
 }
-

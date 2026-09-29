@@ -22,10 +22,11 @@ const navigation: NavigationItem[] = [
   { label: "Technologies", href: "/technologies" },
   {
     label: "Company",
-    href: "/#company",
+    href: "/about",
     children: [
       { label: "About us", href: "/about", description: "Our story, values, and the work that drives us." },
-      { label: "Our team", href: "/team", description: "Meet the people behind Vyntics." },
+      { label: "Career", href: "/careers", description: "Build useful systems and grow with the Vyntics team." },
+      { label: "Rewards", href: "/rewards", description: "Explore the milestones and contributions we recognize." },
     ],
   },
 ];

@@ -1,30 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { TeamShowcase } from "@/components/pages/team-showcase";
 import { Container } from "@/components/ui/container";
 import styles from "./page.module.css";
+import { ValueCards } from "./value-cards";
 
 export const metadata: Metadata = {
   title: "About Vyntics | Data Engineering & AI Consulting",
   description: "Vyntics is an expert-led data and AI consulting company helping organizations turn complex data into trusted decisions, automation, and production systems.",
 };
-
-const values = [
-  {
-    title: "Innovation",
-    text: "We keep exploring better methods and modern tools—but only adopt technology when it improves the outcome.",
-    icon: "spark",
-  },
-  {
-    title: "Trust",
-    text: "We earn long-term partnerships through transparent decisions, reliable delivery, and direct communication.",
-    icon: "shield",
-  },
-  {
-    title: "Excellence",
-    text: "We hold every system to a production standard: useful, maintainable, measurable, and ready for real work.",
-    icon: "diamond",
-  },
-] as const;
 
 const capabilities = [
   {
@@ -57,18 +41,6 @@ function ArrowIcon() {
   );
 }
 
-function ValueIcon({ type }: { type: (typeof values)[number]["icon"] }) {
-  if (type === "shield") {
-    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 19 6v5c0 4.7-2.8 8-7 10-4.2-2-7-5.3-7-10V6l7-3Z" /><path d="m9 12 2 2 4-4" /></svg>;
-  }
-
-  if (type === "diamond") {
-    return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 6-8 12L4 9l8-6Z" /><path d="m4 9 8 3 8-3M12 12v9" /></svg>;
-  }
-
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3Z" /><path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z" /></svg>;
-}
-
 export default function AboutPage() {
   return (
     <>
@@ -82,7 +54,7 @@ export default function AboutPage() {
             </p>
             <div className={styles.heroActions}>
               <Link className={styles.primaryButton} href="/#contact">Start a conversation <ArrowIcon /></Link>
-              <Link className={styles.textLink} href="/team">Meet our team <ArrowIcon /></Link>
+              <Link className={styles.textLink} href="#team">Meet our team <ArrowIcon /></Link>
             </div>
           </div>
 
@@ -123,15 +95,7 @@ export default function AboutPage() {
             <p className={styles.eyebrow}>Our values</p>
             <h2 id="values-title">How we make the work—and the partnership—better.</h2>
           </div>
-          <div className={styles.valueGrid}>
-            {values.map((value) => (
-              <article className={styles.valueCard} key={value.title}>
-                <span className={styles.iconBox}><ValueIcon type={value.icon} /></span>
-                <h3>{value.title}</h3>
-                <p>{value.text}</p>
-              </article>
-            ))}
-          </div>
+          <ValueCards />
         </Container>
       </section>
 
@@ -150,10 +114,12 @@ export default function AboutPage() {
             <p>
               Whether the need is a modern data platform, analytics leadership actually uses, or practical AI automation, we bring structured execution and long-term maintainability—not another deck of recommendations.
             </p>
-            <Link className={styles.storyLink} href="/team">The people behind Vyntics <ArrowIcon /></Link>
+            <Link className={styles.storyLink} href="#team">The people behind Vyntics <ArrowIcon /></Link>
           </div>
         </Container>
       </section>
+
+      <TeamShowcase />
 
       <section className={`${styles.section} ${styles.capabilities}`} aria-labelledby="capabilities-title">
         <Container>
@@ -187,4 +153,3 @@ export default function AboutPage() {
     </>
   );
 }
-
