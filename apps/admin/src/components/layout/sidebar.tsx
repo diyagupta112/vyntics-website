@@ -9,7 +9,7 @@ const navigation = [
   { label: "Dashboard", href: "/dashboard", available: true },
   { label: "Blogs", href: "/blogs", available: true },
   { label: "Case Studies", href: "/case-studies", available: true },
-  { label: "Careers", href: "/careers", available: false },
+  { label: "Careers", href: "/careers", available: true },
   { label: "Job Applications", href: "/job-applications", available: false },
   { label: "Team Members", href: "/team", available: false },
   { label: "Contact Submissions", href: "/contact", available: false },

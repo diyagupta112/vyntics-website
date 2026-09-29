@@ -1,6 +1,6 @@
 # Vyntics Admin Panel — Implementation Plan
 
-**Status:** Active implementation roadmap and technical source of truth — Phases A–E complete; Phase F planned
+**Status:** Active implementation roadmap and technical source of truth — Phases A–F complete; Phase G planned
 **Application:** `apps/admin`  
 **Backend:** FastAPI (`apps/api`)  
 **Auth:** Supabase Auth  
@@ -124,7 +124,7 @@ The completed foundation includes:
 - typed API errors and response handling;
 - automated tests, typechecking, linting, and production builds.
 
-The Admin Panel remains feature-incomplete. Blogs and Case Studies are complete; Careers, Job Applications, Our Team, and Contact Submissions follow in that order, followed by final hardening and production readiness.
+The Admin Panel remains feature-incomplete. Blogs, Case Studies, and Careers are complete; Job Applications, Our Team, and Contact Submissions follow in that order, followed by final hardening and production readiness.
 
 ### 3.1 Current structure
 
@@ -151,7 +151,7 @@ apps/admin/
 | C | Authenticated API Foundation | Complete |
 | D | Blogs | Complete |
 | E | Case Studies | Complete |
-| F | Careers | Planned |
+| F | Careers | Complete |
 | G | Job Applications | Planned |
 | H | Our Team | Planned |
 | I | Contact Submissions | Planned |
@@ -393,10 +393,11 @@ Use tables for:
 
 - Blogs;
 - Case Studies;
-- Careers;
 - Job Applications;
 - Team Members;
 - Contact Submissions.
+
+Careers use the card-based presentation defined in the style guide rather than a traditional table.
 
 Tables should support:
 
@@ -1291,7 +1292,7 @@ The authoritative implementation order is:
 | C | Authenticated API Foundation | Complete |
 | D | Blogs | Complete |
 | E | Case Studies | Complete |
-| F | Careers | Planned |
+| F | Careers | Complete |
 | G | Job Applications | Planned |
 | H | Our Team | Planned |
 | I | Contact Submissions | Planned |
@@ -1474,15 +1475,15 @@ The complete existing Case Study contract is manageable through a consistent Adm
 
 ## 23.6 Phase F — Careers
 
-**Status:** Planned
+**Status:** Complete
 
 ### Goal
 
 Provide Career management that accurately reflects the current hard-delete availability model.
 
-### Scope
+### Scope delivered
 
-- list using the existing public Career read endpoint because no separate Admin list/detail API exists;
+- responsive card-based list using the existing public Career read endpoint because no separate Admin list/detail API exists;
 - create, detail/edit, update, and permanent-delete workflows;
 - all documented Career fields and object behavior for responsibilities, requirements, `nice_to_have`, and benefits;
 - omission behavior where the backend contract does not accept explicit `null`;
@@ -1490,6 +1491,7 @@ Provide Career management that accurately reflects the current hard-delete avail
 - no `status`, `is_open`, `is_active`, draft, archive, or soft-delete controls;
 - clear UI communication that an existing record is available and deletion makes it unavailable;
 - deletion confirmation while preserving historical Job Applications according to the backend relationship contract;
+- a **See Applicants for This Role** link on every Career card that preserves the Career UUID as the future Job Applications `careerId` query context, without implementing a Job Applications screen;
 - typed integration through the shared `apiClient` with complete loading/error states.
 
 The exact Career endpoints, fields, lifecycle exclusions, `published_at`, and deletion contract remain in Section 10.

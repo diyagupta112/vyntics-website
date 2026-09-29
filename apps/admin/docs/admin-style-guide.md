@@ -912,6 +912,88 @@ Do not introduce gradients, unrelated colors, a new component library, or a sepa
 
 This subsection defines visual and interaction requirements only. It does not define or change API endpoints, backend or database behavior, authentication, dependencies, routing, or specific React component implementation.
 
+## 23.2 Careers UI/UX
+
+The Careers experience must use the existing Admin Panel visual system and should make current Career opportunities easy to scan and manage. These requirements define visual hierarchy and navigation intent only; the implementation-plan contract remains authoritative for Career fields and behavior.
+
+### Careers listing
+
+The Careers page should use a card-based layout. Each current Career record should appear as an individual, self-contained card that presents the most important supported Career information at a glance.
+
+Cards should make roles easy to scan and compare without becoming visually dense. Their content and hierarchy must follow the existing Career data contract and should use clear titles, concise supporting details, and predictable actions.
+
+The primary Careers presentation should not be a traditional data table. A secondary table representation may be considered only when there is a strong responsive or accessibility reason and it remains consistent with the same information hierarchy.
+
+### Opening a Career
+
+Selecting a Career card should open the corresponding Career detail/edit experience. The card's primary interactive area and actions must remain clear and keyboard accessible so that opening the Career is predictable and does not conflict with secondary actions.
+
+The detail/edit experience must follow the existing Admin Panel design language and provide the appropriate Career management fields. The exact field hierarchy will be defined during implementation from the current implementation-plan contract.
+
+### See Applicants for This Role
+
+Each Career card must provide a clear action labeled **See Applicants for This Role**.
+
+This action should take the administrator directly to the Job Applications experience with the selected Career context preserved, so the administrator does not need to find the role again manually.
+
+The intended flow is:
+
+```text
+Careers
+-> specific Career card
+-> See Applicants for This Role
+-> Job Applications page
+-> applicants for that specific Career
+```
+
+The navigation should make the selected Career context clear when the Job Applications experience opens. This subsection does not prescribe a technical routing or filtering mechanism.
+
+### Scope boundary
+
+The Job Applications page belongs to the next implementation phase. For the Careers phase, only the navigation intent described above is defined.
+
+Do not define or implement the complete Job Applications experience here, including:
+
+- applicant cards or tables;
+- applicant filters;
+- applicant detail views;
+- application status management;
+- resume handling;
+- notes;
+- application deletion;
+- other Job Applications interactions.
+
+The Job Applications UI and behavior will be designed and implemented in its own phase.
+
+### Responsive behavior
+
+On desktop, Career cards may use a clean responsive grid. Cards should have consistent sizing and spacing, and the overall layout should remain visually balanced across the available width.
+
+On mobile, cards should collapse naturally into a single-column flow or another appropriate narrow layout. Normal use must not require horizontal scrolling.
+
+At every supported viewport:
+
+- card content should remain readable without excessive truncation;
+- the primary Career selection behavior should remain clear;
+- **See Applicants for This Role** must remain easy to find and activate;
+- spacing and action placement should remain consistent and accessible.
+
+### Design-system consistency
+
+Careers must reuse:
+
+- DM Sans;
+- the existing monochrome color palette;
+- the existing spacing scale;
+- the existing typography hierarchy;
+- the existing border and radius system;
+- the existing button hierarchy;
+- the existing card patterns;
+- the existing loading, empty, and error-state patterns;
+- the existing responsive behavior.
+
+Do not introduce gradients, unrelated colors, a new component library, or a separate Careers visual language.
+
 ---
 
 # 24. Resume UI
