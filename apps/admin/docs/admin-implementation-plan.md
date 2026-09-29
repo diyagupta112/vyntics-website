@@ -1,6 +1,6 @@
 # Vyntics Admin Panel — Implementation Plan
 
-**Status:** Active implementation roadmap and technical source of truth — Phases A–H complete; Phase I planned
+**Status:** Active implementation roadmap and technical source of truth — Phases A–I complete; Phase J planned
 **Application:** `apps/admin`  
 **Backend:** FastAPI (`apps/api`)  
 **Auth:** Supabase Auth  
@@ -124,7 +124,7 @@ The completed foundation includes:
 - typed API errors and response handling;
 - automated tests, typechecking, linting, and production builds.
 
-The Admin Panel remains feature-incomplete. Blogs, Case Studies, Careers, Job Applications, and Our Team are complete; Contact Submissions follows, followed by final hardening and production readiness.
+The Admin Panel's planned feature modules are complete: Blogs, Case Studies, Careers, Job Applications, Our Team, and Contact Submissions. Final hardening and production readiness follow in Phase J.
 
 ### 3.1 Current structure
 
@@ -154,7 +154,7 @@ apps/admin/
 | F | Careers | Complete |
 | G | Job Applications | Complete |
 | H | Our Team | Complete |
-| I | Contact Submissions | Planned |
+| I | Contact Submissions | Complete |
 | J | Hardening & Production Readiness | Planned |
 
 ### 3.3 Implementation principles and constraints
@@ -895,18 +895,19 @@ LinkedIn URL should use the backend's HTTP(S) validation.
 
 ## 13.1 Screens
 
-Implement:
+Implemented:
 
-- submission list;
-- submission detail;
-- delete confirmation.
+- a compact submission table;
+- an on-demand detail dialog;
+- a permanent-delete confirmation dialog.
 
-Suggested routes:
+Admin route:
 
 ```text
 /contact
-/contact/[id]
 ```
+
+The detail interaction uses `GET /admin/contact-submissions/{id}` without introducing a separate detail route.
 
 ## 13.2 Endpoints
 
@@ -966,17 +967,17 @@ Therefore the UI must **not** include:
 
 ## 13.3 Display fields
 
-Display:
+The compact table displays:
 
 - name
 - email
 - company
 - subject
-- message
-- source_page
-- status
-- submitted_at
-- notes/resolution metadata only if returned by the backend response
+- truncated message
+- truncated source_page
+- delete action
+
+The detail dialog displays the full visitor-controlled submission fields: name, email, company, subject, untruncated message, and source page. Administrative lifecycle fields returned by the backend are retained in the typed response contract but intentionally omitted from this minimal read/delete interface because there is no supported status or resolution workflow.
 
 The Admin response contract contains:
 
@@ -999,9 +1000,7 @@ Do not expose or invent fields not returned by the actual response contract.
 
 ## 13.4 Delete
 
-Hard delete.
-
-Require confirmation.
+Hard delete with confirmation. A successful `204` removes the item from the visible table and presents concise success feedback. A failed delete keeps the confirmation open and displays a safe error.
 
 ---
 
@@ -1295,7 +1294,7 @@ The authoritative implementation order is:
 | F | Careers | Complete |
 | G | Job Applications | Complete |
 | H | Our Team | Complete |
-| I | Contact Submissions | Planned |
+| I | Contact Submissions | Complete |
 | J | Hardening & Production Readiness | Planned |
 
 ## 23.1 Phase A — Admin Panel Foundation
@@ -1578,21 +1577,24 @@ Administrators can manage the complete current Team contract and optional photos
 
 ## 23.9 Phase I — Contact Submissions
 
-**Status:** Planned
+**Status:** Complete
 
 ### Goal
 
 Provide a focused administrative inbox for reading and permanently deleting Contact Submissions.
 
-### Scope
+### Scope delivered
 
-- Admin list and detail screens using the protected endpoints;
-- display only fields returned by the current response contract, including submission identity, contact information, company, subject, message, source page, status, submission time, and returned notes/resolution metadata where present;
-- permanent-delete confirmation;
-- loading, empty, error, and responsive long-message states;
+- protected `/contact` route with a compact semantic submissions table;
+- authenticated list, on-demand detail, and permanent-delete integration through the shared `apiClient`;
+- consistent truncation for long table content and an accessible dialog for the complete visitor-submitted fields;
+- independent, keyboard-accessible row selection and delete controls;
+- permanent-delete confirmation, visible-list removal, success feedback, and safe failure handling;
+- loading, retryable error, empty, mutation, and responsive horizontally scrollable table states;
 - no edit, assignment, mark-resolved, or status-transition controls because no PATCH/status-resolution endpoint exists;
 - awareness that public submission creation remains a public website/backend workflow and is not recreated as an Admin mutation;
-- typed integration through the shared `apiClient`.
+- typed API and response integration aligned with the full backend Admin response contract;
+- Contact Submissions navigation enabled in the existing sidebar.
 
 The exact public create/receipt contract, Admin list/detail/delete contract, and explicit absence of a PATCH workflow remain in Section 13. The Admin UI must not redefine or duplicate the public website's submission workflow.
 

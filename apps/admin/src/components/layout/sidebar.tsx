@@ -12,7 +12,7 @@ const navigation = [
   { label: "Careers", href: "/careers", available: true },
   { label: "Job Applications", href: "/job-applications", available: true },
   { label: "Team Members", href: "/team", available: true },
-  { label: "Contact Submissions", href: "/contact", available: false },
+  { label: "Contact Submissions", href: "/contact", available: true },
 ] as const;
 
 export function Sidebar() {

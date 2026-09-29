@@ -1252,6 +1252,83 @@ Unless a future approved design-system requirement explicitly changes the listin
 
 This subsection defines visual and interaction requirements for the Admin Panel Team Members experience only. It does not define or change backend API contracts, database schema, Storage architecture, authentication, public website implementation, or the behavior of the public Team section.
 
+## 23.5 Contact Submissions UI/UX
+
+The Contact Submissions experience should be an intentionally minimal administrative inbox. It must use the established Admin Panel design system without adding dashboard statistics, cards, filters, status workflows, or other unnecessary visual complexity.
+
+### Page structure
+
+Use the standard Admin Panel page layout and a **Contact Submissions** page heading. The submissions table is the primary content and should remain visually simpler than the management experiences for Blogs, Case Studies, Careers, Job Applications, and Team Members.
+
+### Submissions table
+
+Display submissions in a clean, compact table with these columns:
+
+- Name;
+- Email;
+- Company;
+- Subject;
+- Message;
+- Source Page;
+- Actions.
+
+The table should prioritize scanability. Do not display the complete message in a table row. Truncate messages at a consistent, reasonable character limit and append an ellipsis when content is omitted. Subject and source-page values may also be truncated when needed to keep the table readable. Do not make the table excessively wide solely to accommodate long content.
+
+Use semantic table headers, compact but readable rows, subtle borders, and the established hover and focus treatments.
+
+### Full submission details
+
+Selecting a submission row should open a keyboard-accessible detail dialog using the existing Admin Panel dialog pattern. The dialog should show:
+
+- Name;
+- Email;
+- Company;
+- Subject;
+- the complete, untruncated Message;
+- Source Page.
+
+The full message should preserve readable line breaks and have sufficient space for comfortable reading. The administrator must be able to close the detail dialog and return to the table. Row interaction must not interfere with independent controls inside the row.
+
+### Delete behavior
+
+Each row should provide an independently operable Delete action. Deletion must use the existing destructive confirmation-dialog pattern and clearly identify the submission being removed.
+
+After successful deletion, remove the submission from the visible table and show the established concise feedback treatment. Keep the confirmation open with a safe, actionable error when deletion fails.
+
+Contact Submissions are read-only apart from deletion. Do not add editing, assignment, status management, resolution controls, or other workflow actions.
+
+### Loading, empty, and error states
+
+Use the established Admin Panel patterns:
+
+- a compact table-appropriate loading state;
+- a minimal **No contact submissions yet.** empty state;
+- a calm, actionable load error with a retry action;
+- safe mutation feedback that does not expose internal details.
+
+### Responsive behavior
+
+Preserve table readability on smaller screens. Do not force every column into unusably narrow widths. Use horizontal scrolling within the table container when the full column set does not fit, while keeping the page itself free from horizontal overflow.
+
+Row selection, the Actions column, detail dialog, close control, and delete confirmation must remain keyboard accessible and usable on narrow screens.
+
+### Design-system consistency
+
+Contact Submissions must reuse:
+
+- DM Sans;
+- the existing monochrome color palette;
+- the existing spacing and typography scales;
+- the existing table, button, dialog, loading, empty, error, and feedback patterns;
+- the existing border and radius system;
+- the existing focus and responsive behavior.
+
+Do not introduce gradients, unrelated colors, a new component library, or a separate inbox visual language.
+
+### Scope boundary
+
+This subsection defines only the visual and interaction requirements for viewing and deleting Contact Submissions in the Admin Panel. It does not define backend, database, authentication, public contact-form, dependency, routing, or API-contract changes.
+
 ---
 
 # 24. Resume UI

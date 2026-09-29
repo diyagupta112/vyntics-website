@@ -35,11 +35,8 @@ describe("Sidebar", () => {
       "href",
       "/team",
     );
-
-    for (const label of [
-      "Contact Submissions",
-    ]) {
-      expect(screen.getByText(label)).toHaveAttribute("aria-disabled", "true");
-    }
+    expect(
+      screen.getByRole("link", { name: "Contact Submissions" }),
+    ).toHaveAttribute("href", "/contact");
   });
 });
