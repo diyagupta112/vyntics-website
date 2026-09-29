@@ -1,6 +1,6 @@
 # Vyntics Admin Panel — Implementation Plan
 
-**Status:** Active implementation roadmap and technical source of truth — Phases A–D complete; Phase E planned
+**Status:** Active implementation roadmap and technical source of truth — Phases A–E complete; Phase F planned
 **Application:** `apps/admin`  
 **Backend:** FastAPI (`apps/api`)  
 **Auth:** Supabase Auth  
@@ -124,7 +124,7 @@ The completed foundation includes:
 - typed API errors and response handling;
 - automated tests, typechecking, linting, and production builds.
 
-The Admin Panel remains feature-incomplete. Blogs are complete; Case Studies, Careers, Job Applications, Our Team, and Contact Submissions follow in that order, followed by final hardening and production readiness.
+The Admin Panel remains feature-incomplete. Blogs and Case Studies are complete; Careers, Job Applications, Our Team, and Contact Submissions follow in that order, followed by final hardening and production readiness.
 
 ### 3.1 Current structure
 
@@ -150,7 +150,7 @@ apps/admin/
 | B | Authentication & Route Protection | Complete |
 | C | Authenticated API Foundation | Complete |
 | D | Blogs | Complete |
-| E | Case Studies | Planned |
+| E | Case Studies | Complete |
 | F | Careers | Planned |
 | G | Job Applications | Planned |
 | H | Our Team | Planned |
@@ -1290,7 +1290,7 @@ The authoritative implementation order is:
 | B | Authentication & Route Protection | Complete |
 | C | Authenticated API Foundation | Complete |
 | D | Blogs | Complete |
-| E | Case Studies | Planned |
+| E | Case Studies | Complete |
 | F | Careers | Planned |
 | G | Job Applications | Planned |
 | H | Our Team | Planned |
@@ -1442,19 +1442,21 @@ An authorized administrator can manage the complete existing Blog contract—inc
 
 ## 23.5 Phase E — Case Studies
 
-**Status:** Planned
+**Status:** Complete
 
 ### Goal
 
 Deliver Case Study management using the established content and upload patterns.
 
-### Scope
+### Scope delivered
 
-- list, detail/edit, create, update, and permanent-delete workflows;
+- image-led list, detail/edit, create, update, and permanent-delete workflows;
 - all currently documented fields, including slug, SEO metadata, client name, excerpt, technology stack, tags, structured content, and status;
 - `draft`, `published`, and `unpublished` lifecycle handling;
-- managed cover upload, replacement, preview, and deletion;
+- cover-first detail/edit hierarchy with managed cover upload, replacement, preview, and deletion;
 - published-cover requirements and deletion protection;
+- comma-separated technology-stack and tag editing with visible normalized values;
+- a structured, readable form with full-width long-form content, selective two-column compact fields, and a prominent bottom save action;
 - loading, empty, error, confirmation, mutation, responsive, and accessible states;
 - typed Case Study integration through the shared `apiClient`.
 

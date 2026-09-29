@@ -836,6 +836,82 @@ The admin UI should not distort images.
 
 Use object-fit behavior appropriate to the content.
 
+## 23.1 Case Studies UI/UX
+
+The Case Studies experience must use the existing Admin Panel visual system and should feel like a coherent part of the same CMS. These requirements define visual hierarchy and editing experience only; they do not change application architecture or backend contracts.
+
+### Case Studies list page
+
+Each Case Study in the list must prominently display its cover image as part of the record's primary visual hierarchy. The image must not be hidden until the record is opened.
+
+The title and supporting information should remain clean, concise, and easy to scan alongside the cover. Image prominence must not make row actions, status, or important metadata difficult to find.
+
+The list presentation must:
+
+- preserve a consistent wide landscape treatment for cover images;
+- avoid cropping or distortion that obscures the image's purpose;
+- remain orderly and readable when several records are visible;
+- adapt cleanly between desktop and mobile;
+- use the existing loading, empty, error, status, and action patterns;
+- avoid introducing a separate card style or visual language that conflicts with the rest of the Admin Panel.
+
+### Case Study detail/edit page
+
+The detail/edit experience should read as a structured content-editing page rather than an unorganized collection of inputs.
+
+#### Cover image first
+
+The existing cover image must be displayed prominently at the top of the experience. Cover upload, replacement, and deletion controls must be visually grouped with that image so their relationship is immediately clear.
+
+When no cover exists, the corresponding empty/upload state should occupy the same leading area and preserve the intended hierarchy.
+
+#### Title and information hierarchy
+
+The Case Study title should appear immediately after the cover-image area. Remaining fields should follow in clear, logical groups with visible section hierarchy and comfortable spacing.
+
+The page should guide the administrator from the identifying content into supporting metadata and longer content without presenting every field with equal visual weight.
+
+#### Field layout
+
+Fields that require more attention or space should generally be arranged vertically. Small, closely related fields may appear side by side when that improves scanability and editing efficiency.
+
+Do not force every field into a two-column grid. Longer text and content fields should use the available full width. Field grouping and width should prioritize readability, clear labels, and comfortable editing over visual density.
+
+#### Long-form content
+
+Long-form fields must have sufficient horizontal width and vertical editing space. The main content area must not feel cramped, and its layout should remain comfortable for reviewing and editing substantial content.
+
+#### Save action
+
+A clear **Save Changes** button must appear at the bottom of the edit form. It should use the established primary-button hierarchy and remain visually prominent among nearby secondary actions.
+
+While saving, the action must show an appropriate loading state and prevent duplicate submission. Validation and API errors must remain clearly visible, understandable, and associated with the relevant field or form state where appropriate.
+
+#### Responsive behavior
+
+Any side-by-side field arrangement must collapse naturally to a single column on smaller screens. The cover image and its related actions must remain prominent and usable on mobile.
+
+Normal editing must not require horizontal page scrolling. Long-form controls, form actions, status feedback, and image controls should fit the available viewport and follow the existing responsive form patterns.
+
+### Design consistency
+
+Case Studies must reuse:
+
+- DM Sans;
+- the existing monochrome color palette;
+- the existing spacing scale;
+- the existing typography hierarchy;
+- the existing border and radius system;
+- the existing button hierarchy;
+- the existing input and form patterns;
+- the existing loading, empty, error, and mutation-state patterns.
+
+Do not introduce gradients, unrelated colors, a new component library, or a separate Case Studies visual language.
+
+### Scope boundary
+
+This subsection defines visual and interaction requirements only. It does not define or change API endpoints, backend or database behavior, authentication, dependencies, routing, or specific React component implementation.
+
 ---
 
 # 24. Resume UI
