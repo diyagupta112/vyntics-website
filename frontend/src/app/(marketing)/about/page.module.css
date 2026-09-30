@@ -5,9 +5,12 @@
   background:
     linear-gradient(color-mix(in srgb, var(--color-primary) 4%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 4%, transparent) 1px, transparent 1px),
-    radial-gradient(circle at 82% 20%, color-mix(in srgb, var(--color-primary) 12%, transparent), transparent 27rem),
-    var(--color-background);
-  background-size: 4.5rem 4.5rem, 4.5rem 4.5rem, auto, auto;
+    linear-gradient(
+      color-mix(in srgb, var(--color-background) 72%, transparent),
+      color-mix(in srgb, var(--color-background) 72%, transparent)
+    ),
+    url("/images/about-vyntics-background.png") center 52% / cover no-repeat;
+  background-size: 4.5rem 4.5rem, 4.5rem 4.5rem, auto, cover;
 }
 
 .heroGrid {
@@ -92,7 +95,6 @@
 }
 
 .heroVisual {
-  --orbit-speed: 16s;
   position: relative;
   min-height: 27rem;
   padding: 2rem;
@@ -106,16 +108,12 @@
     radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--color-primary) 24%, transparent), transparent 35%),
     color-mix(in srgb, var(--color-surface) 94%, var(--color-primary));
   box-shadow: 0 2rem 5rem rgb(11 11 15 / 8%);
-  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+  animation: none !important;
+  transition: none;
 }
 
 .heroVisual::before {
-  position: absolute;
-  z-index: 0;
-  inset: -45%;
-  content: "";
-  pointer-events: none;
-  background: conic-gradient(from 20deg, transparent 0 66%, rgb(20 83 219 / 10%) 76%, transparent 87%);
+  content: none;
 }
 
 .heroVisual > p {
@@ -135,7 +133,8 @@
   margin: auto;
   border: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
   border-radius: 50%;
-  will-change: transform;
+  animation: none !important;
+  transform: none;
 }
 
 .orbit::before,
@@ -163,12 +162,11 @@
   font-size: 1.55rem;
   font-weight: 800;
   transform: translate(-50%, -50%);
-  will-change: transform, box-shadow;
-  transition: background-color 220ms ease;
+  animation: none !important;
+  transition: none;
 }
 
 .orbitNode {
-  --node-scale: 1;
   position: absolute;
   padding: 0.45rem 0.68rem;
   color: var(--color-foreground);
@@ -179,14 +177,15 @@
   font-size: 0.7rem;
   font-weight: 700;
   backdrop-filter: blur(0.75rem);
-  will-change: transform;
   cursor: default;
-  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+  animation: none !important;
+  transform: none;
+  transition: none;
 }
 
-.dataNode { top: 5%; left: 47%; }
-.aiNode { right: 2%; bottom: 26%; }
-.decisionNode { bottom: 8%; left: 2%; }
+.dataNode { top: 43%; left: -1%; }
+.aiNode { top: 7%; right: 18%; }
+.decisionNode { right: 1%; bottom: 4%; }
 
 .section { padding-block: clamp(4rem, 7vw, 6rem); border-top: 1px solid var(--color-border); }
 .sectionHeading { max-width: 43rem; }
@@ -201,32 +200,105 @@
   text-wrap: balance;
 }
 
-.split {
-  display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(20rem, 1.08fr);
-  align-items: start;
-  gap: clamp(3rem, 8vw, 7rem);
+.mission {
+  min-height: calc(100svh - 5rem);
+  padding-block: clamp(2.5rem, 5vh, 4rem);
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 15%, color-mix(in srgb, var(--color-primary) 8%, transparent), transparent 34rem),
+    var(--color-background);
+}
+
+.missionInner { width: min(100% - 2rem, 76rem); }
+
+.missionHeading {
+  max-width: 68rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.missionHeading h2 {
+  margin-top: 0.75rem;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 650;
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.missionHeading h2 span { color: var(--color-primary); }
+
+.missionCopy {
+  position: relative;
+  max-width: 64rem;
+  margin: clamp(1.75rem, 3.5vh, 2.75rem) auto 0;
+  padding: clamp(1.65rem, 3.5vh, 2.75rem) clamp(2rem, 4.5vw, 3.75rem);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 24%, var(--color-border));
+  border-radius: 1.35rem;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--color-primary) 5%, transparent), transparent 58%),
+    color-mix(in srgb, var(--color-surface) 96%, var(--color-primary));
+  box-shadow: 0 1.75rem 5rem rgb(20 83 219 / 8%);
+}
+
+.missionCopy::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 38%), transparent);
+  opacity: 0.45;
+}
+
+.missionPanelTitle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+}
+
+.missionPanelTitle > span {
+  width: 0.48rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+}
+
+.missionPanelTitle h3 {
+  font-size: clamp(1.45rem, 2.3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
 }
 
 .missionCopy > p {
+  position: relative;
+  max-width: 50rem;
+  margin: 1.4rem auto 0;
   color: var(--color-muted);
   font-size: clamp(1.02rem, 1.45vw, 1.2rem);
   line-height: 1.75;
+  text-align: center;
 }
 
 .principles {
-  margin-top: 2rem;
+  position: relative;
+  margin-top: 1.75rem;
   display: grid;
-  gap: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-top: 1px solid var(--color-border);
 }
 
 .principles span {
-  padding-block: 0.9rem;
-  border-bottom: 1px solid var(--color-border);
-  font-size: 0.9rem;
+  padding: 1.1rem 0.9rem 0;
+  font-size: 0.86rem;
   font-weight: 680;
+  text-align: center;
 }
+
+.principles span + span { border-left: 1px solid var(--color-border); }
 
 .valuesSection {
   background: color-mix(in srgb, var(--color-primary) 3%, var(--color-background));
@@ -454,11 +526,6 @@
   .heroCopy > :nth-child(2) { animation-delay: 70ms; }
   .heroCopy > :nth-child(3) { animation-delay: 130ms; }
   .heroCopy > :nth-child(4) { animation-delay: 190ms; }
-  .heroVisual { animation: visualIn 800ms 140ms both; }
-  .heroVisual::before { animation: visualSweep 12s linear infinite; }
-  .orbit { animation: orbitSpin var(--orbit-speed) linear infinite; }
-  .orbitNode { animation: nodeCounterSpin var(--orbit-speed) linear infinite; }
-  .orbitCore { animation: coreCounterSpin var(--orbit-speed) linear infinite; }
 
   @supports (animation-timeline: view()) {
     .sectionHeading,
@@ -475,29 +542,6 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .heroVisual:hover {
-    border-color: color-mix(in srgb, var(--color-primary) 38%, var(--color-border));
-    box-shadow: 0 2.2rem 5.5rem rgb(20 83 219 / 14%);
-    transform: translateY(-0.2rem);
-  }
-
-  .heroVisual:hover .orbit,
-  .heroVisual:hover .orbitNode,
-  .heroVisual:hover .orbitCore,
-  .heroVisual:hover::before { animation-play-state: paused; }
-
-  .heroVisual:hover .orbitCore {
-    background: color-mix(in srgb, var(--color-primary) 82%, #6f91ff);
-  }
-
-  .orbitNode:hover {
-    --node-scale: 1.13;
-    z-index: 2;
-    color: #fff;
-    border-color: var(--color-primary);
-    background: var(--color-primary);
-    box-shadow: 0 0.9rem 2.2rem rgb(20 83 219 / 24%);
-  }
   .valueCard:hover,
   .valueCard:focus-visible,
   .capabilityCard:hover {
@@ -550,32 +594,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes visualIn {
-  from { opacity: 0; transform: translateY(1rem) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes orbitSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes nodeCounterSpin {
-  from { transform: rotate(0deg) scale(var(--node-scale)); }
-  to { transform: rotate(-360deg) scale(var(--node-scale)); }
-}
-
-@keyframes coreCounterSpin {
-  0% { transform: translate(-50%, -50%) rotate(0deg); box-shadow: 0 0 0 0.7rem rgb(20 83 219 / 11%); }
-  50% { transform: translate(-50%, -50%) rotate(-180deg); box-shadow: 0 0 0 1.05rem rgb(20 83 219 / 7%), 0 0 2.5rem rgb(20 83 219 / 20%); }
-  100% { transform: translate(-50%, -50%) rotate(-360deg); box-shadow: 0 0 0 0.7rem rgb(20 83 219 / 11%); }
-}
-
-@keyframes visualSweep {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 @keyframes revealOnScroll {
   from { opacity: 0.25; transform: translateY(1.25rem); }
   to { opacity: 1; transform: translateY(0); }
@@ -593,6 +611,14 @@
 
 @media (max-width: 680px) {
   .hero { padding-block: 3.75rem 4.5rem; }
+  .mission { min-height: auto; padding-block: 4rem; }
+  .missionHeading h2 { font-size: clamp(2.45rem, 12vw, 3.7rem); }
+  .missionCopy { padding: 1.65rem 1.25rem; }
+  .missionPanelTitle { justify-content: flex-start; }
+  .missionCopy > p { text-align: left; }
+  .principles { grid-template-columns: 1fr; }
+  .principles span { padding: 0.9rem 0; text-align: left; }
+  .principles span + span { border-top: 1px solid var(--color-border); border-left: 0; }
   .valueGrid,
   .capabilityGrid { grid-template-columns: 1fr; }
   .valueCard { height: 17rem; }

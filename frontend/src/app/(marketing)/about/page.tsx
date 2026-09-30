@@ -70,13 +70,17 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className={`${styles.section} ${styles.mission}`} aria-labelledby="mission-title">
-        <Container className={styles.split}>
-          <div className={styles.sectionHeading}>
+      <section id="mission" className={`${styles.section} ${styles.mission}`} aria-labelledby="mission-title">
+        <Container className={styles.missionInner}>
+          <header className={styles.missionHeading}>
             <p className={styles.eyebrow}>Our mission</p>
-            <h2 id="mission-title">Make advanced data intelligence useful and accessible.</h2>
-          </div>
+            <h2 id="mission-title">Make advanced <span>data intelligence</span> useful and accessible.</h2>
+          </header>
           <div className={styles.missionCopy}>
+            <div className={styles.missionPanelTitle}>
+              <span aria-hidden="true" />
+              <h3>Intelligence with purpose</h3>
+            </div>
             <p>
               Every organization should have the tools and insight to make confident, data-driven decisions. Our job is to remove the unnecessary complexity between a business problem and a dependable technical solution.
             </p>
