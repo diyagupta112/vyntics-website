@@ -1,0 +1,172 @@
+.page,
+.form,
+.section,
+.fields,
+.longFields,
+.feedback,
+.empty,
+.errorState,
+.careerGrid,
+.careerCard,
+.cardFacts,
+.skeletonGrid {
+  display: grid;
+}
+
+.page { gap: var(--space-7); }
+.careerGrid {
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+}
+.careerCard {
+  align-content: start;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  gap: var(--space-5);
+  min-width: 0;
+  padding: var(--space-6);
+}
+.cardHeading {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--space-3);
+  justify-content: space-between;
+}
+.cardHeading h2 { font-size: var(--font-size-section-title); }
+.eyebrow {
+  color: var(--color-gray-500);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-1);
+  text-transform: uppercase;
+}
+.titleLink { text-decoration: none; }
+.titleLink:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.titleLink:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.roleMarker {
+  border: 1px solid var(--color-gray-300);
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: var(--space-1) var(--space-2);
+  white-space: nowrap;
+}
+.cardFacts {
+  gap: var(--space-3);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.cardFacts div { min-width: 0; }
+.cardFacts dt,
+.metadata { color: var(--color-gray-500); font-size: var(--font-size-xs); }
+.cardFacts dd { font-size: var(--font-size-sm); font-weight: 600; overflow-wrap: anywhere; }
+.description { color: var(--color-gray-700); }
+.actions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: auto; }
+.linkButton {
+  align-items: center;
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-control);
+  display: inline-flex;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: var(--space-3) var(--space-4);
+  text-decoration: none;
+}
+.linkButton:hover { background: var(--color-gray-50); }
+.linkButton:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.empty,
+.errorState {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  gap: var(--space-3);
+  justify-items: start;
+  padding: var(--space-8);
+}
+.form { gap: var(--space-6); }
+.section {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  gap: var(--space-5);
+  padding: var(--space-6);
+}
+.sectionHeading { display: grid; gap: var(--space-1); }
+.sectionHeading h2 { font-size: var(--font-size-section-title); }
+.sectionHeading p,
+.muted { color: var(--color-gray-500); }
+.fields { gap: var(--space-5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.longFields { gap: var(--space-5); }
+.full { grid-column: 1 / -1; }
+.summaryArea { min-height: 8rem; }
+.contentArea,
+.contentAreaLarge {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: var(--font-size-sm);
+  min-height: 14rem;
+}
+.contentAreaLarge { min-height: 22rem; }
+.feedback {
+  background: var(--color-gray-50);
+  border-left: 3px solid var(--color-black);
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+}
+.feedback p { font-size: var(--font-size-sm); }
+.formActions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.immutableNote {
+  align-items: center;
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-control);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+}
+.immutableNote span { color: var(--color-gray-500); font-size: var(--font-size-sm); }
+.dialogBackdrop {
+  align-items: center;
+  background: rgb(0 0 0 / 50%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: var(--space-5);
+  position: fixed;
+  z-index: 50;
+}
+.dialog {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
+  display: grid;
+  gap: var(--space-4);
+  max-width: 30rem;
+  padding: var(--space-6);
+  width: 100%;
+}
+.dialog p { color: var(--color-gray-700); }
+.skeletonGrid { gap: var(--space-5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.skeleton {
+  animation: pulse 1.2s ease-in-out infinite alternate;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-card);
+  height: 18rem;
+}
+@keyframes pulse { to { background: var(--color-gray-200); } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+@media (max-width: 48rem) {
+  .fields,
+  .skeletonGrid { grid-template-columns: 1fr; }
+  .full { grid-column: auto; }
+  .section { padding: var(--space-5); }
+  .formActions > * { width: 100%; }
+}
+
+@media (max-width: 32rem) {
+  .cardHeading { flex-direction: column; }
+  .cardFacts { grid-template-columns: 1fr; }
+  .actions > * { width: 100%; }
+  .careerCard { padding: var(--space-5); }
+}

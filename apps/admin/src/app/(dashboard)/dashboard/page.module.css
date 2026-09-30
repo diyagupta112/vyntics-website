@@ -1,0 +1,46 @@
+.dashboard,
+.section,
+.sectionHeading {
+  display: grid;
+}
+
+.dashboard {
+  gap: var(--space-8);
+}
+
+.section {
+  gap: var(--space-5);
+}
+
+.sectionHeading {
+  gap: var(--space-2);
+}
+
+.sectionHeading h2 {
+  font-size: var(--font-size-section-title);
+  font-weight: 600;
+}
+
+.sectionHeading p,
+.cardGrid p {
+  color: var(--color-gray-500);
+  line-height: 1.5;
+}
+
+.cardGrid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cardGrid h3 {
+  font-size: var(--font-size-card-title);
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+@media (max-width: 64rem) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+}
