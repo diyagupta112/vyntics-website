@@ -94,6 +94,7 @@ export function JobApplicationsOverview() {
       <PageHeader
         title="Job Applications"
         description="Review applicants, update administrative status and notes, and access private resumes."
+        actions={<button aria-pressed={!requestedCareerId} className={styles.headerAction} onClick={() => selectCareer()} type="button">All Applicants</button>}
       />
 
       <section aria-labelledby="application-scope-heading" className={styles.scopeSection}>
@@ -101,15 +102,6 @@ export function JobApplicationsOverview() {
           <h2 id="application-scope-heading">Choose applicant scope</h2>
           <p>View every application or focus on one currently available role.</p>
         </div>
-        <button
-          aria-pressed={!requestedCareerId}
-          className={`${styles.allApplicants} ${!requestedCareerId ? styles.selectedScope : ""}`}
-          onClick={() => selectCareer()}
-          type="button"
-        >
-          <strong>All Applicants</strong>
-          <span>Applications across all current and historical Careers</span>
-        </button>
         <div aria-label="Career applicant scopes" className={styles.careerScopes}>
           {careers.map((career) => (
             <button

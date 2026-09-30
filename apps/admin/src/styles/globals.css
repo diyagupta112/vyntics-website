@@ -29,7 +29,7 @@
   --radius-card: 0.625rem;
   --focus-ring: 2px solid var(--color-black);
   --focus-offset: 2px;
-  --sidebar-width: 16rem;
+  --sidebar-width: 14.5rem;
   --header-height: 4rem;
   --content-max-width: 90rem;
 }
@@ -71,3 +71,6 @@ a {
   background: var(--color-black);
   color: var(--color-white);
 }
+a, button, input, textarea, select { transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease; }
+a:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; } }

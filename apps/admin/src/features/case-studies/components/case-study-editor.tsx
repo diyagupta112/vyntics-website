@@ -80,7 +80,6 @@ export function CaseStudyEditor({ caseStudyId }: { caseStudyId: string }) {
 
   return (
     <div className={styles.page}>
-      <CoverImageControl caseStudy={caseStudy} onChanged={setCaseStudy} />
       <PageHeader
         title={caseStudy.title}
         description="Edit the Case Study's information, metadata, content, and publication status."
@@ -90,7 +89,10 @@ export function CaseStudyEditor({ caseStudyId }: { caseStudyId: string }) {
           </Link>
         }
       />
-      <CaseStudyForm caseStudy={caseStudy} onSaved={setCaseStudy} />
+      <div className={styles.detailLayout}>
+        <CaseStudyForm caseStudy={caseStudy} onSaved={setCaseStudy} />
+        <aside className={styles.imagePanel}><CoverImageControl caseStudy={caseStudy} onChanged={setCaseStudy} /></aside>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { PageHeader } from "@/components/layout/page-header";
@@ -50,7 +51,19 @@ export function BlogList() {
     {loading ? <div aria-label="Loading Blogs" role="status"><div className={styles.skeleton} /><span className={styles.muted}>Loading Blogs…</span></div> : null}
     {!loading && error ? <section className={styles.errorState} role="alert"><h2>Blogs could not be loaded</h2><p>{error}</p><Button onClick={() => void load()} variant="secondary">Try again</Button></section> : null}
     {!loading && !error && blogs.length === 0 ? <section className={styles.empty}><h2>No Blog posts yet</h2><p>Create a draft to begin your first Blog.</p><Link className={styles.linkButton} href="/blogs/new">Create your first Blog</Link></section> : null}
-    {!loading && !error && blogs.length > 0 ? <div className={styles.tableWrap}><table className={styles.table}><thead><tr><th>Blog</th><th>Status</th><th>Category</th><th>Updated</th><th>Actions</th></tr></thead><tbody>{blogs.map((blog) => <tr key={blog.id}><td><div className={styles.titleCell}><strong>{blog.title}</strong><span>/{blog.slug}</span></div></td><td><StatusBadge status={blog.status} /></td><td>{blog.category}</td><td><time dateTime={blog.updated_at}>{new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(new Date(blog.updated_at))}</time></td><td><div className={styles.actions}><Link className={styles.linkButton} href={`/blogs/${blog.id}/edit`} aria-label={`Edit ${blog.title}`}>Edit</Link><Button aria-label={`Delete ${blog.title}`} onClick={() => { setDeleteError(undefined); setDeleting(blog); }} variant="ghost">Delete</Button></div></td></tr>)}</tbody></table></div> : null}
+    {!loading && !error && blogs.length > 0 ? <div className={styles.blogGrid}>{blogs.map((blog) => <article className={styles.blogCard} key={blog.id}>
+      <Link aria-label={`Edit ${blog.title}`} className={styles.cardLink} href={`/blogs/${blog.id}/edit`}>
+        {blog.cover_image_url ? <Image alt="" className={styles.cardImage} height={360} src={blog.cover_image_url} unoptimized width={640} /> : <div className={styles.imagePlaceholder}>No cover image</div>}
+        <div className={styles.cardBody}>
+          <div className={styles.cardTop}><span className={styles.category}>{blog.category}</span><StatusBadge status={blog.status} /></div>
+          <h2>{blog.title}</h2>
+          <p className={styles.excerpt}>{blog.excerpt}</p>
+          <p className={styles.cardMeta}>{blog.author} · {blog.read_time} min read</p>
+        </div>
+      </Link>
+      <div className={styles.cardActions}><time dateTime={blog.updated_at}>Updated {new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(new Date(blog.updated_at))}</time>
+        <Button aria-label={`Delete ${blog.title}`} onClick={() => { setDeleteError(undefined); setDeleting(blog); }} variant="ghost">Delete</Button></div>
+    </article>)}</div> : null}
     {deleting ? <ConfirmDelete blogTitle={deleting.title} busy={deleteBusy} error={deleteError} onCancel={() => setDeleting(undefined)} onConfirm={() => void confirmDelete()} /> : null}
   </div>;
 }

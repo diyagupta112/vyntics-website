@@ -35,7 +35,7 @@ const caseStudy: CaseStudy = {
 };
 
 describe("CaseStudyEditor", () => {
-  it("renders the cover before the title and populated form", async () => {
+  it("renders the cover beside the populated form", async () => {
     vi.mocked(caseStudiesApi.get).mockResolvedValue(caseStudy);
     render(<CaseStudyEditor caseStudyId="1" />);
     const cover = await screen.findByRole("img", {
@@ -46,7 +46,7 @@ describe("CaseStudyEditor", () => {
       name: "Platform redesign",
     });
     expect(
-      cover.compareDocumentPosition(title) & Node.DOCUMENT_POSITION_FOLLOWING,
+      title.compareDocumentPosition(cover) & Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
     expect(screen.getByLabelText(/^Client name/)).toHaveValue("Example Client");
   });

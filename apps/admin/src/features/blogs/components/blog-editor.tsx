@@ -31,5 +31,5 @@ export function BlogEditor({ blogId }: { blogId: string }) {
   }, [blogId]);
   if (loading) return <div className={styles.page} aria-label="Loading Blog" role="status"><div className={styles.skeleton} /><p>Loading Blog…</p></div>;
   if (error || !blog) return <section className={styles.errorState} role="alert"><h1>Blog unavailable</h1><p>{error ?? "This Blog could not be loaded."}</p><div className={styles.actions}><Button onClick={() => void load()} variant="secondary">Try again</Button><Link className={styles.linkButton} href="/blogs">Back to Blogs</Link></div></section>;
-  return <div className={styles.page}><PageHeader title={`Edit ${blog.title}`} description="Update content, publication status, and the managed cover image." actions={<Link className={styles.linkButton} href="/blogs">Back to Blogs</Link>} /><BlogForm blog={blog} onSaved={setBlog} /><CoverImageControl blog={blog} onChanged={setBlog} /></div>;
+  return <div className={styles.page}><PageHeader title={`Edit ${blog.title}`} description="Update content, publication status, and the managed cover image." actions={<Link className={styles.linkButton} href="/blogs">Back to Blogs</Link>} /><div className={styles.detailLayout}><BlogForm blog={blog} onSaved={setBlog} /><aside className={styles.imagePanel}><CoverImageControl blog={blog} onChanged={setBlog} /></aside></div></div>;
 }

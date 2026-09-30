@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
 import { FormField } from "@/components/forms/form-field";
+import { RichTextEditor } from "@/components/forms/rich-text-editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -66,7 +67,7 @@ export function BlogForm({ blog, onSaved }: Props) {
         <FormField htmlFor="readTime" label="Read time (minutes)" required error={errors.readTime}><Input id="readTime" inputMode="numeric" type="number" step="1" value={values.readTime} aria-invalid={Boolean(errors.readTime)} onChange={(e) => update("readTime", e.target.value)} /></FormField>
         <FormField htmlFor="status" label="Status" required error={errors.status} hint={isCreate ? "Upload a cover after creation before publishing." : "FastAPI validates publishing requirements."}><Select id="status" value={values.status} onChange={(e) => update("status", e.target.value)}><option value="draft">Draft</option>{!isCreate ? <option value="published">Published</option> : null}<option value="unpublished">Unpublished</option></Select></FormField>
         <div className={styles.full}><FormField htmlFor="excerpt" label="Excerpt" required error={errors.excerpt}><Textarea id="excerpt" value={values.excerpt} aria-invalid={Boolean(errors.excerpt)} onChange={(e) => update("excerpt", e.target.value)} /></FormField></div>
-        <div className={styles.full}><FormField htmlFor="content" label="Structured content (JSON)" required error={errors.content} hint="Enter the structured content object accepted by the Blog API."><Textarea className={styles.contentArea} id="content" spellCheck={false} value={values.content} aria-invalid={Boolean(errors.content)} onChange={(e) => update("content", e.target.value)} /></FormField></div>
+        <div className={styles.full}><FormField htmlFor="content" label="Content" required error={errors.content} hint="Use the toolbar to structure and format the article."><RichTextEditor id="content" invalid={Boolean(errors.content)} value={values.content} onChange={(value) => update("content", value)} /></FormField></div>
       </div>
     </section>
     <section className={styles.section} aria-labelledby="blog-seo-heading">

@@ -1,6 +1,6 @@
 "use client";
 
-import { type KeyboardEvent, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { jobApplicationsApi } from "../api/job-applications";
 import { applicationErrorMessage } from "../lib/errors";
@@ -47,14 +47,6 @@ export function ApplicantsTable({ applications, onRemoved, onUpdated }: Props) {
     }
   }
 
-  function handleRowKey(event: KeyboardEvent<HTMLTableRowElement>, application: JobApplicationListItem) {
-    if (event.target !== event.currentTarget) return;
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      void toggle(application);
-    }
-  }
-
   function updateDetail(detail: JobApplicationDetail) {
     setDetails((current) => ({ ...current, [detail.id]: detail }));
     onUpdated(detail);
@@ -94,7 +86,6 @@ export function ApplicantsTable({ applications, onRemoved, onUpdated }: Props) {
                   expanded={expanded}
                   loading={detailLoading === application.id}
                   onDelete={() => setDeleting(application)}
-                  onKeyDown={(event) => handleRowKey(event, application)}
                   onToggle={() => void toggle(application)}
                   onUpdated={updateDetail}
                   key={application.id}
@@ -117,24 +108,16 @@ type RowProps = {
   expanded: boolean;
   loading: boolean;
   onDelete: () => void;
-  onKeyDown: (event: KeyboardEvent<HTMLTableRowElement>) => void;
   onToggle: () => void;
   onUpdated: (detail: JobApplicationDetail) => void;
 };
 
-function FragmentRows({ application, detail, detailError, detailId, expanded, loading, onDelete, onKeyDown, onToggle, onUpdated }: RowProps) {
+function FragmentRows({ application, detail, detailError, detailId, expanded, loading, onDelete, onToggle, onUpdated }: RowProps) {
   return (
     <>
-      <tr
-        aria-controls={detailId}
-        aria-expanded={expanded}
-        className={styles.applicationRow}
-        onClick={onToggle}
-        onKeyDown={onKeyDown}
-        tabIndex={0}
-      >
+      <tr className={styles.applicationRow}>
         <td data-label="Name">{application.name}</td>
-        <td data-label="Email">{application.email}</td>
+        <td data-label="Email"><a className={styles.textLink} href={`mailto:${application.email}`}>{application.email}</a></td>
         <td data-label="Mobile">{application.phone}</td>
         <td data-label="Status"><StatusBadge status={application.status} /></td>
         <td data-label="Resume">
@@ -143,7 +126,7 @@ function FragmentRows({ application, detail, detailError, detailId, expanded, lo
           ) : <span className={styles.muted}>No resume</span>}
         </td>
         <td data-label="Details">
-          <Button aria-controls={detailId} aria-expanded={expanded} aria-label={`${expanded ? "Hide" : "Show"} details for ${application.name}`} onClick={(event) => { event.stopPropagation(); onToggle(); }} variant="ghost">
+          <Button aria-controls={detailId} aria-expanded={expanded} aria-label={`${expanded ? "Hide" : "Show"} details for ${application.name}`} onClick={onToggle} variant="ghost">
             {expanded ? "Hide details" : "Details"}
           </Button>
         </td>

@@ -1,46 +1,22 @@
-.dashboard,
-.section,
-.sectionHeading {
-  display: grid;
-}
-
-.dashboard {
-  gap: var(--space-8);
-}
-
-.section {
-  gap: var(--space-5);
-}
-
-.sectionHeading {
-  gap: var(--space-2);
-}
-
-.sectionHeading h2 {
-  font-size: var(--font-size-section-title);
-  font-weight: 600;
-}
-
-.sectionHeading p,
-.cardGrid p {
-  color: var(--color-gray-500);
-  line-height: 1.5;
-}
-
-.cardGrid {
-  display: grid;
-  gap: var(--space-4);
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.cardGrid h3 {
-  font-size: var(--font-size-card-title);
-  font-weight: 600;
-  margin-bottom: var(--space-2);
-}
-
-@media (max-width: 64rem) {
-  .cardGrid {
-    grid-template-columns: 1fr;
-  }
-}
+.dashboard, .section, .sectionHeading, .loadingGrid, .attentionList, .errorState, .emptyState { display: grid; }
+.dashboard { gap: var(--space-8); }
+.section { gap: var(--space-5); }
+.sectionHeading { gap: var(--space-1); }
+.sectionHeading h2 { font-size: var(--font-size-section-title); font-weight: 600; }
+.sectionHeading p, .metricCard span, .metricCard small, .emptyState p, .errorState p { color: var(--color-gray-500); }
+.cardGrid, .loadingGrid { display: grid; gap: var(--space-4); grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.metricCard { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); display: grid; gap: var(--space-3); min-height: 10rem; padding: var(--space-5); text-decoration: none; transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease; }
+.metricCard strong { font-size: 2.25rem; line-height: 1; }
+.metricCard small { align-self: end; font-weight: 600; }
+.metricCard:hover { border-color: var(--color-gray-500); box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 6%); transform: translateY(-1px); }
+.metricCard:focus-visible, .attentionList a:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.attentionList { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); overflow: hidden; }
+.attentionList a { align-items: center; border-bottom: 1px solid var(--color-gray-200); display: flex; justify-content: space-between; padding: var(--space-4) var(--space-5); text-decoration: none; }
+.attentionList a:last-child { border-bottom: 0; }
+.attentionList a:hover { background: var(--color-gray-50); }
+.emptyState, .errorState { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); gap: var(--space-2); justify-items: start; padding: var(--space-6); }
+.skeleton { animation: pulse 1.2s ease-in-out infinite alternate; background: var(--color-gray-100); border-radius: var(--radius-card); height: 10rem; }
+@keyframes pulse { to { background: var(--color-gray-200); } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } .metricCard { transition: none; } }
+@media (max-width: 68rem) { .cardGrid, .loadingGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 36rem) { .cardGrid, .loadingGrid { grid-template-columns: 1fr; } }

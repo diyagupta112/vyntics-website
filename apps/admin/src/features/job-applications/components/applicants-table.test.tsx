@@ -39,14 +39,15 @@ describe("ApplicantsTable", () => {
     expect(screen.getByText("new")).toBeInTheDocument();
   });
 
-  it("expands from the whole row and collapses predictably", async () => {
+  it("expands only from the Details action and collapses predictably", async () => {
     vi.mocked(jobApplicationsApi.get).mockResolvedValue(detail);
     render(<ApplicantsTable applications={[application]} onRemoved={vi.fn()} onUpdated={vi.fn()} />);
     const row = screen.getByText("Asha Patel").closest("tr")!;
-    fireEvent.click(row);
+    expect(row).not.toHaveAttribute("tabindex");
+    fireEvent.click(screen.getByRole("button", { name: "Show details for Asha Patel" }));
     expect(await screen.findByText("Strong portfolio")).toBeInTheDocument();
-    expect(row).toHaveAttribute("aria-expanded", "true");
-    fireEvent.keyDown(row, { key: "Enter" });
+    expect(row).not.toHaveAttribute("aria-expanded");
+    fireEvent.click(screen.getByRole("button", { name: "Hide details for Asha Patel" }));
     expect(screen.queryByText("Strong portfolio")).not.toBeInTheDocument();
   });
 
@@ -65,7 +66,7 @@ describe("ApplicantsTable", () => {
     );
     render(<ApplicantsTable applications={[{ ...application, resume_url: null }]} onRemoved={vi.fn()} onUpdated={vi.fn()} />);
     expect(screen.getByText("No resume")).toBeInTheDocument();
-    fireEvent.click(screen.getByText("Asha Patel").closest("tr")!);
+    fireEvent.click(screen.getByRole("button", { name: "Show details for Asha Patel" }));
     expect(await screen.findByText(/temporarily unavailable/i)).toBeInTheDocument();
   });
 

@@ -70,3 +70,11 @@
   .dangerZone { align-items: stretch; flex-direction: column; }
   .actions > * { width: 100%; }
 }
+.memberGrid, .skeletonGrid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); }
+.memberPhoto, .photoPlaceholder { aspect-ratio: 1 / 1; max-height: 15rem; }
+.memberCard { transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease; }
+.memberCard:hover { box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 6%); transform: translateY(-1px); }
+.detailLayout { align-items: start; display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr) minmax(17rem, 22rem); }
+.imagePanel { position: sticky; top: calc(var(--header-height) + var(--space-5)); }
+.detailPhoto, .detailPlaceholder { max-height: 24rem; }
+@media (max-width: 68rem) { .detailLayout { grid-template-columns: 1fr; } .imagePanel { position: static; } }

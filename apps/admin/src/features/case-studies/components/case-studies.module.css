@@ -175,3 +175,13 @@
   .studyHeading { flex-direction: column; }
   .actions > * { width: 100%; }
 }
+.studyList { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.studyCard { grid-template-columns: 1fr; }
+.studyImage, .imagePlaceholder { height: auto; min-height: 0; }
+.studyCopy { align-content: start; padding: 0 var(--space-5) var(--space-5); }
+.studyCopy > p { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.detailLayout { align-items: start; display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem); }
+.imagePanel { position: sticky; top: calc(var(--header-height) + var(--space-5)); }
+.imagePanel .coverImage, .imagePanel .coverPlaceholder { max-height: 18rem; }
+@media (max-width: 68rem) { .studyList { grid-template-columns: repeat(2, minmax(0, 1fr)); } .detailLayout { grid-template-columns: 1fr; } .imagePanel { position: static; } }
+@media (max-width: 48rem) { .studyList { grid-template-columns: 1fr; } }

@@ -31,7 +31,7 @@ describe("Sidebar", () => {
     expect(
       screen.getByRole("link", { name: "Job Applications" }),
     ).toHaveAttribute("href", "/job-applications");
-    expect(screen.getByRole("link", { name: "Team Members" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: "Our Team" })).toHaveAttribute(
       "href",
       "/team",
     );

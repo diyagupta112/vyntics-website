@@ -35,5 +35,23 @@
 .dialog p { color: var(--color-gray-700); }
 .skeleton { animation: pulse 1.2s ease-in-out infinite alternate; background: var(--color-gray-100); border-radius: var(--radius-control); height: 4rem; }
 @keyframes pulse { to { background: var(--color-gray-200); } }
-@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
-@media (max-width: 44rem) { .fields { grid-template-columns: 1fr; } .full { grid-column: auto; } .formActions > * { width: 100%; } .section { padding: var(--space-5); } }
+@media (prefers-reduced-motion: reduce) { .skeleton, .blogCard { animation: none; transition: none; } }
+.blogGrid { display: grid; gap: var(--space-5); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.blogCard { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); display: grid; grid-template-rows: 1fr auto; min-width: 0; overflow: hidden; transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease; }
+.blogCard:hover { border-color: var(--color-gray-500); box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 6%); transform: translateY(-1px); }
+.cardLink { color: inherit; display: grid; grid-template-rows: auto 1fr; text-decoration: none; }
+.cardLink:focus-visible { outline: var(--focus-ring); outline-offset: -3px; }
+.cardImage, .imagePlaceholder { aspect-ratio: 16 / 9; width: 100%; }
+.cardImage { object-fit: cover; }
+.imagePlaceholder { align-items: center; background: var(--color-gray-100); color: var(--color-gray-500); display: flex; justify-content: center; }
+.cardBody { display: grid; gap: var(--space-3); padding: var(--space-5); }
+.cardTop, .cardActions { align-items: center; display: flex; gap: var(--space-2); justify-content: space-between; }
+.cardBody h2 { display: -webkit-box; font-size: var(--font-size-card-title); overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.category, .cardMeta, .cardActions { color: var(--color-gray-500); font-size: var(--font-size-xs); }
+.excerpt { color: var(--color-gray-700); display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.cardActions { border-top: 1px solid var(--color-gray-200); padding: var(--space-2) var(--space-3) var(--space-2) var(--space-5); }
+.detailLayout { align-items: start; display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem); }
+.imagePanel { position: sticky; top: calc(var(--header-height) + var(--space-5)); }
+.coverImage { max-height: 18rem; }
+@media (max-width: 68rem) { .blogGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .detailLayout { grid-template-columns: 1fr; } .imagePanel { position: static; } }
+@media (max-width: 44rem) { .blogGrid { grid-template-columns: 1fr; } .fields { grid-template-columns: 1fr; } .full { grid-column: auto; } .formActions > * { width: 100%; } .section { padding: var(--space-5); } }

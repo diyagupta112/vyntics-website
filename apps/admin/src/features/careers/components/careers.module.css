@@ -170,3 +170,4 @@
   .actions > * { width: 100%; }
   .careerCard { padding: var(--space-5); }
 }
+@media (min-width: 49rem) { .careerGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

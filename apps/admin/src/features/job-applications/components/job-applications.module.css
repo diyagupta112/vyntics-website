@@ -28,6 +28,7 @@
 .sectionHeading p,
 .muted { color: var(--color-gray-500); }
 .allApplicants,
+.headerAction,
 .careerScope {
   background: var(--color-white);
   border: 1px solid var(--color-gray-300);
@@ -38,12 +39,15 @@
   text-align: left;
 }
 .allApplicants { display: grid; gap: var(--space-1); padding: var(--space-5); }
+.headerAction { font-weight: 600; min-height: 2.75rem; padding: var(--space-2) var(--space-4); }
 .allApplicants span { color: var(--color-gray-500); font-size: var(--font-size-sm); }
 .careerScopes { gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); }
 .careerScope { font-weight: 600; padding: var(--space-3) var(--space-4); }
 .allApplicants:hover,
+.headerAction:hover,
 .careerScope:hover { background: var(--color-gray-50); }
 .allApplicants:focus-visible,
+.headerAction:focus-visible,
 .careerScope:focus-visible,
 .applicationRow:focus-visible,
 .textLink:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
@@ -58,7 +62,7 @@
 .table th,
 .table td { border-bottom: 1px solid var(--color-gray-200); padding: var(--space-3) var(--space-4); text-align: left; vertical-align: middle; }
 .table th { background: var(--color-gray-50); font-size: var(--font-size-sm); font-weight: 600; }
-.applicationRow { cursor: pointer; }
+.applicationRow { cursor: default; }
 .applicationRow:hover { background: var(--color-gray-50); }
 .expandedRow > td { background: var(--color-gray-50); padding: var(--space-5); }
 .badge { border: 1px solid var(--color-gray-300); border-radius: 999px; display: inline-flex; font-size: var(--font-size-xs); font-weight: 600; padding: var(--space-1) var(--space-2); text-transform: capitalize; white-space: nowrap; }
