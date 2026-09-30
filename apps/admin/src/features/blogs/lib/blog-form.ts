@@ -1,4 +1,5 @@
 import type { ApiError } from "@/lib/api/errors";
+import { deserializeBlogContent, isBlogContentEmpty } from "@/components/forms/blog-content";
 
 import type { Blog, BlogCreateRequest, BlogStatus, BlogUpdateRequest } from "../types";
 
@@ -62,12 +63,11 @@ export function validateBlogForm(values: BlogFormValues): BlogFormErrors {
   }
 
   try {
-    const parsed: unknown = JSON.parse(values.content);
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-      errors.content = "Content must be a JSON object.";
+    if (isBlogContentEmpty(deserializeBlogContent(values.content))) {
+      errors.content = "Content is required.";
     }
-  } catch {
-    errors.content = "Content must be valid JSON.";
+  } catch (error) {
+    errors.content = error instanceof Error ? error.message : "Content is invalid.";
   }
 
   return errors;

@@ -1,117 +1,158 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { useMemo } from "react";
+
+import {
+  deserializeBlogContent,
+  EMPTY_BLOG_DOCUMENT,
+  serializeBlogContent,
+  type BlogContentNode,
+} from "./blog-content";
 import styles from "./rich-text-editor.module.css";
 
-type JsonNode = {
-  type?: string;
-  text?: string;
-  attrs?: Record<string, unknown>;
-  marks?: Array<{ type?: string; attrs?: Record<string, unknown> }>;
-  content?: JsonNode[];
+type Props = {
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  invalid?: boolean;
 };
 
-type Props = { id: string; value: string; onChange: (value: string) => void; invalid?: boolean };
-const escapeHtml = (value: string) => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
+export function createBlogEditorExtensions() { return [
+  StarterKit.configure({
+    blockquote: false,
+    code: false,
+    codeBlock: false,
+    heading: { levels: [1, 2, 3] },
+    horizontalRule: false,
+    link: { autolink: false, openOnClick: false },
+    strike: false,
+    underline: false,
+  }),
+]; }
 
-function nodeToHtml(node: JsonNode): string {
-  if (node.type === "text") {
-    let html = escapeHtml(node.text ?? "");
-    for (const mark of node.marks ?? []) {
-      if (mark.type === "bold" || mark.type === "strong") html = "<strong>" + html + "</strong>";
-      if (mark.type === "italic" || mark.type === "em") html = "<em>" + html + "</em>";
-      if (mark.type === "link") html = '<a href="' + escapeHtml(String(mark.attrs?.href ?? "")) + '">' + html + "</a>";
-    }
-    return html;
-  }
-  if (node.type === "hardBreak") return "<br>";
-  const content = (node.content ?? []).map(nodeToHtml).join("");
-  if (node.type === "heading") {
-    const level = Math.min(3, Math.max(1, Number(node.attrs?.level) || 2));
-    return "<h" + level + ">" + content + "</h" + level + ">";
-  }
-  if (node.type === "bulletList") return "<ul>" + content + "</ul>";
-  if (node.type === "orderedList") return "<ol>" + content + "</ol>";
-  if (node.type === "listItem") return "<li>" + content + "</li>";
-  if (node.type === "paragraph") return "<p>" + (content || "<br>") + "</p>";
-  return content;
-}
+type ToolbarButtonProps = {
+  label: string;
+  pressed?: boolean;
+  disabled?: boolean;
+  onRun: () => void;
+  children: React.ReactNode;
+};
 
-export function structuredContentToHtml(value: string): string {
-  try {
-    const root = JSON.parse(value) as JsonNode;
-    return (root.content ?? []).map(nodeToHtml).join("");
-  } catch {
-    return "";
-  }
-}
-
-function inlineNodes(node: Node, marks: JsonNode["marks"] = []): JsonNode[] {
-  if (node.nodeType === Node.TEXT_NODE) {
-    return node.textContent ? [{ type: "text", text: node.textContent, ...(marks?.length ? { marks } : {}) }] : [];
-  }
-  if (!(node instanceof HTMLElement)) return [];
-  const tag = node.tagName.toLowerCase();
-  if (tag === "br") return [{ type: "hardBreak" }];
-  const nextMarks = [...(marks ?? [])];
-  if (tag === "strong" || tag === "b") nextMarks.push({ type: "bold" });
-  if (tag === "em" || tag === "i") nextMarks.push({ type: "italic" });
-  if (tag === "a") nextMarks.push({ type: "link", attrs: { href: node.getAttribute("href") ?? "" } });
-  return Array.from(node.childNodes).flatMap((child) => inlineNodes(child, nextMarks));
-}
-
-function blockNode(element: HTMLElement): JsonNode | null {
-  const tag = element.tagName.toLowerCase();
-  if (/^h[1-3]$/.test(tag)) return { type: "heading", attrs: { level: Number(tag[1]) }, content: inlineNodes(element) };
-  if (tag === "ul" || tag === "ol") {
-    return {
-      type: tag === "ul" ? "bulletList" : "orderedList",
-      content: Array.from(element.children)
-        .filter((child) => child.tagName === "LI")
-        .map((child) => ({ type: "listItem", content: [{ type: "paragraph", content: inlineNodes(child) }] })),
-    };
-  }
-  if (tag === "p" || tag === "div") return { type: "paragraph", content: inlineNodes(element) };
-  return null;
-}
-
-export function htmlToStructuredContent(container: HTMLElement): string {
-  const content = Array.from(container.children)
-    .map((element) => blockNode(element as HTMLElement))
-    .filter((node): node is JsonNode => Boolean(node));
-  if (!content.length && container.textContent?.trim()) content.push({ type: "paragraph", content: inlineNodes(container) });
-  return JSON.stringify({ type: "doc", content }, null, 2);
+function ToolbarButton({ label, pressed, disabled, onRun, children }: ToolbarButtonProps) {
+  return (
+    <button
+      aria-label={label}
+      aria-pressed={pressed}
+      className={pressed ? styles.active : undefined}
+      disabled={disabled}
+      onClick={onRun}
+      onMouseDown={(event) => event.preventDefault()}
+      type="button"
+    >
+      {children}
+    </button>
+  );
 }
 
 export function RichTextEditor({ id, value, onChange, invalid = false }: Props) {
-  const editor = useRef<HTMLDivElement>(null);
-  const lastValue = useRef(value);
-  useEffect(() => {
-    if (editor.current && value !== lastValue.current) editor.current.innerHTML = structuredContentToHtml(value);
-    lastValue.current = value;
+  const initial = useMemo(() => {
+    try {
+      return { content: deserializeBlogContent(value), error: undefined };
+    } catch (error) {
+      return {
+        content: EMPTY_BLOG_DOCUMENT,
+        error: error instanceof Error ? error.message : "This Blog contains unsupported content.",
+      };
+    }
   }, [value]);
 
-  function command(name: string, argument?: string) {
-    editor.current?.focus();
-    document.execCommand(name, false, argument);
-    if (editor.current) onChange(htmlToStructuredContent(editor.current));
+  const editorExtensions = useMemo(() => createBlogEditorExtensions(), []);
+  const editor = useEditor({
+    extensions: editorExtensions,
+    content: initial.content,
+    immediatelyRender: false,
+    editorProps: {
+      attributes: {
+        "aria-invalid": String(invalid),
+        "aria-label": "Blog content editor",
+        "aria-multiline": "true",
+        class: styles.surface,
+        id,
+        role: "textbox",
+      },
+    },
+    onUpdate: ({ editor: currentEditor }) => {
+      onChange(serializeBlogContent(currentEditor.getJSON() as BlogContentNode));
+    },
+  });
+
+  const state = useEditorState({
+    editor,
+    selector: ({ editor: currentEditor }) => ({
+      bold: currentEditor?.isActive("bold") ?? false,
+      italic: currentEditor?.isActive("italic") ?? false,
+      link: currentEditor?.isActive("link") ?? false,
+      paragraph: currentEditor?.isActive("paragraph") ?? false,
+      h1: currentEditor?.isActive("heading", { level: 1 }) ?? false,
+      h2: currentEditor?.isActive("heading", { level: 2 }) ?? false,
+      h3: currentEditor?.isActive("heading", { level: 3 }) ?? false,
+      bulletList: currentEditor?.isActive("bulletList") ?? false,
+      orderedList: currentEditor?.isActive("orderedList") ?? false,
+      canUndo: currentEditor?.can().chain().undo().run() ?? false,
+      canRedo: currentEditor?.can().chain().redo().run() ?? false,
+    }),
+  });
+
+  function editLink() {
+    if (!editor) return;
+    const currentHref = String(editor.getAttributes("link").href ?? "");
+    const href = window.prompt("Enter the link URL. Leave blank to remove the link.", currentHref);
+    if (href === null) return;
+    if (!href.trim()) editor.chain().focus().extendMarkRange("link").unsetLink().run();
+    else editor.chain().focus().extendMarkRange("link").setLink({ href: href.trim() }).run();
   }
 
-  function addLink() {
-    const url = window.prompt("Enter the link URL");
-    if (url) command("createLink", url);
+  if (initial.error) {
+    return <div className={styles.editor}><p className={styles.compatibilityError} role="alert">This Blog cannot be edited safely: {initial.error}</p></div>;
   }
 
-  return <div className={styles.editor}>
-    <div aria-label="Content formatting" className={styles.toolbar} role="toolbar">
-      <button onClick={() => command("formatBlock", "p")} type="button">Paragraph</button>
-      {[1, 2, 3].map((level) => <button key={level} onClick={() => command("formatBlock", "h" + level)} type="button">H{level}</button>)}
-      <button aria-label="Bold" onClick={() => command("bold")} type="button"><strong>B</strong></button>
-      <button aria-label="Italic" onClick={() => command("italic")} type="button"><em>I</em></button>
-      <button onClick={addLink} type="button">Link</button>
-      <button onClick={() => command("insertUnorderedList")} type="button">Bulleted list</button>
-      <button onClick={() => command("insertOrderedList")} type="button">Numbered list</button>
+  if (!editor) {
+    return <div aria-label="Loading Blog content editor" className={styles.loading} role="status" />;
+  }
+
+  return (
+    <div className={styles.editor}>
+      <div aria-label="Content formatting" className={styles.toolbar} role="toolbar">
+        <div className={styles.group}>
+          <ToolbarButton label="Paragraph" onRun={() => editor.chain().focus().setParagraph().run()} pressed={state?.paragraph}>Paragraph</ToolbarButton>
+          {[1, 2, 3].map((level) => (
+            <ToolbarButton
+              key={level}
+              label={"Heading " + level}
+              onRun={() => editor.chain().focus().toggleHeading({ level: level as 1 | 2 | 3 }).run()}
+              pressed={state?.[("h" + level) as "h1" | "h2" | "h3"]}
+            >
+              H{level}
+            </ToolbarButton>
+          ))}
+        </div>
+        <div className={styles.group}>
+          <ToolbarButton label="Bold" onRun={() => editor.chain().focus().toggleBold().run()} pressed={state?.bold}><strong>B</strong></ToolbarButton>
+          <ToolbarButton label="Italic" onRun={() => editor.chain().focus().toggleItalic().run()} pressed={state?.italic}><em>I</em></ToolbarButton>
+          <ToolbarButton label="Edit link" onRun={editLink} pressed={state?.link}>Link</ToolbarButton>
+        </div>
+        <div className={styles.group}>
+          <ToolbarButton label="Bulleted list" onRun={() => editor.chain().focus().toggleBulletList().run()} pressed={state?.bulletList}>• List</ToolbarButton>
+          <ToolbarButton label="Numbered list" onRun={() => editor.chain().focus().toggleOrderedList().run()} pressed={state?.orderedList}>1. List</ToolbarButton>
+        </div>
+        <div className={styles.group}>
+          <ToolbarButton disabled={!state?.canUndo} label="Undo" onRun={() => editor.chain().focus().undo().run()}>Undo</ToolbarButton>
+          <ToolbarButton disabled={!state?.canRedo} label="Redo" onRun={() => editor.chain().focus().redo().run()}>Redo</ToolbarButton>
+        </div>
+      </div>
+      <EditorContent className={styles.content} editor={editor} />
     </div>
-    <div aria-invalid={invalid} aria-multiline="true" className={styles.surface} contentEditable dangerouslySetInnerHTML={{ __html: structuredContentToHtml(value) }} id={id} onInput={(event) => onChange(htmlToStructuredContent(event.currentTarget))} role="textbox" suppressContentEditableWarning />
-  </div>;
+  );
 }
