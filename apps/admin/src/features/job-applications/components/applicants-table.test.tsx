@@ -94,7 +94,7 @@ describe("ApplicantsTable", () => {
     fireEvent.click(screen.getByRole("button", { name: "Delete Application" }));
     const dialog = screen.getByRole("dialog");
     expect(dialog).toHaveTextContent("Asha Patel");
-    fireEvent.click(within(dialog).getByRole("button", { name: "Delete Application" }));
+    fireEvent.click(within(dialog).getByRole("button", { name: "Delete Permanently" }));
     await waitFor(() => expect(onRemoved).toHaveBeenCalledWith("application-1"));
   });
 
@@ -108,7 +108,7 @@ describe("ApplicantsTable", () => {
     await screen.findByText("Strong portfolio");
     fireEvent.click(screen.getByRole("button", { name: "Delete Application" }));
     const dialog = screen.getByRole("dialog");
-    fireEvent.click(within(dialog).getByRole("button", { name: "Delete Application" }));
+    fireEvent.click(within(dialog).getByRole("button", { name: "Delete Permanently" }));
     expect(await within(dialog).findByText(/temporarily unavailable/i)).toBeInTheDocument();
     expect(dialog).toBeInTheDocument();
   });

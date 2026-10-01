@@ -1,0 +1,170 @@
+.root {
+  align-self: start;
+  box-sizing: border-box;
+  contain: inline-size;
+  inline-size: auto;
+  justify-self: stretch;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.previewButton,
+.emptyFrame {
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  box-sizing: border-box;
+  display: block;
+  height: clamp(10rem, 20vw, 14rem);
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.previewButton {
+  color: var(--color-white);
+  cursor: zoom-in;
+  padding: 0;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.previewButton:hover {
+  background: var(--color-gray-100);
+  border-color: var(--color-gray-500);
+}
+
+.previewButton:focus-visible,
+.closeButton:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.previewImage {
+  display: block;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.expandedImage {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.expandLabel {
+  align-items: center;
+  background: rgb(0 0 0 / 78%);
+  border-radius: var(--radius-control) 0 0 0;
+  bottom: 0;
+  display: inline-flex;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  gap: var(--space-2);
+  max-width: 100%;
+  overflow: hidden;
+  padding: var(--space-2) var(--space-3);
+  position: absolute;
+  right: 0;
+  white-space: nowrap;
+}
+
+.emptyFrame {
+  align-items: center;
+  color: var(--color-gray-500);
+  display: flex;
+  font-size: var(--font-size-sm);
+  justify-content: center;
+  padding: var(--space-5);
+  text-align: center;
+}
+
+.backdrop {
+  align-items: center;
+  background: rgb(0 0 0 / 72%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: var(--space-5);
+  position: fixed;
+  z-index: 100;
+}
+
+.viewer {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
+  display: grid;
+  gap: var(--space-4);
+  max-height: calc(100svh - 2 * var(--space-5));
+  max-width: 80rem;
+  padding: var(--space-5);
+  width: 100%;
+}
+
+.viewerHeader {
+  align-items: center;
+  display: flex;
+  gap: var(--space-4);
+  justify-content: space-between;
+}
+
+.viewerHeader h2 {
+  font-size: var(--font-size-section-title);
+}
+
+.closeButton {
+  align-items: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-control);
+  color: var(--color-black);
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 2.5rem;
+  justify-content: center;
+  padding: 0;
+  transition: background-color 120ms ease, border-color 120ms ease;
+  width: 2.5rem;
+}
+
+.closeButton:hover {
+  background: var(--color-gray-100);
+  border-color: var(--color-gray-500);
+}
+
+.expandedFrame {
+  background: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  height: min(76svh, 48rem);
+  min-height: 14rem;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+@media (max-width: 44rem) {
+  .previewButton,
+  .emptyFrame {
+    height: clamp(10rem, 48vw, 13rem);
+  }
+
+  .backdrop { padding: var(--space-3); }
+  .viewer {
+    max-height: calc(100svh - 2 * var(--space-3));
+    padding: var(--space-4);
+  }
+  .expandedFrame { height: 70svh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .previewButton,
+  .closeButton { transition: none; }
+}

@@ -1,0 +1,57 @@
+.track { position: relative; margin-top: clamp(1.5rem, 2.5vw, 2.25rem); }
+.track[data-enhanced="true"] { height: 185svh; }
+.sticky { width: 100%; }
+.track[data-enhanced="true"] .sticky { position: sticky; top: 5rem; height: calc(100svh - 5rem); display: grid; align-items: center; }
+.composition { position: relative; min-height: 44rem; display: grid; place-items: center; }
+.principles { position: absolute; inset: 0; display: grid; grid-template-columns: minmax(18rem, 1fr) minmax(25rem, 27rem) minmax(18rem, 1fr); grid-template-rows: minmax(12.5rem, 1fr) 16.875rem minmax(12.5rem, 1fr); grid-template-areas: "upperLeft . upperRight" ". image ." "lowerLeft . lowerRight"; gap: 0.75rem clamp(1.5rem, 2vw, 2rem); pointer-events: none; }
+.image { position: relative; z-index: 1; width: min(100%, 27rem); aspect-ratio: 16 / 10; overflow: hidden; border-radius: 0.95rem; background: color-mix(in srgb, var(--color-lavender) 38%, #fff); box-shadow: 0 1.5rem 3.8rem rgb(11 11 15 / 10%); will-change: filter, transform, opacity; }
+.image img { object-fit: cover; object-position: center; }
+.principle { position: relative; z-index: 2; width: min(100%, 21rem); display: grid; }
+.upperLeft { grid-area: upperLeft; align-self: end; justify-self: end; justify-items: end; text-align: right; }
+.upperRight { grid-area: upperRight; align-self: end; justify-self: start; justify-items: start; text-align: left; }
+.lowerLeft { grid-area: lowerLeft; align-self: start; justify-self: end; justify-items: end; text-align: right; }
+.lowerRight { grid-area: lowerRight; align-self: start; justify-self: start; justify-items: start; text-align: left; }
+.icon { width: 3rem; height: 3rem; display: grid; place-items: center; color: var(--color-primary); border: 1px solid color-mix(in srgb, var(--color-primary) 20%, var(--color-border)); border-radius: 0.8rem; background: color-mix(in srgb, var(--color-primary) 7%, #fff); }
+.icon svg { width: 1.35rem; fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; stroke-linejoin: round; }
+.copy h3 { margin-top: 0.75rem; font-size: 1.875rem; font-weight: 690; line-height: 1.14; letter-spacing: -0.04em; }
+.copy p { margin-top: 0.5rem; color: var(--color-muted); font-size: 1.125rem; line-height: 1.5; text-wrap: pretty; }
+.copy { width: 100%; }
+@media (max-width: 1000px) and (min-width: 761px) {
+  .composition { min-height: 46rem; }
+  .image { width: min(100%, 22rem); }
+  .principles { grid-template: repeat(2, minmax(0, 1fr)) / repeat(2, minmax(0, 1fr)); grid-template-areas: "upperLeft upperRight" "lowerLeft lowerRight"; gap: 8rem 2.5rem; padding-block: 0.5rem; }
+  .principle { width: min(100%, 19rem); }
+  .upperLeft,
+  .upperRight { align-self: start; }
+  .lowerLeft,
+  .lowerRight { align-self: end; }
+  .icon { width: 2.65rem; height: 2.65rem; }
+  .copy h3 { margin-top: 0.65rem; font-size: 1.625rem; }
+  .copy p { font-size: 1.05rem; line-height: 1.5; }
+}
+@media (max-width: 760px) {
+  .track { margin-top: 1.5rem; }
+  .track[data-enhanced="true"] .sticky { top: 4.75rem; height: calc(100svh - 4.75rem); }
+  .composition { min-height: 0; height: 100%; display: flex; flex-direction: column; align-items: stretch; justify-content: center; }
+  .image { width: min(100%, 20rem); align-self: center; aspect-ratio: 16 / 9; border-radius: 0.75rem; }
+  .principles { position: static; margin-top: 1rem; display: grid; grid-template: none; gap: 0.8rem; pointer-events: auto; }
+  .principle,
+  .upperLeft,
+  .upperRight,
+  .lowerLeft,
+  .lowerRight { width: 100%; grid-area: auto; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); justify-self: stretch; justify-items: start; align-self: auto; align-items: start; gap: 0.75rem; text-align: left; }
+  .icon { width: 2.3rem; height: 2.3rem; border-radius: 0.68rem; }
+  .copy h3 { margin-top: 0.02rem; font-size: 1.25rem; line-height: 1.16; }
+  .copy p { max-width: 32rem; margin-top: 0.22rem; font-size: 0.93rem; line-height: 1.42; }
+}
+@media (max-height: 850px) and (min-width: 761px) {
+  .composition { transform: scale(0.86); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .track { height: auto !important; }
+  .sticky { position: static !important; height: auto !important; }
+  .image,
+  .icon,
+  .copy h3,
+  .copy p { transform: none !important; opacity: 1 !important; }
+}

@@ -50,11 +50,14 @@
 }
 
 .destructive {
-  background: var(--color-black);
-  border-color: var(--color-black);
+  background: var(--color-red-700);
+  border-color: var(--color-red-700);
   color: var(--color-white);
 }
 
 .destructive:hover:not(:disabled) {
-  background: var(--color-gray-700);
+  background: var(--color-red-800);
+  border-color: var(--color-red-800);
 }
+
+.destructive:focus-visible { outline-color: var(--color-red-700); }

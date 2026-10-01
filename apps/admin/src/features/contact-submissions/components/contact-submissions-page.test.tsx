@@ -90,8 +90,8 @@ describe("ContactSubmissionsPage", () => {
     render(<ContactSubmissionsPage />);
 
     fireEvent.click(await screen.findByRole("button", { name: "Delete submission from Asha Patel" }));
-    const dialog = screen.getByRole("dialog", { name: /Delete submission from Asha Patel/i });
-    fireEvent.click(within(dialog).getByRole("button", { name: "Delete Submission" }));
+    const dialog = screen.getByRole("dialog", { name: /Delete Contact Submission/i });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Delete Permanently" }));
 
     await waitFor(() => expect(contactSubmissionsApi.delete).toHaveBeenCalledWith("submission-1"));
     expect(await screen.findByRole("status")).toHaveTextContent("Submission from Asha Patel deleted.");
@@ -106,8 +106,8 @@ describe("ContactSubmissionsPage", () => {
     render(<ContactSubmissionsPage />);
 
     fireEvent.click(await screen.findByRole("button", { name: "Delete submission from Asha Patel" }));
-    const dialog = screen.getByRole("dialog", { name: /Delete submission from Asha Patel/i });
-    fireEvent.click(within(dialog).getByRole("button", { name: "Delete Submission" }));
+    const dialog = screen.getByRole("dialog", { name: /Delete Contact Submission/i });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Delete Permanently" }));
 
     expect(await within(dialog).findByText(/temporarily unavailable/i)).toBeInTheDocument();
     expect(dialog).toBeInTheDocument();

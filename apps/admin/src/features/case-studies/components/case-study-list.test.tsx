@@ -70,9 +70,9 @@ describe("CaseStudyList", () => {
     fireEvent.click(
       await screen.findByRole("button", { name: "Delete Platform redesign" }),
     );
-    expect(screen.getByRole("dialog")).toHaveTextContent("permanently removes");
+    expect(screen.getByRole("dialog")).toHaveTextContent("permanently delete");
     fireEvent.click(
-      screen.getByRole("button", { name: "Delete Case Study" }),
+      screen.getByRole("button", { name: "Delete Permanently" }),
     );
     await waitFor(() => expect(caseStudiesApi.delete).toHaveBeenCalledWith("1"));
     await waitFor(() =>
@@ -90,7 +90,7 @@ describe("CaseStudyList", () => {
       await screen.findByRole("button", { name: "Delete Platform redesign" }),
     );
     fireEvent.click(
-      screen.getByRole("button", { name: "Delete Case Study" }),
+      screen.getByRole("button", { name: "Delete Permanently" }),
     );
     expect(await screen.findByText(/temporarily unavailable/i)).toBeInTheDocument();
     expect(screen.getByRole("dialog")).toBeInTheDocument();

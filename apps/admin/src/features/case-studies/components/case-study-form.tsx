@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
+import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
 import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,10 +28,12 @@ import styles from "./case-studies.module.css";
 
 type Props = {
   caseStudy?: CaseStudy;
+  createFlow?: boolean;
+  onCreated?: (caseStudy: CaseStudy) => void;
   onSaved?: (caseStudy: CaseStudy) => void;
 };
 
-export function CaseStudyForm({ caseStudy, onSaved }: Props) {
+export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSaved }: Props) {
   const router = useRouter();
   const isCreate = !caseStudy;
   const [values, setValues] = useState<CaseStudyFormValues>(() =>
@@ -65,7 +68,8 @@ export function CaseStudyForm({ caseStudy, onSaved }: Props) {
         : await caseStudiesApi.create(toCreateRequest(values));
 
       if (isCreate) {
-        router.push(`/case-studies/${saved.id}/edit?created=1`);
+        if (onCreated) onCreated(saved);
+        else router.push(`/case-studies/${saved.id}/edit?created=1`);
       } else {
         setValues(caseStudyToForm(saved));
         setMessage("Case Study changes saved.");
@@ -146,8 +150,8 @@ export function CaseStudyForm({ caseStudy, onSaved }: Props) {
           <FormField
             error={errors.status}
             hint={
-              isCreate
-                ? "Upload a cover after creation before publishing."
+              isCreate || createFlow
+                ? "Add a cover in Step 2 before publishing."
                 : "FastAPI validates publishing requirements."
             }
             htmlFor="caseStudyStatus"
@@ -160,7 +164,7 @@ export function CaseStudyForm({ caseStudy, onSaved }: Props) {
               value={values.status}
             >
               <option value="draft">Draft</option>
-              {!isCreate ? <option value="published">Published</option> : null}
+              {!isCreate && !createFlow ? <option value="published">Published</option> : null}
               <option value="unpublished">Unpublished</option>
             </Select>
           </FormField>
@@ -317,7 +321,7 @@ export function CaseStudyForm({ caseStudy, onSaved }: Props) {
         </div>
       ) : null}
 
-      <div className={styles.formActions}>
+      {createFlow ? <CreateFlowActions backHref="/case-studies" backLabel="Cancel" busy={busy} busyLabel={isCreate ? "Creating…" : "Saving…"} primaryLabel="Next →" primaryType="submit" /> : <div className={styles.formActions}>
         <Button disabled={busy} type="submit">
           {busy
             ? "Saving…"
@@ -328,7 +332,7 @@ export function CaseStudyForm({ caseStudy, onSaved }: Props) {
         <Link className={styles.linkButton} href="/case-studies">
           Cancel
         </Link>
-      </div>
+      </div>}
     </form>
   );
 }

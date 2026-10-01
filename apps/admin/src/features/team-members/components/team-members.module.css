@@ -49,10 +49,6 @@
 .dangerZone { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-3); }
 .feedback { background: var(--color-gray-50); border-left: 3px solid var(--color-black); gap: var(--space-1); padding: var(--space-3) var(--space-4); }
 .photoControl { gap: var(--space-4); }
-.detailPhoto,
-.detailPlaceholder { aspect-ratio: 4/5; border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); max-width: 28rem; width: 100%; }
-.detailPhoto { object-fit: cover; }
-.detailPlaceholder { align-items: center; background: var(--color-gray-100); color: var(--color-gray-500); display: flex; justify-content: center; }
 .fileInput { display: block; max-width: 100%; }
 .dangerZone { border: 1px solid var(--color-gray-300); border-radius: var(--radius-card); justify-content: space-between; padding: var(--space-5); }
 .dialogBackdrop { align-items: center; background: rgb(0 0 0 / 50%); display: flex; inset: 0; justify-content: center; padding: var(--space-5); position: fixed; z-index: 50; }
@@ -76,5 +72,4 @@
 .memberCard:hover { box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 6%); transform: translateY(-1px); }
 .detailLayout { align-items: start; display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr) minmax(17rem, 22rem); }
 .imagePanel { position: sticky; top: calc(var(--header-height) + var(--space-5)); }
-.detailPhoto, .detailPlaceholder { max-height: 24rem; }
 @media (max-width: 68rem) { .detailLayout { grid-template-columns: 1fr; } .imagePanel { position: static; } }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
@@ -8,12 +9,16 @@ import { careersApi } from "../api/careers";
 import { careerErrorMessage } from "../lib/errors";
 import type { Career } from "../types";
 import { CareerForm } from "./career-form";
+import { ConfirmDelete } from "./confirm-delete";
 import styles from "./careers.module.css";
 
 export function CareerEditor({ careerSlug }: { careerSlug: string }) {
+  const router = useRouter();
   const [career, setCareer] = useState<Career>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
+  const [confirming, setConfirming] = useState(false); const [deleteBusy, setDeleteBusy] = useState(false); const [deleteError, setDeleteError] = useState<string>();
+  async function remove() { if (!career || deleteBusy) return; setDeleteBusy(true); setDeleteError(undefined); try { await careersApi.delete(career.id); router.push("/careers?deleted=1"); } catch (caught) { setDeleteError(careerErrorMessage(caught, "delete this Career")); } finally { setDeleteBusy(false); } }
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -76,11 +81,9 @@ export function CareerEditor({ careerSlug }: { careerSlug: string }) {
       <PageHeader
         title={career.title}
         description="Edit the role information. Existing Career records represent available roles."
-        actions={
-          <Link className={styles.linkButton} href="/careers">
+        actions={<><Link className={styles.linkButton} href="/careers">
             Back to Careers
-          </Link>
-        }
+          </Link><Button onClick={() => setConfirming(true)} variant="destructive">Delete Career</Button></>}
       />
       <div className={styles.immutableNote}>
         <strong>Added</strong>{" "}
@@ -92,6 +95,7 @@ export function CareerEditor({ careerSlug }: { careerSlug: string }) {
         <span>Publication time is managed by the backend.</span>
       </div>
       <CareerForm career={career} onSaved={setCareer} />
+      {confirming ? <ConfirmDelete busy={deleteBusy} error={deleteError} onCancel={() => setConfirming(false)} onConfirm={() => void remove()} title={career.title} /> : null}
     </div>
   );
 }

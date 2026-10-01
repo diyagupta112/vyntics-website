@@ -77,10 +77,8 @@ describe("CareerList", () => {
     fireEvent.click(
       await screen.findByRole("button", { name: "Delete Senior Engineer" }),
     );
-    expect(screen.getByRole("dialog")).toHaveTextContent(
-      "makes the role unavailable",
-    );
-    fireEvent.click(screen.getByRole("button", { name: "Delete Career" }));
+    expect(screen.getByRole("dialog")).toHaveTextContent("cannot be undone");
+    fireEvent.click(screen.getByRole("button", { name: "Delete Permanently" }));
     await waitFor(() =>
       expect(careersApi.delete).toHaveBeenCalledWith("career-1"),
     );
@@ -99,7 +97,7 @@ describe("CareerList", () => {
     fireEvent.click(
       await screen.findByRole("button", { name: "Delete Senior Engineer" }),
     );
-    fireEvent.click(screen.getByRole("button", { name: "Delete Career" }));
+    fireEvent.click(screen.getByRole("button", { name: "Delete Permanently" }));
     expect(await screen.findByText(/temporarily unavailable/i)).toBeInTheDocument();
     expect(screen.getByRole("dialog")).toBeInTheDocument();
   });

@@ -1,0 +1,7 @@
+.backdrop { align-items: center; background: rgb(0 0 0 / 55%); display: flex; inset: 0; justify-content: center; padding: var(--space-5); position: fixed; z-index: 100; }
+.dialog { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%); display: grid; gap: var(--space-4); max-height: calc(100svh - 2 * var(--space-5)); max-width: 32rem; overflow-y: auto; padding: var(--space-6); width: 100%; }
+.dialog h2 { font-size: var(--font-size-section-title); }
+.dialog > p { color: var(--color-gray-700); }
+.error { background: var(--color-red-50); border-left: 3px solid var(--color-red-700); padding: var(--space-3); }
+.actions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: flex-end; }
+@media (max-width: 32rem) { .backdrop { padding: var(--space-3); } .dialog { padding: var(--space-5); } .actions > * { width: 100%; } }

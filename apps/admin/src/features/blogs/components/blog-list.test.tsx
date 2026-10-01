@@ -36,8 +36,8 @@ describe("BlogList", () => {
     vi.mocked(blogsApi.delete).mockResolvedValue(undefined);
     render(<BlogList />);
     fireEvent.click(await screen.findByRole("button", { name: "Delete Post" }));
-    expect(screen.getByRole("dialog")).toHaveTextContent("permanently removes");
-    fireEvent.click(screen.getByRole("button", { name: "Delete Blog" }));
+    expect(screen.getByRole("dialog")).toHaveTextContent("permanently delete");
+    fireEvent.click(screen.getByRole("button", { name: "Delete Permanently" }));
     await waitFor(() => expect(blogsApi.delete).toHaveBeenCalledWith("1"));
     await waitFor(() => expect(screen.queryByText("Post")).not.toBeInTheDocument());
   });
@@ -46,7 +46,7 @@ describe("BlogList", () => {
     vi.mocked(blogsApi.delete).mockRejectedValue(new ApiError({ kind: "service_unavailable", message: "safe" }));
     render(<BlogList />);
     fireEvent.click(await screen.findByRole("button", { name: "Delete Post" }));
-    fireEvent.click(screen.getByRole("button", { name: "Delete Blog" }));
+    fireEvent.click(screen.getByRole("button", { name: "Delete Permanently" }));
     expect(await screen.findByText(/temporarily unavailable/)).toBeInTheDocument();
     expect(screen.getByRole("dialog")).toBeInTheDocument();
   });

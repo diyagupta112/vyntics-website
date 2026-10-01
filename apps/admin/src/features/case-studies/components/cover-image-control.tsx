@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { type ChangeEvent, useRef, useState } from "react";
+import { CompactImagePreview } from "@/components/media/compact-image-preview";
 import { Button } from "@/components/ui/button";
 import { caseStudiesApi } from "../api/case-studies";
 import { caseStudyErrorMessage } from "../lib/errors";
@@ -23,9 +23,11 @@ function validate(file: File): string | undefined {
 
 export function CoverImageControl({
   caseStudy,
+  onBusyChange,
   onChanged,
 }: {
   caseStudy: CaseStudy;
+  onBusyChange?: (busy: boolean) => void;
   onChanged: (caseStudy: CaseStudy) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -44,6 +46,7 @@ export function CoverImageControl({
     }
 
     setBusy(true);
+    onBusyChange?.(true);
     setError(undefined);
     setMessage(undefined);
     try {
@@ -58,6 +61,7 @@ export function CoverImageControl({
       setError(caseStudyErrorMessage(caught, "upload the cover image"));
     } finally {
       setBusy(false);
+      onBusyChange?.(false);
       event.target.value = "";
     }
   }
@@ -65,6 +69,7 @@ export function CoverImageControl({
   async function remove() {
     if (busy || caseStudy.status === "published") return;
     setBusy(true);
+    onBusyChange?.(true);
     setError(undefined);
     setMessage(undefined);
     try {
@@ -75,6 +80,7 @@ export function CoverImageControl({
       setError(caseStudyErrorMessage(caught, "remove the cover image"));
     } finally {
       setBusy(false);
+      onBusyChange?.(false);
     }
   }
 
@@ -85,18 +91,12 @@ export function CoverImageControl({
         <p>JPEG, PNG, or WebP. Maximum 5 MB.</p>
       </div>
       <div className={styles.cover}>
-        {caseStudy.cover_image_url ? (
-          <Image
-            alt={`Cover for ${caseStudy.title}`}
-            className={styles.coverImage}
-            height={630}
-            src={caseStudy.cover_image_url}
-            unoptimized
-            width={1120}
-          />
-        ) : (
-          <div className={styles.coverPlaceholder}>No cover image uploaded</div>
-        )}
+        <CompactImagePreview
+          alt={`Cover for ${caseStudy.title}`}
+          emptyText="No cover image uploaded"
+          imageUrl={caseStudy.cover_image_url}
+          label="Case Study cover image"
+        />
         <input
           accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
           aria-label="Choose Case Study cover image"

@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { type ChangeEvent, useRef, useState } from "react";
+import { CompactImagePreview } from "@/components/media/compact-image-preview";
 import { Button } from "@/components/ui/button";
 import { blogsApi } from "../api/blogs";
 import { blogErrorMessage } from "../lib/errors";
@@ -19,7 +19,7 @@ function validate(file: File): string | undefined {
   if (!TYPES.has(file.type) || !extension || !EXTENSIONS.has(extension)) return "Choose a JPEG, PNG, or WebP image.";
 }
 
-export function CoverImageControl({ blog, onChanged }: { blog: Blog; onChanged: (blog: Blog) => void }) {
+export function CoverImageControl({ blog, onBusyChange, onChanged }: { blog: Blog; onBusyChange?: (busy: boolean) => void; onChanged: (blog: Blog) => void }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string>();
@@ -30,26 +30,26 @@ export function CoverImageControl({ blog, onChanged }: { blog: Blog; onChanged: 
     if (!file || busy) return;
     const problem = validate(file);
     if (problem) { setError(problem); event.target.value = ""; return; }
-    setBusy(true); setError(undefined); setMessage(undefined);
+    setBusy(true); onBusyChange?.(true); setError(undefined); setMessage(undefined);
     try {
       const updated = await blogsApi.uploadCover(blog.id, file);
       onChanged(updated); setMessage(blog.cover_image_url ? "Cover image replaced." : "Cover image uploaded.");
     } catch (caught) { setError(blogErrorMessage(caught, "upload the cover image")); }
-    finally { setBusy(false); event.target.value = ""; }
+    finally { setBusy(false); onBusyChange?.(false); event.target.value = ""; }
   }
 
   async function remove() {
     if (busy || blog.status === "published") return;
-    setBusy(true); setError(undefined); setMessage(undefined);
+    setBusy(true); onBusyChange?.(true); setError(undefined); setMessage(undefined);
     try { await blogsApi.deleteCover(blog.id); onChanged({ ...blog, cover_image_url: null }); setMessage("Cover image removed."); }
     catch (caught) { setError(blogErrorMessage(caught, "remove the cover image")); }
-    finally { setBusy(false); }
+    finally { setBusy(false); onBusyChange?.(false); }
   }
 
   return <section className={styles.section} aria-labelledby="cover-heading">
     <div className={styles.sectionHeading}><h2 id="cover-heading">Cover image</h2><p>JPEG, PNG, or WebP. Maximum 5 MB.</p></div>
     <div className={styles.cover}>
-      {blog.cover_image_url ? <Image alt={`Cover for ${blog.title}`} className={styles.coverImage} height={540} src={blog.cover_image_url} unoptimized width={960} /> : <p className={styles.muted}>No cover image uploaded.</p>}
+      <CompactImagePreview alt={`Cover for ${blog.title}`} emptyText="No cover image uploaded" imageUrl={blog.cover_image_url} label="Blog cover image" />
       <input ref={inputRef} className={styles.fileInput} disabled={busy} type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" aria-label="Choose Blog cover image" onChange={(event) => void upload(event)} />
       <div className={styles.actions}>
         <Button disabled={busy} onClick={() => inputRef.current?.click()} variant="secondary">{busy ? "Working…" : blog.cover_image_url ? "Replace cover" : "Upload cover"}</Button>

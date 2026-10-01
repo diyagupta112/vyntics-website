@@ -7,12 +7,31 @@ type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
+  variant?: "up" | "left" | "right" | "scale";
 };
 
-function revealMotion(reduceMotion: boolean | null, delay: number) {
+function revealMotion(
+  reduceMotion: boolean | null,
+  delay: number,
+  variant: RevealProps["variant"] = "up",
+) {
+  const initial = variant === "scale"
+    ? { opacity: 0, scale: 0.975 }
+    : variant === "left"
+      ? { opacity: 0, x: -18 }
+      : variant === "right"
+        ? { opacity: 0, x: 18 }
+        : { opacity: 0, y: 20 };
+
+  const visible = variant === "scale"
+    ? { opacity: 1, scale: 1 }
+    : variant === "left" || variant === "right"
+      ? { opacity: 1, x: 0 }
+      : { opacity: 1, y: 0 };
+
   return {
-    initial: reduceMotion ? false : { opacity: 0, y: 20 },
-    whileInView: { opacity: 1, y: 0 },
+    initial: reduceMotion ? false : initial,
+    whileInView: visible,
     viewport: { once: true, amount: 0.18 },
     transition: reduceMotion
       ? { duration: 0 }
@@ -20,14 +39,14 @@ function revealMotion(reduceMotion: boolean | null, delay: number) {
   };
 }
 
-export function RevealBlock({ children, className, delay = 0 }: RevealProps) {
+export function RevealBlock({ children, className, delay = 0, variant = "up" }: RevealProps) {
   const reduceMotion = useReducedMotion();
-  return <motion.div className={className} {...revealMotion(reduceMotion, delay)}>{children}</motion.div>;
+  return <motion.div className={className} {...revealMotion(reduceMotion, delay, variant)}>{children}</motion.div>;
 }
 
-export function RevealArticle({ children, className, delay = 0 }: RevealProps) {
+export function RevealArticle({ children, className, delay = 0, variant = "up" }: RevealProps) {
   const reduceMotion = useReducedMotion();
-  return <motion.article className={className} {...revealMotion(reduceMotion, delay)}>{children}</motion.article>;
+  return <motion.article className={className} {...revealMotion(reduceMotion, delay, variant)}>{children}</motion.article>;
 }
 
 export function CurrentOpeningsLink({
