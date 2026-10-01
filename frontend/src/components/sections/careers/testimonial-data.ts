@@ -18,28 +18,6 @@ export type TeamTestimonial = {
 
 export const teamTestimonials: TeamTestimonial[] = [
   {
-    id: "akash-chaurasia",
-    name: "Akash Chaurasia",
-    role: "Data Engineer",
-    quote:
-      "What I enjoy most about Vyntics is the freedom to explore ideas and actually turn them into something real.",
-    imageUrl: akashImage,
-    imageAlt: "Portrait of Akash Chaurasia",
-    imagePosition: "center center",
-    thumbnailPosition: "center 29%",
-  },
-  {
-    id: "diya",
-    name: "Diya",
-    role: "Software Engineer",
-    quote:
-      "There’s always something new to learn here, and I really like how everyone is open to sharing ideas and helping each other.",
-    imageUrl: diyaImage,
-    imageAlt: "Portrait of Diya",
-    imagePosition: "center center",
-    thumbnailPosition: "center 28%",
-  },
-  {
     id: "ved",
     name: "Ved",
     role: "AI Engineer",
@@ -60,6 +38,28 @@ export const teamTestimonials: TeamTestimonial[] = [
     imageAlt: "Portrait of Vibhu",
     imagePosition: "center center",
     thumbnailPosition: "center 30%",
+  },
+  {
+    id: "akash-chaurasia",
+    name: "Akash Chaurasia",
+    role: "Data Engineer",
+    quote:
+      "What I enjoy most about Vyntics is the freedom to explore ideas and actually turn them into something real.",
+    imageUrl: akashImage,
+    imageAlt: "Portrait of Akash Chaurasia",
+    imagePosition: "center center",
+    thumbnailPosition: "center 29%",
+  },
+  {
+    id: "diya",
+    name: "Diya",
+    role: "Software Engineer",
+    quote:
+      "There’s always something new to learn here, and I really like how everyone is open to sharing ideas and helping each other.",
+    imageUrl: diyaImage,
+    imageAlt: "Portrait of Diya",
+    imagePosition: "center center",
+    thumbnailPosition: "center 28%",
   },
   {
     id: "vipul",
