@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { TeamShowcase } from "@/components/pages/team-showcase";
 import { Container } from "@/components/ui/container";
@@ -67,6 +68,35 @@ export default function AboutPage() {
             </div>
             <p>Structured data. Practical intelligence. Clear outcomes.</p>
           </div>
+        </Container>
+      </section>
+
+      <section className={styles.companyIntro} aria-labelledby="company-intro-title">
+        <Container className={styles.companyIntroGrid}>
+          <div className={styles.companyIntroCopy}>
+            <p className={styles.introLabel}>About Vyntics</p>
+            <h2 id="company-intro-title">We make <span>data and AI</span> useful where real work happens.</h2>
+            <p>
+              Vyntics is a data engineering and applied AI company helping organizations turn disconnected information, manual processes, and complex technology decisions into dependable working systems.
+            </p>
+            <p>
+              We work directly with business and technical leaders from discovery through delivery—bringing data foundations, decision-ready analytics, practical AI, and cloud engineering together through one accountable team.
+            </p>
+            <blockquote>Our aim: make advanced technology easier to adopt, easier to trust, and easier to own.</blockquote>
+          </div>
+
+          <figure className={styles.companyIntroVisual}>
+            <Image
+              src="/images/about-vyntics-team.png"
+              alt="A business team collaborating during a meeting"
+              fill
+              sizes="(max-width: 860px) 100vw, 46vw"
+            />
+            <figcaption>
+              <span>Built in Jaipur</span>
+              <strong>Designed for real operating environments.</strong>
+            </figcaption>
+          </figure>
         </Container>
       </section>
 
