@@ -32,14 +32,6 @@ function PlaceholderTeamStage() {
   );
 }
 
-function Ornament() {
-  return (
-    <svg viewBox="0 0 110 28" aria-hidden="true">
-      <path d="M2 14h31c9 0 13-12 13-12s4 12 13 12h49M46 2c0 8-12 12-12 12s12 4 12 12M59 14c-4 0-6-5-6-5s-2 5-6 5c4 0 6 5 6 5s2-5 6-5Z" />
-    </svg>
-  );
-}
-
 export async function TeamShowcase() {
   const members = await getTeamMembers();
   const featured = members.find((member) => member.member_type === "leadership") ?? members[0];
@@ -62,9 +54,7 @@ export async function TeamShowcase() {
         <header className={styles.heading}>
           <p>Meet Vyntics</p>
           <div className={styles.titleRow}>
-            <Ornament />
             <h2 id="team-title">Our Team</h2>
-            <Ornament />
           </div>
           <p className={styles.intro}>The people responsible for the systems we design, build, and deliver.</p>
         </header>
