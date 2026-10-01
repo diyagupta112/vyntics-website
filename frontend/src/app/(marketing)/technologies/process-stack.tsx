@@ -8,6 +8,7 @@ import styles from "./page.module.css";
 type ProcessStep = {
   readonly title: string;
   readonly description: string;
+  readonly points: readonly string[];
 };
 
 type ProcessStackProps = {
@@ -82,6 +83,9 @@ export function ProcessStack({ steps }: ProcessStackProps) {
                 </div>
                 <h3>{step.title}</h3>
                 <p>{step.description}</p>
+                <ul className={styles.processPoints}>
+                  {step.points.map((point) => <li key={point}>{point}</li>)}
+                </ul>
               </article>
             );
           })}

@@ -26,10 +26,26 @@ const toolGroups = [
 ] as const;
 
 const process = [
-  { title: "Start with the outcome", description: "We define what the system must improve, who will use it, and how success will be measured before selecting a platform." },
-  { title: "Fit the environment", description: "The stack is shaped around your data, team skills, security constraints, and systems already in production." },
-  { title: "Prove the difficult part", description: "We test the highest-risk assumption early, using a focused prototype before committing to a larger build." },
-  { title: "Build for ownership", description: "Clear interfaces, monitoring, documentation, and maintainable code keep the system useful after launch." },
+  {
+    title: "Start with the outcome",
+    description: "We define what the system must improve, who will use it, and how success will be measured before selecting a platform.",
+    points: ["Business goal and success metrics", "User workflows and decision points", "Scope, constraints, and priorities"],
+  },
+  {
+    title: "Fit the environment",
+    description: "The stack is shaped around your data, team skills, security constraints, and systems already in production.",
+    points: ["Current systems and data sources", "Security and compliance requirements", "Team skills and operating model"],
+  },
+  {
+    title: "Prove the difficult part",
+    description: "We test the highest-risk assumption early, using a focused prototype before committing to a larger build.",
+    points: ["Technical feasibility prototype", "Performance and quality checks", "Early feedback from real users"],
+  },
+  {
+    title: "Build for ownership",
+    description: "Clear interfaces, monitoring, documentation, and maintainable code keep the system useful after launch.",
+    points: ["Observable production deployment", "Documentation and knowledge transfer", "Maintainable paths for future change"],
+  },
 ] as const;
 
 const capabilityBadges = [
