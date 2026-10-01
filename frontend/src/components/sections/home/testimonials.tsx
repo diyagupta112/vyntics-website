@@ -92,7 +92,7 @@ export function Testimonials() {
                     {testimonial.name.split(" ").map((part) => part[0]).join("")}
                   </span>
                   <blockquote>“{testimonial.text}”</blockquote>
-                  <footer>— {testimonial.name}, <span>{testimonial.role}</span></footer>
+                  <footer>- {testimonial.name}, <span>{testimonial.role}</span></footer>
                 </article>
               );
             })}

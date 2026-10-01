@@ -4,19 +4,19 @@
 
 ## Current phase
 
-Phase 6 — Blog API, including the additional admin read endpoints, is complete.
-Phase 7 — Case Studies is implemented and verified through automated contract,
+Phase 6 - Blog API, including the additional admin read endpoints, is complete.
+Phase 7 - Case Studies is implemented and verified through automated contract,
 repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
-Phase 11 — Contact Us is implemented and verified through automated schema,
+Phase 11 - Contact Us is implemented and verified through automated schema,
 repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
-Phase 10 — Our Team is implemented and verified through automated schema,
+Phase 10 - Our Team is implemented and verified through automated schema,
 repository, service, API, OpenAPI, migration, and real Supabase PostgreSQL
 tests.
-Phase 8 — Careers is implemented and verified through schema, repository,
+Phase 8 - Careers is implemented and verified through schema, repository,
 service, API/OpenAPI, full-suite, live Supabase PostgreSQL, and manual live API
 checks.
 
-## Phase 1 — FastAPI Bootstrap
+## Phase 1 - FastAPI Bootstrap
 
 - [x] Added Python project and dependency configuration in `pyproject.toml`.
 - [x] Added FastAPI and Uvicorn runtime dependencies.
@@ -32,7 +32,7 @@ checks.
 - [x] Verified `GET /health` returns 200.
 - [x] Verified `GET /docs` returns 200 and serves Swagger UI.
 
-## Phase 2 — Configuration and Environment Setup
+## Phase 2 - Configuration and Environment Setup
 
 - [x] Added typed settings based on `pydantic-settings`.
 - [x] Added explicit development, test, and production environment values.
@@ -48,7 +48,7 @@ checks.
 - [x] Added tests for environment-variable parsing, secret masking, settings injection, and CORS.
 - [x] Verified the configured application boots under Uvicorn without external services.
 
-## Phase 3 — Database + SQLAlchemy
+## Phase 3 - Database + SQLAlchemy
 
 Completed foundation:
 
@@ -86,7 +86,7 @@ Remaining Phase 3 work:
   database.
 - [ ] Decide and implement RLS only after access policies are explicitly approved.
 
-## Phase 4 — Pydantic API Schemas
+## Phase 4 - Pydantic API Schemas
 
 - [x] Added shared Pydantic v2 request and response schema foundations.
 - [x] Configured request schemas to reject undeclared/client-controlled fields.
@@ -110,7 +110,7 @@ Remaining Phase 3 work:
 - [x] Did not add routes, service/repository logic, authentication, storage, or
   database changes.
 
-## Phase 5 — Database Connectivity Foundation
+## Phase 5 - Database Connectivity Foundation
 
 - [x] Verified the settings layer reads `DATABASE_URL` as a masked `SecretStr`
   from environment variables and dotenv files.
@@ -141,7 +141,7 @@ Live verification result:
 - [x] The standalone connectivity command uses a Windows Selector event loop so
   Psycopg async mode works on Windows.
 
-## Phase 6 — Blogs
+## Phase 6 - Blogs
 
 - [x] Added public `GET /blogs` with published-only filtering and
   `published_at DESC` ordering.
@@ -209,7 +209,7 @@ Completed additional work:
 
 Existing public Blog GET behavior remains unchanged.
 
-## Phase 7 — Case Studies preparation
+## Phase 7 - Case Studies preparation
 
 - [x] Reviewed the Phase 7 plan against the existing Case Study SQLAlchemy
   model, Supabase migration, and Phase 4 public schemas.
@@ -249,7 +249,7 @@ Existing public Blog GET behavior remains unchanged.
   route and schema coverage is verified automatically.
 - [x] Authentication and authorization were added in Phase 12.
 
-## Phase 8 — Careers documentation preparation
+## Phase 8 - Careers documentation preparation
 
 - [x] Reviewed the architecture, implementation plan, progress record, Career
   ORM model, initial Supabase migration, existing public Career schemas, prior
@@ -301,7 +301,7 @@ Existing public Blog GET behavior remains unchanged.
   operations, response fields, ordering, generated/preserved `published_at`,
   duplicate slug, restricted delete, missing behavior, and empty 204 bodies.
 
-## Phase 9 — Job Applications documentation preparation
+## Phase 9 - Job Applications documentation preparation
 
 - [x] Reviewed the architecture, implementation plan, progress record, Job
   Application ORM model and migration, existing multipart request schema,
@@ -431,7 +431,7 @@ Existing public Blog GET behavior remains unchanged.
 - [x] Added focused model, migration, repository, service, API/OpenAPI, and
   PostgreSQL lifecycle coverage for current and historical applications.
 
-## Phase 10 — Our Team documentation preparation
+## Phase 10 - Our Team documentation preparation
 
 - [x] Reviewed the existing Team Member ORM model, initial Supabase migration,
   Phase 4 response schema, database conventions, and prior API patterns.
@@ -479,7 +479,7 @@ Existing public Blog GET behavior remains unchanged.
   OpenAPI and the real database lifecycle were verified automatically.
 - [x] Authentication and authorization were added in Phase 12.
 
-## Phase 11 — Contact Us documentation preparation
+## Phase 11 - Contact Us documentation preparation
 
 - [x] Reviewed the existing Contact Submission ORM model, Supabase migration,
   Phase 4 request schema, database/session infrastructure, and prior resource
@@ -577,7 +577,7 @@ Existing public Blog GET behavior remains unchanged.
   active `admin` and `superadmin` records can use current protected operations.
 - [x] Confirmed no schema or migration change was required.
 
-## Phase 13 — Supabase Storage implementation
+## Phase 13 - Supabase Storage implementation
 
 - [x] Confirmed the server-owned architecture is Admin Panel → FastAPI →
   Supabase Storage; no direct browser mutation path or broad authenticated-user

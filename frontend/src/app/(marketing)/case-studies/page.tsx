@@ -15,7 +15,7 @@ export default function CaseStudiesPage() {
         <Container>
           <p className={styles.eyebrow}>Case studies</p>
           <h1>Production systems, explained clearly.</h1>
-          <p>See how we approach practical AI, data, analytics, automation, and cloud challenges—from the system delivered to the outcomes it supports.</p>
+          <p>See how we approach practical AI, data, analytics, automation, and cloud challenges-from the system delivered to the outcomes it supports.</p>
         </Container>
       </section>
       <section className={styles.section}>

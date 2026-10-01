@@ -3,7 +3,8 @@
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, File, HTTPException, Response, UploadFile, status
+from fastapi import APIRouter, File, HTTPException, Request, Response, UploadFile, status
+from app.core.config import Environment
 
 from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.blogs import BlogServiceDependency
@@ -24,6 +25,24 @@ from app.storage.uploads import UploadValidationError
 
 router = APIRouter(prefix="/blogs", tags=["blogs"])
 admin_router = APIRouter(prefix="/admin/blogs", tags=["admin blogs"])
+
+
+@router.get("/preview/all")
+async def preview_blogs(request: Request, service: BlogServiceDependency) -> dict:
+    """Loopback-only development preview without changing publication status."""
+    if (
+        request.app.state.settings.environment != Environment.DEVELOPMENT
+        or request.client is None
+        or request.client.host not in {"127.0.0.1", "::1"}
+    ):
+        raise HTTPException(status_code=404, detail="Not found")
+    blogs = await service.list_all()
+    return {"data": [
+        {**BlogAdminResponse.model_validate(blog).model_dump(mode="json"),
+         "cover_image_url": str(blog.cover_image_url or ""),
+         "published_at": (blog.published_at or blog.created_at).isoformat()}
+        for blog in blogs
+    ]}
 
 
 @router.get("", response_model=BlogListResponse)

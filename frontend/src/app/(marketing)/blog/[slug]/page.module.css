@@ -1,0 +1,29 @@
+.hero { position: relative; isolation: isolate; min-height: calc(100svh - 5rem); display: flex; color: #fff; background: #102544; }
+.cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+.shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(4 12 25 / 25%) 0%, rgb(4 12 25 / 15%) 25%, rgb(4 12 25 / 75%) 75%, rgb(4 12 25 / 90%) 100%); }
+.heroInner { width: min(100%, 76rem); margin: auto; padding: 2rem 2.5rem 3rem; min-height: inherit; display: flex; flex-direction: column; justify-content: space-between; gap: 5rem; }
+.back { align-self: flex-start; font-size: .9rem; font-weight: 600; padding: .65rem 1rem; border: 1px solid rgb(255 255 255 / 35%); border-radius: 2rem; background: rgb(4 12 25 / 20%); }
+.titleBlock { max-width: 58rem; }
+.category { font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 1rem; }
+.titleBlock h1 { font-size: clamp(2.1rem, 4.4vw, 4.3rem); line-height: 1.12; letter-spacing: -.04em; text-wrap: balance; text-shadow: 0 2px 20px rgb(0 0 0 / 20%); }
+.meta { display: flex; flex-wrap: wrap; gap: .65rem 1.5rem; margin-top: 1.5rem; font-size: .9rem; color: rgb(255 255 255 / 85%); }
+.scroll { display: inline-flex; align-items: center; gap: 1rem; margin-top: 2.5rem; font-size: .8rem; color: rgb(255 255 255 / 85%); }
+.scroll span { display: grid; place-items: center; border: 1px solid rgb(255 255 255 / 35%); width: 2rem; height: 2rem; border-radius: 50%; }
+.readingLayout { width: min(100%, 76rem); margin: auto; padding: 3rem 2rem 5rem; display: grid; grid-template-columns: minmax(0, 1fr) 18rem; align-items: start; gap: 2rem; scroll-margin-top: 6rem; }
+.body { min-width: 0; padding: clamp(1.5rem, 3vw, 2.75rem); border: 1px solid var(--color-border); border-radius: 1rem; text-align: left; background: var(--color-surface); }
+.sidebar { display: grid; gap: 1.25rem; position: sticky; top: 6.5rem; }
+.infoCard { padding: 1.5rem; border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-surface); }
+.sideLabel { color: var(--color-primary); font-size: .7rem; letter-spacing: .12em; font-weight: 700; margin-bottom: 1.5rem; }
+.infoCard dl { display: grid; gap: 1.25rem; }.infoCard dt { font-size: .75rem; color: var(--color-muted); margin-bottom: .35rem; }.infoCard dd { font-size: .9rem; line-height: 1.5; font-weight: 600; }
+.infoCard h2 { font-size: 1.1rem; margin-bottom: .75rem; }
+.allBlogs { display: inline-block; margin-top: 1.25rem; color: var(--color-primary); font-size: .85rem; font-weight: 600; }
+.extraSection { margin-top: 2.5rem; }.extraSection h2 { font-size: clamp(1.3rem, 2vw, 1.6rem); line-height: 1.35; margin-bottom: 1rem; letter-spacing: -.025em; }.extraSection p { margin: 1rem 0; color: var(--color-muted); font-size: 1rem; }.extraSection ul { padding-left: 1.25rem; color: var(--color-muted); line-height: 1.85; }.extraSection li { margin-top: .5rem; }
+.sidebar a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+@media (max-width: 900px) { .readingLayout { grid-template-columns: minmax(0, 1fr); }.sidebar { position: static; grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .readingLayout { padding: 2rem 1rem 3rem; }.sidebar { grid-template-columns: 1fr; }.body { padding: 1.25rem; } }
+.excerpt { font-size: clamp(1.1rem, 1.6vw, 1.3rem); line-height: 1.8; color: var(--color-muted); padding-bottom: 2rem; margin-bottom: 2rem; border-bottom: 1px solid var(--color-border); }
+.body :global(p) { line-height: 1.85; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--color-border); padding-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; font-size: .9rem; color: var(--color-muted); }
+.footer a { color: var(--color-primary); font-weight: 600; }
+.hero a:focus-visible, .footer a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+@media (max-width: 640px) { .hero { min-height: calc(100svh - 4.5rem); }.heroInner { padding: 1.5rem 1.25rem 2rem; gap: 4rem; }.meta { font-size: .8rem; gap: .6rem 1rem; } }

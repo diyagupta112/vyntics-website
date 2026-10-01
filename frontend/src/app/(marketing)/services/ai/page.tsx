@@ -70,7 +70,7 @@ export default function AiServicePage() {
         <Container>
           <div className={styles.sectionIntro}>
             <p className={styles.eyebrow}>RAG assistants</p>
-            <h2 id="rag-title">A trustworthy answer engine—not another generic chatbot.</h2>
+            <h2 id="rag-title">A trustworthy answer engine-not another generic chatbot.</h2>
             <p>Retrieval-augmented assistants answer from controlled company knowledge, attach the evidence, and make uncertainty visible.</p>
           </div>
           <div className={styles.featureGrid}>
@@ -106,7 +106,7 @@ export default function AiServicePage() {
         <Container>
           <div className={styles.sectionIntro}>
             <p className={styles.eyebrow}>Agentic AI & automation</p>
-            <h2 id="agents-title">AI that can move work forward—not only answer.</h2>
+            <h2 id="agents-title">AI that can move work forward-not only answer.</h2>
             <p>We connect agents to real business tools and processes, with approvals, guardrails, and complete logs where the risk demands them.</p>
           </div>
           <div className={styles.agentGrid}>

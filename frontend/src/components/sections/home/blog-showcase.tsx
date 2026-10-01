@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "motion/react";
 import type { CSSProperties, FocusEvent } from "react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import styles from "./blog-showcase.module.css";
 
@@ -136,9 +137,9 @@ export function BlogShowcase() {
             <p>Useful guides for building reliable systems beyond the demo.</p>
           </div>
 
-          <a className={styles.viewAll} href="/blog">
+          <Link className={styles.viewAll} href="/blog">
             View all articles <ArrowIcon />
-          </a>
+          </Link>
         </header>
 
         <div

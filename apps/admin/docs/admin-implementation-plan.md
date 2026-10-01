@@ -1,6 +1,6 @@
-# Vyntics Admin Panel — Implementation Plan
+# Vyntics Admin Panel - Implementation Plan
 
-**Status:** Active implementation roadmap and technical source of truth — Phases A–I complete; Phase J planned
+**Status:** Active implementation roadmap and technical source of truth - Phases A–I complete; Phase J planned
 **Application:** `apps/admin`  
 **Backend:** FastAPI (`apps/api`)  
 **Auth:** Supabase Auth  
@@ -860,7 +860,7 @@ Expose:
 - name
 - role
 - bio
-- photo_url — managed through upload workflow
+- photo_url - managed through upload workflow
 - linkedin_url
 - display_order
 - member_type
@@ -1149,7 +1149,7 @@ Required baseline:
 
 # 19. Testing strategy
 
-The Admin Panel has an established Vitest and Testing Library foundation. Completed Phase A–C behavior is covered by automated tests, and each feature phase must extend—not weaken—the suite.
+The Admin Panel has an established Vitest and Testing Library foundation. Completed Phase A–C behavior is covered by automated tests, and each feature phase must extend-not weaken-the suite.
 
 The implementation strategy includes:
 
@@ -1297,7 +1297,7 @@ The authoritative implementation order is:
 | I | Contact Submissions | Complete |
 | J | Hardening & Production Readiness | Planned |
 
-## 23.1 Phase A — Admin Panel Foundation
+## 23.1 Phase A - Admin Panel Foundation
 
 **Status:** Complete
 
@@ -1330,7 +1330,7 @@ Establish a production-capable frontend foundation without implementing real aut
 
 The Admin application builds and runs with stable routing, styling, reusable primitives, responsive shells, and an automated quality-check foundation, while making no claim that authentication or CRUD is implemented.
 
-## 23.2 Phase B — Authentication & Route Protection
+## 23.2 Phase B - Authentication & Route Protection
 
 **Status:** Complete
 
@@ -1366,7 +1366,7 @@ Detailed authentication and authorization requirements remain in Section 5.
 
 A real Supabase session can be created and restored, FastAPI remains the authorization authority, unauthorized users cannot enter the application area, and logout removes access without exposing server credentials.
 
-## 23.3 Phase C — Authenticated API Foundation
+## 23.3 Phase C - Authenticated API Foundation
 
 **Status:** Complete
 
@@ -1401,7 +1401,7 @@ The detailed shared client contract remains in Section 6.
 
 Future features can communicate with FastAPI through one strictly typed authenticated client, with predictable response parsing and safe error classification, without introducing another auth or HTTP abstraction.
 
-## 23.4 Phase D — Blogs
+## 23.4 Phase D - Blogs
 
 **Status:** Complete
 
@@ -1438,9 +1438,9 @@ The detailed Blog endpoint, field, status, Storage, and backend-managed-field co
 
 ### Definition of done
 
-An authorized administrator can manage the complete existing Blog contract—including lifecycle, SEO, slug, deletion, and cover workflows—without invented fields, endpoints, or direct Supabase data/Storage access.
+An authorized administrator can manage the complete existing Blog contract-including lifecycle, SEO, slug, deletion, and cover workflows-without invented fields, endpoints, or direct Supabase data/Storage access.
 
-## 23.5 Phase E — Case Studies
+## 23.5 Phase E - Case Studies
 
 **Status:** Complete
 
@@ -1472,7 +1472,7 @@ The exact Case Study endpoints, methods, fields, status lifecycle, and cover beh
 
 The complete existing Case Study contract is manageable through a consistent Admin UI without adding fields, states, or endpoints.
 
-## 23.6 Phase F — Careers
+## 23.6 Phase F - Careers
 
 **Status:** Complete
 
@@ -1505,7 +1505,7 @@ The exact Career endpoints, fields, lifecycle exclusions, `published_at`, and de
 
 Administrators can manage the exact existing Career contract, with permanent deletion and backend-generated publication metadata represented accurately.
 
-## 23.7 Phase G — Job Applications
+## 23.7 Phase G - Job Applications
 
 **Status:** Complete
 
@@ -1542,7 +1542,7 @@ The exact global and career-specific endpoints, PATCH limitations, statuses, res
 
 Authorized administrators can review and update only the allowed Job Application fields, access private resumes safely, and handle applications independently of a live Career record.
 
-## 23.8 Phase H — Our Team
+## 23.8 Phase H - Our Team
 
 **Status:** Complete
 
@@ -1575,7 +1575,7 @@ The exact Team endpoints, fields, member types, display order, LinkedIn validati
 
 Administrators can manage the complete current Team contract and optional photos without invented lifecycle fields or direct Storage access.
 
-## 23.9 Phase I — Contact Submissions
+## 23.9 Phase I - Contact Submissions
 
 **Status:** Complete
 
@@ -1608,7 +1608,7 @@ The exact public create/receipt contract, Admin list/detail/delete contract, and
 
 Authorized administrators can safely read and delete submissions while the UI makes no unsupported promise of editing or resolution workflow.
 
-## 23.10 Phase J — Hardening & Production Readiness
+## 23.10 Phase J - Hardening & Production Readiness
 
 **Status:** Planned
 

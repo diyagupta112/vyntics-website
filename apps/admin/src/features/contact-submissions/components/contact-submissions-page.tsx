@@ -135,7 +135,7 @@ export function ContactSubmissionsPage() {
                 >
                   <td>{submission.name}</td>
                   <td>{submission.email}</td>
-                  <td>{submission.company || "—"}</td>
+                  <td>{submission.company || "-"}</td>
                   <td>{truncateText(submission.subject, 44)}</td>
                   <td>{truncateText(submission.message, 84)}</td>
                   <td>{truncateText(submission.source_page, 40)}</td>

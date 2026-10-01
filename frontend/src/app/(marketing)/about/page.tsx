@@ -51,7 +51,7 @@ export default function AboutPage() {
             <p className={styles.eyebrow}>Data and AI you can trust</p>
             <h1>Transforming data into strategic advantage.</h1>
             <p className={styles.lead}>
-              We&apos;re Vyntics—a team of data scientists, engineers, and strategists helping organizations turn complex information into trusted decisions, useful automation, and systems built to last.
+              We&apos;re Vyntics-a team of data scientists, engineers, and strategists helping organizations turn complex information into trusted decisions, useful automation, and systems built to last.
             </p>
             <div className={styles.heroActions}>
               <Link className={styles.primaryButton} href="/#contact">Start a conversation <ArrowIcon /></Link>
@@ -80,7 +80,7 @@ export default function AboutPage() {
               Vyntics is a data engineering and applied AI company helping organizations turn disconnected information, manual processes, and complex technology decisions into dependable working systems.
             </p>
             <p>
-              We work directly with business and technical leaders from discovery through delivery—bringing data foundations, decision-ready analytics, practical AI, and cloud engineering together through one accountable team.
+              We work directly with business and technical leaders from discovery through delivery-bringing data foundations, decision-ready analytics, practical AI, and cloud engineering together through one accountable team.
             </p>
             <blockquote>Our aim: make advanced technology easier to adopt, easier to trust, and easier to own.</blockquote>
           </div>
@@ -127,7 +127,7 @@ export default function AboutPage() {
         <Container>
           <div className={styles.sectionHeading}>
             <p className={styles.eyebrow}>Our values</p>
-            <h2 id="values-title">How we make the work—and the partnership—better.</h2>
+            <h2 id="values-title">How we make the work-and the partnership-better.</h2>
           </div>
           <ValueCards />
         </Container>
@@ -135,10 +135,18 @@ export default function AboutPage() {
 
       <section className={`${styles.section} ${styles.story}`} aria-labelledby="story-title">
         <Container className={styles.storyGrid}>
-          <div className={styles.storyMarker} aria-hidden="true">
-            <span>Built for</span>
-            <strong>real work</strong>
-          </div>
+          <figure className={styles.storyMarker}>
+            <Image
+              src="/images/about-story-collaboration.png"
+              alt="A team collaborating around a table with laptops"
+              fill
+              sizes="(max-width: 860px) 100vw, 38vw"
+            />
+            <figcaption>
+              <span>Built for</span>
+              <strong>real work</strong>
+            </figcaption>
+          </figure>
           <div className={styles.storyCopy}>
             <p className={styles.eyebrow}>Our story</p>
             <h2 id="story-title">Created to turn data into decisions and automation teams can trust.</h2>
@@ -146,7 +154,7 @@ export default function AboutPage() {
               Vyntics was built as an expert-led consulting team: small enough to move quickly, experienced enough to make sound technical decisions, and direct enough to keep clients close to the people doing the work.
             </p>
             <p>
-              Whether the need is a modern data platform, analytics leadership actually uses, or practical AI automation, we bring structured execution and long-term maintainability—not another deck of recommendations.
+              Whether the need is a modern data platform, analytics leadership actually uses, or practical AI automation, we bring structured execution and long-term maintainability-not another deck of recommendations.
             </p>
             <Link className={styles.storyLink} href="#team">The people behind Vyntics <ArrowIcon /></Link>
           </div>

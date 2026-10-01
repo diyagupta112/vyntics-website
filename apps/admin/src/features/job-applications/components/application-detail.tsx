@@ -62,7 +62,7 @@ export function ApplicationDetail({ detail, onDelete, onUpdated }: Props) {
           <dl className={styles.detailList}>
             <div><dt>Career</dt><dd>{detail.career_title_snapshot}</dd></div>
             <div><dt>Career slug</dt><dd>{detail.career_slug_snapshot}</dd></div>
-            <div><dt>Live Career</dt><dd>{detail.career_id ? "Available" : "Deleted — historical snapshot retained"}</dd></div>
+            <div><dt>Live Career</dt><dd>{detail.career_id ? "Available" : "Deleted - historical snapshot retained"}</dd></div>
           </dl>
         </section>
       </div>

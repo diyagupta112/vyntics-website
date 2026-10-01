@@ -1,4 +1,4 @@
-# Vyntics Website — Master API Contract
+# Vyntics Website - Master API Contract
 
 Public Website Frontend Integration Reference • Consolidated from the approved API contracts
 
@@ -71,9 +71,9 @@ Returns a list of published blogs that can be displayed on the main Blogs page.
 
 The listing response does not include the complete blog content because the main Blogs page only needs the information required to display blog previews/cards.
 
-- `content` — complete article content is only needed on the individual blog page.
-- `seo_title` — used for the individual page's document title and SEO metadata.
-- `meta_description` — used for the individual page's SEO metadata.
+- `content` - complete article content is only needed on the individual blog page.
+- `seo_title` - used for the individual page's document title and SEO metadata.
+- `meta_description` - used for the individual page's SEO metadata.
 
 The `GET /blogs` response is intentionally lightweight compared with `GET /blogs/{slug}`. Pagination can be added later if required as the number of published blogs grows; exact pagination parameters can be finalized separately.
 
@@ -223,10 +223,10 @@ Returns only the information required to render case-study cards and navigate to
 
 ### Fields Not Included in Listing
 
-- `content` — full structured case-study content is only needed on the individual case-study page.
-- `seo_title` — used for the individual page's document title and SEO metadata.
-- `meta_description` — used for the individual page's SEO metadata.
-- `status` — internal publication/state field; published case studies can be returned without exposing this internal field.
+- `content` - full structured case-study content is only needed on the individual case-study page.
+- `seo_title` - used for the individual page's document title and SEO metadata.
+- `meta_description` - used for the individual page's SEO metadata.
+- `status` - internal publication/state field; published case studies can be returned without exposing this internal field.
 
 ## 2.2 Individual Case Study Page
 
@@ -747,7 +747,7 @@ Blogs, Case Studies, and Careers use a public `slug` to identify the resource in
 | Blogs | GET /blogs | GET /blogs/{slug} | slug |
 | Case Studies | GET /case-studies | GET /case-studies/{slug} | slug |
 | Careers | GET /careers | GET /careers/{slug} | slug |
-| Job Applications | — | POST /careers/{slug}/apply | job slug |
+| Job Applications | - | POST /careers/{slug}/apply | job slug |
 
 For job applications, the frontend does not need to know or submit the internal job UUID. The backend resolves the slug to the internal job record.
 

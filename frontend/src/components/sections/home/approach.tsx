@@ -12,7 +12,7 @@ const steps = [
     number: "02",
     label: "Architect",
     title: "System Design",
-    description: "We design the right architecture for your scale—not over-engineered, not under-built. Always documented.",
+    description: "We design the right architecture for your scale-not over-engineered, not under-built. Always documented.",
   },
   {
     number: "03",

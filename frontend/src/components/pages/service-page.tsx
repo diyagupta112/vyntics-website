@@ -59,7 +59,7 @@ export function ServicePage({ service }: { service: ServiceContent }) {
       <section className={styles.technology} aria-labelledby={`${service.slug}-technology`}>
         <Container>
           <p className={styles.label}>Technology</p>
-          <h2 id={`${service.slug}-technology`}>Tools selected for the problem—not the pitch deck.</h2>
+          <h2 id={`${service.slug}-technology`}>Tools selected for the problem-not the pitch deck.</h2>
           <ul>{service.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul>
         </Container>
       </section>

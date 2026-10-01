@@ -13,7 +13,7 @@ export const services: Record<ServiceContent["slug"], ServiceContent> = {
   ai: {
     slug: "ai",
     eyebrow: "Custom AI solutions",
-    title: "AI that works from your data—and shows its sources.",
+    title: "AI that works from your data-and shows its sources.",
     introduction: "We design and build production AI systems grounded in the information, workflows, and controls your organization already relies on.",
     promise: "Useful AI is more than a convincing demo. It needs reliable retrieval, clear evaluation, secure integrations, and a path into the real workflow.",
     offerings: [
@@ -45,7 +45,7 @@ export const services: Record<ServiceContent["slug"], ServiceContent> = {
     eyebrow: "Cloud solutions",
     title: "Cloud infrastructure sized for the work you actually run.",
     introduction: "We design, migrate, and improve cloud systems across AWS, Azure, and Google Cloud with reliability, observability, and cost in view.",
-    promise: "The right cloud foundation should be repeatable, understandable, and economical—not over-provisioned or hidden behind unnecessary complexity.",
+    promise: "The right cloud foundation should be repeatable, understandable, and economical-not over-provisioned or hidden behind unnecessary complexity.",
     offerings: [
       { title: "Cloud architecture", description: "Clear system designs that balance scale, security, reliability, and operational simplicity." },
       { title: "Migration", description: "Planned movement of applications, databases, and workloads with controlled risk and documented decisions." },
