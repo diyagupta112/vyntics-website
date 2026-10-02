@@ -76,6 +76,18 @@ def _resume(filename: str = "resume.pdf") -> UploadFile:
     return UploadFile(file=BytesIO(b"resume"), filename=filename)
 
 
+def _candidate_fields(**overrides: object) -> dict[str, object]:
+    fields: dict[str, object] = {
+        "experience_years": 4,
+        "experience_months": 6,
+        "currently_working": True,
+        "current_company": "Analytical Engines Ltd",
+        "notice_period": "30_days",
+    }
+    fields.update(overrides)
+    return fields
+
+
 def test_blog_list_response_matches_public_contract() -> None:
     response = BlogListResponse.model_validate({"data": [_blog_list_item()]})
 
@@ -294,18 +306,24 @@ def test_job_application_accepts_required_fields_and_optional_cover_letter() -> 
         name="Applicant Name",
         email="applicant@example.com",
         phone="+1 555 0100",
+        **_candidate_fields(),
         resume=_resume(),
     )
     request_with_letter = JobApplicationCreateRequest(
         name="Applicant Name",
         email="applicant@example.com",
         phone="+1 555 0100",
+        **_candidate_fields(current_company=None),
         resume=_resume("resume.docx"),
         cover_letter="I would like to apply.",
     )
 
     assert request.cover_letter is None
+    assert request.experience_years == 4
+    assert request.experience_months == 6
+    assert request.currently_working is True
     assert request_with_letter.cover_letter == "I would like to apply."
+    assert request_with_letter.current_company is None
 
 
 def test_job_application_temporarily_accepts_omitted_resume() -> None:
@@ -313,9 +331,11 @@ def test_job_application_temporarily_accepts_omitted_resume() -> None:
         name="Applicant Name",
         email="applicant@example.com",
         phone="+1 555 0100",
+        **_candidate_fields(currently_working=False, current_company=None),
     )
 
     assert request.resume is None
+    assert request.currently_working is False
 
 
 @pytest.mark.parametrize(
@@ -331,6 +351,7 @@ def test_job_application_rejects_backend_controlled_fields(
                 "name": "Applicant Name",
                 "email": "applicant@example.com",
                 "phone": "+1 555 0100",
+                **_candidate_fields(),
                 "resume": _resume(),
                 internal_field: "client-controlled",
             }
@@ -343,6 +364,7 @@ def test_job_application_rejects_invalid_email_and_resume_extension() -> None:
             name="Applicant Name",
             email="not-an-email",
             phone="+1 555 0100",
+            **_candidate_fields(),
             resume=_resume(),
         )
 
@@ -351,8 +373,74 @@ def test_job_application_rejects_invalid_email_and_resume_extension() -> None:
             name="Applicant Name",
             email="applicant@example.com",
             phone="+1 555 0100",
+            **_candidate_fields(),
             resume=_resume("resume.txt"),
         )
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("experience_years", -1),
+        ("experience_months", -1),
+        ("experience_months", 12),
+        ("notice_period", "45_days"),
+        ("current_company", "   "),
+        ("current_company", "x" * 201),
+    ],
+)
+def test_job_application_rejects_invalid_candidate_information(
+    field: str,
+    value: object,
+) -> None:
+    with pytest.raises(ValidationError):
+        JobApplicationCreateRequest.model_validate(
+            {
+                "name": "Applicant Name",
+                "email": "applicant@example.com",
+                "phone": "+1 555 0100",
+                **_candidate_fields(**{field: value}),
+            }
+        )
+
+
+@pytest.mark.parametrize(
+    "notice_period",
+    ["immediate", "15_days", "30_days", "60_days", "90_days", "other"],
+)
+def test_job_application_accepts_every_notice_period(
+    notice_period: str,
+) -> None:
+    request = JobApplicationCreateRequest.model_validate(
+        {
+            "name": "Applicant Name",
+            "email": "applicant@example.com",
+            "phone": "+1 555 0100",
+            **_candidate_fields(notice_period=notice_period),
+        }
+    )
+
+    assert request.notice_period == notice_period
+
+
+@pytest.mark.parametrize("currently_working", [True, False])
+def test_job_application_accepts_null_company_for_any_employment_state(
+    currently_working: bool,
+) -> None:
+    request = JobApplicationCreateRequest.model_validate(
+        {
+            "name": "Applicant Name",
+            "email": "applicant@example.com",
+            "phone": "+1 555 0100",
+            **_candidate_fields(
+                currently_working=currently_working,
+                current_company=None,
+            ),
+        }
+    )
+
+    assert request.currently_working is currently_working
+    assert request.current_company is None
 
 
 @pytest.mark.parametrize("member_type", ["leadership", "team"])

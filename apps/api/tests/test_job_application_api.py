@@ -33,7 +33,9 @@ SUBMITTED_AT = datetime(2026, 9, 25, 12, 0, tzinfo=timezone.utc)
 SIGNED_URL = "https://example.supabase.co/storage/v1/object/sign/job-applications/file?token=x"
 LIST_FIELDS = {
     "id", "career_id", "career_title_snapshot", "career_slug_snapshot",
-    "name", "email", "phone", "status", "submitted_at", "resume_url",
+    "name", "email", "phone", "experience_years", "experience_months",
+    "currently_working", "current_company", "notice_period", "status",
+    "submitted_at", "resume_url",
 }
 DETAIL_FIELDS = LIST_FIELDS | {"cover_letter", "notes"}
 
@@ -47,6 +49,11 @@ def _application(**overrides: object) -> JobApplication:
         "name": "Ada Applicant",
         "email": "ada@example.com",
         "phone": "+91 9999999999",
+        "experience_years": 4,
+        "experience_months": 6,
+        "currently_working": True,
+        "current_company": "Analytical Engines Ltd",
+        "notice_period": "30_days",
         "resume_url": f"{APPLICATION_ID}/resume.pdf",
         "cover_letter": "Private cover letter",
         "status": "new",
@@ -66,6 +73,11 @@ def _list_item(**overrides: object) -> JobApplicationAdminListItem:
         "name": "Ada Applicant",
         "email": "ada@example.com",
         "phone": "+91 9999999999",
+        "experience_years": 4,
+        "experience_months": 6,
+        "currently_working": True,
+        "current_company": "Analytical Engines Ltd",
+        "notice_period": "30_days",
         "status": "new",
         "submitted_at": SUBMITTED_AT,
         "resume_url": SIGNED_URL,
@@ -102,6 +114,11 @@ def _multipart(**data_overrides: str):
         "name": "Ada Applicant",
         "email": "ada@example.com",
         "phone": "+91 9999999999",
+        "experience_years": "4",
+        "experience_months": "6",
+        "currently_working": "true",
+        "current_company": "  Analytical Engines Ltd  ",
+        "notice_period": "30_days",
         "cover_letter": "Private cover letter",
     }
     data.update(data_overrides)
@@ -123,6 +140,11 @@ def test_public_submission_returns_minimal_201_receipt(job_application_api) -> N
     slug, request = service.create.await_args.args
     assert slug == "Senior-Engineer"
     assert request.name == "Ada Applicant"
+    assert request.experience_years == 4
+    assert request.experience_months == 6
+    assert request.currently_working is True
+    assert request.current_company == "Analytical Engines Ltd"
+    assert request.notice_period == "30_days"
     assert request.resume.filename == "resume.pdf"
 
 
@@ -136,6 +158,10 @@ def test_public_submission_temporarily_accepts_no_resume(job_application_api) ->
             "name": "Ada Applicant",
             "email": "ada@example.com",
             "phone": "+91 9999999999",
+            "experience_years": "0",
+            "experience_months": "0",
+            "currently_working": "false",
+            "notice_period": "immediate",
         },
     )
 
@@ -143,6 +169,81 @@ def test_public_submission_temporarily_accepts_no_resume(job_application_api) ->
     assert set(response.json()) == {"id", "status", "submitted_at"}
     request = service.create.await_args.args[1]
     assert request.resume is None
+    assert request.current_company is None
+
+
+@pytest.mark.parametrize("currently_working", ["true", "false"])
+def test_public_submission_accepts_null_company_for_any_employment_state(
+    job_application_api,
+    currently_working: str,
+) -> None:
+    client, service = job_application_api
+    service.create.return_value = _application(
+        currently_working=currently_working == "true",
+        current_company=None,
+    )
+    data, files = _multipart(currently_working=currently_working)
+    data.pop("current_company")
+
+    response = client.post(
+        "/careers/Senior-Engineer/apply",
+        data=data,
+        files=files,
+    )
+
+    assert response.status_code == 201
+    request = service.create.await_args.args[1]
+    assert request.currently_working is (currently_working == "true")
+    assert request.current_company is None
+
+
+@pytest.mark.parametrize(
+    "notice_period",
+    ["immediate", "15_days", "30_days", "60_days", "90_days", "other"],
+)
+def test_public_submission_accepts_notice_period_values(
+    job_application_api,
+    notice_period: str,
+) -> None:
+    client, service = job_application_api
+    service.create.return_value = _application(notice_period=notice_period)
+    data, files = _multipart(notice_period=notice_period)
+
+    response = client.post(
+        "/careers/Senior-Engineer/apply",
+        data=data,
+        files=files,
+    )
+
+    assert response.status_code == 201
+    assert service.create.await_args.args[1].notice_period == notice_period
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("experience_years", "-1"),
+        ("experience_months", "12"),
+        ("notice_period", "45_days"),
+        ("current_company", "   "),
+    ],
+)
+def test_public_submission_rejects_invalid_candidate_information(
+    job_application_api,
+    field: str,
+    value: str,
+) -> None:
+    client, service = job_application_api
+    data, files = _multipart(**{field: value})
+
+    response = client.post(
+        "/careers/Senior-Engineer/apply",
+        data=data,
+        files=files,
+    )
+
+    assert response.status_code == 422
+    service.create.assert_not_awaited()
 
 
 @pytest.mark.parametrize(
@@ -230,6 +331,8 @@ def test_admin_list_returns_exact_fields_and_maps_missing(job_application_api) -
     assert response.status_code == 200
     assert all(set(item) == LIST_FIELDS for item in response.json())
     assert response.json()[0]["resume_url"].startswith("https://")
+    assert response.json()[0]["experience_years"] == 4
+    assert response.json()[0]["notice_period"] == "30_days"
 
     service.list_for_career.return_value = []
     assert client.get(f"/admin/careers/{CAREER_ID}/applications").json() == []
@@ -250,6 +353,11 @@ def test_global_admin_list_includes_current_and_historical_applications(
             career_id=None,
             career_title_snapshot="Historical Career",
             career_slug_snapshot="historical-career",
+            experience_years=None,
+            experience_months=None,
+            currently_working=None,
+            current_company=None,
+            notice_period=None,
         ),
     ]
 
@@ -260,6 +368,8 @@ def test_global_admin_list_includes_current_and_historical_applications(
     assert response.json()[0]["career_id"] == str(CAREER_ID)
     assert response.json()[1]["career_id"] is None
     assert response.json()[1]["career_title_snapshot"] == "Historical Career"
+    assert response.json()[1]["experience_years"] is None
+    assert response.json()[1]["notice_period"] is None
     service.list_all.return_value = []
     assert client.get("/admin/job-applications").json() == []
 
@@ -270,6 +380,8 @@ def test_admin_detail_returns_exact_fields_and_404(job_application_api) -> None:
     response = client.get(f"/admin/job-applications/{APPLICATION_ID}")
     assert response.status_code == 200
     assert set(response.json()) == DETAIL_FIELDS
+    assert response.json()["currently_working"] is True
+    assert response.json()["current_company"] == "Analytical Engines Ltd"
 
     service.get_by_id.side_effect = JobApplicationNotFoundError
     missing = client.get(f"/admin/job-applications/{APPLICATION_ID}")
@@ -304,6 +416,11 @@ def test_admin_patch_accepts_all_statuses(
         {"email": "changed@example.com"},
         {"resume_url": "https://example.com/replacement"},
         {"submitted_at": "2026-09-25T12:00:00Z"},
+        {"experience_years": 8},
+        {"experience_months": 3},
+        {"currently_working": False},
+        {"current_company": "Changed Company"},
+        {"notice_period": "immediate"},
     ],
 )
 def test_admin_patch_rejects_invalid_or_immutable_fields(
@@ -367,6 +484,28 @@ def test_openapi_exposes_exact_phase_nine_operations(job_application_api) -> Non
     content = paths["/careers/{slug}/apply"]["post"]["requestBody"]["content"]
     assert set(content) == {"multipart/form-data"}
     assert "/job-applications" not in paths
+    body_reference = content["multipart/form-data"]["schema"]["$ref"]
+    body_name = body_reference.rsplit("/", 1)[1]
+    body_schema = client.get("/openapi.json").json()["components"]["schemas"][
+        body_name
+    ]
+    assert {
+        "experience_years",
+        "experience_months",
+        "currently_working",
+        "notice_period",
+    } <= set(body_schema["required"])
+    assert body_schema["properties"]["experience_years"]["minimum"] == 0
+    assert body_schema["properties"]["experience_months"]["minimum"] == 0
+    assert body_schema["properties"]["experience_months"]["maximum"] == 11
+    assert body_schema["properties"]["notice_period"]["enum"] == [
+        "immediate",
+        "15_days",
+        "30_days",
+        "60_days",
+        "90_days",
+        "other",
+    ]
 
 
 def test_unconfigured_storage_dependency_returns_none() -> None:

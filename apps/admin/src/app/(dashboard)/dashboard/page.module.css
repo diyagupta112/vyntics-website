@@ -2,6 +2,7 @@
 .dashboard { gap: var(--space-8); }
 .section { gap: var(--space-5); }
 .sectionHeading { gap: var(--space-1); }
+.sectionHeading h1 { font-size: var(--font-size-page-title); font-weight: 600; }
 .sectionHeading h2 { font-size: var(--font-size-section-title); font-weight: 600; }
 .sectionHeading p, .metricCard span, .metricCard small, .emptyState p, .errorState p { color: var(--color-gray-500); }
 .cardGrid, .loadingGrid { display: grid; gap: var(--space-4); grid-template-columns: repeat(4, minmax(0, 1fr)); }

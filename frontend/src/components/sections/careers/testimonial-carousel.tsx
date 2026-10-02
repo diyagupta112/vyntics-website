@@ -146,9 +146,6 @@ export function TestimonialCarousel({ testimonials }: Props) {
         </div>
 
         <div className={styles.controls} aria-label="Testimonial carousel controls">
-          <span aria-label={`Testimonial ${index + 1} of ${testimonials.length}`}>
-            {String(index + 1).padStart(2, "0")} / {String(testimonials.length).padStart(2, "0")}
-          </span>
           <button
             type="button"
             onClick={() => setAutoplayPaused((paused) => !paused)}

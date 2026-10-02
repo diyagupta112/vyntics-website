@@ -56,7 +56,7 @@ export function DashboardOverview() {
   const attention = metrics.filter((metric) => metric.attention && metric.value > 0);
   return <>
     <section aria-labelledby="overview-heading" className={styles.section}>
-      <div className={styles.sectionHeading}><h2 id="overview-heading">Operational overview</h2><p>Live counts from the Admin APIs.</p></div>
+      <div className={styles.sectionHeading}><h1 id="overview-heading">Operational overview</h1><p>Monitor content, hiring, people, and incoming requests.</p></div>
       <div className={styles.cardGrid} data-testid="dashboard-overview-grid">
         {metrics.map((metric) => <Link className={styles.metricCard} href={metric.href} key={metric.label}><span>{metric.label}</span><strong>{metric.value}</strong><small>View records <span aria-hidden="true">→</span></small></Link>)}
       </div>

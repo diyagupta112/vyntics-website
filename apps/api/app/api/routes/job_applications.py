@@ -25,6 +25,7 @@ from app.schemas.job_applications import (
     JobApplicationCreateRequest,
     JobApplicationReceipt,
     JobApplicationUpdateRequest,
+    NoticePeriod,
 )
 from app.services.job_applications import (
     JobApplicationCareerNotFoundError,
@@ -50,13 +51,32 @@ async def parse_job_application_form(
     name: Annotated[str, Form()],
     email: Annotated[EmailStr, Form()],
     phone: Annotated[str, Form()],
+    experience_years: Annotated[int, Form(ge=0)],
+    experience_months: Annotated[int, Form(ge=0, le=11)],
+    currently_working: Annotated[bool, Form()],
+    notice_period: Annotated[NoticePeriod, Form()],
+    current_company: Annotated[
+        str | None,
+        Form(min_length=1, max_length=200),
+    ] = None,
     resume: Annotated[UploadFile | None, File()] = None,
     cover_letter: Annotated[str | None, Form()] = None,
 ) -> JobApplicationCreateRequest:
     """Build the strict request schema while preserving multipart OpenAPI."""
 
     form = await raw_request.form()
-    allowed_fields = {"name", "email", "phone", "resume", "cover_letter"}
+    allowed_fields = {
+        "name",
+        "email",
+        "phone",
+        "experience_years",
+        "experience_months",
+        "currently_working",
+        "current_company",
+        "notice_period",
+        "resume",
+        "cover_letter",
+    }
     unexpected_fields = sorted(set(form) - allowed_fields)
     if unexpected_fields:
         raise HTTPException(
@@ -68,6 +88,11 @@ async def parse_job_application_form(
             name=name,
             email=email,
             phone=phone,
+            experience_years=experience_years,
+            experience_months=experience_months,
+            currently_working=currently_working,
+            current_company=current_company,
+            notice_period=notice_period,
             resume=resume,
             cover_letter=cover_letter,
         )

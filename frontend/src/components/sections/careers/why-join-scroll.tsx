@@ -11,6 +11,8 @@ const principles = [
   { icon: "ownership", position: "upperRight", title: "Take Ownership", text: "Take responsibility and see your work through. You get the space to make decisions, solve problems independently, and follow your ideas from the first step to the final result." },
   { icon: "learn", position: "lowerLeft", title: "Learn by Building", text: "Grow by solving real problems hands-on. Instead of learning only through theory, you build, experiment, make mistakes, and develop your skills through the work itself." },
   { icon: "share", position: "lowerRight", title: "Share What You Know", text: "Learn from each other and make better work together. We value open discussions, shared ideas, and the habit of helping one another improve the way we build." },
+  { icon: "think", position: "top", title: "Think Beyond the Obvious", text: "Look at problems from different angles and explore better ways to solve them. We encourage curiosity, experimentation, and thoughtful ideas instead of settling for the first answer." },
+  { icon: "grow", position: "bottom", title: "Grow Together", text: "Build your skills while helping the people around you grow too. We value collaboration, honest feedback, and an environment where everyone can keep improving." },
 ] as const;
 
 const subscribeToHydration = () => () => undefined;
@@ -19,6 +21,8 @@ function PrincipleIcon({ type }: { type: (typeof principles)[number]["icon"] }) 
   if (type === "ownership") return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3.5" /><path d="m16 8 4-4M16.5 4H20v3.5" /></svg>;
   if (type === "learn") return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.3 15.5a7 7 0 1 1 7.4 0c-1 .7-1.4 1.4-1.4 2.5H9.7c0-1.1-.4-1.8-1.4-2.5Z" /><path d="M9.5 21h5M9.7 18h4.6" /></svg>;
   if (type === "share") return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="3" /><circle cx="17" cy="8" r="2.5" /><path d="M2.5 20c.5-4 2.3-6 5.5-6s5 2 5.5 6M14 13.5c3.8-.5 6.3 1.2 7 4.5" /></svg>;
+  if (type === "think") return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5" /><path d="m14.5 14.5 4 4M18 4v3M16.5 5.5h3" /></svg>;
+  if (type === "grow") return <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="2.5" /><circle cx="16" cy="9" r="2.5" /><path d="M3 19c.6-3.5 2.3-5.2 5-5.2s4.4 1.7 5 5.2M12 18c.7-2.8 2-4.2 4-4.2 2.7 0 4.4 1.7 5 5.2" /><path d="M12 11V4m0 0L9.5 6.5M12 4l2.5 2.5" /></svg>;
   return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 7 4v8l-7 4-7-4V7l7-4Z" /><path d="m5 7 7 4 7-4M12 11v8" /></svg>;
 }
 
@@ -33,12 +37,13 @@ function ScrollPrinciple({
   enabled: boolean;
   principle: (typeof principles)[number];
 }) {
-  const start = 0.12 + index * 0.17;
+  const start = 0.12 + index * 0.135;
   const isLeft = principle.position.endsWith("Left");
-  const isUpper = principle.position.startsWith("upper");
-  const iconXStart = isLeft ? 22 : -22;
+  const isRight = principle.position.endsWith("Right");
+  const isUpper = principle.position.startsWith("upper") || principle.position === "top";
+  const iconXStart = isLeft ? 22 : isRight ? -22 : 0;
   const iconYStart = isUpper ? 18 : -18;
-  const textXStart = isLeft ? 10 : -10;
+  const textXStart = isLeft ? 10 : isRight ? -10 : 0;
   const textYStart = isUpper ? 8 : -8;
   const iconOpacity = useTransform(progress, [start, start + 0.06, 1], [0, 1, 1]);
   const iconScale = useTransform(progress, [start, start + 0.08, 1], [0.85, 1, 1]);

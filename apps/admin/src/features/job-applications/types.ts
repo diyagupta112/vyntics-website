@@ -5,6 +5,14 @@ export type JobApplicationStatus =
   | "rejected"
   | "hired";
 
+export type NoticePeriod =
+  | "immediate"
+  | "15_days"
+  | "30_days"
+  | "60_days"
+  | "90_days"
+  | "other";
+
 export type JobApplicationListItem = {
   id: string;
   career_id: string | null;
@@ -13,6 +21,11 @@ export type JobApplicationListItem = {
   name: string;
   email: string;
   phone: string;
+  experience_years: number | null;
+  experience_months: number | null;
+  currently_working: boolean | null;
+  current_company: string | null;
+  notice_period: NoticePeriod | null;
   status: JobApplicationStatus;
   submitted_at: string;
   resume_url: string | null;

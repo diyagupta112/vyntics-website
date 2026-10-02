@@ -1837,6 +1837,11 @@ The existing `job_applications` table and ORM model contain exactly:
 - `name`
 - `email`
 - `phone`
+- `experience_years`
+- `experience_months`
+- `currently_working`
+- `current_company`
+- `notice_period`
 - `resume_url`
 - `cover_letter`
 - `status`
@@ -1904,6 +1909,13 @@ Accept `multipart/form-data` with exactly these applicant-controlled fields:
 - `name` --- required string;
 - `email` --- required valid email;
 - `phone` --- required string;
+- `experience_years` --- required integer greater than or equal to zero;
+- `experience_months` --- required integer from zero through eleven;
+- `currently_working` --- required boolean supplied explicitly by the candidate;
+- `current_company` --- optional nullable string, trimmed when supplied, with a
+  maximum length of 200 and whitespace-only values rejected;
+- `notice_period` --- required and restricted to `immediate`, `15_days`,
+  `30_days`, `60_days`, `90_days`, or `other`;
 - `resume` --- temporarily optional until the Storage phase is available;
 - `cover_letter` --- optional nullable string.
 
@@ -1913,6 +1925,12 @@ undeclared field. The existing schema defines `name` and `phone` as required
 plain strings and `cover_letter` as an optional plain string; it establishes no
 trimming, non-empty, phone-format, maximum-length, or cover-letter-content rule.
 Do not invent those validations during Phase 9 without a separate decision.
+
+Candidate experience is normalized into years and remaining months rather than
+stored as free-form text. `current_company` remains nullable regardless of the
+`currently_working` value; the backend does not infer either field from the
+other. The database columns are nullable so applications created before this
+contract extension remain readable without fabricated candidate information.
 
 Processing order and outcome:
 
@@ -2000,6 +2018,11 @@ The list item contains exactly:
 - `name`
 - `email`
 - `phone`
+- `experience_years`
+- `experience_months`
+- `currently_working`
+- `current_company`
+- `notice_period`
 - `status`
 - `submitted_at`
 - `resume_url`
@@ -2028,14 +2051,22 @@ Return the administrative detail response containing exactly:
 - `name`
 - `email`
 - `phone`
+- `experience_years`
+- `experience_months`
+- `currently_working`
+- `current_company`
+- `notice_period`
 - `resume_url`
 - `cover_letter`
 - `status`
 - `notes`
 - `submitted_at`
 
-`career_id`, `cover_letter`, `notes`, and temporarily `resume_url` may be
-`null`. The response exposes no audit data,
+`career_id`, `experience_years`, `experience_months`, `currently_working`,
+`current_company`, `notice_period`, `cover_letter`, `notes`, and temporarily
+`resume_url` may be `null`. Candidate fields are null only for historical rows
+that predate this contract, except that `current_company` is also nullable for
+new submissions. The response exposes no audit data,
 storage credentials, ownership fields, or fields absent from the current model.
 Return HTTP `404 Not Found` with `{"detail": "Job Application not found."}`
 when the application does not exist. An invalid UUID receives the standard HTTP
@@ -2057,8 +2088,9 @@ rule for notes, so Phase 9 must not invent one. An empty JSON object is a valid
 no-op PATCH and returns the unchanged detail response.
 
 Reject `career_id`, `submitted_at`, `resume_url`, applicant name, email, phone,
-cover letter, application ID, timestamps, ownership/internal fields, and every
-other undeclared field through the strict request-schema convention.
+experience, employment/company, notice-period, cover letter, application ID,
+timestamps, ownership/internal fields, and every other undeclared field through
+the strict request-schema convention.
 
 Success returns HTTP 200 with the exact administrative detail response. A
 missing application returns HTTP `404` with

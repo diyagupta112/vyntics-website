@@ -32,6 +32,7 @@ from app.schemas.job_applications import (
     JobApplicationCreateRequest,
     JobApplicationReceipt,
     JobApplicationUpdateRequest,
+    NoticePeriod,
 )
 from app.schemas.team import (
     TeamListResponse,
@@ -64,6 +65,7 @@ __all__ = [
     "JobApplicationCreateRequest",
     "JobApplicationReceipt",
     "JobApplicationUpdateRequest",
+    "NoticePeriod",
     "TeamListResponse",
     "TeamMemberCreateRequest",
     "TeamMemberResponse",

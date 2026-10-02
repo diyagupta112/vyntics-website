@@ -2,11 +2,11 @@
 
 from datetime import datetime
 from pathlib import Path
-from typing import Literal, TypeAlias
+from typing import Annotated, Literal, TypeAlias
 from uuid import UUID
 
 from fastapi import UploadFile
-from pydantic import AnyHttpUrl, EmailStr, field_validator
+from pydantic import AnyHttpUrl, EmailStr, Field, StringConstraints, field_validator
 
 from app.schemas.common import RequestSchema, ResponseSchema
 
@@ -19,6 +19,18 @@ JobApplicationStatus: TypeAlias = Literal[
     "rejected",
     "hired",
 ]
+NoticePeriod: TypeAlias = Literal[
+    "immediate",
+    "15_days",
+    "30_days",
+    "60_days",
+    "90_days",
+    "other",
+]
+CurrentCompany: TypeAlias = Annotated[
+    str,
+    StringConstraints(strip_whitespace=True, min_length=1, max_length=200),
+]
 
 
 class JobApplicationCreateRequest(RequestSchema):
@@ -27,6 +39,11 @@ class JobApplicationCreateRequest(RequestSchema):
     name: str
     email: EmailStr
     phone: str
+    experience_years: Annotated[int, Field(ge=0)]
+    experience_months: Annotated[int, Field(ge=0, le=11)]
+    currently_working: bool
+    current_company: CurrentCompany | None = None
+    notice_period: NoticePeriod
     resume: UploadFile | None = None
     cover_letter: str | None = None
 
@@ -78,6 +95,11 @@ class JobApplicationAdminListItem(ResponseSchema):
     name: str
     email: EmailStr
     phone: str
+    experience_years: int | None
+    experience_months: int | None
+    currently_working: bool | None
+    current_company: str | None
+    notice_period: NoticePeriod | None
     status: JobApplicationStatus
     submitted_at: datetime
     resume_url: AnyHttpUrl | None

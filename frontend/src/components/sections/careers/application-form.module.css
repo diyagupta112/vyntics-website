@@ -11,12 +11,23 @@
 .heading > p:last-child,
 .success > p:not(.eyebrow) { max-width: 42rem; margin-top: 0.55rem; color: var(--color-muted); font-size: 0.88rem; line-height: 1.55; }
 
-.twoColumns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.formSection { min-width: 0; padding: 0; display: grid; gap: 0.85rem; border: 0; }
+.formSection + .formSection { padding-top: 1rem; border-top: 1px solid var(--color-border); }
+.formSection > legend { width: 100%; margin-bottom: 0.75rem; padding: 0; font-size: 0.76rem; font-weight: 780; letter-spacing: 0.1em; text-transform: uppercase; }
+.twoColumns,
+.professionalGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .form label { display: grid; gap: 0.45rem; }
 .form label > span { font-size: 0.8rem; font-weight: 700; }
-.form label em { margin-left: 0.3rem; color: var(--color-muted); font-size: 0.68rem; font-style: normal; font-weight: 500; }
+.form label em,
+.experienceGroup em { margin-left: 0.3rem; color: var(--color-muted); font-size: 0.68rem; font-style: normal; font-weight: 500; }
+.experienceGroup { min-width: 0; padding: 0; display: grid; align-content: start; gap: 0.45rem; border: 0; }
+.experienceGroup > legend { padding: 0; font-size: 0.8rem; font-weight: 700; }
+.experienceInputs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+.experienceInputs label { gap: 0.3rem; }
+.experienceInputs label > span { color: var(--color-muted); font-size: 0.7rem; font-weight: 600; }
 
 .form input,
+.form select,
 .form textarea {
   width: 100%;
   color: var(--color-foreground);
@@ -28,13 +39,26 @@
   transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
-.form input { min-height: 2.85rem; padding-inline: 0.85rem; }
+.form input,
+.form select { min-height: 2.85rem; padding-inline: 0.85rem; }
+.form select { cursor: pointer; }
 .form input[type="file"] { padding: 0.5rem; }
+.form input:disabled { color: var(--color-muted); background: color-mix(in srgb, var(--color-surface) 75%, var(--color-border)); cursor: not-allowed; }
 .form input[type="file"]::file-selector-button { margin-right: 0.8rem; padding: 0.55rem 0.7rem; color: var(--color-primary); border: 0; border-radius: 0.45rem; background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface)); font-weight: 700; cursor: pointer; }
 .form textarea { min-height: 6.5rem; padding: 0.75rem 0.85rem; resize: vertical; }
 .form input:focus,
+.form select:focus,
 .form textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent); }
-.form input[aria-invalid="true"] { border-color: #b42318; }
+.form input[aria-invalid="true"],
+.form select[aria-invalid="true"] { border-color: #b42318; }
+
+.workStatus { padding: 0.75rem 0.85rem; border: 1px solid var(--color-border); border-radius: 0.65rem; background: color-mix(in srgb, var(--color-primary) 3%, var(--color-background)); }
+.form .checkboxLabel { display: flex; align-items: flex-start; gap: 0.7rem; cursor: pointer; }
+.form .checkboxLabel input { width: 1.1rem; height: 1.1rem; min-height: 0; margin-top: 0.12rem; padding: 0; flex: 0 0 auto; accent-color: var(--color-primary); }
+.form .checkboxLabel > span { display: grid; gap: 0.18rem; font-size: inherit; }
+.checkboxLabel strong { font-size: 0.82rem; }
+.checkboxLabel small { color: var(--color-muted); font-size: 0.76rem; font-weight: 500; }
+.companySlot { min-height: 4.9rem; }
 
 .hint,
 .fieldError { font-size: 0.74rem; line-height: 1.45; }
@@ -106,7 +130,8 @@
 }
 
 @media (max-width: 600px) {
-  .twoColumns { grid-template-columns: 1fr; }
+  .twoColumns,
+  .professionalGrid { grid-template-columns: 1fr; }
   .dialog { width: calc(100% - 1rem); max-height: calc(100svh - 1rem); }
   .dialogCard { max-height: calc(100svh - 1rem); }
   .form { padding: 1rem; }
@@ -115,6 +140,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .form input,
+  .form select,
   .form textarea,
   .form button,
   .success a { transition: none; }

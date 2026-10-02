@@ -97,6 +97,28 @@ def test_job_application_relationship_preserves_history_after_career_deletion() 
     assert JobApplication.__table__.c.resume_url.nullable is True
 
 
+def test_job_application_candidate_fields_preserve_historical_nulls() -> None:
+    columns = JobApplication.__table__.c
+
+    for column_name in (
+        "experience_years",
+        "experience_months",
+        "currently_working",
+        "current_company",
+        "notice_period",
+    ):
+        assert columns[column_name].nullable is True
+
+    constraints = _check_constraint_sql(JobApplication)
+    assert "experience_years IS NULL OR experience_years >= 0" in constraints
+    assert (
+        "experience_months IS NULL OR experience_months BETWEEN 0 AND 11"
+        in constraints
+    )
+    assert any("current_company" in constraint for constraint in constraints)
+    assert any("notice_period IN" in constraint for constraint in constraints)
+
+
 def test_admin_managed_foreign_keys_reference_admin_users() -> None:
     managed_columns = {
         Blog: ("created_by", "updated_by"),

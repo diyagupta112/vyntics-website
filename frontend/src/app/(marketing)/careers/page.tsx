@@ -62,18 +62,20 @@ async function CareerOpenings() {
           delay={Math.min(0.06 * index, 0.18)}
           key={career.id}
         >
-          <div className={styles.openingTopline}>
-            <span>{career.department}</span>
-            <span>{career.employment_type}</span>
-          </div>
-          <h3><Link href={`/careers/${encodeURIComponent(career.slug)}`}>{career.title}</Link></h3>
-          <p>{career.short_description}</p>
-          <ul aria-label="Role details">
-            <li>{career.location}</li>
-            <li>{career.experience}</li>
-          </ul>
-          <Link className={styles.openingLink} href={`/careers/${encodeURIComponent(career.slug)}`}>
-            View role <ArrowIcon />
+          <Link className={styles.openingCardLink} href={`/careers/${encodeURIComponent(career.slug)}`}>
+            <div className={styles.openingTopline}>
+              <span>{career.department}</span>
+              <span>{career.employment_type}</span>
+            </div>
+            <h3>{career.title}</h3>
+            <p>{career.short_description}</p>
+            <ul aria-label="Role details">
+              <li>{career.location}</li>
+              <li>{career.experience}</li>
+            </ul>
+            <span className={styles.openingLink}>
+              View role <ArrowIcon />
+            </span>
           </Link>
         </RevealArticle>
       ))}
@@ -90,8 +92,8 @@ export default function CareersPage() {
         <Container className={styles.heroInner}>
           <RevealBlock className={styles.heroCopy}>
             <p className={styles.eyebrow}>Join Vyntics</p>
-            <h1 id="careers-title">Do meaningful work. Keep growing.</h1>
-            <p>Join a team where thoughtful ideas, practical skills, and a willingness to contribute can make a real difference.</p>
+            <h1 id="careers-title">Join a team solving problems with real impact.</h1>
+            <p>Bring thoughtful ideas, practical skills, and a willingness to contribute as we solve problems that matter.</p>
             <CurrentOpeningsLink className={styles.primaryButton}>View Current Openings <ArrowIcon /></CurrentOpeningsLink>
           </RevealBlock>
         </Container>
@@ -111,8 +113,8 @@ export default function CareersPage() {
       <section className={`${styles.section} ${styles.testimonialsSection}`} aria-labelledby="team-stories-title">
         <Container>
           <RevealBlock className={styles.chapterHeading}>
-            <h2 id="team-stories-title">Built by People Who Care</h2>
-            <p>Get a glimpse of the people, perspectives, and experiences that shape life at Vyntics.</p>
+            <h2 id="team-stories-title">From the People at Vyntics</h2>
+            <p>A glimpse into the experience of working at Vyntics, from the people who know it best.</p>
           </RevealBlock>
 
           <div className={styles.testimonialsLayout}>

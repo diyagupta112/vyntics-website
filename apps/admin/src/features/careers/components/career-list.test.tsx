@@ -35,6 +35,9 @@ describe("CareerList", () => {
     expect(screen.queryByRole("table")).not.toBeInTheDocument();
     expect(screen.getByText("Engineering")).toBeInTheDocument();
     expect(screen.getByText("Remote")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Delete Senior Engineer" }).className,
+    ).toMatch(/destructive/);
   });
 
   it("preserves Career identity in the future applicants navigation", async () => {

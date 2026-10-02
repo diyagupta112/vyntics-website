@@ -102,6 +102,11 @@ def test_job_application_lifecycle_against_configured_postgresql() -> None:
                         name="Phase 9 Applicant",
                         email=f"phase-9-{run_id}@example.com",
                         phone="1234567890",
+                        experience_years=5,
+                        experience_months=2,
+                        currently_working=True,
+                        current_company="Integration Company",
+                        notice_period="60_days",
                         resume=UploadFile(
                             file=BytesIO(b"%PDF-1.7\nintegration resume"),
                             filename="resume.pdf",
@@ -113,12 +118,15 @@ def test_job_application_lifecycle_against_configured_postgresql() -> None:
                 application_id = created.id
 
                 assert created.status == "new" and created.submitted_at is not None
+                assert created.experience_years == 5
+                assert created.notice_period == "60_days"
                 assert created.resume_url in storage.objects
                 listed = await service.list_for_career(career.id)
                 assert [item.id for item in listed] == [created.id]
                 assert str(listed[0].resume_url).startswith(
                     "https://storage.example.test/private/"
                 )
+                assert listed[0].current_company == "Integration Company"
 
                 detail = await service.get_by_id(created.id)
                 assert detail.cover_letter == "Temporary private cover letter."

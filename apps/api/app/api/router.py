@@ -2,6 +2,8 @@
 
 from fastapi import APIRouter
 
+from app.api.routes.admin_identity import router as admin_identity_router
+from app.api.routes.audit_logs import router as audit_logs_router
 from app.api.routes.blogs import admin_router as admin_blogs_router
 from app.api.routes.blogs import router as blogs_router
 from app.api.routes.case_studies import admin_router as admin_case_studies_router
@@ -18,6 +20,8 @@ from app.api.routes.job_applications import public_router as applications_router
 from app.api.routes.team_members import router as team_members_router
 
 api_router = APIRouter()
+api_router.include_router(admin_identity_router)
+api_router.include_router(audit_logs_router)
 api_router.include_router(health_router)
 api_router.include_router(blogs_router)
 api_router.include_router(admin_blogs_router)

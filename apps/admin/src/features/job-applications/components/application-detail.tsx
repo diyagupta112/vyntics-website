@@ -16,6 +16,23 @@ type Props = {
   onUpdated: (detail: JobApplicationDetail) => void;
 };
 
+const noticePeriodLabels = {
+  immediate: "Immediate",
+  "15_days": "15 Days",
+  "30_days": "30 Days",
+  "60_days": "60 Days",
+  "90_days": "90 Days",
+  other: "Other",
+} as const;
+
+function experienceLabel(years: number | null, months: number | null) {
+  if (years === null && months === null) return "Not provided (legacy application)";
+  const parts: string[] = [];
+  if (years !== null && (years > 0 || !months)) parts.push(`${years} year${years === 1 ? "" : "s"}`);
+  if (months !== null && months > 0) parts.push(`${months} month${months === 1 ? "" : "s"}`);
+  return parts.length ? parts.join(" ") : "0 years";
+}
+
 export function ApplicationDetail({ detail, onDelete, onUpdated }: Props) {
   const [status, setStatus] = useState<JobApplicationStatus>(detail.status);
   const [notes, setNotes] = useState(detail.notes ?? "");
@@ -48,32 +65,57 @@ export function ApplicationDetail({ detail, onDelete, onUpdated }: Props) {
   return (
     <div className={styles.detailPanel}>
       <div className={styles.detailGrid}>
-        <section>
-          <h3>Applicant</h3>
+        <section className={styles.detailSection}>
+          <h3>Contact information</h3>
           <dl className={styles.detailList}>
             <div><dt>Name</dt><dd>{detail.name}</dd></div>
-            <div><dt>Email</dt><dd>{detail.email}</dd></div>
-            <div><dt>Mobile</dt><dd>{detail.phone}</dd></div>
-            <div><dt>Submitted</dt><dd><time dateTime={detail.submitted_at}>{new Intl.DateTimeFormat(undefined, { dateStyle: "long", timeStyle: "short" }).format(new Date(detail.submitted_at))}</time></dd></div>
+            <div><dt>Email</dt><dd><a className={styles.textLink} href={`mailto:${detail.email}`}>{detail.email}</a></dd></div>
+            <div><dt>Mobile</dt><dd><a className={styles.textLink} href={`tel:${detail.phone}`}>{detail.phone}</a></dd></div>
           </dl>
         </section>
-        <section>
-          <h3>Career context</h3>
+        <section className={styles.detailSection}>
+          <h3>Professional information</h3>
           <dl className={styles.detailList}>
-            <div><dt>Career</dt><dd>{detail.career_title_snapshot}</dd></div>
-            <div><dt>Career slug</dt><dd>{detail.career_slug_snapshot}</dd></div>
-            <div><dt>Live Career</dt><dd>{detail.career_id ? "Available" : "Deleted — historical snapshot retained"}</dd></div>
+            <div><dt>Experience</dt><dd>{experienceLabel(detail.experience_years, detail.experience_months)}</dd></div>
+            <div><dt>Currently working</dt><dd>{detail.currently_working === null ? "Not provided (legacy application)" : detail.currently_working ? "Yes" : "No"}</dd></div>
+            <div><dt>Current company</dt><dd>{detail.current_company?.trim() || "Not provided"}</dd></div>
+            <div><dt>Notice period</dt><dd>{detail.notice_period ? noticePeriodLabels[detail.notice_period] : "Not provided (legacy application)"}</dd></div>
           </dl>
         </section>
       </div>
 
-      <section className={styles.longContent}>
-        <h3>Cover letter</h3>
-        <p>{detail.cover_letter || "No cover letter provided."}</p>
-      </section>
+      <div className={styles.detailGrid}>
+        <section className={styles.detailSection}>
+          <h3>Application information</h3>
+          <dl className={styles.detailList}>
+            <div><dt>Career</dt><dd>{detail.career_title_snapshot}</dd></div>
+            <div><dt>Career availability</dt><dd>{detail.career_id ? "Available" : "Deleted — historical snapshot retained"}</dd></div>
+            <div><dt>Applied</dt><dd><time dateTime={detail.submitted_at}>{new Intl.DateTimeFormat(undefined, { dateStyle: "long", timeStyle: "short" }).format(new Date(detail.submitted_at))}</time></dd></div>
+            <div><dt>Application ID</dt><dd>{detail.id}</dd></div>
+          </dl>
+        </section>
+        <section className={styles.detailSection}>
+          <h3>Application materials</h3>
+          <dl className={styles.detailList}>
+            <div>
+              <dt>Resume</dt>
+              <dd>{detail.resume_url ? <a className={styles.textLink} href={detail.resume_url} rel="noreferrer" target="_blank">View resume</a> : "No resume provided"}</dd>
+            </div>
+          </dl>
+          <div className={styles.coverLetter}>
+            <h4>Cover letter</h4>
+            <p>{detail.cover_letter || "No cover letter provided."}</p>
+          </div>
+        </section>
+      </div>
 
       <form className={styles.reviewForm} onSubmit={(event) => void submit(event)}>
-        <h3>Administrative review</h3>
+        <div className={styles.reviewHeading}>
+          <div>
+            <h3>Administrative review</h3>
+            <p className={styles.muted}>Update the application status and private admin notes.</p>
+          </div>
+        </div>
         <div className={styles.reviewFields}>
           <FormField htmlFor={`status-${detail.id}`} label="Status" required>
             <Select id={`status-${detail.id}`} onChange={(event) => setStatus(event.target.value as JobApplicationStatus)} value={status}>

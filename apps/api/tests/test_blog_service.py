@@ -102,6 +102,8 @@ def test_cover_replacement_commits_then_cleans_previous_managed_object() -> None
         admin_email="admin@vyntics.com",
         role="admin",
         is_active=True,
+        created_at=NOW,
+        updated_at=NOW,
     )
     updated = asyncio.run(service.upload_cover(BLOG_ID, AsyncMock(), actor=actor))
 

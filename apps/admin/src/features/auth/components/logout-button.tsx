@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
-export function LogoutButton() {
+export function LogoutButton({ label = "Logout" }: Readonly<{ label?: string }>) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +20,7 @@ export function LogoutButton() {
 
   return (
     <Button disabled={isLoading} onClick={handleLogout} variant="secondary">
-      {isLoading ? "Signing out…" : "Logout"}
+      {isLoading ? "Signing out…" : label}
     </Button>
   );
 }

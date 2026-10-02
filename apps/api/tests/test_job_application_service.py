@@ -41,6 +41,11 @@ def _request() -> JobApplicationCreateRequest:
         name="Ada Applicant",
         email="ada@example.com",
         phone="123",
+        experience_years=4,
+        experience_months=6,
+        currently_working=True,
+        current_company="Analytical Engines Ltd",
+        notice_period="30_days",
         resume=UploadFile(
             file=BytesIO(b"%PDF-1.7\nresume"),
             filename="resume.pdf",
@@ -59,6 +64,11 @@ def _application(**overrides: object) -> JobApplication:
         "name": "Ada Applicant",
         "email": "ada@example.com",
         "phone": "123",
+        "experience_years": 4,
+        "experience_months": 6,
+        "currently_working": True,
+        "current_company": "Analytical Engines Ltd",
+        "notice_period": "30_days",
         "resume_url": OBJECT_PATH,
         "cover_letter": "Private letter",
         "status": "new",
@@ -105,6 +115,10 @@ def test_create_resolves_career_uploads_sets_backend_fields_and_audits() -> None
     assert created.career_title_snapshot == "Senior Engineer"
     assert created.career_slug_snapshot == "senior-engineer"
     assert created.status == "new" and created.notes is None
+    assert created.experience_years == 4 and created.experience_months == 6
+    assert created.currently_working is True
+    assert created.current_company == "Analytical Engines Ltd"
+    assert created.notice_period == "30_days"
     assert created.submitted_at == NOW and created.resume_url == OBJECT_PATH
     storage.upload.assert_awaited_once()
     applications.add.assert_awaited_once_with(created)
@@ -143,11 +157,17 @@ def test_create_without_resume_persists_null_and_skips_storage() -> None:
         name="Ada Applicant",
         email="ada@example.com",
         phone="123",
+        experience_years=0,
+        experience_months=0,
+        currently_working=False,
+        current_company=None,
+        notice_period="immediate",
     )
 
     created = asyncio.run(service.create("Senior-Engineer", request))
 
     assert created.resume_url is None
+    assert created.current_company is None
     applications.add.assert_awaited_once_with(created)
     session.commit.assert_awaited_once_with()
 
@@ -219,6 +239,11 @@ def test_global_list_includes_current_and_historical_applications() -> None:
         career_title_snapshot="Historical Career",
         career_slug_snapshot="historical-career",
         resume_url=None,
+        experience_years=None,
+        experience_months=None,
+        currently_working=None,
+        current_company=None,
+        notice_period=None,
     )
     applications.list_all.return_value = [current, historical]
 
@@ -228,6 +253,11 @@ def test_global_list_includes_current_and_historical_applications() -> None:
     assert returned[0].career_id == CAREER_ID
     assert returned[1].career_id is None
     assert returned[1].career_title_snapshot == "Historical Career"
+    assert returned[1].experience_years is None
+    assert returned[1].experience_months is None
+    assert returned[1].currently_working is None
+    assert returned[1].current_company is None
+    assert returned[1].notice_period is None
     storage.create_access_url.assert_awaited_once_with(OBJECT_PATH)
 
 
@@ -237,6 +267,11 @@ def test_detail_returns_signed_complete_response_and_missing_raises() -> None:
     detail = asyncio.run(service.get_by_id(APPLICATION_ID))
     assert detail.career_id == CAREER_ID
     assert detail.cover_letter == "Private letter"
+    assert detail.experience_years == 4
+    assert detail.experience_months == 6
+    assert detail.currently_working is True
+    assert detail.current_company == "Analytical Engines Ltd"
+    assert detail.notice_period == "30_days"
     assert str(detail.resume_url) == SIGNED_URL
 
     applications.get_by_id.return_value = None

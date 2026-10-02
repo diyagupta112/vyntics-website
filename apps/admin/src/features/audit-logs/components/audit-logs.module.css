@@ -1,0 +1,386 @@
+.page,
+.filters,
+.filterField,
+.state,
+.detailList,
+.contextSection,
+.contextObject {
+  display: grid;
+}
+
+.page {
+  gap: var(--space-7);
+}
+
+.filters {
+  align-items: end;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-card);
+  gap: var(--space-4);
+  grid-template-columns:
+    minmax(7rem, 0.8fr)
+    minmax(9rem, 1fr)
+    repeat(2, minmax(10rem, 0.82fr))
+    auto;
+  padding: var(--space-5);
+}
+
+.filterField {
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.filterField input,
+.filterField select {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.dateTimeControl {
+  min-width: 0;
+  position: relative;
+}
+
+.dateTimeInput {
+  font-size: var(--font-size-sm);
+}
+
+.dateTimeInput[data-empty="true"]:not(:focus) {
+  color: transparent;
+}
+
+.dateTimeInput[data-empty="true"]:not(:focus)::-webkit-datetime-edit {
+  opacity: 0;
+}
+
+.dateTimePrompt {
+  color: var(--color-gray-500);
+  font-size: var(--font-size-sm);
+  left: var(--space-3);
+  max-width: calc(100% - 3.5rem);
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+
+.dateTimeInput:focus + .dateTimePrompt {
+  opacity: 0;
+}
+
+.filterField label,
+.pagination label {
+  color: var(--color-gray-700);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.filterActions,
+.pagination,
+.paginationActions,
+.dialogHeading {
+  align-items: center;
+  display: flex;
+}
+
+.filterActions,
+.paginationActions {
+  gap: var(--space-2);
+}
+
+.tableFrame {
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-control);
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  border-collapse: collapse;
+  min-width: 64rem;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--color-gray-200);
+  max-width: 18rem;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table th {
+  background: var(--color-gray-50);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.table td {
+  overflow-wrap: anywhere;
+}
+
+.auditRow {
+  cursor: pointer;
+}
+
+.auditRow:hover {
+  background: var(--color-gray-50);
+}
+
+.auditRow:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: calc(var(--focus-offset) * -1);
+}
+
+.badge {
+  border: 1px solid var(--color-gray-300);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: var(--space-1) var(--space-2);
+  white-space: nowrap;
+}
+
+.identifier {
+  color: var(--color-gray-700);
+  font-size: var(--font-size-xs);
+}
+
+.pagination {
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: flex-end;
+}
+
+.pagination p {
+  color: var(--color-gray-500);
+  font-size: var(--font-size-sm);
+  margin-right: auto;
+}
+
+.pagination label {
+  align-items: center;
+  display: flex;
+  gap: var(--space-2);
+  white-space: nowrap;
+}
+
+.pagination select {
+  min-width: 5rem;
+}
+
+.state {
+  gap: var(--space-3);
+  justify-items: start;
+  padding: var(--space-6) 0;
+}
+
+.state h2 {
+  font-size: var(--font-size-section-title);
+}
+
+.muted {
+  color: var(--color-gray-500);
+  margin-top: var(--space-3);
+}
+
+.feedback {
+  border-left: 3px solid var(--color-black);
+  padding: var(--space-3) var(--space-4);
+}
+
+.skeleton {
+  animation: pulse 1.2s ease-in-out infinite alternate;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-control);
+  height: 18rem;
+}
+
+.dialogBackdrop {
+  align-items: center;
+  background: rgb(0 0 0 / 50%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: var(--space-5);
+  position: fixed;
+  z-index: 50;
+}
+
+.dialog {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%);
+  display: grid;
+  gap: var(--space-5);
+  max-height: calc(100vh - 2 * var(--space-5));
+  max-width: 48rem;
+  overflow-y: auto;
+  padding: var(--space-6);
+  width: 100%;
+}
+
+.dialogHeading {
+  gap: var(--space-4);
+  justify-content: space-between;
+}
+
+.detailList {
+  gap: var(--space-4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detailList div,
+.contextObject div {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.detailList dt,
+.contextObject dt {
+  color: var(--color-gray-500);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.detailList dd,
+.contextObject dd {
+  overflow-wrap: anywhere;
+}
+
+.contextSection {
+  border-top: 1px solid var(--color-gray-200);
+  gap: var(--space-3);
+  padding-top: var(--space-5);
+}
+
+.contextSection h3 {
+  font-size: var(--font-size-card-title);
+}
+
+.contextObject {
+  gap: var(--space-3);
+}
+
+.contextObject .contextObject {
+  border-left: 2px solid var(--color-gray-200);
+  padding-left: var(--space-3);
+}
+
+.contextList {
+  display: grid;
+  gap: var(--space-1);
+  padding-left: var(--space-5);
+}
+
+@keyframes pulse {
+  to {
+    background: var(--color-gray-200);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+@media (max-width: 76rem) {
+  .filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .filterActions {
+    grid-column: 1/-1;
+  }
+}
+
+@media (max-width: 48rem) {
+  .tableFrame {
+    border: 0;
+    overflow: visible;
+  }
+
+  .table,
+  .table tbody {
+    display: block;
+    min-width: 0;
+  }
+
+  .table thead {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .auditRow {
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-control);
+    display: grid;
+    margin-bottom: var(--space-3);
+    padding: var(--space-3);
+  }
+
+  .auditRow td {
+    align-items: start;
+    border: 0;
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: minmax(6rem, 0.35fr) minmax(0, 1fr);
+    max-width: none;
+    padding: var(--space-2);
+  }
+
+  .auditRow td::before {
+    color: var(--color-gray-500);
+    content: attr(data-label);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+  }
+
+  .dialogBackdrop {
+    padding: var(--space-3);
+  }
+
+  .dialog {
+    max-height: calc(100vh - 2 * var(--space-3));
+    padding: var(--space-5);
+  }
+}
+
+@media (max-width: 40rem) {
+  .filters,
+  .detailList {
+    grid-template-columns: 1fr;
+  }
+
+  .filterActions {
+    grid-column: auto;
+  }
+
+  .filterActions > *,
+  .paginationActions,
+  .paginationActions > * {
+    width: 100%;
+  }
+
+  .pagination {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pagination label {
+    justify-content: space-between;
+  }
+}

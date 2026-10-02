@@ -3,6 +3,7 @@
 import asyncio
 import os
 import sys
+from datetime import datetime, timezone
 from uuid import UUID, uuid4
 
 import pytest
@@ -76,6 +77,8 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
         admin_email=admin_email,
         role="admin",
         is_active=True,
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
     )
     application.dependency_overrides[require_authenticated_admin] = (
         lambda: authenticated_admin
@@ -159,6 +162,11 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
                     "name": "Phase 9 API Applicant",
                     "email": f"phase-9-{run_id}@example.com",
                     "phone": "1234567890",
+                    "experience_years": "5",
+                    "experience_months": "2",
+                    "currently_working": "true",
+                    "current_company": "Integration Company",
+                    "notice_period": "60_days",
                     "cover_letter": "Temporary private cover letter.",
                 },
             )
@@ -177,6 +185,11 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
             assert row["career_title_snapshot"] == "Phase 9 API Temporary Career"
             assert row["career_slug_snapshot"] == slug
             assert row["resume_url"] is None
+            assert row["experience_years"] == 5
+            assert row["experience_months"] == 2
+            assert row["currently_working"] is True
+            assert row["current_company"] == "Integration Company"
+            assert row["notice_period"] == "60_days"
             assert "cover_letter" not in row and "notes" not in row
 
             detail = client.get(f"/admin/job-applications/{application_id}")
@@ -184,6 +197,8 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
             assert detail.json()["career_id"] == str(career_id)
             assert detail.json()["cover_letter"] == "Temporary private cover letter."
             assert detail.json()["resume_url"] is None
+            assert detail.json()["experience_years"] == 5
+            assert detail.json()["notice_period"] == "60_days"
 
             updated = client.patch(
                 f"/admin/job-applications/{application_id}",
@@ -208,6 +223,10 @@ def test_complete_job_application_http_lifecycle_against_postgresql() -> None:
                     "name": "Late Applicant",
                     "email": f"late-{run_id}@example.com",
                     "phone": "1234567890",
+                    "experience_years": "0",
+                    "experience_months": "0",
+                    "currently_working": "false",
+                    "notice_period": "immediate",
                 },
             )
             assert rejected_submission.status_code == 404

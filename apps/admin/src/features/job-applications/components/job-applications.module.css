@@ -5,7 +5,7 @@
 .detailPanel,
 .detailGrid,
 .detailList,
-.longContent,
+.detailSection,
 .reviewForm,
 .reviewFields,
 .feedback,
@@ -49,7 +49,6 @@
 .allApplicants:focus-visible,
 .headerAction:focus-visible,
 .careerScope:focus-visible,
-.applicationRow:focus-visible,
 .textLink:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
 .selectedScope { background: var(--color-black); border-color: var(--color-black); color: var(--color-white); }
 .selectedScope span { color: var(--color-gray-200); }
@@ -64,21 +63,23 @@
 .table th { background: var(--color-gray-50); font-size: var(--font-size-sm); font-weight: 600; }
 .applicationRow { cursor: default; }
 .applicationRow:hover { background: var(--color-gray-50); }
-.expandedRow > td { background: var(--color-gray-50); padding: var(--space-5); }
 .badge { border: 1px solid var(--color-gray-300); border-radius: 999px; display: inline-flex; font-size: var(--font-size-xs); font-weight: 600; padding: var(--space-1) var(--space-2); text-transform: capitalize; white-space: nowrap; }
 .textLink { font-size: var(--font-size-sm); font-weight: 600; text-decoration: underline; text-underline-offset: 0.2em; }
 .detailPanel { gap: var(--space-5); }
 .detailGrid { gap: var(--space-6); grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.detailGrid section,
-.longContent,
+.detailSection,
 .reviewForm { gap: var(--space-3); }
 .detailPanel h3 { font-size: 1rem; }
+.detailSection { align-content: start; border: 1px solid var(--color-gray-200); border-radius: var(--radius-control); padding: var(--space-5); }
 .detailList { gap: var(--space-2); }
 .detailList div { display: grid; gap: var(--space-1); }
 .detailList dt { color: var(--color-gray-500); font-size: var(--font-size-xs); }
 .detailList dd { overflow-wrap: anywhere; }
-.longContent p { white-space: pre-wrap; }
-.reviewForm { border-top: 1px solid var(--color-gray-200); padding-top: var(--space-5); }
+.coverLetter { border-top: 1px solid var(--color-gray-200); display: grid; gap: var(--space-2); margin-top: var(--space-1); padding-top: var(--space-3); }
+.coverLetter h4 { font-size: var(--font-size-sm); }
+.coverLetter p { color: var(--color-gray-700); white-space: pre-wrap; }
+.reviewForm { border: 1px solid var(--color-gray-200); border-radius: var(--radius-control); padding: var(--space-5); }
+.reviewHeading { align-items: start; display: flex; justify-content: space-between; }
 .reviewFields { gap: var(--space-5); grid-template-columns: minmax(12rem, 0.4fr) minmax(0, 1fr); }
 .feedback { border-left: 3px solid var(--color-black); gap: var(--space-1); padding: var(--space-3) var(--space-4); }
 .actions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-2); }
@@ -87,9 +88,18 @@
 .dialogBackdrop { align-items: center; background: rgb(0 0 0 / 50%); display: flex; inset: 0; justify-content: center; padding: var(--space-5); position: fixed; z-index: 50; }
 .dialog { background: var(--color-white); border-radius: var(--radius-card); box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%); display: grid; gap: var(--space-4); max-width: 30rem; padding: var(--space-6); width: 100%; }
 .dialog p { color: var(--color-gray-700); }
+.applicantDialogBackdrop { align-items: center; background: rgb(0 0 0 / 55%); display: flex; inset: 0; justify-content: center; padding: var(--space-5); position: fixed; z-index: 40; }
+.applicantDialog { background: var(--color-white); border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%); display: grid; grid-template-rows: auto minmax(0, 1fr); max-height: calc(100svh - 2 * var(--space-5)); max-width: 62rem; overflow: hidden; width: 100%; }
+.applicantDialogHeader { align-items: start; border-bottom: 1px solid var(--color-gray-200); display: flex; gap: var(--space-5); justify-content: space-between; padding: var(--space-5) var(--space-6); }
+.dialogTitleGroup { display: grid; gap: var(--space-1); min-width: 0; }
+.dialogTitleLine { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.dialogTitleLine h2 { font-size: var(--font-size-section-title); overflow-wrap: anywhere; }
+.applicantDialogBody { min-height: 16rem; overflow-y: auto; padding: var(--space-6); }
+.dialogState { align-content: center; display: grid; gap: var(--space-3); justify-items: start; min-height: 15rem; }
+.detailSkeleton { animation: pulse 1.2s ease-in-out infinite alternate; background: var(--color-gray-100); border-radius: var(--radius-control); height: 10rem; width: 100%; }
 .skeleton { animation: pulse 1.2s ease-in-out infinite alternate; background: var(--color-gray-100); border-radius: var(--radius-control); height: 14rem; }
 @keyframes pulse { to { background: var(--color-gray-200); } }
-@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .detailSkeleton, .skeleton { animation: none; } }
 
 @media (max-width: 48rem) {
   .scopeSection,
@@ -103,12 +113,20 @@
   .applicationRow { border: 1px solid var(--color-gray-200); border-radius: var(--radius-control); display: grid; margin-bottom: var(--space-3); padding: var(--space-3); }
   .applicationRow td { align-items: start; border: 0; display: grid; gap: var(--space-3); grid-template-columns: minmax(5rem, 0.35fr) minmax(0, 1fr); padding: var(--space-2); }
   .applicationRow td::before { color: var(--color-gray-500); content: attr(data-label); font-size: var(--font-size-xs); font-weight: 600; }
-  .expandedRow { display: block; margin: calc(var(--space-3) * -1) 0 var(--space-4); }
-  .expandedRow > td { border: 1px solid var(--color-gray-200); border-radius: 0 0 var(--radius-control) var(--radius-control); display: block; }
+  .applicantDialogBackdrop { padding: var(--space-3); }
+  .applicantDialog { max-height: calc(100svh - 2 * var(--space-3)); }
+  .applicantDialogHeader { padding: var(--space-4) var(--space-5); }
+  .applicantDialogBody { padding: var(--space-5); }
 }
 
 @media (max-width: 32rem) {
   .scopeHeading { align-items: flex-start; flex-direction: column; }
   .careerScopes { grid-template-columns: 1fr; }
   .actions > * { width: 100%; }
+  .applicantDialogBackdrop { align-items: stretch; padding: 0; }
+  .applicantDialog { border-radius: 0; max-height: 100svh; }
+  .applicantDialogHeader { gap: var(--space-2); padding: var(--space-4); }
+  .applicantDialogBody { padding: var(--space-4); }
+  .detailSection,
+  .reviewForm { padding: var(--space-4); }
 }

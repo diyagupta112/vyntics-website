@@ -7,6 +7,9 @@
   --color-gray-300: #d4d4d4;
   --color-gray-500: #737373;
   --color-gray-700: #404040;
+  --color-blue-50: #f2f6ff;
+  --color-blue-100: #dbe7ff;
+  --color-blue-700: #1650d6;
   --color-red-50: #fef2f2;
   --color-red-700: #b91c1c;
   --color-red-800: #991b1b;
@@ -32,7 +35,7 @@
   --radius-card: 0.625rem;
   --focus-ring: 2px solid var(--color-black);
   --focus-offset: 2px;
-  --sidebar-width: 14.5rem;
+  --sidebar-width: 15.5rem;
   --header-height: 4rem;
   --content-max-width: 90rem;
 }

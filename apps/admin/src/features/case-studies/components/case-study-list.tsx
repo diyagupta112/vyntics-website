@@ -110,56 +110,43 @@ export function CaseStudyList() {
         <div className={styles.studyList}>
           {caseStudies.map((caseStudy) => (
             <article className={styles.studyCard} key={caseStudy.id}>
-              {caseStudy.cover_image_url ? (
-                <Image
-                  alt={`Cover for ${caseStudy.title}`}
-                  className={styles.studyImage}
-                  height={360}
-                  src={caseStudy.cover_image_url}
-                  unoptimized
-                  width={640}
-                />
-              ) : (
-                <div className={styles.imagePlaceholder}>No cover image</div>
-              )}
-              <div className={styles.studyCopy}>
-                <div className={styles.studyHeading}>
-                  <div>
-                    <h2>{caseStudy.title}</h2>
-                    <p className={styles.metadata}>
-                      {caseStudy.client_name} · /{caseStudy.slug}
-                    </p>
+              <Link
+                aria-label={`Edit ${caseStudy.title}`}
+                className={styles.cardLink}
+                href={`/case-studies/${caseStudy.id}/edit`}
+              >
+                {caseStudy.cover_image_url ? (
+                  <Image
+                    alt={`Cover for ${caseStudy.title}`}
+                    className={styles.studyImage}
+                    height={360}
+                    src={caseStudy.cover_image_url}
+                    unoptimized
+                    width={640}
+                  />
+                ) : (
+                  <div className={styles.imagePlaceholder}>No cover image</div>
+                )}
+                <div className={styles.studyCopy}>
+                  <div className={styles.studyHeading}>
+                    <span className={styles.clientName}>{caseStudy.client_name}</span>
+                    <StatusBadge status={caseStudy.status} />
                   </div>
-                  <StatusBadge status={caseStudy.status} />
+                  <h2>{caseStudy.title}</h2>
                 </div>
-                <p>{caseStudy.excerpt}</p>
-                <p className={styles.metadata}>
-                  Updated{" "}
-                  <time dateTime={caseStudy.updated_at}>
-                    {new Intl.DateTimeFormat(undefined, {
-                      dateStyle: "medium",
-                    }).format(new Date(caseStudy.updated_at))}
-                  </time>
-                </p>
-                <div className={styles.actions}>
-                  <Link
-                    aria-label={`Edit ${caseStudy.title}`}
-                    className={styles.linkButton}
-                    href={`/case-studies/${caseStudy.id}/edit`}
-                  >
-                    Edit
-                  </Link>
-                  <Button
-                    aria-label={`Delete ${caseStudy.title}`}
-                    onClick={() => {
-                      setDeleteError(undefined);
-                      setDeleting(caseStudy);
-                    }}
-                    variant="ghost"
-                  >
-                    Delete
-                  </Button>
-                </div>
+              </Link>
+              <div className={styles.cardActions}>
+                <Button
+                  className={styles.deleteButton}
+                  aria-label={`Delete ${caseStudy.title}`}
+                  onClick={() => {
+                    setDeleteError(undefined);
+                    setDeleting(caseStudy);
+                  }}
+                  variant="destructive"
+                >
+                  Delete
+                </Button>
               </div>
             </article>
           ))}

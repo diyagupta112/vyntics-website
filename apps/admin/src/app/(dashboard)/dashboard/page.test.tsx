@@ -26,8 +26,14 @@ describe("DashboardPage", () => {
 
     render(<DashboardPage />);
 
-    expect(screen.getByRole("heading", { level: 1, name: "Dashboard" })).toBeInTheDocument();
-    expect(await screen.findByTestId("dashboard-overview-grid")).toBeInTheDocument();
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Operational overview" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Monitor content, hiring, people, and incoming requests."),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Live counts from the Admin APIs.")).not.toBeInTheDocument();
+    expect(screen.getByTestId("dashboard-overview-grid")).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /New Contact Submissions 1/ })[0]).toHaveAttribute("href", "/contact");
     expect(screen.getByRole("link", { name: /Team Members 2/ })).toHaveAttribute("href", "/team");
     expect(screen.getByRole("heading", { name: "Needs attention" })).toBeInTheDocument();

@@ -1,5 +1,6 @@
 """Shared authenticated-administrator test context."""
 
+from datetime import datetime, timezone
 from uuid import UUID
 
 from fastapi import FastAPI
@@ -16,6 +17,8 @@ TEST_ADMIN = AuthenticatedAdmin(
     admin_email="admin@vyntics.com",
     role="admin",
     is_active=True,
+    created_at=datetime(2026, 9, 28, 12, 0, tzinfo=timezone.utc),
+    updated_at=datetime(2026, 9, 28, 12, 0, tzinfo=timezone.utc),
 )
 
 

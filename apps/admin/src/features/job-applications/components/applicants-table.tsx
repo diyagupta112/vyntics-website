@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { jobApplicationsApi } from "../api/job-applications";
 import { applicationErrorMessage } from "../lib/errors";
 import type { JobApplicationDetail, JobApplicationListItem } from "../types";
-import { ApplicationDetail } from "./application-detail";
+import { ApplicantDetailDialog } from "./applicant-detail-dialog";
 import { ConfirmDelete } from "./confirm-delete";
 import { StatusBadge } from "./status-badge";
 import styles from "./job-applications.module.css";
@@ -17,22 +17,18 @@ type Props = {
 };
 
 export function ApplicantsTable({ applications, onRemoved, onUpdated }: Props) {
-  const [expandedId, setExpandedId] = useState<string>();
+  const [selected, setSelected] = useState<JobApplicationListItem>();
   const [details, setDetails] = useState<Record<string, JobApplicationDetail>>({});
-  const [detailLoading, setDetailLoading] = useState<string>();
+  const [detailLoading, setDetailLoading] = useState<Record<string, boolean>>({});
   const [detailError, setDetailError] = useState<Record<string, string>>({});
   const [deleting, setDeleting] = useState<JobApplicationListItem>();
   const [deleteBusy, setDeleteBusy] = useState(false);
   const [deleteError, setDeleteError] = useState<string>();
+  const detailsTriggerRef = useRef<HTMLButtonElement | null>(null);
 
-  async function toggle(application: JobApplicationListItem) {
-    if (expandedId === application.id) {
-      setExpandedId(undefined);
-      return;
-    }
-    setExpandedId(application.id);
-    if (details[application.id] || detailLoading === application.id) return;
-    setDetailLoading(application.id);
+  async function loadDetail(application: JobApplicationListItem, force = false) {
+    if ((!force && details[application.id]) || detailLoading[application.id]) return;
+    setDetailLoading((current) => ({ ...current, [application.id]: true }));
     setDetailError((current) => ({ ...current, [application.id]: "" }));
     try {
       const detail = await jobApplicationsApi.get(application.id);
@@ -43,8 +39,14 @@ export function ApplicantsTable({ applications, onRemoved, onUpdated }: Props) {
         [application.id]: applicationErrorMessage(caught, "load applicant details"),
       }));
     } finally {
-      setDetailLoading(undefined);
+      setDetailLoading((current) => ({ ...current, [application.id]: false }));
     }
+  }
+
+  function openDetails(application: JobApplicationListItem, trigger: HTMLButtonElement) {
+    detailsTriggerRef.current = trigger;
+    setSelected(application);
+    void loadDetail(application);
   }
 
   function updateDetail(detail: JobApplicationDetail) {
@@ -59,7 +61,12 @@ export function ApplicantsTable({ applications, onRemoved, onUpdated }: Props) {
     try {
       await jobApplicationsApi.delete(deleting.id);
       onRemoved(deleting.id);
-      setExpandedId(undefined);
+      setSelected(undefined);
+      setDetails((current) => {
+        const next = { ...current };
+        delete next[deleting.id];
+        return next;
+      });
       setDeleting(undefined);
     } catch (caught) {
       setDeleteError(applicationErrorMessage(caught, "delete this Job Application"));
@@ -74,27 +81,29 @@ export function ApplicantsTable({ applications, onRemoved, onUpdated }: Props) {
         <table className={styles.table}>
           <thead><tr><th>Name</th><th>Email</th><th>Mobile</th><th>Status</th><th>Resume</th><th>Details</th></tr></thead>
           <tbody>
-            {applications.map((application) => {
-              const expanded = expandedId === application.id;
-              const detailId = `application-detail-${application.id}`;
-              return (
-                <FragmentRows
-                  application={application}
-                  detail={details[application.id]}
-                  detailError={detailError[application.id]}
-                  detailId={detailId}
-                  expanded={expanded}
-                  loading={detailLoading === application.id}
-                  onDelete={() => setDeleting(application)}
-                  onToggle={() => void toggle(application)}
-                  onUpdated={updateDetail}
-                  key={application.id}
-                />
-              );
-            })}
+            {applications.map((application) => (
+              <ApplicationRow
+                application={application}
+                key={application.id}
+                onOpen={(trigger) => openDetails(application, trigger)}
+              />
+            ))}
           </tbody>
         </table>
       </div>
+      {selected ? (
+        <ApplicantDetailDialog
+          application={selected}
+          detail={details[selected.id]}
+          error={detailError[selected.id]}
+          loading={Boolean(detailLoading[selected.id])}
+          onClose={() => setSelected(undefined)}
+          onDelete={() => setDeleting(details[selected.id] ?? selected)}
+          onRetry={() => void loadDetail(selected, true)}
+          onUpdated={updateDetail}
+          returnFocusTo={detailsTriggerRef.current}
+        />
+      ) : null}
       {deleting ? <ConfirmDelete applicantName={deleting.name} busy={deleteBusy} error={deleteError} onCancel={() => setDeleting(undefined)} onConfirm={() => void confirmDelete()} /> : null}
     </>
   );
@@ -102,44 +111,26 @@ export function ApplicantsTable({ applications, onRemoved, onUpdated }: Props) {
 
 type RowProps = {
   application: JobApplicationListItem;
-  detail?: JobApplicationDetail;
-  detailError?: string;
-  detailId: string;
-  expanded: boolean;
-  loading: boolean;
-  onDelete: () => void;
-  onToggle: () => void;
-  onUpdated: (detail: JobApplicationDetail) => void;
+  onOpen: (trigger: HTMLButtonElement) => void;
 };
 
-function FragmentRows({ application, detail, detailError, detailId, expanded, loading, onDelete, onToggle, onUpdated }: RowProps) {
+function ApplicationRow({ application, onOpen }: RowProps) {
   return (
-    <>
-      <tr className={styles.applicationRow}>
-        <td data-label="Name">{application.name}</td>
-        <td data-label="Email"><a className={styles.textLink} href={`mailto:${application.email}`}>{application.email}</a></td>
-        <td data-label="Mobile">{application.phone}</td>
-        <td data-label="Status"><StatusBadge status={application.status} /></td>
-        <td data-label="Resume">
-          {application.resume_url ? (
-            <a aria-label={`View resume for ${application.name}`} className={styles.textLink} href={application.resume_url} onClick={(event) => event.stopPropagation()} rel="noreferrer" target="_blank">View resume</a>
-          ) : <span className={styles.muted}>No resume</span>}
-        </td>
-        <td data-label="Details">
-          <Button aria-controls={detailId} aria-expanded={expanded} aria-label={`${expanded ? "Hide" : "Show"} details for ${application.name}`} onClick={onToggle} variant="ghost">
-            {expanded ? "Hide details" : "Details"}
-          </Button>
-        </td>
-      </tr>
-      {expanded ? (
-        <tr className={styles.expandedRow} id={detailId}>
-          <td colSpan={6}>
-            {loading ? <p role="status">Loading applicant details…</p> : null}
-            {detailError ? <p role="alert">{detailError}</p> : null}
-            {detail ? <ApplicationDetail detail={detail} onDelete={onDelete} onUpdated={onUpdated} /> : null}
-          </td>
-        </tr>
-      ) : null}
-    </>
+    <tr className={styles.applicationRow}>
+      <td data-label="Name">{application.name}</td>
+      <td data-label="Email"><a className={styles.textLink} href={`mailto:${application.email}`} onClick={(event) => event.stopPropagation()}>{application.email}</a></td>
+      <td data-label="Mobile">{application.phone}</td>
+      <td data-label="Status"><StatusBadge status={application.status} /></td>
+      <td data-label="Resume">
+        {application.resume_url ? (
+          <a aria-label={`View resume for ${application.name}`} className={styles.textLink} href={application.resume_url} onClick={(event) => event.stopPropagation()} rel="noreferrer" target="_blank">View resume</a>
+        ) : <span className={styles.muted}>No resume</span>}
+      </td>
+      <td data-label="Details">
+        <Button aria-haspopup="dialog" aria-label={`View details for ${application.name}`} onClick={(event) => onOpen(event.currentTarget)} variant="ghost">
+          Details
+        </Button>
+      </td>
+    </tr>
   );
 }

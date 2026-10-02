@@ -158,15 +158,9 @@ export function CareerList() {
                 </time>
               </p>
 
-              <div className={styles.actions}>
+              <div className={styles.cardActions}>
                 <Link className={styles.linkButton} href={editPath(career)}>
                   Edit Career
-                </Link>
-                <Link
-                  className={styles.linkButton}
-                  href={applicantPath(career)}
-                >
-                  See Applicants for This Role
                 </Link>
                 <Button
                   aria-label={`Delete ${career.title}`}
@@ -174,10 +168,16 @@ export function CareerList() {
                     setDeleteError(undefined);
                     setDeleting(career);
                   }}
-                  variant="ghost"
+                  variant="destructive"
                 >
                   Delete
                 </Button>
+                <Link
+                  className={`${styles.linkButton} ${styles.applicantsAction}`}
+                  href={applicantPath(career)}
+                >
+                  See Applicants for This Role
+                </Link>
               </div>
             </article>
           ))}

@@ -42,6 +42,15 @@ describe("CaseStudyList", () => {
       screen.getByRole("img", { name: "Cover for Platform redesign" }),
     ).toBeInTheDocument();
     expect(screen.getByText("published")).toBeInTheDocument();
+    expect(screen.getByText("Example Client")).toBeInTheDocument();
+    expect(screen.queryByText("A concise result summary.")).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Edit Platform redesign" })).toHaveAttribute(
+      "href",
+      "/case-studies/1/edit",
+    );
+    expect(
+      screen.getByRole("button", { name: "Delete Platform redesign" }).className,
+    ).toMatch(/destructive/);
     expect(screen.queryByRole("table")).not.toBeInTheDocument();
   });
 

@@ -16,6 +16,10 @@ describe("BlogList", () => {
     expect(screen.getByRole("status", { name: "Loading Blogs" })).toBeInTheDocument();
     expect(await screen.findByText("Post")).toBeInTheDocument();
     expect(screen.getByText("draft")).toBeInTheDocument();
+    expect(screen.getByText("Engineering")).toBeInTheDocument();
+    expect(screen.queryByText("Excerpt")).not.toBeInTheDocument();
+    expect(screen.queryByText(/min read/i)).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Delete Post" }).className).toMatch(/destructive/);
   });
   it("renders the empty state", async () => {
     vi.mocked(blogsApi.list).mockResolvedValue([]);

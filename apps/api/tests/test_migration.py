@@ -62,6 +62,18 @@ def _historical_job_application_migration() -> Path:
     return migration
 
 
+def _candidate_information_migration() -> Path:
+    repository_root = Path(__file__).resolve().parents[3]
+    migration = (
+        repository_root
+        / "supabase"
+        / "migrations"
+        / "20261001120000_add_job_application_candidate_fields.sql"
+    )
+    assert migration.is_file()
+    return migration
+
+
 def test_initial_migration_creates_only_approved_tables() -> None:
     sql = _initial_migration().read_text(encoding="utf-8").lower()
     created_tables = {
@@ -136,3 +148,24 @@ def test_optional_job_resume_forward_migration_is_narrow() -> None:
     assert "create table" not in sql
     assert "drop column" not in sql
     assert "career_id" not in sql
+
+
+def test_candidate_information_migration_is_additive_and_historical_safe() -> None:
+    sql = _candidate_information_migration().read_text(encoding="utf-8").lower()
+
+    assert "alter table public.job_applications" in sql
+    for column in (
+        "experience_years integer",
+        "experience_months smallint",
+        "currently_working boolean",
+        "current_company text",
+        "notice_period text",
+    ):
+        assert f"add column {column}" in sql
+    assert "between 0 and 11" in sql
+    assert "'immediate'" in sql and "'other'" in sql
+    assert "not null" not in sql
+    assert "default" not in sql
+    assert "update public.job_applications" not in sql
+    assert "drop column" not in sql
+    assert "create table" not in sql

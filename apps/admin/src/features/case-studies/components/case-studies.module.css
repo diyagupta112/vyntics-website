@@ -15,21 +15,36 @@
 .page { gap: var(--space-7); }
 .studyList { gap: var(--space-4); }
 .studyCard {
-  align-items: stretch;
   border: 1px solid var(--color-gray-200);
   border-radius: var(--radius-card);
-  gap: var(--space-5);
-  grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: 100%;
+  min-width: 0;
   overflow: hidden;
+  transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+.studyCard:hover {
+  border-color: var(--color-gray-500);
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 6%);
+  transform: translateY(-1px);
+}
+.cardLink {
+  color: inherit;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  text-decoration: none;
+}
+.cardLink:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: -3px;
 }
 .studyImage,
 .imagePlaceholder {
-  aspect-ratio: 16 / 9;
-  height: 100%;
-  min-height: 11rem;
+  height: clamp(10rem, 12vw, 11rem);
   object-fit: cover;
   width: 100%;
 }
+.studyImage { display: block; }
 .imagePlaceholder {
   align-items: center;
   background: var(--color-gray-100);
@@ -40,14 +55,15 @@
   padding: var(--space-4);
 }
 .studyCopy {
-  align-content: center;
+  align-content: start;
   gap: var(--space-3);
+  min-height: 6.25rem;
   min-width: 0;
-  padding: var(--space-5) var(--space-5) var(--space-5) 0;
+  padding: var(--space-4);
 }
-.studyHeading { align-items: flex-start; display: flex; gap: var(--space-3); justify-content: space-between; }
-.studyHeading h2 { font-size: var(--font-size-section-title); }
-.studyCopy p { color: var(--color-gray-700); }
+.studyHeading { align-items: center; display: flex; gap: var(--space-2); justify-content: space-between; }
+.studyCopy h2 { display: -webkit-box; font-size: var(--font-size-card-title); overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.clientName { color: var(--color-gray-500); font-size: var(--font-size-xs); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .metadata { color: var(--color-gray-500); font-size: var(--font-size-xs); }
 .badge {
   border: 1px solid var(--color-gray-300);
@@ -61,6 +77,8 @@
 }
 .badgePublished { background: var(--color-black); border-color: var(--color-black); color: var(--color-white); }
 .actions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.cardActions { align-items: center; background: var(--color-gray-50); border-top: 1px solid var(--color-gray-200); display: flex; justify-content: flex-end; min-height: 3.5rem; padding: var(--space-2) var(--space-3); }
+.cardActions .deleteButton { font-size: var(--font-size-xs); min-height: 2.25rem; padding: var(--space-2) var(--space-3); }
 .linkButton {
   align-items: center;
   border: 1px solid var(--color-gray-300);
@@ -138,13 +156,9 @@
   height: 11rem;
 }
 @keyframes pulse { to { background: var(--color-gray-200); } }
-@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .skeleton, .studyCard { animation: none; transition: none; } }
 
 @media (max-width: 48rem) {
-  .studyCard { grid-template-columns: 1fr; }
-  .studyImage,
-  .imagePlaceholder { height: auto; min-height: 0; }
-  .studyCopy { padding: 0 var(--space-5) var(--space-5); }
   .fields { grid-template-columns: 1fr; }
   .full { grid-column: auto; }
   .formActions > * { width: 100%; }
@@ -156,10 +170,6 @@
   .actions > * { width: 100%; }
 }
 .studyList { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.studyCard { grid-template-columns: 1fr; }
-.studyImage, .imagePlaceholder { height: auto; min-height: 0; }
-.studyCopy { align-content: start; padding: 0 var(--space-5) var(--space-5); }
-.studyCopy > p { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
 .detailLayout { align-items: start; display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr) minmax(18rem, 24rem); }
 .imagePanel { position: sticky; top: calc(var(--header-height) + var(--space-5)); }
 @media (max-width: 68rem) { .studyList { grid-template-columns: repeat(2, minmax(0, 1fr)); } .detailLayout { grid-template-columns: 1fr; } .imagePanel { position: static; } }

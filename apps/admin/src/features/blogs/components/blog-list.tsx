@@ -57,12 +57,11 @@ export function BlogList() {
         <div className={styles.cardBody}>
           <div className={styles.cardTop}><span className={styles.category}>{blog.category}</span><StatusBadge status={blog.status} /></div>
           <h2>{blog.title}</h2>
-          <p className={styles.excerpt}>{blog.excerpt}</p>
-          <p className={styles.cardMeta}>{blog.author} · {blog.read_time} min read</p>
         </div>
       </Link>
-      <div className={styles.cardActions}><time dateTime={blog.updated_at}>Updated {new Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(new Date(blog.updated_at))}</time>
-        <Button aria-label={`Delete ${blog.title}`} onClick={() => { setDeleteError(undefined); setDeleting(blog); }} variant="destructive">Delete</Button></div>
+      <div className={styles.cardActions}>
+        <Button className={styles.deleteButton} aria-label={`Delete ${blog.title}`} onClick={() => { setDeleteError(undefined); setDeleting(blog); }} variant="destructive">Delete</Button>
+      </div>
     </article>)}</div> : null}
     {deleting ? <ConfirmDelete blogTitle={deleting.title} busy={deleteBusy} error={deleteError} onCancel={() => setDeleting(undefined)} onConfirm={() => void confirmDelete()} /> : null}
   </div>;

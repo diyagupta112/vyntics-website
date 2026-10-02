@@ -1,9 +1,9 @@
 .carousel { min-width: 0; }
 
-.stage { position: relative; min-width: 0; min-height: 25rem; overflow: hidden; border-radius: 1rem; }
+.stage { position: relative; min-width: 0; height: var(--testimonial-panel-height, 26rem); overflow: hidden; border-radius: 1rem; }
 
 .card {
-  min-height: 25rem;
+  height: 100%;
   display: grid;
   grid-template-columns: minmax(16rem, 0.95fr) minmax(0, 1.05fr);
   overflow: hidden;
@@ -15,7 +15,7 @@
 
 .portrait {
   position: relative;
-  min-height: 25rem;
+  height: 100%;
   overflow: hidden;
   background-color: var(--color-lavender);
 }
@@ -91,7 +91,6 @@
 }
 
 .controls { flex: 0 0 auto; display: flex; align-items: center; gap: 0.5rem; }
-.controls > span { min-width: 4.25rem; color: var(--color-muted); font-size: 0.72rem; text-align: center; }
 
 .controls button {
   width: 2.6rem;
@@ -144,15 +143,15 @@
 }
 
 @media (max-width: 600px) {
-  .card { min-height: 0; grid-template-columns: 1fr; }
-  .portrait { min-height: 0; aspect-ratio: 4 / 5; }
+  .stage { height: auto; }
+  .card { height: auto; grid-template-columns: 1fr; }
+  .portrait { height: auto; aspect-ratio: 4 / 5; }
   .copy { min-height: 15.5rem; }
   .copy footer { padding-top: 1.5rem; }
   .carouselFooter { align-items: flex-start; flex-direction: column; }
   .thumbnails { width: 100%; }
   .thumbnails button { width: 2.8rem; }
   .controls { width: 100%; justify-content: flex-end; }
-  .controls > span { margin-right: auto; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -110,6 +110,8 @@ async def require_authenticated_admin(
         admin_email=admin.email,
         role=admin.role,
         is_active=admin.is_active,
+        created_at=admin.created_at,
+        updated_at=admin.updated_at,
     )
 
 

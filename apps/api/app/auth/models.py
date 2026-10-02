@@ -1,6 +1,7 @@
 """Typed authenticated identity representations."""
 
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Literal
 from uuid import UUID
 
@@ -27,3 +28,5 @@ class AuthenticatedAdmin:
     admin_email: str
     role: AdminRole
     is_active: bool
+    created_at: datetime
+    updated_at: datetime

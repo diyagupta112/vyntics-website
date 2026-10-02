@@ -1,8 +1,15 @@
 # Backend Progress
 
-**Last updated:** 2026-09-25
+**Last updated:** 2026-10-01
 
 ## Current phase
+
+The Job Application candidate-information contract extension is completed and
+verified through schema, API, OpenAPI, migration, service, audit, resume, and
+real Supabase PostgreSQL tests.
+
+Phase 15 — Current Admin Identity API is completed and verified through API,
+authentication, authorization, OpenAPI, and real Supabase PostgreSQL tests.
 
 Phase 6 — Blog API, including the additional admin read endpoints, is complete.
 Phase 7 — Case Studies is implemented and verified through automated contract,
@@ -431,6 +438,51 @@ Existing public Blog GET behavior remains unchanged.
 - [x] Added focused model, migration, repository, service, API/OpenAPI, and
   PostgreSQL lifecycle coverage for current and historical applications.
 
+### Job Application candidate-information contract extension
+
+**Status:** Completed.
+
+- [x] Extended the existing public `POST /careers/{slug}/apply` multipart
+  contract without adding a second submission endpoint. New submissions require
+  `experience_years` (integer, minimum 0), `experience_months` (integer, 0–11),
+  `currently_working` (explicit boolean), and `notice_period`; `current_company`
+  remains optional and nullable.
+- [x] Normalized candidate experience into years and remaining months so the
+  Admin Panel and a future downstream integration can consume numeric values
+  without parsing free-form text. The Career model's separate job-requirement
+  `experience` text field remains unchanged.
+- [x] Restricted `notice_period` to the stable values `immediate`, `15_days`,
+  `30_days`, `60_days`, `90_days`, and `other`. No custom notice-period field
+  or display labels are stored.
+- [x] Trimmed non-null `current_company`, rejected empty/whitespace-only values,
+  and limited it to 200 characters. `current_company=null` is accepted for both
+  `currently_working=true` and `currently_working=false`; neither value is
+  inferred from the other.
+- [x] Added all five candidate-information values to both administrative list
+  routes and the administrative detail/PATCH response. Historical values are
+  nullable in responses. The public receipt remains the existing minimal
+  `{id, status, submitted_at}` response.
+- [x] Preserved the status/notes-only administrative PATCH input contract.
+  Candidate-submitted fields remain immutable through PATCH and are rejected as
+  undeclared input.
+- [x] Preserved Career snapshots and `ON DELETE SET NULL`, optional resume and
+  private signed-access behavior, transaction boundaries, and the existing safe
+  audit context. Candidate information, applicant PII, resume data, and signed
+  URLs are not added to audit context.
+- [x] Added and applied forward Supabase migration `20261001120000`. Its five
+  columns and validation constraints are nullable and have no defaults or
+  backfill, preserving historical answers as unknown. The migration was
+  recorded in the Supabase migration ledger.
+- [x] Verified all seven existing Job Applications load with null candidate
+  information after migration. New submissions persist and return populated
+  fields through both service and complete FastAPI PostgreSQL lifecycles.
+- [x] Added/updated schema, model, migration, service, API, OpenAPI,
+  authentication-boundary, audit, resume, historical-null, and real PostgreSQL
+  coverage. All 151 focused tests and all 578 backend tests with all 11
+  PostgreSQL integration tests enabled passed.
+- [x] Google Sheets, Google credentials/SDKs/routes, public website form changes,
+  and Admin Panel UI changes remain outside this backend-only extension.
+
 ## Phase 10 — Our Team documentation preparation
 
 - [x] Reviewed the existing Team Member ORM model, initial Supabase migration,
@@ -620,9 +672,154 @@ Existing public Blog GET behavior remains unchanged.
 - [ ] Live Storage upload/sign/delete verification remains blocked until
   `SUPABASE_SERVICE_ROLE_KEY` contains a valid privileged Supabase server key.
 
+## Phase 14 — Audit Logs Read API
+
+**Status:** Completed.
+
+- [x] Exposed existing audit logs to the Admin Panel through protected read APIs,
+  reusing the existing `AuditLog` model, `audit_logs` table, request-scoped async
+  SQLAlchemy sessions, and `AuditLogRepository` without redesigning storage or
+  audit generation.
+- [x] Added `GET /admin/audit-logs` and
+  `GET /admin/audit-logs/{audit_log_id}`. No audit create, update, or delete
+  endpoints were added; reads do not create audit events or commit transactions.
+- [x] Reused the verified Supabase Bearer authentication flow and
+  `require_admin_roles("superadmin")`. Only an active mapped superadmin is
+  allowed; client-provided identity, role, or actor filters cannot grant access.
+- [x] Verified missing/invalid/expired credentials, missing admin mapping, and
+  inactive admins return `401`; authenticated normal admins return `403`;
+  missing audit UUIDs return `404` with `{"detail": "Audit Log not found."}`.
+  Invalid UUIDs, pagination, timestamps, and reversed date ranges return `422`.
+  Audit query database failures return a sanitized `503` detail response.
+- [x] Added `AuditLogListItem`, `AuditLogListResponse`, and `AuditLogDetail`
+  Pydantic response schemas. The list includes `id`, nullable `actor_id`,
+  nullable captured `actor_email`, `action`, `resource_type`, nullable
+  `resource_id`, and `created_at`; detail additionally includes structured
+  JSONB `context`. No authentication credentials or actor relationship are
+  exposed.
+- [x] Added database-side exact-match filters for `actor_id`, `action`,
+  `resource_type`, and `resource_id`, plus inclusive `from` / `to` bounds on
+  `created_at`. Date/time inputs must include a timezone; offsets are respected.
+  Supplied filters combine with AND.
+- [x] Added `page` (default 1, minimum 1) and `page_size` (default 25, range
+  1–100), returning `{items, page, page_size, total}`. Count and page queries
+  share the same SQL filters; ordering is `created_at DESC, id DESC`, with UUID
+  providing deterministic ordering for equal timestamps. Empty and out-of-range
+  pages return empty items and the matching total.
+- [x] Preserved all existing writers in Blog, Case Study, Career, Team Member,
+  Job Application, and Contact Submission services. Content/resource mutations
+  continue to stage audit events through `AuditLogRepository.add()` in their
+  existing transactions. Publication, status, and image changes remain existing
+  update events; public Job Application creation remains anonymous and Contact
+  Submission auditing remains deletion-only.
+- [x] Added 39 tests covering authorization on both routes, spoofed frontend
+  identity, list/detail contracts, SQL count/filter/order/pagination behavior,
+  validation, structured JSON/nullability, safe errors, read-only methods,
+  startup/OpenAPI, real PostgreSQL filtering, and existing-data reads.
+- [x] Verified the new PostgreSQL fixtures in a rollback-only transaction,
+  including real admin mapping and role checks with the existing verifier test
+  double, and verified fixture audit rows are absent afterward. Separately read
+  existing audit records through the HTTP API using the shared auth override.
+- [x] Reviewed both existing actor/time and resource/time indexes in the
+  migration, ORM, and live database. No migration or index change was required.
+  The read-only inspection found 106 persisted audit rows; the newest-page
+  query plan took approximately 0.17 ms of server execution at this volume.
+- [x] Passed 46 focused audit/API/writer tests including both new PostgreSQL
+  integration tests, then all 533 backend tests with PostgreSQL integration
+  enabled. Python compileall and `git diff --check` passed. No Python lint or
+  type-check command is configured. One existing Starlette/HTTPX test-client
+  deprecation warning remains.
+
+Implementation decisions and verification limits:
+
+- The actual schema uses `actor_id`, not `actor_admin_id`, and stores the actor
+  email snapshot directly. No admin join or schema change was necessary;
+  anonymous/historical null actor and resource fields are preserved.
+- There are no separate stored success, changes, resource-name, IP-address,
+  user-agent, or metadata columns. Existing event metadata is returned as
+  `context` without inventing new fields. Existing writers store JSON objects.
+- No prior admin pagination convention existed. Offset pagination was selected
+  for this API; concurrent appends may shift later pages, and count/page queries
+  are not a cross-request snapshot. Global/action-only reads may sort without a
+  dedicated index; current measurements did not justify an additional index.
+- Authentication tests reuse the existing Supabase verifier mocks and real
+  backend dependencies. A live user-token/Google sign-in verification was not
+  performed because no user access token was supplied.
+- The first full-suite invocation encountered the shell's unrelated
+  `DEBUG=release` value, which is not a valid boolean. The successful full run
+  used `env -u DEBUG RUN_DATABASE_INTEGRATION_TESTS=1` without changing `.env`
+  or application configuration.
+- Admin Panel UI/navigation, audit retention, and audit generation were not
+  changed.
+
+## Phase 15 — Current Admin Identity API
+
+**Status:** Completed.
+
+- [x] Added protected `GET /admin/me` for the Admin Panel to retrieve the
+  current active Vyntics administrator resolved from the verified Supabase
+  Bearer access token. No client-provided ID, email, role, query parameter,
+  path parameter, or request body participates in identity selection.
+- [x] Reused `require_authenticated_admin`, the existing Supabase verifier,
+  allowed-domain enforcement, request-scoped async SQLAlchemy session, and
+  `AdminUserRepository.get_by_auth_user_id()`. The dependency now retains the
+  already-loaded admin timestamps, so the endpoint performs no second database
+  lookup and introduces no new authentication mechanism.
+- [x] Allowed both active `admin` and active `superadmin` roles. Missing,
+  malformed, invalid, or expired credentials, a missing `admin_users` mapping,
+  and an inactive admin return `401` with the existing Bearer challenge.
+- [x] Added `CurrentAdminResponse` with exactly the persisted public fields
+  `id`, `auth_user_id`, `email`, `role`, `is_active`, `created_at`, and
+  `updated_at`. The route constructs this response explicitly and does not
+  expose access/refresh tokens, passwords, service credentials, or internal
+  Supabase identity fields.
+- [x] Kept the API read-only: `/admin/me` exposes only `GET`; no current-admin
+  create, update, delete, role-change, or arbitrary identity lookup endpoint
+  was added. The operation and HTTP Bearer requirement appear in OpenAPI.
+- [x] Added 12 tests covering missing/invalid/expired credentials, missing and
+  inactive admin mappings, both allowed roles, exact response fields and timestamps,
+  client identity/role spoof resistance, absent mutation and identity-path
+  routes, secret exclusion, OpenAPI, and a rollback-only real PostgreSQL admin
+  lookup. The existing Audit Logs normal-admin `403` and superadmin access
+  tests remain passing.
+- [x] Passed 106 focused identity/authentication/Audit Logs authorization tests,
+  the new PostgreSQL identity test alongside both Audit Logs PostgreSQL tests,
+  and all 545 backend tests with all 11 PostgreSQL integration tests enabled.
+  Python compileall and a direct application import/OpenAPI assertion passed.
+- [x] No migration or index change was required. Phase 15 reads the existing
+  `admin_users` record and preserves existing audit-writing behavior unchanged.
+
+Implementation decisions and limitations:
+
+- The existing `admin_users` table has no name/display-name column, and the
+  verifier intentionally retains only the verified Supabase user ID and email.
+  The response therefore uses the stored admin email as the available display
+  identity and does not infer a name from unverified token metadata.
+- The returned email, role, active flag, and timestamps come from the mapped
+  `admin_users` row. The verified Supabase identity is used to select that row;
+  frontend-provided identity values are ignored.
+- Admin Panel profile consumption and UI changes remain outside this backend
+  phase.
+
 ## Validation
 
 ```text
+578 tests passed with all 11 PostgreSQL integration tests enabled after the Job Application candidate-information extension
+151 focused Job Application/schema/model/migration/audit tests passed
+Job Application service and FastAPI PostgreSQL lifecycles -> passed
+Migration 20261001120000 -> applied and ledger-recorded
+7 existing Job Applications with null candidate fields -> readable
+Candidate field OpenAPI required/enum/range contract -> passed
+545 tests passed with all 11 PostgreSQL integration tests enabled after Phase 15
+106 focused identity/authentication/Audit Logs authorization tests passed
+Phase 15 PostgreSQL current-admin lookup and rollback cleanup -> passed
+Phase 15 startup/import/OpenAPI/Bearer contract              -> passed
+Python compileall after Phase 15                             -> passed
+533 tests passed with all 10 PostgreSQL integration tests enabled after Phase 14
+46 focused audit/API/writer tests passed, including 2 PostgreSQL integration tests
+Phase 14 startup/OpenAPI, role boundaries, SQL filters/pagination -> passed
+Existing audit records read through list/detail HTTP API -> passed
+Python compileall and git diff --check after Phase 14 -> passed
 486 tests passed, 8 opt-in integration tests skipped after Phase 13
 219 focused Phase 13/auth/resource/resume tests passed
 Shared Storage legacy/current credential headers -> verified with mock HTTP
@@ -760,6 +957,18 @@ Python compileall after Phase 10           -> passed
 The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
+
+The backend Job Application candidate-information contract is ready for the
+separate public application-form and Admin Panel integration work. Google Sheets
+remains a future downstream integration; Supabase PostgreSQL is the source of
+truth.
+
+Phase 15 is completed. The Admin Panel can use `GET /admin/me` to resolve the
+current active administrator and role from its Supabase access token. Admin
+Panel profile consumption remains outside this backend phase.
+
+Phase 14 is completed. The Admin Panel can consume the superadmin-only Audit
+Logs Read API; its Audit Logs UI and navigation remain outside that phase.
 
 Phases 6 through 13 are implemented. Phase 13 requires a valid privileged
 Supabase server credential before live upload, public URL, signed URL, and

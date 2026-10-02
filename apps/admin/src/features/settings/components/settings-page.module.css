@@ -1,0 +1,156 @@
+.page,
+.settingsGrid,
+.card,
+.cardHeading,
+.profileDetails,
+.compactDetails,
+.loadingGrid,
+.errorState {
+  display: grid;
+}
+
+.page {
+  gap: var(--space-7);
+}
+
+.settingsGrid,
+.loadingGrid {
+  gap: var(--space-5);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card {
+  align-content: start;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.card:first-child {
+  grid-column: 1 / -1;
+}
+
+.cardHeading {
+  gap: var(--space-1);
+}
+
+.cardHeading h2 {
+  font-size: var(--font-size-section-title);
+}
+
+.cardHeading p,
+.accountAction p,
+.errorState p {
+  color: var(--color-gray-500);
+}
+
+.profileDetails {
+  gap: var(--space-5);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.compactDetails {
+  gap: var(--space-4);
+}
+
+.profileDetails div,
+.compactDetails div {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.profileDetails dt,
+.compactDetails dt {
+  color: var(--color-gray-500);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.profileDetails dd,
+.compactDetails dd {
+  overflow-wrap: anywhere;
+}
+
+.badge {
+  border: 1px solid var(--color-gray-300);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: var(--space-1) var(--space-2);
+}
+
+.activeBadge {
+  background: var(--color-blue-50);
+  border-color: var(--color-blue-100);
+  color: var(--color-blue-700);
+}
+
+.inactiveBadge {
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+}
+
+.accountAction {
+  align-items: center;
+  display: flex;
+  gap: var(--space-5);
+  justify-content: space-between;
+}
+
+.accountAction h3 {
+  font-size: var(--font-size-card-title);
+}
+
+.accountAction p {
+  font-size: var(--font-size-sm);
+  margin-top: var(--space-1);
+}
+
+.skeleton {
+  animation: pulse 1.2s ease-in-out infinite alternate;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-card);
+  height: 12rem;
+}
+
+.profileSkeleton {
+  grid-column: 1 / -1;
+}
+
+.errorState {
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+@keyframes pulse {
+  to { background: var(--color-gray-200); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton { animation: none; }
+}
+
+@media (max-width: 52rem) {
+  .settingsGrid,
+  .loadingGrid,
+  .profileDetails {
+    grid-template-columns: 1fr;
+  }
+
+  .card:first-child,
+  .profileSkeleton {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 32rem) {
+  .accountAction {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .accountAction button {
+    width: 100%;
+  }
+}

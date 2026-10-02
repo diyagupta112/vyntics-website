@@ -1,0 +1,25 @@
+import { isApiError } from "@/lib/api/errors";
+
+export function auditLogErrorMessage(
+  error: unknown,
+  action = "load Audit Logs",
+): string {
+  if (!isApiError(error)) return `We could not ${action}. Please try again.`;
+
+  switch (error.kind) {
+    case "authentication":
+      return "Your session has expired. Sign in again to continue.";
+    case "permission":
+      return "Audit Logs are available only to superadmins.";
+    case "not_found":
+      return "This Audit Log no longer exists.";
+    case "validation":
+      return error.message;
+    case "service_unavailable":
+      return `We could not ${action} because the service is temporarily unavailable.`;
+    case "network":
+      return "The backend could not be reached. Check the connection and try again.";
+    default:
+      return `We could not ${action}. Please try again.`;
+  }
+}

@@ -1,6 +1,6 @@
 # Vyntics Admin Panel — Implementation Plan
 
-**Status:** Active implementation roadmap and technical source of truth — Phases A–I complete; Phase J planned
+**Status:** Active implementation roadmap and technical source of truth — Phases A–J complete; Phase K planned
 **Application:** `apps/admin`  
 **Backend:** FastAPI (`apps/api`)  
 **Auth:** Supabase Auth  
@@ -124,7 +124,7 @@ The completed foundation includes:
 - typed API errors and response handling;
 - automated tests, typechecking, linting, and production builds.
 
-The Admin Panel's planned feature modules are complete: Blogs, Case Studies, Careers, Job Applications, Our Team, and Contact Submissions. Final hardening and production readiness follow in Phase J.
+The Admin Panel's implemented feature modules are Blogs, Case Studies, Careers, Job Applications, Our Team, Contact Submissions, and the superadmin-only Audit Logs read experience. Final hardening and production readiness follow in Phase K.
 
 ### 3.1 Current structure
 
@@ -155,7 +155,8 @@ apps/admin/
 | G | Job Applications | Complete |
 | H | Our Team | Complete |
 | I | Contact Submissions | Complete |
-| J | Hardening & Production Readiness | Planned |
+| J | Audit Logs | Complete |
+| K | Hardening & Production Readiness | Planned |
 
 ### 3.3 Implementation principles and constraints
 
@@ -213,10 +214,11 @@ Primary navigation:
 5. Job Applications
 6. Team Members
 7. Contact Submissions
+8. Audit Logs — visible only when `GET /admin/me` returns the `superadmin` role; placed in the bottom utility area above Settings
 
 The sidebar must not include modules that are explicitly out of scope.
 
-A Settings section should not be added unless a real supported setting exists.
+Settings links to the protected, read-only `/settings` account experience.
 
 The sidebar should provide:
 
@@ -225,6 +227,10 @@ The sidebar should provide:
 - optional icons;
 - keyboard accessibility;
 - mobile collapse/drawer behavior.
+
+The implemented sidebar keeps the existing navigation hierarchy and uses the shadcn Sidebar composition as structural inspiration without importing shadcn infrastructure into the CSS-module application. Its desktop width is `15.5rem` (248px). Compact Lucide icons, aligned branding, a restrained `#1650D6` active indicator, and consistent hover/focus states improve scanability. A flex-growing main navigation anchors the divided utility area to the bottom, with role-aware Audit Logs above Settings. At the existing `52rem` breakpoint, navigation remains a contained horizontal scroller with touch-sized controls and no page-level horizontal overflow.
+
+Sidebar verification covers all labels and destinations, branding, utility separation and ordering, role-aware Audit Logs, the Settings route, and parent activation on nested routes. Browser checks found no application error overlay or page-level horizontal overflow at 1440×900, 1024×768, 768×1024, and 390×844; authenticated sidebar inspection still requires an Admin browser session.
 
 ### 4.3 Dashboard
 
@@ -1608,7 +1614,50 @@ The exact public create/receipt contract, Admin list/detail/delete contract, and
 
 Authorized administrators can safely read and delete submissions while the UI makes no unsupported promise of editing or resolution workflow.
 
-## 23.10 Phase J — Hardening & Production Readiness
+## 23.10 Phase J — Audit Logs
+
+**Status:** Complete
+
+### Goal
+
+Expose the existing append-only audit history in the Admin Panel for superadmins while retaining FastAPI as the authorization authority.
+
+### Scope delivered
+
+- protected `/audit-logs` App Router page and a normal sidebar item shown only when the backend approves a minimal `GET /admin/audit-logs` capability request;
+- deny-by-default navigation while role information is unavailable or the capability request fails;
+- no hardcoded identity or role, browser JWT decoding, direct database access, or frontend authorization bypass; Audit Logs visibility derives from the authoritative role returned by `GET /admin/me`;
+- typed list and detail integration through the shared authenticated `apiClient` using `GET /admin/audit-logs` and `GET /admin/audit-logs/{audit_log_id}`;
+- compact actor, action, resource, resource ID, and timestamp table with captured actor email preferred and nullable system/anonymous records preserved;
+- server-side action, resource-type, and inclusive local date/time filters translated to timezone-aware ISO timestamps;
+- backend pagination using `page`, `page_size`, and `total`, with 25, 50, and 100-row options and no client-side whole-dataset pagination;
+- on-demand accessible detail dialog with the complete stored fields and recursive readable rendering of structured JSON `context`;
+- loading skeleton, filtered/unfiltered empty states, retryable safe errors, explicit session-expired and superadmin-only messages for `401`/`403`, and no raw backend error exposure;
+- responsive table-to-card behavior, bounded application-shell width, keyboard-operable rows, semantic table/time elements, dialog focus, Escape/backdrop closing, and existing monochrome/DM Sans styles;
+- no Audit Log create, update, or delete UI.
+
+### Current role source
+
+The application shell loads the authenticated administrator once through `GET /admin/me`. The sidebar shows Audit Logs only for the authoritative `superadmin` role while the Audit Logs endpoint continues to enforce authorization independently. FastAPI remains the security boundary.
+
+### Verification
+
+- 16 focused API, capability-hook, navigation, page-state, table, filter, pagination, denial, and detail-dialog tests passed;
+- all 175 Admin Panel tests passed across 46 files; TypeScript, ESLint, and the Next.js 16 production build passed;
+- the production server started and unauthenticated `/audit-logs` returned the expected `307` redirect to `/login`;
+- authenticated visual browser verification was not performed because no authenticated superadmin browser session or browser automation CLI was available.
+
+### Definition of done
+
+A backend-authorized superadmin can discover and use the Audit Logs section with real paginated and filtered data, while normal admins receive neither the navigation affordance nor any frontend attempt to bypass the backend role decision.
+
+## 23.11 Settings
+
+**Status:** Complete
+
+The protected `/settings` page consumes authenticated `GET /admin/me` data through a shared current-admin provider. It presents read-only profile, role, account status, membership dates, access summary, authenticated-session status, the existing Supabase sign-out action, and safe application information. Loading, retryable error, active/inactive, responsive, and role-aware states are covered without exposing internal IDs, tokens, secrets, or unsupported profile and security controls. This phase required no backend changes.
+
+## 23.12 Phase K — Hardening & Production Readiness
 
 **Status:** Planned
 
