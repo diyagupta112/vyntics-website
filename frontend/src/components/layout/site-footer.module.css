@@ -4,13 +4,11 @@
   margin-top: auto;
   overflow: hidden;
   color: var(--color-foreground);
-  background:
-    radial-gradient(circle at 58% -25%, color-mix(in srgb, var(--color-primary) 11%, transparent), transparent 36rem),
-    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--color-lavender) 28%, transparent), transparent 28rem),
-    var(--color-background);
+  background: transparent;
 }
 
 .footer::before {
+  display: none;
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -153,10 +151,37 @@
 @media (hover: hover) and (pointer: fine) {
   .socialLinks a:hover {
     color: #fff;
-    border-color: var(--color-primary);
-    background: var(--color-primary);
+    border-color: var(--social-brand);
+    background: var(--social-background);
     transform: translateY(-0.15rem);
   }
+}
+
+.socialLinks a[data-platform="linkedin"] {
+  --social-brand: #0a66c2;
+  --social-background: #0a66c2;
+}
+
+.socialLinks a[data-platform="instagram"] {
+  --social-brand: #e1306c;
+  --social-background: linear-gradient(135deg, #833ab4, #e1306c 50%, #f77737 80%, #fcaf45);
+}
+
+.socialLinks a[data-platform="twitter"] {
+  --social-brand: #000;
+  --social-background: #000;
+}
+
+.socialLinks a:focus-visible {
+  color: #fff;
+  border-color: var(--social-brand);
+  background: var(--social-background);
+  outline: 2px solid var(--social-brand);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .socialLinks a { transition: none; }
 }
 
 .bottomBar {

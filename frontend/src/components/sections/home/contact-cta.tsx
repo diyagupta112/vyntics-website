@@ -7,6 +7,18 @@ import styles from "./contact-cta.module.css";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
+function SubmitIcon({ success }: { success: boolean }) {
+  return (
+    <svg className={styles.submitIcon} viewBox="0 0 24 24" aria-hidden="true">
+      {success ? (
+        <path className={styles.checkPath} d="m5 12.5 4.25 4.25L19 7" pathLength="1" />
+      ) : (
+        <path d="M4 12h15m-5.5-5.5L19 12l-5.5 5.5" />
+      )}
+    </svg>
+  );
+}
+
 export function ContactCta() {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [feedback, setFeedback] = useState("");
@@ -67,7 +79,17 @@ export function ContactCta() {
           </address>
         </div>
 
-        <form className={styles.form} onSubmit={handleSubmit} noValidate={false}>
+        <form
+          className={styles.form}
+          onSubmit={handleSubmit}
+          onInput={() => {
+            if (submitState === "success" || submitState === "error") {
+              setSubmitState("idle");
+              setFeedback("");
+            }
+          }}
+          noValidate={false}
+        >
           <div className={styles.twoColumns}>
             <label>
               <span>Full name</span>
@@ -95,9 +117,17 @@ export function ContactCta() {
             <textarea name="message" required rows={5} placeholder="Tell us about your project, challenge, or goal." />
           </label>
 
-          <button type="submit" disabled={submitState === "submitting"}>
-            {submitState === "submitting" ? "Sending…" : "Send message"}
-            {submitState !== "submitting" && <span aria-hidden="true">→</span>}
+          <button
+            className={styles.submitButton}
+            type="submit"
+            data-state={submitState}
+            disabled={submitState === "submitting" || submitState === "success"}
+          >
+            <span className={styles.sendSweep} aria-hidden="true" />
+            <span className={styles.submitContent}>
+              {submitState === "submitting" ? "Sending…" : submitState === "success" ? "Message sent" : "Send message"}
+              <SubmitIcon success={submitState === "success"} />
+            </span>
           </button>
 
           <p className={`${styles.feedback} ${submitState === "error" ? styles.error : ""}`} role="status" aria-live="polite">

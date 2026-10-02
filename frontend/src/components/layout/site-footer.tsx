@@ -3,29 +3,8 @@ import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import styles from "./site-footer.module.css";
+import { serviceNavigation } from "@/content/service-navigation";
 
-const serviceGroups = [
-  {
-    label: "Custom AI Solutions",
-    href: "/services/ai",
-    items: ["RAG Assistants", "AI Agents", "Document Automation", "Workflow Automation", "LLM Integrations"],
-  },
-  {
-    label: "Data Engineering",
-    href: "/services/data",
-    items: ["Data Pipelines", "ETL & ELT", "Data Warehousing", "Data Integration", "Data Quality"],
-  },
-  {
-    label: "Analytics & BI",
-    href: "/services/data",
-    items: ["Power BI", "Tableau", "Amazon QuickSight", "KPI Dashboards", "Executive Reporting"],
-  },
-  {
-    label: "Cloud Solutions",
-    href: "/services/cloud",
-    items: ["Cloud Architecture", "Cloud Migration", "Cost Optimization", "DevOps & Infrastructure", "Reliability Monitoring"],
-  },
-];
 
 const exploreLinks = [
   { label: "About us", href: "/about" },
@@ -103,12 +82,12 @@ export function SiteFooter() {
             </a>
           </div>
 
-          {serviceGroups.map((group) => (
+          {serviceNavigation.map((group) => (
             <nav className={styles.linkColumn} aria-label={group.label} key={group.label}>
               <h2><Link href={group.href}>{group.label}</Link></h2>
               <ul>
-                {group.items.map((item) => (
-                  <li key={item}><Link href={group.href}>{item}</Link></li>
+                {group.children?.map((item) => (
+                  <li key={item.label}><Link href={item.href}>{item.label}</Link></li>
                 ))}
               </ul>
             </nav>
@@ -141,9 +120,9 @@ export function SiteFooter() {
               </li>
             </ul>
             <div className={styles.socialLinks} aria-label="Vyntics social media">
-              <a href={siteConfig.socialLinks.linkedin} target="_blank" rel="noreferrer" aria-label="Vyntics on LinkedIn"><LinkedInIcon /></a>
-              <a href={siteConfig.socialLinks.instagram} target="_blank" rel="noreferrer" aria-label="Vyntics on Instagram"><InstagramIcon /></a>
-              <a href={siteConfig.socialLinks.twitter} target="_blank" rel="noreferrer" aria-label="Vyntics on X, formerly Twitter"><TwitterIcon /></a>
+              <a data-platform="linkedin" href={siteConfig.socialLinks.linkedin} target="_blank" rel="noreferrer" aria-label="Vyntics on LinkedIn"><LinkedInIcon /></a>
+              <a data-platform="instagram" href={siteConfig.socialLinks.instagram} target="_blank" rel="noreferrer" aria-label="Vyntics on Instagram"><InstagramIcon /></a>
+              <a data-platform="twitter" href={siteConfig.socialLinks.twitter} target="_blank" rel="noreferrer" aria-label="Vyntics on X, formerly Twitter"><TwitterIcon /></a>
             </div>
           </div>
         </div>

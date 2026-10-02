@@ -11,28 +11,7 @@ export const metadata: Metadata = {
   description: "Vyntics is an expert-led data and AI consulting company helping organizations turn complex data into trusted decisions, automation, and production systems.",
 };
 
-const capabilities = [
-  {
-    title: "Custom AI",
-    text: "Grounded assistants, RAG systems, intelligent automation, and practical AI integrations.",
-    href: "/services/ai",
-  },
-  {
-    title: "Data engineering",
-    text: "Reliable pipelines, integrations, warehouses, and governed foundations for analytics and AI.",
-    href: "/services/data",
-  },
-  {
-    title: "Analytics & BI",
-    text: "Decision-ready dashboards and reporting built around metrics your teams can agree on.",
-    href: "/services/data",
-  },
-  {
-    title: "Cloud solutions",
-    text: "Architecture, migration, reliability, and cost-conscious infrastructure across leading clouds.",
-    href: "/services/cloud",
-  },
-] as const;
+const technologies = ["Python", "React", "TypeScript", "Next.js", "Node.js", "JavaScript"] as const;
 
 function ArrowIcon() {
   return (
@@ -40,6 +19,42 @@ function ArrowIcon() {
       <path d="M4 10h11M11 6l4 4-4 4" />
     </svg>
   );
+}
+
+function TechnologyLogo({ name }: { name: (typeof technologies)[number] }) {
+  if (name === "React") {
+    return (
+      <svg className={styles.reactLogo} viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="5" />
+        <ellipse cx="32" cy="32" rx="27" ry="10.5" />
+        <ellipse cx="32" cy="32" rx="27" ry="10.5" transform="rotate(60 32 32)" />
+        <ellipse cx="32" cy="32" rx="27" ry="10.5" transform="rotate(120 32 32)" />
+      </svg>
+    );
+  }
+
+  if (name === "Python") {
+    return (
+      <svg className={styles.pythonLogo} viewBox="0 0 64 64" aria-hidden="true">
+        <path className={styles.pythonBlue} d="M31.7 5c-13.5 0-12.6 5.9-12.6 5.9v6.2H32v1.9H14S5 18 5 31.5 12.8 44 12.8 44h4.7v-6.6s-.3-7.8 7.7-7.8h12.9s7.2.1 7.2-7V11.8S46.4 5 31.7 5Zm-7.1 4.1a2.4 2.4 0 1 1 0 4.8 2.4 2.4 0 0 1 0-4.8Z" />
+        <path className={styles.pythonGold} d="M32.3 59c13.5 0 12.6-5.9 12.6-5.9v-6.2H32V45h18s9 1 9-12.5S51.2 20 51.2 20h-4.7v6.6s.3 7.8-7.7 7.8H25.9s-7.2-.1-7.2 7v10.8S17.6 59 32.3 59Zm7.1-4.1a2.4 2.4 0 1 1 0-4.8 2.4 2.4 0 0 1 0 4.8Z" />
+      </svg>
+    );
+  }
+
+  if (name === "TypeScript") {
+    return <span className={`${styles.letterLogo} ${styles.typeScriptLogo}`}>TS</span>;
+  }
+
+  if (name === "Next.js") {
+    return <span className={`${styles.letterLogo} ${styles.nextLogo}`}>N</span>;
+  }
+
+  if (name === "Node.js") {
+    return <span className={`${styles.letterLogo} ${styles.nodeLogo}`}>JS</span>;
+  }
+
+  return <span className={`${styles.letterLogo} ${styles.javaScriptLogo}`}>JS</span>;
 }
 
 export default function AboutPage() {
@@ -55,16 +70,21 @@ export default function AboutPage() {
             </p>
             <div className={styles.heroActions}>
               <Link className={styles.primaryButton} href="/#contact">Start a conversation <ArrowIcon /></Link>
-              <Link className={styles.textLink} href="#team">Meet our team <ArrowIcon /></Link>
             </div>
           </div>
 
-          <div className={styles.heroVisual} aria-hidden="true">
+          <div className={styles.heroVisual} aria-label="Technologies we work with">
             <div className={styles.orbit}>
               <span className={styles.orbitCore}>V</span>
-              <span className={`${styles.orbitNode} ${styles.dataNode}`}>Data</span>
-              <span className={`${styles.orbitNode} ${styles.aiNode}`}>AI</span>
-              <span className={`${styles.orbitNode} ${styles.decisionNode}`}>Decisions</span>
+              <div className={styles.orbitTrack}>
+                {technologies.map((technology) => (
+                  <div className={styles.orbitTechnology} key={technology}>
+                    <div className={styles.technologyBadge} role="img" aria-label={technology}>
+                      <TechnologyLogo name={technology} />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
             <p>Structured data. Practical intelligence. Clear outcomes.</p>
           </div>
@@ -104,7 +124,7 @@ export default function AboutPage() {
         <Container className={styles.missionInner}>
           <header className={styles.missionHeading}>
             <p className={styles.eyebrow}>Our mission</p>
-            <h2 id="mission-title">Make advanced <span>data intelligence</span> useful and accessible.</h2>
+            <h2 id="mission-title">Helping teams make better decisions with <span>data and AI.</span></h2>
           </header>
           <div className={styles.missionCopy}>
             <div className={styles.missionPanelTitle}>
@@ -156,32 +176,11 @@ export default function AboutPage() {
             <p>
               Whether the need is a modern data platform, analytics leadership actually uses, or practical AI automation, we bring structured execution and long-term maintainability-not another deck of recommendations.
             </p>
-            <Link className={styles.storyLink} href="#team">The people behind Vyntics <ArrowIcon /></Link>
           </div>
         </Container>
       </section>
 
       <TeamShowcase />
-
-      <section className={`${styles.section} ${styles.capabilities}`} aria-labelledby="capabilities-title">
-        <Container>
-          <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>What we build</p>
-            <h2 id="capabilities-title">One technical partner from data foundations to working AI.</h2>
-          </div>
-          <div className={styles.capabilityGrid}>
-            {capabilities.map((capability) => (
-              <Link href={capability.href} className={styles.capabilityCard} key={capability.title}>
-                <div>
-                  <h3>{capability.title}</h3>
-                  <p>{capability.text}</p>
-                </div>
-                <ArrowIcon />
-              </Link>
-            ))}
-          </div>
-        </Container>
-      </section>
 
       <section className={styles.cta}>
         <Container className={styles.ctaInner}>

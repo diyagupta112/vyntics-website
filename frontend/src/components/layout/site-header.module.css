@@ -156,6 +156,17 @@
   transform: translateX(-50%) rotate(45deg);
 }
 
+.serviceRow { display: flex; align-items: stretch; border-radius: .7rem; }
+.serviceRow > .dropdownLink { flex: 1; min-width: 0; }
+.serviceGroup:hover > .serviceRow, .serviceGroup:focus-within > .serviceRow { background: var(--color-dropdown-hover); }
+.submenuToggle { width: 2.25rem; flex-shrink: 0; border: 0; border-radius: .5rem; background: transparent; color: var(--color-primary); cursor: pointer; }
+.submenuToggle svg { transform: rotate(-90deg); }
+.submenuToggle:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -3px; }
+.submenu { position: absolute; top: 0; left: calc(100% + .5rem); width: 21rem; padding: .6rem; border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-surface); box-shadow: 0 22px 60px rgb(11 11 15 / 15%); }
+.submenu::before { content: ""; position: absolute; top: 0; bottom: 0; left: -.6rem; width: .6rem; }
+.submenuHeading { padding: .65rem .8rem; color: var(--color-primary); font-size: .75rem; font-weight: 700; letter-spacing: .04em; }
+.mobileNav { max-height: calc(100svh - 4.5rem); overflow-y: auto !important; }
+
 .dropdownLink {
   position: relative;
   display: grid;
@@ -327,7 +338,7 @@
     display: none;
   }
 
-  .mobileGroup[open] summary svg {
+  .mobileGroup[open] > summary svg {
     transform: rotate(180deg);
   }
 

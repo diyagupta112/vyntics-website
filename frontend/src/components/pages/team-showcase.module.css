@@ -6,13 +6,9 @@
   scroll-margin-top: 5rem;
   padding-block: clamp(3.5rem, 6vw, 5.5rem) clamp(5rem, 8vw, 7rem);
   overflow: hidden;
-  color: #0b0b0f;
-  background:
-    linear-gradient(rgb(20 83 219 / 4%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(20 83 219 / 4%) 1px, transparent 1px),
-    radial-gradient(circle at 50% 34%, rgb(20 83 219 / 10%), transparent 28rem),
-    #ffffff;
-  background-size: 4.5rem 4.5rem, 4.5rem 4.5rem, auto, auto;
+  color: var(--color-foreground);
+  background: transparent;
+
 }
 
 .teamContainer {

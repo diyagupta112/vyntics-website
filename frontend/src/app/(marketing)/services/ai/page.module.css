@@ -1,4 +1,4 @@
-.hero { padding-block: clamp(3.75rem, 7vw, 5.75rem); overflow: hidden; background: radial-gradient(circle at 78% 22%, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 25rem), linear-gradient(color-mix(in srgb, var(--color-primary) 4%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 4%, transparent) 1px, transparent 1px), var(--color-background); background-size: auto, 4.5rem 4.5rem, 4.5rem 4.5rem, auto; }
+.hero { padding-block: clamp(3.75rem, 7vw, 5.75rem); overflow: hidden; background: transparent;  }
 .backLink { display: inline-flex; color: var(--color-muted); font-size: 0.8rem; }
 .eyebrow { margin-top: 2.2rem; color: var(--color-brand); font-size: 0.7rem; font-weight: 750; letter-spacing: 0.17em; text-transform: uppercase; }
 .hero h1 { max-width: 16ch; margin-top: 0.85rem; font-size: clamp(2.75rem, 5.2vw, 5.25rem); line-height: 0.98; letter-spacing: -0.055em; text-wrap: balance; }
@@ -13,7 +13,7 @@
 .stats > div:last-child { border-right: 0; }
 .stats dt { color: var(--color-primary); font-size: clamp(1.65rem, 2.5vw, 2.3rem); font-weight: 760; letter-spacing: -0.05em; }
 .stats dd { margin-top: 0.25rem; color: var(--color-muted); font-size: 0.75rem; }
-.section, .workflowSection, .darkSection { padding-block: clamp(3.75rem, 7vw, 5.75rem); border-top: 1px solid var(--color-border); }
+.section, .workflowSection, .darkSection { padding-block: clamp(3.75rem, 7vw, 5.75rem);  }
 .sectionIntro { max-width: 46rem; }
 .sectionIntro .eyebrow, .caseStudy .eyebrow, .cta .eyebrow { margin-top: 0; }
 .sectionIntro h2, .caseStudy h2, .cta h2 { margin-top: 0.65rem; font-size: clamp(1.9rem, 3.3vw, 3.15rem); line-height: 1.07; letter-spacing: -0.045em; text-wrap: balance; }
@@ -23,30 +23,30 @@
 .featureGrid article > span { color: var(--color-primary); font-size: 0.68rem; font-weight: 750; letter-spacing: 0.12em; }
 .featureGrid h3, .agentGrid h3, .advisoryGrid h3 { margin-top: 1.8rem; font-size: 1.08rem; letter-spacing: -0.025em; }
 .featureGrid p, .agentGrid p, .advisoryGrid p { margin-top: 0.7rem; color: var(--color-muted); font-size: 0.87rem; line-height: 1.6; }
-.workflowSection { background: color-mix(in srgb, var(--color-primary) 3.5%, var(--color-background)); }
+.workflowSection { background: transparent; }
 .workflow { margin-top: clamp(2rem, 4vw, 3.25rem); display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.7rem; list-style: none; }
 .workflow li { min-height: 11rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--color-border); border-radius: 0.9rem; background: color-mix(in srgb, var(--color-surface) 92%, transparent); }
 .workflow span { color: var(--color-primary); font-size: 0.7rem; font-weight: 750; letter-spacing: 0.12em; }
 .workflow p { font-size: 0.88rem; line-height: 1.55; }
 .technologyStrip { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.55rem; list-style: none; }
 .technologyStrip li { padding: 0.55rem 0.8rem; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-muted); font-size: 0.72rem; }
-.darkSection { color: #fff; background: #0b0b0f; }
-.darkSection .eyebrow { color: #8fb5ff; }
-.darkSection .sectionIntro > p:last-child, .darkSection .agentGrid p { color: rgb(255 255 255 / 65%); }
+.darkSection { color: var(--color-foreground); background: transparent; }
+.darkSection .eyebrow { color: var(--color-primary); }
+.darkSection .sectionIntro > p:last-child, .darkSection .agentGrid p { color: var(--color-muted); }
 .agentGrid { margin-top: clamp(2rem, 4vw, 3.25rem); display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-.agentGrid article { min-height: 12rem; padding: 1.6rem; border: 1px solid rgb(255 255 255 / 15%); border-radius: 1rem; background: rgb(255 255 255 / 3%); transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease; }
+.agentGrid article { min-height: 12rem; padding: 1.6rem; border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-surface); transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease; }
 .agentGrid h3, .advisoryGrid h3 { margin-top: 0; }
 .advisoryGrid { margin-top: clamp(2rem, 4vw, 3.25rem); display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 .advisoryGrid article { min-height: 11rem; padding: 1.6rem; border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-surface); transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
-.caseStudy { padding-block: clamp(3.5rem, 6vw, 5rem); background: color-mix(in srgb, var(--color-primary) 7%, var(--color-background)); }
+.caseStudy { padding-block: clamp(3.5rem, 6vw, 5rem); background: transparent; }
 .caseStudy > div { display: flex; align-items: end; justify-content: space-between; gap: 4rem; }
 .caseStudy > div > div { max-width: 50rem; }
 .caseStudy a, .cta a { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.5rem; color: var(--color-primary); font-weight: 700; }
-.cta { padding-block: clamp(3.75rem, 7vw, 5.5rem); color: #fff; background: #0b0b0f; }
+.cta { padding-block: clamp(3.75rem, 7vw, 5.5rem); color: var(--color-foreground); background: transparent; }
 .cta > div { display: flex; align-items: end; justify-content: space-between; gap: 4rem; }
 .cta > div > div { max-width: 50rem; }
-.cta .eyebrow { color: #8fb5ff; }
-.cta a { padding: 0.85rem 1.1rem; color: #fff; border: 1px solid rgb(255 255 255 / 25%); border-radius: 999px; }
+.cta .eyebrow { color: var(--color-primary); }
+.cta a { padding: 0.85rem 1.1rem; color: #fff; border: 1px solid var(--color-primary); border-radius: 999px; background: var(--color-primary); }
 
 @media (prefers-reduced-motion: no-preference) {
   .hero > div > * { animation: riseIn 600ms both; }

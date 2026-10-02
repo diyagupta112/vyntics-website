@@ -5,6 +5,7 @@
   --color-lavender: #dddbff;
   --color-accent: #2563eb;
   --color-background: var(--color-white);
+  --site-gradient: radial-gradient(ellipse at 85% 15%, rgb(37 99 235 / 9%), transparent 58%), radial-gradient(ellipse at 10% 85%, rgb(20 83 219 / 6%), transparent 55%), linear-gradient(135deg, #ffffff, #f3f7ff);
   --color-foreground: var(--color-ink);
   --color-muted: rgb(11 11 15 / 62%);
   --color-border: rgb(11 11 15 / 10%);
@@ -24,6 +25,7 @@
 
 html[data-theme="dark"] {
   --color-background: var(--color-ink);
+  --site-gradient: radial-gradient(ellipse at 85% 15%, rgb(37 99 235 / 15%), transparent 58%), radial-gradient(ellipse at 10% 85%, rgb(20 83 219 / 10%), transparent 55%), linear-gradient(135deg, #0b0b0f, #101a30);
   --color-foreground: var(--color-white);
   --color-muted: rgb(255 255 255 / 62%);
   --color-border: rgb(255 255 255 / 12%);
@@ -51,6 +53,7 @@ body {
 
 body {
   min-height: 100%;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   color: var(--color-foreground);
@@ -59,6 +62,20 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: color 200ms ease, background-color 200ms ease;
+}
+
+/* One viewport-wide backdrop, outside the transformed smooth-scroll content.
+   It never tiles or restarts at a section boundary. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--site-gradient);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 * {

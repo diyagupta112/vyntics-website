@@ -4,10 +4,7 @@
   align-items: center;
   padding-block: clamp(1.75rem, 3.5vh, 2.75rem);
   overflow: hidden;
-  background:
-    radial-gradient(circle at 94% 4%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 30rem),
-    radial-gradient(circle at 8% 92%, color-mix(in srgb, var(--color-lavender) 22%, transparent), transparent 25rem),
-    var(--color-background);
+  background: transparent;
   scroll-margin-top: 5rem;
 }
 
@@ -60,9 +57,10 @@
 .card {
   position: relative;
   min-height: clamp(19rem, 43vh, 22rem);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-content: stretch;
   gap: 1.5rem;
   overflow: hidden;
   padding: clamp(1.25rem, 2vw, 1.65rem);
@@ -95,6 +93,7 @@
 }
 
 .cardTop {
+  min-height: 3.25rem;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -123,7 +122,9 @@
 }
 
 .cardCopy {
-  margin-top: auto;
+  display: grid;
+  grid-template-rows: 5rem minmax(0, 1fr);
+  align-content: start;
 }
 
 .card h3 {
@@ -136,19 +137,23 @@
 
 .card p {
   margin-top: 0.85rem;
+  align-self: start;
   color: var(--color-muted);
   font-size: 0.88rem;
   line-height: 1.55;
+  text-wrap: pretty;
 }
 
 .detail {
+  min-height: 3.5rem;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding-top: 0.85rem;
   color: var(--color-primary);
   border-top: 1px solid var(--color-border);
   font-size: 0.75rem;
   font-weight: 720;
+  line-height: 1.35;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -186,6 +191,10 @@
   .card {
     min-height: 18rem;
   }
+
+  .cardCopy {
+    grid-template-rows: 3.5rem minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 560px) {
@@ -199,6 +208,14 @@
 
   .card {
     min-height: 16rem;
+  }
+
+  .cardCopy {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .detail {
+    min-height: auto;
   }
 }
 

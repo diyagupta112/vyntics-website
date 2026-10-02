@@ -4,7 +4,7 @@
   align-items: center;
   padding-block: clamp(1.5rem, 3vh, 2.25rem);
   overflow: hidden;
-  background: var(--color-background);
+  background: transparent;
   scroll-margin-top: 5rem;
 }
 
@@ -302,12 +302,18 @@
 }
 
 .proofPoints li {
+  position: relative;
   padding: 0.42rem 0.62rem;
+  overflow: hidden;
   color: var(--color-muted);
   border: 1px solid var(--color-border);
   border-radius: 999px;
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 0%, transparent);
   font-size: 0.72rem;
   font-weight: 620;
+  isolation: isolate;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 220ms ease, transform 220ms ease;
 }
 
 .cardFooter {
@@ -323,13 +329,50 @@
 }
 
 .stack li {
+  position: relative;
   padding: 0.38rem 0.58rem;
+  overflow: hidden;
   color: var(--color-muted);
   border: 1px solid var(--color-border);
   border-radius: 999px;
   background: var(--color-background);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 0%, transparent);
   font-size: 0.7rem;
   font-weight: 620;
+  isolation: isolate;
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.proofPoints li::before,
+.stack li::before {
+  position: absolute;
+  inset: -65%;
+  z-index: -1;
+  content: "";
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-primary) 24%, transparent), transparent 68%);
+  opacity: 0;
+  transform: scale(0.45);
+  transition: opacity 220ms ease, transform 320ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .proofPoints li:hover,
+  .stack li:hover {
+    color: var(--color-foreground);
+    border-color: color-mix(in srgb, var(--color-primary) 52%, var(--color-border));
+    background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface));
+    box-shadow:
+      0 0 0 0.22rem color-mix(in srgb, var(--color-primary) 7%, transparent),
+      0 0.65rem 1.4rem color-mix(in srgb, var(--color-primary) 15%, transparent);
+    transform: translateY(-0.14rem);
+  }
+
+  .proofPoints li:hover::before,
+  .stack li:hover::before {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .caseStudyLink {
@@ -449,7 +492,11 @@
 
   .card,
   .carouselNavigation button,
-  .pagination button {
+  .pagination button,
+  .proofPoints li,
+  .stack li,
+  .proofPoints li::before,
+  .stack li::before {
     transition: none;
   }
 }

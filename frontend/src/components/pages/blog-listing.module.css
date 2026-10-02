@@ -11,9 +11,7 @@
 .carouselViewport::-webkit-scrollbar { display: none; }
 .carouselViewport > .featured { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
 .featureImage { position: absolute; inset: 0; z-index: -2; display: block; min-width: 0; }.featureImage .cover { height: 100%; }
-.carouselControls { position: absolute; right: 0; bottom: 1.25rem; left: 0; display: flex; align-items: center; justify-content: center; gap: 1rem; }
-.page .carouselArrow { width: 2.6rem; height: 2.6rem; padding: 0; display: grid; place-items: center; border-color: var(--color-border); font-size: 1.1rem; }
-.carousel .carouselArrow { color: #fff; border-color: rgb(255 255 255 / 35%); background: rgb(4 12 25 / 35%); }
+.carouselControls { position: absolute; right: 0; bottom: 1.25rem; left: 0; display: flex; align-items: center; justify-content: center; }
 .carouselDots { display: flex; flex-wrap: wrap; justify-content: center; max-width: 50%; gap: .2rem; }
 .page .carouselDot { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; padding: 0; border: 0; background: transparent; }
 .carouselDot::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: rgb(255 255 255 / 45%); transition: width 180ms ease, background 180ms ease; }

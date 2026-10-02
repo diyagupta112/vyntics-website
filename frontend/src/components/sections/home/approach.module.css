@@ -4,10 +4,7 @@
   align-items: center;
   padding-block: clamp(3.5rem, 7vh, 6rem);
   overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 54%, color-mix(in srgb, var(--color-primary) 18%, transparent), transparent 30rem),
-    radial-gradient(circle at 78% 30%, color-mix(in srgb, var(--color-lavender) 36%, transparent), transparent 25rem),
-    var(--color-background);
+  background: transparent;
   scroll-margin-top: 5rem;
 }
 
@@ -158,15 +155,11 @@
     box-shadow: 0 28px 65px color-mix(in srgb, var(--color-primary) 16%, transparent);
   }
 
-  .process:has(.step:hover) .routeActive {
-    opacity: 1;
-    animation: route-flow 1.25s linear infinite;
-  }
+}
 
-  .process:has(.step:hover) .arrowHead {
-    opacity: 1;
-    animation: arrow-pulse 650ms ease-in-out infinite alternate;
-  }
+.section[data-in-view="true"] .routeActive {
+  opacity: 1;
+  animation: route-flow 1.25s linear infinite;
 }
 
 @keyframes route-flow {
@@ -220,7 +213,7 @@
   }
 }
 
-@media (hover: none), (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
   .routeActive {
     opacity: 0.6;
     transition: none;

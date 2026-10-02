@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { siteConfig } from "@/config/site";
-import type { NavigationItem } from "@/types/navigation";
+import type { NavigationChild, NavigationItem } from "@/types/navigation";
 import styles from "./site-header.module.css";
 
 function ChevronIcon() {
@@ -25,6 +25,15 @@ function MenuIcon({ open }: { open: boolean }) {
       <span />
     </span>
   );
+}
+
+function ServiceSubmenu({ child, close }: { child: NavigationChild; close: () => void }) {
+  const [open, setOpen] = useState(false);
+  const id = `service-submenu-${child.label.toLowerCase().replace(/\s+/g, "-")}`;
+  return <div className={styles.serviceGroup} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
+    <div className={styles.serviceRow}><Link className={styles.dropdownLink} href={child.href} onClick={close}><span>{child.label}</span><small>{child.description}</small></Link><button type="button" className={styles.submenuToggle} aria-label={`Show ${child.label} services`} aria-expanded={open} aria-controls={id} onClick={() => setOpen((value) => !value)}><ChevronIcon /></button></div>
+    {open && <div id={id} className={styles.submenu}><p className={styles.submenuHeading}>{child.label} services</p>{child.children?.map((service) => <Link key={service.href} className={styles.dropdownLink} href={service.href} onClick={close}><span>{service.label}</span><small>{service.description}</small></Link>)}</div>}
+  </div>;
 }
 
 function DesktopMenuItem({
@@ -75,7 +84,7 @@ function DesktopMenuItem({
           >
             <div className={styles.dropdownArrow} />
             {item.children.map((child) => (
-              <Link className={styles.dropdownLink} href={child.href} key={child.href} onClick={() => setActive(null)}>
+              child.children ? <ServiceSubmenu child={child} close={() => setActive(null)} key={child.href} /> : <Link className={styles.dropdownLink} href={child.href} key={child.href} onClick={() => setActive(null)}>
                 <span>{child.label}</span>
                 <small>{child.description}</small>
               </Link>
@@ -85,6 +94,10 @@ function DesktopMenuItem({
       </AnimatePresence>
     </li>
   );
+}
+
+export function SiteHeaderSpacer() {
+  return <div className={styles.headerSpacer} aria-hidden="true" />;
 }
 
 export function SiteHeader() {
@@ -144,7 +157,6 @@ export function SiteHeader() {
   }, [mobileOpen]);
 
   return (
-    <>
       <header
         className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}`}
       >
@@ -213,7 +225,7 @@ export function SiteHeader() {
                       <summary>{item.label}<ChevronIcon /></summary>
                       <div className={styles.mobileChildren}>
                         {item.children.map((child) => (
-                          <Link href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
+                          child.children ? <details className={styles.mobileGroup} key={child.href}><summary>{child.label}<ChevronIcon /></summary><div className={styles.mobileChildren}><Link href={child.href} onClick={() => setMobileOpen(false)}>All {child.label} services</Link>{child.children.map((service) => <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>{service.label}</Link>)}</div></details> : <Link href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
                         ))}
                       </div>
                     </details>
@@ -229,7 +241,5 @@ export function SiteHeader() {
           )}
         </AnimatePresence>
       </header>
-      <div className={styles.headerSpacer} aria-hidden="true" />
-    </>
   );
 }
