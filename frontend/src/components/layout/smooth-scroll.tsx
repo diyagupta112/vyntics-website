@@ -20,7 +20,8 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     const content = contentRef.current;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    if (!wrapper || !content || reduceMotion.matches) return;
+    // Scroll-driven pinned panels need native page coordinates on this route.
+    if (!wrapper || !content || reduceMotion.matches || pathname === "/technologies") return;
 
     let cancelled = false;
 
@@ -50,7 +51,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
       smootherRef.current?.kill();
       smootherRef.current = null;
     };
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {

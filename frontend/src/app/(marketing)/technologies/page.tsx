@@ -48,13 +48,6 @@ const process = [
   },
 ] as const;
 
-const capabilityBadges = [
-  { mark: "AI", title: "Applied AI", detail: "Grounded, evaluated, and designed with human control." },
-  { mark: "DE", title: "Data engineering", detail: "Reliable pipelines and governed sources of truth." },
-  { mark: "BI", title: "Decision intelligence", detail: "Metrics and reporting aligned to real decisions." },
-  { mark: "CL", title: "Cloud delivery", detail: "Observable, repeatable, and cost-aware infrastructure." },
-] as const;
-
 function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
@@ -143,18 +136,6 @@ export default function TechnologiesPage() {
         </Container>
       </section>
 
-      <section className={styles.credentials} aria-labelledby="credentials-title">
-        <Container>
-          <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Our capability badges</p>
-            <h2 id="credentials-title">What our delivery is built to demonstrate.</h2>
-            <p>These badges describe working capabilities, not unverified vendor awards. Formal partner credentials can be added here when they are available.</p>
-          </div>
-          <div className={styles.badgeGrid}>
-            {capabilityBadges.map((badge) => <article key={badge.title}><div className={styles.badgeMark}>{badge.mark}</div><h3>{badge.title}</h3><p>{badge.detail}</p></article>)}
-          </div>
-        </Container>
-      </section>
     </>
   );
 }

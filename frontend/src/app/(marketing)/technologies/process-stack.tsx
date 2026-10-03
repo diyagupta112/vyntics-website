@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Container } from "@/components/ui/container";
 import styles from "./page.module.css";
 
@@ -15,45 +15,56 @@ type ProcessStackProps = {
   steps: readonly ProcessStep[];
 };
 
-const clamp = (value: number) => Math.min(1, Math.max(0, value));
-
 export function ProcessStack({ steps }: ProcessStackProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const frameRef = useRef<number | null>(null);
-  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const updateProgress = () => {
-      frameRef.current = null;
-      const section = sectionRef.current;
-      if (!section) return;
+    const section = sectionRef.current;
+    if (!section) return;
+    let cancelled = false;
+    let context: { revert: () => void } | undefined;
 
-      const stickyOffset = 80;
-      const sectionTop = window.scrollY + section.getBoundingClientRect().top;
-      const travel = Math.max(1, section.offsetHeight - (window.innerHeight - stickyOffset));
-      setProgress(clamp((window.scrollY - sectionTop + stickyOffset) / travel));
-    };
+    void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
+      ([{ gsap }, { ScrollTrigger }]) => {
+        if (cancelled) return;
+        gsap.registerPlugin(ScrollTrigger);
+        context = gsap.context(() => {
+          const panel = section.querySelector<HTMLElement>("[data-process-panel]");
+          const cards = gsap.utils.toArray<HTMLElement>("[data-process-card]", section);
+          if (!panel || !cards.length) return;
 
-    const requestUpdate = () => {
-      if (frameRef.current === null) frameRef.current = window.requestAnimationFrame(updateProgress);
-    };
-
-    updateProgress();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
+          gsap.set(cards, { y: 0, yPercent: (index) => index === 0 ? 0 : 112 });
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80px",
+              end: () => `+=${Math.max(1, section.offsetHeight - panel.offsetHeight)}`,
+              pin: panel,
+              pinType: "fixed",
+              pinSpacing: false,
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          });
+          timeline.to({}, { duration: 0.35 });
+          cards.slice(1).forEach((card) => {
+            timeline.to(card, { yPercent: 0, duration: 1, ease: "none" });
+            timeline.to({}, { duration: 0.3 });
+          });
+          ScrollTrigger.refresh();
+        }, section);
+      },
+    );
 
     return () => {
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-      if (frameRef.current !== null) window.cancelAnimationFrame(frameRef.current);
+      cancelled = true;
+      context?.revert();
     };
   }, []);
 
-  const transitions = Math.max(1, steps.length - 1);
-
   return (
     <section ref={sectionRef} className={styles.processSection} aria-labelledby="process-title">
-      <Container className={styles.processSticky}>
+      <Container className={styles.processSticky} data-process-panel>
         <div className={styles.sectionHeading}>
           <p className={styles.eyebrow}>How we use technology</p>
           <h2 id="process-title">Selection is part of the engineering.</h2>
@@ -62,19 +73,14 @@ export function ProcessStack({ steps }: ProcessStackProps) {
 
         <div className={styles.processViewport}>
           {steps.map((step, index) => {
-            const start = index === 0 ? 0 : (index - 1) / transitions;
-            const cardProgress = index === 0 ? 1 : clamp((progress - start) * transitions);
-            const easedProgress = 1 - Math.pow(1 - cardProgress, 3);
-            const translateY = index === 0 ? 0 : (1 - easedProgress) * 112;
-            const scale = index === 0 ? 1 : 0.985 + easedProgress * 0.015;
-
             return (
               <article
+                data-process-card
                 key={step.title}
                 className={styles.processCard}
                 style={{
                   "--stack-index": index,
-                  transform: `translate3d(0, ${translateY}%, 0) scale(${scale})`,
+                  transform: `translate3d(0, ${index === 0 ? 0 : 112}%, 0)`,
                 } as CSSProperties}
               >
                 <div className={styles.processCardTop}>
