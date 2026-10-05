@@ -37,6 +37,14 @@
 .technology h2 { max-width: 22ch; }
 .technology ul { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; }
 .technology li { padding: 0.58rem 0.82rem; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-muted); font-size: 0.78rem; }
+.technologyHeading { max-width: 50rem; margin-inline: auto; text-align: center; }
+.technologyHeading h2 { max-width: none; }
+.technologyHeading > p:last-child { max-width: 44rem; margin: 1.1rem auto 0; color: var(--color-muted); font-size: 0.98rem; line-height: 1.7; }
+.technologyGrid { margin-top: clamp(2rem, 4vw, 3.25rem); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.9rem; }
+.technologyGrid article { min-height: 12.5rem; padding: 1.35rem; border: 1px solid var(--color-border); border-radius: 1rem; background: color-mix(in srgb, var(--color-surface) 96%, var(--color-primary)); box-shadow: 0 1rem 3rem rgb(11 11 15 / 3%); transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
+.technologyGrid article > p { color: var(--color-primary); font-size: 0.68rem; font-weight: 750; letter-spacing: 0.11em; text-transform: uppercase; }
+.technologyGrid h3 { margin-top: 1.35rem; font-size: 1.12rem; letter-spacing: -0.025em; }
+.technologyGrid article > span { margin-top: 0.65rem; display: block; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
 
 .relatedHeading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; }
 .relatedHeading > a { color: var(--color-primary); font-size: 0.86rem; font-weight: 700; }
@@ -60,18 +68,21 @@
 @media (hover: hover) and (pointer: fine) {
   .backLink:hover, .textLink:hover { color: var(--color-primary); }
   .cardGrid article:hover { transform: translateY(-0.3rem); border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border)); box-shadow: 0 1.25rem 3rem rgb(20 83 219 / 8%); }
+  .technologyGrid article:hover { transform: translateY(-0.25rem); border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border)); box-shadow: 0 1.2rem 2.8rem rgb(20 83 219 / 7%); }
   .relatedGrid a:hover { transform: translateY(-0.15rem); border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border)); }
   .primaryButton:hover svg, .relatedGrid a:hover svg, .cta a:hover svg { transform: translateX(0.22rem); }
 }
 @keyframes riseIn { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 760px) {
   .promiseGrid, .outcomesGrid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .technologyGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .process li > div { grid-template-columns: 1fr; gap: 0.6rem; }
   .relatedHeading, .cta > div { align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 560px) {
   .hero h1 { font-size: clamp(2.45rem, 13vw, 3.2rem); }
   .cardGrid, .relatedGrid { grid-template-columns: 1fr; }
+  .technologyGrid { grid-template-columns: 1fr; }
   .relatedGrid a:last-child:nth-child(odd) { grid-column: auto; }
   .process li { grid-template-columns: 2.5rem minmax(0, 1fr); }
 }

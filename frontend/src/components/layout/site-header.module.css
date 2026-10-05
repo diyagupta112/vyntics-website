@@ -83,6 +83,30 @@
   position: relative;
 }
 
+.navItem[data-current=true] > .navTrigger,
+.navItem[data-current=true] > .navLink {
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 9%, transparent);
+  border-radius: 999px;
+}
+
+.serviceRow[data-current=true],
+.dropdownLink[aria-current=page] {
+  background: color-mix(in srgb, var(--color-primary) 9%, transparent);
+}
+
+.serviceRow[data-current=true] .serviceLabel strong,
+.serviceRow[data-current=true] .dropdownLink > span,
+.dropdownLink[aria-current=page] > span { color: var(--color-primary); }
+
+.mobileGroup[data-current=true] > summary,
+.mobileServiceHeading[data-current=true],
+.mobileNav a[aria-current=page] {
+  color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 9%, transparent);
+  border-radius: .6rem;
+}
+
 .navLink,
 .navTrigger {
   position: relative;

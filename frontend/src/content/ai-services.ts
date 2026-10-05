@@ -17,6 +17,8 @@ export type AiServiceContent = {
   process: ReadonlyArray<{ title: string; description: string }>;
   outcomes: readonly string[];
   technologies: readonly string[];
+  technologyIntroduction?: string;
+  technologyDetails?: ReadonlyArray<{ name: string; role: string; description: string }>;
   metadataDescription: string;
 };
 
@@ -46,6 +48,17 @@ export const aiServices: Record<AiServiceSlug, AiServiceContent> = {
     ],
     outcomes: ["Answers grounded in approved sources", "Verifiable citations at the point of use", "Access controls carried into retrieval", "Visible uncertainty and safe fallbacks"],
     technologies: ["OpenAI", "Azure OpenAI", "Pinecone", "PostgreSQL", "pgvector", "LangChain", "FastAPI", "AWS"],
+    technologyIntroduction: "We choose each layer around retrieval quality, security, scale, and the systems you already operate. The stack stays modular, so the assistant is not locked to one model or database.",
+    technologyDetails: [
+      { name: "OpenAI", role: "Language models", description: "Generates grounded answers, summaries, and structured responses from the evidence retrieved for each question." },
+      { name: "Azure OpenAI", role: "Enterprise AI", description: "Supports private, governed model access for organizations already operating within the Microsoft and Azure ecosystem." },
+      { name: "Pinecone", role: "Vector search", description: "Stores document embeddings and retrieves semantically relevant passages across large knowledge collections." },
+      { name: "PostgreSQL", role: "System of record", description: "Keeps document metadata, user feedback, access rules, evaluations, and traceable application data together." },
+      { name: "pgvector", role: "Integrated retrieval", description: "Adds vector similarity search directly to PostgreSQL when a simpler, consolidated data layer is the better fit." },
+      { name: "LangChain", role: "RAG orchestration", description: "Coordinates ingestion, retrieval, reranking, prompting, citations, and model calls as a testable pipeline." },
+      { name: "FastAPI", role: "Application API", description: "Exposes the assistant through secure, typed endpoints that integrate cleanly with web and business applications." },
+      { name: "AWS", role: "Cloud infrastructure", description: "Runs the production workload with controlled networking, storage, monitoring, scaling, and operational security." },
+    ],
     metadataDescription: "Production RAG assistants with hybrid retrieval, verifiable citations, access controls, evaluation, and monitoring.",
   },
   "ai-agents": {

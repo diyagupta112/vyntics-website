@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ServiceTools } from "./service-tools";
 import { Container } from "@/components/ui/container";
 import { dataServices, type DataServiceContent } from "@/content/data-services";
 import styles from "./ai-service-detail.module.css";
@@ -80,13 +81,7 @@ export function DataServiceDetail({ service }: { service: DataServiceContent }) 
         </Container>
       </section>
 
-      <section className={styles.technology} aria-labelledby="technology-title">
-        <Container>
-          <p className={styles.label}>Technology</p>
-          <h2 id="technology-title">Tools selected for the workload and operating constraints.</h2>
-          <ul>{service.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul>
-        </Container>
-      </section>
+      <ServiceTools name={service.name} technologies={service.technologies} />
 
       <section className={styles.related} aria-labelledby="related-title">
         <Container>

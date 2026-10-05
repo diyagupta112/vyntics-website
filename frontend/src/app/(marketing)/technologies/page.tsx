@@ -60,11 +60,10 @@ export default function TechnologiesPage() {
         <Container className={styles.heroGrid}>
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>Technology at Vyntics</p>
-            <h1>A modern stack, selected for the work.</h1>
-            <p>We use proven AI, data, analytics, and cloud technologies to build systems that are useful in production-not just impressive in a demo.</p>
+            <h1><span>A modern stack,</span><span>selected for the work.</span></h1>
+            <p>We use proven AI, data, analytics, and cloud technologies to build systems that are useful in production—not just impressive in a demo.</p>
             <p>Every choice is made around the outcome, the operating environment, and the people who will own it next.</p>
           </div>
-          <div className={styles.heroMedia} aria-label="Technology image placeholder" />
         </Container>
       </section>
 

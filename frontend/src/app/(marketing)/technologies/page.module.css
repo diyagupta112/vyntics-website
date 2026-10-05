@@ -1,12 +1,13 @@
 .hero,.landscape,.toolIndex,.processSection,.clientWork,.credentials{position:relative;padding-block:clamp(4.5rem,8vw,7rem)}
-.hero{padding-block:0;overflow:hidden;background:transparent;}
-.heroGrid{min-height:calc(100svh - 5rem);padding-block:clamp(3rem,6vh,4rem);display:grid;grid-template-columns:minmax(0,.88fr) minmax(24rem,1.12fr);align-items:start;gap:clamp(3rem,7vw,6rem)}
+.hero{padding-block:0;overflow:hidden;isolation:isolate;background:var(--color-surface)}
+.hero::before{position:absolute;z-index:-2;inset:0;content:"";background:url("/images/technology-hero.png") center / cover no-repeat;opacity:.5;pointer-events:none}
+.hero::after{position:absolute;z-index:-1;inset:0;content:"";background:linear-gradient(90deg,color-mix(in srgb,var(--color-surface) 78%,transparent),color-mix(in srgb,var(--color-surface) 25%,transparent) 65%,transparent);pointer-events:none}
+.heroGrid{min-height:calc(100svh - 5rem);padding-block:clamp(3rem,7vh,5rem);display:flex;align-items:center}
 .eyebrow{color:var(--color-brand);font-size:.69rem;font-weight:760;letter-spacing:.16em;text-transform:uppercase}
-.hero h1{max-width:13ch;margin-top:.9rem;font-size:clamp(3rem,4.4vw,5rem);line-height:.96;letter-spacing:-.058em;text-wrap:balance}
-.heroCopy{padding-top:clamp(.5rem,2vh,1.5rem)}
-.heroCopy>p:not(.eyebrow){max-width:38rem;margin-top:1.15rem;color:var(--color-muted);font-size:clamp(.94rem,1.1vw,1.06rem);line-height:1.68}.heroCopy>p:nth-of-type(2){margin-top:1.6rem}
-.heroMedia{position:relative;width:75%;aspect-ratio:16/9;align-self:center;justify-self:end;overflow:hidden;border:1px solid color-mix(in srgb,var(--color-primary) 28%,var(--color-border));border-radius:1.4rem;background:linear-gradient(135deg,rgb(20 83 219/.04),rgb(11 11 15/.08)),url("/images/technology-hero.png") center / cover no-repeat;box-shadow:0 1.6rem 4.5rem rgb(20 83 219/.16)}
-.heroMedia::after{position:absolute;inset:0;content:"";pointer-events:none;background:linear-gradient(145deg,rgb(255 255 255/.08),transparent 45%,rgb(20 83 219/.08))}
+.hero h1{max-width:24ch;margin-top:1.15rem;font-size:clamp(2rem,3.2vw,2.75rem);line-height:1.16;letter-spacing:-.04em;text-wrap:balance}
+.hero h1 span{display:block}
+.heroCopy{width:min(100%,38rem);padding:clamp(1.6rem,3.5vw,3rem);border:1px solid color-mix(in srgb,var(--color-foreground) 22%,transparent);border-radius:1rem;background:color-mix(in srgb,var(--color-surface) 72%,transparent);backdrop-filter:blur(.5rem)}
+.heroCopy>p:not(.eyebrow){max-width:33rem;margin-top:1.15rem;color:var(--color-muted);font-size:1rem;line-height:1.75}.heroCopy>p:nth-of-type(2){margin-top:1.5rem}
 .landscape,.processSection,.credentials{border-top:0}
 .landscape{min-height:calc(100svh - 5rem);padding-block:clamp(1.25rem,2.5vh,2rem);display:flex;align-items:center;border-bottom:0;overflow:hidden}.landscape>div{width:100%}.landscape .sectionHeading{max-width:46rem;margin-inline:auto;text-align:center}.landscape .sectionHeading h2{font-size:clamp(1.9rem,2.7vw,2.85rem)}.landscape .sectionHeading>p:last-child{margin-inline:auto}
 .sectionHeading{max-width:45rem}.sectionHeading h2,.stickyHeading h2,.clientHeading h2{margin-top:.7rem;font-size:clamp(2rem,3.8vw,3.7rem);line-height:1.02;letter-spacing:-.052em;text-wrap:balance}
@@ -35,6 +36,10 @@
 @media(max-width:720px){.heroGrid{min-height:auto;grid-template-columns:1fr;gap:2.5rem}.heroGrid{padding-block:4rem}.hero h1{font-size:clamp(2.75rem,12vw,4rem)}.heroCopy{padding-top:0}.heroMedia{width:100%;max-width:30rem;justify-self:start}.landscape{min-height:auto;overflow:visible}.landscapeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.landscapeCard{height:22rem;min-height:0;filter:none}.landscapeCard .cardDetails{opacity:1;transform:none;pointer-events:auto}.toolIndex{min-height:auto;overflow:visible}.stickyHeading h2{max-width:none}.processSection{height:340svh}.processSticky{display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:1.25rem}.processSection .sectionHeading h2{max-width:16ch}.processSection .sectionHeading>p:last-child{margin-top:.7rem;line-height:1.55}.processViewport{height:clamp(19rem,51vh,22rem)}.processCard{padding:1.2rem}.processCard h3{margin-top:1.15rem}.processCard p{font-size:.76rem;line-height:1.5}.processPoints{margin-top:.85rem;padding-top:.8rem;gap:.45rem .7rem}.processPoints li{font-size:.66rem}.clientHeading{align-items:flex-start;flex-direction:column}}
 @media(max-width:520px){.landscape,.toolIndex,.clientWork,.credentials{padding-block:4rem}.landscapeGrid,.badgeGrid,.toolRows{grid-template-columns:1fr}.processSection .sectionHeading h2{font-size:clamp(2rem,10vw,2.75rem)}.processStage{display:none}.toolRows article{min-height:11.5rem}}
 .processSticky[data-process-panel]{position:relative;top:0}
+
+/* Keep hero copy centered on the left at every screen size. */
+@media(max-width:720px){.heroGrid{min-height:calc(100svh - 5rem);padding-block:3rem}.hero h1{font-size:clamp(1.9rem,6vw,2.5rem)}.heroCopy{padding:1.6rem}.heroCopy>p:not(.eyebrow){font-size:.94rem}.hero::before{background-position:65% center}}
+@media(prefers-reduced-motion:no-preference){.heroGrid>.heroCopy{animation:none}.heroCopy>.eyebrow,.heroCopy h1 span,.heroCopy>p:not(.eyebrow){animation:riseIn 650ms cubic-bezier(.2,.8,.2,1) both}.heroCopy>.eyebrow{animation-delay:80ms}.heroCopy h1 span:first-child{animation-delay:220ms}.heroCopy h1 span:last-child{animation-delay:380ms}.heroCopy>p:nth-of-type(2){animation-delay:540ms}.heroCopy>p:nth-of-type(3){animation-delay:700ms}}
 
 /* Spacious, viewport-sized toolkit without an outer section frame. */
 .toolIndex{min-height:calc(100svh - 5rem);padding-block:clamp(2.5rem,5vh,4rem);overflow:visible}

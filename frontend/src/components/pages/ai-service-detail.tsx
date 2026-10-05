@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { aiServices, type AiServiceContent } from "@/content/ai-services";
 import styles from "./ai-service-detail.module.css";
+import { ServiceTools } from "./service-tools";
 
 function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
@@ -80,13 +81,7 @@ export function AiServiceDetail({ service }: { service: AiServiceContent }) {
         </Container>
       </section>
 
-      <section className={styles.technology} aria-labelledby="technology-title">
-        <Container>
-          <p className={styles.label}>Technology</p>
-          <h2 id="technology-title">Tools selected for the workload and constraints.</h2>
-          <ul>{service.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul>
-        </Container>
-      </section>
+      <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} />
 
       <section className={styles.related} aria-labelledby="related-title">
         <Container>
