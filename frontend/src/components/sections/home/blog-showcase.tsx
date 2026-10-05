@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import styles from "./blog-showcase.module.css";
 
-const AUTOPLAY_INTERVAL_MS = 1500;
+const AUTOPLAY_INTERVAL_MS = 3500;
 
 const articles = [
   {
@@ -227,9 +227,6 @@ export function BlogShowcase() {
           </div>
 
           <div className={styles.arrows} aria-label="Blog carousel controls">
-            <span aria-live="polite">
-              {String(queuedIndex + 1).padStart(2, "0")} / {String(articles.length).padStart(2, "0")}
-            </span>
             <button type="button" onClick={showPreviousArticle} aria-label="Previous article">
               <ArrowIcon direction="left" />
             </button>

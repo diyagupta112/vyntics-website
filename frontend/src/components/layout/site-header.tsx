@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
@@ -170,7 +169,7 @@ export function SiteHeader() {
       >
         <div className={styles.inner}>
         <Link className={styles.logoLink} href="/" aria-label={`${siteConfig.name} home`} onClick={() => setMobileOpen(false)}>
-          <Image className={styles.logoImage} src="/images/vyntics-mark.png" alt="" width={107} height={81} priority />
+          <span className={styles.logoImage} aria-hidden="true" />
           <span className={styles.wordmark}>VYNTICS</span>
         </Link>
 

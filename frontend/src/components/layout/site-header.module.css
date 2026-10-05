@@ -46,10 +46,12 @@
 
 .logoImage {
   width: 3.8rem;
-  height: auto;
-  object-fit: contain;
-  filter: var(--logo-filter);
-  transition: filter 200ms ease;
+  aspect-ratio: 1442 / 1091;
+  flex: 0 0 auto;
+  background: var(--color-foreground);
+  -webkit-mask: url("/images/vyntics-mark-transparent.png") center / contain no-repeat;
+  mask: url("/images/vyntics-mark-transparent.png") center / contain no-repeat;
+  transition: background-color 200ms ease;
 }
 
 .wordmark {

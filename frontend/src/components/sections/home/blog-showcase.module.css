@@ -49,7 +49,6 @@
 .dots button { width: 1.35rem; height: 0.2rem; padding: 0; border: 0; border-radius: 999px; background: color-mix(in srgb, var(--color-foreground) 18%, transparent); cursor: pointer; transition: width 220ms ease, background-color 220ms ease; }
 .dots button.activeDot { width: 2.6rem; background: var(--color-primary); }
 .arrows { display: flex; align-items: center; gap: 0.5rem; }
-.arrows > span { margin-right: 0.25rem; color: var(--color-muted); font-size: 0.74rem; font-variant-numeric: tabular-nums; letter-spacing: 0.1em; }
 .arrows button { width: 2.35rem; aspect-ratio: 1; display: grid; place-items: center; padding: 0; color: var(--color-foreground); border: 1px solid var(--color-border); border-radius: 50%; background: var(--color-surface); cursor: pointer; transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease; }
 
 @media (hover: hover) and (pointer: fine) {
