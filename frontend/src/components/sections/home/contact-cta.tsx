@@ -19,7 +19,19 @@ function SubmitIcon({ success }: { success: boolean }) {
   );
 }
 
-export function ContactCta() {
+type ContactCtaProps = {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  sectionId?: string;
+};
+
+export function ContactCta({
+  eyebrow = "Get in touch",
+  title = "Let's look at your data together",
+  intro = "Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.",
+  sectionId = "contact",
+}: ContactCtaProps = {}) {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [feedback, setFeedback] = useState("");
 
@@ -60,12 +72,12 @@ export function ContactCta() {
   };
 
   return (
-    <section id="contact" className={styles.section} aria-labelledby="contact-title">
+    <section id={sectionId} className={styles.section} aria-labelledby={`${sectionId}-title`}>
       <Container className={styles.layout}>
         <div className={styles.content}>
-          <p className={styles.eyebrow}>Get in touch</p>
-          <h2 id="contact-title">Let&apos;s look at your data together</h2>
-          <p className={styles.intro}>Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.</p>
+          <p className={styles.eyebrow}>{eyebrow}</p>
+          <h2 id={`${sectionId}-title`}>{title}</h2>
+          <p className={styles.intro}>{intro}</p>
 
           <a className={styles.emailLink} href="mailto:contact@vyntics.com">
             <span aria-hidden="true">→</span> contact@vyntics.com

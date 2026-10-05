@@ -148,11 +148,17 @@
   place-items: center;
   color: #fff;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: #fafbf8;
   box-shadow: 0 0 0 0.7rem color-mix(in srgb, var(--color-primary) 11%, transparent);
   font-size: 1.55rem;
   font-weight: 800;
   transform: translate(-50%, -50%);
+}
+
+.orbitCore img {
+  width: 78%;
+  height: auto;
+  object-fit: contain;
 }
 
 .orbitTrack {
@@ -400,7 +406,7 @@
 
 .missionHeading h2 {
   margin-top: 0.75rem;
-  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-size: clamp(2.5rem, 4vw, 4rem);
   font-weight: 650;
   line-height: 0.98;
   letter-spacing: -0.06em;
@@ -428,8 +434,7 @@
   inset: 0;
   content: "";
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 38%), transparent);
-  opacity: 0.45;
+  background: none;
 }
 
 .missionPanelTitle {
@@ -576,7 +581,7 @@
 }
 
 .valueGrid:has(.valueCardActive) .valueCard:not(.valueCardActive) {
-  opacity: 0.72;
+  opacity: 1;
   translate: 0 0.25rem;
   scale: 0.985;
 }
@@ -683,17 +688,6 @@
   .heroCopy > :nth-child(3) { animation-delay: 130ms; }
   .heroCopy > :nth-child(4) { animation-delay: 190ms; }
 
-  @supports (animation-timeline: view()) {
-    .sectionHeading,
-    .missionCopy,
-    .storyMarker,
-    .storyCopy,
-    .valueCard {
-      animation: revealOnScroll linear both;
-      animation-timeline: view();
-      animation-range: entry 5% cover 24%;
-    }
-  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -732,7 +726,7 @@
   }
 
   .valueGrid:has(.valueCard:hover) .valueCard:not(:hover) {
-    opacity: 0.72;
+    opacity: 1;
     translate: 0 0.25rem;
     scale: 0.985;
   }
@@ -748,10 +742,20 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes revealOnScroll {
-  from { opacity: 0.25; transform: translateY(1.25rem); }
-  to { opacity: 1; transform: translateY(0); }
+.missionPanelTitle h3,
+.principles,
+.storyCopy h2,
+.valuesSection h2,
+.valueCard h3 { color: var(--color-foreground); }
+
+.missionCopy > p,
+.storyCopy > p:not(.eyebrow),
+.valueCard p {
+  color: color-mix(in srgb, var(--color-foreground) 78%, var(--color-surface));
 }
+
+.storyCopy > p:not(.eyebrow),
+.valueCard p { font-size: 1rem; line-height: 1.75; }
 
 @media (max-width: 860px) {
   .heroGrid,

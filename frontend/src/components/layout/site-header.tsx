@@ -31,8 +31,16 @@ function ServiceSubmenu({ child, close }: { child: NavigationChild; close: () =>
   const [open, setOpen] = useState(false);
   const id = `service-submenu-${child.label.toLowerCase().replace(/\s+/g, "-")}`;
   return <div className={styles.serviceGroup} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
-    <div className={styles.serviceRow}><Link className={styles.dropdownLink} href={child.href} onClick={close}><span>{child.label}</span><small>{child.description}</small></Link><button type="button" className={styles.submenuToggle} aria-label={`Show ${child.label} services`} aria-expanded={open} aria-controls={id} onClick={() => setOpen((value) => !value)}><ChevronIcon /></button></div>
-    {open && <div id={id} className={styles.submenu}><p className={styles.submenuHeading}>{child.label} services</p>{child.children?.map((service) => <Link key={service.href} className={styles.dropdownLink} href={service.href} onClick={close}><span>{service.label}</span><small>{service.description}</small></Link>)}</div>}
+    <div className={styles.serviceRow}>
+      {child.headingOnly ? (
+        <div className={styles.serviceLabel}>
+          <strong>{child.label}</strong><small>{child.description}</small>
+        </div>
+      ) : (
+        <><Link className={styles.dropdownLink} href={child.href} onClick={close}><span>{child.label}</span><small>{child.description}</small></Link><button type="button" className={styles.submenuToggle} aria-label={`Show ${child.label} services`} aria-expanded={open} aria-controls={id} onClick={() => setOpen((value) => !value)}><ChevronIcon /></button></>
+      )}
+    </div>
+    {open && <div id={id} className={styles.submenu}><p className={styles.submenuHeading}>{child.label} services</p>{child.children?.map((service) => <Link key={service.href} className={`${styles.dropdownLink} ${styles.innerServiceLink}`} href={service.href} onClick={close}><span>{service.label}</span><small>{service.description}</small><span className={styles.innerServiceArrow}><ChevronIcon /></span></Link>)}</div>}
   </div>;
 }
 
@@ -225,7 +233,7 @@ export function SiteHeader() {
                       <summary>{item.label}<ChevronIcon /></summary>
                       <div className={styles.mobileChildren}>
                         {item.children.map((child) => (
-                          child.children ? <details className={styles.mobileGroup} key={child.href}><summary>{child.label}<ChevronIcon /></summary><div className={styles.mobileChildren}><Link href={child.href} onClick={() => setMobileOpen(false)}>All {child.label} services</Link>{child.children.map((service) => <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}>{service.label}</Link>)}</div></details> : <Link href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
+                          child.children ? <div className={styles.mobileServiceGroup} key={child.label}><div className={styles.mobileServiceHeading}>{child.label}</div><div className={styles.mobileChildren}>{child.children.map((service) => <Link key={service.href} href={service.href} onClick={() => setMobileOpen(false)}><span>{service.label}</span><span className={styles.mobileServiceArrow}><ChevronIcon /></span></Link>)}</div></div> : <Link href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
                         ))}
                       </div>
                     </details>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { projects } from "@/content/projects";
 import { ProcessStack } from "./process-stack";
+import { ClientWorkCarousel } from "./client-work-carousel";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -12,17 +13,17 @@ export const metadata: Metadata = {
 };
 
 const technologyGroups = [
-  { label: "AI & intelligence", image: "/images/technology-ai.png", description: "Grounded assistants, document intelligence, evaluation, and controlled automation.", tools: ["OpenAI", "Azure AI", "Pinecone", "RAG", "LLM evaluation"] },
-  { label: "Data engineering", image: "/images/technology-data.png", description: "Reliable ingestion, transformation, storage, modeling, and governed access.", tools: ["Snowflake", "dbt", "PostgreSQL", "Python", "SQL"] },
-  { label: "Analytics & BI", image: "/images/technology-analytics.png", description: "Shared metrics and reporting layers that turn data into clear decisions.", tools: ["Power BI", "Tableau", "QuickSight", "KPI modeling"] },
-  { label: "Cloud & platform", image: "/images/technology-cloud.png", description: "Secure, observable infrastructure designed around reliability and sensible cost.", tools: ["AWS", "Azure", "Google Cloud", "Terraform", "Kubernetes"] },
+  { label: "AI & intelligence", image: "/images/technology-ai.png", description: "Grounded assistants, document intelligence, evaluation, and controlled automation.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "Google Gemini", "LangChain", "LangGraph", "Pinecone", "pgvector", "RAG", "LLM evaluation"] },
+  { label: "Data engineering", image: "/images/technology-data.png", description: "Reliable ingestion, transformation, storage, modeling, and governed access.", tools: ["Snowflake", "dbt", "PostgreSQL", "Python", "SQL", "Apache Spark", "Apache Airflow", "Kafka", "AWS Glue", "Amazon S3"] },
+  { label: "Analytics & BI", image: "/images/technology-analytics.png", description: "Shared metrics and reporting layers that turn data into clear decisions.", tools: ["Power BI", "Tableau", "QuickSight", "Looker", "Grafana", "DAX", "Power Query", "Semantic models", "KPI modeling"] },
+  { label: "Cloud & platform", image: "/images/technology-cloud.png", description: "Secure, observable infrastructure designed around reliability and sensible cost.", tools: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "AWS Fargate", "GitHub Actions", "CI/CD", "Observability"] },
 ] as const;
 
 const toolGroups = [
-  { title: "Build", tools: ["Python", "Node.js", "FastAPI", "REST APIs", "PostgreSQL"] },
-  { title: "Transform", tools: ["Snowflake", "dbt", "SQL", "Pinecone", "Amazon S3"] },
-  { title: "Understand", tools: ["Power BI", "Tableau", "QuickSight", "Grafana"] },
-  { title: "Operate", tools: ["Docker", "Kubernetes", "Terraform", "CI/CD", "AWS Fargate"] },
+  { title: "Build", description: "Create dependable applications, APIs, and connected services.", tools: ["Python", "Node.js", "FastAPI", "REST APIs", "PostgreSQL"] },
+  { title: "Transform", description: "Turn raw data into organised, accessible foundations.", tools: ["Snowflake", "dbt", "SQL", "Pinecone", "Amazon S3"] },
+  { title: "Understand", description: "Bring metrics, reporting, and operational insights into focus.", tools: ["Power BI", "Tableau", "QuickSight", "Grafana"] },
+  { title: "Operate", description: "Deploy, monitor, and maintain systems with confidence.", tools: ["Docker", "Kubernetes", "Terraform", "CI/CD", "AWS Fargate"] },
 ] as const;
 
 const process = [
@@ -70,7 +71,7 @@ export default function TechnologiesPage() {
       <section className={styles.landscape} aria-labelledby="technology-landscape">
         <Container>
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Technologies we work with</p>
+            <p className={styles.eyebrow}>Our technology ecosystem</p>
             <h2 id="technology-landscape">One connected engineering landscape.</h2>
             <p>From raw information to a working application, we bring the layers together as one maintainable system.</p>
           </div>
@@ -109,6 +110,7 @@ export default function TechnologiesPage() {
                   <span aria-hidden="true">0{index + 1}</span>
                   <h3>{group.title}</h3>
                 </div>
+                <p className={styles.toolDescription}>{group.description}</p>
                 <ul>{group.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
               </article>
             ))}
@@ -124,15 +126,7 @@ export default function TechnologiesPage() {
             <div><p className={styles.eyebrow}>Technology in client work</p><h2 id="client-work-title">Stacks assembled around real operating needs.</h2></div>
             <Link href="/case-studies">View all case studies <ArrowIcon /></Link>
           </div>
-          <div className={styles.projectGrid}>
-            {projects.slice(0, 3).map((project) => (
-              <Link href={`/case-studies/${project.slug}`} className={styles.projectCard} key={project.slug}>
-                <p>{project.type}</p><h3>{project.title}</h3><span>{project.summary}</span>
-                <ul>{project.stack.slice(0, 4).map((tool) => <li key={tool}>{tool}</li>)}</ul>
-                <strong>See the system <ArrowIcon /></strong>
-              </Link>
-            ))}
-          </div>
+          <ClientWorkCarousel projects={projects} />
         </Container>
       </section>
 

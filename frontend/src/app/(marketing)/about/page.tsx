@@ -75,7 +75,9 @@ export default function AboutPage() {
 
           <div className={styles.heroVisual} aria-label="Technologies we work with">
             <div className={styles.orbit}>
-              <span className={styles.orbitCore}>V</span>
+              <span className={styles.orbitCore}>
+                <Image src="/images/vyntics-mark.png" alt="Vyntics" width={107} height={81} />
+              </span>
               <div className={styles.orbitTrack}>
                 {technologies.map((technology) => (
                   <div className={styles.orbitTechnology} key={technology}>

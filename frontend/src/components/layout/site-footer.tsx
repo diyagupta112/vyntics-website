@@ -84,7 +84,7 @@ export function SiteFooter() {
 
           {serviceNavigation.map((group) => (
             <nav className={styles.linkColumn} aria-label={group.label} key={group.label}>
-              <h2><Link href={group.href}>{group.label}</Link></h2>
+              <h2>{group.headingOnly ? group.label : <Link href={group.href}>{group.label}</Link>}</h2>
               <ul>
                 {group.children?.map((item) => (
                   <li key={item.label}><Link href={item.href}>{item.label}</Link></li>
