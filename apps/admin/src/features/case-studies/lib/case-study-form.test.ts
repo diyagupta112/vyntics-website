@@ -34,6 +34,7 @@ describe("Case Study form contract", () => {
       techStack: "Python, FastAPI",
       tags: "API, Engineering",
       content: '{"type":"doc"}',
+      isFeatured: false,
       status: "draft",
     });
 
@@ -48,6 +49,7 @@ describe("Case Study form contract", () => {
       tech_stack: ["Python", "FastAPI"],
       tags: ["API", "Engineering"],
       content: { type: "doc" },
+      featured: false,
       status: "draft",
     });
     expect(payload).not.toHaveProperty("published_at");

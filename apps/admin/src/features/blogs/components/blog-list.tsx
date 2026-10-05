@@ -55,7 +55,7 @@ export function BlogList() {
       <Link aria-label={`Edit ${blog.title}`} className={styles.cardLink} href={`/blogs/${blog.id}/edit`}>
         {blog.cover_image_url ? <Image alt="" className={styles.cardImage} height={360} src={blog.cover_image_url} unoptimized width={640} /> : <div className={styles.imagePlaceholder}>No cover image</div>}
         <div className={styles.cardBody}>
-          <div className={styles.cardTop}><span className={styles.category}>{blog.category}</span><StatusBadge status={blog.status} /></div>
+          <div className={styles.cardTop}><span className={styles.category}>{blog.category}</span><span className={styles.cardIndicators}>{blog.is_featured ? <span className={styles.badge}>Featured</span> : null}<StatusBadge status={blog.status} /></span></div>
           <h2>{blog.title}</h2>
         </div>
       </Link>

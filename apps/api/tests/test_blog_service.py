@@ -42,6 +42,7 @@ def _blog(*, status: str = "draft", published_at: datetime | None = None) -> Blo
         read_time=5,
         content={"type": "doc"},
         status=status,
+        is_featured=False,
         published_at=published_at,
         created_at=NOW,
         updated_at=NOW,
@@ -63,6 +64,7 @@ def _create_request(*, status: str = "draft") -> BlogCreateRequest:
         read_time=5,
         content={"type": "doc"},
         status=status,
+        is_featured=False,
     )
 
 
@@ -168,7 +170,7 @@ def test_create_published_blog_sets_timestamp_and_audits() -> None:
     assert audit.action == "create"
     assert audit.resource_type == "blog"
     assert audit.actor_id is None
-    assert audit.context == {"slug": created.slug, "status": "published"}
+    assert audit.context == {"slug": created.slug, "status": "published", "is_featured": False}
     assert "content" not in audit.context
     session.commit.assert_awaited_once_with()
 

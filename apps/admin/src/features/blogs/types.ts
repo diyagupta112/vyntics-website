@@ -12,6 +12,7 @@ export type Blog = {
   cover_image_url: string | null;
   read_time: number;
   content: Record<string, unknown>;
+  is_featured: boolean;
   status: BlogStatus;
   published_at: string | null;
   created_at: string;
@@ -29,6 +30,7 @@ export type BlogCreateRequest = {
   cover_image_url: null;
   read_time: number;
   content: Record<string, unknown>;
+  is_featured: boolean;
   status: Exclude<BlogStatus, "published">;
 };
 

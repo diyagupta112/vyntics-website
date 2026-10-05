@@ -1,0 +1,7 @@
+.field { display: grid; gap: var(--space-2); align-content: start; }
+.heading { font-size: var(--font-size-sm); font-weight: 600; }
+.control { display: flex; align-items: center; gap: var(--space-2); cursor: pointer; font-size: var(--font-size-sm); min-height: 2.75rem; }
+.control input { accent-color: var(--color-black); flex-shrink: 0; width: 1rem; height: 1rem; cursor: pointer; }
+.control input:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.control:hover { color: var(--color-gray-600); }
+.field p { font-size: var(--font-size-sm); }

@@ -4,6 +4,7 @@ from datetime import datetime
 from uuid import UUID as UUIDValue
 
 from sqlalchemy import (
+    Boolean,
     CheckConstraint,
     DateTime,
     FetchedValue,
@@ -51,6 +52,9 @@ class Blog(Base):
         Text,
         nullable=False,
         server_default=text("'draft'"),
+    )
+    is_featured: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False, server_default=text("false"),
     )
     published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_by: Mapped[UUIDValue | None] = mapped_column(

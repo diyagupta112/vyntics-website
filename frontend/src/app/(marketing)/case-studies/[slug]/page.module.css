@@ -1,0 +1,68 @@
+.hero { padding-block: clamp(3rem, 7vw, 6rem); background: radial-gradient(circle at 85% 16%, color-mix(in srgb, var(--color-primary) 9%, transparent), transparent 28rem); }
+.backLink { display: inline-block; color: var(--color-muted); font-size: 0.78rem; font-weight: 650; }
+.heroGrid { margin-top: clamp(3rem, 7vw, 6rem); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(20rem, 0.65fr); align-items: end; gap: clamp(3rem, 9vw, 9rem); }
+.eyebrow { color: var(--color-primary); font-size: 0.7rem; font-weight: 760; letter-spacing: 0.17em; text-transform: uppercase; }
+.hero h1 { max-width: 14ch; margin-top: 0.9rem; font-size: clamp(3rem, 6.4vw, 6.4rem); font-weight: 650; line-height: 0.92; letter-spacing: -0.07em; text-wrap: balance; }
+.heroSummary > p { color: var(--color-muted); font-size: clamp(1rem, 1.45vw, 1.17rem); line-height: 1.72; }
+.heroSummary dl { margin-top: 2rem; border-top: 1px solid var(--color-border); }
+.heroSummary dl div { padding-block: 0.85rem; display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; border-bottom: 1px solid var(--color-border); font-size: 0.76rem; }
+.heroSummary dt { color: var(--color-muted); }
+.heroSummary dd { font-weight: 650; }
+
+.mediaSection { padding-bottom: clamp(4rem, 8vw, 7rem); }
+.primaryMedia { max-height: 46rem; border: 1px solid var(--color-border); border-radius: 1rem; box-shadow: 0 2rem 6rem rgb(11 11 15 / 10%); }
+.story { padding-block: clamp(4rem, 8vw, 7rem); border-top: 1px solid var(--color-border); }
+.storyGrid { display: grid; grid-template-columns: minmax(15rem, 0.52fr) minmax(0, 1fr); gap: clamp(3rem, 10vw, 10rem); }
+.storyAside { align-self: start; position: sticky; top: 7rem; }
+.storyAside h2, .technology h2, .relatedHeading h2, .nextSteps h2 { margin-top: 0.7rem; font-size: clamp(1.9rem, 3.7vw, 3.4rem); line-height: 1.04; letter-spacing: -0.055em; text-wrap: balance; }
+.storyAside > p:last-child { margin-top: 1.1rem; color: var(--color-muted); line-height: 1.7; }
+
+.technology { padding-block: clamp(3.5rem, 7vw, 5.5rem); border-top: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-primary) 3%, var(--color-background)); }
+.technologyGrid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(24rem, 1fr); align-items: end; gap: clamp(3rem, 9vw, 8rem); }
+.technology ul { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.6rem; list-style: none; }
+.technology li { padding: 0.75rem 0.95rem; border: 1px solid var(--color-border); border-radius: 0.65rem; background: var(--color-surface); font-size: 0.82rem; font-weight: 680; }
+
+.related { padding-block: clamp(4rem, 8vw, 7rem); border-top: 1px solid var(--color-border); }
+.relatedHeading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; }
+.relatedHeading > div { max-width: 42rem; }
+.relatedHeading > a, .serviceStep a, .contactStep a { width: fit-content; display: inline-flex; align-items: center; gap: 0.45rem; color: var(--color-primary); font-size: 0.86rem; font-weight: 720; }
+.related svg, .nextSteps svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 180ms ease; }
+.relatedGrid { margin-top: 2.5rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.relatedCard { overflow: hidden; border: 1px solid var(--color-border); border-radius: 1rem; background: var(--color-surface); }
+.relatedCard img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.relatedCard > div { padding: 1.4rem; }
+.relatedCard p, .returnPanel > span { color: var(--color-primary); font-size: 0.66rem; font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; }
+.relatedCard h3 { margin-top: 0.65rem; font-size: 1.4rem; letter-spacing: -0.035em; }
+.relatedCard span { margin-top: 1.3rem; display: inline-flex; align-items: center; gap: 0.4rem; color: var(--color-primary); font-size: 0.78rem; font-weight: 700; }
+.returnPanel { margin-top: 2.5rem; min-height: 13rem; padding: clamp(1.6rem, 4vw, 3rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) auto; align-items: center; gap: 2rem; border: 1px solid var(--color-border); border-radius: 1rem; background: color-mix(in srgb, var(--color-lavender) 22%, var(--color-background)); }
+.returnPanel strong { max-width: 34rem; font-size: clamp(1.35rem, 2.4vw, 2.1rem); line-height: 1.2; letter-spacing: -0.04em; }
+.returnPanel > svg { width: 1.5rem; color: var(--color-primary); }
+
+.nextSteps { border-top: 1px solid var(--color-border); }
+.nextStepGrid { width: min(100%, 90rem); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.serviceStep, .contactStep { min-height: 28rem; padding: clamp(2rem, 5vw, 5rem); display: flex; flex-direction: column; justify-content: center; }
+.serviceStep { background: color-mix(in srgb, var(--color-lavender) 28%, var(--color-background)); }
+.contactStep { color: #fff; background: #0b0b0f; }
+.nextSteps h2 { max-width: 18ch; }
+.serviceStep a, .contactStep a { margin-top: 1.75rem; }
+.contactStep .eyebrow, .contactStep a { color: #8fb5ff; }
+
+.backLink:focus-visible, .related a:focus-visible, .nextSteps a:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-primary) 42%, transparent); outline-offset: 4px; border-radius: 0.25rem; }
+@media (hover: hover) and (pointer: fine) {
+  .related a:hover svg, .nextSteps a:hover svg { transform: translateX(0.22rem); }
+}
+@media (max-width: 860px) {
+  .heroGrid, .storyGrid, .technologyGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .storyAside { position: static; }
+  .technology ul { justify-content: flex-start; }
+}
+@media (max-width: 680px) {
+  .relatedHeading { align-items: flex-start; flex-direction: column; }
+  .relatedGrid, .nextStepGrid { grid-template-columns: 1fr; }
+  .returnPanel { grid-template-columns: 1fr auto; }
+  .returnPanel > span { grid-column: 1 / -1; }
+  .serviceStep, .contactStep { min-height: 22rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .related svg, .nextSteps svg { transition: none; }
+}

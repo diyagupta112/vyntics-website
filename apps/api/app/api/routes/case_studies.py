@@ -101,6 +101,11 @@ async def create_case_study(
             status_code=status.HTTP_409_CONFLICT,
             detail="A Case Study with this slug already exists.",
         ) from None
+    except CaseStudyValidationError as error:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=str(error),
+        ) from None
 
 
 @router.patch("/{case_study_id}", response_model=CaseStudyAdminResponse)

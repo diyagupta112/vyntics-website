@@ -97,6 +97,8 @@ class CaseStudyService:
         case_study = CaseStudy(**values, published_at=published_at)
 
         try:
+            if request.featured:
+                await self._validate_featured_capacity()
             await self._case_studies.add(case_study)
             await self._audit_logs.add(
                 self._build_audit_log(
@@ -105,6 +107,7 @@ class CaseStudyService:
                     context={
                         "slug": case_study.slug,
                         "status": case_study.status,
+                        "featured": case_study.featured,
                     },
                     actor=actor,
                 )
@@ -113,6 +116,8 @@ class CaseStudyService:
             await self._session.commit()
         except IntegrityError as error:
             await self._session.rollback()
+            if getattr(getattr(error.orig, "diag", None), "constraint_name", None) == "case_studies_featured_limit":
+                raise CaseStudyValidationError("Maximum of 5 featured case studies allowed.") from error
             raise CaseStudySlugConflictError from error
         except Exception:
             await self._session.rollback()
@@ -152,6 +157,16 @@ class CaseStudyService:
                 "cover_image_url is required for published Case Studies"
             )
 
+        if (
+            updates.get("featured", case_study.featured)
+            and not case_study.featured
+        ):
+            try:
+                await self._validate_featured_capacity(exclude_id=case_study.id)
+            except Exception:
+                await self._session.rollback()
+                raise
+
         changed_fields: list[str] = []
         for field_name, value in updates.items():
             if getattr(case_study, field_name) != value:
@@ -185,6 +200,8 @@ class CaseStudyService:
             await self._session.commit()
         except IntegrityError as error:
             await self._session.rollback()
+            if getattr(getattr(error.orig, "diag", None), "constraint_name", None) == "case_studies_featured_limit":
+                raise CaseStudyValidationError("Maximum of 5 featured case studies allowed.") from error
             raise CaseStudySlugConflictError from error
         except Exception:
             await self._session.rollback()
@@ -312,6 +329,10 @@ class CaseStudyService:
             await self._session.rollback()
             raise
         await self._cleanup_previous_cover(storage, previous_url, case_study.id)
+
+    async def _validate_featured_capacity(self, *, exclude_id: UUID | None = None) -> None:
+        if await self._case_studies.count_featured_for_update(exclude_id=exclude_id) >= 5:
+            raise CaseStudyValidationError("Maximum of 5 featured case studies allowed.")
 
     def _require_image_storage(self) -> PublicImageStorage:
         if self._image_storage is None:

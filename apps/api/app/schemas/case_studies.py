@@ -4,9 +4,10 @@ from datetime import datetime
 from typing import Annotated, Literal, TypeAlias
 from uuid import UUID
 
-from pydantic import AnyHttpUrl, StringConstraints, field_validator, model_validator
+from pydantic import AliasChoices, Field, AnyHttpUrl, StringConstraints, field_validator, model_validator
 
-from app.schemas.common import JsonObject, RequestSchema, ResponseSchema
+from app.schemas.common import RequestSchema, ResponseSchema
+from app.schemas.content import BodyContent, StoredBodyContent
 
 
 CaseStudyStatus: TypeAlias = Literal["draft", "published", "unpublished"]
@@ -28,8 +29,9 @@ class CaseStudyCreateRequest(RequestSchema):
     cover_image_url: AnyHttpUrl | None = None
     tech_stack: list[str]
     tags: list[str]
-    content: JsonObject
+    content: BodyContent
     status: CaseStudyStatus
+    featured: bool = Field(default=False, validation_alias=AliasChoices("featured", "is_featured"))
 
     @model_validator(mode="after")
     def require_published_cover_image(self) -> "CaseStudyCreateRequest":
@@ -54,8 +56,9 @@ class CaseStudyUpdateRequest(RequestSchema):
     cover_image_url: AnyHttpUrl | None = None
     tech_stack: list[str] | None = None
     tags: list[str] | None = None
-    content: JsonObject | None = None
+    content: BodyContent | None = None
     status: CaseStudyStatus | None = None
+    featured: bool | None = Field(default=None, validation_alias=AliasChoices("featured", "is_featured"))
 
     @field_validator(
         "slug",
@@ -68,6 +71,7 @@ class CaseStudyUpdateRequest(RequestSchema):
         "tags",
         "content",
         "status",
+        "featured",
     )
     @classmethod
     def reject_null_for_required_model_fields(cls, value: object) -> object:
@@ -89,6 +93,7 @@ class CaseStudyListItem(ResponseSchema):
     cover_image_url: AnyHttpUrl
     tech_stack: list[str]
     tags: list[str]
+    featured: bool
     published_at: datetime
 
 
@@ -111,7 +116,8 @@ class CaseStudyDetailResponse(ResponseSchema):
     cover_image_url: AnyHttpUrl
     tech_stack: list[str]
     tags: list[str]
-    content: JsonObject
+    content: StoredBodyContent
+    featured: bool
     published_at: datetime
 
 
@@ -128,8 +134,9 @@ class CaseStudyAdminResponse(ResponseSchema):
     cover_image_url: AnyHttpUrl | None
     tech_stack: list[str]
     tags: list[str]
-    content: JsonObject
+    content: StoredBodyContent
     status: CaseStudyStatus
+    featured: bool
     published_at: datetime | None
     created_at: datetime
     updated_at: datetime

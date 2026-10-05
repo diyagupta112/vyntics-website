@@ -1,9 +1,17 @@
-"""Read endpoint for the authenticated administrator's own identity."""
+"""Read endpoints for authenticated Vyntics administrator identities."""
 
-from fastapi import APIRouter
+from typing import Annotated
 
-from app.api.dependencies.auth import AuthenticatedAdminDependency
-from app.schemas.admin_identity import CurrentAdminResponse
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.exc import SQLAlchemyError
+
+from app.api.dependencies.admin_users import AdminUserServiceDependency
+from app.api.dependencies.auth import (
+    AuthenticatedAdminDependency,
+    require_admin_roles,
+)
+from app.auth.models import AuthenticatedAdmin
+from app.schemas.admin_identity import AdminUserListItem, CurrentAdminResponse
 
 
 router = APIRouter(prefix="/admin", tags=["admin identity"])
@@ -24,3 +32,22 @@ async def get_current_admin(
         created_at=admin.created_at,
         updated_at=admin.updated_at,
     )
+
+
+@router.get("/users", response_model=list[AdminUserListItem])
+async def list_admin_users(
+    _superadmin: Annotated[
+        AuthenticatedAdmin,
+        Depends(require_admin_roles("superadmin")),
+    ],
+    service: AdminUserServiceDependency,
+) -> list[object]:
+    """List active and inactive admins for Audit Log actor filtering."""
+
+    try:
+        return await service.list_all()
+    except SQLAlchemyError:
+        raise HTTPException(
+            status_code=503,
+            detail="Admin users are temporarily unavailable.",
+        ) from None

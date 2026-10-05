@@ -3,11 +3,18 @@ import { apiClient } from "@/lib/api/client";
 import { jobApplicationsApi } from "./job-applications";
 
 vi.mock("@/lib/api/client", () => ({
-  apiClient: { get: vi.fn(), patch: vi.fn(), delete: vi.fn() },
+  apiClient: { download: vi.fn(), get: vi.fn(), patch: vi.fn(), delete: vi.fn() },
 }));
 
 describe("jobApplicationsApi", () => {
   beforeEach(() => vi.clearAllMocks());
+
+  it("exports all applicants or the selected career through the binary client", async () => {
+    await jobApplicationsApi.export();
+    expect(apiClient.download).toHaveBeenCalledWith("/admin/job-applications/export");
+    await jobApplicationsApi.export("career/id");
+    expect(apiClient.download).toHaveBeenLastCalledWith("/admin/job-applications/export?career_id=career%2Fid");
+  });
 
   it("uses the documented global and Career-specific reads", async () => {
     await jobApplicationsApi.listAll();

@@ -42,6 +42,7 @@ def _case_study(
         tags=["API", "Engineering"],
         content={"type": "doc", "content": []},
         status=status,
+        featured=False,
         published_at=PUBLISHED_AT if status == "published" else None,
         created_at=PUBLISHED_AT,
         updated_at=PUBLISHED_AT,
@@ -96,6 +97,7 @@ def test_public_list_uses_exact_contract(case_study_api) -> None:
     ]
     assert set(response.json()["data"][0]) == {
         "id",
+        "featured",
         "slug",
         "title",
         "client_name",
@@ -117,6 +119,7 @@ def test_public_detail_and_hidden_or_missing_behavior(case_study_api) -> None:
     assert response.status_code == 200
     assert set(response.json()) == {
         "id",
+        "featured",
         "slug",
         "title",
         "seo_title",
@@ -154,6 +157,7 @@ def test_admin_list_returns_all_statuses_and_exact_contract(case_study_api) -> N
     ]
     expected_fields = {
         "id",
+        "featured",
         "slug",
         "title",
         "seo_title",

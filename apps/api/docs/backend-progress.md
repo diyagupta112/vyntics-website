@@ -1,8 +1,24 @@
 # Backend Progress
 
-**Last updated:** 2026-10-01
+**Last updated:** 2026-10-05
 
 ## Current phase
+
+YouTube video blocks for Blogs and Case Studies are implemented and verified
+through focused and real PostgreSQL tests. The Case Study featured-column schema
+mismatch previously blocking live reads was resolved by applying the existing
+migration; see the data-loading correction below.
+
+Featured Blogs and Featured Case Studies are completed and verified through
+schema, repository, service, API/OpenAPI, migration, concurrency, and real
+Supabase PostgreSQL tests.
+
+The superadmin-only Admin Users list supporting Audit Log actor filtering is
+completed and verified through repository, API/OpenAPI, authorization, and
+regression tests.
+
+The Badges backend API is completed and verified through schema, repository,
+service, API/OpenAPI, shared Storage, audit, and real Supabase PostgreSQL tests.
 
 The Job Application candidate-information contract extension is completed and
 verified through schema, API, OpenAPI, migration, service, audit, resume, and
@@ -483,6 +499,56 @@ Existing public Blog GET behavior remains unchanged.
 - [x] Google Sheets, Google credentials/SDKs/routes, public website form changes,
   and Admin Panel UI changes remain outside this backend-only extension.
 
+## Badges backend API
+
+**Status:** Completed.
+
+- [x] Added the `badges` PostgreSQL/SQLAlchemy resource with UUID `id`, required
+  trimmed `name`, nullable trimmed `description`, backend-managed nullable
+  `logo_url`, nullable validated `website_url`, required integer
+  `display_order`, required boolean `is_active`, and managed `created_at` /
+  `updated_at` timestamps.
+- [x] Added and applied Supabase migration `20261002090000`, recorded it in the
+  migration ledger, registered the existing `set_updated_at()` trigger, and
+  added `ix_badges_active_display_order` for the public visibility/order query.
+- [x] Added public `GET /badges`, returning only active badges in the established
+  `{data: [...]}` public collection envelope. SQL orders by `display_order ASC`,
+  then `created_at ASC` and `id ASC` for deterministic ties.
+- [x] Added authenticated `GET /admin/badges` and
+  `GET /admin/badges/{badge_id}`. The admin list is unpaginated, matching other
+  small content collections, and includes both active and inactive records.
+- [x] Added authenticated `POST /badges`, `PATCH /badges/{badge_id}`, and hard
+  `DELETE /badges/{badge_id}`. Both active admins and active superadmins use the
+  existing current-admin dependency. JSON create/PATCH cannot set `logo_url`,
+  IDs, or timestamps.
+- [x] Added authenticated `PUT /badges/{badge_id}/logo` and idempotent
+  `DELETE /badges/{badge_id}/logo`. The existing shared
+  `SupabasePublicImageStorage` is bound to the manually provisioned public
+  `badge-logos` bucket with the existing 5 MB image limit.
+- [x] Reused the existing JPEG/PNG/WebP extension, declared MIME, actual
+  signature, SHA-256, and `{badge_id}/{digest}.{canonical_extension}` validation
+  and naming pipeline. Stored `logo_url` values are public bucket URLs; no
+  signed URL or Storage credential is exposed.
+- [x] Logo replacement uploads first, commits the new database URL and audit,
+  then cleans the prior managed object. Database failure compensates by deleting
+  the newly uploaded object. Badge deletion commits its row/audit removal before
+  managed logo cleanup, matching the established Phase 13 resource pattern.
+- [x] Added safe Badge audit events with `resource_type=badge`. Create and hard
+  delete use `create`/`delete`; metadata and logo changes use the established
+  `update` action, with `changed_fields` and `logo_operation` distinguishing
+  upload, replacement, and deletion. Context excludes URLs, image bytes,
+  secrets, and website data.
+- [x] Added validation for 200-character names, 1000-character descriptions,
+  preserved absolute HTTP(S) website URLs up to 2048 characters, nullable
+  description/website/logo values, and required display order/active state.
+- [x] Added 70 focused Badge/storage/model/migration/config tests and one real
+  PostgreSQL lifecycle test covering schema, CRUD, visibility, deterministic
+  ordering, timestamps, and audits. All 615 backend tests passed with all 12
+  PostgreSQL integration tests enabled.
+- [x] No public website, Admin Panel UI, Google Sheets, Job Application, Career,
+  or unrelated API implementation was changed. No new Storage implementation or
+  secret was introduced.
+
 ## Phase 10 — Our Team documentation preparation
 
 - [x] Reviewed the existing Team Member ORM model, initial Supabase migration,
@@ -801,9 +867,251 @@ Implementation decisions and limitations:
 - Admin Panel profile consumption and UI changes remain outside this backend
   phase.
 
+## Admin Users list for Audit Log filtering
+
+**Status:** Completed.
+
+- [x] Added superadmin-only `GET /admin/users` as a read-only supporting
+  endpoint for the Admin Panel Audit Logs actor filter.
+- [x] Reused the existing verified Supabase Bearer flow and
+  `require_admin_roles("superadmin")`, matching the Audit Logs authorization
+  boundary. Missing, invalid, expired, unmapped, and inactive identities retain
+  the existing `401` behavior; active normal admins receive `403`.
+- [x] Extended the existing `AdminUserRepository` with one async SQLAlchemy
+  query and added a thin read service/dependency. The authoritative data source
+  remains `admin_users`; Supabase Auth is not queried for list data.
+- [x] Returned exactly `id`, `email`, `role`, and `is_active`. The returned `id`
+  is `admin_users.id`, which is the same value stored in Audit Logs as
+  `actor_id`. Auth-provider IDs, timestamps, tokens, credentials, and secrets
+  are omitted.
+- [x] Included active and inactive administrators so historical audit actors
+  remain selectable. Results order by `email ASC`, then `id ASC` for stable ties.
+  An empty table returns HTTP 200 with `[]`.
+- [x] Added sanitized HTTP 503 handling for SQLAlchemy list failures. The read
+  performs no commit and creates no Audit Log event.
+- [x] Added 10 focused tests covering safe fields, ID correspondence, multiple
+  active/inactive admins, deterministic SQL ordering, empty results,
+  superadmin access, normal-admin denial, all relevant `401` states, sanitized
+  database failure, and OpenAPI authentication/schema.
+- [x] Passed 107 focused Admin Users/authentication/Audit Logs regression tests
+  and all 625 backend tests with all 12 PostgreSQL integration tests enabled.
+- [x] Existing Audit Logs list/detail routes, `actor_id` filtering, pagination,
+  schemas, repository queries, and authorization were not changed. No database
+  schema or migration change was required.
+
+## Job Applications Excel export
+
+**Status:** Completed.
+
+- [x] Added authenticated `GET /admin/job-applications/export` with optional
+  UUID `career_id`. Both active admins and superadmins use the existing admin
+  authentication dependency. The static export route precedes the UUID detail
+  route; existing Job Application endpoints remain unchanged.
+- [x] Omitting `career_id` exports the complete dataset, including historical
+  applications with null Career IDs. Providing it verifies the Career exists
+  and uses the existing repository filter. Missing Careers return `404`;
+  empty results still produce a workbook containing headers.
+- [x] Added `openpyxl>=3.1,<4.0` through the existing `pyproject.toml` dependency
+  conventions. Generated real `.xlsx` downloads with the Excel media type and
+  sanitized `Vyntics_Job_Applications_All.xlsx` or Career-name filenames.
+- [x] Included Name, Email, Mobile, Job, Experience, Currently Working, Current
+  Company, Notice Period, Status, Resume, Notes, and Applied At. Job names use
+  retained Career snapshots, experience uses years/months, historical unknowns
+  remain blank, booleans and enums use readable labels, and timestamps use UTC.
+- [x] Resume cells indicate `Available in Admin Panel` or `Not provided`.
+  Private storage paths and expiring signed URLs are not embedded in persistent
+  spreadsheets. Resume access continues through authenticated existing APIs.
+- [x] Added a single worksheet, bold headers, frozen first row, auto-filter,
+  and readable widths. Candidate text is stored as literal strings to prevent
+  spreadsheet formula execution. Generation runs in the existing threadpool;
+  the complete dataset and workbook are held in memory, with Excel's worksheet
+  limits applying to exceptionally large exports.
+- [x] Successful workbook generation records an `export` audit action with
+  `resource_type=job_application`, verified actor identity, scope, optional
+  Career ID, and application count only. Candidate data and workbook contents
+  are excluded. Audit persistence must succeed before the file is returned.
+- [x] Database failures return sanitized `503`, workbook-generation failures
+  return sanitized `500`, and protected access retains existing `401` behavior.
+- [x] Added 11 export tests covering real workbook contents, historical rows,
+  scoped/empty/missing Careers, formatting, literal formula-like text, resume
+  privacy, audit metadata/rollback, both admin roles, errors, and OpenAPI.
+- [x] Passed 79 focused export/Job Application tests and all 636 backend tests
+  with all 12 PostgreSQL integration tests enabled. Compileall, startup,
+  health, authentication, and OpenAPI checks passed. The existing Starlette
+  test-client deprecation warning remains.
+- [x] No database schema, migration, frontend, Google API, OAuth, or credential
+  changes were made. No Git operation was performed.
+
+## Featured Blogs and Featured Case Studies
+
+**Status:** Completed.
+
+- [x] Added `is_featured` to the existing Blog and Case Study models and
+  create/PATCH contracts. Creates default to false; PATCH omission preserves
+  the existing value and explicit null is rejected. Admin list/detail and
+  public list/detail schemas expose the stored boolean.
+- [x] Added and applied Supabase migration `20261005120000`, recorded it in the
+  migration ledger, and preserved existing row counts. Both columns are
+  `boolean NOT NULL DEFAULT false`; all existing records remain non-featured.
+- [x] Enforced independent maximums of five `published` + `is_featured=true`
+  records for Blogs and Case Studies. Draft/unpublished features do not consume
+  slots. Creating, featuring an existing published item, or publishing a hidden
+  feature checks capacity. Unfeaturing, unpublishing, deleting, and editing an
+  already public feature preserve existing behavior without claiming a slot.
+- [x] Capacity failures return HTTP `422` with `Maximum of 5 featured blogs
+  allowed.` or `Maximum of 5 featured case studies allowed.` No other record
+  is automatically changed or unfeatured.
+- [x] Reused existing repositories and service-owned transactions. Slot claims
+  acquire distinct PostgreSQL transaction advisory locks before a separate SQL
+  count, excluding the current record during updates. Locks remain held until
+  commit/rollback. The configured database uses READ COMMITTED, giving the
+  count a fresh snapshot after any lock wait. This protocol must be retained
+  by future write paths; manual SQL bypasses service enforcement. No database
+  trigger, additional table, or index was needed; existing status indexes remain.
+- [x] Preserved all existing endpoints, public ordering, status/cover validation,
+  authentication, authorization, and deletion behavior. Create audit context
+  includes `is_featured`; update audits include it in existing `changed_fields`
+  when changed, using the same verified actor and transaction.
+- [x] Added shared unit/API/OpenAPI tests and real PostgreSQL integration tests
+  for both resources. Integration records live in disposable schemas cloned
+  from the actual tables. Database tests cover migration backfill/nullability,
+  resource independence, lifecycle/slot release, and actual lock contention
+  between concurrent create, feature, and publish requests for the fifth slot.
+- [x] Passed 204 focused tests and all 9 new PostgreSQL integration tests.
+  The full default suite passed 659 tests (21 opt-in database tests skipped);
+  all 21 PostgreSQL integration tests passed separately, verifying all 680
+  backend tests. Compileall, startup, health, protected-write
+  authentication, and OpenAPI checks passed. The existing Starlette test-client
+  deprecation warning remains.
+- [x] No frontend changes, additional endpoints, dependencies, or Git operations
+  were made.
+
+## YouTube video blocks — Blogs and Case Studies
+
+**Status:** Implemented; focused and PostgreSQL video tests passed. The earlier
+Case Study schema blocker was resolved in the data-loading correction below.
+
+- [x] Inspected both existing `content` columns (JSONB), shared `JsonObject`
+  schemas, service serialization, routes, auditing, and rich-text documents.
+  Both resources use the same JSON node convention: `type`, optional `attrs`,
+  nested `content`, `text`, and `marks`, usually rooted at `type=doc`. The
+  backend previously accepted any JSON object without validating node types.
+- [x] Added one shared request validator for semantic YouTube leaf nodes while
+  retaining the existing JSON-object architecture. The stored representation is
+  `{"type":"video","attrs":{"provider":"youtube","video_id":"dQw4w9WgXcQ"}}`.
+  No separate resource, database column, migration, bucket, upload endpoint,
+  dependency, or presentation setting was added.
+- [x] Create/PATCH content accepts `attrs.video_id` or `attrs.url`, with exactly
+  one non-null reference and `provider=youtube`. URL inputs normalize locally
+  to the identifier; only provider/ID are persisted. Supported forms include
+  YouTube watch, youtu.be, embed, shorts, and mobile watch URLs. Normal query
+  parameters/fragments are discarded after extracting the ID.
+- [x] Restricted IDs to 11 ASCII letters/digits/underscore/hyphen characters.
+  Short illustrative IDs such as `abc123` are rejected. Exact YouTube host
+  allowlists, HTTP(S), safe ports, and path/query checks reject other providers,
+  credentials in URLs, ambiguous watch IDs, malformed references, JavaScript,
+  data URLs, iframe/HTML inputs, and arbitrary embed sources. Video node/attrs
+  schemas forbid extra fields, including frontend presentation settings.
+  Validation uses the existing HTTP `422` request-error conventions. No YouTube
+  network request, download, API key, or remote existence check is performed.
+- [x] Preserved non-video blocks, marks, attributes, custom legacy JSON, and
+  serialization without enforcing a new document/root schema. Validation
+  reaches nested video nodes. Existing stored content remains readable without
+  response-side rewriting or validation of legacy video nodes. Explicitly
+  resubmitting legacy video content requires conversion to the semantic YouTube
+  form; PATCH requests omitting content continue to preserve the stored JSON.
+- [x] Reused existing Blog/Case Study endpoints, models, repositories, services,
+  transactions, status/cover/slug/SEO rules, featured capacity, authentication,
+  authorization, and audit behavior. Video edits use the existing `content`
+  changed-field audit metadata; neither video contents nor URLs are added to
+  audit context. Public list responses remain lightweight without body content.
+- [x] Added Pydantic descriptions and examples to existing create/update and
+  detail/admin content contracts so FastAPI/OpenAPI documents the new block
+  automatically, preserving the general JSON-object schema. Generated OpenAPI
+  files were not manually edited.
+- [x] Added 130 unit/service/API/OpenAPI tests across both resources for URL and
+  ID validation, malicious/unsupported input, presentation-field rejection,
+  mixed rich text, unchanged legacy blocks, create/add/change/remove/read
+  behavior, auditing, and legacy stored-video reads. Added two real PostgreSQL
+  tests using the existing disposable-schema/session helpers to verify JSONB
+  reloads, admin/public reads, mixed blocks, video updates/removal, and auditing.
+- [x] Passed 266 focused tests and both new PostgreSQL persistence tests. The
+  latest default backend run passed 789 tests (24 opt-in PostgreSQL tests
+  skipped). The full opt-in run passed 811 tests with two failures: an existing
+  Case Study lifecycle test expects `case_studies.featured`, absent from the
+  configured database after concurrent featured-contract changes, and a Job
+  Applications connection timeout. The Job Applications test passed on retry.
+  That initial run did not apply the unrelated migration. The later data-loading
+  correction below resolves the Case Study schema mismatch.
+  Database verification used a process-only transaction-pool override after the
+  session pool reached its connection limit; application/.env configuration was
+  unchanged. Compileall, import/startup, health, protected writes, and
+  OpenAPI checks passed. The existing Starlette test-client deprecation warning
+  remains.
+- [x] No frontend changes or Git operations were performed.
+
+## Case Study data-loading correction — 2026-10-05
+
+**Status:** Fixed; live public loading and real PostgreSQL admin reads verified.
+
+- [x] Reproduced live `GET /case-studies` returning HTTP 500. The configured
+  database contained two published records with covers, but still had
+  `case_studies.is_featured`; the current model queried `case_studies.featured`.
+  PostgreSQL raised `UndefinedColumn` (42703). The migration ledger had no
+  `20261005130000` entry. All public/admin list/detail queries share this model,
+  explaining both reported loading failures. Video serialization was not the
+  cause; live Blogs returned HTTP 200.
+- [x] Verified the existing migration in a disposable PostgreSQL schema, then
+  applied `20261005130000_case_studies_featured_contract.sql` transactionally
+  and recorded it in the Supabase migration ledger. Compared every existing
+  Case Study value before/after, accounting only for the column rename; both
+  rows, feature flags, content, and timestamps were preserved. No new migration,
+  frontend workaround, API contract change, or application-data edit was needed.
+- [x] Added read-only PostgreSQL HTTP regression coverage for all four existing
+  Case Study read routes, using the existing authenticated-admin test helper.
+  Actual public/admin rows, featured flags, and detail content are compared with
+  database records; unauthenticated admin reads still return 401. This catches
+  schema drift that mocked service tests cannot detect.
+- [x] Passed 59 focused Case Study/migration tests and three PostgreSQL tests:
+  actual-schema HTTP reads, Case Study lifecycle, and Blog lifecycle. The full
+  default backend suite passed 789 tests with 25 opt-in PostgreSQL tests skipped.
+  Compile/import checks passed. Admin integration/component/client tests passed
+  45 tests; public contract tests passed 26 tests. Both frontend TypeScript checks
+  and affected Case Study/API-client ESLint checks passed.
+- [x] Live API list returned HTTP 200 with two records (one featured, one regular);
+  both published detail endpoints and Blogs returned HTTP 200. Browser checks
+  confirmed the public listing renders both records, a real detail page loads,
+  and no browser errors were reported. A fresh Admin browser session redirects
+  to login; authenticated browser verification requires the user to sign in.
+  Admin list/detail responses were verified with real PostgreSQL and the existing
+  test authentication helper, without weakening production authentication.
+- [x] No Git operations were performed. Application/API client configuration and
+  UI code were preserved. PostgreSQL test connections used a process-only
+  transaction-pool override; the running API was verified with its existing
+  connection configuration.
+
 ## Validation
 
 ```text
+659 backend tests passed; 21 opt-in PostgreSQL tests skipped in default run
+All 21 PostgreSQL integration tests passed separately -> 680 tests verified
+204 focused Blog/Case Study/schema/model/repository/API/migration tests passed
+9 featured PostgreSQL lifecycle/concurrency/migration tests passed
+Featured migration 20261005120000 -> applied and ledger-recorded
+Featured contracts/422 limits/auth/startup/health/OpenAPI/compile -> passed
+636 tests passed with all 12 PostgreSQL integration tests enabled after Excel export
+79 focused Excel export/Job Application tests passed
+Real XLSX workbook/content/audit/privacy/OpenAPI/startup/compile checks -> passed
+625 tests passed with all 12 PostgreSQL integration tests enabled after GET /admin/users
+107 focused Admin Users/authentication/Audit Logs regression tests passed
+GET /admin/users safe fields/order/active+inactive/empty/error cases -> passed
+GET /admin/users 401/403/superadmin authorization and OpenAPI -> passed
+615 tests passed with all 12 PostgreSQL integration tests enabled after Badges
+70 focused Badge/storage/model/migration/config tests passed
+Badge PostgreSQL CRUD/visibility/order/timestamp/audit lifecycle -> passed
+Migration 20261002090000 -> applied and ledger-recorded
+badge-logos JPEG/PNG/WebP, signature, digest path, 5 MB checks -> passed
+Badge OpenAPI public/auth/multipart/response contracts -> passed
 578 tests passed with all 11 PostgreSQL integration tests enabled after the Job Application candidate-information extension
 151 focused Job Application/schema/model/migration/audit tests passed
 Job Application service and FastAPI PostgreSQL lifecycles -> passed
@@ -958,6 +1266,15 @@ The existing Node/TypeScript scaffold remains unchanged.
 
 ## Next task
 
+The Admin Panel Audit Logs page can populate its Admin filter from
+`GET /admin/users` and pass the returned `id` to the unchanged
+`GET /admin/audit-logs?actor_id=<admin_id>` filter.
+
+The Badge API is ready for separate public website and Admin Panel integration.
+The manually created public `badge-logos` bucket is used by the backend; live
+provider upload/delete verification still requires a valid configured
+privileged Supabase Storage credential.
+
 The backend Job Application candidate-information contract is ready for the
 separate public application-form and Admin Panel integration work. Google Sheets
 remains a future downstream integration; Supabase PostgreSQL is the source of
@@ -976,3 +1293,24 @@ deletion verification can be completed against the four provisioned buckets.
 The future Admin Panel must implement its Supabase browser login and send access
 tokens to the protected APIs; that browser flow cannot be verified until the
 Admin Panel exists.
+
+### Public Case Studies data-flow audit — 2026-10-05
+
+- Read-only inspection of the configured database found 3 Case Studies: 1
+  published and 2 drafts. `CaseStudyRepository.list_published()` filters only
+  `status = published`, orders by `published_at DESC`, and has no pagination,
+  offset, featured filter, or limit. The service passes these records through.
+- Live `GET /case-studies` returned 1 record in `{ data: [...] }`; the existing
+  frontend client preserved that record and all public list fields. The detail
+  contract additionally includes SEO fields and structured content. Draft detail
+  requests return 404. No published records were lost between DB and rendering.
+- The frontend previously designated the first 3 results as featured using
+  `slice(0, 3)`, although neither the model nor the public schemas have a featured
+  designation. Removed that assumption: the page now displays every public
+  result in an All case studies grid, keeping backend order and the hero cover
+  carousel. A genuine featured/other split requires a separately scoped backend
+  designation and admin editing support; no field, tag rule, or data was invented.
+- Browser checks confirmed 1 unique case-study link, working published detail
+  navigation, no horizontal overflow at 1280px and 390px, and no browser errors.
+  Client regression coverage preserves 25 records without adding query limits
+  and verifies malformed payloads/service errors are surfaced instead of hidden.

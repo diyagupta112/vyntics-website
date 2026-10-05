@@ -45,6 +45,7 @@ def test_settings_load_from_environment(monkeypatch) -> None:
     monkeypatch.setenv("STORAGE_BLOG_COVERS_BUCKET", "blog-covers")
     monkeypatch.setenv("STORAGE_CASE_STUDY_COVERS_BUCKET", "case-study-covers")
     monkeypatch.setenv("STORAGE_TEAM_PHOTOS_BUCKET", "team-photos")
+    monkeypatch.setenv("STORAGE_BADGE_LOGOS_BUCKET", "badge-logos")
     monkeypatch.setenv("STORAGE_JOB_RESUMES_BUCKET", "job-applications")
     monkeypatch.setenv("STORAGE_IMAGE_MAX_BYTES", "5242880")
     monkeypatch.setenv("STORAGE_RESUME_MAX_BYTES", "10485760")
@@ -72,6 +73,7 @@ def test_settings_load_from_environment(monkeypatch) -> None:
     assert settings.blog_covers_bucket == "blog-covers"
     assert settings.case_study_covers_bucket == "case-study-covers"
     assert settings.team_photos_bucket == "team-photos"
+    assert settings.badge_logos_bucket == "badge-logos"
     assert settings.job_resumes_bucket == "job-applications"
     assert settings.image_max_bytes == 5 * 1024 * 1024
     assert settings.resume_signed_url_ttl_seconds == 300

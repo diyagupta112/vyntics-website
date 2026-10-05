@@ -9,6 +9,7 @@ from app.db.base import Base
 from app.db.models import (
     AdminUser,
     AuditLog,
+    Badge,
     Blog,
     Career,
     CaseStudy,
@@ -20,6 +21,7 @@ from app.db.models import (
 EXPECTED_TABLES = {
     "admin_users",
     "audit_logs",
+    "badges",
     "blogs",
     "careers",
     "case_studies",
@@ -50,6 +52,7 @@ def test_table_names_are_exact() -> None:
     assert TeamMember.__tablename__ == "team_members"
     assert ContactSubmission.__tablename__ == "contact_submissions"
     assert AuditLog.__tablename__ == "audit_logs"
+    assert Badge.__tablename__ == "badges"
 
 
 def test_primary_keys_use_postgresql_uuid() -> None:
@@ -174,6 +177,7 @@ def test_important_indexes_are_registered() -> None:
         "ix_contact_submissions_status_submitted_at",
         "ix_audit_logs_actor_created_at",
         "ix_audit_logs_resource_created_at",
+        "ix_badges_active_display_order",
     }
     actual_indexes = {
         index.name

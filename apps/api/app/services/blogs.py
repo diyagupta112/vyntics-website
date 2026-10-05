@@ -94,12 +94,18 @@ class BlogService:
         blog = Blog(**values, published_at=published_at)
 
         try:
+            if request.status == "published" and request.is_featured:
+                await self._validate_featured_capacity()
             await self._blogs.add(blog)
             await self._audit_logs.add(
                 self._build_audit_log(
                     action="create",
                     blog=blog,
-                    context={"slug": blog.slug, "status": blog.status},
+                    context={
+                        "slug": blog.slug,
+                        "status": blog.status,
+                        "is_featured": blog.is_featured,
+                    },
                     actor=actor,
                 )
             )
@@ -142,6 +148,17 @@ class BlogService:
             raise BlogValidationError(
                 "cover_image_url is required for published Blogs"
             )
+
+        if (
+            next_status == "published"
+            and updates.get("is_featured", blog.is_featured)
+            and not (blog.status == "published" and blog.is_featured)
+        ):
+            try:
+                await self._validate_featured_capacity(exclude_id=blog.id)
+            except Exception:
+                await self._session.rollback()
+                raise
 
         changed_fields: list[str] = []
         for field_name, value in updates.items():
@@ -303,6 +320,10 @@ class BlogService:
             await self._session.rollback()
             raise
         await self._cleanup_previous_cover(storage, previous_url, blog.id)
+
+    async def _validate_featured_capacity(self, *, exclude_id: UUID | None = None) -> None:
+        if await self._blogs.count_featured_for_update(exclude_id=exclude_id) >= 5:
+            raise BlogValidationError("Maximum of 5 featured blogs allowed.")
 
     def _require_image_storage(self) -> PublicImageStorage:
         if self._image_storage is None:

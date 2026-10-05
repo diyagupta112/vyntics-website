@@ -21,3 +21,13 @@ class AdminUserRepository:
             AdminUser.auth_user_id == auth_user_id
         )
         return await self._session.scalar(statement)
+
+    async def list_all(self) -> list[AdminUser]:
+        """Return active and inactive administrators in stable email order."""
+
+        statement = select(AdminUser).order_by(
+            AdminUser.email.asc(),
+            AdminUser.id.asc(),
+        )
+        result = await self._session.scalars(statement)
+        return list(result.all())

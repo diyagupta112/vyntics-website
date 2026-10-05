@@ -159,10 +159,10 @@ async function getAccessToken(): Promise<string> {
   return session.access_token;
 }
 
-export async function apiRequest<T = unknown>(
+async function requestResponse(
   path: string,
   options: ApiRequestOptions = {},
-): Promise<T> {
+): Promise<Response> {
   const requestUrl = buildApiUrl(path);
   const accessToken = await getAccessToken();
   const headers = new Headers(options.headers);
@@ -189,14 +189,22 @@ export async function apiRequest<T = unknown>(
     });
   }
 
-  const payload = response.status === 204 ? undefined : await parseResponseBody(response);
-
   if (!response.ok) {
-    throw createHttpError(response.status, payload);
+    throw createHttpError(response.status, await parseResponseBody(response));
   }
-
-  return payload as T;
+  return response;
 }
+
+export async function apiRequest<T = unknown>(
+  path: string,
+  options: ApiRequestOptions = {},
+): Promise<T> {
+  const response = await requestResponse(path, options);
+  return (response.status === 204 ? undefined : await parseResponseBody(response)) as T;
+}
+
+export type ApiDownload = { blob: Blob; disposition: string | null };
+
 
 function withMethod(method: NonNullable<ApiRequestOptions["method"]>, options?: ApiMethodOptions) {
   return { ...options, method } as ApiRequestOptions;
@@ -204,6 +212,12 @@ function withMethod(method: NonNullable<ApiRequestOptions["method"]>, options?: 
 
 export const apiClient = {
   request: apiRequest,
+  async download(path: string, options?: ApiMethodOptions): Promise<ApiDownload> {
+    const response = await requestResponse(path, withMethod("GET", options));
+    const blob = await response.blob();
+    if (!blob.size) throw new ApiError({ kind: "unexpected", message: "The downloaded file is empty." });
+    return { blob, disposition: response.headers.get("Content-Disposition") };
+  },
   get<T = unknown>(path: string, options?: ApiMethodOptions) {
     return apiRequest<T>(path, withMethod("GET", options));
   },

@@ -12,6 +12,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
+import { adminUsersApi, type AdminUserListItem } from "../api/admin-users";
 import { auditLogsApi } from "../api/audit-logs";
 import { auditLogErrorMessage } from "../lib/errors";
 import type {
@@ -24,6 +25,7 @@ import { AuditLogDetailDialog } from "./audit-log-detail-dialog";
 import styles from "./audit-logs.module.css";
 
 type FilterForm = {
+  actorId: string;
   action: string;
   from: string;
   resourceType: string;
@@ -31,6 +33,7 @@ type FilterForm = {
 };
 
 const emptyFilterForm: FilterForm = {
+  actorId: "",
   action: "",
   from: "",
   resourceType: "",
@@ -79,6 +82,10 @@ function DateTimeFilterInput({ id, max, min, onChange, value }: DateTimeFilterIn
 }
 
 export function AuditLogsPage() {
+  const [admins, setAdmins] = useState<AdminUserListItem[]>([]);
+  const [adminsLoading, setAdminsLoading] = useState(true);
+  const [adminsError, setAdminsError] = useState<string>();
+  const [adminRequestVersion, setAdminRequestVersion] = useState(0);
   const [result, setResult] = useState<AuditLogPage>();
   const [filters, setFilters] = useState<AuditLogFilters>({});
   const [filterForm, setFilterForm] = useState<FilterForm>(emptyFilterForm);
@@ -90,6 +97,21 @@ export function AuditLogsPage() {
   const [detail, setDetail] = useState<AuditLogDetail>();
   const [detailLoading, setDetailLoading] = useState(false);
   const [detailError, setDetailError] = useState<string>();
+
+  useEffect(() => {
+    const controller = new AbortController();
+    adminUsersApi.list(controller.signal)
+      .then((items) => {
+        if (!controller.signal.aborted) setAdmins(items);
+      })
+      .catch((caught: unknown) => {
+        if (!controller.signal.aborted) setAdminsError(auditLogErrorMessage(caught, "load admins"));
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setAdminsLoading(false);
+      });
+    return () => controller.abort();
+  }, [adminRequestVersion]);
 
   const requestPage = useCallback(
     (signal?: AbortSignal) =>
@@ -128,6 +150,7 @@ export function AuditLogsPage() {
     setError(undefined);
     setPage(1);
     setFilters({
+      actorId: filterForm.actorId || undefined,
       action: filterForm.action || undefined,
       resourceType: filterForm.resourceType || undefined,
       from: toApiTimestamp(filterForm.from),
@@ -170,6 +193,7 @@ export function AuditLogsPage() {
 
   const totalPages = Math.max(1, Math.ceil((result?.total ?? 0) / pageSize));
   const hasFilters = Object.values(filters).some(Boolean);
+  const appliedAdmin = admins.find((admin) => admin.id === filters.actorId);
   const hasDraftFilters = Object.values(filterForm).some(Boolean);
 
   return (
@@ -184,6 +208,23 @@ export function AuditLogsPage() {
         className={styles.filters}
         onSubmit={applyFilters}
       >
+        <div className={styles.filterField}>
+          <label htmlFor="audit-admin">Admin</label>
+          <Select
+            aria-describedby={adminsLoading || adminsError || admins.length === 0 ? "audit-admin-help" : undefined}
+            disabled={adminsLoading || !!adminsError || admins.length === 0}
+            id="audit-admin"
+            onChange={(event) => setFilterForm((current) => ({ ...current, actorId: event.target.value }))}
+            value={filterForm.actorId}
+          >
+            <option value="">All Admins</option>
+            {admins.map((admin) => (
+              <option key={admin.id} value={admin.id}>
+                {admin.email}{admin.is_active ? "" : " (Inactive)"}
+              </option>
+            ))}
+          </Select>
+        </div>
         <div className={styles.filterField}>
           <label htmlFor="audit-action">Action</label>
           <Select
@@ -249,6 +290,22 @@ export function AuditLogsPage() {
           </Button>
         </div>
       </form>
+
+      {adminsLoading ? <p id="audit-admin-help" role="status">Loading admins…</p> : null}
+      {!adminsLoading && adminsError ? (
+        <div className={styles.adminFeedback} role="alert">
+          <p id="audit-admin-help">{adminsError}</p>
+          <Button onClick={() => {
+            setAdminsLoading(true);
+            setAdminsError(undefined);
+            setAdminRequestVersion((version) => version + 1);
+          }} variant="secondary">Retry loading admins</Button>
+        </div>
+      ) : null}
+      {!adminsLoading && !adminsError && admins.length === 0 ? (
+        <p id="audit-admin-help">No admins available.</p>
+      ) : null}
+      {appliedAdmin ? <p className={styles.appliedFilter}>Admin: {appliedAdmin.email}{appliedAdmin.is_active ? "" : " (Inactive)"}</p> : null}
 
       {loading ? (
         <div aria-label="Loading Audit Logs" role="status">

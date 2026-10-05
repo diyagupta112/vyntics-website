@@ -1,0 +1,111 @@
+.cloudContext { border-bottom: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-surface) 94%, transparent); }
+.breadcrumb { min-height: 3rem; display: flex; align-items: center; gap: 0.55rem; color: var(--color-muted); font-size: 0.7rem; }
+.breadcrumb a { color: var(--color-primary); font-weight: 700; }
+.cloudContext ul { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); list-style: none; border-top: 1px solid var(--color-border); }
+.cloudContext li + li { border-left: 1px solid var(--color-border); }
+.cloudContext li a { min-height: 4rem; padding: 0.8rem; display: flex; align-items: center; gap: 0.65rem; color: var(--color-muted); font-size: 0.72rem; font-weight: 650; transition: color 180ms ease, background-color 180ms ease; }
+.cloudContext li a > span { color: var(--color-primary); font-size: 0.58rem; letter-spacing: 0.08em; }
+.cloudContext li a[aria-current="page"] { color: var(--color-foreground); background: color-mix(in srgb, var(--color-primary) 7%, transparent); }
+
+.eyebrow { color: var(--color-primary); font-size: 0.7rem; font-weight: 760; letter-spacing: 0.17em; text-transform: uppercase; }
+.hero { padding-block: clamp(4rem, 8vw, 7rem); background: radial-gradient(circle at 83% 17%, color-mix(in srgb, var(--color-primary) 9%, transparent), transparent 26rem), var(--color-background); }
+.heroGrid { display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(24rem, 1fr); align-items: end; gap: clamp(3rem, 9vw, 9rem); }
+.hero h1 { max-width: 10ch; margin-top: 0.9rem; font-size: clamp(3.2rem, 6.7vw, 6.7rem); font-weight: 650; line-height: 0.91; letter-spacing: -0.07em; text-wrap: balance; }
+.heroStatement { padding-left: clamp(1.5rem, 4vw, 3.5rem); border-left: 1px solid var(--color-border); }
+.heroStatement h2 { max-width: 19ch; font-size: clamp(1.7rem, 3vw, 2.8rem); line-height: 1.08; letter-spacing: -0.05em; text-wrap: balance; }
+.heroStatement p { max-width: 39rem; margin-top: 1.15rem; color: var(--color-muted); line-height: 1.75; }
+.heroStatement a, .contactCta a, .nextService { font-size: 0.85rem; font-weight: 720; }
+.heroStatement a { width: fit-content; min-height: 3rem; margin-top: 1.5rem; padding-inline: 1rem; display: inline-flex; align-items: center; gap: 0.5rem; color: #fff; border-radius: 0.65rem; background: var(--color-primary); }
+.heroStatement svg, .continue svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 180ms ease; }
+
+.meaning, .problemHelp, .workAreas, .approach, .technologies { padding-block: clamp(4rem, 8vw, 7rem); border-top: 1px solid var(--color-border); }
+.meaningGrid { display: grid; grid-template-columns: minmax(10rem, 0.34fr) minmax(0, 1fr); gap: clamp(3rem, 10vw, 10rem); }
+.meaningGrid > div { max-width: 56rem; }
+.meaning h2, .sectionHeading h2, .approachHeading h2, .technologyGrid h2, .contactCta h2 { font-size: clamp(2rem, 4.2vw, 4rem); line-height: 1.03; letter-spacing: -0.057em; text-wrap: balance; }
+.meaningGrid > div > p { max-width: 47rem; margin-top: 1.2rem; color: var(--color-muted); font-size: clamp(1rem, 1.3vw, 1.1rem); line-height: 1.8; }
+
+.problemHelp { background: color-mix(in srgb, var(--color-primary) 2.8%, var(--color-background)); }
+.sectionHeading { max-width: 52rem; }
+.sectionHeading h2 { margin-top: 0.75rem; }
+.problemHelpGrid { margin-top: clamp(2.5rem, 5vw, 4.5rem); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid var(--color-border); }
+.problemHelpGrid > div { padding: clamp(1.5rem, 3vw, 2.5rem); }
+.problemHelpGrid > div + div { border-left: 1px solid var(--color-border); }
+.problemHelpGrid h3 { font-size: 0.78rem; letter-spacing: 0.02em; }
+.problemHelpGrid ul { margin-top: 1.3rem; list-style: none; }
+.problemHelpGrid li { position: relative; padding-left: 1.1rem; color: var(--color-muted); line-height: 1.7; }
+.problemHelpGrid li + li { margin-top: 0.8rem; }
+.problemHelpGrid li::before { position: absolute; top: 0.72em; left: 0; width: 0.32rem; aspect-ratio: 1; content: ""; border-radius: 50%; background: var(--color-primary); }
+
+.workAreaList { margin-top: clamp(2.5rem, 5vw, 4.5rem); border-top: 1px solid var(--color-border); }
+.workAreaList article { padding-block: 1.6rem; display: grid; grid-template-columns: 3rem minmax(12rem, 0.55fr) minmax(0, 1fr); gap: clamp(1rem, 5vw, 5rem); border-bottom: 1px solid var(--color-border); }
+.workAreaList span { padding-top: 0.15rem; color: var(--color-primary); font-size: 0.63rem; font-weight: 750; letter-spacing: 0.08em; }
+.workAreaList h3 { font-size: 1rem; letter-spacing: -0.025em; }
+.workAreaList p { max-width: 42rem; color: var(--color-muted); font-size: 0.9rem; line-height: 1.7; }
+
+.approach { background: color-mix(in srgb, var(--color-lavender) 18%, var(--color-background)); }
+.approachGrid { display: grid; grid-template-columns: minmax(16rem, 0.65fr) minmax(0, 1fr); gap: clamp(3rem, 10vw, 9rem); }
+.approachHeading { align-self: start; position: sticky; top: 7rem; }
+.approachHeading h2 { margin-top: 0.75rem; font-size: clamp(2rem, 3.5vw, 3.35rem); }
+.approachHeading > p:last-child { max-width: 34rem; margin-top: 1rem; color: var(--color-muted); line-height: 1.7; }
+.approach ol { list-style: none; border-top: 1px solid var(--color-border); }
+.approach li { padding-block: 1.3rem; display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; border-bottom: 1px solid var(--color-border); }
+.approach li > span { padding-top: 0.2rem; color: var(--color-primary); font-size: 0.62rem; font-weight: 750; }
+.approach li h3 { font-size: 1rem; letter-spacing: -0.025em; }
+.approach li p { margin-top: 0.5rem; color: var(--color-muted); font-size: 0.86rem; line-height: 1.65; }
+
+.technologyGrid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(22rem, 1fr); align-items: end; gap: clamp(3rem, 9vw, 8rem); }
+.technologyGrid h2 { margin-top: 0.7rem; font-size: clamp(2rem, 3.6vw, 3.4rem); }
+.technologyGrid > div > p:last-child { max-width: 38rem; margin-top: 1rem; color: var(--color-muted); line-height: 1.7; }
+.technologyGrid ul { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.6rem; list-style: none; }
+.technologyGrid li { padding: 0.68rem 0.88rem; border: 1px solid var(--color-border); border-radius: 0.6rem; background: var(--color-surface); font-size: 0.78rem; font-weight: 680; }
+
+.continue { border-top: 1px solid var(--color-border); }
+.continueGrid { width: min(100%, 90rem); display: grid; grid-template-columns: minmax(18rem, 0.72fr) minmax(0, 1.28fr); }
+.nextService, .contactCta { min-height: 27rem; padding: clamp(2rem, 5vw, 5rem); display: flex; flex-direction: column; justify-content: center; }
+.nextService { align-items: flex-start; color: var(--color-foreground); background: color-mix(in srgb, var(--color-lavender) 26%, var(--color-background)); }
+.nextService > span { color: var(--color-primary); font-size: 0.67rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.nextService strong { margin-top: 0.8rem; font-size: clamp(2rem, 3.5vw, 3.3rem); line-height: 1.02; letter-spacing: -0.055em; }
+.nextService svg { margin-top: 1.5rem; color: var(--color-primary); }
+.contactCta { color: #fff; background: #0b0b0f; }
+.contactCta > p { color: #8fb5ff; font-size: 0.68rem; font-weight: 750; letter-spacing: 0.12em; text-transform: uppercase; }
+.contactCta h2 { max-width: 20ch; margin-top: 0.8rem; }
+.contactCta > div { margin-top: 1.6rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+.contactCta a { min-height: 3rem; display: inline-flex; align-items: center; gap: 0.45rem; color: #fff; }
+.contactCta a:first-child { padding-inline: 1rem; color: #0b0b0f; border-radius: 0.65rem; background: #fff; }
+
+.cloudContext a:focus-visible, .heroStatement a:focus-visible, .continue a:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-primary) 45%, transparent); outline-offset: 3px; border-radius: 0.25rem; }
+@media (prefers-reduced-motion: no-preference) { .heroGrid > * { animation: riseIn 620ms both; } .heroGrid > :last-child { animation-delay: 80ms; } }
+@media (hover: hover) and (pointer: fine) {
+  .cloudContext li a:hover { color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 4%, transparent); }
+  .heroStatement a:hover svg, .continue a:hover svg { transform: translateX(0.22rem); }
+}
+@keyframes riseIn { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 900px) {
+  .cloudContext > div { overflow-x: auto; scrollbar-width: thin; }
+  .breadcrumb { position: sticky; left: 0; }
+  .cloudContext ul { width: 55rem; }
+  .heroGrid, .approachGrid, .technologyGrid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .heroStatement { padding-top: 2rem; padding-left: 0; border-top: 1px solid var(--color-border); border-left: 0; }
+  .approachHeading { position: static; }
+  .technologyGrid ul { justify-content: flex-start; }
+}
+@media (max-width: 680px) {
+  .cloudContext > div { overflow-x: visible; }
+  .cloudContext ul { width: auto; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cloudContext li { border-bottom: 1px solid var(--color-border); }
+  .cloudContext li:nth-child(odd) { border-left: 0; }
+  .cloudContext li:nth-child(even) { border-left: 1px solid var(--color-border); }
+  .cloudContext li:last-child { grid-column: 1 / -1; border-left: 0; }
+  .cloudContext li a { min-height: 3.6rem; }
+  .hero { padding-block: 3.75rem; }
+  .hero h1 { font-size: clamp(2.8rem, 14vw, 4.5rem); }
+  .meaningGrid { grid-template-columns: 1fr; gap: 1.25rem; }
+  .problemHelpGrid { grid-template-columns: 1fr; }
+  .problemHelpGrid > div + div { border-top: 1px solid var(--color-border); border-left: 0; }
+  .workAreaList article { grid-template-columns: 2.25rem 1fr; gap: 0.8rem; }
+  .workAreaList p { grid-column: 2; }
+  .continueGrid { grid-template-columns: 1fr; }
+  .nextService, .contactCta { min-height: 22rem; }
+}
+@media (prefers-reduced-motion: reduce) { .cloudContext a, .heroStatement svg, .continue svg { transition: none; } }

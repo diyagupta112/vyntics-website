@@ -1,10 +1,13 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ApiError } from "@/lib/api/errors";
+import { downloadFile } from "@/lib/api/download";
 import { careersApi } from "@/features/careers/api/careers";
 import { jobApplicationsApi } from "../api/job-applications";
 import type { JobApplicationListItem } from "../types";
 import { JobApplicationsOverview } from "./job-applications-overview";
+
+vi.mock("@/lib/api/download", () => ({ downloadFile: vi.fn() }));
 
 const replace = vi.fn();
 let careerId: string | null = null;
@@ -14,7 +17,7 @@ vi.mock("next/navigation", () => ({
 }));
 vi.mock("@/features/careers/api/careers", () => ({ careersApi: { list: vi.fn() } }));
 vi.mock("../api/job-applications", () => ({
-  jobApplicationsApi: { listAll: vi.fn(), listForCareer: vi.fn(), get: vi.fn(), update: vi.fn(), delete: vi.fn() },
+  jobApplicationsApi: { export: vi.fn(), listAll: vi.fn(), listForCareer: vi.fn(), get: vi.fn(), update: vi.fn(), delete: vi.fn() },
 }));
 
 const careers = [{ id: "career-1", slug: "senior-engineer", title: "Senior Engineer", location: "Remote", employment_type: "Full-time", department: "Engineering", experience: "5+ years", short_description: "Build products", published_at: "2026-09-29T00:00:00Z" }];
@@ -27,6 +30,36 @@ describe("JobApplicationsOverview", () => {
     vi.mocked(careersApi.list).mockResolvedValue(careers);
     vi.mocked(jobApplicationsApi.listAll).mockResolvedValue([application]);
     vi.mocked(jobApplicationsApi.listForCareer).mockResolvedValue([application]);
+  });
+
+  it.each([null, "career-1"])("exports the current scope %s without blocking empty results", async (scope) => {
+    careerId = scope;
+    vi.mocked(jobApplicationsApi.listAll).mockResolvedValue([]);
+    vi.mocked(jobApplicationsApi.listForCareer).mockResolvedValue([]);
+    const file = { blob: new Blob(["xlsx"]), disposition: 'attachment; filename="backend.xlsx"' };
+    let resolve: ((value: typeof file) => void) | undefined;
+    vi.mocked(jobApplicationsApi.export).mockReturnValue(new Promise((done) => { resolve = done; }));
+    render(<JobApplicationsOverview />);
+    await screen.findByRole("button", { name: "Senior Engineer" });
+    fireEvent.click(screen.getByRole("button", { name: "Export to Sheets" }));
+    expect(jobApplicationsApi.export).toHaveBeenCalledWith(scope ?? undefined);
+    const busy = screen.getByRole("button", { name: "Exporting…" });
+    expect(busy).toBeDisabled();
+    fireEvent.click(busy);
+    expect(jobApplicationsApi.export).toHaveBeenCalledTimes(1);
+    resolve?.(file);
+    await waitFor(() => expect(downloadFile).toHaveBeenCalledWith(file, scope ? "Vyntics_Job_Applications_Senior_Engineer.xlsx" : "Vyntics_Job_Applications_All.xlsx"));
+    expect(screen.getByRole("button", { name: "Export to Sheets" })).toBeEnabled();
+  });
+
+  it("keeps applicants visible when an export fails", async () => {
+    vi.mocked(jobApplicationsApi.export).mockRejectedValue(new Error("private stack"));
+    render(<JobApplicationsOverview />);
+    await screen.findByText("Asha Patel");
+    fireEvent.click(screen.getByRole("button", { name: "Export to Sheets" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent("We could not export Job Applications. Please try again.");
+    expect(screen.getByText("Asha Patel")).toBeInTheDocument();
+    expect(downloadFile).not.toHaveBeenCalled();
   });
 
   it("loads All Applicants and renders Career scope cards", async () => {

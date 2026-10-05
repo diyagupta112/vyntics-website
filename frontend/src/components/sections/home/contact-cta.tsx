@@ -7,7 +7,8 @@ import styles from "./contact-cta.module.css";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
-export function ContactCta() {
+export function ContactCta({ variant = "default" }: { variant?: "default" | "case-studies" }) {
+  const isCaseStudies = variant === "case-studies";
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [feedback, setFeedback] = useState("");
 
@@ -48,9 +49,16 @@ export function ContactCta() {
   };
 
   return (
-    <section id="contact" className={styles.section} aria-labelledby="contact-title">
+    <section id="contact" className={`${styles.section} ${isCaseStudies ? styles.caseStudies : ""}`} aria-labelledby="contact-title">
       <Container className={styles.layout}>
         <div className={styles.content}>
+          {isCaseStudies ? (
+            <>
+              <h2 id="contact-title">Have a similar problem?<br />Let&apos;s solve it together.</h2>
+              <p className={styles.intro}>Talk to our experts and find a practical way forward.</p>
+            </>
+          ) : (
+            <>
           <p className={styles.eyebrow}>Get in touch</p>
           <h2 id="contact-title">Let&apos;s look at your data together</h2>
           <p className={styles.intro}>Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.</p>
@@ -65,6 +73,8 @@ export function ContactCta() {
               {siteConfig.address}
             </a>
           </address>
+            </>
+          )}
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit} noValidate={false}>

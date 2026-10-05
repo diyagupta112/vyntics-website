@@ -7,7 +7,7 @@ import { CoverImageControl } from "./cover-image-control";
 
 vi.mock("next/image", () => ({ default: "img" }));
 vi.mock("../api/blogs", () => ({ blogsApi: { uploadCover: vi.fn(), deleteCover: vi.fn() } }));
-const blog: Blog = { id: "1", slug: "post", title: "Post", seo_title: "SEO", meta_description: "Meta", author: "Vyntics", category: "Engineering", excerpt: "Excerpt", cover_image_url: null, read_time: 4, content: {}, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
+const blog: Blog = { id: "1", slug: "post", title: "Post", seo_title: "SEO", meta_description: "Meta", author: "Vyntics", category: "Engineering", excerpt: "Excerpt", cover_image_url: null, read_time: 4, content: {}, is_featured: false, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
 
 describe("CoverImageControl", () => {
   beforeEach(() => vi.clearAllMocks());

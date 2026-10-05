@@ -5,6 +5,7 @@ import type {
   CareerCreateRequest,
   CareerUpdateRequest,
 } from "../types";
+import { careerSectionToEditor } from "./career-content";
 
 export type CareerFormValues = {
   title: string;
@@ -23,7 +24,7 @@ export type CareerFormValues = {
 
 export type CareerFormErrors = Partial<Record<keyof CareerFormValues, string>>;
 
-const emptyObject = "{}";
+const emptyDocument = '{\n  "type": "doc",\n  "content": []\n}';
 
 export const emptyCareerForm: CareerFormValues = {
   title: "",
@@ -33,11 +34,11 @@ export const emptyCareerForm: CareerFormValues = {
   department: "",
   experience: "",
   shortDescription: "",
-  description: emptyObject,
-  responsibilities: emptyObject,
-  requirements: emptyObject,
-  niceToHave: emptyObject,
-  benefits: emptyObject,
+  description: emptyDocument,
+  responsibilities: emptyDocument,
+  requirements: emptyDocument,
+  niceToHave: emptyDocument,
+  benefits: emptyDocument,
 };
 
 export function careerToForm(career: Career): CareerFormValues {
@@ -50,10 +51,10 @@ export function careerToForm(career: Career): CareerFormValues {
     experience: career.experience,
     shortDescription: career.short_description,
     description: JSON.stringify(career.description, null, 2),
-    responsibilities: JSON.stringify(career.responsibilities, null, 2),
-    requirements: JSON.stringify(career.requirements, null, 2),
-    niceToHave: JSON.stringify(career.nice_to_have, null, 2),
-    benefits: JSON.stringify(career.benefits, null, 2),
+    responsibilities: careerSectionToEditor(career.responsibilities),
+    requirements: careerSectionToEditor(career.requirements),
+    niceToHave: careerSectionToEditor(career.nice_to_have),
+    benefits: careerSectionToEditor(career.benefits),
   };
 }
 

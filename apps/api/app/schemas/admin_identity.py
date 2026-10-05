@@ -19,3 +19,12 @@ class CurrentAdminResponse(ResponseSchema):
     is_active: bool
     created_at: datetime
     updated_at: datetime
+
+
+class AdminUserListItem(ResponseSchema):
+    """Safe application-admin identity used by Audit Log filters."""
+
+    id: UUID
+    email: EmailStr
+    role: AdminRole
+    is_active: bool

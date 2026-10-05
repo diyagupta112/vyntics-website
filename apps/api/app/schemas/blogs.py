@@ -6,7 +6,8 @@ from uuid import UUID
 
 from pydantic import AnyHttpUrl, StringConstraints, field_validator, model_validator
 
-from app.schemas.common import JsonObject, RequestSchema, ResponseSchema
+from app.schemas.common import RequestSchema, ResponseSchema
+from app.schemas.content import BodyContent, StoredBodyContent
 
 
 BlogStatus: TypeAlias = Literal["draft", "published", "unpublished"]
@@ -28,8 +29,9 @@ class BlogCreateRequest(RequestSchema):
     excerpt: NonEmptyString
     cover_image_url: AnyHttpUrl | None = None
     read_time: int
-    content: JsonObject
+    content: BodyContent
     status: BlogStatus
+    is_featured: bool = False
 
     @model_validator(mode="after")
     def require_published_cover_image(self) -> "BlogCreateRequest":
@@ -52,8 +54,9 @@ class BlogUpdateRequest(RequestSchema):
     excerpt: NonEmptyString | None = None
     cover_image_url: AnyHttpUrl | None = None
     read_time: int | None = None
-    content: JsonObject | None = None
+    content: BodyContent | None = None
     status: BlogStatus | None = None
+    is_featured: bool | None = None
 
     @field_validator(
         "slug",
@@ -66,6 +69,7 @@ class BlogUpdateRequest(RequestSchema):
         "read_time",
         "content",
         "status",
+        "is_featured",
     )
     @classmethod
     def reject_null_for_required_model_fields(cls, value: object) -> object:
@@ -87,6 +91,7 @@ class BlogListItem(ResponseSchema):
     excerpt: str
     cover_image_url: AnyHttpUrl
     read_time: int
+    is_featured: bool
     published_at: datetime
 
 
@@ -109,7 +114,8 @@ class BlogDetailResponse(ResponseSchema):
     excerpt: str
     cover_image_url: AnyHttpUrl
     read_time: int
-    content: JsonObject
+    content: StoredBodyContent
+    is_featured: bool
     published_at: datetime
 
 
@@ -126,8 +132,9 @@ class BlogAdminResponse(ResponseSchema):
     excerpt: str
     cover_image_url: AnyHttpUrl | None
     read_time: int
-    content: JsonObject
+    content: StoredBodyContent
     status: BlogStatus
+    is_featured: bool
     published_at: datetime | None
     created_at: datetime
     updated_at: datetime

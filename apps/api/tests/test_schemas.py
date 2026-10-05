@@ -32,6 +32,7 @@ PUBLISHED_AT = datetime(2026, 9, 22, 10, 30, tzinfo=timezone.utc)
 
 def _blog_list_item() -> dict[str, object]:
     return {
+        "is_featured": False,
         "id": RESOURCE_ID,
         "slug": "example-blog-slug",
         "title": "Example Blog Title",
@@ -46,6 +47,7 @@ def _blog_list_item() -> dict[str, object]:
 
 def _case_study_list_item() -> dict[str, object]:
     return {
+        "featured": False,
         "id": RESOURCE_ID,
         "slug": "example-case-study",
         "title": "Example Case Study",
@@ -135,6 +137,7 @@ def test_blog_response_omits_internal_orm_fields() -> None:
 
 def _blog_create_request(**overrides: object) -> dict[str, object]:
     payload: dict[str, object] = {
+        "is_featured": False,
         "slug": "phase-6-blog",
         "title": "Phase 6 Blog",
         "seo_title": "Phase 6 Blog | Vyntics",
@@ -221,6 +224,7 @@ def test_blog_admin_response_matches_confirmed_fields() -> None:
 
     assert set(response.model_dump()) == {
         "id",
+        "is_featured",
         "slug",
         "title",
         "seo_title",

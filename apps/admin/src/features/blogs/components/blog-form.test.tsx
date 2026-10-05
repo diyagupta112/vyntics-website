@@ -13,23 +13,51 @@ vi.mock("@/components/forms/rich-text-editor", () => ({
     <textarea aria-label="Blog content editor" id={id} onChange={(event) => onChange(event.target.value)} value={value} />
   ),
 }));
-const blog: Blog = { id: "1", slug: "post", title: "Post", seo_title: "SEO", meta_description: "Meta", author: "Vyntics", category: "Engineering", excerpt: "Excerpt", cover_image_url: "https://example.com/cover.jpg", read_time: 4, content: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Body" }] }] }, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
+const blog: Blog = { id: "1", slug: "post", title: "Post", seo_title: "SEO", meta_description: "Meta", author: "Vyntics", category: "Engineering", excerpt: "Excerpt", cover_image_url: "https://example.com/cover.jpg", read_time: 4, content: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Body" }] }] }, is_featured: false, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
 
 describe("BlogForm", () => {
   beforeEach(() => vi.clearAllMocks());
+
+  it.each([false, true])("loads featured=%s and sends its changed value on edit", async (featured) => {
+    vi.mocked(blogsApi.update).mockResolvedValue({ ...blog, is_featured: !featured });
+    render(<BlogForm blog={{ ...blog, is_featured: featured }} />);
+    const checkbox = screen.getByRole("checkbox", { name: "Feature this blog on the website" });
+    expect(checkbox).toHaveProperty("checked", featured);
+    fireEvent.click(checkbox);
+    fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
+    await waitFor(() => expect(blogsApi.update).toHaveBeenCalledWith("1", expect.objectContaining({ is_featured: !featured })));
+  });
+
+  it("displays the backend featured limit and preserves form state", async () => {
+    const message = "Maximum of 5 featured blogs allowed.";
+    vi.mocked(blogsApi.update).mockRejectedValue(new ApiError({ kind: "validation", status: 422, message }));
+    render(<BlogForm blog={blog} />);
+    const checkbox = screen.getByRole("checkbox", { name: "Feature this blog on the website" });
+    fireEvent.click(checkbox);
+    fireEvent.click(screen.getByRole("button", { name: "Save changes" }));
+    expect(await screen.findByText(message)).toBeInTheDocument();
+    expect(checkbox).toBeChecked();
+    expect(screen.getByLabelText(/^Title/)).toHaveValue(blog.title);
+  });
+
   it("validates required create fields", () => {
     render(<BlogForm />);
     fireEvent.click(screen.getByRole("button", { name: "Create Blog" }));
     expect(screen.getByText("Title is required.")).toBeInTheDocument();
     expect(blogsApi.create).not.toHaveBeenCalled();
   });
-  it("submits a successful create and navigates to edit", async () => {
+  it.each([false, true])("creates with is_featured=%s and moves to edit", async (featured) => {
     vi.mocked(blogsApi.create).mockResolvedValue(blog);
     render(<BlogForm />);
     const values: Record<string, string> = { title: "Post", slug: "post", author: "Vyntics", category: "Engineering", readTime: "4", excerpt: "Excerpt", seoTitle: "SEO", metaDescription: "Meta", content: JSON.stringify({ type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Body" }] }] }) };
     for (const [id, value] of Object.entries(values)) fireEvent.change(document.getElementById(id)!, { target: { value } });
+    const checkbox = screen.getByRole("checkbox", { name: "Feature this blog on the website" });
+    expect(checkbox).not.toBeChecked();
+    fireEvent.click(checkbox);
+    if (!featured) fireEvent.click(checkbox);
     fireEvent.click(screen.getByRole("button", { name: "Create Blog" }));
     await waitFor(() => expect(blogsApi.create).toHaveBeenCalled());
+    expect(blogsApi.create).toHaveBeenCalledWith(expect.objectContaining({ is_featured: featured }));
     expect(push).toHaveBeenCalledWith("/blogs/1/edit?created=1");
   });
   it.each([

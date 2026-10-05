@@ -15,10 +15,10 @@ const validValues: CareerFormValues = {
   experience: " 5+ years ",
   shortDescription: " Build reliable products. ",
   description: '{"type":"doc"}',
-  responsibilities: '{"items":["Build"]}',
-  requirements: '{"items":["Experience"]}',
-  niceToHave: "{}",
-  benefits: "{}",
+  responsibilities: '{"type":"doc","content":[{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Build"}]}]}]}]}',
+  requirements: '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Experience"}]}]}',
+  niceToHave: '{"type":"doc","content":[]}',
+  benefits: '{"type":"doc","content":[]}',
 };
 
 describe("Career form helpers", () => {
@@ -44,10 +44,10 @@ describe("Career form helpers", () => {
       experience: "5+ years",
       short_description: "Build reliable products.",
       description: { type: "doc" },
-      responsibilities: { items: ["Build"] },
-      requirements: { items: ["Experience"] },
-      nice_to_have: {},
-      benefits: {},
+      responsibilities: { type: "doc", content: [{ type: "bulletList", content: [{ type: "listItem", content: [{ type: "paragraph", content: [{ type: "text", text: "Build" }] }] }] }] },
+      requirements: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Experience" }] }] },
+      nice_to_have: { type: "doc", content: [] },
+      benefits: { type: "doc", content: [] },
     });
   });
 });

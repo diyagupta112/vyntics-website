@@ -210,11 +210,12 @@ Primary navigation:
 1. Dashboard
 2. Blogs
 3. Case Studies
-4. Careers
-5. Job Applications
-6. Team Members
-7. Contact Submissions
-8. Audit Logs — visible only when `GET /admin/me` returns the `superadmin` role; placed in the bottom utility area above Settings
+4. Badges
+5. Careers
+6. Job Applications
+7. Team Members
+8. Contact Submissions
+9. Audit Logs — visible only when `GET /admin/me` returns the `superadmin` role; placed in the bottom utility area above Settings
 
 The sidebar must not include modules that are explicitly out of scope.
 
@@ -1657,7 +1658,15 @@ A backend-authorized superadmin can discover and use the Audit Logs section with
 
 The protected `/settings` page consumes authenticated `GET /admin/me` data through a shared current-admin provider. It presents read-only profile, role, account status, membership dates, access summary, authenticated-session status, the existing Supabase sign-out action, and safe application information. Loading, retryable error, active/inactive, responsive, and role-aware states are covered without exposing internal IDs, tokens, secrets, or unsupported profile and security controls. This phase required no backend changes.
 
-## 23.12 Phase K — Hardening & Production Readiness
+## 23.12 Badges
+
+**Status:** Complete
+
+The protected `/badges` section adds compact visual cards for partner, certification, and trust badges, including contained logos, active/inactive state, display order, optional descriptions, independent website links, and permanent deletion. Creation uses the shared two-step flow: metadata is created once through `POST /badges`, then the optional JPEG/PNG/WebP logo is uploaded through `PUT /badges/{id}/logo`; returning to Step 1 updates the same record and upload failures remain retryable without duplicate creation.
+
+The edit route loads the complete administrative record, saves metadata through `PATCH /badges/{id}`, and reuses the shared compact image preview for logo replacement and removal. All reads and mutations use the authenticated shared `apiClient`; the Admin Panel never accesses Supabase Storage directly. Loading, empty, retryable error, validation, success, responsive, keyboard, and destructive-confirmation states follow existing Admin patterns.
+
+## 23.13 Phase K — Hardening & Production Readiness
 
 **Status:** Planned
 

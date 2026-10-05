@@ -24,11 +24,11 @@ const career: Career = {
   department: "Engineering",
   experience: "5+ years",
   short_description: "Build reliable products.",
-  description: { type: "doc" },
-  responsibilities: { items: ["Build"] },
+  description: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Build dependable systems." }] }] },
+  responsibilities: { items: ["Build", "Review"] },
   requirements: { items: ["Experience"] },
-  nice_to_have: {},
-  benefits: {},
+  nice_to_have: { items: ["Mentoring"] },
+  benefits: { items: ["Remote work"] },
   published_at: "2026-09-29T00:00:00Z",
 };
 
@@ -59,17 +59,13 @@ function fillCreateForm() {
 describe("CareerForm", () => {
   beforeEach(() => vi.clearAllMocks());
 
-  it("validates required fields and structured objects", async () => {
+  it("validates required fields without exposing JSON inputs", async () => {
     render(<CareerForm />);
-    fireEvent.change(screen.getByLabelText(/^Description \(JSON\)/), {
-      target: { value: "[]" },
-    });
     fireEvent.click(screen.getByRole("button", { name: "Create Career" }));
 
     expect(await screen.findByText("Title is required.")).toBeInTheDocument();
-    expect(
-      screen.getByText("Description must be a valid JSON object."),
-    ).toBeInTheDocument();
+    expect(screen.queryByText(/\(JSON\)/)).not.toBeInTheDocument();
+    expect(screen.getByRole("textbox", { name: "Career description editor" })).toBeInTheDocument();
     expect(careersApi.create).not.toHaveBeenCalled();
   });
 
@@ -80,6 +76,7 @@ describe("CareerForm", () => {
     fireEvent.click(screen.getByRole("button", { name: "Create Career" }));
 
     await waitFor(() => expect(careersApi.create).toHaveBeenCalledTimes(1));
+    expect(careersApi.create).toHaveBeenCalledWith(expect.objectContaining({ responsibilities: { type: "doc", content: [] }, requirements: { type: "doc", content: [] }, nice_to_have: { type: "doc", content: [] }, benefits: { type: "doc", content: [] } }));
     expect(push).toHaveBeenCalledWith(
       "/careers/senior-engineer/edit?created=1",
     );
@@ -101,11 +98,38 @@ describe("CareerForm", () => {
     await waitFor(() =>
       expect(careersApi.update).toHaveBeenCalledWith(
         "career-1",
-        expect.objectContaining({ title: "Lead Engineer", slug: "lead-engineer" }),
+        expect.objectContaining({
+          title: "Lead Engineer",
+          slug: "lead-engineer",
+          responsibilities: expect.objectContaining({ type: "doc" }),
+          requirements: expect.objectContaining({ type: "doc" }),
+          nice_to_have: expect.objectContaining({ type: "doc" }),
+          benefits: expect.objectContaining({ type: "doc" }),
+        }),
       ),
     );
     expect(await screen.findByText("Career changes saved.")).toBeInTheDocument();
     expect(replace).toHaveBeenCalledWith("/careers/lead-engineer/edit");
+  });
+
+  it("loads existing list-style data into the shared rich text editors", () => {
+    render(<CareerForm career={career} />);
+    expect(screen.getByRole("textbox", { name: "Career description editor" })).toHaveTextContent("Build dependable systems.");
+    expect(screen.getByRole("textbox", { name: "Career responsibilities editor" })).toHaveTextContent("BuildReview");
+    expect(screen.getByRole("textbox", { name: "Career requirements editor" })).toHaveTextContent("Experience");
+    expect(screen.getByRole("textbox", { name: "Career nice to have editor" })).toHaveTextContent("Mentoring");
+    expect(screen.getByRole("textbox", { name: "Career benefits editor" })).toHaveTextContent("Remote work");
+    expect(screen.getAllByRole("toolbar", { name: "Content formatting" })).toHaveLength(5);
+  });
+
+  it("preserves unsupported legacy list objects without showing raw JSON", async () => {
+    const legacy = { ...career, responsibilities: { paragraphs: ["Keep this shape"] } };
+    vi.mocked(careersApi.update).mockResolvedValue(legacy);
+    render(<CareerForm career={legacy} />);
+    expect(screen.getByText(/Career responsibilities cannot be edited safely/i)).toBeInTheDocument();
+    expect(screen.queryByRole("textbox", { name: "Career responsibilities editor" })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    await waitFor(() => expect(careersApi.update).toHaveBeenCalledWith("career-1", expect.objectContaining({ responsibilities: { paragraphs: ["Keep this shape"] } })));
   });
 
   it("disables the save action while a request is pending", async () => {

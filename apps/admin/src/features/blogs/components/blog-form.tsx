@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
 import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
+import { FeaturedControl } from "@/components/forms/featured-control";
 import { FormField } from "@/components/forms/form-field";
 import { RichTextEditor } from "@/components/forms/rich-text-editor";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,7 @@ import { isApiError } from "@/lib/api/errors";
 import { blogsApi } from "../api/blogs";
 import { blogErrorMessage } from "../lib/errors";
 import { backendFieldErrors, blogToForm, emptyBlogForm, toCreateRequest, toUpdateRequest, validateBlogForm, type BlogFormErrors, type BlogFormValues } from "../lib/blog-form";
-import type { Blog } from "../types";
+import type { Blog, BlogStatus } from "../types";
 import styles from "./blogs.module.css";
 
 type Props = { blog?: Blog; createFlow?: boolean; onCreated?: (blog: Blog) => void; onSaved?: (blog: Blog) => void };
@@ -28,7 +29,7 @@ export function BlogForm({ blog, createFlow = false, onCreated, onSaved }: Props
   const [message, setMessage] = useState<string>();
   const [failure, setFailure] = useState<string>();
 
-  function update(field: keyof BlogFormValues, value: string) {
+  function update<K extends keyof BlogFormValues>(field: K, value: BlogFormValues[K]) {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
     setMessage(undefined); setFailure(undefined);
@@ -69,7 +70,8 @@ export function BlogForm({ blog, createFlow = false, onCreated, onSaved }: Props
         <FormField htmlFor="author" label="Author" required error={errors.author}><Input id="author" value={values.author} aria-invalid={Boolean(errors.author)} onChange={(e) => update("author", e.target.value)} /></FormField>
         <FormField htmlFor="category" label="Category" required error={errors.category}><Input id="category" value={values.category} aria-invalid={Boolean(errors.category)} onChange={(e) => update("category", e.target.value)} /></FormField>
         <FormField htmlFor="readTime" label="Read time (minutes)" required error={errors.readTime}><Input id="readTime" inputMode="numeric" type="number" step="1" value={values.readTime} aria-invalid={Boolean(errors.readTime)} onChange={(e) => update("readTime", e.target.value)} /></FormField>
-        <FormField htmlFor="status" label="Status" required error={errors.status} hint={isCreate || createFlow ? "Add a cover in Step 2 before publishing." : "FastAPI validates publishing requirements."}><Select id="status" value={values.status} onChange={(e) => update("status", e.target.value)}><option value="draft">Draft</option>{!isCreate && !createFlow ? <option value="published">Published</option> : null}<option value="unpublished">Unpublished</option></Select></FormField>
+        <FormField htmlFor="status" label="Status" required error={errors.status} hint={isCreate || createFlow ? "Add a cover in Step 2 before publishing." : "FastAPI validates publishing requirements."}><Select id="status" value={values.status} onChange={(e) => update("status", e.target.value as BlogStatus)}><option value="draft">Draft</option>{!isCreate && !createFlow ? <option value="published">Published</option> : null}<option value="unpublished">Unpublished</option></Select></FormField>
+        <FeaturedControl id="blog-featured" checked={values.isFeatured} onChange={(checked) => update("isFeatured", checked)} resourceName="blog" error={errors.isFeatured} />
         <div className={styles.full}><FormField htmlFor="excerpt" label="Excerpt" required error={errors.excerpt}><Textarea id="excerpt" value={values.excerpt} aria-invalid={Boolean(errors.excerpt)} onChange={(e) => update("excerpt", e.target.value)} /></FormField></div>
         <div className={styles.full}><FormField htmlFor="content" label="Content" required error={errors.content} hint="Use the toolbar to structure and format the article."><RichTextEditor id="content" invalid={Boolean(errors.content)} value={values.content} onChange={(value) => update("content", value)} /></FormField></div>
       </div>

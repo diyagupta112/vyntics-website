@@ -13,6 +13,7 @@ export type BlogFormValues = {
   excerpt: string;
   readTime: string;
   content: string;
+  isFeatured: boolean;
   status: BlogStatus;
 };
 
@@ -28,6 +29,7 @@ export const emptyBlogForm: BlogFormValues = {
   excerpt: "",
   readTime: "",
   content: '{\n  "type": "doc",\n  "content": []\n}',
+  isFeatured: false,
   status: "draft",
 };
 
@@ -42,13 +44,14 @@ export function blogToForm(blog: Blog): BlogFormValues {
     excerpt: blog.excerpt,
     readTime: String(blog.read_time),
     content: JSON.stringify(blog.content, null, 2),
+    isFeatured: blog.is_featured ?? false,
     status: blog.status,
   };
 }
 
 export function validateBlogForm(values: BlogFormValues): BlogFormErrors {
   const errors: BlogFormErrors = {};
-  const required: Array<[keyof BlogFormValues, string]> = [
+  const required: Array<[Exclude<keyof BlogFormValues, "isFeatured">, string]> = [
     ["title", "Title"], ["slug", "Slug"], ["seoTitle", "SEO title"],
     ["metaDescription", "Meta description"], ["author", "Author"],
     ["category", "Category"], ["excerpt", "Excerpt"], ["readTime", "Read time"],
@@ -83,6 +86,7 @@ function commonPayload(values: BlogFormValues) {
     seo_title: values.seoTitle.trim(), meta_description: values.metaDescription.trim(),
     author: values.author.trim(), category: values.category.trim(),
     excerpt: values.excerpt.trim(), read_time: Number(values.readTime),
+    is_featured: values.isFeatured,
     content: contentObject(values.content),
   };
 }
@@ -99,7 +103,7 @@ export function toUpdateRequest(values: BlogFormValues): BlogUpdateRequest {
 const fieldMap: Record<string, keyof BlogFormValues> = {
   title: "title", slug: "slug", seo_title: "seoTitle",
   meta_description: "metaDescription", author: "author", category: "category",
-  excerpt: "excerpt", read_time: "readTime", content: "content", status: "status",
+  excerpt: "excerpt", read_time: "readTime", content: "content", status: "status", is_featured: "isFeatured",
 };
 
 export function backendFieldErrors(error: ApiError): BlogFormErrors {

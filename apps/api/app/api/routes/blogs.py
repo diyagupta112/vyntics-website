@@ -93,6 +93,11 @@ async def create_blog(
             status_code=status.HTTP_409_CONFLICT,
             detail="A Blog with this slug already exists.",
         ) from None
+    except BlogValidationError as error:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=str(error),
+        ) from None
 
 
 @router.patch("/{blog_id}", response_model=BlogAdminResponse)

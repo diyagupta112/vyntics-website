@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
 import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
+import { FeaturedControl } from "@/components/forms/featured-control";
 import { FormField } from "@/components/forms/form-field";
+import { RichTextEditor } from "@/components/forms/rich-text-editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -23,7 +25,7 @@ import {
   type CaseStudyFormValues,
 } from "../lib/case-study-form";
 import { caseStudyErrorMessage } from "../lib/errors";
-import type { CaseStudy } from "../types";
+import type { CaseStudy, CaseStudyStatus } from "../types";
 import styles from "./case-studies.module.css";
 
 type Props = {
@@ -44,7 +46,7 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
   const [message, setMessage] = useState<string>();
   const [failure, setFailure] = useState<string>();
 
-  function update(field: keyof CaseStudyFormValues, value: string) {
+  function update<K extends keyof CaseStudyFormValues>(field: K, value: CaseStudyFormValues[K]) {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
     setMessage(undefined);
@@ -160,7 +162,7 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
           >
             <Select
               id="caseStudyStatus"
-              onChange={(event) => update("status", event.target.value)}
+              onChange={(event) => update("status", event.target.value as CaseStudyStatus)}
               value={values.status}
             >
               <option value="draft">Draft</option>
@@ -168,6 +170,14 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
               <option value="unpublished">Unpublished</option>
             </Select>
           </FormField>
+          <FeaturedControl
+            id="caseStudy-featured"
+            checked={values.isFeatured}
+            onChange={(checked) => update("isFeatured", checked)}
+            resourceName="case study"
+            error={errors.isFeatured}
+          />
+          <p className={styles.full}>Featured case studies appear in the website carousel. Maximum 5 can be featured.</p>
           <div className={styles.full}>
             <FormField
               error={errors.excerpt}
@@ -289,20 +299,20 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
       >
         <div className={styles.sectionHeading}>
           <h2 id="case-study-content-heading">Main content</h2>
-          <p>Use the structured JSON object accepted by the Case Study API.</p>
+          <p>Use the toolbar to structure and format the case study.</p>
         </div>
         <FormField
           error={errors.content}
           htmlFor="caseStudyContent"
-          label="Structured content (JSON)"
+          label="Content"
           required
         >
-          <Textarea
-            aria-invalid={Boolean(errors.content)}
-            className={styles.contentArea}
+          <RichTextEditor
+            editorLabel="Case Study content editor"
             id="caseStudyContent"
-            onChange={(event) => update("content", event.target.value)}
-            spellCheck={false}
+            invalid={Boolean(errors.content)}
+            onChange={(value) => update("content", value)}
+            resourceName="Case Study"
             value={values.content}
           />
         </FormField>

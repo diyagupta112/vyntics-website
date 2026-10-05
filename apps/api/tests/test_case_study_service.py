@@ -47,6 +47,7 @@ def _case_study(
         tags=["API"],
         content={"type": "doc"},
         status=status,
+        featured=False,
         published_at=published_at,
         created_at=NOW,
         updated_at=NOW,
@@ -68,6 +69,7 @@ def _create_request(*, status: str = "draft") -> CaseStudyCreateRequest:
         tags=["API"],
         content={"type": "doc"},
         status=status,
+        featured=False,
     )
 
 
@@ -99,7 +101,7 @@ def test_create_published_sets_timestamp_and_safe_audit() -> None:
     assert audit.action == "create"
     assert audit.resource_type == "case_study"
     assert audit.actor_id is None
-    assert audit.context == {"slug": created.slug, "status": "published"}
+    assert audit.context == {"slug": created.slug, "status": "published", "featured": False}
     assert "content" not in audit.context
     session.commit.assert_awaited_once_with()
 

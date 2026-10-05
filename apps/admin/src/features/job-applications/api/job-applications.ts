@@ -9,6 +9,10 @@ const applicationPath = (applicationId: string) =>
   `/admin/job-applications/${encodeURIComponent(applicationId)}`;
 
 export const jobApplicationsApi = {
+  export(careerId?: string) {
+    const query = careerId ? `?${new URLSearchParams({ career_id: careerId })}` : "";
+    return apiClient.download(`/admin/job-applications/export${query}`);
+  },
   listAll() {
     return apiClient.get<JobApplicationListItem[]>("/admin/job-applications");
   },

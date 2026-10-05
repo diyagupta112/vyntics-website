@@ -13,7 +13,9 @@ import {
 import styles from "./rich-text-editor.module.css";
 
 type Props = {
+  editorLabel?: string;
   id: string;
+  resourceName?: string;
   value: string;
   onChange: (value: string) => void;
   invalid?: boolean;
@@ -56,17 +58,17 @@ function ToolbarButton({ label, pressed, disabled, onRun, children }: ToolbarBut
   );
 }
 
-export function RichTextEditor({ id, value, onChange, invalid = false }: Props) {
+export function RichTextEditor({ editorLabel = "Blog content editor", id, resourceName = "Blog", value, onChange, invalid = false }: Props) {
   const initial = useMemo(() => {
     try {
       return { content: deserializeBlogContent(value), error: undefined };
     } catch (error) {
       return {
         content: EMPTY_BLOG_DOCUMENT,
-        error: error instanceof Error ? error.message : "This Blog contains unsupported content.",
+        error: error instanceof Error ? error.message : `This ${resourceName} contains unsupported content.`,
       };
     }
-  }, [value]);
+  }, [resourceName, value]);
 
   const editorExtensions = useMemo(() => createBlogEditorExtensions(), []);
   const editor = useEditor({
@@ -76,7 +78,7 @@ export function RichTextEditor({ id, value, onChange, invalid = false }: Props) 
     editorProps: {
       attributes: {
         "aria-invalid": String(invalid),
-        "aria-label": "Blog content editor",
+        "aria-label": editorLabel,
         "aria-multiline": "true",
         class: styles.surface,
         id,
@@ -115,11 +117,11 @@ export function RichTextEditor({ id, value, onChange, invalid = false }: Props) 
   }
 
   if (initial.error) {
-    return <div className={styles.editor}><p className={styles.compatibilityError} role="alert">This Blog cannot be edited safely: {initial.error}</p></div>;
+    return <div className={styles.editor}><p className={styles.compatibilityError} role="alert">This {resourceName} cannot be edited safely: {initial.error}</p></div>;
   }
 
   if (!editor) {
-    return <div aria-label="Loading Blog content editor" className={styles.loading} role="status" />;
+    return <div aria-label={`Loading ${editorLabel}`} className={styles.loading} role="status" />;
   }
 
   return (

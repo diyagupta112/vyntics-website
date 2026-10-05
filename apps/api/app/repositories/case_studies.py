@@ -2,7 +2,7 @@
 
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import func, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models.case_study import CaseStudy
@@ -57,6 +57,24 @@ class CaseStudyRepository:
         if exclude_id is not None:
             statement = statement.where(CaseStudy.id != exclude_id)
         return await self._session.scalar(statement) is not None
+
+    async def count_featured_for_update(self, *, exclude_id: UUID | None = None) -> int:
+        """Serialize slot claims until transaction end, then count featured records.
+
+        PostgreSQL READ COMMITTED takes a fresh snapshot for the count after
+        the lock statement. Distinct keys keep Blog and Case Study slots separate.
+        Call before staging mutations; the service owns commit/rollback.
+        """
+
+        await self._session.execute(
+            text("SELECT pg_advisory_xact_lock(1448693332, 2)")
+        )
+        statement = select(func.count()).select_from(CaseStudy).where(
+            CaseStudy.featured.is_(True),
+        )
+        if exclude_id is not None:
+            statement = statement.where(CaseStudy.id != exclude_id)
+        return await self._session.scalar(statement)
 
     async def add(self, case_study: CaseStudy) -> None:
         """Stage a Case Study and flush database-generated fields."""

@@ -1,9 +1,12 @@
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ApiAuthenticationError, ApiError } from "@/lib/api/errors";
+import { apiClient } from "@/lib/api/client";
 import { auditLogsApi } from "../api/audit-logs";
 import type { AuditLogDetail, AuditLogPage } from "../types";
 import { AuditLogsPage } from "./audit-logs-page";
+
+vi.mock("@/lib/api/client", () => ({ apiClient: { get: vi.fn() } }));
 
 vi.mock("../api/audit-logs", () => ({
   auditLogsApi: { get: vi.fn(), list: vi.fn() },
@@ -37,7 +40,65 @@ const detail: AuditLogDetail = {
 };
 
 describe("AuditLogsPage", () => {
-  beforeEach(() => vi.clearAllMocks());
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.mocked(apiClient.get).mockResolvedValue([
+      { id: "6fb83b88-36ba-4c03-99e8-bbd65e8095f6", email: "active@example.com", role: "superadmin", is_active: true },
+      { id: "621e22b0-f46e-4e44-a99a-8a0660b59d34", email: "inactive@example.com", role: "admin", is_active: false },
+    ]);
+  });
+
+  it("loads actual admin options and applies, paginates, and clears an admin filter", async () => {
+    vi.mocked(auditLogsApi.list).mockResolvedValue(page);
+    render(<AuditLogsPage />);
+    await screen.findByRole("option", { name: "inactive@example.com (Inactive)" });
+    expect(apiClient.get).toHaveBeenCalledWith("/admin/users", { signal: expect.any(AbortSignal) });
+    expect(screen.getByRole("option", { name: "active@example.com" })).toHaveValue("6fb83b88-36ba-4c03-99e8-bbd65e8095f6");
+    expect(vi.mocked(auditLogsApi.list).mock.lastCall?.[0]).not.toHaveProperty("actorId");
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+    await waitFor(() => expect(auditLogsApi.list).toHaveBeenLastCalledWith(expect.objectContaining({ page: 2 })));
+    const calls = vi.mocked(auditLogsApi.list).mock.calls.length;
+    fireEvent.change(screen.getByLabelText("Admin"), { target: { value: "621e22b0-f46e-4e44-a99a-8a0660b59d34" } });
+    expect(auditLogsApi.list).toHaveBeenCalledTimes(calls);
+    fireEvent.click(screen.getByRole("button", { name: "Apply filters" }));
+    await waitFor(() => expect(auditLogsApi.list).toHaveBeenLastCalledWith(expect.objectContaining({ actorId: "621e22b0-f46e-4e44-a99a-8a0660b59d34", page: 1, pageSize: 25 })));
+    expect(screen.getByText("Admin: inactive@example.com (Inactive)")).toBeInTheDocument();
+    expect(screen.getByText("resource-1")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+    await waitFor(() => expect(auditLogsApi.list).toHaveBeenLastCalledWith(expect.objectContaining({ actorId: "621e22b0-f46e-4e44-a99a-8a0660b59d34", page: 2 })));
+    fireEvent.click(screen.getByRole("button", { name: "Clear" }));
+    await waitFor(() => {
+      expect(vi.mocked(auditLogsApi.list).mock.lastCall?.[0]).not.toHaveProperty("actorId");
+      expect(auditLogsApi.list).toHaveBeenLastCalledWith(expect.objectContaining({ page: 1 }));
+    });
+    expect(screen.getByLabelText("Admin")).toHaveValue("");
+    expect(screen.queryByText(/^Admin:/)).not.toBeInTheDocument();
+  });
+
+  it("handles an empty admin list while continuing to display logs", async () => {
+    vi.mocked(apiClient.get).mockResolvedValue([]);
+    vi.mocked(auditLogsApi.list).mockResolvedValue(page);
+    render(<AuditLogsPage />);
+    expect(await screen.findByText("No admins available.")).toBeInTheDocument();
+    expect(screen.getByLabelText("Admin")).toBeDisabled();
+    expect(await screen.findByText("resource-1")).toBeInTheDocument();
+  });
+
+  it("shows admin loading and a retryable safe error independently of logs", async () => {
+    let reject: ((reason: unknown) => void) | undefined;
+    vi.mocked(apiClient.get).mockReturnValueOnce(new Promise((_, rejectRequest) => { reject = rejectRequest; }));
+    vi.mocked(auditLogsApi.list).mockResolvedValue(page);
+    render(<AuditLogsPage />);
+    expect(screen.getByText("Loading admins…")).toBeInTheDocument();
+    expect(screen.getByLabelText("Admin")).toBeDisabled();
+    reject?.(new Error("private detail"));
+    expect(await screen.findByText("We could not load admins. Please try again.")).toBeInTheDocument();
+    expect(screen.queryByText("private detail")).not.toBeInTheDocument();
+    expect(screen.getByText("resource-1")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Retry loading admins" }));
+    expect(await screen.findByRole("option", { name: "active@example.com" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Admin")).toBeEnabled();
+  });
 
   it("shows loading and renders real response fields in a compact table", async () => {
     let resolveList: ((value: AuditLogPage) => void) | undefined;

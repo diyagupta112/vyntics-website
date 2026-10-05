@@ -1,9 +1,10 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
+import { downloadFile } from "@/lib/api/download";
 import { careersApi } from "@/features/careers/api/careers";
 import type { CareerListItem } from "@/features/careers/types";
 import { jobApplicationsApi } from "../api/job-applications";
@@ -20,11 +21,31 @@ export function JobApplicationsOverview() {
   const [applications, setApplications] = useState<JobApplicationListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
+  const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState<string>();
+  const exportBusy = useRef(false);
 
   const selectedCareer = useMemo(
     () => careers.find((career) => career.id === requestedCareerId),
     [careers, requestedCareerId],
   );
+
+  async function exportApplications() {
+    if (exportBusy.current) return;
+    exportBusy.current = true;
+    setExporting(true);
+    setExportError(undefined);
+    try {
+      const file = await jobApplicationsApi.export(requestedCareerId ?? undefined);
+      const name = requestedCareerId ? selectedCareer?.title ?? "Selected_Career" : "All";
+      downloadFile(file, `Vyntics_Job_Applications_${name.replace(/[^a-zA-Z0-9_-]/g, "_")}.xlsx`);
+    } catch (caught) {
+      setExportError(applicationErrorMessage(caught, "export Job Applications"));
+    } finally {
+      exportBusy.current = false;
+      setExporting(false);
+    }
+  }
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -123,8 +144,15 @@ export function JobApplicationsOverview() {
             <p className={styles.eyebrow}>Current scope</p>
             <h2 id="current-scope-heading">{scopeName}</h2>
           </div>
+          <div className={styles.scopeActions}>
+            <Button aria-busy={exporting} disabled={exporting} onClick={() => void exportApplications()} variant="secondary">
+              {exporting ? "Exporting…" : "Export to Sheets"}
+            </Button>
           {!loading && !error ? <span className={styles.count}>{applications.length} application{applications.length === 1 ? "" : "s"}</span> : null}
+          </div>
         </div>
+
+        {exportError ? <p className={styles.feedback} role="alert">{exportError}</p> : null}
 
         {loading ? (
           <div aria-label="Loading Job Applications" role="status">

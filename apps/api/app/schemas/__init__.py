@@ -8,6 +8,14 @@ from app.schemas.blogs import (
     BlogListResponse,
     BlogUpdateRequest,
 )
+from app.schemas.admin_identity import AdminUserListItem, CurrentAdminResponse
+from app.schemas.badges import (
+    BadgeAdminResponse,
+    BadgeCreateRequest,
+    BadgeListResponse,
+    BadgePublicItem,
+    BadgeUpdateRequest,
+)
 from app.schemas.careers import (
     CareerDetailResponse,
     CareerListItem,
@@ -42,6 +50,13 @@ from app.schemas.team import (
 )
 
 __all__ = [
+    "AdminUserListItem",
+    "BadgeAdminResponse",
+    "BadgeCreateRequest",
+    "BadgeListResponse",
+    "BadgePublicItem",
+    "BadgeUpdateRequest",
+    "CurrentAdminResponse",
     "BlogDetailResponse",
     "BlogAdminResponse",
     "BlogCreateRequest",

@@ -30,6 +30,7 @@ def _create_payload(**overrides: object) -> dict[str, object]:
         "tags": ["API", "Engineering"],
         "content": {"type": "doc", "content": []},
         "status": "draft",
+        "featured": False,
     }
     payload.update(overrides)
     return payload
@@ -141,6 +142,7 @@ def test_admin_response_matches_exact_contract() -> None:
 
     assert set(response.model_dump()) == {
         "id",
+        "featured",
         "slug",
         "title",
         "seo_title",

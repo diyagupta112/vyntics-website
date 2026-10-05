@@ -1,0 +1,45 @@
+.page, .form, .section, .fields, .feedback, .state, .badgeGrid, .badgeCard, .cardMain, .cardCopy, .logoControl, .skeletonGrid { display: grid; }
+.page { gap: var(--space-7); }
+.badgeGrid, .skeletonGrid { gap: var(--space-5); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.badgeCard { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); grid-template-rows: minmax(0, 1fr) auto; min-width: 0; overflow: hidden; transition: border-color 120ms ease, box-shadow 120ms ease, transform 120ms ease; }
+.badgeCard:hover { border-color: var(--color-gray-500); box-shadow: 0 .25rem .75rem rgb(0 0 0 / 6%); transform: translateY(-1px); }
+.cardMain { color: inherit; min-width: 0; text-decoration: none; }
+.cardMain:focus-visible, .primaryLink:focus-visible, .secondaryLink:focus-visible, .externalLink:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.logoFrame { align-items: center; background: var(--color-gray-50); border-bottom: 1px solid var(--color-gray-200); display: flex; height: 10rem; justify-content: center; overflow: hidden; padding: var(--space-5); position: relative; width: 100%; }
+.logoFrame > span { color: var(--color-gray-500); font-size: var(--font-size-sm); }
+.cardLogo { object-fit: contain; padding: var(--space-5); }
+.cardCopy { gap: var(--space-2); padding: var(--space-4); }
+.cardHeading { align-items: start; display: flex; gap: var(--space-3); justify-content: space-between; }
+.cardHeading h2 { font-size: var(--font-size-card-title); overflow-wrap: anywhere; }
+.statusBadge { border: 1px solid var(--color-gray-300); border-radius: 999px; flex: none; font-size: var(--font-size-xs); font-weight: 600; padding: var(--space-1) var(--space-2); }
+.activeBadge { background: var(--color-black); border-color: var(--color-black); color: var(--color-white); }
+.inactiveBadge { background: var(--color-gray-100); color: var(--color-gray-700); }
+.cardDescription { color: var(--color-gray-700); display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.order, .muted, .sectionHeading p { color: var(--color-gray-500); font-size: var(--font-size-sm); }
+.cardActions { align-items: center; border-top: 1px solid var(--color-gray-200); display: flex; gap: var(--space-3); justify-content: space-between; min-width: 0; padding: var(--space-3) var(--space-4); }
+.externalLink { color: var(--color-blue-700); font-size: var(--font-size-sm); font-weight: 600; overflow-wrap: anywhere; text-underline-offset: .2em; }
+.visuallyHidden { clip: rect(0 0 0 0); clip-path: inset(50%); height: 1px; overflow: hidden; position: absolute; white-space: nowrap; width: 1px; }
+.primaryLink, .secondaryLink { align-items: center; border: 1px solid var(--color-black); border-radius: var(--radius-control); display: inline-flex; font-size: var(--font-size-sm); font-weight: 600; justify-content: center; min-height: 2.75rem; padding: var(--space-3) var(--space-4); text-decoration: none; }
+.primaryLink { background: var(--color-black); color: var(--color-white); }
+.primaryLink:hover { background: var(--color-gray-700); }
+.secondaryLink { background: var(--color-white); border-color: var(--color-gray-300); color: var(--color-black); }
+.secondaryLink:hover { background: var(--color-gray-50); }
+.state { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); gap: var(--space-3); justify-items: start; padding: var(--space-8); }
+.form { gap: var(--space-6); }
+.section { border: 1px solid var(--color-gray-200); border-radius: var(--radius-card); gap: var(--space-5); min-width: 0; padding: var(--space-6); }
+.sectionHeading { display: grid; gap: var(--space-1); }
+.sectionHeading h2 { font-size: var(--font-size-section-title); }
+.fields { gap: var(--space-5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.full { grid-column: 1 / -1; }
+.formActions, .actions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-3); }
+.feedback { background: var(--color-gray-50); border-left: 3px solid var(--color-black); gap: var(--space-1); padding: var(--space-3) var(--space-4); }
+.logoControl { gap: var(--space-4); min-width: 0; }
+.fileInput { display: block; max-width: 100%; }
+.detailLayout { align-items: start; display: grid; gap: var(--space-6); grid-template-columns: minmax(0, 1fr) minmax(17rem, 22rem); }
+.imagePanel { min-width: 0; position: sticky; top: calc(var(--header-height) + var(--space-5)); }
+.skeleton { animation: pulse 1.2s ease-in-out infinite alternate; background: var(--color-gray-100); border-radius: var(--radius-card); height: 23rem; }
+@keyframes pulse { to { background: var(--color-gray-200); } }
+@media (prefers-reduced-motion: reduce) { .badgeCard, .skeleton { animation: none; transition: none; } }
+@media (max-width: 72rem) { .badgeGrid, .skeletonGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .detailLayout { grid-template-columns: 1fr; } .imagePanel { position: static; } }
+@media (max-width: 48rem) { .fields { grid-template-columns: 1fr; } .full { grid-column: auto; } .section { padding: var(--space-5); } }
+@media (max-width: 42rem) { .badgeGrid, .skeletonGrid { grid-template-columns: 1fr; } .cardActions { align-items: stretch; flex-direction: column; } .formActions > *, .actions > * { width: 100%; } }

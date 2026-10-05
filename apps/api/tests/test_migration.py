@@ -74,6 +74,18 @@ def _candidate_information_migration() -> Path:
     return migration
 
 
+def _badges_migration() -> Path:
+    repository_root = Path(__file__).resolve().parents[3]
+    migration = (
+        repository_root
+        / "supabase"
+        / "migrations"
+        / "20261002090000_create_badges.sql"
+    )
+    assert migration.is_file()
+    return migration
+
+
 def test_initial_migration_creates_only_approved_tables() -> None:
     sql = _initial_migration().read_text(encoding="utf-8").lower()
     created_tables = {
@@ -169,3 +181,26 @@ def test_candidate_information_migration_is_additive_and_historical_safe() -> No
     assert "update public.job_applications" not in sql
     assert "drop column" not in sql
     assert "create table" not in sql
+
+
+def test_badges_migration_creates_only_the_badge_resource() -> None:
+    sql = _badges_migration().read_text(encoding="utf-8").lower()
+
+    assert "create table public.badges" in sql
+    for column in (
+        "id uuid primary key",
+        "name text not null",
+        "description text",
+        "logo_url text",
+        "website_url text",
+        "display_order integer not null",
+        "is_active boolean not null",
+        "created_at timestamptz not null",
+        "updated_at timestamptz not null",
+    ):
+        assert column in sql
+    assert "ix_badges_active_display_order" in sql
+    assert "set_badges_updated_at" in sql
+    assert "execute function public.set_updated_at()" in sql
+    assert "alter table" not in sql
+    assert "job_applications" not in sql

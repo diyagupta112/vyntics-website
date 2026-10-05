@@ -22,7 +22,8 @@ const caseStudy: CaseStudy = {
   cover_image_url: "https://example.com/cover.jpg",
   tech_stack: ["Python", "FastAPI"],
   tags: ["API", "Engineering"],
-  content: { type: "doc" },
+  content: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Existing case study body" }] }] },
+  featured: false,
   status: "draft",
   published_at: null,
   created_at: "2026-09-28T00:00:00Z",
@@ -32,6 +33,29 @@ const caseStudy: CaseStudy = {
 describe("CaseStudyForm", () => {
   beforeEach(() => vi.clearAllMocks());
 
+  it.each([false, true])("loads featured=%s and sends its changed value on edit", async (featured) => {
+    vi.mocked(caseStudiesApi.update).mockResolvedValue({ ...caseStudy, featured: !featured });
+    render(<CaseStudyForm caseStudy={{ ...caseStudy, featured: featured }} />);
+    const checkbox = screen.getByRole("checkbox", { name: "Feature this case study on the website" });
+    expect(checkbox).toHaveProperty("checked", featured);
+    fireEvent.click(checkbox);
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    await waitFor(() => expect(caseStudiesApi.update).toHaveBeenCalledWith("1", expect.objectContaining({ featured: !featured })));
+  });
+
+  it("displays the backend featured limit and preserves form state", async () => {
+    const message = "Maximum of 5 featured case studies allowed.";
+    vi.mocked(caseStudiesApi.update).mockRejectedValue(new ApiError({ kind: "validation", status: 422, message }));
+    render(<CaseStudyForm caseStudy={caseStudy} />);
+    const checkbox = screen.getByRole("checkbox", { name: "Feature this case study on the website" });
+    fireEvent.click(checkbox);
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    expect(await screen.findByText(message)).toBeInTheDocument();
+    expect(checkbox).toBeChecked();
+    expect(screen.getByLabelText(/^Title/)).toHaveValue(caseStudy.title);
+  });
+
+
   it("shows required-field validation", () => {
     render(<CaseStudyForm />);
     fireEvent.click(screen.getByRole("button", { name: "Create Case Study" }));
@@ -40,7 +64,7 @@ describe("CaseStudyForm", () => {
     expect(caseStudiesApi.create).not.toHaveBeenCalled();
   });
 
-  it("creates a Case Study and moves to its edit page", async () => {
+  it.each([false, true])("creates with featured=%s and moves to edit", async (featured) => {
     vi.mocked(caseStudiesApi.create).mockResolvedValue(caseStudy);
     render(<CaseStudyForm />);
     const values: Record<string, string> = {
@@ -56,8 +80,13 @@ describe("CaseStudyForm", () => {
     for (const [id, value] of Object.entries(values)) {
       fireEvent.change(document.getElementById(id)!, { target: { value } });
     }
+    const checkbox = screen.getByRole("checkbox", { name: "Feature this case study on the website" });
+    expect(checkbox).not.toBeChecked();
+    fireEvent.click(checkbox);
+    if (!featured) fireEvent.click(checkbox);
     fireEvent.click(screen.getByRole("button", { name: "Create Case Study" }));
     await waitFor(() => expect(caseStudiesApi.create).toHaveBeenCalled());
+    expect(caseStudiesApi.create).toHaveBeenCalledWith(expect.objectContaining({ featured: featured }));
     expect(push).toHaveBeenCalledWith("/case-studies/1/edit?created=1");
   });
 
@@ -71,6 +100,8 @@ describe("CaseStudyForm", () => {
     expect(
       screen.getByRole("textbox", { name: "Tech stack" }),
     ).toHaveValue("Python, FastAPI");
+    expect(screen.getByRole("textbox", { name: "Case Study content editor" })).toHaveTextContent("Existing case study body");
+    expect(screen.queryByText("Structured content (JSON)")).not.toBeInTheDocument();
     fireEvent.change(screen.getByLabelText(/^Status/), {
       target: { value: "published" },
     });
@@ -78,7 +109,7 @@ describe("CaseStudyForm", () => {
     await waitFor(() =>
       expect(caseStudiesApi.update).toHaveBeenCalledWith(
         "1",
-        expect.objectContaining({ status: "published" }),
+        expect.objectContaining({ status: "published", content: caseStudy.content }),
       ),
     );
     expect(await screen.findByText("Case Study changes saved.")).toBeInTheDocument();

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
 import { FormField } from "@/components/forms/form-field";
+import { RichTextEditor } from "@/components/forms/rich-text-editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -59,40 +60,6 @@ function TextField({
         aria-invalid={Boolean(errors[field])}
         id={id}
         onChange={(event) => update(field, event.target.value)}
-        value={values[field]}
-      />
-    </FormField>
-  );
-}
-
-type JsonFieldProps = TextFieldProps & { rows?: "standard" | "large" };
-
-function JsonField({
-  field,
-  id,
-  label,
-  hint,
-  values,
-  errors,
-  update,
-  rows = "standard",
-}: JsonFieldProps) {
-  return (
-    <FormField
-      error={errors[field]}
-      hint={hint}
-      htmlFor={id}
-      label={`${label} (JSON)`}
-      required
-    >
-      <Textarea
-        aria-invalid={Boolean(errors[field])}
-        className={
-          rows === "large" ? styles.contentAreaLarge : styles.contentArea
-        }
-        id={id}
-        onChange={(event) => update(field, event.target.value)}
-        spellCheck={false}
         value={values[field]}
       />
     </FormField>
@@ -247,60 +214,33 @@ export function CareerForm({ career, onSaved }: Props) {
       <section aria-labelledby="career-content-heading" className={styles.section}>
         <div className={styles.sectionHeading}>
           <h2 id="career-content-heading">Role description</h2>
-          <p>Use the structured JSON objects accepted by the Careers API.</p>
+          <p>Use the toolbar to write and format the complete role description.</p>
         </div>
-        <JsonField
-          errors={errors}
-          field="description"
-          hint="Full role description as a JSON object."
-          id="careerDescription"
-          label="Description"
-          rows="large"
-          update={update}
-          values={values}
-        />
+        <FormField error={errors.description} hint="Use headings, paragraphs, links, and lists to organize the role." htmlFor="careerDescription" label="Description" required>
+          <RichTextEditor editorLabel="Career description editor" id="careerDescription" invalid={Boolean(errors.description)} onChange={(value) => update("description", value)} resourceName="Career description" value={values.description} />
+        </FormField>
       </section>
 
       <section aria-labelledby="career-expectations-heading" className={styles.section}>
         <div className={styles.sectionHeading}>
           <h2 id="career-expectations-heading">Responsibilities and requirements</h2>
-          <p>Keep each long-form section readable and independently editable.</p>
+          <p>Use the same formatting tools to structure each public section.</p>
         </div>
         <div className={styles.longFields}>
-          <JsonField
-            errors={errors}
-            field="responsibilities"
-            id="careerResponsibilities"
-            label="Responsibilities"
-            update={update}
-            values={values}
-          />
-          <JsonField
-            errors={errors}
-            field="requirements"
-            id="careerRequirements"
-            label="Requirements"
-            update={update}
-            values={values}
-          />
-          <JsonField
-            errors={errors}
-            field="niceToHave"
-            hint="Send an empty object when there is no additional content."
-            id="careerNiceToHave"
-            label="Nice to have"
-            update={update}
-            values={values}
-          />
-          <JsonField
-            errors={errors}
-            field="benefits"
-            hint="Send an empty object when there is no additional content."
-            id="careerBenefits"
-            label="Benefits"
-            update={update}
-            values={values}
-          />
+          {([
+            ["responsibilities", "Responsibilities", "careerResponsibilities", "Career responsibilities editor"],
+            ["requirements", "Requirements", "careerRequirements", "Career requirements editor"],
+            ["niceToHave", "Nice to Have", "careerNiceToHave", "Career nice to have editor"],
+            ["benefits", "Benefits", "careerBenefits", "Career benefits editor"],
+          ] as const).map(([field, label, id, editorLabel]) => <FormField
+              error={errors[field]}
+              htmlFor={id}
+              key={field}
+              label={label}
+              required
+            >
+              <RichTextEditor editorLabel={editorLabel} id={id} invalid={Boolean(errors[field])} onChange={(value) => update(field, value)} resourceName={`Career ${label.toLowerCase()}`} value={values[field]} />
+            </FormField>)}
         </div>
       </section>
 

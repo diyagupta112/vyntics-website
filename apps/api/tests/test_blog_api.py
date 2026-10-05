@@ -44,6 +44,7 @@ def _blog(
         read_time=5,
         content={"type": "doc", "content": []},
         status=status,
+        is_featured=False,
         published_at=PUBLISHED_AT if status == "published" else None,
         created_at=PUBLISHED_AT,
         updated_at=PUBLISHED_AT,
@@ -98,6 +99,7 @@ def test_get_blogs_uses_public_list_contract(blog_api) -> None:
     ]
     assert set(response.json()["data"][0]) == {
         "id",
+        "is_featured",
         "slug",
         "title",
         "author",
@@ -145,6 +147,7 @@ def test_get_admin_blogs_returns_all_statuses_with_admin_contract(blog_api) -> N
         set(item)
         == {
             "id",
+            "is_featured",
             "slug",
             "title",
             "seo_title",
@@ -203,6 +206,7 @@ def test_create_blog_returns_confirmed_admin_contract(blog_api) -> None:
     assert response.status_code == 201
     assert set(response.json()) == {
         "id",
+        "is_featured",
         "slug",
         "title",
         "seo_title",

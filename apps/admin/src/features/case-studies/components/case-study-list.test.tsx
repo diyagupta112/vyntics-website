@@ -22,6 +22,7 @@ const caseStudy: CaseStudy = {
   tech_stack: ["Python", "FastAPI"],
   tags: ["API"],
   content: { type: "doc" },
+  featured: false,
   status: "published",
   published_at: "2026-09-28T00:00:00Z",
   created_at: "2026-09-28T00:00:00Z",

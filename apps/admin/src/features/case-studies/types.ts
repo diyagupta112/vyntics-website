@@ -12,6 +12,7 @@ export type CaseStudy = {
   tech_stack: string[];
   tags: string[];
   content: Record<string, unknown>;
+  featured: boolean;
   status: CaseStudyStatus;
   published_at: string | null;
   created_at: string;
@@ -29,6 +30,7 @@ export type CaseStudyCreateRequest = {
   tech_stack: string[];
   tags: string[];
   content: Record<string, unknown>;
+  featured: boolean;
   status: Exclude<CaseStudyStatus, "published">;
 };
 

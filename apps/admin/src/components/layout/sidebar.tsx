@@ -3,6 +3,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   BriefcaseBusiness,
+  BadgeCheck,
   ClipboardList,
   FolderKanban,
   Inbox,
@@ -29,6 +30,7 @@ const navigation: readonly NavigationItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { label: "Blogs", href: "/blogs", icon: Newspaper },
   { label: "Case Studies", href: "/case-studies", icon: FolderKanban },
+  { label: "Badges", href: "/badges", icon: BadgeCheck },
   { label: "Careers", href: "/careers", icon: BriefcaseBusiness },
   { label: "Job Applications", href: "/job-applications", icon: ClipboardList },
   { label: "Our Team", href: "/team", icon: UsersRound },

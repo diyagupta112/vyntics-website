@@ -130,7 +130,7 @@ export function CaseStudyList() {
                 <div className={styles.studyCopy}>
                   <div className={styles.studyHeading}>
                     <span className={styles.clientName}>{caseStudy.client_name}</span>
-                    <StatusBadge status={caseStudy.status} />
+                    <span className={styles.cardIndicators}>{caseStudy.featured ? <span className={styles.badge}>Featured</span> : null}<StatusBadge status={caseStudy.status} /></span>
                   </div>
                   <h2>{caseStudy.title}</h2>
                 </div>

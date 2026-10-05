@@ -28,6 +28,7 @@ const caseStudy: CaseStudy = {
   tech_stack: [],
   tags: [],
   content: {},
+  featured: false,
   status: "draft",
   published_at: null,
   created_at: "2026-09-28T00:00:00Z",

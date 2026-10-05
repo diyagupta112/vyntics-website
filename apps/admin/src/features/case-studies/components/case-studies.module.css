@@ -114,7 +114,6 @@
 .muted { color: var(--color-gray-500); }
 .fields { gap: var(--space-5); grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .full { grid-column: 1 / -1; }
-.contentArea { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: var(--font-size-sm); min-height: 22rem; }
 .excerptArea { min-height: 10rem; }
 .chipList { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
 .chip { background: var(--color-gray-100); border: 1px solid var(--color-gray-200); border-radius: 999px; font-size: var(--font-size-xs); padding: var(--space-1) var(--space-2); }
@@ -174,3 +173,5 @@
 .imagePanel { position: sticky; top: calc(var(--header-height) + var(--space-5)); }
 @media (max-width: 68rem) { .studyList { grid-template-columns: repeat(2, minmax(0, 1fr)); } .detailLayout { grid-template-columns: 1fr; } .imagePanel { position: static; } }
 @media (max-width: 48rem) { .studyList { grid-template-columns: 1fr; } }
+
+.cardIndicators { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-1); }

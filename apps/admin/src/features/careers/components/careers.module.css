@@ -103,13 +103,6 @@
 .longFields { gap: var(--space-5); }
 .full { grid-column: 1 / -1; }
 .summaryArea { min-height: 8rem; }
-.contentArea,
-.contentAreaLarge {
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-  font-size: var(--font-size-sm);
-  min-height: 14rem;
-}
-.contentAreaLarge { min-height: 22rem; }
 .feedback {
   background: var(--color-gray-50);
   border-left: 3px solid var(--color-black);

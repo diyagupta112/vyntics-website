@@ -53,3 +53,5 @@
 .imagePanel { position: sticky; top: calc(var(--header-height) + var(--space-5)); }
 @media (max-width: 68rem) { .blogGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .detailLayout { grid-template-columns: 1fr; } .imagePanel { position: static; } }
 @media (max-width: 44rem) { .blogGrid { grid-template-columns: 1fr; } .cardImage, .imagePlaceholder { height: 11rem; } .fields { grid-template-columns: 1fr; } .full { grid-column: auto; } .formActions > * { width: 100%; } .section { padding: var(--space-5); } }
+
+.cardIndicators { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-1); }

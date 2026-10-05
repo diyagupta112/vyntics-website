@@ -17,6 +17,7 @@ const expectedNavigation = [
   ["Dashboard", "/dashboard"],
   ["Blogs", "/blogs"],
   ["Case Studies", "/case-studies"],
+  ["Badges", "/badges"],
   ["Careers", "/careers"],
   ["Job Applications", "/job-applications"],
   ["Our Team", "/team"],

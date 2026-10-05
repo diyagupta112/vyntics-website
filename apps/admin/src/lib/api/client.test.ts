@@ -47,6 +47,23 @@ describe("apiClient", () => {
     });
   });
 
+  it("downloads binary responses with authenticated headers and backend filename", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(new Uint8Array([80, 75, 3, 4]), {
+      headers: { "Content-Disposition": 'attachment; filename="applicants.xlsx"' },
+    }));
+    const file = await apiClient.download("/admin/job-applications/export");
+    expect(file.blob.size).toBe(4);
+    expect(file.disposition).toContain("applicants.xlsx");
+    expect(new Headers(fetchMock.mock.calls[0][1]?.headers).get("Authorization")).toBe("Bearer current-access-token");
+  });
+
+  it("rejects failed and empty downloads", async () => {
+    const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(response({ detail: "private stack" }, 503));
+    await expectApiError(apiClient.download("/export"), "service_unavailable", 503);
+    fetchMock.mockResolvedValue(new Response(null));
+    await expectApiError(apiClient.download("/export"), "unexpected");
+  });
+
   it("performs an authenticated GET and parses its JSON response", async () => {
     const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(
       response({ items: [{ id: "one" }] }),

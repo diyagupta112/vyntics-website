@@ -95,6 +95,10 @@ class Settings(BaseSettings):
         default="team-photos",
         validation_alias="STORAGE_TEAM_PHOTOS_BUCKET",
     )
+    badge_logos_bucket: str = Field(
+        default="badge-logos",
+        validation_alias="STORAGE_BADGE_LOGOS_BUCKET",
+    )
     job_resumes_bucket: str = Field(
         default="job-applications",
         validation_alias="STORAGE_JOB_RESUMES_BUCKET",
@@ -130,4 +134,3 @@ class Settings(BaseSettings):
 def get_settings() -> Settings:
     """Return one settings instance for the application process."""
     return Settings()
-

@@ -6,7 +6,7 @@ import type { Blog } from "../types";
 import { BlogList } from "./blog-list";
 
 vi.mock("../api/blogs", () => ({ blogsApi: { list: vi.fn(), delete: vi.fn() } }));
-const blog: Blog = { id: "1", slug: "post", title: "Post", seo_title: "SEO", meta_description: "Meta", author: "Vyntics", category: "Engineering", excerpt: "Excerpt", cover_image_url: null, read_time: 4, content: { type: "doc" }, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
+const blog: Blog = { id: "1", slug: "post", title: "Post", seo_title: "SEO", meta_description: "Meta", author: "Vyntics", category: "Engineering", excerpt: "Excerpt", cover_image_url: null, read_time: 4, content: { type: "doc" }, is_featured: false, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
 
 describe("BlogList", () => {
   beforeEach(() => vi.clearAllMocks());

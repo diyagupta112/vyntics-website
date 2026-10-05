@@ -17,6 +17,7 @@ export type CaseStudyFormValues = {
   techStack: string;
   tags: string;
   content: string;
+  isFeatured: boolean;
   status: CaseStudyStatus;
 };
 
@@ -34,6 +35,7 @@ export const emptyCaseStudyForm: CaseStudyFormValues = {
   techStack: "",
   tags: "",
   content: '{\n  "type": "doc",\n  "content": []\n}',
+  isFeatured: false,
   status: "draft",
 };
 
@@ -48,6 +50,7 @@ export function caseStudyToForm(caseStudy: CaseStudy): CaseStudyFormValues {
     techStack: caseStudy.tech_stack.join(", "),
     tags: caseStudy.tags.join(", "),
     content: JSON.stringify(caseStudy.content, null, 2),
+    isFeatured: caseStudy.featured ?? false,
     status: caseStudy.status,
   };
 }
@@ -63,7 +66,7 @@ export function validateCaseStudyForm(
   values: CaseStudyFormValues,
 ): CaseStudyFormErrors {
   const errors: CaseStudyFormErrors = {};
-  const required: Array<[keyof CaseStudyFormValues, string]> = [
+  const required: Array<[Exclude<keyof CaseStudyFormValues, "isFeatured">, string]> = [
     ["title", "Title"],
     ["slug", "Slug"],
     ["seoTitle", "SEO title"],
@@ -102,6 +105,7 @@ function commonPayload(values: CaseStudyFormValues) {
     excerpt: values.excerpt.trim(),
     tech_stack: parseList(values.techStack),
     tags: parseList(values.tags),
+    featured: values.isFeatured,
     content: contentObject(values.content),
   };
 }
@@ -137,6 +141,7 @@ const fieldMap: Record<string, keyof CaseStudyFormValues> = {
   tech_stack: "techStack",
   tags: "tags",
   content: "content",
+  featured: "isFeatured",
   status: "status",
 };
 

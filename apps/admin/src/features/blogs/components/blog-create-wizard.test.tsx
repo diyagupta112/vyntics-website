@@ -11,7 +11,7 @@ vi.mock("next/navigation", () => ({ useRouter: () => ({ push }) }));
 vi.mock("../api/blogs", () => ({ blogsApi: { create: vi.fn(), update: vi.fn(), uploadCover: vi.fn(), deleteCover: vi.fn() } }));
 vi.mock("@/components/forms/rich-text-editor", () => ({ RichTextEditor: ({ id, value, onChange }: { id: string; value: string; onChange: (value: string) => void }) => <textarea aria-label="Blog content editor" id={id} onChange={(event) => onChange(event.target.value)} value={value} /> }));
 
-const blog: Blog = { id: "blog-1", slug: "post", title: "Post", seo_title: "SEO", meta_description: "Meta", author: "Vyntics", category: "Engineering", excerpt: "Excerpt", cover_image_url: null, read_time: 4, content: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Body" }] }] }, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
+const blog: Blog = { id: "blog-1", slug: "post", title: "Post", seo_title: "SEO", meta_description: "Meta", author: "Vyntics", category: "Engineering", excerpt: "Excerpt", cover_image_url: null, read_time: 4, content: { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Body" }] }] }, is_featured: false, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
 
 function fillBlog() {
   const values: Record<string, string> = { title: "Post", slug: "post", author: "Vyntics", category: "Engineering", readTime: "4", excerpt: "Excerpt", seoTitle: "SEO", metaDescription: "Meta", content: JSON.stringify(blog.content) };
@@ -22,7 +22,7 @@ describe("BlogCreateWizard", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("validates, creates once, edits after Back, uploads, and finishes", async () => {
-    vi.mocked(blogsApi.create).mockResolvedValue(blog);
+    vi.mocked(blogsApi.create).mockResolvedValue({ ...blog, is_featured: true });
     vi.mocked(blogsApi.update).mockResolvedValue({ ...blog, title: "Updated Post" });
     vi.mocked(blogsApi.uploadCover).mockResolvedValue({ ...blog, title: "Updated Post", cover_image_url: "https://example.com/cover.jpg" });
     render(<BlogCreateWizard />);
@@ -31,9 +31,11 @@ describe("BlogCreateWizard", () => {
     expect(screen.getByText("Title is required.")).toBeInTheDocument();
     expect(blogsApi.create).not.toHaveBeenCalled();
     fillBlog();
+    fireEvent.click(screen.getByRole("checkbox", { name: "Feature this blog on the website" }));
     fireEvent.click(screen.getByRole("button", { name: /Next/ }));
     expect(await screen.findByRole("heading", { name: "Add Cover Image" })).toBeInTheDocument();
     expect(blogsApi.create).toHaveBeenCalledTimes(1);
+    expect(blogsApi.create).toHaveBeenCalledWith(expect.objectContaining({ is_featured: true }));
     fireEvent.click(screen.getByRole("button", { name: "← Back" }));
     fireEvent.change(screen.getByLabelText(/^Title/), { target: { value: "Updated Post" } });
     fireEvent.click(screen.getByRole("button", { name: /Next/ }));
