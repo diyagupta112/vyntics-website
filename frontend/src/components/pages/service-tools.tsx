@@ -43,8 +43,10 @@ const toolDescriptions: ReadonlyArray<readonly [readonly string[], string]> = [
   [["Grafana", "Prometheus", "Datadog", "Azure Monitor", "Amazon CloudWatch", "Google Cloud Operations", "OpenTelemetry"], "Metrics, logs, and traces for understanding system health and investigating production issues."],
 ];
 
-export function ServiceTools({ name, technologies, introduction, details }: {
+export function ServiceTools({ name, technologies, introduction, details, eyebrow = "Tools & platforms", title }: {
   name: string;
+  eyebrow?: string;
+  title?: string;
   technologies: readonly string[];
   introduction?: string;
   details?: readonly ToolDetail[];
@@ -53,8 +55,8 @@ export function ServiceTools({ name, technologies, introduction, details }: {
     <section className={styles.section} aria-labelledby="service-tools-title">
       <Container>
         <header className={styles.heading}>
-          <p className={styles.label}>Tools &amp; platforms</p>
-          <h2 id="service-tools-title">The toolkit behind {name}.</h2>
+          <p className={styles.label}>{eyebrow}</p>
+          <h2 id="service-tools-title">{title ?? `The toolkit behind ${name}.`}</h2>
           <p>{introduction ?? `For ${name}, we select tools around your existing systems, security requirements, and team skills. Each layer has a clear purpose and a maintainable path to production.`}</p>
         </header>
         <div className={styles.grid}>
@@ -64,7 +66,7 @@ export function ServiceTools({ name, technologies, introduction, details }: {
             return (
               <article key={tool}>
                 <h3>{tool}</h3>
-                {detail && <span>{detail.role}</span>}
+                {detail?.role && <span>{detail.role}</span>}
                 <p>{description ?? `Supports the ${name} workflow, with integration and configuration matched to your operating environment.`}</p>
               </article>
             );

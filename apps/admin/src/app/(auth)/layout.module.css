@@ -5,7 +5,7 @@
 }
 
 .visual {
-  background: var(--color-black);
+  background: var(--color-black) url("/images/login-page-image.png") center / cover no-repeat;
   color: var(--color-white);
   display: flex;
   flex-direction: column;
@@ -16,51 +16,35 @@
   position: relative;
 }
 
-.visualContent {
-  display: grid;
-  gap: var(--space-5);
-  max-width: 32rem;
-  position: relative;
-  z-index: 1;
-}
-
-.visualContent p {
+.brandName {
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.15em;
 }
 
-.visualContent span {
-  color: var(--color-gray-300);
-  font-size: clamp(1.5rem, 3vw, 2.75rem);
+.brandStatement {
+  align-self: flex-start;
+  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
   font-weight: 500;
-  line-height: 1.2;
-}
-
-.visualMark {
-  align-self: flex-end;
-  display: grid;
-  gap: var(--space-4);
-  width: min(75%, 34rem);
-}
-
-.visualMark span {
-  border: 1px solid var(--color-gray-700);
-  display: block;
-  height: clamp(3rem, 8vh, 6rem);
-}
-
-.visualMark span:nth-child(2) {
-  margin-left: 15%;
-}
-
-.visualMark span:nth-child(3) {
-  margin-left: 30%;
+  line-height: 1.5;
+  max-width: 26rem;
+  text-shadow: 0 1px 4px rgb(0 0 0 / 70%);
 }
 
 .loginArea {
+  --color-white: #0c0c0c;
+  --color-black: #ffffff;
+  --color-gray-50: #171717;
+  --color-gray-100: #202020;
+  --color-gray-200: #303030;
+  --color-gray-300: #454545;
+  --color-gray-500: #a3a3a3;
+  --color-gray-700: #d4d4d4;
+  --focus-ring: 2px solid #ffffff;
   align-items: center;
-  background: var(--color-white);
+  background: #000000;
+  color: #ffffff;
+  color-scheme: dark;
   display: flex;
   justify-content: center;
   padding: clamp(var(--space-6), 6vw, var(--space-12));
@@ -79,9 +63,6 @@
     padding: var(--space-7);
   }
 
-  .visualContent span {
-    font-size: 1.5rem;
-  }
 }
 
 @media (max-width: 42rem) {
@@ -90,20 +71,10 @@
   }
 
   .visual {
+    background-position: center top;
+    gap: var(--space-4);
     min-height: auto;
     padding: var(--space-6) var(--space-5);
-  }
-
-  .visualContent {
-    gap: var(--space-2);
-  }
-
-  .visualContent span {
-    font-size: var(--font-size-sm);
-  }
-
-  .visualMark {
-    display: none;
   }
 
   .loginArea {

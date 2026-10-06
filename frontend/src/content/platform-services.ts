@@ -3,6 +3,7 @@ import type { InnerServiceDetailContent } from "@/components/pages/inner-service
 export type PlatformServiceGroup = "analytics" | "crm" | "cloud";
 
 type ServiceDefinition = Omit<InnerServiceDetailContent, "process" | "metadataDescription"> & {
+  process?: InnerServiceDetailContent["process"];
   group: PlatformServiceGroup;
 };
 
@@ -29,62 +30,370 @@ const approaches: Record<PlatformServiceGroup, InnerServiceDetailContent["proces
 
 function defineService(definition: ServiceDefinition): InnerServiceDetailContent {
   const { group, ...service } = definition;
-  return { ...service, process: approaches[group], metadataDescription: service.introduction };
+  return { ...service, process: service.process ?? approaches[group], metadataDescription: service.introduction };
 }
 
 export const platformServices = {
   analytics: {
     "power-bi": defineService({
-      group: "analytics", slug: "power-bi", name: "Power BI", eyebrow: "Analytics & BI · Power BI",
-      title: "Power BI that answers business questions clearly.",
-      introduction: "We design governed Power BI models, dashboards, and reporting workflows that give teams consistent metrics and practical drill-downs.",
-      promise: "Turn scattered reporting into a dependable Power BI decision layer.",
-      promiseDetail: "Useful Power BI work starts with trusted definitions and a maintainable semantic model. We connect the right sources, shape the data, secure access, and design reports around the decisions users actually make.",
-      deliverables: [
-        { title: "Semantic models", description: "Reusable measures, relationships, hierarchies, and business definitions built for consistent reporting." },
-        { title: "Interactive dashboards", description: "Focused report experiences with useful filtering, drill-through, and role-specific views." },
-        { title: "Governance & performance", description: "Access controls, refresh monitoring, workspace structure, and model tuning for reliable use." },
+      "group": "analytics",
+      "slug": "power-bi",
+      "name": "Power BI",
+      "eyebrow": "ANALYTICS & BI · POWER BI",
+      "title": "Turn your data into trusted decisions with Power BI.",
+      "introduction": "Most companies are swimming in data but starving for clarity. We build Power BI solutions that replace fragmented spreadsheets with clean, reliable insights your entire team can actually agree on.",
+      "aboutEyebrow": "ABOUT THE SERVICE",
+      "promise": "A single source of truth, powered by Power BI.",
+      "promiseDetail": "Beautiful charts mean nothing if the underlying numbers are wrong. We clean up your data logic and build Power BI setups designed around the actual decisions you need to make every day.",
+      "deliverables": [
+            {
+                  "title": "Unified business models",
+                  "description": "We organize your data so department heads are finally looking at the same metrics, ending the debate over whose spreadsheet is right."
+            },
+            {
+                  "title": "Clear, fast dashboards",
+                  "description": "Custom Power BI report views built for how you work—letting you spot trends, drill into details, and answer questions in seconds."
+            },
+            {
+                  "title": "Role-based access control",
+                  "description": "Keep sensitive financial or performance data secure by showing people only what they need to see based on their role."
+            },
+            {
+                  "title": "Automated updates",
+                  "description": "No more manual exports or broken formulas. Your Power BI reports refresh automatically so you're always looking at current information."
+            }
       ],
-      technologies: ["Power BI", "DAX", "Power Query", "Microsoft Fabric", "Azure", "SQL Server", "Snowflake", "PostgreSQL"],
-    }),
+      "processEyebrow": "OUR APPROACH",
+      "processTitle": "How we build your Power BI solution.",
+      "processIntroduction": "A clear, collaborative path from messy spreadsheets to a dashboard your team will actually use.",
+      "process": [
+            {
+                  "title": "Discover your goals",
+                  "description": "We sit down with your team to understand the key questions you need answered and how Power BI can best support your decisions."
+            },
+            {
+                  "title": "Clean and structure the data",
+                  "description": "We audit your existing sources, fix hidden calculation errors, and build the solid data foundation Power BI needs to perform."
+            },
+            {
+                  "title": "Build and test",
+                  "description": "We design the Power BI views and test every calculation to ensure the numbers are fast, accurate, and easy to read."
+            },
+            {
+                  "title": "Launch and train",
+                  "description": "We roll out the dashboards, set up automatic updates, and walk your team through how to use Power BI daily without friction."
+            }
+      ],
+      "technologyEyebrow": "TOOLS & TECHNOLOGIES",
+      "technologyTitle": "The technology behind your Power BI setup.",
+      "technologyIntroduction": "We work with the systems you already use, ensuring your reporting layer fits smoothly into your existing tech stack without unnecessary complexity.",
+      "technologies": [
+            "Power BI",
+            "DAX & Power Query",
+            "Microsoft Fabric",
+            "Azure SQL",
+            "Snowflake",
+            "Data Gateways"
+      ],
+      "technologyDetails": [
+            {
+                  "name": "Power BI",
+                  "role": "",
+                  "description": "The core reporting platform that turns shared metrics into clear, interactive business views."
+            },
+            {
+                  "name": "DAX & Power Query",
+                  "role": "",
+                  "description": "The calculation and cleanup engines that ensure your numbers are accurate behind the scenes."
+            },
+            {
+                  "name": "Microsoft Fabric",
+                  "role": "",
+                  "description": "A unified data platform that brings all your company’s storage and reporting together in one place."
+            },
+            {
+                  "name": "Azure SQL",
+                  "role": "",
+                  "description": "Secure cloud databases that keep your business data organized, safe, and ready to query."
+            },
+            {
+                  "name": "Snowflake",
+                  "role": "",
+                  "description": "High-performance data warehousing built to handle massive amounts of company information smoothly."
+            },
+            {
+                  "name": "Data Gateways",
+                  "role": "",
+                  "description": "A secure bridge that connects your internal spreadsheets or legacy software to the cloud workspace."
+            }
+      ],
+      "contactEyebrow": "POWER BI CONSULTATION",
+      "contactTitle": "Let's make Power BI work for your business.",
+      "contactIntroduction": "Tell us about your current reporting bottlenecks or spreadsheets. Our data team will review where you're stuck and show you a practical way forward with Power BI."
+}),
     tableau: defineService({
-      group: "analytics", slug: "tableau", name: "Tableau", eyebrow: "Analytics & BI · Tableau",
-      title: "Tableau experiences built for exploration and action.",
-      introduction: "We build Tableau data sources and dashboards that make complex performance patterns easier to explore, explain, and act on.",
-      promise: "Give analysts and business teams visual answers without sacrificing metric consistency.",
-      promiseDetail: "A polished dashboard is useless when calculations conflict or performance collapses. We pair visual design with governed sources, validated calculations, sensible permissions, and a clear publishing model.",
-      deliverables: [
-        { title: "Published data sources", description: "Curated, documented sources that keep calculations and dimensions consistent across workbooks." },
-        { title: "Visual analytics", description: "Dashboards designed around comparison, trends, exceptions, and the next decision—not decoration." },
-        { title: "Tableau governance", description: "Projects, permissions, certification, refresh ownership, and performance practices for scale." },
+      "group": "analytics",
+      "slug": "tableau",
+      "name": "Tableau",
+      "eyebrow": "ANALYTICS & BI · TABLEAU",
+      "title": "Turn complex data into clear visuals with Tableau.",
+      "introduction": "When your team needs deep visual exploration and interactive data storytelling, Tableau makes it happen. We build clean, responsive Tableau dashboards that help your organization spot trends, share insights, and act faster.",
+      "aboutEyebrow": "ABOUT THE SERVICE",
+      "promise": "Visual analytics built for how your team explores data with Tableau.",
+      "promiseDetail": "A great dashboard shouldn't require a data science degree to use. We design intuitive Tableau environments that make complex datasets easy to navigate, filter, and understand.",
+      "deliverables": [
+            {
+                  "title": "Interactive workbooks",
+                  "description": "Custom views and filters built in Tableau so your team can slice, dice, and investigate performance metrics on their own."
+            },
+            {
+                  "title": "Seamless data blending",
+                  "description": "We connect and merge multiple business sources into a single Tableau view without losing performance or accuracy."
+            },
+            {
+                  "title": "Secure workbook governance",
+                  "description": "Clean permission structures and folder organizations ensuring the right people access the right reports."
+            },
+            {
+                  "title": "Embedded analytics",
+                  "description": "Integrate Tableau dashboards directly into your internal tools, web apps, or client portals for a unified workflow."
+            }
       ],
-      technologies: ["Tableau", "Tableau Prep", "Tableau Cloud", "Tableau Server", "SQL", "Snowflake", "BigQuery", "PostgreSQL"],
-    }),
+      "processEyebrow": "OUR APPROACH",
+      "processTitle": "How we build your Tableau solution.",
+      "processIntroduction": "A structured, practical path from raw metrics to clear visual clarity.",
+      "process": [
+            {
+                  "title": "Understand your use case",
+                  "description": "We align with your team on what visual stories need to be told and who will be interacting with Tableau."
+            },
+            {
+                  "title": "Connect and prepare data",
+                  "description": "We hook up your databases or cloud storage, ensuring the data feeding Tableau is clean and dependable."
+            },
+            {
+                  "title": "Design and test dashboards",
+                  "description": "We build clean visual layouts, optimize calculations, and test responsiveness across teams."
+            },
+            {
+                  "title": "Publish and empower",
+                  "description": "We publish to Tableau Cloud or Server, set up permissions, and train your users to get the most out of it."
+            }
+      ],
+      "technologyEyebrow": "TOOLS & TECHNOLOGIES",
+      "technologyTitle": "The technology behind your Tableau ecosystem.",
+      "technologyIntroduction": "We integrate Tableau smoothly with your data sources, cloud storage, and deployment workflows.",
+      "technologies": [
+            "Tableau Desktop & Prep",
+            "Tableau Cloud / Server",
+            "Snowflake & BigQuery",
+            "PostgreSQL & MySQL",
+            "AWS & Azure"
+      ],
+      "technologyDetails": [
+            {
+                  "name": "Tableau Desktop & Prep",
+                  "role": "",
+                  "description": "The core design and data-shaping tools for building responsive workbooks."
+            },
+            {
+                  "name": "Tableau Cloud / Server",
+                  "role": "",
+                  "description": "Secure hosting and sharing platforms for automated workspace management."
+            },
+            {
+                  "name": "Snowflake & BigQuery",
+                  "role": "",
+                  "description": "High-performance cloud data platforms powering fast, large-scale visual queries."
+            },
+            {
+                  "name": "PostgreSQL & MySQL",
+                  "role": "",
+                  "description": "Reliable relational databases storing core business records and user data."
+            },
+            {
+                  "name": "AWS & Azure",
+                  "role": "",
+                  "description": "Cloud infrastructure ensuring dependable uptime, security, and scalable performance."
+            }
+      ],
+      "contactEyebrow": "TABLEAU CONSULTATION",
+      "contactTitle": "Let's bring your data to life with Tableau.",
+      "contactIntroduction": "Tell us what you want to visualize or explore. Our team will review your current data setup and show you how Tableau can make it actionable."
+}),
     "amazon-quicksight": defineService({
-      group: "analytics", slug: "amazon-quicksight", name: "Amazon QuickSight", eyebrow: "Analytics & BI · Amazon QuickSight",
-      title: "Cloud-native reporting that fits your AWS environment.",
-      introduction: "We implement Amazon QuickSight datasets, dashboards, embedded analytics, and access controls for teams already operating on AWS.",
-      promise: "Deliver governed analytics without adding unnecessary platform weight.",
-      promiseDetail: "QuickSight works best when datasets, SPICE capacity, row-level security, refresh schedules, and AWS permissions are designed together. We build those foundations before scaling dashboard delivery.",
-      deliverables: [
-        { title: "Datasets & calculations", description: "Reusable datasets, joins, calculated fields, parameters, and refresh schedules built around trusted sources." },
-        { title: "Dashboards & embedding", description: "Interactive reporting for internal teams or analytics embedded directly inside customer products." },
-        { title: "AWS-native governance", description: "Row-level security, IAM-aware access, capacity planning, monitoring, and controlled publishing." },
+      "group": "analytics",
+      "slug": "amazon-quicksight",
+      "name": "Amazon QuickSight",
+      "eyebrow": "ANALYTICS & BI · AMAZON QUICKSIGHT",
+      "title": "Scale your cloud analytics effortlessly with Amazon QuickSight.",
+      "introduction": "If your data already lives in the cloud, your reporting should too. We build fast, cost-effective dashboards using Amazon QuickSight that integrate natively with your tech stack without heavy server maintenance.",
+      "aboutEyebrow": "ABOUT THE SERVICE",
+      "promise": "Fast cloud dashboards powered by Amazon QuickSight.",
+      "promiseDetail": "Built for the cloud from day one, QuickSight lets your team explore data without slow servers or bloated license fees. We configure and design QuickSight environments tailored to your exact workflow.",
+      "deliverables": [
+            {
+                  "title": "Native cloud integration",
+                  "description": "Direct, high-speed connections to your cloud storage, databases, data lakes, and warehousing environments."
+            },
+            {
+                  "title": "Flexible, cost-effective pricing",
+                  "description": "Smart scaling options where you only pay for what your team actually uses, eliminating rigid software license waste."
+            },
+            {
+                  "title": "Embedded analytics",
+                  "description": "Seamlessly embed secure Amazon QuickSight dashboards right into your internal tools, web apps, or client portals."
+            },
+            {
+                  "title": "High-speed calculation engine",
+                  "description": "Lightning-fast filtering and data retrieval powered by advanced in-memory calculation layers."
+            }
       ],
-      technologies: ["Amazon QuickSight", "SPICE", "AWS IAM", "Amazon Redshift", "Amazon Athena", "Amazon S3", "RDS", "SQL"],
-    }),
+      "processEyebrow": "OUR APPROACH",
+      "processTitle": "How we build your Amazon QuickSight solution.",
+      "processIntroduction": "A straightforward path to cloud-native reporting that keeps your data secure, fast, and easy to maintain.",
+      "process": [
+            {
+                  "title": "Scope your cloud data",
+                  "description": "We identify your active data sources, user roles, and core business reporting requirements."
+            },
+            {
+                  "title": "Connect and configure memory",
+                  "description": "We establish secure access permissions, connect your data pipelines, and optimize performance settings."
+            },
+            {
+                  "title": "Design and test dashboards",
+                  "description": "We build clean, responsive visual layouts and verify calculations with your team."
+            },
+            {
+                  "title": "Launch and scale",
+                  "description": "We deploy dashboards, configure user access controls, and hand over a fully operational cloud workspace."
+            }
+      ],
+      "technologyEyebrow": "TOOLS & TECHNOLOGIES",
+      "technologyTitle": "The cloud ecosystem behind Amazon QuickSight.",
+      "technologyIntroduction": "We integrate QuickSight smoothly with your cloud infrastructure for maximum security, speed, and reliability.",
+      "technologies": [
+            "Amazon QuickSight",
+            "SPICE Engine",
+            "Cloud Data Warehouses",
+            "Serverless Query Services",
+            "Security & Access Controls"
+      ],
+      "technologyDetails": [
+            {
+                  "name": "Amazon QuickSight",
+                  "role": "",
+                  "description": "The core cloud-native BI platform for fast dashboards and embedded reporting."
+            },
+            {
+                  "name": "SPICE Engine",
+                  "role": "",
+                  "description": "High-performance in-memory calculation layer designed for ultra-fast data retrieval."
+            },
+            {
+                  "name": "Cloud Data Warehouses",
+                  "role": "",
+                  "description": "Scalable storage and analytical backends built for high-throughput enterprise workloads."
+            },
+            {
+                  "name": "Serverless Query Services",
+                  "role": "",
+                  "description": "Tools to analyze large datasets directly in storage using standard SQL."
+            },
+            {
+                  "name": "Security & Access Controls",
+                  "role": "",
+                  "description": "Enterprise-grade encryption, role-based permissions, and private network connectivity."
+            }
+      ],
+      "contactEyebrow": "AMAZON QUICKSIGHT CONSULTATION",
+      "contactTitle": "Let's make Amazon QuickSight work for your business.",
+      "contactIntroduction": "Tell us about your current cloud stack and reporting goals. Our team will show you how QuickSight can make your data faster and easier to manage."
+}),
     "kpi-dashboards": defineService({
-      group: "analytics", slug: "kpi-dashboards", name: "KPI Dashboards", eyebrow: "Analytics & BI · KPI dashboards",
-      title: "KPI dashboards that keep everyone on the same numbers.",
-      introduction: "We turn agreed business definitions into focused dashboards that show performance, exceptions, trends, and the context behind each metric.",
-      promise: "Replace metric debates with clear definitions and decision-ready views.",
-      promiseDetail: "The difficult part of a KPI dashboard is not the chart. It is agreeing on meaning, ownership, grain, timing, targets, and exceptions. We settle those questions and make them visible in the reporting product.",
-      deliverables: [
-        { title: "KPI framework", description: "Definitions, formulas, owners, targets, dimensions, and refresh expectations documented before build." },
-        { title: "Role-based views", description: "Executive summaries and operational drill-downs tailored to the decisions each audience owns." },
-        { title: "Alerts & distribution", description: "Scheduled reporting, threshold notifications, and exception views that bring attention to what changed." },
+      "group": "analytics",
+      "slug": "kpi-dashboards",
+      "name": "KPI Dashboards",
+      "eyebrow": "ANALYTICS & BI \u00b7 KPI DASHBOARDS",
+      "title": "Focus on what matters with clear KPI Dashboards.",
+      "introduction": "When you are tracking everything, you are tracking nothing. We build focused KPI dashboards that cut through the noise and give leadership a crystal-clear view of core business health.",
+      "aboutEyebrow": "ABOUT THE SERVICE",
+      "promise": "Real-time clarity, powered by KPI Dashboards.",
+      "promiseDetail": "Stop digging through weekly status reports or messy spreadsheets to find out how the business is performing. We design clean KPI dashboards that track your most critical metrics in one place.",
+      "processEyebrow": "OUR APPROACH",
+      "processTitle": "How we build your KPI Dashboards.",
+      "processIntroduction": "A straightforward path from scattered data points to a single source of operational truth.",
+      "technologyEyebrow": "TOOLS & TECHNOLOGIES",
+      "technologyTitle": "The technology behind your KPI Dashboards.",
+      "technologyIntroduction": "We leverage modern reporting platforms and database engines to keep your performance scorecards fast, secure, and reliable.",
+      "contactEyebrow": "KPI DASHBOARDS CONSULTATION",
+      "contactTitle": "Let's make KPI Dashboards work for your business.",
+      "contactIntroduction": "Tell us about the metrics you track today. Our team will review your reporting setup and show you how to build a clearer view of performance.",
+      "deliverables": [
+        {
+          "title": "Core metric alignment",
+          "description": "We help you identify and track the exact numbers that drive growth, profitability, and operational efficiency."
+        },
+        {
+          "title": "Real-time tracking",
+          "description": "Live updates replace manual reporting so you can spot issues and opportunities the moment they happen."
+        },
+        {
+          "title": "Department-specific views",
+          "description": "Tailored scorecards for sales, marketing, finance, and operations that keep every team aligned and accountable."
+        },
+        {
+          "title": "Alert and anomaly monitoring",
+          "description": "Automated notifications when key metrics drift off target, allowing you to fix problems before they escalate."
+        }
       ],
-      technologies: ["Power BI", "Tableau", "Amazon QuickSight", "Looker", "SQL", "dbt", "Snowflake", "PostgreSQL"],
+      "process": [
+        {
+          "title": "Identify true priorities",
+          "description": "We work with your leadership team to define the handful of metrics that actually matter for your next stage of growth."
+        },
+        {
+          "title": "Map data sources",
+          "description": "We connect your core software and databases to ensure your performance indicators pull clean, live data automatically."
+        },
+        {
+          "title": "Design and test dashboards",
+          "description": "We build clean visual scorecards and test them with your team to ensure they drive fast, confident decisions."
+        },
+        {
+          "title": "Launch and monitor",
+          "description": "We deploy your dashboards, set up performance alerts, and establish a reliable rhythm for tracking success."
+        }
+      ],
+      "technologies": [
+        "Power BI & Tableau",
+        "SQL & Cloud Databases",
+        "Automated Data Pipelines",
+        "Custom Web Dashboards"
+      ],
+      "technologyDetails": [
+        {
+          "name": "Power BI & Tableau",
+          "role": "",
+          "description": "Leading visualization platforms used to build clear, interactive performance scorecards."
+        },
+        {
+          "name": "SQL & Cloud Databases",
+          "role": "",
+          "description": "Reliable storage and fast query engines backing your real-time business metrics."
+        },
+        {
+          "name": "Automated Data Pipelines",
+          "role": "",
+          "description": "Background connectors that keep your KPIs updated without any manual data entry."
+        },
+        {
+          "name": "Custom Web Dashboards",
+          "role": "",
+          "description": "Tailored reporting interfaces built specifically for unique operational tracking needs."
+        }
+      ]
     }),
     "executive-reporting": defineService({
       group: "analytics", slug: "executive-reporting", name: "Executive Reporting", eyebrow: "Analytics & BI · Executive reporting",

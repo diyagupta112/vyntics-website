@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
+import { serviceNavigation } from "@/content/service-navigation";
 import { siteConfig } from "@/config/site";
 import styles from "./site-footer.module.css";
 
@@ -15,67 +16,14 @@ type ServiceGroup = {
   items: readonly FooterItem[];
 };
 
-const serviceColumns: readonly (readonly ServiceGroup[])[] = [
-  [
-    {
-      label: "Custom AI Solutions",
-      href: "/services/ai",
-      items: [
-        { label: "RAG Assistants" },
-        { label: "AI Agents" },
-        { label: "Document Automation" },
-        { label: "Workflow Automation" },
-        { label: "LLM Integrations" },
-      ],
-    },
-    {
-      label: "Data Engineering",
-      href: "/services/data",
-      items: [
-        { label: "Data Pipelines" },
-        { label: "ETL & ELT" },
-        { label: "Data Warehousing" },
-        { label: "Data Integration" },
-        { label: "Data Quality" },
-      ],
-    },
-  ],
-  [
-    {
-      label: "Analytics & BI",
-      href: "/services/data",
-      items: [
-        { label: "Power BI" },
-        { label: "Tableau" },
-        { label: "Amazon QuickSight" },
-        { label: "KPI Dashboards" },
-        { label: "Executive Reporting" },
-      ],
-    },
-    {
-      label: "Cloud Solutions",
-      href: "/services/cloud",
-      items: [
-        { label: "Cloud Architecture", href: "/services/cloud/architecture" },
-        { label: "Cloud Migration", href: "/services/cloud/migration" },
-        { label: "Cost Optimization", href: "/services/cloud/cost-optimization" },
-        { label: "DevOps & Infrastructure", href: "/services/cloud/devops-infrastructure" },
-        { label: "Reliability Monitoring", href: "/services/cloud/reliability-monitoring" },
-      ],
-    },
-  ],
-  [
-    {
-      label: "CRM",
-      items: [
-        { label: "CRM Implementation" },
-        { label: "Sales Automation" },
-        { label: "CRM Integrations" },
-        { label: "CRM Analytics" },
-      ],
-    },
-  ],
-] as const;
+// Share the header's real service destinations while keeping the footer order.
+const serviceGroups: readonly ServiceGroup[] = [
+  "Custom AI Solutions", "Data Engineering", "Analytics & BI", "Cloud Solutions", "CRM",
+].map(label => {
+  const group = serviceNavigation.find(item => item.label === label);
+  if (!group) throw new Error(`Missing service navigation group: ${label}`);
+  return { label: group.label, href: group.href, items: (group.children ?? []).map(item => ({ label: item.label, href: item.href })) };
+});
 
 const companyLinks: readonly FooterItem[] = [
   { label: "About Us", href: "/about" },
@@ -168,7 +116,7 @@ export function SiteFooter() {
             <nav className={styles.services} aria-labelledby="footer-services-title">
               <h2 className={styles.navigationHeading} id="footer-services-title">Services</h2>
               <div className={styles.serviceList}>
-                {serviceColumns.flat().map((group) => <ServiceCluster group={group} key={group.label} />)}
+                {serviceGroups.map((group) => <ServiceCluster group={group} key={group.label} />)}
               </div>
             </nav>
             <div className={styles.supportingNavigation}>

@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import CaseStudiesLoading from "./loading";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
@@ -33,11 +35,30 @@ function StudyCard({ study }: { study: CaseStudyListItem }) {
   );
 }
 
-export default async function CaseStudiesPage() {
+async function CaseStudySections() {
   const studies = await getCaseStudies();
   const featured = studies.filter((study) => study.featured === true);
   const showcased = await Promise.all(featured.map(async (study) => ({ ...study, media: getCaseStudyHeroMedia(await getCaseStudy(study.slug)) })));
 
+  return (
+    <>
+      <section id="featured-case-studies" className={styles.featuredSection} aria-labelledby="featured-title">
+        <Container>
+          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Selected work</p><h2 id="featured-title">Featured Case Studies</h2></div></div>
+          {featured.length > 0 ? <FeaturedCaseStudyCarousel studies={showcased} /> : <p className={styles.otherEmpty}>{studies.length ? "Explore our published work below." : "No case studies available yet."}</p>}
+        </Container>
+      </section>
+      <section className={styles.otherSection} aria-labelledby="more-title">
+        <Container>
+          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Explore further</p><h2 id="more-title">All Case Studies</h2></div></div>
+          {studies.length > 0 ? <div className={styles.otherGrid}>{studies.map(study => <StudyCard study={study} key={study.id} />)}</div> : <p className={styles.otherEmpty}>No case studies available yet.</p>}
+        </Container>
+      </section>
+    </>
+  );
+}
+
+export default function CaseStudiesPage() {
   return (
     <>
       <section className={styles.hero} aria-labelledby="case-studies-title">
@@ -62,19 +83,10 @@ export default async function CaseStudiesPage() {
           </div>
         </Container>
       </div>
-      <section id="featured-case-studies" className={styles.featuredSection} aria-labelledby="featured-title">
-        <Container>
-          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Selected work</p><h2 id="featured-title">Featured Case Studies</h2></div></div>
-          {featured.length > 0 ? <FeaturedCaseStudyCarousel studies={showcased} /> : <p className={styles.otherEmpty}>{studies.length ? "Explore our published work below." : "No case studies available yet."}</p>}
-        </Container>
-      </section>
-      <section className={styles.otherSection} aria-labelledby="more-title">
-        <Container>
-          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Explore further</p><h2 id="more-title">All Case Studies</h2></div></div>
-          {studies.length > 0 ? <div className={styles.otherGrid}>{studies.map(study => <StudyCard study={study} key={study.id} />)}</div> : <p className={styles.otherEmpty}>No case studies available yet.</p>}
-        </Container>
-      </section>
-      <ContactCta variant="case-studies" />
+      <Suspense fallback={<div id="featured-case-studies"><CaseStudiesLoading /></div>}>
+        <CaseStudySections />
+      </Suspense>
+      <ContactCta />
     </>
   );
 }

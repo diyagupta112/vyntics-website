@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { Container } from "@/components/ui/container";
 import styles from "./service-approach.module.css";
 
-export function ServiceApproach({ steps }: { steps: ReadonlyArray<{ title: string; description: string }> }) {
+export function ServiceApproach({ steps, eyebrow = "Our approach", title = "Clear decisions from discovery through delivery.", introduction = "Four focused stages. One accountable path from the first conversation to a working solution." }: { steps: ReadonlyArray<{ title: string; description: string }>; eyebrow?: string; title?: string; introduction?: string }) {
   const timelineRef = useRef<HTMLOListElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
 
@@ -36,9 +36,9 @@ export function ServiceApproach({ steps }: { steps: ReadonlyArray<{ title: strin
     <section className={styles.section} aria-labelledby="approach-title">
       <Container>
         <header className={styles.heading}>
-          <p>Our approach</p>
-          <h2 id="approach-title">Clear decisions from discovery through delivery.</h2>
-          <span>Four focused stages. One accountable path from the first conversation to a working solution.</span>
+          <p>{eyebrow}</p>
+          <h2 id="approach-title">{title}</h2>
+          <span>{introduction}</span>
         </header>
         <ol ref={timelineRef} className={styles.timeline}>
           <li className={styles.track} aria-hidden="true"><span ref={progressRef} /></li>

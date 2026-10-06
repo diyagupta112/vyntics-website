@@ -11,6 +11,15 @@ export type InnerServiceDetailContent = {
   eyebrow: string;
   title: string;
   introduction: string;
+  aboutEyebrow?: string;
+  processEyebrow?: string;
+  processTitle?: string;
+  processIntroduction?: string;
+  technologyEyebrow?: string;
+  technologyTitle?: string;
+  contactEyebrow?: string;
+  contactTitle?: string;
+  contactIntroduction?: string;
   promise: string;
   promiseDetail: string;
   deliverables: ReadonlyArray<{ title: string; description: string }>;
@@ -45,7 +54,7 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
       <section className={styles.about} aria-labelledby="about-title">
         <Container className={styles.aboutGrid}>
           <div className={styles.splitHeading}>
-            <p className={styles.label}>About the service</p>
+            <p className={styles.label}>{service.aboutEyebrow ?? "About the service"}</p>
             <div>
               <h2 id="about-title">{service.promise}</h2>
               <p>{service.promiseDetail}</p>
@@ -63,14 +72,14 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
         </Container>
       </section>
 
-      <ServiceApproach steps={service.process} />
+      <ServiceApproach steps={service.process} eyebrow={service.processEyebrow} title={service.processTitle} introduction={service.processIntroduction} />
 
-      <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} />
+      <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} eyebrow={service.technologyEyebrow} title={service.technologyTitle} />
 
       <ContactCta
-        eyebrow={`${service.name} consultation`}
-        title={`Let's make ${service.name} work for your business.`}
-        intro={`Tell us what you need from ${service.name}. We’ll review the current process, identify the practical next step, and explain how we can help.`}
+        eyebrow={service.contactEyebrow ?? `${service.name} consultation`}
+        title={service.contactTitle ?? `Let's make ${service.name} work for your business.`}
+        intro={service.contactIntroduction ?? `Tell us what you need from ${service.name}. We’ll review the current process, identify the practical next step, and explain how we can help.`}
       />
     </>
   );

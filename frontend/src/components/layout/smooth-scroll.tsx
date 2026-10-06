@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
-import type { ScrollSmoother as ScrollSmootherInstance } from "gsap/ScrollSmoother";
 import styles from "./smooth-scroll.module.css";
 
 type SmoothScrollProps = {
@@ -11,56 +10,8 @@ type SmoothScrollProps = {
 
 export function SmoothScroll({ children }: SmoothScrollProps) {
   const pathname = usePathname();
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const smootherRef = useRef<ScrollSmootherInstance | null>(null);
-
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const content = contentRef.current;
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    // Scroll-driven pinned panels need native page coordinates on this route.
-    if (!wrapper || !content || reduceMotion.matches || pathname === "/technologies") return;
-
-    let cancelled = false;
-
-    void Promise.all([
-      import("gsap"),
-      import("gsap/ScrollTrigger"),
-      import("gsap/ScrollSmoother"),
-    ]).then(([gsapModule, scrollTriggerModule, scrollSmootherModule]) => {
-      if (cancelled) return;
-
-      const { gsap } = gsapModule;
-      const { ScrollTrigger } = scrollTriggerModule;
-      const { ScrollSmoother } = scrollSmootherModule;
-
-      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
-      smootherRef.current = ScrollSmoother.create({
-        wrapper,
-        content,
-        smooth: 0.7,
-        smoothTouch: false,
-      });
-    });
-
-    return () => {
-      cancelled = true;
-      smootherRef.current?.kill();
-      smootherRef.current = null;
-    };
-  }, [pathname]);
-
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      smootherRef.current?.scrollTrigger.refresh();
-    });
-
-    return () => window.cancelAnimationFrame(frame);
-  }, [pathname]);
-
+  // Keep the shared layout in normal document flow. Only intentional anchor
+  // navigation is smoothed; wheel, touch and keyboard scrolling remain native.
   useEffect(() => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -87,12 +38,7 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
         return;
       }
 
-      const smoother = smootherRef.current;
-      if (smoother) {
-        smoother.scrollTo(target, true, "top 80px");
-      } else {
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
     };
 
     document.addEventListener("click", handleAnchorClick);
@@ -100,8 +46,8 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
   }, [pathname]);
 
   return (
-    <div className={styles.wrapper} id="smooth-wrapper" ref={wrapperRef}>
-      <div className={styles.content} id="smooth-content" ref={contentRef}>
+    <div className={styles.wrapper} id="smooth-wrapper">
+      <div className={styles.content} id="smooth-content">
         {children}
       </div>
     </div>
