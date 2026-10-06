@@ -1,3 +1,5 @@
+import { YOUTUBE_VIDEO_ID, youtubeVideoId } from "./youtube-video";
+
 export type BlogContentNode = {
   type: string;
   text?: string;
@@ -6,13 +8,18 @@ export type BlogContentNode = {
   content?: BlogContentNode[];
 };
 
+export type YouTubeVideoBlock = BlogContentNode & {
+  type: "video";
+  attrs: { provider: "youtube"; video_id: string };
+};
+
 export const EMPTY_BLOG_DOCUMENT: BlogContentNode = {
   type: "doc",
   content: [{ type: "paragraph" }],
 };
 
 const supportedNodes = new Set([
-  "doc", "paragraph", "heading", "text", "bulletList", "orderedList", "listItem", "hardBreak",
+  "doc", "paragraph", "heading", "text", "bulletList", "orderedList", "listItem", "hardBreak", "video",
 ]);
 const supportedMarks = new Set(["bold", "italic", "link"]);
 
@@ -24,6 +31,25 @@ function normalizeNode(value: unknown, path = "content"): BlogContentNode {
   const source = value as Record<string, unknown>;
   if (typeof source.type !== "string" || !supportedNodes.has(source.type)) {
     throw new Error(path + " uses an unsupported content type.");
+  }
+
+  if (source.type === "video") {
+    const attrs = source.attrs;
+    if (Object.keys(source).some((key) => !["type", "attrs"].includes(key)) ||
+        !attrs || typeof attrs !== "object" || Array.isArray(attrs)) {
+      throw new Error(path + " must be a YouTube video leaf node with type and attrs only.");
+    }
+    const video = attrs as Record<string, unknown>;
+    if (video.provider !== "youtube" || Object.keys(video).some((key) => !["provider", "video_id", "url"].includes(key)) ||
+        (video.video_id !== undefined) === (video.url !== undefined)) {
+      throw new Error(path + " must contain a YouTube provider and exactly one video reference.");
+    }
+    const id = video.url !== undefined
+      ? youtubeVideoId(typeof video.url === "string" ? video.url : "")
+      : video.video_id;
+    if (typeof id !== "string" || !YOUTUBE_VIDEO_ID.test(id)) throw new Error(path + " contains an invalid YouTube video ID.");
+    const block: YouTubeVideoBlock = { type: "video", attrs: { provider: "youtube", video_id: id } };
+    return block;
   }
 
   const node: BlogContentNode = { type: source.type };
@@ -73,6 +99,7 @@ export function serializeBlogContent(document: BlogContentNode): string {
 }
 
 export function isBlogContentEmpty(document: BlogContentNode): boolean {
+  if (document.type === "video") return false;
   if (document.type === "text") return !document.text?.trim();
   return !document.content?.some((node) => !isBlogContentEmpty(node));
 }

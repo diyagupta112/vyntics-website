@@ -3,7 +3,7 @@ import test from "node:test";
 
 process.env.API_BASE_URL = "https://api.test";
 
-const { getCaseStudies, getCaseStudy, getPrimaryMedia } = await import("./case-studies.ts");
+const { getCaseStudies, getCaseStudy, getPrimaryMedia, getCaseStudyHeroMedia, withoutHeroVideo } = await import("./case-studies.ts");
 
 const summary = (index) => ({
   id: `00000000-0000-4000-8000-${String(index).padStart(12, "0")}`,
@@ -86,4 +86,42 @@ test("requires the backend featured flag rather than inventing a designation", a
   delete record.featured;
   globalThis.fetch = async () => new Response(JSON.stringify({ data: [record] }), { status: 200 });
   await assert.rejects(getCaseStudies(), /public contract/);
+});
+
+test("recognizes the editor's canonical YouTube reference before cover fallback", () => {
+  const study = { ...summary(1), content: { type: "doc", content: [
+    { type: "video", attrs: { provider: "youtube", video_id: "LhnCsygAvzY" } },
+  ] } };
+  assert.deepEqual(getPrimaryMedia(study), {
+    type: "video", provider: "youtube", videoId: "LhnCsygAvzY",
+    src: "https://www.youtube-nocookie.com/embed/LhnCsygAvzY",
+  });
+});
+
+test("invalid video references retain the cover fallback", () => {
+  const study = { ...summary(1), content: { type: "doc", content: [
+    { type: "video", attrs: { provider: "youtube", video_id: "../invalid" } },
+  ] } };
+  assert.equal(getPrimaryMedia(study).type, "image");
+  assert.equal(getPrimaryMedia(study).src, study.cover_image_url);
+});
+
+
+test("hero uses only structured video nodes, otherwise the cover", () => {
+  const study = { ...summary(1), content: { arbitrary: { src: "https://cdn.test/file.mp4" }, type: "doc", content: [{ type: "image", attrs: { src: "https://cdn.test/body.jpg" } }] } };
+  assert.equal(getCaseStudyHeroMedia(study).src, study.cover_image_url);
+});
+
+test("hero extraction omits only its video without mutating authored content", () => {
+  const content = { type: "doc", content: [
+    { type: "paragraph", content: [{ type: "text", text: "Before" }] },
+    { type: "video", attrs: { provider: "youtube", video_id: "LhnCsygAvzY" } },
+    { type: "heading", attrs: { level: 2 }, content: [{ type: "text", text: "After" }] },
+    { type: "video", attrs: { src: "https://cdn.test/another.mp4" } },
+  ] };
+  const original = JSON.stringify(content);
+  const media = getCaseStudyHeroMedia({ ...summary(1), content });
+  const body = withoutHeroVideo(content, media);
+  assert.deepEqual(body.content, [content.content[0], content.content[2], content.content[3]]);
+  assert.equal(JSON.stringify(content), original);
 });

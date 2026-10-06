@@ -155,6 +155,9 @@
 
 /* Case Studies reuses the form with a concise, compact invitation. */
 .section.caseStudies { min-height:0; padding-block:clamp(2.5rem,4vw,3.5rem); }
-.caseStudies .layout { gap:clamp(2rem,5vw,4rem); }
+.caseStudies .layout { align-items:start; gap:clamp(2rem,5vw,4rem); }
 .caseStudies .content h2 { max-width:20ch; margin-top:0; font-size:clamp(2rem,3.2vw,3rem); line-height:1.12; }
-.caseStudies .intro { max-width:30ch; margin-top:1.25rem; font-size:1rem; }
+.caseStudies .intro { max-width:43ch; margin-top:1.25rem; font-size:1rem; }
+.caseStudies .engagementSteps { margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--color-border); list-style:none; display:grid; gap:.8rem; color:var(--color-muted); font-size:.9rem; }
+.caseStudies .engagementSteps li { display:flex; align-items:center; gap:.65rem; }
+.caseStudies .engagementSteps li::before { content:""; width:.25rem; height:.25rem; flex-shrink:0; border-radius:50%; background:currentColor; }

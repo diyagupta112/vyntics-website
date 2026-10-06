@@ -1,10 +1,14 @@
+import { CaseStudyEntrances } from "./case-study-entrances";
+import { ConsultationLink } from "./consultation-link";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CaseStudyRelatedCard } from "@/components/sections/case-studies/case-study-related-card";
+import { CaseStudyStoryTimeline } from "@/components/sections/case-studies/case-study-story-timeline";
 import { CaseStudyContent } from "@/components/sections/case-studies/case-study-content";
 import { CaseStudyMedia } from "@/components/sections/case-studies/case-study-media";
 import { Container } from "@/components/ui/container";
-import { CaseStudyApiError, getCaseStudies, getCaseStudy, getPrimaryMedia } from "@/lib/case-studies";
+import { CaseStudyApiError, getCaseStudies, getCaseStudy, getCaseStudyHeroMedia, withoutHeroVideo } from "@/lib/case-studies";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
@@ -39,7 +43,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CaseStudyDetailPage({ params }: Props) {
   const study = await loadStudy((await params).slug);
-  const primaryMedia = getPrimaryMedia(study);
+  const primaryMedia = getCaseStudyHeroMedia(study);
+  const bodyContent = withoutHeroVideo(study.content, primaryMedia);
   let related: Awaited<ReturnType<typeof getCaseStudies>> = [];
 
   try {
@@ -50,62 +55,55 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
   return (
     <>
+      <CaseStudyEntrances slug={study.slug} />
       <article>
         <header className={styles.hero}>
           <Container>
             <Link className={styles.backLink} href="/case-studies">← All case studies</Link>
             <div className={styles.heroGrid}>
-              <div>
-                <p className={styles.eyebrow}>{study.tags.slice(0, 2).join(" · ") || "Case study"}</p>
-                <h1>{study.title}</h1>
-              </div>
+              <CaseStudyMedia media={primaryMedia} fallbackSrc={study.cover_image_url} title={study.title} priority className={styles.primaryMedia} />
               <div className={styles.heroSummary}>
-                <p>{study.excerpt}</p>
-                <dl><div><dt>Client</dt><dd>{study.client_name}</dd></div><div><dt>Focus</dt><dd>{study.tags.join(", ") || "Project delivery"}</dd></div></dl>
+                <h1 data-case-study-reveal="text">{study.title}</h1>
+                <p className={styles.description} data-case-study-reveal="text" data-case-study-delay="0.06">{study.excerpt}</p>
+                <dl>{study.client_name && <div data-case-study-reveal="text" data-case-study-delay="0.12"><dt>Client</dt><dd>{study.client_name}</dd></div>}{study.tags.length > 0 && <div data-case-study-reveal="text" data-case-study-delay="0.18"><dt>Focus</dt><dd className={styles.focusValue}>{study.tags.join(", ")}</dd></div>}</dl>
               </div>
             </div>
           </Container>
         </header>
 
-        <section className={styles.mediaSection} aria-label="Project media">
-          <Container><CaseStudyMedia media={primaryMedia} title={study.title} priority className={styles.primaryMedia} /></Container>
-        </section>
-
         <section className={styles.story} aria-labelledby="story-title">
           <Container className={styles.storyGrid}>
-            <aside className={styles.storyAside}>
-              <p className={styles.eyebrow}>Project story</p>
-              <h2 id="story-title">From the challenge to the result.</h2>
-              <p>The following account is drawn directly from the published project record.</p>
-            </aside>
-            <CaseStudyContent content={study.content} />
+            <CaseStudyStoryTimeline slug={study.slug} title={study.title} technology={study.tech_stack.length > 0 ? (
+              <div className={styles.technology} data-case-study-reveal="text">
+                <h2>Technology</h2>
+                <ul>{study.tech_stack.map((item) => <li key={item}>{item}</li>)}</ul>
+              </div>
+            ) : null}>
+              <CaseStudyContent content={bodyContent} />
+            </CaseStudyStoryTimeline>
           </Container>
         </section>
-
-        {study.tech_stack.length > 0 && (
-          <section className={styles.technology} aria-labelledby="technology-title">
-            <Container className={styles.technologyGrid}>
-              <div><p className={styles.eyebrow}>Technology</p><h2 id="technology-title">The tools behind the system.</h2></div>
-              <ul>{study.tech_stack.map((item) => <li key={item}>{item}</li>)}</ul>
-            </Container>
-          </section>
-        )}
+        <section className={styles.consultation} aria-labelledby="consultation-title">
+          <Container className={styles.consultationInner}>
+            <div data-case-study-reveal="text">
+              <h2 id="consultation-title">Have a similar business requirement?</h2>
+              <p>Talk to our team and explore how we can help you solve it.</p>
+            </div>
+            <ConsultationLink>Consult our team <ArrowIcon /></ConsultationLink>
+          </Container>
+        </section>
       </article>
 
       <section className={styles.related} aria-labelledby="related-title">
         <Container>
-          <div className={styles.relatedHeading}>
+          <div className={styles.relatedHeading} data-case-study-reveal="text">
             <div><p className={styles.eyebrow}>Continue exploring</p><h2 id="related-title">More work from Vyntics.</h2></div>
             <Link href="/case-studies">View all work <ArrowIcon /></Link>
           </div>
           {related.length > 0 ? (
-            <div className={styles.relatedGrid}>
+            <div className={styles.relatedGrid} data-case-study-reveal="cards">
               {related.map((item) => (
-                <Link href={`/case-studies/${encodeURIComponent(item.slug)}`} className={styles.relatedCard} key={item.id}>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={item.cover_image_url} alt={`${item.title} project cover`} loading="lazy" width="1280" height="853" />
-                  <div><p>{item.tags.slice(0, 2).join(" · ")}</p><h3>{item.title}</h3><span>Read case study <ArrowIcon /></span></div>
-                </Link>
+                <CaseStudyRelatedCard study={item} key={item.id} />
               ))}
             </div>
           ) : (
@@ -116,20 +114,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
         </Container>
       </section>
 
-      <section className={styles.nextSteps} aria-labelledby="next-step-title">
-        <Container className={styles.nextStepGrid}>
-          <div className={styles.serviceStep}>
-            <p className={styles.eyebrow}>Understand our approach</p>
-            <h2 id="next-step-title">See the services behind the work.</h2>
-            <Link href="/#services">Explore our services <ArrowIcon /></Link>
-          </div>
-          <div className={styles.contactStep}>
-            <p className={styles.eyebrow}>Have a similar challenge?</p>
-            <h2>Start with the problem. We&apos;ll work through what it needs.</h2>
-            <Link href="/#contact">Talk to Vyntics <ArrowIcon /></Link>
-          </div>
-        </Container>
-      </section>
+
     </>
   );
 }

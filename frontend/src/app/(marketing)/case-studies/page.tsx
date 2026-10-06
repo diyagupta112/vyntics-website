@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { ContactCta } from "@/components/sections/home/contact-cta";
-import { getCaseStudies, getCaseStudy, getPrimaryMedia, type CaseStudyListItem } from "@/lib/case-studies";
+import { CaseStudyCover } from "@/components/sections/case-studies/case-study-cover";
+import { getCaseStudies, getCaseStudy, getCaseStudyHeroMedia, type CaseStudyListItem } from "@/lib/case-studies";
 import { FeaturedCaseStudyCarousel } from "./case-studies-showcase";
 import styles from "./page.module.css";
 
@@ -20,8 +21,7 @@ function StudyCard({ study }: { study: CaseStudyListItem }) {
   return (
     <Link className={styles.otherCard} href={`/case-studies/${encodeURIComponent(study.slug)}`}>
       <div className={styles.otherMedia}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={study.cover_image_url} alt={`${study.title} project cover`} loading="lazy" width="960" height="540" />
+        <CaseStudyCover src={study.cover_image_url} title={study.title} />
       </div>
       <div className={styles.otherCopy}>
         <p>{[study.client_name, ...study.tags.slice(0, 2)].filter(Boolean).join(" · ")}</p>
@@ -36,35 +36,42 @@ function StudyCard({ study }: { study: CaseStudyListItem }) {
 export default async function CaseStudiesPage() {
   const studies = await getCaseStudies();
   const featured = studies.filter((study) => study.featured === true);
-  const remaining = studies.filter((study) => study.featured === false);
-  const showcased = await Promise.all(featured.map(async (study) => ({ ...study, media: getPrimaryMedia(await getCaseStudy(study.slug)) })));
-  const cover = featured[0] ?? studies[0];
+  const showcased = await Promise.all(featured.map(async (study) => ({ ...study, media: getCaseStudyHeroMedia(await getCaseStudy(study.slug)) })));
 
   return (
     <>
       <section className={styles.hero} aria-labelledby="case-studies-title">
-        {cover && <div className={styles.heroCarousel} aria-hidden="true">
+        <div className={styles.heroCarousel} aria-hidden="true">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.heroImage} src={cover.cover_image_url} alt="" fetchPriority="high" />
-        </div>}
+          <img className={styles.heroImage} src="/images/case-studies/4.jpg" alt="" fetchPriority="high" />
+        </div>
         <div className={styles.heroShade} aria-hidden="true" />
         <Container className={styles.heroInner}>
           <p className={styles.eyebrow}>Case studies</p>
-          <h1 id="case-studies-title">Problems solved.<br />Products delivered.</h1>
-          <p className={styles.heroLead}>Explore real client challenges and the products, data systems, and automation we build to solve them.</p>
+          <h1 id="case-studies-title">Real challenges transformed into production-grade systems.</h1>
+          <p className={styles.heroLead}>A look inside the custom architectures, software, and infrastructure we engineer to solve critical business problems.</p>
           <a className={styles.heroAction} href="#featured-case-studies">View Case Studies <ArrowIcon /></a>
         </Container>
       </section>
+      <div className={styles.workIntro}>
+        <Container>
+          <div className={styles.workIntroContent}>
+          <p className={styles.eyebrow}>Our work</p>
+          <h2>Problems we&apos;ve helped solve.</h2>
+          <p className={styles.workIntroCopy}>Every enterprise challenge demands a tailored approach, but the objective remains constant: turning operational friction into reliable, scalable systems. We partner directly with client teams to engineer the custom infrastructure, software, and intelligence required to support long-term growth.</p>
+          </div>
+        </Container>
+      </div>
       <section id="featured-case-studies" className={styles.featuredSection} aria-labelledby="featured-title">
         <Container>
-          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Selected work</p><h2 id="featured-title">Featured Case Studies</h2></div><p>A closer look at selected problems we’ve helped our clients solve.</p></div>
+          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Selected work</p><h2 id="featured-title">Featured Case Studies</h2></div></div>
           {featured.length > 0 ? <FeaturedCaseStudyCarousel studies={showcased} /> : <p className={styles.otherEmpty}>{studies.length ? "Explore our published work below." : "No case studies available yet."}</p>}
         </Container>
       </section>
       <section className={styles.otherSection} aria-labelledby="more-title">
         <Container>
-          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Explore further</p><h2 id="more-title">More Case Studies</h2></div><p>More work across technology, data, and business operations.</p></div>
-          {remaining.length > 0 ? <div className={styles.otherGrid}>{remaining.map(study => <StudyCard study={study} key={study.id} />)}</div> : <p className={styles.otherEmpty}>{studies.length ? "All currently published work is featured above." : "No case studies available yet."}</p>}
+          <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Explore further</p><h2 id="more-title">All Case Studies</h2></div></div>
+          {studies.length > 0 ? <div className={styles.otherGrid}>{studies.map(study => <StudyCard study={study} key={study.id} />)}</div> : <p className={styles.otherEmpty}>No case studies available yet.</p>}
         </Container>
       </section>
       <ContactCta variant="case-studies" />

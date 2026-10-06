@@ -55,7 +55,12 @@ export function ContactCta({ variant = "default" }: { variant?: "default" | "cas
           {isCaseStudies ? (
             <>
               <h2 id="contact-title">Have a similar problem?<br />Let&apos;s solve it together.</h2>
-              <p className={styles.intro}>Talk to our experts and find a practical way forward.</p>
+              <p className={styles.intro}>Talk to our experts and find a practical way forward. We can help turn your business or technical challenge into a solution that fits your team and how you work.</p>
+              <ul className={styles.engagementSteps} aria-label="How we can help">
+                <li>Understand the problem</li>
+                <li>Design the right solution</li>
+                <li>Build and move it forward</li>
+              </ul>
             </>
           ) : (
             <>

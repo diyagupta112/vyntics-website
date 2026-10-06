@@ -1,0 +1,27 @@
+.layout { display:grid; grid-template-columns:minmax(0,.35fr) minmax(0,.65fr); gap:clamp(2rem,4vw,3rem); align-items:start; }
+.timeline { position:sticky; top:7rem; min-width:0; }
+.label { color:var(--color-muted); font-size:.7rem; font-weight:760; letter-spacing:.17em; text-transform:uppercase; }
+.timeline ol { list-style:none; margin-top:2.5rem; }
+.timeline li { position:relative; padding-bottom:clamp(4.5rem,8vh,7rem); }
+.timeline li:last-child { padding-bottom:0; }
+.track { position:absolute; pointer-events:none; left:.4375rem; top:var(--track-top,1rem); height:var(--track-height,0px); width:2px; background:var(--color-border); }
+.track > span { display:block; width:100%; height:100%; background:var(--color-foreground); transform:scaleY(var(--progress,0)); transform-origin:top; transition:transform 100ms linear; }
+.timeline button { position:relative; display:flex; align-items:baseline; gap:1.1rem; width:100%; padding:.2rem 0; background:none; border:0; text-align:left; color:var(--color-muted); font:inherit; font-size:clamp(1.3125rem,1.8vw,1.5rem); font-weight:500; line-height:1.45; cursor:pointer; transition:color 250ms ease; overflow-wrap:anywhere; }
+.marker { position:relative; z-index:1; flex-shrink:0; width:1rem; height:1rem; border:1px solid var(--color-border); border-radius:50%; background:var(--color-background); transition:background-color 250ms ease,border-color 250ms ease; }
+.active button { color:var(--color-foreground); font-size:clamp(1.4375rem,2vw,1.625rem); font-weight:600; }
+.active .marker { background:var(--color-foreground); border-color:var(--color-foreground); }
+.completed .marker { border-color:var(--color-foreground); background:var(--color-foreground); }
+.timeline button:focus-visible { outline:3px solid var(--color-foreground); outline-offset:4px; border-radius:.2rem; }
+.content { min-width:0; max-width:52rem; }
+/* The heading box stays stationary while its words receive entrance motion. */
+.content .sectionAnchor { scroll-margin-top:7rem; }
+@media(max-width:860px) { .layout { grid-template-columns:1fr; gap:2rem; } .timeline { position:static; } .timeline ol { margin-top:1.5rem; } .timeline li { padding-bottom:1.25rem; } .timeline button { font-size:1.125rem; gap:.9rem; } .active button { font-size:1.25rem; } }
+@media(prefers-reduced-motion:reduce) { .timeline button,.marker,.track > span { transition:none; } }
+
+/* Absolute H2-range rails emphasize the active authored group without changing flow. */
+.authoredBody { position:relative; }
+.sectionRails { position:absolute; inset:0; pointer-events:none; }
+.sectionRails > span { position:absolute; left:-1rem; width:2px; background:transparent; transition:background-color 250ms ease; }
+.sectionRails > .activeSection { background:color-mix(in srgb,var(--color-foreground) 25%,transparent); }
+@media(max-width:860px) { .sectionRails > span { left:-.5rem; } }
+@media(prefers-reduced-motion:reduce) { .sectionRails > span { transition:none; } }

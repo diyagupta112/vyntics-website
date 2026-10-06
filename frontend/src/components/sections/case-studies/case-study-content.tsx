@@ -1,37 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import type { ReactNode } from "react";
+import { createElement, type ReactNode } from "react";
 import type { JsonObject, JsonValue } from "@/lib/case-studies";
 import styles from "./case-study-content.module.css";
 
 const reservedKeys = new Set(["attrs", "caption", "content", "items", "level", "marks", "text", "type"]);
-const sectionTitles: Record<string, string> = {
-  hero: "Project overview",
-  sections: "Project story",
-  challenge: "The challenge",
-  problem: "The challenge",
-  context: "The context",
-  approach: "The approach",
-  solution: "The solution",
-  implementation: "The implementation",
-  outcome: "The outcome",
-  outcomes: "The outcomes",
-  result: "The result",
-  results: "The results",
-};
-
-const sectionOrder: Record<string, number> = {
-  context: 0,
-  challenge: 1,
-  problem: 1,
-  approach: 2,
-  solution: 3,
-  implementation: 4,
-  outcome: 5,
-  outcomes: 5,
-  result: 5,
-  results: 5,
-};
-
 function isObject(value: JsonValue): value is JsonObject {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -56,23 +28,6 @@ function textFromNode(value: JsonValue): string {
     .filter(([key]) => !reservedKeys.has(key))
     .map(([, nested]) => textFromNode(nested))
     .join(" ");
-}
-
-function hasRenderableContent(value: JsonValue): boolean {
-  if (typeof value === "string") return value.trim().length > 0;
-  if (typeof value === "number") return true;
-  if (value === null || typeof value === "boolean") return false;
-  if (Array.isArray(value)) return value.some(hasRenderableContent);
-
-  const attrs = isObject(value.attrs) ? value.attrs : value;
-  const type = typeof value.type === "string" ? value.type : "";
-  if (type === "image" || type === "video") {
-    return Boolean(safeUrl(attrs.src ?? attrs.url ?? attrs.image_url ?? attrs.imageUrl ?? value.video_url ?? value.videoUrl));
-  }
-  if (typeof value.text === "string" && value.text.trim()) return true;
-  return Object.entries(value)
-    .filter(([key]) => !reservedKeys.has(key))
-    .some(([, nested]) => hasRenderableContent(nested));
 }
 
 function markedText(value: JsonObject, key: string): ReactNode {
@@ -115,7 +70,8 @@ function renderNode(value: JsonValue, key: string): ReactNode {
     const levelValue = attrs.level ?? value.level;
     const level = typeof levelValue === "number" ? levelValue : 3;
     const headingText = children.length ? children : textFromNode(value);
-    return level <= 3 ? <h3 key={key}>{headingText}</h3> : <h4 key={key}>{headingText}</h4>;
+    const headingLevel = Math.max(1, Math.min(6, Math.trunc(level)));
+    return createElement(`h${headingLevel}`, { key }, headingText);
   }
   if (["bulletList", "bullet_list", "unorderedList"].includes(type)) return <ul key={key}>{children}</ul>;
   if (["orderedList", "ordered_list"].includes(type)) return <ol key={key}>{children}</ol>;
@@ -155,30 +111,8 @@ function renderNode(value: JsonValue, key: string): ReactNode {
   return nested.length ? nested : null;
 }
 
-function titleFromKey(key: string) {
-  return sectionTitles[key.toLowerCase()] ?? key.replace(/[_-]+/g, " ").replace(/^./, (letter) => letter.toUpperCase());
-}
-
 export function CaseStudyContent({ content }: { content: JsonObject }) {
-  if (typeof content.type === "string" || Array.isArray(content.content)) {
-    return <div className={styles.prose}>{renderNode(content, "document")}</div>;
-  }
-
-  const sections = Object.entries(content)
-    .filter(([key, value]) => !reservedKeys.has(key) && hasRenderableContent(value))
-    .sort(([left], [right]) => (sectionOrder[left.toLowerCase()] ?? 50) - (sectionOrder[right.toLowerCase()] ?? 50));
-
-  return (
-    <div className={styles.sections}>
-      {sections.map(([key, value], index) => (
-        <section className={styles.storySection} key={key} aria-labelledby={`story-${index}`}>
-          <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-          <div>
-            <h2 id={`story-${index}`}>{titleFromKey(key)}</h2>
-            <div className={styles.prose}>{renderNode(value, key)}</div>
-          </div>
-        </section>
-      ))}
-    </div>
-  );
+  // Render authored nodes in their original order; object keys are never
+  // interpreted as required sections, labels, or outcome fields.
+  return <div className={styles.prose}>{renderNode(content, "document")}</div>;
 }

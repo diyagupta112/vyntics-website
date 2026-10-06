@@ -40,6 +40,8 @@ export type CaseStudyMedia = {
   src: string;
   alt?: string;
   poster?: string;
+  provider?: "youtube";
+  videoId?: string;
 };
 
 export class CaseStudyApiError extends Error {
@@ -148,6 +150,9 @@ function findMedia(value: JsonValue, wanted: CaseStudyMedia["type"]): CaseStudyM
 
   const attrs = isRecord(value.attrs) ? value.attrs : value;
   const type = typeof value.type === "string" ? value.type.toLowerCase() : "";
+  if (wanted === "video" && type === "video" && attrs.provider === "youtube" && typeof attrs.video_id === "string" && /^[A-Za-z0-9_-]{11}$/.test(attrs.video_id)) {
+    return { type: "video", provider: "youtube", videoId: attrs.video_id, src: `https://www.youtube-nocookie.com/embed/${attrs.video_id}` };
+  }
   const src = safeMediaUrl(
     attrs.src ??
       attrs.url ??
@@ -156,7 +161,7 @@ function findMedia(value: JsonValue, wanted: CaseStudyMedia["type"]): CaseStudyM
       value.video_url ??
       value.videoUrl,
   );
-  if (wanted === "video" && src && (type === "video" || /\.(mp4|webm|mov)(\?|$)/i.test(src))) {
+  if (wanted === "video" && src && type === "video") {
     return {
       type: "video",
       src,
@@ -191,4 +196,28 @@ export function getPrimaryMedia(study: CaseStudyDetail): CaseStudyMedia {
 
 export function uniqueValues(studies: CaseStudyListItem[], key: "tags" | "tech_stack") {
   return [...new Set(studies.flatMap((study) => study[key]).filter(Boolean))];
+}
+
+export function getCaseStudyHeroMedia(study: CaseStudyDetail): CaseStudyMedia {
+  return findMedia(study.content, "video") ?? { type: "image", src: study.cover_image_url, alt: `${study.title} project cover` };
+}
+
+export function withoutHeroVideo(content: JsonObject, media: CaseStudyMedia): JsonObject {
+  if (media.type !== "video") return content;
+  function visit(value: JsonValue): JsonValue | undefined {
+    if (Array.isArray(value)) return value.flatMap(item => {
+      const result = visit(item);
+      return result === undefined ? [] : [result];
+    });
+    if (!isRecord(value)) return value;
+    if (value.type === "video") {
+      const candidate = findMedia(value as JsonObject, "video");
+      if (candidate?.src === media.src) return undefined;
+    }
+    return Object.fromEntries(Object.entries(value).flatMap(([key, nested]) => {
+      const result = visit(nested as JsonValue);
+      return result === undefined ? [] : [[key, result]];
+    })) as JsonObject;
+  }
+  return (visit(content) ?? {}) as JsonObject;
 }

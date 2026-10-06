@@ -85,3 +85,19 @@
   .group { border-right: 0; padding-right: 0; }
   .surface { min-height: 16rem; padding: var(--space-4); }
 }
+
+.videoBlock { border: 1px solid var(--color-gray-200); border-radius: var(--radius-control); margin: var(--space-4) 0; max-width: 100%; overflow: hidden; }
+.videoBlock[data-selected] { outline: var(--focus-ring); }
+.videoHeading { align-items: center; background: var(--color-gray-50); display: flex; flex-wrap: wrap; font-size: var(--font-size-sm); gap: var(--space-2); justify-content: space-between; padding: var(--space-2) var(--space-3); }
+.videoActions { align-items: center; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.videoHeading button { background: var(--color-white); border: 1px solid var(--color-gray-300); border-radius: var(--radius-control); cursor: pointer; font-size: var(--font-size-xs); padding: var(--space-1) var(--space-2); }
+.videoHeading button:hover { background: var(--color-gray-100); }
+.videoHeading button:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+.videoFrame { aspect-ratio: 16 / 9; width: 100%; }
+.videoFrame iframe { border: 0; display: block; height: 100%; width: 100%; }
+.videoBackdrop { align-items: center; background: rgb(0 0 0 / 50%); display: flex; inset: 0; justify-content: center; padding: var(--space-4); position: fixed; z-index: 60; }
+.videoDialog { background: var(--color-white); border-radius: var(--radius-card); display: grid; gap: var(--space-3); max-height: calc(100dvh - 2 * var(--space-4)); max-width: 28rem; overflow-y: auto; padding: var(--space-5); width: 100%; }
+.videoDialog h2 { font-size: var(--font-size-section-title); }
+.videoDialog label { font-size: var(--font-size-sm); font-weight: 600; }
+.videoDialog .videoActions { justify-content: flex-end; }
+.videoHint { color: var(--color-gray-500); font-size: var(--font-size-sm); }

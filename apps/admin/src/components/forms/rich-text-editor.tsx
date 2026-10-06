@@ -2,7 +2,7 @@
 
 import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import {
   deserializeBlogContent,
@@ -10,6 +10,8 @@ import {
   serializeBlogContent,
   type BlogContentNode,
 } from "./blog-content";
+import { YouTubeVideoNode } from "./youtube-video-node";
+import { VideoUrlDialog } from "./video-url-dialog";
 import styles from "./rich-text-editor.module.css";
 
 type Props = {
@@ -21,7 +23,7 @@ type Props = {
   invalid?: boolean;
 };
 
-export function createBlogEditorExtensions() { return [
+export function createBlogEditorExtensions(onVideoEdit?: () => void) { return [
   StarterKit.configure({
     blockquote: false,
     code: false,
@@ -32,6 +34,7 @@ export function createBlogEditorExtensions() { return [
     strike: false,
     underline: false,
   }),
+  YouTubeVideoNode.configure({ onEdit: onVideoEdit }),
 ]; }
 
 type ToolbarButtonProps = {
@@ -59,6 +62,7 @@ function ToolbarButton({ label, pressed, disabled, onRun, children }: ToolbarBut
 }
 
 export function RichTextEditor({ editorLabel = "Blog content editor", id, resourceName = "Blog", value, onChange, invalid = false }: Props) {
+  const [videoOpen, setVideoOpen] = useState(false);
   const initial = useMemo(() => {
     try {
       return { content: deserializeBlogContent(value), error: undefined };
@@ -70,7 +74,7 @@ export function RichTextEditor({ editorLabel = "Blog content editor", id, resour
     }
   }, [resourceName, value]);
 
-  const editorExtensions = useMemo(() => createBlogEditorExtensions(), []);
+  const editorExtensions = useMemo(() => createBlogEditorExtensions(() => setVideoOpen(true)), []);
   const editor = useEditor({
     extensions: editorExtensions,
     content: initial.content,
@@ -143,6 +147,7 @@ export function RichTextEditor({ editorLabel = "Blog content editor", id, resour
         <div className={styles.group}>
           <ToolbarButton label="Bold" onRun={() => editor.chain().focus().toggleBold().run()} pressed={state?.bold}><strong>B</strong></ToolbarButton>
           <ToolbarButton label="Italic" onRun={() => editor.chain().focus().toggleItalic().run()} pressed={state?.italic}><em>I</em></ToolbarButton>
+          <ToolbarButton label="Video" onRun={() => setVideoOpen(true)}>Video</ToolbarButton>
           <ToolbarButton label="Edit link" onRun={editLink} pressed={state?.link}>Link</ToolbarButton>
         </div>
         <div className={styles.group}>
@@ -155,6 +160,7 @@ export function RichTextEditor({ editorLabel = "Blog content editor", id, resour
         </div>
       </div>
       <EditorContent className={styles.content} editor={editor} />
+      {videoOpen ? <VideoUrlDialog editor={editor} onClose={() => setVideoOpen(false)} /> : null}
     </div>
   );
 }

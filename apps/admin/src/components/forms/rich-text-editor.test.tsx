@@ -1,6 +1,6 @@
 import { Editor } from "@tiptap/core";
-import { render, screen } from "@testing-library/react";
-import { vi } from "vitest";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { beforeAll, vi } from "vitest";
 
 import {
   deserializeBlogContent,
@@ -9,6 +9,17 @@ import {
   type BlogContentNode,
 } from "./blog-content";
 import { createBlogEditorExtensions, RichTextEditor } from "./rich-text-editor";
+
+// jsdom has no layout geometry for text ranges; ProseMirror reads it when
+// asynchronously scrolling the restored cursor into view after dialog insertion.
+beforeAll(() => {
+  if (!Range.prototype.getClientRects) {
+    Object.defineProperty(Range.prototype, "getClientRects", { configurable: true, value: () => [] });
+  }
+  if (!Range.prototype.getBoundingClientRect) {
+    Object.defineProperty(Range.prototype, "getBoundingClientRect", { configurable: true, value: () => new DOMRect() });
+  }
+});
 
 function createEditor(content: BlogContentNode) {
   return new Editor({ content, extensions: createBlogEditorExtensions() });
@@ -153,7 +164,7 @@ describe("Blog rich-text document model", () => {
     render(<RichTextEditor id="content" onChange={vi.fn()} value={serializeBlogContent({ type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: "Existing body" }] }] })} />);
     expect(await screen.findByRole("textbox", { name: "Blog content editor" })).toHaveTextContent("Existing body");
     expect(screen.getByRole("toolbar", { name: "Content formatting" })).toBeInTheDocument();
-    for (const name of ["Paragraph", "Heading 1", "Heading 2", "Heading 3", "Bold", "Italic", "Edit link", "Bulleted list", "Numbered list", "Undo", "Redo"]) {
+    for (const name of ["Paragraph", "Heading 1", "Heading 2", "Heading 3", "Bold", "Italic", "Edit link", "Bulleted list", "Numbered list", "Video", "Undo", "Redo"]) {
       expect(screen.getByRole("button", { name })).toBeInTheDocument();
     }
   });
@@ -162,5 +173,113 @@ describe("Blog rich-text document model", () => {
     render(<RichTextEditor id="content" onChange={vi.fn()} value={JSON.stringify({ type: "doc", content: [{ type: "image" }] })} />);
     expect(screen.getByRole("alert")).toHaveTextContent(/cannot be edited safely/i);
     expect(screen.queryByRole("textbox", { name: "Blog content editor" })).not.toBeInTheDocument();
+  });
+});
+
+
+describe("YouTube editor blocks", () => {
+  const video = { type: "video", attrs: { provider: "youtube", video_id: "dQw4w9WgXcQ" } };
+  const before = { type: "paragraph", content: [{ type: "text", text: "Before" }] };
+  const after = { type: "paragraph", content: [{ type: "text", text: "After" }] };
+
+  it("inserts a block at the current position, preserves paragraphs, and supports undo/redo and deletion", () => {
+    const editor = createEditor({ type: "doc", content: [before, after] });
+    editor.commands.setTextSelection(8);
+    editor.commands.insertContent(video);
+    const json = editor.getJSON();
+    expect(json.content).toEqual([before, video, after]);
+    expect(JSON.parse(serializeBlogContent(json as BlogContentNode))).toEqual(json);
+    editor.commands.undo();
+    expect(editor.getJSON().content).toEqual([before, after]);
+    editor.commands.redo();
+    expect(editor.getJSON().content).toEqual([before, video, after]);
+    editor.commands.setNodeSelection(8);
+    editor.commands.deleteSelection();
+    expect(editor.getJSON().content).toEqual([before, after]);
+    editor.destroy();
+  });
+
+  it("preserves an existing video through unrelated text edits and reload", () => {
+    const editor = createEditor(deserializeBlogContent({ type: "doc", content: [before, video, after] }));
+    editor.commands.setTextSelection({ from: 1, to: 7 });
+    editor.commands.toggleBold();
+    const serialized = serializeBlogContent(editor.getJSON() as BlogContentNode);
+    const restored = createEditor(deserializeBlogContent(serialized));
+    expect(restored.getJSON().content?.[1]).toEqual(video);
+    expect(restored.getJSON().content?.[0]?.content?.[0]?.marks).toEqual([{ type: "bold" }]);
+    expect(restored.getJSON().content?.[2]).toEqual(after);
+    editor.destroy();
+    restored.destroy();
+  });
+
+  it("allows typing before and after a video and creating a paragraph at its end", () => {
+    const editor = createEditor({ type: "doc", content: [before, video, after] });
+    editor.commands.setTextSelection(7);
+    editor.commands.insertContent(" text");
+    editor.commands.focus("end");
+    editor.commands.insertContent(" text");
+    expect(editor.getJSON().content?.[1]).toEqual(video);
+    expect(editor.getJSON().content?.[0]?.content?.[0]).toMatchObject({ type: "text", text: "Before text" });
+    expect(editor.getJSON().content?.[2]?.content?.[0]).toMatchObject({ type: "text", text: "After text" });
+    editor.commands.focus("end");
+    editor.commands.insertContent(video);
+    editor.commands.createParagraphNear();
+    editor.commands.focus("end");
+    editor.commands.insertContent("Continue typing");
+    expect(editor.getJSON().content?.at(-1)?.type).toBe("paragraph");
+    expect(editor.getText()).toContain("Continue typing");
+    editor.destroy();
+  });
+
+  it.each(["Blog", "Case Study"])("loads and edits existing videos in the %s editor", async (resource) => {
+    const onChange = vi.fn();
+    render(<RichTextEditor id="video-content" resourceName={resource} editorLabel={`${resource} content editor`} onChange={onChange} value={JSON.stringify({ type: "doc", content: [before, video, after] })} />);
+    await screen.findByRole("textbox", { name: `${resource} content editor` });
+    const iframe = document.querySelector("iframe");
+    expect(iframe).toHaveAttribute("src", "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ");
+    fireEvent.click(screen.getByRole("button", { name: "Edit video" }));
+    const dialog = await screen.findByRole("dialog", { name: "Edit Video" });
+    expect(within(dialog).getByLabelText("YouTube video URL")).toHaveValue("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    fireEvent.change(within(dialog).getByLabelText("YouTube video URL"), { target: { value: "https://youtu.be/9bZkp7q19f0" } });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Save Video" }));
+    await waitFor(() => expect(onChange).toHaveBeenCalled());
+    expect(JSON.parse(onChange.mock.lastCall![0]).content).toEqual([before, { type: "video", attrs: { provider: "youtube", video_id: "9bZkp7q19f0" } }, after]);
+    fireEvent.click(screen.getByRole("button", { name: "Remove video" }));
+    expect(JSON.parse(onChange.mock.lastCall![0]).content).toEqual([before, after]);
+  });
+
+  it.each(["", "https://example.com/video", '<iframe src="https://youtube.com/embed/dQw4w9WgXcQ"></iframe>'])("keeps the dialog open for invalid URL %s", async (url) => {
+    const onChange = vi.fn();
+    render(<RichTextEditor id="content" onChange={onChange} value={JSON.stringify({ type: "doc", content: [before] })} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Video" }));
+    const dialog = screen.getByRole("dialog", { name: "Insert Video" });
+    fireEvent.change(within(dialog).getByLabelText("YouTube video URL"), { target: { value: url } });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Insert Video" }));
+    expect(within(dialog).getByRole("alert")).toBeInTheDocument();
+    expect(onChange).not.toHaveBeenCalled();
+    fireEvent.keyDown(within(dialog).getByLabelText("YouTube video URL"), { key: "Escape" });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("does not submit the surrounding resource form when inserting video", async () => {
+    const submit = vi.fn((event: React.FormEvent) => event.preventDefault());
+    render(<form onSubmit={submit}><RichTextEditor id="content" onChange={vi.fn()} value={JSON.stringify({ type: "doc", content: [before] })} /></form>);
+    fireEvent.click(await screen.findByRole("button", { name: "Video" }));
+    const dialog = screen.getByRole("dialog", { name: "Insert Video" });
+    fireEvent.change(within(dialog).getByLabelText("YouTube video URL"), { target: { value: "https://youtu.be/dQw4w9WgXcQ" } });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Insert Video" }));
+    expect(submit).not.toHaveBeenCalled();
+  });
+
+  it.each(["https://youtube.com/watch?v=dQw4w9WgXcQ", "https://youtu.be/dQw4w9WgXcQ", "https://youtube.com/embed/dQw4w9WgXcQ"])("inserts canonical content from %s", async (url) => {
+    const onChange = vi.fn();
+    render(<RichTextEditor id="content" onChange={onChange} value={JSON.stringify({ type: "doc", content: [before] })} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Video" }));
+    const dialog = screen.getByRole("dialog", { name: "Insert Video" });
+    fireEvent.change(within(dialog).getByLabelText("YouTube video URL"), { target: { value: url } });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Insert Video" }));
+    await waitFor(() => expect(onChange).toHaveBeenCalled());
+    expect(JSON.parse(onChange.mock.lastCall![0]).content).toContainEqual(video);
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });

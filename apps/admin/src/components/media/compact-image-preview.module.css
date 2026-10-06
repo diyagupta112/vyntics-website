@@ -1,3 +1,11 @@
+/* The file input and actions share this grid with the preview. An implicit
+   auto column inherits their intrinsic minimum width and can exceed the card's
+   padded content area. Allow that single column and its grid item to shrink. */
+:has(> .root) {
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+}
+
 .root {
   align-self: start;
   box-sizing: border-box;

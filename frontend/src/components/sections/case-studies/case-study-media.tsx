@@ -1,32 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
+import { CaseStudyVideo } from "./case-study-video";
 import type { CaseStudyMedia as Media } from "@/lib/case-studies";
 import styles from "./case-study-media.module.css";
 
 export function CaseStudyMedia({
   media,
   title,
+  fallbackSrc,
   priority = false,
   className = "",
 }: {
   media: Media;
   title: string;
+  fallbackSrc: string;
   priority?: boolean;
   className?: string;
 }) {
   if (media.type === "video") {
     return (
       <div className={`${styles.frame} ${className}`.trim()}>
-        <video
-          className={styles.media}
-          controls
-          playsInline
-          preload="metadata"
-          poster={media.poster}
-          aria-label={`${title} product demonstration`}
-        >
-          <source src={media.src} />
-          Your browser does not support this project video.
-        </video>
+        <CaseStudyVideo media={media} title={title} fallbackSrc={fallbackSrc} controls className={styles.media} />
       </div>
     );
   }
