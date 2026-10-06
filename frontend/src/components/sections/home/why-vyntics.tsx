@@ -3,7 +3,6 @@ import { Container } from "@/components/ui/container";
 import styles from "./why-vyntics.module.css";
 
 type Feature = {
-  number: string;
   title: string;
   description: string;
   icon: ReactNode;
@@ -11,7 +10,6 @@ type Feature = {
 
 const features: Feature[] = [
   {
-    number: "01",
     title: "Direct access to the engineers",
     description: "The people you talk to on the first call are the people who build your system. There are no account managers and no passing the work to a different team.",
     icon: (
@@ -22,7 +20,6 @@ const features: Feature[] = [
     ),
   },
   {
-    number: "02",
     title: "Built for Production",
     description: "We build for real workloads and real users. Every system is made to keep running after launch, not just to look good in a demo.",
     icon: (
@@ -35,7 +32,6 @@ const features: Feature[] = [
     ),
   },
   {
-    number: "03",
     title: "You own it",
     description: "Everything we build comes with documentation and a clean handoff. The code and systems are yours, and you can hire us again or not.",
     icon: (
@@ -60,8 +56,7 @@ export function WhyVyntics() {
 
         <div className={styles.grid}>
           {features.map((feature) => (
-            <article className={styles.card} key={feature.number}>
-              <span className={styles.number}>{feature.number}</span>
+            <article className={styles.card} key={feature.title}>
               <div className={styles.orb}>
                 <span className={styles.orbGlow} aria-hidden="true" />
                 <span className={styles.icon}>{feature.icon}</span>

@@ -1,0 +1,19 @@
+.section{padding-block:clamp(3rem,5vh,4rem);background:transparent}
+.heading{max-width:48rem;margin-inline:auto;text-align:center}
+.heading>p,.stage{color:var(--color-primary);font-size:.7rem;font-weight:750;letter-spacing:.14em;text-transform:uppercase}
+.heading h2{margin-top:.8rem;font-size:clamp(2rem,3vw,3rem);line-height:1.12;letter-spacing:-.045em;text-wrap:balance}
+.heading>span{display:block;margin:1rem auto 0;max-width:40rem;color:var(--color-muted);font-size:.95rem;line-height:1.6}
+.timeline{position:relative;max-width:68rem;margin:2.5rem auto 0;padding:0;list-style:none}
+.track{position:absolute;top:0;bottom:0;left:50%;width:2px;transform:translateX(-50%);background:var(--color-border);pointer-events:none}
+.track>span{display:block;width:100%;height:100%;background:linear-gradient(var(--color-primary),#75a0ff);transform:scaleY(0);transform-origin:top;transition:transform 120ms linear}
+.step{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 4.5rem minmax(0,1fr);align-items:center;gap:1.25rem;min-height:12rem;padding-block:.65rem}
+.card{grid-column:1;grid-row:1;padding:1.4rem;border:1px solid var(--color-border);border-radius:1rem;background:var(--color-surface);box-shadow:0 .7rem 2rem rgb(20 83 219/.05)}
+.card h3{margin-top:.6rem;font-size:1.2rem;line-height:1.25;letter-spacing:-.025em}
+.card>p:last-child{margin-top:.65rem;color:color-mix(in srgb,var(--color-foreground) 78%,var(--color-surface));font-size:.85rem;line-height:1.65}
+.marker{grid-column:2;grid-row:1;justify-self:center;display:grid;place-items:center;width:2.7rem;height:2.7rem;border:1px solid color-mix(in srgb,var(--color-primary) 40%,var(--color-border));border-radius:50%;background:var(--color-surface);color:var(--color-primary);font-size:.75rem;font-weight:750;box-shadow:0 0 0 .5rem color-mix(in srgb,var(--color-primary) 6%,var(--color-surface))}
+.placeholder{grid-column:3;grid-row:1;min-height:10rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.65rem;border:1px dashed color-mix(in srgb,var(--color-primary) 28%,var(--color-border));border-radius:1rem;background:linear-gradient(135deg,color-mix(in srgb,var(--color-primary) 7%,var(--color-surface)),var(--color-surface));color:var(--color-muted);font-size:.7rem}
+.placeholder svg{width:2rem;fill:none;stroke:var(--color-primary);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.step:nth-of-type(odd) .card{grid-column:3}.step:nth-of-type(odd) .placeholder{grid-column:1}
+@media(prefers-reduced-motion:no-preference){.step .card,.step .placeholder{transform:translateY(1rem);transition:transform 500ms cubic-bezier(.2,.8,.2,1)}.step[data-visible=true] .card,.step[data-visible=true] .placeholder{transform:none}}
+@media(max-width:720px){.timeline{margin-top:2rem}.track{left:1.35rem}.step{grid-template-columns:2.7rem minmax(0,1fr);gap:1rem;padding-block:.8rem}.marker{grid-column:1;align-self:start;margin-top:.8rem}.card,.step:nth-of-type(odd) .card{grid-column:2;grid-row:1}.placeholder,.step:nth-of-type(odd) .placeholder{grid-column:2;grid-row:2;min-height:7rem}.card{padding:1.2rem}.section{padding-block:3rem}}
+@media(prefers-reduced-motion:reduce){.track>span{transition:none}}

@@ -1,0 +1,21 @@
+.section{min-height:calc(100svh - 5rem);padding-block:clamp(2.5rem,5vh,4rem);display:flex;align-items:center;background:transparent}
+.section>div{width:min(100% - 2rem,80rem)}
+.heading{max-width:52rem;margin-inline:auto;text-align:center}
+.label{color:var(--color-primary);font-size:.7rem;font-weight:750;letter-spacing:.16em;text-transform:uppercase}
+.heading h2{margin-top:.8rem;font-size:clamp(2rem,3vw,3rem);line-height:1.12;letter-spacing:-.045em;text-wrap:balance}
+.heading>p:last-child{max-width:47rem;margin:1rem auto 0;color:var(--color-muted);font-size:.95rem;line-height:1.65}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin-top:2rem}
+.grid article{padding:1.4rem;min-height:10rem;border:1px solid var(--color-border);border-radius:1rem;background:color-mix(in srgb,var(--color-surface) 96%,var(--color-primary));box-shadow:0 .6rem 2rem rgb(20 83 219/.04)}
+.grid h3{color:var(--color-foreground);font-size:1.05rem;line-height:1.3;letter-spacing:-.02em;overflow-wrap:anywhere}
+.grid span{display:block;margin-top:.45rem;color:var(--color-primary);font-size:.68rem;font-weight:700;letter-spacing:.04em}
+.grid article p{margin-top:.7rem;color:color-mix(in srgb,var(--color-foreground) 76%,var(--color-surface));font-size:.8rem;line-height:1.6}
+.note{margin-top:1.3rem;text-align:center;color:var(--color-muted);font-size:.75rem;line-height:1.5}
+.grid article{transition:transform 220ms ease,border-color 220ms ease,box-shadow 220ms ease,background-color 220ms ease}
+.grid h3{transition:color 220ms ease}
+@media(hover:hover) and (pointer:fine){
+  .grid article:hover{transform:translateY(-.35rem);border-color:color-mix(in srgb,var(--color-primary) 55%,var(--color-border));background:color-mix(in srgb,var(--color-primary) 8%,var(--color-surface));box-shadow:0 1rem 2.5rem rgb(20 83 219/.13)}
+  .grid article:hover h3{color:var(--color-primary)}
+}
+@media(prefers-reduced-motion:reduce){.grid article,.grid h3{transition:none}.grid article:hover{transform:none}}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.section{min-height:auto}}
+@media(max-width:520px){.grid{grid-template-columns:1fr;gap:.75rem}.grid article{min-height:auto;padding:1.25rem}.section{padding-block:3rem}.heading h2{font-size:2rem}}

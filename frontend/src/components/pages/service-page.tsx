@@ -34,7 +34,7 @@ export function ServicePage({ service }: { service: ServiceContent }) {
           </div>
           <div className={styles.offeringGrid}>
             {service.offerings.map((offering, index) => (
-              <article key={offering.title}>
+              <article key={offering.title} id={`offering-${index + 1}`} style={{ scrollMarginTop: "7rem" }}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 <h3>{offering.title}</h3>
                 <p>{offering.description}</p>
@@ -59,7 +59,7 @@ export function ServicePage({ service }: { service: ServiceContent }) {
       <section className={styles.technology} aria-labelledby={`${service.slug}-technology`}>
         <Container>
           <p className={styles.label}>Technology</p>
-          <h2 id={`${service.slug}-technology`}>Tools selected for the problem—not the pitch deck.</h2>
+          <h2 id={`${service.slug}-technology`}>Tools selected for the problem-not the pitch deck.</h2>
           <ul>{service.technologies.map((technology) => <li key={technology}>{technology}</li>)}</ul>
         </Container>
       </section>

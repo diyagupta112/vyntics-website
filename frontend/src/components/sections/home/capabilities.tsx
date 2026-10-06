@@ -65,7 +65,7 @@ export function Capabilities() {
         <header className={styles.headingBlock}>
           <p className={styles.eyebrow}>Services</p>
           <h2 id="capabilities-title">From raw data to working AI</h2>
-          <p>From custom AI to the data foundations it runs on—end to end.</p>
+          <p>From custom AI to the data foundations it runs on-end to end.</p>
         </header>
 
         <div className={styles.grid}>

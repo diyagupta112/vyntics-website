@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 const values = [
   {
     title: "Innovation",
-    text: "We keep exploring better methods and modern tools—but only adopt technology when it improves the outcome.",
+    text: "We keep exploring better methods and modern tools-but only adopt technology when it improves the outcome.",
     detail: "Focused experiments, early validation, and measurable value before anything is scaled.",
     icon: "spark",
   },

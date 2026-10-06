@@ -1,11 +1,20 @@
 "use client";
 
 import { useReducedMotion } from "motion/react";
+import Image from "next/image";
 import { useEffect, useState, type FocusEvent } from "react";
 import { Container } from "@/components/ui/container";
 import styles from "./testimonials.module.css";
 
-type Testimonial = { text: string; name: string; role: string };
+type Testimonial = {
+  text: string;
+  name: string;
+  role: string;
+  company?: {
+    name: string;
+    logoSrc: `/images/company-logos/${string}`;
+  };
+};
 
 const testimonials: Testimonial[] = [
   { text: "This ERP revolutionized our operations, streamlining finance and inventory. The cloud-based platform keeps us productive, even remotely.", name: "Briana Patton", role: "Operations Manager" },
@@ -26,6 +35,24 @@ function Arrow({ direction }: { direction: "left" | "right" }) {
     <svg viewBox="0 0 20 20" aria-hidden="true">
       <path d={direction === "left" ? "m12.5 4.5-5.5 5.5 5.5 5.5" : "m7.5 4.5 5.5 5.5-5.5 5.5"} />
     </svg>
+  );
+}
+
+function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
+  const company = testimonial.company;
+
+  if (company) {
+    return (
+      <span className={`${styles.avatar} ${styles.companyAvatar}`} aria-label={`${company.name} logo`}>
+        <Image src={company.logoSrc} alt="" width={48} height={48} sizes="48px" />
+      </span>
+    );
+  }
+
+  return (
+    <span className={styles.avatar} aria-hidden="true">
+      {testimonial.name.split(" ").map((part) => part[0]).join("")}
+    </span>
   );
 }
 
@@ -88,11 +115,9 @@ export function Testimonials() {
               const position = getPosition(index);
               return (
                 <article className={`${styles.card} ${position.className}`} aria-hidden={position.distance !== 0 || undefined} key={testimonial.name}>
-                  <span className={styles.avatar} aria-hidden="true">
-                    {testimonial.name.split(" ").map((part) => part[0]).join("")}
-                  </span>
+                  <TestimonialMark testimonial={testimonial} />
                   <blockquote>“{testimonial.text}”</blockquote>
-                  <footer>— {testimonial.name}, <span>{testimonial.role}</span></footer>
+                  <footer>- {testimonial.name}, <span>{testimonial.role}</span></footer>
                 </article>
               );
             })}

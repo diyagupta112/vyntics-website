@@ -4,13 +4,8 @@
   align-items: center;
   padding-block: clamp(2.75rem, 6vh, 5rem);
   overflow: hidden;
-  background:
-    linear-gradient(color-mix(in srgb, var(--color-border) 34%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-border) 34%, transparent) 1px, transparent 1px),
-    radial-gradient(circle at 86% 12%, color-mix(in srgb, var(--color-lavender) 34%, transparent), transparent 31rem),
-    radial-gradient(circle at 8% 92%, color-mix(in srgb, var(--color-primary) 10%, transparent), transparent 27rem),
-    var(--color-background);
-  background-size: 4rem 4rem, 4rem 4rem, auto, auto, auto;
+  background: transparent;
+
   scroll-margin-top: 5rem;
 }
 
@@ -115,6 +110,7 @@
 .form textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 14%, transparent); }
 
 .form button {
+  position: relative;
   min-height: 3.55rem;
   display: inline-flex;
   align-items: center;
@@ -123,14 +119,95 @@
   color: #ffffff;
   border: 0;
   border-radius: 0.65rem;
+  overflow: hidden;
   background: var(--color-primary);
   font-weight: 750;
   cursor: pointer;
+  isolation: isolate;
   transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
 }
 
 .form button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 15px 35px color-mix(in srgb, var(--color-primary) 24%, transparent); }
 .form button:disabled { opacity: 0.62; cursor: wait; }
+
+.submitContent {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.submitIcon {
+  width: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sendSweep {
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 0;
+  width: 38%;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 34%), transparent);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.submitButton[data-state="submitting"] {
+  opacity: 1;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--color-primary) 24%, transparent);
+}
+
+.submitButton[data-state="submitting"] .sendSweep {
+  opacity: 1;
+  animation: send-sweep 900ms ease-in-out infinite;
+}
+
+.submitButton[data-state="submitting"] .submitIcon {
+  animation: send-flight 900ms ease-in-out infinite;
+}
+
+.submitButton[data-state="success"] {
+  opacity: 1;
+  background: #16803c;
+  box-shadow: 0 14px 34px rgb(22 128 60 / 24%);
+  cursor: default;
+  animation: send-success 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.checkPath {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: draw-check 420ms ease-out both;
+}
+
+@keyframes send-sweep {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(365%); }
+}
+
+@keyframes send-flight {
+  0% { opacity: 0.35; transform: translateX(-0.55rem); }
+  55% { opacity: 1; }
+  100% { opacity: 0.35; transform: translateX(0.55rem); }
+}
+
+@keyframes send-success {
+  from { transform: scale(0.97); }
+  to { transform: scale(1); }
+}
+
+@keyframes draw-check {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
 .feedback { min-height: 1.25rem; color: var(--color-primary); font-size: 0.78rem; line-height: 1.4; text-align: center; }
 .feedback.error { color: #dc2626; }
 
@@ -151,6 +228,11 @@
   .form button,
   .form input,
   .form textarea { transition: none; }
+
+  .sendSweep,
+  .submitIcon,
+  .submitButton[data-state="success"],
+  .checkPath { animation: none !important; }
 }
 
 /* Case Studies reuses the form with a concise, compact invitation. */

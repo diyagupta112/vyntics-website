@@ -1,5 +1,5 @@
 export type ServiceContent = {
-  slug: "ai" | "data" | "cloud" | "other";
+  slug: "ai" | "data" | "crm" | "cloud" | "other";
   eyebrow: string;
   title: string;
   introduction: string;
@@ -13,7 +13,7 @@ export const services: Record<ServiceContent["slug"], ServiceContent> = {
   ai: {
     slug: "ai",
     eyebrow: "Custom AI solutions",
-    title: "AI that works from your data—and shows its sources.",
+    title: "AI that works from your data-and shows its sources.",
     introduction: "We design and build production AI systems grounded in the information, workflows, and controls your organization already relies on.",
     promise: "Useful AI is more than a convincing demo. It needs reliable retrieval, clear evaluation, secure integrations, and a path into the real workflow.",
     offerings: [
@@ -40,12 +40,27 @@ export const services: Record<ServiceContent["slug"], ServiceContent> = {
     outcomes: ["Consistent business metrics", "Automated refresh and validation", "Clean, query-ready data", "Reporting teams can trust"],
     technologies: ["Snowflake", "dbt", "Python", "SQL", "PostgreSQL", "Power BI", "Tableau", "Amazon QuickSight"],
   },
+  crm: {
+    slug: "crm",
+    eyebrow: "CRM solutions",
+    title: "A CRM your team will actually use.",
+    introduction: "We implement and improve CRM systems that keep customer data organized, automate repetitive sales work, and give teams a clear view of every relationship.",
+    promise: "A CRM should support your process, not create more administration. We shape the system around how your team sells, serves, and reports.",
+    offerings: [
+      { title: "CRM implementation", description: "Platform setup, data structure, permissions, and workflows configured around your real sales and service process." },
+      { title: "Sales automation", description: "Lead routing, follow-up reminders, pipeline updates, and approval steps automated without losing human control." },
+      { title: "CRM integrations", description: "Reliable connections between your CRM, website, email, support tools, finance systems, and internal applications." },
+      { title: "CRM analytics", description: "Dashboards and reporting for pipeline health, conversion rates, team activity, forecasting, and customer trends." },
+    ],
+    outcomes: ["Cleaner customer records", "Fewer manual updates", "Consistent sales processes", "Clear pipeline visibility"],
+    technologies: ["Salesforce", "HubSpot", "Microsoft Dynamics 365", "Zoho CRM", "REST APIs", "Power BI", "PostgreSQL"],
+  },
   cloud: {
     slug: "cloud",
     eyebrow: "Cloud solutions",
     title: "Cloud infrastructure sized for the work you actually run.",
     introduction: "We design, migrate, and improve cloud systems across AWS, Azure, and Google Cloud with reliability, observability, and cost in view.",
-    promise: "The right cloud foundation should be repeatable, understandable, and economical—not over-provisioned or hidden behind unnecessary complexity.",
+    promise: "The right cloud foundation should be repeatable, understandable, and economical-not over-provisioned or hidden behind unnecessary complexity.",
     offerings: [
       { title: "Cloud architecture", description: "Clear system designs that balance scale, security, reliability, and operational simplicity." },
       { title: "Migration", description: "Planned movement of applications, databases, and workloads with controlled risk and documented decisions." },

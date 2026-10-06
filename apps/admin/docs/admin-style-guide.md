@@ -1,4 +1,4 @@
-# Vyntics Admin Panel — Style Guide
+# Vyntics Admin Panel - Style Guide
 
 **Status:** Visual/design source of truth  
 **Application:** `apps/admin`

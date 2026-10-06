@@ -8,4 +8,6 @@ export type NavigationChild = {
   label: string;
   href: string;
   description: string;
+  headingOnly?: boolean;
+  children?: readonly NavigationChild[];
 };

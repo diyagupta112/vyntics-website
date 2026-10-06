@@ -79,10 +79,10 @@ vyntics_website/
 ├── apps/
 │   ├── admin/                 # Admin Panel frontend
 │   ├── api/                   # FastAPI backend
-│   │   ├── package.json       # old Node scaffold — leave as-is
-│   │   ├── tsconfig.json      # old TypeScript config — leave as-is
+│   │   ├── package.json       # old Node scaffold - leave as-is
+│   │   ├── tsconfig.json      # old TypeScript config - leave as-is
 │   │   └── src/
-│   │       ├── index.ts       # old Node scaffold — leave as-is
+│   │       ├── index.ts       # old Node scaffold - leave as-is
 │   │       ├── routes/
 │   │       └── services/
 │   └── web/                   # Public website frontend
@@ -804,7 +804,7 @@ invented as part of database connectivity.
 
 ------------------------------------------------------------------------
 
-## Phase 6 — Blogs
+## Phase 6 - Blogs
 
 ### Confirmed Phase 6 API contract decisions
 
@@ -879,10 +879,10 @@ the previously open Blog contract questions.
 
 ### Public endpoints
 
-- [ ] `GET /blogs` — return all published blogs using the established public list response contract.
+- [ ] `GET /blogs` - return all published blogs using the established public list response contract.
   - [ ] Return only published blogs.
   - [ ] Do not expose full `content`, `seo_title`, or `meta_description` in the list response.
-- [ ] `GET /blogs/{slug}` — return a single published blog using the established public detail response contract.
+- [ ] `GET /blogs/{slug}` - return a single published blog using the established public detail response contract.
   - [ ] Return the full public Blog detail including SEO fields and structured `content`.
   - [ ] Return `404 Not Found` when the slug does not match a published blog.
 
@@ -890,7 +890,7 @@ the previously open Blog contract questions.
 
 The following endpoints are intended for authenticated and authorized Admin Panel usage. Authentication and authorization enforcement will be implemented in the later authentication phase. Do not introduce temporary, mock, or fake authentication in Phase 6.
 
-- [ ] `POST /blogs` — create a new blog.
+- [ ] `POST /blogs` - create a new blog.
   - [ ] Request body uses the established Blog request schema.
   - [ ] Support `slug`, `title`, `seo_title`, `meta_description`, `author`, `category`, `excerpt`, `cover_image_url`, `read_time`, `content`, and `status`.
   - [ ] Allow only the existing Blog statuses: `draft`, `published`, and `unpublished`.
@@ -898,7 +898,7 @@ The following endpoints are intended for authenticated and authorized Admin Pane
   - [ ] Validate required fields, SEO fields, structured content, slug uniqueness, and status.
   - [ ] Return an appropriate conflict response when the slug already exists.
 
-- [ ] `PATCH /blogs/{id}` — update an existing blog.
+- [ ] `PATCH /blogs/{id}` - update an existing blog.
   - [ ] Request body uses the established Blog update/request schema.
   - [ ] Support updating the established Blog fields.
   - [ ] The Blog `id` is provided through the URL path, not the request body.
@@ -907,7 +907,7 @@ The following endpoints are intended for authenticated and authorized Admin Pane
   - [ ] Return `404 Not Found` when the Blog does not exist.
   - [ ] Return an appropriate conflict response when the updated slug conflicts with another Blog.
 
-- [ ] `DELETE /blogs/{id}` — delete a Blog according to the established backend deletion behavior.
+- [ ] `DELETE /blogs/{id}` - delete a Blog according to the established backend deletion behavior.
   - [ ] No request body.
   - [ ] Return `404 Not Found` when the Blog does not exist.
   - [ ] Do not introduce an `archived` or other new deletion status.
@@ -951,7 +951,7 @@ The following endpoints are intended for authenticated and authorized Admin Pane
 - [ ] Use Swagger to verify `GET`, `PATCH`, and `DELETE` behavior against the development database.
 - [ ] Run the complete backend test suite after implementation.
 
-### Phase 6 — Additional Work: Admin Blog Read Endpoints
+### Phase 6 - Additional Work: Admin Blog Read Endpoints
 
 **Status:** Identified and planned; not yet implemented.
 
@@ -963,7 +963,7 @@ manage Blogs regardless of publication status.
 
 #### Admin listing endpoint
 
-- [ ] `GET /admin/blogs` — return Blogs with all supported statuses:
+- [ ] `GET /admin/blogs` - return Blogs with all supported statuses:
   `draft`, `published`, and `unpublished`.
 - [ ] Do not apply the public published-only filter to this endpoint.
 - [ ] Use the established admin Blog response shape and existing schemas where
@@ -974,7 +974,7 @@ manage Blogs regardless of publication status.
 
 #### Admin detail endpoint
 
-- [ ] `GET /admin/blogs/{id}` — return a specific Blog by its database UUID,
+- [ ] `GET /admin/blogs/{id}` - return a specific Blog by its database UUID,
   regardless of whether its status is `draft`, `published`, or `unpublished`.
 - [ ] Use the established admin Blog response shape.
 - [ ] Return `404 Not Found` when the Blog does not exist.
@@ -987,16 +987,16 @@ manage Blogs regardless of publication status.
 
 Public operations remain unchanged:
 
-- `GET /blogs` — published Blogs only.
-- `GET /blogs/{slug}` — published Blog detail only.
+- `GET /blogs` - published Blogs only.
+- `GET /blogs/{slug}` - published Blog detail only.
 
 Admin operations are:
 
-- `GET /admin/blogs` — all Blog statuses.
-- `GET /admin/blogs/{id}` — a specific Blog regardless of status.
-- `POST /blogs` — existing admin create operation.
-- `PATCH /blogs/{id}` — existing admin update operation.
-- `DELETE /blogs/{id}` — existing admin hard-delete operation.
+- `GET /admin/blogs` - all Blog statuses.
+- `GET /admin/blogs/{id}` - a specific Blog regardless of status.
+- `POST /blogs` - existing admin create operation.
+- `PATCH /blogs/{id}` - existing admin update operation.
+- `DELETE /blogs/{id}` - existing admin hard-delete operation.
 
 Do not add an `include_drafts` query parameter or change the behavior of either
 public GET endpoint. Do not introduce archived or scheduled statuses, new Blog
@@ -1020,7 +1020,7 @@ authorization implementation.
 
 ------------------------------------------------------------------------
 
-## Phase 7 — Case Studies
+## Phase 7 - Case Studies
 
 - [ ] Case study model.
 - [ ] Schemas.
@@ -1035,7 +1035,7 @@ authorization implementation.
 - [ ] Published-content behavior.
 - [ ] Tests.
 
-### Phase 7 — API Scope and Confirmed Behavior
+### Phase 7 - API Scope and Confirmed Behavior
 
 Case Studies follow the same overall public/admin separation established during the Blogs phase.
 
@@ -1568,21 +1568,21 @@ No Career response exposes `created_by`, `updated_by`, `created_at`, or
 
 The JSON request contains these required fields:
 
-- `slug` — string;
-- `title` — string;
-- `location` — string;
-- `employment_type` — string;
-- `department` — string;
-- `experience` — string;
-- `short_description` — string;
-- `description` — JSON object;
-- `responsibilities` — JSON object;
-- `requirements` — JSON object.
+- `slug` - string;
+- `title` - string;
+- `location` - string;
+- `employment_type` - string;
+- `department` - string;
+- `experience` - string;
+- `short_description` - string;
+- `description` - JSON object;
+- `responsibilities` - JSON object;
+- `requirements` - JSON object.
 
 The request may also contain:
 
-- `nice_to_have` — optional JSON object; omission produces `{}`;
-- `benefits` — optional JSON object; omission produces `{}`.
+- `nice_to_have` - optional JSON object; omission produces `{}`;
+- `benefits` - optional JSON object; omission produces `{}`.
 
 Neither optional field is nullable. Supplying `null` is invalid.
 
@@ -2385,13 +2385,13 @@ separate admin response schema.
 
 The request contains exactly these client-controlled fields:
 
-- `name` — required;
-- `role` — required;
-- `bio` — required;
-- `photo_url` — optional and nullable;
-- `linkedin_url` — optional and nullable;
-- `display_order` — required integer;
-- `member_type` — required and limited to `leadership` or `team`.
+- `name` - required;
+- `role` - required;
+- `bio` - required;
+- `photo_url` - optional and nullable;
+- `linkedin_url` - optional and nullable;
+- `display_order` - required integer;
+- `member_type` - required and limited to `leadership` or `team`.
 
 Both URL fields may be omitted or explicitly set to `null`. When non-null,
 each must be a valid HTTP(S) URL according to the existing Pydantic URL
@@ -2634,12 +2634,12 @@ session or admin identity to submit the form.
 
 The JSON request body contains exactly:
 
-- `name` — required string;
-- `email` — required valid email address;
-- `company` — optional string and may be omitted or `null`;
-- `subject` — required string;
-- `message` — required string;
-- `source_page` — required string identifying the website page from which the
+- `name` - required string;
+- `email` - required valid email address;
+- `company` - optional string and may be omitted or `null`;
+- `subject` - required string;
+- `message` - required string;
+- `source_page` - required string identifying the website page from which the
   form was submitted.
 
 The request must reject undeclared fields, including all backend-managed or

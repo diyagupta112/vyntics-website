@@ -1,4 +1,4 @@
-.hero { position: relative; overflow: hidden; padding-block: clamp(2.75rem, 5vw, 4rem); border-bottom: 1px solid var(--color-border); background: color-mix(in srgb, var(--color-surface) 96%, var(--color-lavender)); }
+.hero { position: relative; overflow: hidden; padding-block: clamp(2.75rem, 5vw, 4rem);  background: transparent; }
 .hero::after { position: absolute; top: -11rem; right: -7rem; width: 27rem; aspect-ratio: 1; content: ""; border: 1px solid color-mix(in srgb, var(--color-primary) 13%, transparent); border-radius: 50%; pointer-events: none; }
 .hero > div { position: relative; z-index: 1; }
 .eyebrow { color: var(--color-primary); font-size: 0.7rem; font-weight: 760; letter-spacing: 0.16em; text-transform: uppercase; }

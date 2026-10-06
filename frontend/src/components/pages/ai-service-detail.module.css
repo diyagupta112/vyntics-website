@@ -1,0 +1,88 @@
+.hero { padding-block: clamp(3.75rem, 7vw, 6rem); }
+.backLink { display: inline-flex; color: var(--color-muted); font-size: 0.82rem; transition: color 180ms ease; }
+.eyebrow, .label { color: var(--color-brand); font-size: 0.7rem; font-weight: 750; letter-spacing: 0.16em; text-transform: uppercase; }
+.eyebrow { margin-top: 2.3rem; }
+.hero h1 { max-width: 17ch; margin-top: 0.85rem; font-size: clamp(2.75rem, 5.2vw, 5.25rem); line-height: 0.98; letter-spacing: -0.055em; text-wrap: balance; }
+.introduction { max-width: 48rem; margin-top: 1.35rem; color: var(--color-muted); font-size: clamp(1rem, 1.35vw, 1.18rem); line-height: 1.65; }
+.heroActions { margin-top: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem; }
+.primaryButton { min-height: 3.25rem; padding-inline: 1.25rem; display: inline-flex; align-items: center; gap: 0.55rem; color: #fff; border: 1px solid var(--color-primary); background: var(--color-primary); font-size: 0.88rem; font-weight: 700; }
+.textLink { color: var(--color-muted); font-size: 0.86rem; font-weight: 650; }
+.primaryButton svg, .related svg, .cta svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 180ms ease; }
+
+.promise, .deliverables, .process, .outcomes, .technology, .related { padding-block: clamp(3.75rem, 7vw, 5.75rem); }
+.promiseGrid { display: grid; grid-template-columns: minmax(9rem, 0.35fr) minmax(0, 1fr); gap: clamp(2rem, 7vw, 7rem); align-items: start; }
+.promise h2, .sectionHeading h2, .outcomes h2, .technology h2, .related h2, .cta h2 { font-size: clamp(1.9rem, 3.35vw, 3.15rem); line-height: 1.07; letter-spacing: -0.045em; text-wrap: balance; }
+.promise h2 { max-width: 24ch; }
+.promiseGrid > div > p { max-width: 46rem; margin-top: 1.15rem; color: var(--color-muted); line-height: 1.72; }
+.sectionHeading { max-width: 46rem; }
+.sectionHeading h2, .technology h2, .related h2, .cta h2 { margin-top: 0.65rem; }
+
+.cardGrid { margin-top: clamp(2rem, 4vw, 3.25rem); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.cardGrid article { min-height: 14rem; padding: clamp(1.4rem, 2.6vw, 2rem); border: 1px solid var(--color-border); border-radius: 1rem; background: color-mix(in srgb, var(--color-surface) 94%, var(--color-primary)); box-shadow: 0 1rem 3rem rgb(11 11 15 / 3%); transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
+.cardGrid article > span { color: var(--color-primary); font-size: 0.68rem; font-weight: 750; letter-spacing: 0.12em; }
+.cardGrid h3 { margin-top: 2.2rem; font-size: 1.18rem; letter-spacing: -0.03em; }
+.cardGrid p { max-width: 35rem; margin-top: 0.7rem; color: var(--color-muted); font-size: 0.9rem; line-height: 1.65; }
+
+.process ol { margin-top: clamp(2rem, 4vw, 3.25rem); list-style: none; border-top: 1px solid var(--color-border); }
+.process li { padding-block: 1.5rem; display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: 1rem; border-bottom: 1px solid var(--color-border); }
+.process li > span { padding-top: 0.18rem; color: var(--color-primary); font-size: 0.7rem; font-weight: 750; letter-spacing: 0.12em; }
+.process li > div { display: grid; grid-template-columns: minmax(12rem, 0.55fr) minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 5rem); }
+.process h3 { font-size: 1.05rem; letter-spacing: -0.025em; }
+.process li p { max-width: 42rem; color: var(--color-muted); font-size: 0.9rem; line-height: 1.65; }
+
+.outcomesGrid { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(18rem, 1.1fr); gap: clamp(2.5rem, 7vw, 6rem); }
+.outcomes h2 { margin-top: 0.65rem; }
+.outcomes ul { list-style: none; border-top: 1px solid var(--color-border); }
+.outcomes li { padding-block: 1.05rem; border-bottom: 1px solid var(--color-border); font-size: 0.96rem; font-weight: 650; }
+.technology h2 { max-width: 22ch; }
+.technology ul { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; }
+.technology li { padding: 0.58rem 0.82rem; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-muted); font-size: 0.78rem; }
+.technologyHeading { max-width: 50rem; margin-inline: auto; text-align: center; }
+.technologyHeading h2 { max-width: none; }
+.technologyHeading > p:last-child { max-width: 44rem; margin: 1.1rem auto 0; color: var(--color-muted); font-size: 0.98rem; line-height: 1.7; }
+.technologyGrid { margin-top: clamp(2rem, 4vw, 3.25rem); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.9rem; }
+.technologyGrid article { min-height: 12.5rem; padding: 1.35rem; border: 1px solid var(--color-border); border-radius: 1rem; background: color-mix(in srgb, var(--color-surface) 96%, var(--color-primary)); box-shadow: 0 1rem 3rem rgb(11 11 15 / 3%); transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease; }
+.technologyGrid article > p { color: var(--color-primary); font-size: 0.68rem; font-weight: 750; letter-spacing: 0.11em; text-transform: uppercase; }
+.technologyGrid h3 { margin-top: 1.35rem; font-size: 1.12rem; letter-spacing: -0.025em; }
+.technologyGrid article > span { margin-top: 0.65rem; display: block; color: var(--color-muted); font-size: 0.85rem; line-height: 1.6; }
+
+.relatedHeading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; }
+.relatedHeading > a { color: var(--color-primary); font-size: 0.86rem; font-weight: 700; }
+.relatedGrid { margin-top: 2rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.relatedGrid a { min-height: 4.5rem; padding: 1rem 1.15rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border: 1px solid var(--color-border); border-radius: 0.8rem; background: var(--color-surface); font-size: 0.92rem; font-weight: 700; transition: transform 180ms ease, border-color 180ms ease; }
+.relatedGrid a:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+.cta { padding-block: clamp(3.75rem, 7vw, 5.5rem); }
+.cta > div { display: flex; align-items: end; justify-content: space-between; gap: 3rem; }
+.cta > div > div { max-width: 44rem; }
+.cta .label { color: var(--color-primary); }
+.cta > div > a { flex: 0 0 auto; padding: 0.85rem 1.1rem; display: inline-flex; align-items: center; gap: 0.5rem; color: #fff; border: 1px solid var(--color-primary); border-radius: 999px; background: var(--color-primary); font-weight: 700; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero > div > * { animation: riseIn 600ms both; }
+  .hero > div > :nth-child(2) { animation-delay: 50ms; }
+  .hero > div > :nth-child(3) { animation-delay: 100ms; }
+  .hero > div > :nth-child(4) { animation-delay: 150ms; }
+  .hero > div > :nth-child(5) { animation-delay: 200ms; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .backLink:hover, .textLink:hover { color: var(--color-primary); }
+  .cardGrid article:hover { transform: translateY(-0.3rem); border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border)); box-shadow: 0 1.25rem 3rem rgb(20 83 219 / 8%); }
+  .technologyGrid article:hover { transform: translateY(-0.25rem); border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border)); box-shadow: 0 1.2rem 2.8rem rgb(20 83 219 / 7%); }
+  .relatedGrid a:hover { transform: translateY(-0.15rem); border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border)); }
+  .primaryButton:hover svg, .relatedGrid a:hover svg, .cta a:hover svg { transform: translateX(0.22rem); }
+}
+@keyframes riseIn { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 760px) {
+  .promiseGrid, .outcomesGrid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .technologyGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .process li > div { grid-template-columns: 1fr; gap: 0.6rem; }
+  .relatedHeading, .cta > div { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 560px) {
+  .hero h1 { font-size: clamp(2.45rem, 13vw, 3.2rem); }
+  .cardGrid, .relatedGrid { grid-template-columns: 1fr; }
+  .technologyGrid { grid-template-columns: 1fr; }
+  .relatedGrid a:last-child:nth-child(odd) { grid-column: auto; }
+  .process li { grid-template-columns: 2.5rem minmax(0, 1fr); }
+}

@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
 import styles from "./approach.module.css";
 
@@ -12,7 +15,7 @@ const steps = [
     number: "02",
     label: "Architect",
     title: "System Design",
-    description: "We design the right architecture for your scale—not over-engineered, not under-built. Always documented.",
+    description: "We design the right architecture for your scale-not over-engineered, not under-built. Always documented.",
   },
   {
     number: "03",
@@ -29,8 +32,23 @@ const steps = [
 ] as const;
 
 export function Approach() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="approach" className={styles.section} aria-labelledby="approach-title">
+    <section ref={sectionRef} data-in-view={inView} id="approach" className={styles.section} aria-labelledby="approach-title">
       <Container>
         <div className={styles.headingBlock}>
           <p className={styles.eyebrow}>How we work</p>
@@ -42,9 +60,6 @@ export function Approach() {
           <svg className={styles.route} viewBox="0 0 1000 320" preserveAspectRatio="none" aria-hidden="true">
             <path className={styles.routeBase} d="M125 50 C245 50 245 270 375 270 C505 270 505 50 625 50 C745 50 745 270 875 270" />
             <path className={styles.routeActive} pathLength="1" d="M125 50 C245 50 245 270 375 270 C505 270 505 50 625 50 C745 50 745 270 875 270" />
-            <path className={styles.arrowHead} d="m354 260 21 10-21 10" />
-            <path className={styles.arrowHead} d="m604 40 21 10-21 10" />
-            <path className={styles.arrowHead} d="m854 260 21 10-21 10" />
           </svg>
 
           <ol className={styles.steps}>

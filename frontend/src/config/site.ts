@@ -1,15 +1,11 @@
 import type { NavigationItem } from "@/types/navigation";
+import { serviceNavigation } from "@/content/service-navigation";
 
 const navigation: NavigationItem[] = [
   {
     label: "Services",
-    href: "/services/ai",
-    children: [
-      { label: "AI", href: "/services/ai", description: "Private, auditable RAG assistants and AI automation grounded in your data." },
-      { label: "Data", href: "/services/data", description: "Reliable pipelines, ETL, cloud warehousing, analytics, and BI." },
-      { label: "Cloud", href: "/services/cloud", description: "Architecture, migration, and cost optimization across AWS, Azure, and GCP." },
-      { label: "Others", href: "/services/other", description: "Production-grade backend systems and tailored technical consulting." },
-    ],
+    href: "/services/ai/rag-assistants",
+    children: serviceNavigation,
   },
   {
     label: "Resources",

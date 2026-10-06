@@ -1,4 +1,4 @@
-# Vyntics Public Website — Design System
+# Vyntics Public Website - Design System
 
 ## Font
 

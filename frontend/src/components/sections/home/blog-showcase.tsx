@@ -3,10 +3,11 @@
 import { motion, useReducedMotion } from "motion/react";
 import type { CSSProperties, FocusEvent } from "react";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import styles from "./blog-showcase.module.css";
 
-const AUTOPLAY_INTERVAL_MS = 1500;
+const AUTOPLAY_INTERVAL_MS = 3500;
 
 const articles = [
   {
@@ -76,7 +77,7 @@ const articles = [
   },
 ] as const;
 
-const initialOrder = articles.map((_, index) => index);
+const initialOrder = [3, 4, 0, 1, 2];
 
 function ArrowIcon({ direction = "right" }: { direction?: "left" | "right" }) {
   return (
@@ -92,31 +93,31 @@ export function BlogShowcase() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
-  const queuedIndex = articleOrder.at(-1) ?? 0;
+  const queuedIndex = articleOrder[0] ?? 0;
   const activeIndex = hoveredIndex ?? queuedIndex;
   const isPaused = isHovered || hasFocus;
 
   const showArticle = (index: number) => {
     setArticleOrder((currentOrder) => {
       const position = currentOrder.indexOf(index);
-      if (position < 0 || position === currentOrder.length - 1) return currentOrder;
-      return [...currentOrder.slice(0, position), ...currentOrder.slice(position + 1), index];
+      if (position <= 0) return currentOrder;
+      return [...currentOrder.slice(position), ...currentOrder.slice(0, position)];
     });
   };
 
   const showNextArticle = () => {
-    setArticleOrder((currentOrder) => [currentOrder.at(-1) ?? 0, ...currentOrder.slice(0, -1)]);
+    setArticleOrder((currentOrder) => [...currentOrder.slice(1), currentOrder[0] ?? 0]);
   };
 
   const showPreviousArticle = () => {
-    setArticleOrder((currentOrder) => [...currentOrder.slice(1), currentOrder[0] ?? 0]);
+    setArticleOrder((currentOrder) => [currentOrder.at(-1) ?? 0, ...currentOrder.slice(0, -1)]);
   };
 
   useEffect(() => {
     if (reduceMotion || isPaused) return;
 
     const autoplay = window.setInterval(() => {
-      setArticleOrder((currentOrder) => [currentOrder.at(-1) ?? 0, ...currentOrder.slice(0, -1)]);
+      setArticleOrder((currentOrder) => [...currentOrder.slice(1), currentOrder[0] ?? 0]);
     }, AUTOPLAY_INTERVAL_MS);
 
     return () => window.clearInterval(autoplay);
@@ -132,13 +133,13 @@ export function BlogShowcase() {
         <header className={styles.header}>
           <div className={styles.headingBlock}>
             <p className={styles.eyebrow}>Ideas from the field</p>
-            <h2 id="blogs-title">What we&apos;ve learned building this stuff</h2>
+            <h2 id="blogs-title">Practical ideas for data &amp; AI</h2>
             <p>Useful guides for building reliable systems beyond the demo.</p>
           </div>
 
-          <a className={styles.viewAll} href="/blog">
-            View all articles <ArrowIcon />
-          </a>
+          <Link className={styles.viewAll} href="/blog">
+            View all Blogs <ArrowIcon />
+          </Link>
         </header>
 
         <div
@@ -152,7 +153,7 @@ export function BlogShowcase() {
           onFocusCapture={() => setHasFocus(true)}
           onBlurCapture={handleBlur}
         >
-          {articleOrder.map((articleIndex, queuePosition) => {
+          {articleOrder.map((articleIndex) => {
             const article = articles[articleIndex];
             const isActive = articleIndex === activeIndex;
 
@@ -166,7 +167,6 @@ export function BlogShowcase() {
                   {
                     "--article-accent": article.accent,
                     "--article-soft": article.soft,
-                    "--card-position": queuePosition,
                   } as CSSProperties
                 }
                 onMouseEnter={() => setHoveredIndex(articleIndex)}
@@ -185,7 +185,7 @@ export function BlogShowcase() {
                   <span className={styles.orbit} />
                 </div>
                 <div className={styles.overlay} />
-                <span className={styles.railLabel} aria-hidden="true">{article.title}</span>
+                <span className={styles.railLabel} aria-hidden="true">{article.railTitle}</span>
 
                 <div className={styles.cardContent}>
                   <div className={styles.meta}>
@@ -234,6 +234,7 @@ export function BlogShowcase() {
               <ArrowIcon />
             </button>
           </div>
+
         </div>
       </Container>
     </section>

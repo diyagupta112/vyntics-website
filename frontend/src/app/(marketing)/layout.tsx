@@ -1,12 +1,16 @@
 import { SiteFooter } from "@/components/layout/site-footer";
-import { SiteHeader } from "@/components/layout/site-header";
+import { SiteHeader, SiteHeaderSpacer } from "@/components/layout/site-header";
+import { SmoothScroll } from "@/components/layout/smooth-scroll";
 
 export default function MarketingLayout({ children }: LayoutProps<"/">) {
   return (
     <>
       <SiteHeader />
-      <main>{children}</main>
-      <SiteFooter />
+      <SmoothScroll>
+        <SiteHeaderSpacer />
+        <main>{children}</main>
+        <SiteFooter />
+      </SmoothScroll>
     </>
   );
 }

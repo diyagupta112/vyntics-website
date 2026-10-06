@@ -2,16 +2,12 @@
   position: relative;
   overflow: hidden;
   padding-block: clamp(4.5rem, 8vw, 7rem);
-  background:
-    linear-gradient(color-mix(in srgb, var(--color-primary) 4%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 4%, transparent) 1px, transparent 1px),
-    linear-gradient(
-      color-mix(in srgb, var(--color-background) 72%, transparent),
-      color-mix(in srgb, var(--color-background) 72%, transparent)
-    ),
-    url("/images/about-vyntics-background.png") center 52% / cover no-repeat;
-  background-size: 4.5rem 4.5rem, 4.5rem 4.5rem, auto, cover;
+  background: transparent;
 }
+
+.cta.cta .eyebrow { color: var(--color-primary); }
+.cta.cta a { color: #fff; background: var(--color-primary); border-color: var(--color-primary); }
+.cta.cta a:hover { background: #1247ba; border-color: #1247ba; }
 
 .heroGrid {
   display: grid;
@@ -57,7 +53,6 @@
 
 .primaryButton,
 .textLink,
-.storyLink,
 .cta a {
   width: fit-content;
   display: inline-flex;
@@ -76,13 +71,10 @@
   box-shadow: 0 1rem 2.5rem color-mix(in srgb, var(--color-primary) 20%, transparent);
 }
 
-.textLink,
-.storyLink { color: var(--color-primary); }
+.textLink { color: var(--color-primary); }
 
 .primaryButton svg,
 .textLink svg,
-.storyLink svg,
-.capabilityCard svg,
 .cta svg {
   width: 1rem;
   flex: 0 0 auto;
@@ -133,8 +125,6 @@
   margin: auto;
   border: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
   border-radius: 50%;
-  animation: none !important;
-  transform: none;
 }
 
 .orbit::before,
@@ -150,6 +140,7 @@
 
 .orbitCore {
   position: absolute;
+  z-index: 2;
   inset: 50% auto auto 50%;
   width: 4.2rem;
   aspect-ratio: 1;
@@ -157,37 +148,234 @@
   place-items: center;
   color: #fff;
   border-radius: 50%;
-  background: var(--color-primary);
+  background: #fafbf8;
   box-shadow: 0 0 0 0.7rem color-mix(in srgb, var(--color-primary) 11%, transparent);
   font-size: 1.55rem;
   font-weight: 800;
   transform: translate(-50%, -50%);
-  animation: none !important;
-  transition: none;
 }
 
-.orbitNode {
+.orbitCore img {
+  width: 78%;
+  height: auto;
+  object-fit: contain;
+}
+
+.orbitTrack {
   position: absolute;
-  padding: 0.45rem 0.68rem;
-  color: var(--color-foreground);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
-  box-shadow: 0 0.6rem 1.8rem rgb(11 11 15 / 8%);
-  font-size: 0.7rem;
-  font-weight: 700;
-  backdrop-filter: blur(0.75rem);
-  cursor: default;
-  animation: none !important;
-  transform: none;
-  transition: none;
+  z-index: 3;
+  inset: 0;
+  border-radius: 50%;
+  animation: orbitClockwise 20s linear infinite;
 }
 
-.dataNode { top: 43%; left: -1%; }
-.aiNode { top: 7%; right: 18%; }
-.decisionNode { right: 1%; bottom: 4%; }
+.orbitTechnology {
+  --orbit-angle: 0deg;
+  --counter-angle: 0deg;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--orbit-angle)) translateX(8.4rem);
+}
 
-.section { padding-block: clamp(4rem, 7vw, 6rem); border-top: 1px solid var(--color-border); }
+.orbitTechnology:nth-child(2) { --orbit-angle: 60deg; --counter-angle: -60deg; }
+.orbitTechnology:nth-child(3) { --orbit-angle: 120deg; --counter-angle: -120deg; }
+.orbitTechnology:nth-child(4) { --orbit-angle: 180deg; --counter-angle: -180deg; }
+.orbitTechnology:nth-child(5) { --orbit-angle: 240deg; --counter-angle: -240deg; }
+.orbitTechnology:nth-child(6) { --orbit-angle: 300deg; --counter-angle: -300deg; }
+
+.technologyBadge {
+  width: 3.35rem;
+  height: 3.35rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  box-shadow: 0 0.6rem 1.8rem rgb(11 11 15 / 10%);
+  backdrop-filter: blur(0.75rem);
+  transform: translate(-50%, -50%) rotate(var(--counter-angle));
+  animation: logoCounterClockwise 20s linear infinite;
+}
+
+.technologyBadge svg,
+.technologyBadge .letterLogo {
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: 0 0 auto;
+}
+
+.reactLogo {
+  fill: none;
+  stroke: #61dafb;
+  stroke-width: 2.5;
+}
+
+.reactLogo circle { fill: #61dafb; }
+.pythonBlue { fill: #3776ab; }
+.pythonGold { fill: #ffd343; }
+
+.letterLogo {
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  letter-spacing: -0.08em;
+}
+
+.typeScriptLogo {
+  padding-top: 1.1rem;
+  padding-right: 0.2rem;
+  color: #fff;
+  border-radius: 0.3rem;
+  background: #3178c6;
+  font-size: 1.15rem;
+}
+
+.nextLogo {
+  color: #fff;
+  border-radius: 50%;
+  background: #111;
+  font-size: 1.65rem;
+  font-weight: 500;
+}
+
+.nodeLogo {
+  color: #fff;
+  background: #539e43;
+  clip-path: polygon(25% 7%, 75% 7%, 100% 50%, 75% 93%, 25% 93%, 0 50%);
+  font-size: 1rem;
+}
+
+.javaScriptLogo {
+  padding-top: 0.78rem;
+  padding-right: 0.18rem;
+  color: #171717;
+  background: #f7df1e;
+  font-size: 0.78rem;
+}
+
+@keyframes orbitClockwise {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes logoCounterClockwise {
+  from { transform: translate(-50%, -50%) rotate(var(--counter-angle)); }
+  to { transform: translate(-50%, -50%) rotate(calc(var(--counter-angle) - 360deg)); }
+}
+
+.companyIntro {
+  min-height: calc(100svh - 5rem);
+  padding-block: clamp(3.5rem, 6vw, 5.5rem);
+  display: flex;
+  align-items: center;
+
+  background: transparent;
+}
+
+.companyIntroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(24rem, 0.98fr);
+  align-items: center;
+  gap: clamp(3rem, 7vw, 6.5rem);
+}
+
+.companyIntroCopy { max-width: 42rem; }
+
+.introLabel {
+  width: fit-content;
+  padding: 0.55rem 0.85rem;
+  color: var(--color-primary);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 65%, var(--color-border));
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.companyIntroCopy h2 {
+  max-width: 15ch;
+  margin-top: 1.1rem;
+  font-size: clamp(2.35rem, 4vw, 4rem);
+  line-height: 0.99;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.companyIntroCopy h2 span { color: var(--color-primary); }
+
+.companyIntroCopy > p:not(.introLabel) {
+  max-width: 41rem;
+  margin-top: 1.35rem;
+  color: var(--color-muted);
+  font-size: clamp(0.94rem, 1.1vw, 1.04rem);
+  line-height: 1.72;
+}
+
+.companyIntroCopy blockquote {
+  max-width: 39rem;
+  margin-top: 1.65rem;
+  padding-left: 1.15rem;
+  color: color-mix(in srgb, var(--color-primary) 86%, var(--color-foreground));
+  border-left: 0.2rem solid var(--color-primary);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.48;
+}
+
+.companyIntroVisual {
+  position: relative;
+  min-height: clamp(26rem, 60vh, 34rem);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 1.3rem;
+  background: color-mix(in srgb, var(--color-primary) 7%, var(--color-surface));
+  box-shadow: 0 1.75rem 4.5rem rgb(20 83 219 / 11%);
+}
+
+.companyIntroVisual::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 46%, rgb(5 15 34 / 78%));
+}
+
+.companyIntroVisual img {
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.companyIntroVisual figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  color: #fff;
+}
+
+.companyIntroVisual figcaption span {
+  flex: 0 0 auto;
+  color: rgb(255 255 255 / 68%);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.companyIntroVisual figcaption strong {
+  max-width: 17rem;
+  font-size: clamp(1rem, 1.4vw, 1.22rem);
+  line-height: 1.28;
+  text-align: right;
+}
+
+.section { padding-block: clamp(4rem, 7vw, 6rem);  }
 .sectionHeading { max-width: 43rem; }
 
 .sectionHeading h2,
@@ -205,9 +393,7 @@
   padding-block: clamp(2.5rem, 5vh, 4rem);
   display: flex;
   align-items: center;
-  background:
-    radial-gradient(circle at 50% 15%, color-mix(in srgb, var(--color-primary) 8%, transparent), transparent 34rem),
-    var(--color-background);
+  background: transparent;
 }
 
 .missionInner { width: min(100% - 2rem, 76rem); }
@@ -220,7 +406,7 @@
 
 .missionHeading h2 {
   margin-top: 0.75rem;
-  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-size: clamp(2.5rem, 4vw, 4rem);
   font-weight: 650;
   line-height: 0.98;
   letter-spacing: -0.06em;
@@ -248,8 +434,7 @@
   inset: 0;
   content: "";
   pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 38%), transparent);
-  opacity: 0.45;
+  background: none;
 }
 
 .missionPanelTitle {
@@ -301,7 +486,7 @@
 .principles span + span { border-left: 1px solid var(--color-border); }
 
 .valuesSection {
-  background: color-mix(in srgb, var(--color-primary) 3%, var(--color-background));
+  background: transparent;
 }
 
 .valueGrid {
@@ -396,27 +581,27 @@
 }
 
 .valueGrid:has(.valueCardActive) .valueCard:not(.valueCardActive) {
-  opacity: 0.72;
+  opacity: 1;
   translate: 0 0.25rem;
   scale: 0.985;
 }
 
 .story {
   color: var(--color-foreground);
-  background:
-    radial-gradient(circle at 14% 20%, color-mix(in srgb, var(--color-primary) 9%, transparent), transparent 28rem),
-    var(--color-background);
+  background: transparent;
 }
 
 .storyGrid {
   display: grid;
-  grid-template-columns: minmax(18rem, 0.78fr) minmax(0, 1.22fr);
+  grid-template-columns: minmax(22rem, 0.92fr) minmax(0, 1.08fr);
   align-items: center;
-  gap: clamp(3rem, 9vw, 8rem);
+  gap: clamp(3rem, 6vw, 5.5rem);
 }
 
 .storyMarker {
-  min-height: 24rem;
+  position: relative;
+  min-height: 0;
+  aspect-ratio: 3 / 2;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -425,12 +610,28 @@
   color: #fff;
   border: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
   border-radius: 1.25rem;
-  background:
-    linear-gradient(rgb(255 255 255 / 8%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 8%) 1px, transparent 1px),
-    linear-gradient(145deg, #2455b7, #111a35 76%);
-  background-size: 3.5rem 3.5rem, 3.5rem 3.5rem, auto;
+  background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
   box-shadow: 0 1.5rem 4rem rgb(20 83 219 / 12%);
+}
+
+.storyMarker::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 36%, rgb(5 12 27 / 80%));
+}
+
+.storyMarker img {
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.storyMarker figcaption {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .storyMarker span {
@@ -456,50 +657,10 @@
   line-height: 1.75;
 }
 
-.storyLink {
-  margin-top: 1.5rem;
-  color: var(--color-primary);
-}
-
-.capabilityGrid {
-  margin-top: clamp(2.25rem, 4vw, 3.5rem);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.8rem;
-}
-
-.capabilityCard {
-  min-height: 10.5rem;
-  padding: 1.5rem;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem;
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  background: var(--color-surface);
-  transition: transform 220ms ease, color 180ms ease, border-color 220ms ease, box-shadow 220ms ease;
-}
-
-.capabilityCard h3 {
-  font-size: 1.15rem;
-  letter-spacing: -0.03em;
-}
-
-.capabilityCard p {
-  max-width: 29rem;
-  margin-top: 0.55rem;
-  color: var(--color-muted);
-  font-size: 0.84rem;
-  line-height: 1.6;
-}
-
-.capabilityCard > svg { color: var(--color-primary); }
-
 .cta {
   padding-block: clamp(3.75rem, 7vw, 5.5rem);
-  color: #fff;
-  background: var(--color-primary);
+  color: var(--color-foreground);
+  background: transparent;
 }
 
 .ctaInner {
@@ -527,24 +688,14 @@
   .heroCopy > :nth-child(3) { animation-delay: 130ms; }
   .heroCopy > :nth-child(4) { animation-delay: 190ms; }
 
-  @supports (animation-timeline: view()) {
-    .sectionHeading,
-    .missionCopy,
-    .storyMarker,
-    .storyCopy,
-    .valueCard,
-    .capabilityCard {
-      animation: revealOnScroll linear both;
-      animation-timeline: view();
-      animation-range: entry 5% cover 24%;
-    }
-  }
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .companyIntroVisual:hover img { transform: scale(1.035); }
+  .storyMarker:hover img { transform: scale(1.035); }
+
   .valueCard:hover,
-  .valueCard:focus-visible,
-  .capabilityCard:hover {
+  .valueCard:focus-visible {
     border-color: color-mix(in srgb, var(--color-primary) 38%, var(--color-border));
     box-shadow: 0 1.4rem 3.5rem rgb(20 83 219 / 9%);
   }
@@ -575,16 +726,13 @@
   }
 
   .valueGrid:has(.valueCard:hover) .valueCard:not(:hover) {
-    opacity: 0.72;
+    opacity: 1;
     translate: 0 0.25rem;
     scale: 0.985;
   }
 
-  .capabilityCard:hover { color: var(--color-primary); }
   .primaryButton:hover svg,
   .textLink:hover svg,
-  .storyLink:hover svg,
-  .capabilityCard:hover > svg,
   .cta a:hover svg { transform: translateX(0.22rem); }
   .cta a:hover { border-color: rgb(255 255 255 / 70%); background: rgb(255 255 255 / 10%); }
 }
@@ -594,19 +742,32 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes revealOnScroll {
-  from { opacity: 0.25; transform: translateY(1.25rem); }
-  to { opacity: 1; transform: translateY(0); }
+.missionPanelTitle h3,
+.principles,
+.storyCopy h2,
+.valuesSection h2,
+.valueCard h3 { color: var(--color-foreground); }
+
+.missionCopy > p,
+.storyCopy > p:not(.eyebrow),
+.valueCard p {
+  color: color-mix(in srgb, var(--color-foreground) 78%, var(--color-surface));
 }
+
+.storyCopy > p:not(.eyebrow),
+.valueCard p { font-size: 1rem; line-height: 1.75; }
 
 @media (max-width: 860px) {
   .heroGrid,
   .split,
-  .storyGrid { grid-template-columns: 1fr; }
+  .storyGrid,
+  .companyIntroGrid { grid-template-columns: 1fr; }
 
   .heroVisual { min-height: 23rem; }
   .heroGrid { gap: 3rem; }
-  .storyMarker { min-height: 18rem; }
+  .companyIntro { min-height: auto; }
+  .companyIntroVisual { min-height: 25rem; }
+  .storyMarker { min-height: 0; }
 }
 
 @media (max-width: 680px) {
@@ -620,7 +781,7 @@
   .principles span { padding: 0.9rem 0; text-align: left; }
   .principles span + span { border-top: 1px solid var(--color-border); border-left: 0; }
   .valueGrid,
-  .capabilityGrid { grid-template-columns: 1fr; }
+  .valueGrid { grid-template-columns: 1fr; }
   .valueCard { height: 17rem; }
   .valueCardActive,
   .valueCard:focus-visible { height: 20.5rem; }
@@ -630,4 +791,16 @@
 @media (max-width: 440px) {
   .hero h1 { font-size: clamp(2.45rem, 13vw, 3.2rem); }
   .heroVisual { min-height: 20rem; padding: 1.25rem; }
+  .orbitTechnology { transform: rotate(var(--orbit-angle)) translateX(7.25rem); }
+  .technologyBadge { width: 3rem; height: 3rem; }
+  .technologyBadge svg,
+  .technologyBadge .letterLogo { width: 1.9rem; height: 1.9rem; }
+  .companyIntroVisual { min-height: 21rem; }
+  .companyIntroVisual figcaption { align-items: flex-start; flex-direction: column; }
+  .companyIntroVisual figcaption strong { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbitTrack,
+  .technologyBadge { animation-play-state: paused; }
 }

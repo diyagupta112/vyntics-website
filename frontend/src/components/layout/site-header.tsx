@@ -1,14 +1,23 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { siteConfig } from "@/config/site";
-import type { NavigationItem } from "@/types/navigation";
+import type { NavigationChild, NavigationItem } from "@/types/navigation";
 import styles from "./site-header.module.css";
+
+function matchesRoute(pathname: string, href: string) {
+  if (!href.startsWith("/") || href.includes("#")) return false;
+  return pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+}
+
+function isCurrentItem(pathname: string, item: NavigationItem | NavigationChild): boolean {
+  return matchesRoute(pathname, item.href) || Boolean(item.children?.some((child) => isCurrentItem(pathname, child)));
+}
 
 function ChevronIcon() {
   return (
@@ -27,6 +36,24 @@ function MenuIcon({ open }: { open: boolean }) {
   );
 }
 
+function ServiceSubmenu({ child, close }: { child: NavigationChild; close: () => void }) {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const id = `service-submenu-${child.label.toLowerCase().replace(/\s+/g, "-")}`;
+  return <div className={styles.serviceGroup} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
+    <div className={styles.serviceRow} data-current={isCurrentItem(pathname, child)}>
+      {child.headingOnly ? (
+        <div className={styles.serviceLabel}>
+          <strong>{child.label}</strong><small>{child.description}</small>
+        </div>
+      ) : (
+        <><Link className={styles.dropdownLink} href={child.href} onClick={close}><span>{child.label}</span><small>{child.description}</small></Link><button type="button" className={styles.submenuToggle} aria-label={`Show ${child.label} services`} aria-expanded={open} aria-controls={id} onClick={() => setOpen((value) => !value)}><ChevronIcon /></button></>
+      )}
+    </div>
+    {open && <div id={id} className={styles.submenu}><p className={styles.submenuHeading}>{child.label} services</p>{child.children?.map((service) => <Link key={service.href} className={`${styles.dropdownLink} ${styles.innerServiceLink}`} aria-current={matchesRoute(pathname, service.href) ? "page" : undefined} href={service.href} onClick={close}><span>{service.label}</span><small>{service.description}</small><span className={styles.innerServiceArrow}><ChevronIcon /></span></Link>)}</div>}
+  </div>;
+}
+
 function DesktopMenuItem({
   item,
   active,
@@ -37,9 +64,10 @@ function DesktopMenuItem({
   setActive: (label: string | null) => void;
 }) {
   const isOpen = active === item.label;
+  const pathname = usePathname();
 
   return (
-    <li className={styles.navItem} onMouseEnter={() => setActive(item.label)} onFocus={() => setActive(item.label)}>
+    <li className={styles.navItem} data-current={isCurrentItem(pathname, item)} onMouseEnter={() => setActive(item.label)} onFocus={() => setActive(item.label)}>
       {isOpen && (
         <motion.span
           className={styles.hoverPill}
@@ -61,7 +89,7 @@ function DesktopMenuItem({
           </motion.span>
         </button>
       ) : (
-        <Link className={styles.navLink} href={item.href}>{item.label}</Link>
+        <Link className={styles.navLink} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} href={item.href}>{item.label}</Link>
       )}
 
       <AnimatePresence>
@@ -75,7 +103,7 @@ function DesktopMenuItem({
           >
             <div className={styles.dropdownArrow} />
             {item.children.map((child) => (
-              <Link className={styles.dropdownLink} href={child.href} key={child.href} onClick={() => setActive(null)}>
+              child.children ? <ServiceSubmenu child={child} close={() => setActive(null)} key={child.href} /> : <Link className={styles.dropdownLink} aria-current={matchesRoute(pathname, child.href) ? "page" : undefined} href={child.href} key={child.href} onClick={() => setActive(null)}>
                 <span>{child.label}</span>
                 <small>{child.description}</small>
               </Link>
@@ -87,7 +115,12 @@ function DesktopMenuItem({
   );
 }
 
+export function SiteHeaderSpacer() {
+  return <div className={styles.headerSpacer} aria-hidden="true" />;
+}
+
 export function SiteHeader() {
+  const pathname = usePathname();
   const [active, setActive] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -144,13 +177,12 @@ export function SiteHeader() {
   }, [mobileOpen]);
 
   return (
-    <>
       <header
         className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}`}
       >
         <div className={styles.inner}>
         <Link className={styles.logoLink} href="/" aria-label={`${siteConfig.name} home`} onClick={() => setMobileOpen(false)}>
-          <Image className={styles.logoImage} src="/images/vyntics-mark.png" alt="" width={107} height={81} priority />
+          <span className={styles.logoImage} aria-hidden="true" />
           <span className={styles.wordmark}>VYNTICS</span>
         </Link>
 
@@ -209,16 +241,16 @@ export function SiteHeader() {
               <Container className={styles.mobileNavInner}>
                 {siteConfig.navigation.map((item) =>
                   item.children ? (
-                    <details className={styles.mobileGroup} key={item.label}>
+                    <details className={styles.mobileGroup} data-current={isCurrentItem(pathname, item)} key={item.label}>
                       <summary>{item.label}<ChevronIcon /></summary>
                       <div className={styles.mobileChildren}>
                         {item.children.map((child) => (
-                          <Link href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
+                          child.children ? <div className={styles.mobileServiceGroup} key={child.label}><div className={styles.mobileServiceHeading} data-current={isCurrentItem(pathname, child)}>{child.label}</div><div className={styles.mobileChildren}>{child.children.map((service) => <Link key={service.href} aria-current={matchesRoute(pathname, service.href) ? "page" : undefined} href={service.href} onClick={() => setMobileOpen(false)}><span>{service.label}</span><span className={styles.mobileServiceArrow}><ChevronIcon /></span></Link>)}</div></div> : <Link aria-current={matchesRoute(pathname, child.href) ? "page" : undefined} href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
                         ))}
                       </div>
                     </details>
                   ) : (
-                    <Link className={styles.mobileDirectLink} href={item.href} key={item.label} onClick={() => setMobileOpen(false)}>{item.label}</Link>
+                    <Link className={styles.mobileDirectLink} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} href={item.href} key={item.label} onClick={() => setMobileOpen(false)}>{item.label}</Link>
                   ),
                 )}
                 <Link className={styles.mobileDemoButton} href="/#contact" onClick={() => setMobileOpen(false)}>
@@ -229,7 +261,5 @@ export function SiteHeader() {
           )}
         </AnimatePresence>
       </header>
-      <div className={styles.headerSpacer} aria-hidden="true" />
-    </>
   );
 }

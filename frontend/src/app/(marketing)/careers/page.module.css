@@ -25,12 +25,12 @@
 .sectionHeading > p:last-child,
 .stickyHeading > p:last-child,
 .openingsHeading > p { margin-top: 1rem; color: var(--color-muted); line-height: 1.65; }
-.reasonsSection { background: #ffffff; }
+.reasonsSection { background: transparent; }
 .reasonsHeading { max-width: 47rem; margin-inline: auto; text-align: center; }
 .reasonsHeading h2 { font-size: clamp(2rem, 3.4vw, 3rem); line-height: 1.06; letter-spacing: -0.052em; text-wrap: balance; }
 .reasonsHeading p { max-width: 44rem; margin: 0.9rem auto 0; color: var(--color-muted); font-size: clamp(1rem, 1.35vw, 1.12rem); line-height: 1.7; text-wrap: balance; }
 .testimonialsSection { position: relative; padding-top: clamp(3.75rem, 6vw, 5.25rem); padding-bottom: clamp(2.75rem, 4vw, 3.5rem); }
-.testimonialsSection::before { position: absolute; top: 0; left: 50%; width: min(calc(100% - 2rem), var(--content-width)); height: 1px; background: color-mix(in srgb, var(--color-border) 68%, transparent); content: ""; transform: translateX(-50%); }
+.testimonialsSection::before { content: none; }
 .chapterHeading { max-width: 46rem; }
 .chapterHeading h2 { font-size: clamp(1.9rem, 3vw, 2.65rem); line-height: 1.08; letter-spacing: -0.048em; text-wrap: balance; }
 .chapterHeading p { max-width: 42rem; margin-top: 0.9rem; color: var(--color-muted); font-size: clamp(0.98rem, 1.2vw, 1.08rem); line-height: 1.65; }
@@ -68,11 +68,11 @@
 .skeletonCard span:first-child { width: 32%; }
 .skeletonCard span:nth-child(2) { width: 70%; height: 2.5rem; margin-top: 1rem; }
 .skeletonCard span:last-child { width: 88%; }
-.contactCta { padding-block: clamp(3.75rem, 6vw, 5rem); color: #fff; background: #0b0b0f; }
+.contactCta { padding-block: clamp(3.75rem, 6vw, 5rem); color: var(--color-foreground); background: transparent; }
 .contactInner { display: flex; align-items: center; flex-direction: column; text-align: center; }
-.contactCta .eyebrow { color: #a9c5ff; }
+.contactCta .eyebrow { color: var(--color-primary); }
 .contactCta h2 { max-width: 22ch; }
-.contactInner > p:not(.eyebrow) { max-width: 40rem; margin-top: 1rem; color: rgb(255 255 255 / 65%); line-height: 1.65; }
+.contactInner > p:not(.eyebrow) { max-width: 40rem; margin-top: 1rem; color: var(--color-muted); line-height: 1.65; }
 .contactEmail { min-height: 3.1rem; margin-top: 1.35rem; padding-inline: 1.15rem; display: inline-flex; align-items: center; color: #fff; border-radius: 0.7rem; background: var(--color-primary); box-shadow: 0 0.8rem 2rem rgb(20 83 219 / 24%); font-size: 0.95rem; font-weight: 700; cursor: text; user-select: text; }
 @keyframes pulse { 50% { opacity: 0.46; } }
 @media (hover: hover) and (pointer: fine) {

@@ -7,8 +7,31 @@ import styles from "./contact-cta.module.css";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
-export function ContactCta({ variant = "default" }: { variant?: "default" | "case-studies" }) {
-  const isCaseStudies = variant === "case-studies";
+function SubmitIcon({ success }: { success: boolean }) {
+  return (
+    <svg className={styles.submitIcon} viewBox="0 0 24 24" aria-hidden="true">
+      {success ? (
+        <path className={styles.checkPath} d="m5 12.5 4.25 4.25L19 7" pathLength="1" />
+      ) : (
+        <path d="M4 12h15m-5.5-5.5L19 12l-5.5 5.5" />
+      )}
+    </svg>
+  );
+}
+
+type ContactCtaProps = {
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  sectionId?: string;
+};
+
+export function ContactCta({
+  eyebrow = "Get in touch",
+  title = "Let's look at your data together",
+  intro = "Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.",
+  sectionId = "contact",
+}: ContactCtaProps = {}) {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [feedback, setFeedback] = useState("");
 
@@ -49,24 +72,12 @@ export function ContactCta({ variant = "default" }: { variant?: "default" | "cas
   };
 
   return (
-    <section id="contact" className={`${styles.section} ${isCaseStudies ? styles.caseStudies : ""}`} aria-labelledby="contact-title">
+    <section id={sectionId} className={styles.section} aria-labelledby={`${sectionId}-title`}>
       <Container className={styles.layout}>
         <div className={styles.content}>
-          {isCaseStudies ? (
-            <>
-              <h2 id="contact-title">Have a similar problem?<br />Let&apos;s solve it together.</h2>
-              <p className={styles.intro}>Talk to our experts and find a practical way forward. We can help turn your business or technical challenge into a solution that fits your team and how you work.</p>
-              <ul className={styles.engagementSteps} aria-label="How we can help">
-                <li>Understand the problem</li>
-                <li>Design the right solution</li>
-                <li>Build and move it forward</li>
-              </ul>
-            </>
-          ) : (
-            <>
-          <p className={styles.eyebrow}>Get in touch</p>
-          <h2 id="contact-title">Let&apos;s look at your data together</h2>
-          <p className={styles.intro}>Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.</p>
+          <p className={styles.eyebrow}>{eyebrow}</p>
+          <h2 id={`${sectionId}-title`}>{title}</h2>
+          <p className={styles.intro}>{intro}</p>
 
           <a className={styles.emailLink} href="mailto:contact@vyntics.com">
             <span aria-hidden="true">→</span> contact@vyntics.com
@@ -78,11 +89,19 @@ export function ContactCta({ variant = "default" }: { variant?: "default" | "cas
               {siteConfig.address}
             </a>
           </address>
-            </>
-          )}
         </div>
 
-        <form className={styles.form} onSubmit={handleSubmit} noValidate={false}>
+        <form
+          className={styles.form}
+          onSubmit={handleSubmit}
+          onInput={() => {
+            if (submitState === "success" || submitState === "error") {
+              setSubmitState("idle");
+              setFeedback("");
+            }
+          }}
+          noValidate={false}
+        >
           <div className={styles.twoColumns}>
             <label>
               <span>Full name</span>
@@ -110,9 +129,17 @@ export function ContactCta({ variant = "default" }: { variant?: "default" | "cas
             <textarea name="message" required rows={5} placeholder="Tell us about your project, challenge, or goal." />
           </label>
 
-          <button type="submit" disabled={submitState === "submitting"}>
-            {submitState === "submitting" ? "Sending…" : "Send message"}
-            {submitState !== "submitting" && <span aria-hidden="true">→</span>}
+          <button
+            className={styles.submitButton}
+            type="submit"
+            data-state={submitState}
+            disabled={submitState === "submitting" || submitState === "success"}
+          >
+            <span className={styles.sendSweep} aria-hidden="true" />
+            <span className={styles.submitContent}>
+              {submitState === "submitting" ? "Sending…" : submitState === "success" ? "Message sent" : "Send message"}
+              <SubmitIcon success={submitState === "success"} />
+            </span>
           </button>
 
           <p className={`${styles.feedback} ${submitState === "error" ? styles.error : ""}`} role="status" aria-live="polite">
