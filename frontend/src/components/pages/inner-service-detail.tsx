@@ -63,14 +63,18 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
         </Container>
       </section>
 
-      <ServiceApproach steps={service.process} />
+      <ServiceApproach steps={service.process}
+        heading={service.slug === "rag-assistants" ? "From isolated data to production-grade AI intelligence." : service.slug === "ai-agents" ? "From scope definition to supervised agent deployment." : service.slug === "document-automation" ? "From document discovery to production-ready automation." : undefined}
+        introduction={service.slug === "rag-assistants" ? "A structured 4-step engineering roadmap built to ensure security, high accuracy, and seamless deployment." : service.slug === "ai-agents" ? "A disciplined 4-stage development framework engineered for predictability, security, and measurable performance." : service.slug === "document-automation" ? "A structured 4-step execution framework engineered to ensure field-level precision, compliance, and seamless data sync." : undefined}
+      />
 
       <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} />
 
       <ContactCta
         eyebrow={`${service.name} consultation`}
-        title={`Let's make ${service.name} work for your business.`}
-        intro={`Tell us what you need from ${service.name}. We’ll review the current process, identify the practical next step, and explain how we can help.`}
+        title={service.slug === "rag-assistants" ? "Ready to build a reliable RAG Assistant?" : service.slug === "ai-agents" ? "Ready to automate workflows with custom AI Agents?" : service.slug === "document-automation" ? "Ready to eliminate manual document processing?" : `Let's make ${service.name} work for your business.`}
+        intro={service.slug === "rag-assistants" ? "Share your data challenges or AI requirements with us. Our team will evaluate your knowledge sources and deliver a practical, step-by-step technical proposal." : service.slug === "ai-agents" ? "Share your current bottleneck or operational goals. Our engineering team will review your systems, propose a scoped agent architecture, and demonstrate clear ROI." : service.slug === "document-automation" ? "Share your document formats, volumes, and extraction goals. Our team will evaluate your workflows and provide a tailored automation roadmap." : `Tell us what you need from ${service.name}. We’ll review the current process, identify the practical next step, and explain how we can help.`}
+        submitLabel={["rag-assistants", "ai-agents", "document-automation"].includes(service.slug) ? "Request Free AI Consultation" : undefined}
       />
     </>
   );

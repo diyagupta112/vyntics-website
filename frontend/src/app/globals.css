@@ -24,8 +24,8 @@
 }
 
 html[data-theme="dark"] {
-  --color-background: var(--color-ink);
-  --site-gradient: radial-gradient(ellipse at 85% 15%, rgb(37 99 235 / 15%), transparent 58%), radial-gradient(ellipse at 10% 85%, rgb(20 83 219 / 10%), transparent 55%), linear-gradient(135deg, #0b0b0f, #101a30);
+  --color-background: #000000;
+  --site-gradient: none;
   --color-foreground: var(--color-white);
   --color-muted: rgb(255 255 255 / 62%);
   --color-border: rgb(255 255 255 / 12%);
