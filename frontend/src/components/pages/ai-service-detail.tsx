@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { canonicalServiceHref } from "@/content/service-route-map";
 import { Container } from "@/components/ui/container";
 import { aiServices, type AiServiceContent } from "@/content/ai-services";
 import styles from "./ai-service-detail.module.css";
@@ -91,7 +92,7 @@ export function AiServiceDetail({ service }: { service: AiServiceContent }) {
           </div>
           <div className={styles.relatedGrid}>
             {relatedServices.map((item) => (
-              <Link key={item.slug} href={`/services/ai/${item.slug}`}>
+              <Link key={item.slug} href={canonicalServiceHref(`/services/ai/${item.slug}`)}>
                 <span>{item.name}</span><ArrowIcon />
               </Link>
             ))}

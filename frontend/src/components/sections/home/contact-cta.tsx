@@ -24,6 +24,7 @@ type ContactCtaProps = {
   title?: string;
   intro?: string;
   sectionId?: string;
+  submitLabel?: string;
 };
 
 export function ContactCta({
@@ -31,6 +32,7 @@ export function ContactCta({
   title = "Let's look at your data together",
   intro = "Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.",
   sectionId = "contact",
+  submitLabel = "Send message",
 }: ContactCtaProps = {}) {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [feedback, setFeedback] = useState("");
@@ -137,7 +139,7 @@ export function ContactCta({
           >
             <span className={styles.sendSweep} aria-hidden="true" />
             <span className={styles.submitContent}>
-              {submitState === "submitting" ? "Sending…" : submitState === "success" ? "Message sent" : "Send message"}
+              {submitState === "submitting" ? "Sending…" : submitState === "success" ? "Message sent" : submitLabel}
               <SubmitIcon success={submitState === "success"} />
             </span>
           </button>

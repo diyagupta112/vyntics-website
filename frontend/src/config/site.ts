@@ -4,7 +4,7 @@ import { serviceNavigation } from "@/content/service-navigation";
 const navigation: NavigationItem[] = [
   {
     label: "Services",
-    href: "/services/ai/rag-assistants",
+    href: "/services",
     children: serviceNavigation,
   },
   {

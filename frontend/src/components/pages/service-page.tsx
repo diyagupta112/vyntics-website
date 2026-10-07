@@ -36,7 +36,7 @@ export function ServicePage({ service }: { service: ServiceContent }) {
             {service.offerings.map((offering, index) => (
               <article key={offering.title} id={`offering-${index + 1}`} style={{ scrollMarginTop: "7rem" }}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
-                <h3>{offering.title}</h3>
+                <h3>{offering.href ? <Link href={offering.href}>{offering.title}</Link> : offering.title}</h3>
                 <p>{offering.description}</p>
               </article>
             ))}

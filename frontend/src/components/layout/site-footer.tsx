@@ -18,7 +18,7 @@ type ServiceGroup = {
 
 // Share the header's real service destinations while keeping the footer order.
 const serviceGroups: readonly ServiceGroup[] = [
-  "Custom AI Solutions", "Data Engineering", "Analytics & BI", "Cloud Solutions", "CRM",
+  "Cloud Foundations", "Data Engineering", "Analytics & BI", "AI Solutions", "CRM & Revenue Ops",
 ].map(label => {
   const group = serviceNavigation.find(item => item.label === label);
   if (!group) throw new Error(`Missing service navigation group: ${label}`);

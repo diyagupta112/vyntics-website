@@ -1,21 +1,29 @@
 import Link from "next/link";
+import { canonicalServiceHref } from "@/content/service-route-map";
 import { Container } from "@/components/ui/container";
-import { cloudServiceList, cloudServices, type CloudService } from "./cloud-services";
+import { cloudServiceList } from "./cloud-services";
+import type { CanonicalCloudService } from "./canonical-cloud-services";
 import styles from "./cloud-service-page.module.css";
+
+function cloudHref(slug: string) {
+  const legacy = `/services/cloud/${slug}`;
+  const canonical = canonicalServiceHref(legacy);
+  return canonical === legacy ? `/services/cloud-foundations/${slug}` : canonical;
+}
 
 function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
-function CloudContext({ current }: { current: CloudService }) {
+function CloudContext({ current, serviceList }: { current: CanonicalCloudService; serviceList: readonly CanonicalCloudService[] }) {
   return (
-    <nav className={styles.cloudContext} aria-label="Cloud Solutions services">
+    <nav className={styles.cloudContext} aria-label="Cloud Foundations services">
       <Container>
-        <div className={styles.breadcrumb}><Link href="/services/cloud">Cloud Solutions</Link><span aria-hidden="true">/</span><span>{current.title}</span></div>
+        <div className={styles.breadcrumb}><Link href="/services/cloud-foundations">Cloud Foundations</Link><span aria-hidden="true">/</span><span>{current.title}</span></div>
         <ul>
-          {cloudServiceList.map((service) => (
+          {serviceList.map((service) => (
             <li key={service.slug}>
-              <Link href={`/services/cloud/${service.slug}`} aria-current={service.slug === current.slug ? "page" : undefined}>
+              <Link href={cloudHref(service.slug)} aria-current={service.slug === current.slug ? "page" : undefined}>
                 <span>{service.number}</span>{service.title}
               </Link>
             </li>
@@ -26,17 +34,17 @@ function CloudContext({ current }: { current: CloudService }) {
   );
 }
 
-export function CloudServicePage({ service }: { service: CloudService }) {
-  const nextService = cloudServices[service.nextSlug];
+export function CloudServicePage({ service, serviceList = cloudServiceList }: { service: CanonicalCloudService; serviceList?: readonly CanonicalCloudService[] }) {
+  const nextService = serviceList.find(item => item.slug === service.nextSlug) ?? serviceList[0];
 
   return (
     <>
-      <CloudContext current={service} />
+      <CloudContext current={service} serviceList={serviceList} />
 
       <header className={styles.hero}>
         <Container className={styles.heroGrid}>
           <div>
-            <p className={styles.eyebrow}>Cloud Solutions · {service.number}</p>
+            <p className={styles.eyebrow}>Cloud Foundations · {service.number}</p>
             <h1>{service.title}</h1>
           </div>
           <div className={styles.heroStatement}>
@@ -109,7 +117,7 @@ export function CloudServicePage({ service }: { service: CloudService }) {
 
       <section className={styles.continue} aria-labelledby={`${service.slug}-continue`}>
         <Container className={styles.continueGrid}>
-          <Link className={styles.nextService} href={`/services/cloud/${nextService.slug}`}>
+          <Link className={styles.nextService} href={cloudHref(nextService.slug)}>
             <span>Next Cloud service · {nextService.number}</span>
             <strong id={`${service.slug}-continue`}>{nextService.title}</strong>
             <ArrowIcon />

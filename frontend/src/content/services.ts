@@ -1,15 +1,15 @@
 export type ServiceContent = {
-  slug: "ai" | "data" | "crm" | "cloud" | "other";
+  slug: string;
   eyebrow: string;
   title: string;
   introduction: string;
   promise: string;
-  offerings: ReadonlyArray<{ title: string; description: string }>;
+  offerings: ReadonlyArray<{ title: string; description: string; href?: string }>;
   outcomes: readonly string[];
   technologies: readonly string[];
 };
 
-export const services: Record<ServiceContent["slug"], ServiceContent> = {
+export const services: Record<"ai" | "data" | "crm" | "cloud" | "other", ServiceContent> = {
   ai: {
     slug: "ai",
     eyebrow: "Custom AI solutions",

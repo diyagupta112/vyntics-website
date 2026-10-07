@@ -34,15 +34,15 @@ function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
-export function InnerServiceDetail({ service }: { service: InnerServiceDetailContent }) {
+export function InnerServiceDetail({ service, parent }: { service: InnerServiceDetailContent; parent?: { name: string; href: string } }) {
   return (
     <>
-      <section className={`${styles.hero} ${service.slug === "rag-assistants" ? styles.sequencedHero : ""}`} aria-labelledby="service-title">
+      <section className={`${styles.hero} ${(service.slug === "rag-assistants" || service.slug === "rag-knowledge-assistants") ? styles.sequencedHero : ""}`} aria-labelledby="service-title">
         <Container>
-          <Link className={styles.backLink} href="/#services">← All services</Link>
+          <Link className={styles.backLink} href={parent?.href ?? "/services"}>← {parent?.name ?? "All services"}</Link>
           <p className={styles.eyebrow}>{service.eyebrow}</p>
-          <h1 id="service-title" aria-label={service.slug === "rag-assistants" ? service.title : undefined}>
-            {service.slug === "rag-assistants" ? service.title.split(/\s+/).map((word, index) => (
+          <h1 id="service-title" aria-label={(service.slug === "rag-assistants" || service.slug === "rag-knowledge-assistants") ? service.title : undefined}>
+            {(service.slug === "rag-assistants" || service.slug === "rag-knowledge-assistants") ? service.title.split(/\s+/).map((word, index) => (
               <span className={styles.heroWord} aria-hidden="true" key={`${word}-${index}`} style={{ animationDelay: `${.45 + index * .12}s` }}>{word}{" "}</span>
             )) : service.title}
           </h1>

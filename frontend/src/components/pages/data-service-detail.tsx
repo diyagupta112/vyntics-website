@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { canonicalServiceHref } from "@/content/service-route-map";
 import { ServiceTools } from "./service-tools";
 import { Container } from "@/components/ui/container";
 import { dataServices, type DataServiceContent } from "@/content/data-services";
@@ -91,7 +92,7 @@ export function DataServiceDetail({ service }: { service: DataServiceContent }) 
           </div>
           <div className={styles.relatedGrid}>
             {relatedServices.map((item) => (
-              <Link key={item.slug} href={`/services/data/${item.slug}`}>
+              <Link key={item.slug} href={canonicalServiceHref(`/services/data/${item.slug}`)}>
                 <span>{item.name}</span><ArrowIcon />
               </Link>
             ))}
