@@ -28,7 +28,7 @@ export const serviceNavigation: readonly NavigationChild[] = [
     ],
   },
   {
-    label: "AI Solutions", href: "/services/ai", headingOnly: true,
+    label: "AI Solutions", href: "/services/ai", headingOnly: true, headingLink: true,
     description: "Grounded assistants, capable agents, and intelligent automation.",
     children: [
       { label: "RAG & Knowledge Assistants", href: "/services/ai/rag-knowledge-assistants", description: "Answers grounded in approved knowledge with verifiable sources." },

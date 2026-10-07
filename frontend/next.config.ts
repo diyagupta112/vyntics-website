@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
       { source: "/rewards", destination: "/recognition", permanent: true },
       { source: "/services/cloud", destination: "/#services", permanent: true },
       { source: "/services/analytics", destination: "/#services", permanent: true },
-      { source: "/services/ai", destination: "/#services", permanent: true },
       { source: "/services/crm", destination: "/#services", permanent: true },
       { source: "/services/other", destination: "/#services", permanent: true },
       { source: "/services/ai/rag-assistants", destination: "/services/ai/rag-knowledge-assistants", permanent: true },

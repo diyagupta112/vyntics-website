@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DataEngineeringServicesShowcase } from "@/components/pages/data-engineering-services-showcase";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
 import { articles } from "@/content/articles";
@@ -16,12 +17,6 @@ const problems = [
   { title: "Conflicting reports", description: "The same metric produces different answers because definitions and transformation logic are scattered." },
   { title: "Slow or stale data", description: "Important decisions depend on refreshes that arrive late, fail silently, or cannot be replayed safely." },
   { title: "Unclear ownership", description: "When data breaks, nobody knows who owns the source, the pipeline, the definition, or the fix." },
-] as const;
-
-const services = [
-  { title: "Data Pipelines & Integration", description: "Observable batch and streaming pipelines connecting APIs, databases, files, SaaS platforms, and internal systems.", href: "/services/data/data-pipelines-integration" },
-  { title: "Data Warehousing & Lakehouse", description: "Governed cloud platforms and reusable analytical models designed around real workloads, access patterns, and growth.", href: "/services/data/data-warehousing-lakehouse" },
-  { title: "Data Quality & Governance", description: "Definitions, ownership, lineage, validation, access controls, and issue workflows for critical business data.", href: "/services/data/data-quality-governance" },
 ] as const;
 
 const reasons = [
@@ -41,11 +36,11 @@ const platforms = [
 ] as const;
 
 const process = [
-  { title: "Assess", description: "Map sources, consumers, ownership, definitions, risk, data quality, and the decisions the system must support." },
-  { title: "Design", description: "Define architecture, data contracts, models, security, lineage, quality rules, and operating responsibilities." },
-  { title: "Build", description: "Deliver in usable increments with version control, automated tests, reconciliation, and deployment discipline." },
-  { title: "Monitor", description: "Track freshness, volume, failures, quality, performance, lineage, usage, and cost in production." },
-  { title: "Support", description: "Resolve incidents, maintain source integrations, improve weak points, and transfer practical ownership to your team." },
+  { title: "Assess", visual: "Sources and outcomes", description: "Map sources, consumers, ownership, definitions, risk, data quality, and the decisions the system must support." },
+  { title: "Design", visual: "Architecture and controls", description: "Define architecture, data contracts, models, security, lineage, quality rules, and operating responsibilities." },
+  { title: "Build", visual: "Pipelines and models", description: "Deliver in usable increments with version control, automated tests, reconciliation, and deployment discipline." },
+  { title: "Monitor", visual: "Quality and reliability", description: "Track freshness, volume, failures, quality, performance, lineage, usage, and cost in production." },
+  { title: "Support", visual: "Operate and improve", description: "Resolve incidents, maintain source integrations, improve weak points, and transfer practical ownership to your team." },
 ] as const;
 
 const measures = ["Data freshness", "Pipeline reliability", "Manual work removed", "Query performance", "Quality failures caught", "Platform cost"] as const;
@@ -93,10 +88,7 @@ export default function DataEngineeringPage() {
 
       <section className={`${styles.section} ${styles.servicesSection}`} id="data-services" aria-labelledby="services-title">
         <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>Our data engineering services</p><h2 id="services-title">Three connected capabilities, one dependable data system.</h2></div>
-          <div className={styles.serviceGrid}>
-            {services.map((service, index) => <Link href={service.href} key={service.href}><span className={styles.cardNumber}>{String(index + 1).padStart(2, "0")}</span><div><h3>{service.title}</h3><p>{service.description}</p></div><ArrowIcon /></Link>)}
-          </div>
+          <DataEngineeringServicesShowcase />
         </Container>
       </section>
 
@@ -115,10 +107,34 @@ export default function DataEngineeringPage() {
         </Container>
       </section>
 
-      <section className={styles.section} aria-labelledby="process-title">
+      <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>How we work</p><h2 id="process-title">Assess. Design. Build. Monitor. Support.</h2></div>
-          <ol className={styles.processList}>{process.map((step, index) => <li key={step.title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{step.title}</h3><p>{step.description}</p></li>)}</ol>
+          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">A clear path from assessment to dependable operations.</h2><p>Five focused stages. One accountable delivery process built around usable outcomes.</p></div>
+          <ol className={styles.processList}>
+            {process.map((step, index) => (
+              <li key={step.title}>
+                <article className={styles.processCard}>
+                  <span>Step {String(index + 1).padStart(2, "0")}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </article>
+                <span className={styles.processMarker} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                <div className={styles.processVisual} aria-hidden="true">
+                  <svg viewBox="0 0 180 100">
+                    <path d="M26 50h30m68 0h30M56 50l18-24m-18 24 18 24m50-24-18-24m18 24-18 24" />
+                    <circle cx="20" cy="50" r="6" />
+                    <circle cx="82" cy="20" r="8" />
+                    <circle cx="82" cy="80" r="8" />
+                    <rect x="76" y="41" width="28" height="18" rx="4" />
+                    <circle cx="112" cy="20" r="8" />
+                    <circle cx="112" cy="80" r="8" />
+                    <circle cx="160" cy="50" r="6" />
+                  </svg>
+                  <span>{step.visual}</span>
+                </div>
+              </li>
+            ))}
+          </ol>
         </Container>
       </section>
 
