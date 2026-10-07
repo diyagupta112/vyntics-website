@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/container";
 import styles from "@/components/pages/listing-page.module.css";
 
 export const metadata: Metadata = {
-  title: "Rewards",
+  title: "Recognition",
   description: "The contributions, growth, and outcomes Vyntics recognizes.",
 };
 
@@ -14,12 +14,12 @@ const recognition = [
   { title: "Continuous growth", text: "Developing new capabilities and applying what was learned to increasingly meaningful work." },
 ] as const;
 
-export default function RewardsPage() {
+export default function RecognitionPage() {
   return (
     <>
       <section className={styles.hero}>
         <Container>
-          <p className={styles.eyebrow}>Rewards & recognition</p>
+          <p className={styles.eyebrow}>Recognition</p>
           <h1>Recognition should follow meaningful contribution.</h1>
           <p>At Vyntics, we value the work that improves client outcomes, strengthens engineering quality, and helps the team grow together.</p>
         </Container>
@@ -45,4 +45,3 @@ export default function RewardsPage() {
     </>
   );
 }
-

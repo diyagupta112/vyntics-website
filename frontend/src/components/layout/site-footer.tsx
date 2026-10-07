@@ -8,8 +8,8 @@ import { serviceNavigation } from "@/content/service-navigation";
 
 const exploreLinks = [
   { label: "About us", href: "/about" },
-  { label: "Career", href: "/careers" },
-  { label: "Rewards", href: "/rewards" },
+  { label: "Careers", href: "/careers" },
+  { label: "Recognition", href: "/recognition" },
   { label: "Case studies", href: "/case-studies" },
   { label: "How We Work", href: "/#approach" },
   { label: "Latest Insights", href: "/blog" },
@@ -69,13 +69,13 @@ export function SiteFooter() {
           <div className={styles.brandColumn}>
             <Link className={styles.brand} href="/" aria-label={`${siteConfig.name} home`}>
               <span className={styles.logoBox}>
-                <Image src="/images/vyntics-mark.png" alt="" width={64} height={48} />
+                <Image src="/images/vyntics-mark-transparent.png" alt="" width={64} height={48} />
               </span>
               <span>VYNTICS</span>
             </Link>
             <p>
-              Production-ready AI, data, and cloud systems built by the engineers
-              you work with directly.
+              Production-ready cloud, data, analytics, AI, and CRM systems built
+              by the engineers you work with directly.
             </p>
             <a className={styles.primaryLink} href="mailto:contact@vyntics.com">
               Start a conversation <ArrowIcon />

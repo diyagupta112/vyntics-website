@@ -8,48 +8,48 @@ import styles from "./capabilities.module.css";
 const capabilities = [
   {
     number: "01",
-    anchor: "services-ai",
-    shortLabel: "AI",
-    scope: "RAG · Agents · Automation",
-    title: "Custom AI Solutions",
+    anchor: "services-cloud",
+    shortLabel: "CLOUD",
+    scope: "Architecture · DevOps · FinOps",
+    title: "Cloud Foundations",
     description:
-      "AI that answers from your data and cites where it got each answer. Our RAG systems run at 95%+ accuracy in production.",
+      "Secure, reliable cloud architecture, migration, DevOps, and cost controls built around the workloads you actually run.",
   },
   {
     number: "02",
     anchor: "services-data",
     shortLabel: "DATA",
-    scope: "Pipelines · ETL · Warehousing",
-    title: "Data Engineering & Management",
+    scope: "Pipelines · Warehousing · Governance",
+    title: "Data Engineering",
     description:
-      "We pull your scattered data into one clean, reliable place: pipelines, ETL and a cloud warehouse your team can query.",
+      "Reliable pipelines, integrations, warehousing, quality controls, and governance that turn scattered sources into trusted data.",
   },
   {
     number: "03",
     anchor: "services-analytics",
     shortLabel: "BI",
     scope: "Dashboards · Reporting · BI",
-    title: "Data Analytics & BI",
+    title: "Analytics & BI",
     description:
-      "Dashboards in Power BI, Tableau or QuickSight, built around metrics your team has agreed on, so nobody argues about whose number is right.",
+      "Dashboards, executive reporting, and BI consulting built around agreed metrics and the decisions your teams need to make.",
   },
   {
     number: "04",
-    anchor: "services-cloud",
-    shortLabel: "CLOUD",
-    scope: "Architecture · Migration · FinOps",
-    title: "Cloud Solutions",
+    anchor: "services-ai",
+    shortLabel: "AI",
+    scope: "RAG · Agents · Automation",
+    title: "AI Solutions",
     description:
-      "We set up, move and tune your systems on AWS, GCP or Azure, sized to what you actually run so you stop paying for idle capacity.",
+      "Grounded knowledge assistants, controlled AI agents, and intelligent automation designed for real business workflows.",
   },
   {
     number: "05",
-    anchor: "services-others",
-    shortLabel: "MORE",
-    scope: "APIs · Integrations · Consulting",
-    title: "Backend & Integrations",
+    anchor: "services-crm",
+    shortLabel: "CRM",
+    scope: "CRM · Sales Automation · Revenue",
+    title: "CRM & Revenue Ops",
     description:
-      "Backend services, API integrations and workflow automation, plus hands-on engineering help when your team needs an extra pair of hands.",
+      "CRM implementation, connected customer data, sales automation, and revenue analytics shaped around how your team operates.",
   },
 ] as const;
 
@@ -65,7 +65,7 @@ export function Capabilities() {
         <header className={styles.headingBlock}>
           <p className={styles.eyebrow}>Services</p>
           <h2 id="capabilities-title">From raw data to working AI</h2>
-          <p>From custom AI to the data foundations it runs on-end to end.</p>
+          <p>From cloud foundations to intelligent action—designed as one connected journey.</p>
         </header>
 
         <div className={styles.grid}>

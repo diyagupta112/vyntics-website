@@ -43,9 +43,15 @@ function ServiceSubmenu({ child, close }: { child: NavigationChild; close: () =>
   return <div className={styles.serviceGroup} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
     <div className={styles.serviceRow} data-current={isCurrentItem(pathname, child)}>
       {child.headingOnly ? (
-        <div className={styles.serviceLabel}>
-          <strong>{child.label}</strong><small>{child.description}</small>
-        </div>
+        child.headingLink ? (
+          <Link className={styles.serviceLabel} href={child.href} onClick={close}>
+            <strong>{child.label}</strong><small>{child.description}</small>
+          </Link>
+        ) : (
+          <div className={styles.serviceLabel}>
+            <strong>{child.label}</strong><small>{child.description}</small>
+          </div>
+        )
       ) : (
         <><Link className={styles.dropdownLink} href={child.href} onClick={close}><span>{child.label}</span><small>{child.description}</small></Link><button type="button" className={styles.submenuToggle} aria-label={`Show ${child.label} services`} aria-expanded={open} aria-controls={id} onClick={() => setOpen((value) => !value)}><ChevronIcon /></button></>
       )}
@@ -245,7 +251,7 @@ export function SiteHeader() {
                       <summary>{item.label}<ChevronIcon /></summary>
                       <div className={styles.mobileChildren}>
                         {item.children.map((child) => (
-                          child.children ? <div className={styles.mobileServiceGroup} key={child.label}><div className={styles.mobileServiceHeading} data-current={isCurrentItem(pathname, child)}>{child.label}</div><div className={styles.mobileChildren}>{child.children.map((service) => <Link key={service.href} aria-current={matchesRoute(pathname, service.href) ? "page" : undefined} href={service.href} onClick={() => setMobileOpen(false)}><span>{service.label}</span><span className={styles.mobileServiceArrow}><ChevronIcon /></span></Link>)}</div></div> : <Link aria-current={matchesRoute(pathname, child.href) ? "page" : undefined} href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
+                          child.children ? <div className={styles.mobileServiceGroup} key={child.label}>{child.headingLink ? <Link className={styles.mobileServiceHeading} aria-current={matchesRoute(pathname, child.href) ? "page" : undefined} href={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link> : <div className={styles.mobileServiceHeading} data-current={isCurrentItem(pathname, child)}>{child.label}</div>}<div className={styles.mobileChildren}>{child.children.map((service) => <Link key={service.href} aria-current={matchesRoute(pathname, service.href) ? "page" : undefined} href={service.href} onClick={() => setMobileOpen(false)}><span>{service.label}</span><span className={styles.mobileServiceArrow}><ChevronIcon /></span></Link>)}</div></div> : <Link aria-current={matchesRoute(pathname, child.href) ? "page" : undefined} href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
                         ))}
                       </div>
                     </details>

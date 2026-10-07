@@ -28,12 +28,12 @@ function ArrowIcon() {
 export function InnerServiceDetail({ service }: { service: InnerServiceDetailContent }) {
   return (
     <>
-      <section className={`${styles.hero} ${service.slug === "rag-assistants" ? styles.sequencedHero : ""}`} aria-labelledby="service-title">
+      <section className={`${styles.hero} ${service.slug === "rag-knowledge-assistants" ? styles.sequencedHero : ""}`} aria-labelledby="service-title">
         <Container>
           <Link className={styles.backLink} href="/#services">← All services</Link>
           <p className={styles.eyebrow}>{service.eyebrow}</p>
-          <h1 id="service-title" aria-label={service.slug === "rag-assistants" ? service.title : undefined}>
-            {service.slug === "rag-assistants" ? service.title.split(/\s+/).map((word, index) => (
+          <h1 id="service-title" aria-label={service.slug === "rag-knowledge-assistants" ? service.title : undefined}>
+            {service.slug === "rag-knowledge-assistants" ? service.title.split(/\s+/).map((word, index) => (
               <span className={styles.heroWord} aria-hidden="true" key={`${word}-${index}`} style={{ animationDelay: `${.45 + index * .12}s` }}>{word}{" "}</span>
             )) : service.title}
           </h1>
@@ -64,17 +64,17 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
       </section>
 
       <ServiceApproach steps={service.process}
-        heading={service.slug === "rag-assistants" ? "From isolated data to production-grade AI intelligence." : service.slug === "ai-agents" ? "From scope definition to supervised agent deployment." : service.slug === "document-automation" ? "From document discovery to production-ready automation." : undefined}
-        introduction={service.slug === "rag-assistants" ? "A structured 4-step engineering roadmap built to ensure security, high accuracy, and seamless deployment." : service.slug === "ai-agents" ? "A disciplined 4-stage development framework engineered for predictability, security, and measurable performance." : service.slug === "document-automation" ? "A structured 4-step execution framework engineered to ensure field-level precision, compliance, and seamless data sync." : undefined}
+        heading={service.slug === "rag-knowledge-assistants" ? "From isolated data to production-grade AI intelligence." : service.slug === "ai-agents" ? "From scope definition to supervised agent deployment." : service.slug === "intelligent-automation" ? "From workflow discovery to production-ready automation." : undefined}
+        introduction={service.slug === "rag-knowledge-assistants" ? "A structured 4-step engineering roadmap built to ensure security, high accuracy, and seamless deployment." : service.slug === "ai-agents" ? "A disciplined 4-stage development framework engineered for predictability, security, and measurable performance." : service.slug === "intelligent-automation" ? "A structured 4-step execution framework designed for precision, control, and seamless system integration." : undefined}
       />
 
       <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} />
 
       <ContactCta
         eyebrow={`${service.name} consultation`}
-        title={service.slug === "rag-assistants" ? "Ready to build a reliable RAG Assistant?" : service.slug === "ai-agents" ? "Ready to automate workflows with custom AI Agents?" : service.slug === "document-automation" ? "Ready to eliminate manual document processing?" : `Let's make ${service.name} work for your business.`}
-        intro={service.slug === "rag-assistants" ? "Share your data challenges or AI requirements with us. Our team will evaluate your knowledge sources and deliver a practical, step-by-step technical proposal." : service.slug === "ai-agents" ? "Share your current bottleneck or operational goals. Our engineering team will review your systems, propose a scoped agent architecture, and demonstrate clear ROI." : service.slug === "document-automation" ? "Share your document formats, volumes, and extraction goals. Our team will evaluate your workflows and provide a tailored automation roadmap." : `Tell us what you need from ${service.name}. We’ll review the current process, identify the practical next step, and explain how we can help.`}
-        submitLabel={["rag-assistants", "ai-agents", "document-automation"].includes(service.slug) ? "Request Free AI Consultation" : undefined}
+        title={service.slug === "rag-knowledge-assistants" ? "Ready to build a reliable knowledge assistant?" : service.slug === "ai-agents" ? "Ready to automate workflows with custom AI agents?" : service.slug === "intelligent-automation" ? "Ready to remove repetitive workflow work?" : `Let's make ${service.name} work for your business.`}
+        intro={service.slug === "rag-knowledge-assistants" ? "Share your data challenges or AI requirements with us. Our team will evaluate your knowledge sources and deliver a practical, step-by-step technical proposal." : service.slug === "ai-agents" ? "Share your current bottleneck or operational goals. Our engineering team will review your systems and propose a scoped agent architecture." : service.slug === "intelligent-automation" ? "Share the workflow, documents, and systems involved. We’ll identify which steps need AI, deterministic rules, or human review." : `Tell us what you need from ${service.name}. We’ll review the current process, identify the practical next step, and explain how we can help.`}
+        submitLabel={["rag-knowledge-assistants", "ai-agents", "intelligent-automation"].includes(service.slug) ? "Request Free AI Consultation" : undefined}
       />
     </>
   );

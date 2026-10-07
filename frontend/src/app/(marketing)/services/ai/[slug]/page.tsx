@@ -1,23 +1,24 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { InnerServiceDetail } from "@/components/pages/inner-service-detail";
-import { aiServices, aiServiceSlugs, isAiServiceSlug } from "@/content/ai-services";
+import { getPlatformService, getPlatformServiceSlugs } from "@/content/platform-services";
 
 export const dynamicParams = false;
+type ServicePageProps = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return aiServiceSlugs.map((slug) => ({ slug }));
+  return getPlatformServiceSlugs("ai").map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/services/ai/[slug]">): Promise<Metadata> {
+export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  if (!isAiServiceSlug(slug)) return {};
-  const service = aiServices[slug];
-  return { title: service.name, description: service.metadataDescription };
+  const service = getPlatformService("ai", slug);
+  return service ? { title: service.name, description: service.metadataDescription } : {};
 }
 
-export default async function AiServiceDetailPage({ params }: PageProps<"/services/ai/[slug]">) {
+export default async function AiServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  if (!isAiServiceSlug(slug)) notFound();
-  return <InnerServiceDetail service={aiServices[slug]} />;
+  const service = getPlatformService("ai", slug);
+  if (!service) notFound();
+  return <InnerServiceDetail service={service} />;
 }
