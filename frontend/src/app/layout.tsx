@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { StyledComponentsRegistry } from "@/components/ui/styled-components-registry";
 import "@fontsource-variable/dm-sans";
 import "./globals.css";
 
@@ -27,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>{children}</body>
+      <body><StyledComponentsRegistry>{children}</StyledComponentsRegistry></body>
     </html>
   );
 }

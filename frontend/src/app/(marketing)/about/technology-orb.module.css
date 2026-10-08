@@ -1,0 +1,95 @@
+.orbShell {
+  position: relative;
+  width: min(112%, 31rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+.orbBackdrop {
+  position: absolute;
+  z-index: 0;
+  inset: 5%;
+  border-radius: 50%;
+  background: transparent;
+  pointer-events: none;
+}
+
+.orbStage {
+  position: absolute;
+  z-index: 1;
+  inset: 5%;
+  overflow: visible;
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.orbStage:active { cursor: grabbing; }
+
+.orbStage:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 0.35rem;
+}
+
+.orbPlate {
+  --plate-opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(2.55rem, 10.5%, 3.05rem);
+  height: clamp(1.95rem, 8.2%, 2.4rem);
+  opacity: var(--plate-opacity);
+  will-change: transform, opacity;
+}
+
+.orbPlateInner {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 82%);
+  border-radius: 0.45rem;
+  background: rgb(255 255 255 / 96%);
+  box-shadow:
+    0 0.45rem 1rem rgb(0 0 0 / 34%),
+    inset 0 1px 0 rgb(255 255 255 / 88%);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.orbPlate svg {
+  width: 55%;
+  height: 55%;
+  filter: saturate(1.05) drop-shadow(0 0 0.35rem currentColor);
+}
+
+.orbStage:has(.orbPlate:hover) .orbPlate:not(:hover) .orbPlateInner {
+  filter: saturate(0.25) brightness(0.88);
+}
+
+.orbStage:has(.orbPlate:hover) .orbPlate:not(:hover) {
+  pointer-events: none;
+}
+
+.orbPlate:hover {
+  z-index: 300 !important;
+}
+
+.orbPlate:hover .orbPlateInner {
+  z-index: 2;
+  transform: translateY(-0.3rem) scale(1.15);
+  box-shadow: 0 0.65rem 1.4rem rgb(20 83 219 / 24%);
+}
+
+@media (max-width: 440px) {
+  .orbShell { width: min(100%, 21rem); }
+  .orbBackdrop,
+  .orbStage { inset: 3%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbPlateInner { transition: none; }
+}

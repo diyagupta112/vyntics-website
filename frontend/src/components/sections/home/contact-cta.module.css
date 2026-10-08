@@ -129,6 +129,35 @@
 
 .form button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 15px 35px color-mix(in srgb, var(--color-primary) 24%, transparent); }
 .form button:disabled { opacity: 0.62; cursor: wait; }
+.submitWrap { position: relative; }
+.submitWrap .submitButton { width: 100%; }
+.submitButton .submitIcon { transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
+@media (hover: hover) and (pointer: fine) {
+  .submitButton:is([data-state="idle"],[data-state="error"]):hover .sendSweep {
+    opacity: 1;
+    animation: send-sweep 1100ms ease-in-out infinite;
+  }
+  .submitButton:is([data-state="idle"],[data-state="error"]):hover .submitIcon {
+    transform: translateX(.35rem) rotate(-35deg) scale(1.12);
+  }
+  .submitButton:is([data-state="idle"],[data-state="error"]):hover .submitContent {
+    animation: button-hover-bounce 450ms cubic-bezier(.2,.8,.2,1) both;
+  }
+}
+.submitButton:focus-visible .sendSweep { opacity: 1; animation: send-sweep 1100ms ease-in-out infinite; }
+@keyframes button-hover-bounce { 0% { transform: translateY(0); } 45% { transform: translateY(-4px); } 100% { transform: translateY(0); } }
+.submitButton:active:not(:disabled) { transform: scale(.98); }
+.submitButton:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.submitButton[data-state="error"] { background: #b91c1c; }
+.submitContent { animation: button-content-in 240ms ease both; }
+.spinner { stroke-dasharray: 35 16; transform-origin: center; animation: button-spin 800ms linear infinite; }
+.celebration { position: absolute; z-index: 2; inset: 50% 0 auto; pointer-events: none; }
+.celebration i { position: absolute; left: 50%; width: .45rem; height: .6rem; border-radius: 2px; background: #60a5fa; opacity: 0; animation: button-confetti 850ms ease-out var(--delay) both; }
+.celebration i:nth-child(3n) { background: #34d399; }
+.celebration i:nth-child(3n + 1) { background: #fbbf24; }
+@keyframes button-spin { to { transform: rotate(360deg); } }
+@keyframes button-content-in { from { opacity: 0; transform: translateY(.45rem); } to { opacity: 1; transform: translateY(0); } }
+@keyframes button-confetti { 0% { opacity: 0; transform: translate(-50%, 0) scale(.3); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--turn)) scale(.7); } }
 
 .submitContent {
   position: relative;
@@ -162,7 +191,9 @@
 .submitButton[data-state="submitting"] {
   opacity: 1;
   box-shadow: 0 12px 32px color-mix(in srgb, var(--color-primary) 24%, transparent);
+  animation: button-sending-pulse 1000ms ease-in-out infinite;
 }
+@keyframes button-sending-pulse { 50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-primary) 18%, transparent); } }
 
 .submitButton[data-state="submitting"] .sendSweep {
   opacity: 1;
@@ -170,7 +201,7 @@
 }
 
 .submitButton[data-state="submitting"] .submitIcon {
-  animation: send-flight 900ms ease-in-out infinite;
+  animation: none;
 }
 
 .submitButton[data-state="success"] {
@@ -230,7 +261,11 @@
   .form textarea { transition: none; }
 
   .sendSweep,
+  .submitContent,
+  .spinner,
   .submitIcon,
   .submitButton[data-state="success"],
+  .submitButton[data-state="submitting"],
   .checkPath { animation: none !important; }
+  .celebration { display: none; }
 }

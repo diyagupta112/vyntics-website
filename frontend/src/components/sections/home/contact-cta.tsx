@@ -1,23 +1,12 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import SendButton from "@/components/ui/send-button";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
 import styles from "./contact-cta.module.css";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
-
-function SubmitIcon({ success }: { success: boolean }) {
-  return (
-    <svg className={styles.submitIcon} viewBox="0 0 24 24" aria-hidden="true">
-      {success ? (
-        <path className={styles.checkPath} d="m5 12.5 4.25 4.25L19 7" pathLength="1" />
-      ) : (
-        <path d="M4 12h15m-5.5-5.5L19 12l-5.5 5.5" />
-      )}
-    </svg>
-  );
-}
 
 type ContactCtaProps = {
   eyebrow?: string;
@@ -36,6 +25,15 @@ export function ContactCta({
 }: ContactCtaProps = {}) {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [feedback, setFeedback] = useState("");
+
+  useEffect(() => {
+    if (submitState !== "success") return;
+    const timer = window.setTimeout(() => {
+      setSubmitState("idle");
+      setFeedback("");
+    }, 7000);
+    return () => window.clearTimeout(timer);
+  }, [submitState]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -56,11 +54,11 @@ export function ContactCta({
     };
 
     try {
-      const response = await fetch(`${apiBaseUrl}/contact-us`, {
+      const [response] = await Promise.all([fetch(`${apiBaseUrl}/contact-us`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      });
+      }), new Promise<void>((resolve) => window.setTimeout(resolve, 700))]);
 
       if (!response.ok) throw new Error(`Contact request failed with status ${response.status}`);
 
@@ -131,18 +129,13 @@ export function ContactCta({
             <textarea name="message" required rows={5} placeholder="Tell us about your project, challenge, or goal." />
           </label>
 
-          <button
-            className={styles.submitButton}
+          <SendButton
             type="submit"
-            data-state={submitState}
+            state={submitState}
             disabled={submitState === "submitting" || submitState === "success"}
           >
-            <span className={styles.sendSweep} aria-hidden="true" />
-            <span className={styles.submitContent}>
-              {submitState === "submitting" ? "Sending…" : submitState === "success" ? "Message sent" : submitLabel}
-              <SubmitIcon success={submitState === "success"} />
-            </span>
-          </button>
+              {submitState === "submitting" ? "Sending…" : submitState === "success" ? "Message sent" : submitState === "error" ? "Try again" : submitLabel}
+          </SendButton>
 
           <p className={`${styles.feedback} ${submitState === "error" ? styles.error : ""}`} role="status" aria-live="polite">
             {feedback}

@@ -66,9 +66,9 @@ export function ProcessStack({ steps }: ProcessStackProps) {
     <section ref={sectionRef} className={styles.processSection} aria-labelledby="process-title">
       <Container className={styles.processSticky} data-process-panel>
         <div className={styles.sectionHeading}>
-          <p className={styles.eyebrow}>How we use technology</p>
-          <h2 id="process-title">Selection is part of the engineering.</h2>
-          <p>The newest tool is not automatically the right one. We reduce risk first, then build the simplest dependable path to the result.</p>
+          <p className={styles.eyebrow}>How we utilize technology</p>
+          <h2 id="process-title">Engineering includes selection.</h2>
+          <p>The newest tool isn&apos;t always the best one. After lowering risk, we create the most straightforward, reliable route to the outcome.</p>
         </div>
 
         <div className={styles.processViewport}>

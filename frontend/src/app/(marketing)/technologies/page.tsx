@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { CSSProperties } from "react";
-import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { projects } from "@/content/projects";
 import { ProcessStack } from "./process-stack";
@@ -13,10 +12,11 @@ export const metadata: Metadata = {
 };
 
 const technologyGroups = [
-  { label: "AI & intelligence", image: "/images/technology-ai.png", description: "Grounded assistants, document intelligence, evaluation, and controlled automation.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "Google Gemini", "LangChain", "LangGraph", "Pinecone", "pgvector", "RAG", "LLM evaluation"] },
-  { label: "Data engineering", image: "/images/technology-data.png", description: "Reliable ingestion, transformation, storage, modeling, and governed access.", tools: ["Snowflake", "dbt", "PostgreSQL", "Python", "SQL", "Apache Spark", "Apache Airflow", "Kafka", "AWS Glue", "Amazon S3"] },
-  { label: "Analytics & BI", image: "/images/technology-analytics.png", description: "Shared metrics and reporting layers that turn data into clear decisions.", tools: ["Power BI", "Tableau", "QuickSight", "Looker", "Grafana", "DAX", "Power Query", "Semantic models", "KPI modeling"] },
-  { label: "Cloud & platform", image: "/images/technology-cloud.png", description: "Secure, observable infrastructure designed around reliability and sensible cost.", tools: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "AWS Fargate", "GitHub Actions", "CI/CD", "Observability"] },
+  { label: "AI & intelligence", image: "/images/technology-ai-robot.png", description: "AI systems designed for practical business applications, intelligent automation, and grounded responses.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "LangChain", "Google Gemini", "Pinecone", "LangGraph", "PGVector", "RAG", "LLM Assessment"] },
+  { label: "Data engineering", image: "/images/technology-data-finance-dashboard.png", description: "Ingestion, transformation, storage, modeling, and controlled access are all reliable.", tools: ["Snowflake", "dbt", "PostgreSQL", "Python", "SQL", "Apache Spark", "Apache Airflow", "Kafka", "AWS Glue", "Amazon S3"] },
+  { label: "Analytics & BI", image: "/images/technology-analytics-connected.png", description: "Data is transformed into understandable decisions through shared metrics and reporting layers.", tools: ["Power BI", "Tableau", "QuickSight", "Looker", "Grafana", "DAX", "Power Query", "Semantic models", "KPI modeling"] },
+  { label: "Cloud & platform", image: "/images/technology-cloud-network.png", description: "Infrastructure that is observable, secure, and built on dependability and affordability.", tools: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "AWS Fargate", "GitHub Actions", "CI/CD", "Observability"] },
+  { label: "CRM", image: "/images/technology-crm-workspace.png", description: "Automation throughout the customer lifetime, sales processes, and linked customer data.", tools: ["Salesforce", "HubSpot", "Dynamics 365", "Zoho CRM", "Salesforce Flow", "HubSpot Workflows", "Power Automate", "n8n", "REST APIs", "MuleSoft"] },
 ] as const;
 
 const toolGroups = [
@@ -28,30 +28,26 @@ const toolGroups = [
 
 const process = [
   {
-    title: "Start with the outcome",
-    description: "We define what the system must improve, who will use it, and how success will be measured before selecting a platform.",
-    points: ["Business goal and success metrics", "User workflows and decision points", "Scope, constraints, and priorities"],
+    title: "Consider the result first.",
+    description: "Before choosing a platform, we specify what has to be improved, who will use it, and how success will be evaluated.",
+    points: ["Goals for the business and success metrics", "User decision-making and workflows", "Priorities, scope, and limitations"],
   },
   {
-    title: "Fit the environment",
-    description: "The stack is shaped around your data, team skills, security constraints, and systems already in production.",
-    points: ["Current systems and data sources", "Security and compliance requirements", "Team skills and operating model"],
+    title: "Adapt to the surroundings",
+    description: "The stack is built around your data, team capabilities, security limitations, and operational systems.",
+    points: ["Current data sources and systems", "requirements for security and compliance", "Operating model and team skills"],
   },
   {
-    title: "Prove the difficult part",
-    description: "We test the highest-risk assumption early, using a focused prototype before committing to a larger build.",
-    points: ["Technical feasibility prototype", "Performance and quality checks", "Early feedback from real users"],
+    title: "Show the challenging aspect",
+    description: "Before committing to a larger development, we employ a targeted prototype to evaluate the assumption that carries the biggest risk.",
+    points: ["A prototype for technical viability", "Checks for performance and quality", "Initial comments from actual users"],
   },
   {
-    title: "Build for ownership",
-    description: "Clear interfaces, monitoring, documentation, and maintainable code keep the system useful after launch.",
-    points: ["Observable production deployment", "Documentation and knowledge transfer", "Maintainable paths for future change"],
+    title: "Construct for your own use",
+    description: "After the system is launched, its usefulness is maintained by clear interfaces, documentation, monitoring, and maintainable code.",
+    points: ["Production deployment that is observable", "Documentation and transfer of knowledge", "Paths for future change that are sustainable"],
   },
 ] as const;
-
-function ArrowIcon() {
-  return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
-}
 
 export default function TechnologiesPage() {
   return (
@@ -59,10 +55,10 @@ export default function TechnologiesPage() {
       <section className={styles.hero}>
         <Container className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>Technology at Vyntics</p>
-            <h1><span>A modern stack,</span><span>selected for the work.</span></h1>
-            <p>We use proven AI, data, analytics, and cloud technologies to build systems that are useful in production—not just impressive in a demo.</p>
-            <p>Every choice is made around the outcome, the operating environment, and the people who will own it next.</p>
+            <p className={styles.eyebrow}>Vyntics&apos;s technology</p>
+            <h1><span>Production-Ready AI,</span><span>Data, and Cloud Technology</span></h1>
+            <p>We employ tried-and-true AI, data engineering, analytics, and cloud technologies to create dependable systems that address actual business issues rather than just showy demonstrations.</p>
+            <p>From cloud infrastructure and analytics to clever AI solutions and data platforms, we select the best technology depending on business objectives, technical environment, scalability requirements, and long-term ownership.</p>
           </div>
         </Container>
       </section>
@@ -70,9 +66,9 @@ export default function TechnologiesPage() {
       <section className={styles.landscape} aria-labelledby="technology-landscape">
         <Container>
           <div className={styles.sectionHeading}>
-            <p className={styles.eyebrow}>Our technology ecosystem</p>
-            <h2 id="technology-landscape">One connected engineering landscape.</h2>
-            <p>From raw information to a working application, we bring the layers together as one maintainable system.</p>
+            <p className={styles.eyebrow}>Our technological environment</p>
+            <h2 id="technology-landscape">One interconnected landscape of engineering.</h2>
+            <p>We integrate the layers into a single, manageable system, from raw data to a functional application.</p>
           </div>
           <div className={styles.landscapeGrid}>
             {technologyGroups.map((group) => (
@@ -98,9 +94,9 @@ export default function TechnologiesPage() {
       <section className={styles.toolIndex} aria-labelledby="tool-index-title">
         <Container className={styles.toolIndexGrid}>
           <div className={styles.stickyHeading}>
-            <p className={styles.eyebrow}>Tools we use</p>
-            <h2 id="tool-index-title">A practical toolkit across the delivery lifecycle.</h2>
-            <p>These are representative tools, not a fixed vendor checklist. We use what the system actually needs.</p>
+            <p className={styles.eyebrow}>The instruments we employ</p>
+            <h2 id="tool-index-title">A useful toolbox for the whole lifespan of delivery.</h2>
+            <p>These aren&apos;t a set vendor checklist; rather, they are representative tools. What the system truly requires is what we use.</p>
           </div>
           <div className={styles.toolRows}>
             {toolGroups.map((group, index) => (
@@ -122,8 +118,7 @@ export default function TechnologiesPage() {
       <section className={styles.clientWork} aria-labelledby="client-work-title">
         <Container>
           <div className={styles.clientHeading}>
-            <div><p className={styles.eyebrow}>Technology in client work</p><h2 id="client-work-title">Stacks assembled around real operating needs.</h2></div>
-            <Link href="/case-studies">View all case studies <ArrowIcon /></Link>
+            <div><p className={styles.eyebrow}>Using technology in customer service</p><h2 id="client-work-title">Stacks put together according to actual operational requirements.</h2></div>
           </div>
           <ClientWorkCarousel projects={projects} />
         </Container>
