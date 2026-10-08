@@ -117,8 +117,8 @@ export default function CareersPage() {
             <p>A glimpse into the experience of working at Vyntics, from the people who know it best.</p>
           </RevealBlock>
 
-          <div className={styles.testimonialsLayout}>
-            <RevealBlock className={styles.stickyHeading}>
+          <RevealBlock className={styles.testimonialsLayout}>
+            <div className={styles.stickyHeading}>
               <div>
                 <h3>Hear from our team.</h3>
                 <p>First-hand perspectives from the people building, learning, and growing with Vyntics.</p>
@@ -131,9 +131,9 @@ export default function CareersPage() {
                   <li>Learning from each other</li>
                 </ul>
               </div>
-            </RevealBlock>
-            <RevealBlock delay={0.08}><TestimonialCarousel testimonials={teamTestimonials} /></RevealBlock>
-          </div>
+            </div>
+            <div><TestimonialCarousel testimonials={teamTestimonials} /></div>
+          </RevealBlock>
         </Container>
       </section>
 

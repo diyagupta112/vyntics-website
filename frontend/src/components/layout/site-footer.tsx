@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { serviceNavigation } from "@/content/service-navigation";
 import { siteConfig } from "@/config/site";
 import styles from "./site-footer.module.css";
+import { FooterBackground } from "./footer-background";
 
 type FooterItem = {
   label: string;
@@ -79,7 +80,8 @@ function ServiceCluster({ group }: { group: ServiceGroup }) {
 export function SiteFooter() {
   return (
     <footer id="footer" className={styles.footer}>
-      <Container>
+      <FooterBackground />
+      <Container className={styles.closingContainer}>
         <div className={styles.footerMain}>
           <div className={styles.brandBlock}>
             <Link className={styles.brand} href="/" aria-label={`${siteConfig.name} home`}>

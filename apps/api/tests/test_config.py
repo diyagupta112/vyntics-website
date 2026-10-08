@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
 
 from app.core.config import Environment, Settings
@@ -105,3 +106,59 @@ def test_app_uses_injected_settings_for_cors() -> None:
     assert response.headers["access-control-allow-origin"] == (
         "http://localhost:3000"
     )
+
+
+@pytest.mark.parametrize("variable", ["CORS_ORIGINS", "APP_CORS_ORIGINS"])
+@pytest.mark.parametrize("origin", ["https://example.com", "https://another-example.com"])
+def test_environment_origins_reach_contact_preflight(monkeypatch, variable, origin):
+    monkeypatch.delenv("CORS_ORIGINS", raising=False)
+    monkeypatch.delenv("APP_CORS_ORIGINS", raising=False)
+    monkeypatch.setenv(variable, f' [ "{origin}" ] ')
+    settings = Settings(_env_file=None)
+    assert settings.cors_origins == [origin]
+    app = create_app(settings)
+    middleware = next(m for m in app.user_middleware if m.cls.__name__ == "CORSMiddleware")
+    assert middleware.kwargs["allow_origins"] == [origin]
+    client = TestClient(app)
+    headers = {
+        "Origin": origin,
+        "Access-Control-Request-Method": "POST",
+        "Access-Control-Request-Headers": "content-type",
+    }
+    response = client.options("/contact-us", headers=headers)
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == origin
+    assert "content-type" in response.headers["access-control-allow-headers"]
+    response = client.options("/contact-us", headers={**headers, "Origin": "https://unlisted.example"})
+    assert response.status_code == 400
+    assert "access-control-allow-origin" not in response.headers
+
+
+def test_cors_origins_takes_precedence_over_legacy_alias(monkeypatch):
+    monkeypatch.setenv("CORS_ORIGINS", '["https://example.com"]')
+    monkeypatch.setenv("APP_CORS_ORIGINS", '["https://legacy.example"]')
+    assert Settings(_env_file=None).cors_origins == ["https://example.com"]
+
+
+def test_cors_matches_exact_hosts_from_json_array(monkeypatch):
+    monkeypatch.setenv(
+        "CORS_ORIGINS",
+        '["https://first.example.com", "https://website.example.com"]',
+    )
+    settings = Settings(_env_file=None)
+    assert settings.cors_origins == ["https://first.example.com", "https://website.example.com"]
+    client = TestClient(create_app(settings))
+    for origin, expected in [
+        ("https://first.example.com", 200),
+        ("https://website.example.com", 200),
+        ("https://website-example.com", 400),
+    ]:
+        response = client.options("/contact-us", headers={
+            "Origin": origin,
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type",
+        })
+        assert response.status_code == expected
+        assert response.headers.get("access-control-allow-origin") == (
+            origin if expected == 200 else None
+        )

@@ -5,7 +5,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import AnyHttpUrl, Field, SecretStr
+from pydantic import AliasChoices, AnyHttpUrl, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_ROOT = Path(__file__).resolve().parents[2]
@@ -45,7 +45,7 @@ class Settings(BaseSettings):
     )
     cors_origins: list[str] = Field(
         default_factory=list,
-        validation_alias="APP_CORS_ORIGINS",
+        validation_alias=AliasChoices("CORS_ORIGINS", "APP_CORS_ORIGINS"),
     )
 
     # Database

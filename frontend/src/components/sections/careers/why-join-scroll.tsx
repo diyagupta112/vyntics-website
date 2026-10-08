@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
 import type { MotionValue } from "motion/react";
-import { useRef, useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import styles from "./why-join-scroll.module.css";
 
 const principles = [
@@ -78,17 +78,30 @@ function ScrollPrinciple({
 
 export function WhyJoinScroll() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const compositionRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const entryOffset = useMotionValue(0);
+  const entryStart = useMotionValue(0);
+  const entryEnd = useMotionValue(0);
   const reduceMotion = useReducedMotion();
   const mounted = useSyncExternalStore(
     subscribeToHydration,
     () => true,
     () => false,
   );
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress, scrollY } = useScroll({
     target: trackRef,
     offset: ["start start", "end end"],
   });
   const progress = scrollYProgress;
+  const imageY = useTransform(() => {
+    const scrollPosition = scrollY.get();
+    const distance = entryEnd.get() - entryStart.get();
+    const entryProgress = distance > 0 ? Math.min(1, Math.max(0, (scrollPosition - entryStart.get()) / distance)) : 0;
+    return entryOffset.get() * (1 - entryProgress);
+  });
+
   const imageRevealProgress = useMotionValue(0);
   useMotionValueEvent(progress, "change", (latest) => {
     if (latest > imageRevealProgress.get()) imageRevealProgress.set(latest);
@@ -102,13 +115,42 @@ export function WhyJoinScroll() {
   );
   const enabled = mounted && !reduceMotion;
 
+  useEffect(() => {
+    const sticky = stickyRef.current;
+    const composition = compositionRef.current;
+    const image = imageRef.current;
+    const track = trackRef.current;
+    if (!enabled || !sticky || !composition || !image || !track) return;
+    const measure = () => {
+      // Layout offsets do not include the animated image transform. Measuring
+      // only on resize preserves the existing stable scroll/reveal geometry.
+      const scale = composition.getBoundingClientRect().height / composition.offsetHeight;
+      const centering = Math.max(0, (sticky.clientHeight - composition.offsetHeight) / 2);
+      const scaledTop = centering + composition.offsetHeight * (1 - scale) / 2 + image.offsetTop * scale;
+      entryOffset.set(-scaledTop / scale);
+      const trackTop = track.getBoundingClientRect().top + window.scrollY;
+      // Start only the desktop image earlier; the reason progress and its
+      // original 12% handoff are unchanged. Small-screen travel stays as before.
+      const lead = window.innerWidth > 1000 ? window.innerHeight * 0.2 : 0;
+      entryStart.set(trackTop - lead);
+      entryEnd.set(trackTop + Math.max(0, track.offsetHeight - window.innerHeight) * 0.12);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(sticky);
+    observer.observe(composition);
+    observer.observe(image);
+    return () => observer.disconnect();
+  }, [enabled, entryOffset, entryStart, entryEnd]);
+
   return (
     <div className={styles.track} data-enhanced={enabled ? "true" : undefined} ref={trackRef}>
-      <div className={styles.sticky}>
-        <div className={styles.composition}>
+      <div className={styles.sticky} ref={stickyRef}>
+        <div className={styles.composition} ref={compositionRef}>
           <motion.div
             className={styles.image}
-            style={enabled ? { filter: imageFilter, opacity: imageOpacity, scale: imageScale } : undefined}
+            ref={imageRef}
+            style={enabled ? { filter: imageFilter, opacity: imageOpacity, scale: imageScale, y: imageY } : undefined}
           >
             <Image
               alt="Team members collaborating around laptops"
