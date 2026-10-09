@@ -121,9 +121,9 @@ export function FeaturedWork() {
       <Container>
         <div className={styles.sectionHeader}>
           <div className={styles.headingBlock}>
-            <p className={styles.eyebrow}>Featured work · Built for production</p>
-            <h2 id="featured-work-title">Give your business an edge with AI</h2>
-            <p>We build production AI and data systems that are accurate, useful, and ready to ship. Here&apos;s what that looks like in practice.</p>
+            <p className={styles.eyebrow}>Featured work: Designed to be produced</p>
+            <h2 id="featured-work-title">AI can provide your company an advantage.</h2>
+            <p>We develop accurate, practical, and shipping-ready production AI and data systems. This is what that actually looks like.</p>
           </div>
         </div>
 

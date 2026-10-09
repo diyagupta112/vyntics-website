@@ -25,13 +25,6 @@
   text-transform: uppercase;
 }
 
-.eyebrow::before {
-  width: 1.5rem;
-  height: 1px;
-  content: "";
-  background: currentColor;
-}
-
 .headingBlock h2 {
   font-size: clamp(2.25rem, 4vw, 3.45rem);
   line-height: 1;

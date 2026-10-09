@@ -132,9 +132,9 @@ export function BlogShowcase() {
       <Container>
         <header className={styles.header}>
           <div className={styles.headingBlock}>
-            <p className={styles.eyebrow}>Ideas from the field</p>
-            <h2 id="blogs-title">Practical ideas for data &amp; AI</h2>
-            <p>Useful guides for building reliable systems beyond the demo.</p>
+            <p className={styles.eyebrow}>Thoughts from the industry</p>
+            <h2 id="blogs-title">Useful data and AI concepts</h2>
+            <p>helpful manuals for developing dependable systems outside of the demonstration.</p>
           </div>
 
           <Link className={styles.viewAll} href="/blog">

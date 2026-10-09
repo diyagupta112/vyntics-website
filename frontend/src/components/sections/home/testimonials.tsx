@@ -1,7 +1,6 @@
 "use client";
 
 import { useReducedMotion } from "motion/react";
-import Image from "next/image";
 import { useEffect, useState, type FocusEvent } from "react";
 import { Container } from "@/components/ui/container";
 import styles from "./testimonials.module.css";
@@ -12,20 +11,29 @@ type Testimonial = {
   role: string;
   company?: {
     name: string;
-    logoSrc: `/images/company-logos/${string}`;
+    logoClass: string;
   };
 };
 
 const testimonials: Testimonial[] = [
-  { text: "This ERP revolutionized our operations, streamlining finance and inventory. The cloud-based platform keeps us productive, even remotely.", name: "Briana Patton", role: "Operations Manager" },
-  { text: "Implementing this ERP was smooth and quick. The customizable, user-friendly interface made team training effortless.", name: "Bilal Ahmed", role: "IT Manager" },
-  { text: "The support team is exceptional, guiding us through setup and providing ongoing assistance, ensuring our satisfaction.", name: "Saman Malik", role: "Customer Support Lead" },
-  { text: "This ERP's seamless integration enhanced our business operations and efficiency. Highly recommended for its intuitive interface.", name: "Omar Raza", role: "CEO" },
-  { text: "Its robust features and quick support have transformed our workflow, making us significantly more efficient.", name: "Zainab Hussain", role: "Project Manager" },
-  { text: "The smooth implementation exceeded expectations. It streamlined processes, improving overall business performance.", name: "Aliza Khan", role: "Business Analyst" },
-  { text: "Our business functions improved with a user-friendly design and positive customer feedback.", name: "Farhan Siddiqui", role: "Marketing Director" },
-  { text: "They delivered a solution that exceeded expectations, understanding our needs and enhancing our operations.", name: "Sana Sheikh", role: "Sales Manager" },
-  { text: "Using this ERP, our online presence and conversions significantly improved, boosting business performance.", name: "Hassan Ali", role: "E-commerce Manager" },
+  {
+    text: "Arun and the Vyntics team transformed our data workflows. They developed a seamless, automated ingestion engine that streamlined our entire reporting process while remaining timely and budget-conscious. Their technical mastery of Cloud Data Warehousing makes them an indispensable partner.",
+    name: "Mona McCormick",
+    role: "Business & Royalty Analytics, SMGQ Law",
+    company: { name: "SMGQ Law", logoClass: styles.smgqLogo },
+  },
+  {
+    text: "Vyntics team seamlessly transitioned our workforce to a fully remote AWS environment. Their technical precision and reliability made a complex migration feel effortless. they will be our first choice as we expand into advanced data analytics.",
+    name: "Sergio Iturbe",
+    role: "Managing Director, ITURBE PROPERTIES",
+    company: { name: "Iturbe Properties", logoClass: styles.iturbeLogo },
+  },
+  {
+    text: "Vyntics transformed our raw data into a powerful decision-making tool. Arun’s proactive approach to understanding our requirements resulted in comprehensive dashboards that far exceeded our expectations. Their technical intensity and commitment to excellence made them a pleasure to work with. A top-tier partner for data analytics.",
+    name: "Balazs",
+    role: "Founder & CEO, Rollout IT",
+    company: { name: "Rollout IT", logoClass: styles.rolloutLogo },
+  },
 ];
 
 const AUTOPLAY_INTERVAL_MS = 2000;
@@ -44,7 +52,7 @@ function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
   if (company) {
     return (
       <span className={`${styles.avatar} ${styles.companyAvatar}`} aria-label={`${company.name} logo`}>
-        <Image src={company.logoSrc} alt="" width={48} height={48} sizes="48px" />
+        <span className={`${styles.companyLogo} ${company.logoClass}`} aria-hidden="true" />
       </span>
     );
   }
@@ -97,9 +105,9 @@ export function Testimonials() {
     <section id="testimonials" className={styles.section} aria-labelledby="testimonials-title">
       <Container>
         <div className={styles.headingBlock}>
-          <p className={styles.eyebrow}>In their words</p>
-          <h2 id="testimonials-title">Straight from our clients</h2>
-          <p>Discover how teams streamline their operations with thoughtfully built systems.</p>
+          <p className={styles.eyebrow}>In their own words</p>
+          <h2 id="testimonials-title">Straight from our customers</h2>
+          <p>Learn how carefully designed systems help teams optimize their operations.</p>
         </div>
 
         <div

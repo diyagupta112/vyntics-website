@@ -25,13 +25,6 @@
   text-transform: uppercase;
 }
 
-.eyebrow::before {
-  width: 1.6rem;
-  height: 1px;
-  content: "";
-  background: currentColor;
-}
-
 .headingBlock h2 {
   font-size: clamp(2.2rem, 3.8vw, 3.35rem);
   line-height: 1;
@@ -118,7 +111,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(1.45rem, 2.2vw, 1.85rem);
+  padding: clamp(1.1rem, 1.65vw, 1.45rem);
   border-radius: inherit;
   background: var(--color-surface);
 }
@@ -132,17 +125,17 @@
 }
 
 .step h3 {
-  margin-top: 0.65rem;
-  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
-  line-height: 1.05;
+  margin-top: 0.45rem;
+  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  line-height: 1.08;
   letter-spacing: -0.035em;
 }
 
 .description {
-  margin-top: 0.75rem;
+  margin-top: 0.55rem;
   color: var(--color-muted);
-  font-size: clamp(0.76rem, 1vw, 0.88rem);
-  line-height: 1.48;
+  font-size: clamp(0.72rem, 0.85vw, 0.8rem);
+  line-height: 1.38;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -174,7 +167,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1180px) {
   .section {
     min-height: auto;
   }

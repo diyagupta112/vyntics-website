@@ -17,9 +17,9 @@ type ContactCtaProps = {
 };
 
 export function ContactCta({
-  eyebrow = "Get in touch",
-  title = "Let's look at your data together",
-  intro = "Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.",
+  eyebrow = "Speak with",
+  title = "Together, let's review your statistics.",
+  intro = "Set up a complimentary 30-minute strategy session. Just have a straight discussion with our specialists about your data and AI concerns without the need for sales teams or presentation decks.",
   sectionId = "contact",
   submitLabel = "Send message",
 }: ContactCtaProps = {}) {
