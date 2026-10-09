@@ -2,9 +2,10 @@ import type { NavigationItem } from "@/types/navigation";
 import { serviceNavigation } from "@/content/service-navigation";
 
 const navigation: NavigationItem[] = [
+  { label: "Home", href: "/" },
   {
     label: "Services",
-    href: "/services",
+    href: "/#services",
     children: serviceNavigation,
   },
   {
@@ -21,8 +22,8 @@ const navigation: NavigationItem[] = [
     href: "/about",
     children: [
       { label: "About us", href: "/about", description: "Our story, values, and the work that drives us." },
-      { label: "Career", href: "/careers", description: "Build useful systems and grow with the Vyntics team." },
-      { label: "Recognitions", href: "/recognitions", description: "Explore our recognitions and certifications." },
+      { label: "Careers", href: "/careers", description: "Build useful systems and grow with the Vyntics team." },
+      { label: "Recognition", href: "/recognition", description: "Explore the milestones and contributions we recognize." },
     ],
   },
 ];

@@ -7,27 +7,27 @@ import styles from "./approach.module.css";
 const steps = [
   {
     number: "01",
-    label: "Discover",
-    title: "Deep Discovery",
-    description: "We understand your data landscape, business goals, and pain points before writing a single line of code.",
+    label: "Explore",
+    title: "In-depth Research",
+    description: "Before we write a single line of code, we comprehend your data environment, business objectives, and pain issues.",
   },
   {
     number: "02",
     label: "Architect",
-    title: "System Design",
-    description: "We design the right architecture for your scale-not over-engineered, not under-built. Always documented.",
+    title: "Design of the System",
+    description: "We create architecture that is appropriate for your scale, neither over-engineered nor under-built. It is always recorded.",
   },
   {
     number: "03",
     label: "Build",
-    title: "Focused Execution",
-    description: "Our experts work on every task hands-on. Production quality from sprint one.",
+    title: "Concentrated Action",
+    description: "Every task is worked on by our professionals directly. output quality from the first sprint.",
   },
   {
     number: "04",
     label: "Scale",
-    title: "Grow With You",
-    description: "We hand off cleanly, document everything, and stay available as your data ambitions grow.",
+    title: "Develop With You",
+    description: "We transition smoothly, keep track of everything, and remain accessible as your data goals expand.",
   },
 ] as const;
 
@@ -51,9 +51,9 @@ export function Approach() {
     <section ref={sectionRef} data-in-view={inView} id="approach" className={styles.section} aria-labelledby="approach-title">
       <Container>
         <div className={styles.headingBlock}>
-          <p className={styles.eyebrow}>How we work</p>
-          <h2 id="approach-title">A Proven Delivery Process</h2>
-          <p>From the first conversation to a production system that keeps delivering.</p>
+          <p className={styles.eyebrow}>How we perform</p>
+          <h2 id="approach-title">A Successful Delivery Method</h2>
+          <p>From the initial dialog to an ongoing production system.</p>
         </div>
 
         <div className={styles.process}>

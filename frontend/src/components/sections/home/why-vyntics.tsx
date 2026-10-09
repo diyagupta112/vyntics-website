@@ -10,8 +10,8 @@ type Feature = {
 
 const features: Feature[] = [
   {
-    title: "Direct access to the engineers",
-    description: "The people you talk to on the first call are the people who build your system. There are no account managers and no passing the work to a different team.",
+    title: "Access to the engineers directly",
+    description: "The folks that create your system are the ones you speak with on the initial call. Account managers and transferring the work to another team are absent.",
     icon: (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <path d="m16 3 2.2 7.8L26 13l-7.8 2.2L16 23l-2.2-7.8L6 13l7.8-2.2L16 3Z" />
@@ -20,8 +20,8 @@ const features: Feature[] = [
     ),
   },
   {
-    title: "Built for Production",
-    description: "We build for real workloads and real users. Every system is made to keep running after launch, not just to look good in a demo.",
+    title: "Constructed for Production",
+    description: "We design with actual workloads and users in mind. Every system is designed not only to look beautiful in a demo but also to continue operating after launch.",
     icon: (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <circle cx="8" cy="16" r="3" />
@@ -32,8 +32,8 @@ const features: Feature[] = [
     ),
   },
   {
-    title: "You own it",
-    description: "Everything we build comes with documentation and a clean handoff. The code and systems are yours, and you can hire us again or not.",
+    title: "You have it.",
+    description: "Documentation and a seamless handoff accompany every project we create. You are free to hire us again or not, and the systems and code are yours.",
     icon: (
       <svg viewBox="0 0 32 32" aria-hidden="true">
         <path d="M5 25V13m0 12h22" />
@@ -49,9 +49,9 @@ export function WhyVyntics() {
     <section id="why-vyntics" className={styles.section} aria-labelledby="why-vyntics-title">
       <Container>
         <div className={styles.headingBlock}>
-          <p className={styles.badge}>Why Vyntics</p>
-          <h2 id="why-vyntics-title">Built by experts. Owned by you.</h2>
-          <p>No layers between you and the people doing the work. You deal with the same engineers from the first call through launch and after.</p>
+          <p className={styles.badge}>Reasons for Vyntics</p>
+          <h2 id="why-vyntics-title">created by professionals. You are the owner.</h2>
+          <p>There should be no barriers between you and the workers. From the initial call to launch and beyond, you work with the same engineers.</p>
         </div>
 
         <div className={styles.grid}>

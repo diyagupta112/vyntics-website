@@ -5,21 +5,21 @@ import styles from "./page.module.css";
 
 const values = [
   {
-    title: "Innovation",
-    text: "We keep exploring better methods and modern tools-but only adopt technology when it improves the outcome.",
-    detail: "Focused experiments, early validation, and measurable value before anything is scaled.",
+    title: "Creativity",
+    text: "We continue to research more effective techniques and cutting-edge instruments, but we only embrace technology when it yields greater results.",
+    detail: "Measurable value prior to scaling, targeted experiments, and early validation.",
     icon: "spark",
   },
   {
-    title: "Trust",
-    text: "We earn long-term partnerships through transparent decisions, reliable delivery, and direct communication.",
-    detail: "Shared priorities, honest trade-offs, clear ownership, and no surprises during delivery.",
+    title: "Have confidence",
+    text: "Through open communication, dependable delivery, and candid decision-making, we establish enduring relationships.",
+    detail: "Clear ownership, open communication about trade-offs, shared priorities, and no delivery surprises.",
     icon: "shield",
   },
   {
-    title: "Excellence",
-    text: "We hold every system to a production standard: useful, maintainable, measurable, and ready for real work.",
-    detail: "Tested systems, useful documentation, measurable outcomes, and ownership beyond launch.",
+    title: "Excellent",
+    text: "Every system must meet our production standards in order to be practical, quantifiable, maintained, and prepared for actual work.",
+    detail: "Measurable results, tested systems, practical documentation, and ownership after launch.",
     icon: "diamond",
   },
 ] as const;

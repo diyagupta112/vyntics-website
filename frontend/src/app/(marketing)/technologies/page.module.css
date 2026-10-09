@@ -36,6 +36,28 @@
 @media(max-width:720px){.heroGrid{min-height:auto;grid-template-columns:1fr;gap:2.5rem}.heroGrid{padding-block:4rem}.hero h1{font-size:clamp(2.75rem,12vw,4rem)}.heroCopy{padding-top:0}.heroMedia{width:100%;max-width:30rem;justify-self:start}.landscape{min-height:auto;overflow:visible}.landscapeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.landscapeCard{height:22rem;min-height:0;filter:none}.landscapeCard .cardDetails{opacity:1;transform:none;pointer-events:auto}.toolIndex{min-height:auto;overflow:visible}.stickyHeading h2{max-width:none}.processSection{height:340svh}.processSticky{display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:1.25rem}.processSection .sectionHeading h2{max-width:16ch}.processSection .sectionHeading>p:last-child{margin-top:.7rem;line-height:1.55}.processViewport{height:clamp(19rem,51vh,22rem)}.processCard{padding:1.2rem}.processCard h3{margin-top:1.15rem}.processCard p{font-size:.76rem;line-height:1.5}.processPoints{margin-top:.85rem;padding-top:.8rem;gap:.45rem .7rem}.processPoints li{font-size:.66rem}.clientHeading{align-items:flex-start;flex-direction:column}}
 @media(max-width:520px){.landscape,.toolIndex,.clientWork,.credentials{padding-block:4rem}.landscapeGrid,.badgeGrid,.toolRows{grid-template-columns:1fr}.processSection .sectionHeading h2{font-size:clamp(2rem,10vw,2.75rem)}.processStage{display:none}.toolRows article{min-height:11.5rem}}
 .processSticky[data-process-panel]{position:relative;top:0}
+.processViewport .processCard{--color-foreground:#0b1832;--color-muted:#263b60;--color-primary:#1453db;--color-surface:#f5f8ff;--color-border:rgb(11 24 50/.18);color:var(--color-foreground);background-color:#f5f8ff;background-image:linear-gradient(rgb(255 255 255/.55),rgb(255 255 255/.55)),url('/images/technology-process-diagonal-gradient.png');background-position:center;background-size:cover;background-repeat:no-repeat}
+
+/* Original expanding cards, with images filling the frame without black bands. */
+.cardDetails{overflow-y:auto;justify-content:safe flex-end}
+.cardDetails p{white-space:pre-line;flex-shrink:0}
+.cardDetails ul{flex-shrink:0}
+.landscapeCard .cardDetails li{text-transform:uppercase}
+.landscapeCard{height:clamp(22rem,42vh,25rem)}
+.landscapeCard::after{inset:0 0 4.3rem;background-size:cover;background-repeat:no-repeat;filter:brightness(1.2)}
+.landscapeCard::before{background:none}
+.landscapeCard:focus::after{transform:none}
+.landscapeGrid .landscapeCard:focus{flex:2;filter:none}
+@media(hover:hover) and (pointer:fine){.landscapeGrid:hover .landscapeCard{filter:none}.landscapeGrid .landscapeCard:hover{flex:2}.landscapeCard:hover::after{transform:none}}
+@media(max-width:960px){
+  .landscape{min-height:auto;padding-block:3rem;overflow:visible}
+  .landscapeGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .landscapeCard{height:auto;min-height:22rem}
+  .landscapeCard::after{inset:0 0 auto;height:12rem}
+  .landscapeCard .cardDetails{position:relative;inset:auto;min-height:17.75rem;margin-bottom:4.25rem;padding-top:13.25rem;opacity:1;transform:none;pointer-events:auto;background:none}
+}
+@media(max-width:520px){.landscapeGrid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.landscapeCard,.landscapeCard .cardDetails li{transition:none}}
 
 /* Keep hero copy centered on the left at every screen size. */
 @media(max-width:720px){.heroGrid{min-height:calc(100svh - 5rem);padding-block:3rem}.hero h1{font-size:clamp(1.9rem,6vw,2.5rem)}.heroCopy{padding:1.6rem}.heroCopy>p:not(.eyebrow){font-size:.94rem}.hero::before{background-position:65% center}}

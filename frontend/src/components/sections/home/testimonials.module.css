@@ -45,7 +45,7 @@
 
 .stage {
   position: relative;
-  height: clamp(20.5rem, 46vh, 23rem);
+  height: clamp(24rem, 54vh, 27rem);
   perspective: 1100px;
 }
 
@@ -53,8 +53,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(21rem, 31vw);
-  height: min(20.5rem, 43vh);
+  width: min(25rem, 36vw);
+  height: clamp(23rem, 51vh, 26rem);
   display: flex;
   flex-direction: column;
   padding: clamp(1.35rem, 2.3vw, 2rem);
@@ -94,22 +94,42 @@
 }
 
 .companyAvatar {
-  padding: 0.4rem;
+  position: relative;
+  overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
-  background: color-mix(in srgb, var(--color-primary) 8%, #ffffff);
+  background: #ffffff;
 }
 
-.companyAvatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.companyLogo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13.125rem;
+  height: 4.75rem;
+  display: block;
+  background-image: url("/images/client-logos-source.png");
+  background-repeat: no-repeat;
+  background-size: 1407px 305px;
+  transform: translate(-50%, -50%) scale(0.2);
+}
+
+.iturbeLogo {
+  background-position: -427px -127px;
+}
+
+.rolloutLogo {
+  background-position: -701px -127px;
+}
+
+.smgqLogo {
+  background-position: -985px -127px;
 }
 
 .card blockquote {
   margin-top: 1.2rem;
-  font-size: clamp(1.05rem, 1.55vw, 1.3rem);
+  font-size: clamp(0.92rem, 1.15vw, 1.08rem);
   font-weight: 650;
-  line-height: 1.35;
+  line-height: 1.42;
   letter-spacing: -0.025em;
 }
 
@@ -166,8 +186,8 @@
 
 @media (max-width: 760px) {
   .section { min-height: auto; padding-block: 3.5rem; }
-  .stage { height: 21rem; }
-  .card { width: min(19rem, 82vw); height: 19.5rem; }
+  .stage { height: 24rem; }
+  .card { width: min(21rem, 86vw); height: 23rem; }
   .farLeft, .farRight { opacity: 0; }
   .left { opacity: 0.28; transform: translate(-104%, -50%) rotate(-2deg) scale(0.9); }
   .right { opacity: 0.28; transform: translate(4%, -50%) rotate(2deg) scale(0.9); }

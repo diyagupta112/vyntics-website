@@ -16,7 +16,15 @@
   gap: clamp(3rem, 8vw, 7rem);
 }
 
-.heroCopy { max-width: 46rem; }
+.heroCopy {
+  min-width: 0;
+  max-width: 46rem;
+}
+
+.heroCopy > .eyebrow {
+  max-width: calc(100% - 0.15rem);
+  margin-left: 0.15rem;
+}
 
 .eyebrow {
   color: var(--color-brand);
@@ -89,180 +97,8 @@
 .heroVisual {
   position: relative;
   min-height: 27rem;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: 1.5rem;
-  background:
-    radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--color-primary) 24%, transparent), transparent 35%),
-    color-mix(in srgb, var(--color-surface) 94%, var(--color-primary));
-  box-shadow: 0 2rem 5rem rgb(11 11 15 / 8%);
-  animation: none !important;
-  transition: none;
-}
-
-.heroVisual::before {
-  content: none;
-}
-
-.heroVisual > p {
-  position: relative;
-  z-index: 1;
-  color: var(--color-muted);
-  font-size: 0.76rem;
-  line-height: 1.5;
-  text-align: center;
-}
-
-.orbit {
-  position: relative;
-  z-index: 1;
-  width: min(100%, 19rem);
-  aspect-ratio: 1;
-  margin: auto;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
-  border-radius: 50%;
-}
-
-.orbit::before,
-.orbit::after {
-  position: absolute;
-  inset: 17%;
-  content: "";
-  border: 1px solid color-mix(in srgb, var(--color-primary) 18%, transparent);
-  border-radius: 50%;
-}
-
-.orbit::after { inset: 34%; }
-
-.orbitCore {
-  position: absolute;
-  z-index: 2;
-  inset: 50% auto auto 50%;
-  width: 4.2rem;
-  aspect-ratio: 1;
   display: grid;
   place-items: center;
-  color: #fff;
-  border-radius: 50%;
-  background: #fafbf8;
-  box-shadow: 0 0 0 0.7rem color-mix(in srgb, var(--color-primary) 11%, transparent);
-  font-size: 1.55rem;
-  font-weight: 800;
-  transform: translate(-50%, -50%);
-}
-
-.orbitCore img {
-  width: 78%;
-  height: auto;
-  object-fit: contain;
-}
-
-.orbitTrack {
-  position: absolute;
-  z-index: 3;
-  inset: 0;
-  border-radius: 50%;
-  animation: orbitClockwise 20s linear infinite;
-}
-
-.orbitTechnology {
-  --orbit-angle: 0deg;
-  --counter-angle: 0deg;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  transform: rotate(var(--orbit-angle)) translateX(8.4rem);
-}
-
-.orbitTechnology:nth-child(2) { --orbit-angle: 60deg; --counter-angle: -60deg; }
-.orbitTechnology:nth-child(3) { --orbit-angle: 120deg; --counter-angle: -120deg; }
-.orbitTechnology:nth-child(4) { --orbit-angle: 180deg; --counter-angle: -180deg; }
-.orbitTechnology:nth-child(5) { --orbit-angle: 240deg; --counter-angle: -240deg; }
-.orbitTechnology:nth-child(6) { --orbit-angle: 300deg; --counter-angle: -300deg; }
-
-.technologyBadge {
-  width: 3.35rem;
-  height: 3.35rem;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--color-border);
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
-  box-shadow: 0 0.6rem 1.8rem rgb(11 11 15 / 10%);
-  backdrop-filter: blur(0.75rem);
-  transform: translate(-50%, -50%) rotate(var(--counter-angle));
-  animation: logoCounterClockwise 20s linear infinite;
-}
-
-.technologyBadge svg,
-.technologyBadge .letterLogo {
-  width: 2.15rem;
-  height: 2.15rem;
-  flex: 0 0 auto;
-}
-
-.reactLogo {
-  fill: none;
-  stroke: #61dafb;
-  stroke-width: 2.5;
-}
-
-.reactLogo circle { fill: #61dafb; }
-.pythonBlue { fill: #3776ab; }
-.pythonGold { fill: #ffd343; }
-
-.letterLogo {
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  letter-spacing: -0.08em;
-}
-
-.typeScriptLogo {
-  padding-top: 1.1rem;
-  padding-right: 0.2rem;
-  color: #fff;
-  border-radius: 0.3rem;
-  background: #3178c6;
-  font-size: 1.15rem;
-}
-
-.nextLogo {
-  color: #fff;
-  border-radius: 50%;
-  background: #111;
-  font-size: 1.65rem;
-  font-weight: 500;
-}
-
-.nodeLogo {
-  color: #fff;
-  background: #539e43;
-  clip-path: polygon(25% 7%, 75% 7%, 100% 50%, 75% 93%, 25% 93%, 0 50%);
-  font-size: 1rem;
-}
-
-.javaScriptLogo {
-  padding-top: 0.78rem;
-  padding-right: 0.18rem;
-  color: #171717;
-  background: #f7df1e;
-  font-size: 0.78rem;
-}
-
-@keyframes orbitClockwise {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes logoCounterClockwise {
-  from { transform: translate(-50%, -50%) rotate(var(--counter-angle)); }
-  to { transform: translate(-50%, -50%) rotate(calc(var(--counter-angle) - 360deg)); }
 }
 
 .companyIntro {
@@ -499,8 +335,9 @@
 .valueCard {
   position: relative;
   z-index: 0;
-  height: 20rem;
+  min-height: 20rem;
   padding: clamp(1.5rem, 2.5vw, 2rem);
+  overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: 1.1rem;
   background: var(--color-surface);
@@ -572,7 +409,7 @@
 
 .valueCardActive .valueDetail,
 .valueCard:focus-visible .valueDetail {
-  max-height: 6rem;
+  max-height: 10rem;
   margin-top: 1rem;
   padding-top: 0.85rem;
   border-color: var(--color-border);
@@ -717,7 +554,7 @@
 
   .valueCard:hover .valueDetail,
   .valueCard:focus-visible .valueDetail {
-    max-height: 6rem;
+    max-height: 10rem;
     margin-top: 1rem;
     padding-top: 0.85rem;
     border-color: var(--color-border);
@@ -780,27 +617,17 @@
   .principles { grid-template-columns: 1fr; }
   .principles span { padding: 0.9rem 0; text-align: left; }
   .principles span + span { border-top: 1px solid var(--color-border); border-left: 0; }
-  .valueGrid,
   .valueGrid { grid-template-columns: 1fr; }
-  .valueCard { height: 17rem; }
+  .valueCard { min-height: 17rem; }
   .valueCardActive,
-  .valueCard:focus-visible { height: 20.5rem; }
+  .valueCard:focus-visible { min-height: 20.5rem; }
   .ctaInner { align-items: flex-start; flex-direction: column; }
 }
 
 @media (max-width: 440px) {
   .hero h1 { font-size: clamp(2.45rem, 13vw, 3.2rem); }
-  .heroVisual { min-height: 20rem; padding: 1.25rem; }
-  .orbitTechnology { transform: rotate(var(--orbit-angle)) translateX(7.25rem); }
-  .technologyBadge { width: 3rem; height: 3rem; }
-  .technologyBadge svg,
-  .technologyBadge .letterLogo { width: 1.9rem; height: 1.9rem; }
+  .heroVisual { min-height: 20rem; }
   .companyIntroVisual { min-height: 21rem; }
   .companyIntroVisual figcaption { align-items: flex-start; flex-direction: column; }
   .companyIntroVisual figcaption strong { text-align: left; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .orbitTrack,
-  .technologyBadge { animation-play-state: paused; }
 }

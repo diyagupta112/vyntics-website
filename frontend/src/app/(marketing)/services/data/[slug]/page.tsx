@@ -1,24 +1,24 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { InnerServiceDetail } from "@/components/pages/inner-service-detail";
-import { dataServices, dataServiceSlugs, isDataServiceSlug } from "@/content/data-services";
+import { getPlatformService, getPlatformServiceSlugs } from "@/content/platform-services";
 
 export const dynamicParams = false;
 type ServicePageProps = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return dataServiceSlugs.map((slug) => ({ slug }));
+  return getPlatformServiceSlugs("data").map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const service = isDataServiceSlug(slug) && Object.hasOwn(dataServices, slug) ? dataServices[slug] : undefined;
+  const service = getPlatformService("data", slug);
   return service ? { title: service.name, description: service.metadataDescription } : {};
 }
 
 export default async function DataServiceDetailPage({ params }: ServicePageProps) {
   const { slug } = await params;
-  const service = isDataServiceSlug(slug) && Object.hasOwn(dataServices, slug) ? dataServices[slug] : undefined;
+  const service = getPlatformService("data", slug);
   if (!service) notFound();
   return <InnerServiceDetail service={service} />;
 }

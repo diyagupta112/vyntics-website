@@ -9,5 +9,6 @@ export type NavigationChild = {
   href: string;
   description: string;
   headingOnly?: boolean;
+  headingLink?: boolean;
   children?: readonly NavigationChild[];
 };

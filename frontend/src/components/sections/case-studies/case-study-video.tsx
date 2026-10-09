@@ -54,12 +54,13 @@ export function CaseStudyVideo({ media, title, fallbackSrc, className, controls 
   }, [interactivePreview]);
   useEffect(() => {
     if (media.provider !== "youtube" || failed) return;
+    const playerContainer = container.current;
     let cancelled = false;
     let player: Player | undefined;
     void loadPlayerApi().then(api => {
-      if (cancelled || !container.current) return;
+      if (cancelled || !playerContainer) return;
       const target = document.createElement("div");
-      container.current.appendChild(target);
+      playerContainer.appendChild(target);
       player = new api.Player(target, {
         host: "https://www.youtube-nocookie.com",
         videoId: media.videoId,
@@ -70,14 +71,20 @@ export function CaseStudyVideo({ media, title, fallbackSrc, className, controls 
             if (cancelled) return;
             playerRef.current = target;
             target.mute();
-            if (interactivePreview ? wantsPlayback.current : !reducedMotion) target.playVideo();
+            if (!document.hidden && (interactivePreview ? wantsPlayback.current : !reducedMotion)) target.playVideo();
           },
           onStateChange: ({ data }: { data: number }) => { if (!cancelled) setPlaying(data === 1); },
           onError: () => { if (!cancelled) setFailed(true); },
         },
       });
     }).catch(() => { if (!cancelled) setFailed(true); });
-    return () => { cancelled = true; playerRef.current = null; player?.pauseVideo?.(); player?.destroy?.(); };
+    return () => {
+      cancelled = true;
+      // Playback API calls require onReady and an iframe still attached to the DOM.
+      if (playerRef.current && playerContainer?.isConnected) playerRef.current.pauseVideo();
+      playerRef.current = null;
+      player?.destroy();
+    };
   }, [media.provider, media.videoId, reducedMotion, failed, controls, interactivePreview]);
   useEffect(() => {
     const video = nativeVideo.current;
