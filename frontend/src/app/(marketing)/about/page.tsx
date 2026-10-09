@@ -29,7 +29,7 @@ export default function AboutPage() {
             <p className={styles.eyebrow}>AI and data you can rely on</p>
             <h1>Converting data into a competitive advantage.</h1>
             <p className={styles.lead}>
-              We are Vyntics, a group of data scientists, engineers, and strategists that assist businesses in transforming complicated data into reliable choices, practical automation, and long-lasting systems.
+              We are Vyntics, a group of engineers and strategists that assist businesses in transforming complicated data into reliable choices, practical automation, and long-lasting systems.
             </p>
             <div className={styles.heroActions}>
               <Link className={styles.primaryButton} href="/#contact">Start a conversation <ArrowIcon /></Link>
@@ -125,7 +125,7 @@ export default function AboutPage() {
               Vyntics was designed to be an expert-led consulting team that was small enough to work quickly, knowledgeable enough to make wise technical choices, and direct enough to keep clients close to the workers.
             </p>
             <p>
-              We offer organized execution and long-term maintainability—not just a list of suggestions—whether the demand is for a cutting-edge data platform, analytics leadership that is actually used, or useful AI automation.
+              We offer organized execution and long-term maintainability, not just a list of suggestions, whether the demand is for a cutting-edge data platform, analytics leadership that is actually used, or useful AI automation.
             </p>
           </div>
         </Container>

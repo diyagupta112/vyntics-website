@@ -72,7 +72,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
           <div className={styles.headingBlock}>
             <p className={styles.eyebrow}>Thoughts from the industry</p>
             <h2 id="blogs-title">Useful data and AI concepts</h2>
-            <p>helpful manuals for developing dependable systems outside of the demonstration.</p>
+            <p>Helpful manuals for developing dependable systems outside of the demonstration.</p>
           </div>
 
           <Link className={styles.viewAll} href="/blog">
@@ -111,13 +111,14 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
                 onMouseEnter={() => setHoveredIndex(articleIndex)}
                 onFocusCapture={() => showArticle(articleIndex)}
               >
-                <button
-                  type="button"
-                  className={styles.cardTrigger}
-                  aria-label={`Show ${article.title}`}
-                  aria-pressed={isActive}
-                  onClick={() => showArticle(articleIndex)}
-                />
+                {!isActive && (
+                  <button
+                    type="button"
+                    className={styles.cardTrigger}
+                    aria-label={`Show ${article.title}`}
+                    onClick={() => showArticle(articleIndex)}
+                  />
+                )}
 
                 <div className={styles.artwork} aria-hidden="true">
                   {article.cover && <BlogCover src={article.cover} />}
@@ -140,9 +141,9 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
                       <p>{article.description}</p>
                       <div className={styles.cardFooter}>
                         <time dateTime={article.dateTime}>{article.date}</time>
-                        <Link className={styles.readMore} href={article.href} tabIndex={isActive ? 0 : -1}>
+                        <a className={styles.readMore} href={article.href} tabIndex={isActive ? 0 : -1}>
                           Read article <ArrowIcon />
-                        </Link>
+                        </a>
                       </div>
                     </div>
                   </div>

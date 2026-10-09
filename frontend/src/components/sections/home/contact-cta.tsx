@@ -20,7 +20,7 @@ type ContactCtaProps = {
 };
 
 export function ContactCta({
-  eyebrow = "Speak with",
+  eyebrow,
   title = "Together, let's review your statistics.",
   intro = "Set up a complimentary 30-minute strategy session. Just have a straight discussion with our specialists about your data and AI concerns without the need for sales teams or presentation decks.",
   sectionId = "contact",
@@ -80,7 +80,7 @@ export function ContactCta({
     <section id={sectionId} className={styles.section} aria-labelledby={`${sectionId}-title`}>
       <Container className={styles.layout}>
         <div className={styles.content}>
-          <p className={`${styles.eyebrow} ${showEyebrowAccent ? "" : styles.withoutEyebrowAccent}`}>{eyebrow}</p>
+          {eyebrow && <p className={`${styles.eyebrow} ${showEyebrowAccent ? "" : styles.withoutEyebrowAccent}`}>{eyebrow}</p>}
           <h2 id={`${sectionId}-title`}>{title}</h2>
           <p className={styles.intro}>{intro}</p>
           {primaryAction && (

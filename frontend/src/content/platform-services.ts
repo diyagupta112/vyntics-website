@@ -72,8 +72,8 @@ export const platformServices = {
       ],
       technologies: ["Terraform", "GitHub Actions", "Docker", "Kubernetes", "OpenTelemetry", "Grafana", "Prometheus", "Datadog"],
     }),
-    "cloud-cost-optimisation": defineService({
-      group: "cloud", slug: "cloud-cost-optimisation", name: "Cloud Cost Optimisation", eyebrow: "Cloud foundations · Cost optimisation",
+    "cloud-cost-optimization": defineService({
+      group: "cloud", slug: "cloud-cost-optimization", name: "Cloud Cost Optimization", eyebrow: "Cloud foundations · Cost optimization",
       title: "Reduce cloud waste without weakening the workload.",
       introduction: "We connect cloud spend to services, usage, ownership, and business value, then implement practical changes with measurable impact.",
       promise: "Make cloud cost understandable and controllable, not a surprise at month end.",

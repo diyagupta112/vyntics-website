@@ -32,7 +32,7 @@ const features: Feature[] = [
     ),
   },
   {
-    title: "You have it.",
+    title: "You have it",
     description: "Documentation and a seamless handoff accompany every project we create. You are free to hire us again or not, and the systems and code are yours.",
     icon: (
       <svg viewBox="0 0 32 32" aria-hidden="true">
@@ -50,7 +50,7 @@ export function WhyVyntics() {
       <Container>
         <div className={styles.headingBlock}>
           <p className={styles.badge}>Reasons for Vyntics</p>
-          <h2 id="why-vyntics-title">created by professionals. You are the owner.</h2>
+          <h2 id="why-vyntics-title">Created by professionals. You are the owner.</h2>
           <p>There should be no barriers between you and the workers. From the initial call to launch and beyond, you work with the same engineers.</p>
         </div>
 
