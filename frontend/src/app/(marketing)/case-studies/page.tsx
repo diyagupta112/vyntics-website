@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Suspense } from "react";
 import CaseStudiesLoading from "./loading";
 import type { Metadata } from "next";
@@ -73,27 +72,25 @@ export default function CaseStudiesPage() {
         <div className={styles.heroShade} aria-hidden="true" />
         <Container className={styles.heroInner}>
           <p className={styles.eyebrow}>Case studies</p>
-          <h1 id="case-studies-title">Real Challenges Turned into Production-Grade Systems</h1>
+          <h1 id="case-studies-title">Case Studies: Real Challenges Turned into Production-Grade Systems</h1>
           <p className={styles.heroLead}>A look inside the custom software, data platforms, AI and cloud infrastructure we engineer to solve critical business problems.</p>
           <a className={styles.heroAction} href="#featured-case-studies">View case studies <ArrowIcon /></a>
         </Container>
       </section>
-      <div className={styles.workIntro}>
+      <section className={styles.workIntro} aria-labelledby="problems-title">
         <Container>
           <div className={styles.workIntroContent}>
-          <p className={styles.eyebrow}>Our work</p>
-          <h2>Problems We&apos;ve Helped Solve</h2>
+          <h2 id="problems-title">Problems We&apos;ve Helped Solve</h2>
           <p className={styles.workIntroCopy}>Every business challenge needs a tailored approach, but the goal stays the same: turn operational friction into reliable, scalable systems. We work directly with client teams to build the custom software, data infrastructure, cloud environments and intelligent automation that support long-term growth.</p>
-          <p className={styles.topicStrip}>Document intelligence · Automated data pipelines · Cloud migration · Analytics &amp; BI · Workflow automation</p>
-          <p className={styles.servicesLink}><Link href="/services">Explore our services</Link></p>
           </div>
         </Container>
-      </div>
+      </section>
       <Suspense fallback={<div id="featured-case-studies"><CaseStudiesLoading /></div>}>
         <CaseStudySections />
       </Suspense>
       <ContactCta showEyebrowAccent={false} title="Have a similar challenge? Talk to our experts."
-        intro="Tell us what you're trying to solve. Talk directly with our experts about your data, AI, cloud or analytics project. It's a straight conversation about what's possible and what it would take, with no sales pitch." />
+        intro="Tell us what you're trying to solve. Talk directly with our experts about your data, AI, cloud or analytics project. It's a straight conversation about what's possible and what it would take, with no sales pitch."
+        primaryAction={{ href: "/contact", label: "Talk to our experts" }} />
     </>
   );
 }
