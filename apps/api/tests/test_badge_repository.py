@@ -39,3 +39,20 @@ def test_admin_query_has_no_visibility_filter() -> None:
 
     assert "WHERE" not in sql
     assert "badges.display_order ASC" in sql
+
+
+
+def test_next_order_uses_all_existing_records_and_transaction_lock() -> None:
+    session = AsyncMock(spec=AsyncSession)
+    session.scalar.return_value = 2
+    repository = BadgeRepository(session)
+    assert asyncio.run(repository.next_display_order()) == 3
+    assert "pg_advisory_xact_lock" in str(session.execute.await_args.args[0])
+    assert "max(badges.display_order)" in str(session.scalar.await_args.args[0])
+    assert "WHERE" not in str(session.scalar.await_args.args[0])
+
+
+def test_first_recognition_starts_at_one() -> None:
+    session = AsyncMock(spec=AsyncSession)
+    session.scalar.return_value = None
+    assert asyncio.run(BadgeRepository(session).next_display_order()) == 1

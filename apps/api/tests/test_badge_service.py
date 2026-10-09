@@ -45,6 +45,7 @@ def _badge(**overrides: object) -> Badge:
 def _service():
     session = AsyncMock(spec=AsyncSession)
     badges = AsyncMock(spec=BadgeRepository)
+    badges.next_display_order.return_value = 1
     audits = AsyncMock(spec=AuditLogRepository)
     storage = AsyncMock(spec=PublicImageStorage)
     return (
@@ -195,3 +196,16 @@ def test_missing_badge_and_storage_cleanup_failure_behavior() -> None:
     storage.delete_managed_url.side_effect = StorageError("provider")
     asyncio.run(service.delete(BADGE_ID, actor=TEST_ADMIN))
     session.commit.assert_awaited_once_with()
+
+
+@pytest.mark.parametrize("requested, next_order, expected", [(0, 3, 3), (1, 3, 3), (2, 3, 3), (10, 3, 10)])
+def test_new_recognition_appends_after_existing_records(requested, next_order, expected) -> None:
+    service, session, badges, audits, _ = _service()
+    badges.next_display_order.return_value = next_order
+    created = asyncio.run(service.create(BadgeCreateRequest(
+        name="New recognition", display_order=requested, is_active=True,
+    ), actor=TEST_ADMIN))
+    assert created.display_order == expected
+    badges.next_display_order.assert_awaited_once()
+    session.commit.assert_awaited_once()
+    assert audits.add.await_args.args[0].context["display_order"] == expected

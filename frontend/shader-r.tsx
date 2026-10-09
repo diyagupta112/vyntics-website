@@ -7,6 +7,31 @@
 
 import { useEffect, useRef } from "react"
 
+// Footer palette: hex colors and tint strengths are the only visual color controls.
+const FOOTER_BASE = "#0A1226"
+const FOOTER_MID = "#16224A"
+const FOOTER_GLOW = "#3A5FC4"
+const FOOTER_HIGHLIGHT = "#5B87E6"
+const FOOTER_ACCENT = "#9AA6F2"
+const FOOTER_BRAND_PEAK = "#1453DB"
+const FOOTER_GLOW_STRENGTH = 0.65
+const FOOTER_HIGHLIGHT_STRENGTH = 0.40
+const FOOTER_ACCENT_STRENGTH = 0.15
+const FOOTER_BRAND_PEAK_STRENGTH = 0.02
+// Attenuate the palette toward the navy base to protect the existing 62%-white links.
+const FOOTER_COLOR_STRENGTH = 0.60
+
+type FooterColor = [number, number, number]
+function footerRgb(hex: string): FooterColor {
+  return [1, 3, 5].map(start => parseInt(hex.slice(start, start + 2), 16) / 255) as FooterColor
+}
+function footerTint(base: FooterColor, tint: string | FooterColor, strength: number): FooterColor {
+  const rgb = typeof tint === "string" ? footerRgb(tint) : tint
+  return base.map((value, index) => value + (rgb[index] - value) * strength) as FooterColor
+}
+const footerGlow = footerTint(footerTint(footerRgb(FOOTER_MID), FOOTER_GLOW, FOOTER_GLOW_STRENGTH), FOOTER_BRAND_PEAK, FOOTER_BRAND_PEAK_STRENGTH)
+const footerHighlight = footerTint(footerTint(footerRgb(FOOTER_MID), FOOTER_HIGHLIGHT, FOOTER_HIGHLIGHT_STRENGTH), FOOTER_ACCENT, FOOTER_ACCENT_STRENGTH)
+
 const VERT = `attribute vec2 a_position;
 void main() {
   gl_Position = vec4(a_position, 0.0, 1.0);
@@ -285,14 +310,15 @@ void main() {
 `
 
 const UNIFORMS = {
-  colors: [[0.019607843,0.02745098,0.05098039],[0.02745098,0.10196078,0.23921569],[0.07843137,0.3254902,0.85882353],[0.14509804,0.38823529,0.92156863],[0.9568627450980393,1,0.7803921568627451],[0.9568627450980393,1,0.7803921568627451],[0.9568627450980393,1,0.7803921568627451],[0.9568627450980393,1,0.7803921568627451]] as [number, number, number][],
+  colors: [footerRgb(FOOTER_BASE), footerRgb(FOOTER_MID), footerGlow, footerHighlight,
+    footerRgb(FOOTER_BASE), footerRgb(FOOTER_BASE), footerRgb(FOOTER_BASE), footerRgb(FOOTER_BASE)].map(color => footerTint(footerRgb(FOOTER_BASE), color, FOOTER_COLOR_STRENGTH)),
   colorCount: 4,
   scale: 1.160,
   intensity: 0.340,
   paramA: 0.500,
   warp: 0.000,
   detail: 2.400,
-  contrast: 1.158,
+  contrast: 1.000,
   brightness: 0.000,
   saturation: 1.000,
   hue: 0.0000,

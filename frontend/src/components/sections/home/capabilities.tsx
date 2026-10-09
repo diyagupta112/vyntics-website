@@ -9,6 +9,7 @@ const capabilities = [
   {
     number: "01",
     anchor: "services-ai",
+    href: "/services/ai-solutions",
     shortLabel: "AI",
     scope: "RAG · Agents · Automation",
     title: "Custom AI Solutions",
@@ -18,6 +19,7 @@ const capabilities = [
   {
     number: "02",
     anchor: "services-data",
+    href: "/services/data-engineering",
     shortLabel: "DATA",
     scope: "Pipelines · ETL · Warehousing",
     title: "Data Engineering & Management",
@@ -27,6 +29,7 @@ const capabilities = [
   {
     number: "03",
     anchor: "services-analytics",
+    href: "/services/analytics-bi",
     shortLabel: "BI",
     scope: "Dashboards · Reporting · BI",
     title: "Data Analytics & BI",
@@ -36,6 +39,7 @@ const capabilities = [
   {
     number: "04",
     anchor: "services-cloud",
+    href: "/services/cloud-foundations",
     shortLabel: "CLOUD",
     scope: "Architecture · Migration · FinOps",
     title: "Cloud Solutions",
@@ -45,6 +49,7 @@ const capabilities = [
   {
     number: "05",
     anchor: "services-others",
+    href: "/services/other",
     shortLabel: "MORE",
     scope: "APIs · Integrations · Consulting",
     title: "Backend & Integrations",
@@ -53,20 +58,21 @@ const capabilities = [
   },
 ] as const;
 
-export function Capabilities() {
+export function Capabilities({ showHeading = true, linkCards = false, cardsOnly = false, sectionId = "services" }: { showHeading?: boolean; linkCards?: boolean; cardsOnly?: boolean; sectionId?: string } = {}) {
+  const Card = linkCards ? motion.a : motion.article;
   const reduceMotion = useReducedMotion();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const activeIndex = hoveredIndex ?? selectedIndex;
 
   return (
-    <section id="services" className={styles.section} aria-labelledby="capabilities-title">
+    <section id={sectionId} className={`${styles.section} ${cardsOnly ? styles.cardsOnly : ""}`} aria-labelledby={showHeading ? "capabilities-title" : undefined} aria-label={showHeading ? undefined : "Services"}>
       <Container>
-        <header className={styles.headingBlock}>
+        {showHeading && <header className={styles.headingBlock}>
           <p className={styles.eyebrow}>Services</p>
           <h2 id="capabilities-title">From raw data to working AI</h2>
           <p>From custom AI to the data foundations it runs on-end to end.</p>
-        </header>
+        </header>}
 
         <div className={styles.grid}>
           {capabilities.map((capability, index) => {
@@ -94,21 +100,22 @@ export function Capabilities() {
             };
 
             return (
-            <motion.article
+            <Card
               id={capability.anchor}
               className={styles.card}
               key={capability.number}
               tabIndex={0}
-              role="button"
-              aria-pressed={selectedIndex === index}
+              href={linkCards ? capability.href : undefined}
+              role={linkCards ? undefined : "button"}
+              aria-pressed={linkCards ? undefined : selectedIndex === index}
               animate={cardAnimation}
               transition={{ type: "spring", stiffness: 250, damping: 24, mass: 0.8 }}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               onFocus={() => setHoveredIndex(index)}
               onBlur={() => setHoveredIndex(null)}
-              onClick={toggleSelection}
-              onKeyDown={(event) => {
+              onClick={linkCards ? undefined : toggleSelection}
+              onKeyDown={linkCards ? undefined : (event) => {
                 if (event.key === "Enter" || event.key === " ") {
                   event.preventDefault();
                   toggleSelection();
@@ -126,7 +133,7 @@ export function Capabilities() {
               <span className={styles.detail} aria-hidden="true">
                 {capability.scope}
               </span>
-            </motion.article>
+            </Card>
             );
           })}
         </div>

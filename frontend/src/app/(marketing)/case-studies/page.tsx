@@ -1,38 +1,27 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import CaseStudiesLoading from "./loading";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { ContactCta } from "@/components/sections/home/contact-cta";
-import { CaseStudyCover } from "@/components/sections/case-studies/case-study-cover";
-import { getCaseStudies, getCaseStudy, getCaseStudyHeroMedia, type CaseStudyListItem } from "@/lib/case-studies";
-import { FeaturedCaseStudyCarousel } from "./case-studies-showcase";
+import { getCaseStudies, getCaseStudy, getCaseStudyHeroMedia } from "@/lib/case-studies";
+import { FeaturedCaseStudyCarousel } from "@/components/sections/case-studies/featured-case-study-carousel";
+import { CaseStudiesListing } from "./case-studies-listing";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
+const pageTitle = "Case Studies: Data, AI & Cloud Projects | Vyntics";
+const pageDescription = "Explore Vyntics case studies: real data, AI, cloud and analytics projects built into production-grade systems. See the problems we solved and how.";
+const pageUrl = "https://vyntics.com/case-studies";
 export const metadata: Metadata = {
-  title: "Case Studies",
-  description: "Real client problems, practical solutions, and products delivered by Vyntics.",
+  title: { absolute: pageTitle }, description: pageDescription,
+  alternates: { canonical: pageUrl },
+  openGraph: { title: pageTitle, description: pageDescription, type: "website", url: pageUrl },
+  twitter: { card: "summary_large_image", title: pageTitle, description: pageDescription },
 };
 
 function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
-}
-
-function StudyCard({ study }: { study: CaseStudyListItem }) {
-  return (
-    <Link className={styles.otherCard} href={`/case-studies/${encodeURIComponent(study.slug)}`}>
-      <div className={styles.otherMedia}>
-        <CaseStudyCover src={study.cover_image_url} title={study.title} />
-      </div>
-      <div className={styles.otherCopy}>
-        <p>{[study.client_name, ...study.tags.slice(0, 2)].filter(Boolean).join(" · ")}</p>
-        <h3>{study.title}</h3>
-        <span>{study.excerpt}</span>
-        <strong>View Case Study <ArrowIcon /></strong>
-      </div>
-    </Link>
-  );
 }
 
 async function CaseStudySections() {
@@ -42,16 +31,31 @@ async function CaseStudySections() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          { "@type": "BreadcrumbList", itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://vyntics.com" },
+            { "@type": "ListItem", position: 2, name: "Case Studies", item: pageUrl },
+          ] },
+          { "@type": "CollectionPage", name: "Case Studies", description: pageDescription, url: pageUrl,
+            mainEntity: { "@type": "ItemList", itemListElement: studies.map((study, index) => ({
+              "@type": "ListItem", position: index + 1, name: study.title, url: `${pageUrl}/${encodeURIComponent(study.slug)}`,
+            })) } },
+        ],
+      }).replace(/</g, "\\u003c") }} />
       <section id="featured-case-studies" className={styles.featuredSection} aria-labelledby="featured-title">
         <Container>
           <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Selected work</p><h2 id="featured-title">Featured Case Studies</h2></div></div>
-          {featured.length > 0 ? <FeaturedCaseStudyCarousel studies={showcased} /> : <p className={styles.otherEmpty}>{studies.length ? "Explore our published work below." : "No case studies available yet."}</p>}
+          <p className={styles.sectionIntro}>A selection of projects that show how we take a business problem from the first conversation to a system running in production.</p>
+          {featured.length > 0 ? <FeaturedCaseStudyCarousel studies={showcased} caseStudySeo /> : <p className={styles.otherEmpty}>{studies.length ? "Explore our published work below." : "No case studies available yet."}</p>}
         </Container>
       </section>
       <section className={styles.otherSection} aria-labelledby="more-title">
         <Container>
           <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>Explore further</p><h2 id="more-title">All Case Studies</h2></div></div>
-          {studies.length > 0 ? <div className={styles.otherGrid}>{studies.map(study => <StudyCard study={study} key={study.id} />)}</div> : <p className={styles.otherEmpty}>No case studies available yet.</p>}
+          <p className={styles.sectionIntro}>Browse every project, or search and filter by technology and topic.</p>
+          <CaseStudiesListing studies={studies} />
         </Container>
       </section>
     </>
@@ -69,24 +73,27 @@ export default function CaseStudiesPage() {
         <div className={styles.heroShade} aria-hidden="true" />
         <Container className={styles.heroInner}>
           <p className={styles.eyebrow}>Case studies</p>
-          <h1 id="case-studies-title">Real challenges transformed into production-grade systems.</h1>
-          <p className={styles.heroLead}>A look inside the custom architectures, software, and infrastructure we engineer to solve critical business problems.</p>
-          <a className={styles.heroAction} href="#featured-case-studies">View Case Studies <ArrowIcon /></a>
+          <h1 id="case-studies-title">Real Challenges Turned into Production-Grade Systems</h1>
+          <p className={styles.heroLead}>A look inside the custom software, data platforms, AI and cloud infrastructure we engineer to solve critical business problems.</p>
+          <a className={styles.heroAction} href="#featured-case-studies">View case studies <ArrowIcon /></a>
         </Container>
       </section>
       <div className={styles.workIntro}>
         <Container>
           <div className={styles.workIntroContent}>
           <p className={styles.eyebrow}>Our work</p>
-          <h2>Problems we&apos;ve helped solve.</h2>
-          <p className={styles.workIntroCopy}>Every enterprise challenge demands a tailored approach, but the objective remains constant: turning operational friction into reliable, scalable systems. We partner directly with client teams to engineer the custom infrastructure, software, and intelligence required to support long-term growth.</p>
+          <h2>Problems We&apos;ve Helped Solve</h2>
+          <p className={styles.workIntroCopy}>Every business challenge needs a tailored approach, but the goal stays the same: turn operational friction into reliable, scalable systems. We work directly with client teams to build the custom software, data infrastructure, cloud environments and intelligent automation that support long-term growth.</p>
+          <p className={styles.topicStrip}>Document intelligence · Automated data pipelines · Cloud migration · Analytics &amp; BI · Workflow automation</p>
+          <p className={styles.servicesLink}><Link href="/services">Explore our services</Link></p>
           </div>
         </Container>
       </div>
       <Suspense fallback={<div id="featured-case-studies"><CaseStudiesLoading /></div>}>
         <CaseStudySections />
       </Suspense>
-      <ContactCta />
+      <ContactCta showEyebrowAccent={false} title="Have a similar challenge? Talk to our experts."
+        intro="Tell us what you're trying to solve. Talk directly with our experts about your data, AI, cloud or analytics project. It's a straight conversation about what's possible and what it would take, with no sales pitch." />
     </>
   );
 }

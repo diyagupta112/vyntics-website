@@ -91,7 +91,6 @@ export default function CareersPage() {
         <div className={styles.heroOverlay} aria-hidden="true" />
         <Container className={styles.heroInner}>
           <RevealBlock className={styles.heroCopy}>
-            <p className={styles.eyebrow}>Join Vyntics</p>
             <h1 id="careers-title">Join a team solving problems with real impact.</h1>
             <p>Bring thoughtful ideas, practical skills, and a willingness to contribute as we solve problems that matter.</p>
             <CurrentOpeningsLink className={styles.primaryButton}>View Current Openings <ArrowIcon /></CurrentOpeningsLink>

@@ -104,6 +104,7 @@ export default function AboutPage() {
             <p>
               We work directly with business and technical leaders from discovery through delivery-bringing data foundations, decision-ready analytics, practical AI, and cloud engineering together through one accountable team.
             </p>
+            <p>Explore <Link href="/recognitions">our recognitions and certifications</Link> and the credentials behind our data and AI work.</p>
             <blockquote>Our aim: make advanced technology easier to adopt, easier to trust, and easier to own.</blockquote>
           </div>
 

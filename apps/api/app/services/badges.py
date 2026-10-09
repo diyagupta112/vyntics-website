@@ -61,6 +61,9 @@ class BadgeService:
     ) -> Badge:
         badge = Badge(logo_url=None, **request.model_dump(mode="json"))
         try:
+            # New records always follow existing recognitions, even when the admin
+            # form submits its default order (0). Explicit higher positions are kept.
+            badge.display_order = max(request.display_order, await self._badges.next_display_order())
             await self._badges.add(badge)
             await self._audit_logs.add(
                 self._audit("create", badge, self._safe_context(badge), actor)

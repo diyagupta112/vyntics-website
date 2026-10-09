@@ -1,0 +1,63 @@
+.hero {
+  min-height: calc(85svh - 5rem);
+  display: grid;
+  align-items: center;
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+.content h1 {
+  max-width: 19ch;
+  margin-top: 1rem;
+  font-size: clamp(2.5rem, 4.7vw, 4.25rem);
+  font-weight: 650;
+  line-height: 1.05;
+  letter-spacing: -.055em;
+  text-wrap: balance;
+}
+.intro {
+  max-width: 43rem;
+  margin-top: 1.3rem;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; }
+.actions a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 5px; }
+.visual { min-width: 0; }
+@media (max-width: 1050px) and (min-width: 761px) {
+  .layout { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 1.75rem; }
+}
+@media (max-width: 760px) {
+  .hero { min-height: auto; padding-block: 2.5rem 1rem; }
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+  .content h1 { font-size: clamp(2.3rem, 7vw, 3.25rem); }
+  .visual { width: 100%; max-width: 32rem; justify-self: center; }
+}
+@media (max-width: 420px) {
+  .actions { flex-direction: column; }
+  .actions a { width: 100%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .content, .visual { animation: hero-enter 500ms ease both; }
+  .visual { animation-delay: 100ms; }
+}
+@keyframes hero-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+@media(min-width:1051px) {
+  .content {
+    --eyebrow-heading-gap:20px;
+    --heading-intro-gap:24px;
+    --intro-actions-gap:32px;
+    align-self:center;
+  }
+  .content h1 { margin-top:var(--eyebrow-heading-gap); font-size:clamp(2.7rem,5.076vw,4.59rem); line-height:1.1; }
+  .content h1 span { display:block; }
+  .intro { max-width:32rem; margin-top:var(--heading-intro-gap); }
+  .actions { margin-top:var(--intro-actions-gap); }
+}

@@ -102,3 +102,6 @@ svg {
   display: block;
   max-width: 100%;
 }
+
+/* Optical adjustment leaves layout, wrapping and existing transforms intact. */
+.opticallyAlignedHeading { translate:var(--heading-optical-offset,0px) 0; }

@@ -227,3 +227,8 @@
   }
 
 }
+
+/* Recognitions embeds cards beneath its own introduction. */
+.cardsOnly { overflow: visible; }
+.cardsOnly .grid { padding-block: 2rem; }
+.cardsOnly .cardCopy { grid-template-rows: auto minmax(0, 1fr); }

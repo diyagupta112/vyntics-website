@@ -1,0 +1,19 @@
+.surface {
+  --card-scrim-light: rgb(246 249 255 / 70%);
+  --card-scrim-bottom: rgb(246 249 255 / 80%);
+  --card-scrim: linear-gradient(to right, transparent, var(--card-scrim-light) 28%, var(--card-scrim-light));
+}
+
+.surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--card-scrim);
+  pointer-events: none;
+}
+
+.bottomScrim {
+  --card-scrim: linear-gradient(to bottom, transparent, var(--card-scrim-light) 32%, var(--card-scrim-bottom) 100%);
+}

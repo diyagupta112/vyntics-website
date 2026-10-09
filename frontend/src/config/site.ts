@@ -22,7 +22,7 @@ const navigation: NavigationItem[] = [
     children: [
       { label: "About us", href: "/about", description: "Our story, values, and the work that drives us." },
       { label: "Career", href: "/careers", description: "Build useful systems and grow with the Vyntics team." },
-      { label: "Rewards", href: "/rewards", description: "Explore the milestones and contributions we recognize." },
+      { label: "Recognitions", href: "/recognitions", description: "Explore our recognitions and certifications." },
     ],
   },
 ];
@@ -35,6 +35,7 @@ export const siteConfig = {
     linkedin: "https://www.linkedin.com/company/vyntics",
     instagram: "https://www.instagram.com/vyntics/",
     twitter: "https://x.com/vyntics",
+    youtube: "https://www.youtube.com/@VynticsTech",
   },
   navigation,
 } as const;

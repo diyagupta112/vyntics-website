@@ -33,8 +33,8 @@ function loadPlayerApi(): Promise<YouTube> {
   return playerApi;
 }
 
-export function CaseStudyVideo({ media, title, fallbackSrc, className, controls = true, interactivePreview = false }: {
-  media: CaseStudyMedia; title: string; fallbackSrc: string; className?: string; controls?: boolean; interactivePreview?: boolean;
+export function CaseStudyVideo({ media, title, fallbackSrc, className, controls = true, interactivePreview = false, optimizedCover = false }: {
+  media: CaseStudyMedia; title: string; fallbackSrc: string; className?: string; controls?: boolean; interactivePreview?: boolean; optimizedCover?: boolean;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const preview = useRef<HTMLDivElement>(null);
@@ -77,13 +77,26 @@ export function CaseStudyVideo({ media, title, fallbackSrc, className, controls 
         },
       });
     }).catch(() => { if (!cancelled) setFailed(true); });
-    return () => { cancelled = true; playerRef.current = null; player?.pauseVideo(); player?.destroy(); };
+    return () => { cancelled = true; playerRef.current = null; player?.pauseVideo?.(); player?.destroy?.(); };
   }, [media.provider, media.videoId, reducedMotion, failed, controls, interactivePreview]);
   useEffect(() => {
     const video = nativeVideo.current;
     if (reducedMotion) video?.pause();
     return () => { video?.pause(); };
   }, [reducedMotion]);
+
+  useEffect(() => {
+    if (!interactivePreview) return;
+    const pauseWhenHidden = () => {
+      if (!document.hidden) return;
+      wantsPlayback.current = false;
+      playerRef.current?.pauseVideo();
+      nativeVideo.current?.pause();
+      setPlaying(false);
+    };
+    document.addEventListener("visibilitychange", pauseWhenHidden);
+    return () => document.removeEventListener("visibilitychange", pauseWhenHidden);
+  }, [interactivePreview]);
 
   function playback(play: boolean) {
     wantsPlayback.current = play;
@@ -115,7 +128,7 @@ export function CaseStudyVideo({ media, title, fallbackSrc, className, controls 
     }
   }
 
-  if (failed || media.type !== "video") return <CaseStudyCover className={className} src={fallbackSrc} title={title} />;
+  if (failed || media.type !== "video") return <CaseStudyCover optimized={optimizedCover} className={className} src={fallbackSrc} title={title} />;
   const video = media.provider === "youtube"
     ? <div className={className} ref={container} aria-label={`${title} product demonstration`} style={{ width: "100%", height: "100%", aspectRatio: "16 / 9" }} />
     : <video className={className} ref={nativeVideo} src={media.src} autoPlay={!interactivePreview && !reducedMotion} muted loop playsInline controls={controls} preload="metadata" poster={media.poster ?? fallbackSrc} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setFailed(true)} aria-label={`${title} product demonstration`} />;

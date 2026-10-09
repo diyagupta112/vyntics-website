@@ -2,7 +2,7 @@
 
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import func, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models.badge import Badge
@@ -31,6 +31,16 @@ class BadgeRepository:
             Badge.id.asc(),
         )
         return list((await self._session.scalars(statement)).all())
+
+    async def next_display_order(self) -> int:
+        """Append new badges, serializing concurrent creates until commit/rollback.
+
+        Include inactive badges so activating an older record preserves its position.
+        Existing explicit display_order values remain the source of public ordering.
+        """
+        await self._session.execute(text("SELECT pg_advisory_xact_lock(86421001)"))
+        highest = await self._session.scalar(select(func.max(Badge.display_order)))
+        return max(0, highest or 0) + 1
 
     async def get_by_id(self, badge_id: UUID) -> Badge | None:
         return await self._session.get(Badge, badge_id)

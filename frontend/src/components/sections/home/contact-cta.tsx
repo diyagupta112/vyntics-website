@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
@@ -20,19 +21,23 @@ function SubmitIcon({ success }: { success: boolean }) {
 }
 
 type ContactCtaProps = {
+  showEyebrowAccent?: boolean;
   eyebrow?: string;
   title?: string;
   intro?: string;
   sectionId?: string;
   submitLabel?: string;
+  primaryAction?: { href: string; label: string };
 };
 
 export function ContactCta({
+  showEyebrowAccent = true,
   eyebrow = "Get in touch",
   title = "Let's look at your data together",
   intro = "Book a free 30-minute strategy session. No pitch decks, no sales team—just a direct conversation about your data and AI challenges with our experts.",
   sectionId = "contact",
   submitLabel = "Send message",
+  primaryAction,
 }: ContactCtaProps = {}) {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [feedback, setFeedback] = useState("");
@@ -77,10 +82,11 @@ export function ContactCta({
     <section id={sectionId} className={styles.section} aria-labelledby={`${sectionId}-title`}>
       <Container className={styles.layout}>
         <div className={styles.content}>
-          <p className={styles.eyebrow}>{eyebrow}</p>
+          <p className={`${styles.eyebrow} ${showEyebrowAccent ? "" : styles.withoutEyebrowAccent}`}>{eyebrow}</p>
           <h2 id={`${sectionId}-title`}>{title}</h2>
           <p className={styles.intro}>{intro}</p>
 
+          {primaryAction && <Link className={styles.emailLink} href={primaryAction.href}>{primaryAction.label}</Link>}
           <a className={styles.emailLink} href="mailto:contact@vyntics.com">
             <span aria-hidden="true">→</span> contact@vyntics.com
           </a>
