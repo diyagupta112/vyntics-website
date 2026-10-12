@@ -8,8 +8,9 @@ import { getProject } from "@/content/projects";
 import styles from "../data/page.module.css";
 
 export const metadata: Metadata = {
-  title: "AI Solutions",
-  description: "Custom AI solutions including RAG assistants, AI agents, document automation, workflow automation, and production LLM integrations.",
+  title: "AI Development Services",
+  description: "AI development services for secure knowledge assistants, AI agents, intelligent automation, generative AI, and production LLM integrations.",
+  alternates: { canonical: "/services/ai-solutions" },
 };
 
 const problems = [
@@ -35,22 +36,39 @@ const platforms = [
   { name: "FastAPI & PostgreSQL", role: "Application foundation", description: "Typed APIs, durable data, audit records, permissions, and integration with existing products and systems." },
 ] as const;
 
+const securityControls = [
+  {
+    title: "Your data stays private",
+    description: "We design explicit boundaries for sensitive data, retention, encryption, provider access, and where each workload is processed.",
+  },
+  {
+    title: "Your data does not train public models",
+    description: "We select and configure enterprise model services so submitted business data is not used to train public foundation models.",
+  },
+  {
+    title: "Access follows your permissions",
+    description: "Identity, source permissions, retrieval filters, approval gates, and audit records keep people and agents inside authorized limits.",
+  },
+] as const;
+
 const process = [
-  { title: "Assess", visual: "Use case and evidence", description: "Identify the user problem, workflow, available knowledge, integration boundaries, risk, and evidence of value." },
-  { title: "Design", visual: "Architecture and controls", description: "Define models, retrieval, tools, permissions, evaluation, approval gates, failure behaviour, and ownership." },
-  { title: "Build", visual: "Grounded AI system", description: "Deliver the smallest useful production slice with integrations, observability, tests, and representative evaluation data." },
-  { title: "Validate", visual: "Quality and safety", description: "Test accuracy, citations, tool use, edge cases, latency, cost, security, and the complete human workflow." },
-  { title: "Operate", visual: "Monitor and improve", description: "Track real usage, failures, quality drift, content freshness, spend, feedback, and controlled model changes." },
+  { title: "Discover", visual: "Use case and evidence", description: "Identify the user problem, workflow, available knowledge, integration boundaries, risk, and evidence of value." },
+  { title: "Pilot", visual: "Architecture and controls", description: "Test the smallest useful version against representative data, users, permissions, quality measures, and failure cases." },
+  { title: "Build", visual: "Production AI system", description: "Turn the proven approach into a dependable system with integrations, observability, tests, and operating controls." },
+  { title: "Deploy", visual: "Release and adoption", description: "Release into the real workflow, validate security and performance, train owners, and establish support and recovery paths." },
+  { title: "Improve", visual: "Monitor and improve", description: "Track real usage, failures, quality drift, content freshness, spend, feedback, and controlled model changes." },
 ] as const;
 
 const measures = ["Task success", "Answer accuracy", "Citation quality", "Manual work removed", "Exception rate", "Latency and cost"] as const;
 
 const faqs = [
-  { question: "What do custom AI solutions include?", answer: "They can include grounded knowledge assistants, tool-using agents, document processing, workflow automation, and language-model features integrated into existing software. The right solution depends on the decision or task—not on adding a chatbot everywhere." },
+  { question: "What do AI development services include?", answer: "They can include AI consulting, grounded knowledge assistants, tool-using agents, intelligent document processing, workflow automation, generative AI features, and LLM integrations inside existing software. The right scope starts with a specific business decision or task, not a model." },
+  { question: "How do we know if our business is ready for AI?", answer: "You need a defined use case, an accountable owner, usable data or knowledge, access to the systems involved, and a measurable outcome. If those basics are missing, the honest first step is readiness work—not an AI build." },
+  { question: "How long does it take to build an AI solution?", answer: "A focused assessment or pilot can take a few weeks. A production system with integrations, permissions, evaluation, security, and operational controls takes longer. Any precise estimate before reviewing the workflow and data is guesswork." },
+  { question: "How much does AI development cost?", answer: "Cost depends on data readiness, integrations, security requirements, evaluation depth, user volume, and whether the work is a pilot or a production system. We scope those variables before proposing a budget instead of quoting a meaningless flat price." },
+  { question: "Is our data safe when using AI?", answer: "It can be, when identity, permissions, retrieval boundaries, provider data policies, encryption, logging, retention, and deployment architecture are designed correctly. Security cannot be bolted on after sensitive sources are connected." },
+  { question: "Which AI models do you work with?", answer: "We work with OpenAI and Azure OpenAI, Anthropic Claude, Google Gemini, and appropriate open-source models, plus retrieval and orchestration platforms such as Pinecone, Qdrant, LangGraph, and LangChain." },
   { question: "How do you reduce hallucinations?", answer: "We constrain models with approved evidence, retrieval and reranking, structured outputs, validation rules, explicit refusals, citations, representative evaluation sets, and human review where an incorrect result carries material risk." },
-  { question: "Can AI use our private company data securely?", answer: "Yes, when identity, permissions, retrieval boundaries, provider data policies, encryption, logging, retention, and deployment architecture are designed correctly. Security cannot be added after the assistant is already connected to sensitive sources." },
-  { question: "How long does an AI project take?", answer: "A focused assessment or prototype can take weeks. A production system with integrations, permissions, evaluation, and operational controls usually takes longer. Any precise estimate before reviewing the data and workflow is guesswork." },
-  { question: "Which AI models and platforms do you use?", answer: "We work with OpenAI, Azure AI, Anthropic, vector platforms such as Pinecone and Qdrant, orchestration tools including LangGraph and LangChain, and production application stacks built with Python, FastAPI, PostgreSQL, and cloud infrastructure." },
   { question: "How do we know whether the AI is delivering value?", answer: "We agree on operating measures before implementation: task success, answer and citation quality, manual work removed, exception rates, cycle time, latency, adoption, and cost. Model benchmarks alone do not prove business value." },
 ] as const;
 
@@ -68,8 +86,8 @@ export default function AiSolutionsPage() {
         <Container>
           <Link className={styles.backLink} href="/#services">← All services</Link>
           <p className={styles.eyebrow}>AI solutions</p>
-          <h1 id="ai-solutions-title">Build AI your business can verify and control.</h1>
-          <p className={styles.heroIntro}>We build grounded assistants, capable agents, and intelligent automation around your data, systems, permissions, and operating reality.</p>
+          <h1 id="ai-solutions-title">AI development services your business can verify and control.</h1>
+          <p className={styles.heroIntro}>We deliver AI consulting and custom AI solutions—from generative AI and LLM integrations to grounded assistants, capable agents, and intelligent automation—around your data, systems, permissions, and operating reality.</p>
           <div className={styles.heroActions}>
             <a className={styles.primaryButton} href="#contact">Discuss your AI use case <ArrowIcon /></a>
             <a className={styles.secondaryLink} href="#ai-services">Explore our solutions</a>
@@ -95,17 +113,24 @@ export default function AiSolutionsPage() {
         </Container>
       </section>
 
-      <section className={`${styles.section} ${styles.platformSection}`} aria-labelledby="platforms-title">
+      <section className={`${styles.section} ${styles.platformSection} ${styles.aiPlatformSection}`} aria-labelledby="platforms-title">
         <Container>
           <div className={styles.sectionHeading}><p className={styles.label}>AI platforms we work with</p><h2 id="platforms-title">Choose the stack around the risk and workload.</h2><p>We keep the architecture modular where practical, so one model or vendor does not become the whole system.</p></div>
-          <div className={styles.platformGrid}>{platforms.map((platform) => <article key={platform.name}><p>{platform.role}</p><h3>{platform.name}</h3><span>{platform.description}</span></article>)}</div>
+          <div className={styles.aiPlatformGrid}>{platforms.map((platform) => <article key={platform.name}><p>{platform.role}</p><h3>{platform.name}</h3><span>{platform.description}</span></article>)}</div>
           <Link className={styles.inlineLink} href="/technologies">View all technologies <ArrowIcon /></Link>
+        </Container>
+      </section>
+
+      <section className={`${styles.section} ${styles.securitySection}`} aria-labelledby="security-title">
+        <Container>
+          <div className={styles.sectionHeading}><p className={styles.label}>AI security &amp; data privacy</p><h2 id="security-title">Private data stays private. Access stays controlled.</h2><p>Enterprise AI is only useful when the people, models, and tools involved can reach exactly what they need—and nothing more.</p></div>
+          <div className={styles.securityGrid}>{securityControls.map((control, index) => <article key={control.title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{control.title}</h3><p>{control.description}</p></article>)}</div>
         </Container>
       </section>
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
-          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">A controlled path from use case to production AI.</h2><p>Five focused stages. One accountable delivery process built around evidence and safe operation.</p></div>
+          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">Discover. Pilot. Build. Deploy. Improve.</h2><p>Five focused stages. One accountable delivery process built around evidence and safe operation.</p></div>
           <ol className={styles.processList}>{process.map((step, index) => <li key={step.title}><article className={styles.processCard}><span>Step {String(index + 1).padStart(2, "0")}</span><h3>{step.title}</h3><p>{step.description}</p></article><span className={styles.processMarker} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className={styles.processVisual} aria-hidden="true"><svg viewBox="0 0 180 100"><path d="M26 50h30m68 0h30M56 50l18-24m-18 24 18 24m50-24-18-24m18 24-18 24" /><circle cx="20" cy="50" r="6" /><circle cx="82" cy="20" r="8" /><circle cx="82" cy="80" r="8" /><rect x="76" y="41" width="28" height="18" rx="4" /><circle cx="112" cy="20" r="8" /><circle cx="112" cy="80" r="8" /><circle cx="160" cy="50" r="6" /></svg><span>{step.visual}</span></div></li>)}</ol>
         </Container>
       </section>
@@ -119,10 +144,11 @@ export default function AiSolutionsPage() {
 
       <section className={styles.section} aria-labelledby="journey-title">
         <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>The wider journey</p><h2 id="journey-title">Useful AI needs trusted data—and a real workflow.</h2></div>
+          <div className={styles.sectionHeading}><p className={styles.label}>What comes next</p><h2 id="journey-title">Useful AI needs trusted data—and a real workflow.</h2><p>Move through the wider transformation journey without treating AI as an isolated layer.</p></div>
           <div className={styles.journeyGrid}>
-            <Link href="/services/data"><span>Build the foundation</span><h3>Data Engineering</h3><p>Create reliable pipelines, governed models, and query-ready data for AI to use.</p><strong>Explore data engineering <ArrowIcon /></strong></Link>
-            <Link href="/services/crm"><span>Connect the workflow</span><h3>CRM & Revenue Operations</h3><p>Put AI into customer and revenue workflows with clear ownership and measurable outcomes.</p><strong>Explore CRM services <ArrowIcon /></strong></Link>
+            <Link href="/services/data-engineering"><span>Build the foundation</span><h3>Data Engineering</h3><p>Create reliable pipelines, governed models, and query-ready data for AI to use.</p><strong>Explore data engineering <ArrowIcon /></strong></Link>
+            <Link href="/services/analytics-bi"><span>Previous stage</span><h3>Analytics &amp; BI</h3><p>Turn trusted data into shared metrics and decision-ready reporting before adding automation.</p><strong>Explore analytics &amp; BI <ArrowIcon /></strong></Link>
+            <Link href="/services/crm-revenue-ops"><span>Next stage</span><h3>CRM &amp; Revenue Operations</h3><p>Put AI into customer and revenue workflows with clear ownership and measurable outcomes.</p><strong>Explore CRM services <ArrowIcon /></strong></Link>
           </div>
         </Container>
       </section>

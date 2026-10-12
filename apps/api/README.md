@@ -4,12 +4,22 @@ FastAPI backend for the Vyntics public website and Admin Panel.
 
 ## Local server
 
-From `apps/api`, install the project and start Uvicorn:
+From the repository root on Windows, install the project and start Uvicorn on
+the same port configured by `frontend/.env`:
 
 ```powershell
-.\.venv\Scripts\python.exe -m pip install -e ".[dev]"
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+.\.venv\Scripts\python.exe -m pip install -e ".\apps\api[dev]"
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --app-dir apps/api --host 127.0.0.1 --port 8000 --reload
 ```
+
+If the current directory is already `apps/api`, use:
+
+```powershell
+..\..\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+
+`.venv/bin/python` is the Unix virtual-environment path and does not apply to
+this Windows checkout.
 
 Configuration is loaded from process environment variables and the untracked
 `apps/api/.env` file. Use `.env.example` as the placeholder-only template.

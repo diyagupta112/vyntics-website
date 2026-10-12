@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DataEngineeringServicesShowcase } from "@/components/pages/data-engineering-services-showcase";
+import { DataPlatformsHoverGrid } from "@/components/pages/data-platforms-hover-grid";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
 import { articles } from "@/content/articles";
@@ -8,8 +9,9 @@ import { getProject } from "@/content/projects";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Data Engineering Services",
+  title: "Data Engineering Services & Consulting",
   description: "Data engineering consulting for reliable pipelines, integration, cloud warehousing, lakehouse architecture, data quality, and governance.",
+  alternates: { canonical: "https://vyntics.com/services/data-engineering" },
 };
 
 const problems = [
@@ -102,7 +104,7 @@ export default function DataEngineeringPage() {
       <section className={`${styles.section} ${styles.platformSection}`} aria-labelledby="platforms-title">
         <Container>
           <div className={styles.sectionHeading}><p className={styles.label}>Data platforms we work with</p><h2 id="platforms-title">Choose the platform around the workload.</h2><p>We work across the major cloud data ecosystems and keep business logic portable where that is practical.</p></div>
-          <div className={styles.platformGrid}>{platforms.map((platform) => <article key={platform.name}><p>{platform.role}</p><h3>{platform.name}</h3><span>{platform.description}</span></article>)}</div>
+          <DataPlatformsHoverGrid platforms={platforms} />
           <Link className={styles.inlineLink} href="/technologies">View all technologies <ArrowIcon /></Link>
         </Container>
       </section>
@@ -152,8 +154,8 @@ export default function DataEngineeringPage() {
         <Container>
           <div className={styles.sectionHeading}><p className={styles.label}>The wider journey</p><h2 id="journey-title">A data platform needs a foundation—and a purpose.</h2></div>
           <div className={styles.journeyGrid}>
-            <Link href="/services/cloud/cloud-architecture-migration"><span>Previous stage</span><h3>Cloud Foundations</h3><p>Establish secure, reliable infrastructure for data workloads.</p><strong>Explore cloud services <ArrowIcon /></strong></Link>
-            <Link href="/services/analytics/dashboards-executive-reporting"><span>What comes next</span><h3>Analytics & BI</h3><p>Turn trusted models into dashboards, KPIs, and reporting people can act on.</p><strong>Explore analytics services <ArrowIcon /></strong></Link>
+            <Link href="/services/cloud-foundations/cloud-architecture-migration"><span>Previous stage</span><h3>Cloud Foundations</h3><p>Establish secure, reliable infrastructure for data workloads.</p><strong>Explore cloud services <ArrowIcon /></strong></Link>
+            <Link href="/services/analytics-bi/dashboards-executive-reporting"><span>What comes next</span><h3>Analytics & BI</h3><p>Turn trusted models into dashboards, KPIs, and reporting people can act on.</p><strong>Explore analytics services <ArrowIcon /></strong></Link>
           </div>
         </Container>
       </section>

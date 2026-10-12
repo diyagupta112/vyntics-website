@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, type KeyboardEvent } from "react";
+import type { KeyboardEvent } from "react";
 import styles from "./data-engineering-services-showcase.module.css";
+import { useServiceRotation } from "./use-service-rotation";
 
 const services = [
   {
     name: "RAG & Knowledge Assistants",
-    href: "/services/ai/rag-knowledge-assistants",
+    href: "/services/ai-solutions/rag-knowledge-assistants",
     image: "/images/technology-ai.png",
     imageAlt: "Abstract visualization representing an AI assistant retrieving trusted knowledge.",
     introduction: "Give teams fast answers from approved company knowledge, with the source evidence attached to every important claim.",
@@ -20,7 +21,7 @@ const services = [
   },
   {
     name: "AI Agents",
-    href: "/services/ai/ai-agents",
+    href: "/services/ai-solutions/ai-agents",
     image: "/images/about-hero-ai.png",
     imageAlt: "Abstract visualization representing connected AI agents and business systems.",
     introduction: "Build bounded agents that use approved tools, complete multi-step work, and stop for human approval when risk demands it.",
@@ -32,7 +33,7 @@ const services = [
   },
   {
     name: "Intelligent Automation",
-    href: "/services/ai/intelligent-automation",
+    href: "/services/ai-solutions/intelligent-automation",
     image: "/images/technology-data.png",
     imageAlt: "Abstract visualization representing structured document processing.",
     introduction: "Combine document intelligence, workflow orchestration, and language models to remove repetitive work while keeping exceptions visible.",
@@ -49,24 +50,8 @@ function ArrowIcon() {
 }
 
 export function AiSolutionsServicesShowcase() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [manualPaused, setManualPaused] = useState(false);
-  const [interactionPaused, setInteractionPaused] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const { activeIndex, advanceService, isRunning, progressKey, selectService, showcaseRef } = useServiceRotation(services.length);
   const activeService = services[activeIndex];
-  const isPaused = manualPaused || interactionPaused || reduceMotion;
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updatePreference = () => setReduceMotion(media.matches);
-    updatePreference();
-    media.addEventListener("change", updatePreference);
-    return () => media.removeEventListener("change", updatePreference);
-  }, []);
-
-  function selectService(index: number) {
-    setActiveIndex(index);
-  }
 
   function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
@@ -81,15 +66,7 @@ export function AiSolutionsServicesShowcase() {
   }
 
   return (
-    <div
-      className={styles.showcase}
-      onMouseEnter={() => setInteractionPaused(true)}
-      onMouseLeave={() => setInteractionPaused(false)}
-      onFocusCapture={() => setInteractionPaused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setInteractionPaused(false);
-      }}
-    >
+    <div className={styles.showcase} ref={showcaseRef}>
       <div className={styles.leftColumn}>
         <div className={styles.sectionHeading}>
           <p>Our AI solutions</p>
@@ -98,7 +75,6 @@ export function AiSolutionsServicesShowcase() {
         <div className={styles.serviceRail} role="tablist" aria-label="AI solutions" aria-orientation="vertical">
           <div className={styles.railHeading}>
             <span>Services</span>
-            {!reduceMotion && <button type="button" onClick={() => setManualPaused((paused) => !paused)} aria-pressed={manualPaused}>{manualPaused ? "Resume" : "Pause"} rotation</button>}
           </div>
           {services.map((service, index) => {
             const isActive = index === activeIndex;
@@ -118,7 +94,7 @@ export function AiSolutionsServicesShowcase() {
                 <span className={styles.serviceIndex}>{String(index + 1).padStart(2, "0")}</span>
                 <span className={styles.serviceName}>{service.name}</span>
                 <span className={styles.track} aria-hidden="true">
-                  {isActive && <span className={styles.progress} data-paused={isPaused} key={activeIndex} onAnimationEnd={() => setActiveIndex((current) => (current + 1) % services.length)} />}
+                  {isActive && isRunning && <span className={styles.progress} key={progressKey} onAnimationEnd={advanceService} />}
                 </span>
               </button>
             );
@@ -128,7 +104,7 @@ export function AiSolutionsServicesShowcase() {
 
       <article className={styles.servicePanel} id="ai-service-panel" role="tabpanel" aria-labelledby={`ai-service-tab-${activeIndex}`} key={activeService.name}>
         <div className={styles.imageFrame}>
-          <Image src={activeService.image} alt={activeService.imageAlt} fill sizes="(max-width: 820px) 100vw, 58vw" />
+          <Image src={activeService.image} alt={activeService.imageAlt} fill loading="eager" sizes="(max-width: 820px) 100vw, 58vw" />
           <div className={styles.panelContent}>
             <p className={styles.panelEyebrow}>AI service {String(activeIndex + 1).padStart(2, "0")}</p>
             <h3>{activeService.name}</h3>

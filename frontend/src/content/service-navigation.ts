@@ -36,24 +36,24 @@ export const serviceNavigation: readonly NavigationChild[] = [
   },
   {
     label: "Data Engineering",
-    href: "/services/data",
+    href: "/services/data-engineering",
     headingOnly: true,
     headingLink: true,
     description: "Trusted data pipelines, platforms, quality, and governance.",
     children: [
       {
         label: "Data Pipelines & Integration",
-        href: "/services/data/data-pipelines-integration",
+        href: "/services/data-engineering/data-pipelines-integration",
         description: "Move and connect data reliably across business systems.",
       },
       {
         label: "Data Warehousing & Lakehouse",
-        href: "/services/data/data-warehousing-lakehouse",
+        href: "/services/data-engineering/data-warehousing-lakehouse",
         description: "Create a governed, query-ready home for analytical data.",
       },
       {
         label: "Data Quality & Governance",
-        href: "/services/data/data-quality-governance",
+        href: "/services/data-engineering/data-quality-governance",
         description: "Make definitions, ownership, access, and validation explicit.",
       },
     ],
