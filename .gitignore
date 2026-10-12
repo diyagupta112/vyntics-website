@@ -64,3 +64,7 @@ cypress/videos/
 # package manager
 .npmrc
 pnpm-lock.yaml.tmp
+
+# Local QA / performance artifacts
+frontend/.qa-tmp/
+frontend/PERFORMANCE-AUDIT.md

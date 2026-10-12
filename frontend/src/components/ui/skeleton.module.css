@@ -1,0 +1,5 @@
+.block { display:block; min-width:0; height:.85rem; border-radius:.4rem; background:color-mix(in srgb,var(--color-border) 55%,var(--color-surface)); }
+.lines { display:grid; gap:.65rem; min-width:0; }
+@media(prefers-reduced-motion:no-preference) { .block { animation:skeleton-breathe 3s ease-in-out infinite; } }
+@keyframes skeleton-breathe { 50% { opacity:.65; } }
+@media print { .block { animation:none; } }

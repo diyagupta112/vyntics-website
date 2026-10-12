@@ -10,9 +10,9 @@ function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
-function StudyCard({ study, hidden = false }: { study: CaseStudyListItem; hidden?: boolean }) {
+function StudyCard({ study, hidden = false, index }: { study: CaseStudyListItem; hidden?: boolean; index: number }) {
   return (
-    <Link hidden={hidden} aria-label={`Read the ${study.title} case study`} className={styles.otherCard} href={`/case-studies/${encodeURIComponent(study.slug)}`}>
+    <Link hidden={hidden} data-reveal={`case-study-${study.id}`} data-reveal-delay={Math.min(index * 90, 450)} aria-label={`Read the ${study.title} case study`} className={styles.otherCard} href={`/case-studies/${encodeURIComponent(study.slug)}`}>
       <div className={styles.otherMedia}>
         <CaseStudyCover optimized src={study.cover_image_url} title={study.title} />
       </div>
@@ -101,7 +101,7 @@ export function CaseStudiesListing({ studies }: { studies: CaseStudyListItem[] }
         {(active || sort !== "default") && <button type="button" onClick={clear}>Reset all</button>}
       </div>
       <div id={resultsId}>
-        <div className={styles.otherGrid} hidden={results.length === 0}>{displayedCards.map(study => <StudyCard study={study} hidden={!visibleIds.has(study.id)} key={study.id} />)}</div>
+        <div className={styles.otherGrid} hidden={results.length === 0}>{displayedCards.map((study, index) => <StudyCard study={study} index={index} hidden={!visibleIds.has(study.id)} key={study.id} />)}</div>
         {results.length === 0 && <div className={styles.listingEmpty}><p>No case studies match your search. Try a different keyword or clear the filters.</p></div>}
       </div>
     </>

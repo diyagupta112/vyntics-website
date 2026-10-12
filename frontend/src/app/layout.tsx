@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { StyledComponentsRegistry } from "@/components/ui/styled-components-registry";
 import "@fontsource-variable/dm-sans";
 import "./globals.css";
@@ -26,7 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <Script id="vyntics-theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body><StyledComponentsRegistry>{children}</StyledComponentsRegistry></body>
     </html>

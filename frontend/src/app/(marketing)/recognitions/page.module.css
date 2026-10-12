@@ -142,7 +142,9 @@
 /* Preserve the shared contact form’s natural section height. */
 .contactSection > section { min-height: auto; }
 
-.faqEmail { color: var(--color-primary); }
+a.faqEmail { color: #1453DB; text-decoration-color: currentColor; }
+a.faqEmail:hover,
+a.faqEmail:focus-visible { color: #1453DB; }
 
 /* One exterior rhythm for Recognitions; component interiors retain their spacing. */
 .pageRhythm {

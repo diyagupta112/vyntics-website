@@ -76,7 +76,10 @@ export function OpticalHeadingAlignment() {
     const schedule = () => {
       if (!disposed && !frame) frame = window.requestAnimationFrame(align);
     };
-    const observer = new MutationObserver(schedule);
+    const observer = new MutationObserver(records => {
+      // Decorative feeds insert hundreds of pixel cells without moving headings.
+      if (records.some(record => !(record.target instanceof Element && record.target.closest('[aria-hidden="true"]')))) schedule();
+    });
     observer.observe(document.querySelector("main") ?? document.body, { childList: true, subtree: true });
     window.addEventListener("resize", schedule);
     document.fonts.addEventListener("loadingdone", schedule);

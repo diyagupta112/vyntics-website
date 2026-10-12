@@ -20,7 +20,7 @@ export const teamTestimonials: TeamTestimonial[] = [
   {
     id: "ved",
     name: "Ved",
-    role: "AI Engineer",
+    role: "Software Engineer",
     quote:
       "Vyntics gives you the space to take ownership and figure things out. You get to learn a lot by actually building.",
     imageUrl: vedImage,
@@ -31,9 +31,9 @@ export const teamTestimonials: TeamTestimonial[] = [
   {
     id: "vibhu",
     name: "Vibhu",
-    role: "AI Engineer",
+    role: "Software Engineer",
     quote:
-      "I really enjoy the way we approach problems together. There’s always room to share ideas, learn from each other, and find a better way forward.",
+      "I really enjoy the way we approach problems together. There’s always room to share ideas and learn from each other.",
     imageUrl: vibhuImage,
     imageAlt: "Portrait of Vibhu",
     imagePosition: "center center",

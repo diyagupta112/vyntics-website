@@ -23,7 +23,7 @@ const navigation: NavigationItem[] = [
     children: [
       { label: "About us", href: "/about", description: "Our story, values, and the work that drives us." },
       { label: "Careers", href: "/careers", description: "Build useful systems and grow with the Vyntics team." },
-      { label: "Recognition", href: "/recognition", description: "Explore the milestones and contributions we recognize." },
+      { label: "Recognition", href: "/recognitions", description: "Explore the milestones and contributions we recognize." },
     ],
   },
 ];
