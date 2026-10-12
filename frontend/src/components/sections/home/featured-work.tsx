@@ -1,3 +1,4 @@
+import { FeaturedCaseStudySkeleton } from "@/components/sections/case-studies/case-study-skeleton";
 import type { ReactNode } from "react";
 import { Container } from "@/components/ui/container";
 import { FeaturedCaseStudyCarousel } from "@/components/sections/case-studies/featured-case-study-carousel";
@@ -10,10 +11,11 @@ type FeaturedWorkProps = {
   description?: string;
   unavailable?: boolean;
   loading?: boolean;
+  revealHeading?: boolean;
   children?: ReactNode;
 };
 
-export async function FeaturedWork({ studies, heading = "Give your business an edge with AI", description = "We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice.", unavailable = false, loading = false, children }: FeaturedWorkProps = {}) {
+export async function FeaturedWork({ studies, heading = "Give your business an edge with AI", description = "We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice.", unavailable = false, loading = false, revealHeading = false, children }: FeaturedWorkProps = {}) {
   let showcased: (CaseStudyListItem & { media: CaseStudyMedia })[] = [];
   if (!loading && !unavailable) {
     try {
@@ -28,11 +30,11 @@ export async function FeaturedWork({ studies, heading = "Give your business an e
   return (
     <section id="work" className={styles.section} aria-labelledby="featured-work-title">
       <Container>
-        <div className={styles.sectionHeader}><div className={styles.headingBlock}>
+        <div className={styles.sectionHeader} data-reveal={revealHeading ? "production-heading" : undefined}><div className={styles.headingBlock}>
           <p className={styles.eyebrow}>Featured work · Built for production</p>
           <h2 id="featured-work-title">{heading}</h2><p>{description}</p>
         </div></div>
-        {showcased.length > 0 ? <FeaturedCaseStudyCarousel studies={showcased} />
+        {loading ? <FeaturedCaseStudySkeleton /> : showcased.length > 0 ? <FeaturedCaseStudyCarousel studies={showcased} />
           : <p role="status">{loading ? "Loading case studies…" : unavailable ? "Case studies are temporarily unavailable. Please try again later." : "No case studies available yet."}</p>}
         {children}
       </Container>

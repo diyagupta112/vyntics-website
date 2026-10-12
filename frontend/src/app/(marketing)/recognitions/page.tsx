@@ -1,9 +1,10 @@
+import { ScrollReveals } from "@/components/ui/scroll-reveals";
+import { RecognitionSkeleton } from "@/components/sections/recognitions/recognition-skeleton";
 import type { Metadata } from "next";
 import { FaqContent } from "@/components/pages/faq-content";
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { recognitionFaqs, recognitionBenefits } from "@/content/recognitions";
-import { Capabilities } from "@/components/sections/home/capabilities";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { FeaturedWork } from "@/components/sections/home/featured-work";
 import { getCaseStudies } from "@/lib/case-studies";
@@ -72,29 +73,29 @@ async function ProductionWork() {
   } catch {
     unavailable = true;
   }
-  return <FeaturedWork studies={studies} heading="Work We Deliver in Production" description={productionDescription} unavailable={unavailable} />;
+  return <FeaturedWork studies={studies} heading="Work We Deliver in Production" description={productionDescription} revealHeading unavailable={unavailable} />;
 }
 
 export default function RecognitionsPage() {
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
-    <div className={local.pageRhythm}>
+    <div className={local.pageRhythm} data-reveal-scope="recognitions">
     <RecognitionsHero />
     <section className={local.section} aria-labelledby="recognitions-title">
       <Container>
-        <div className={local.sectionHeading}><p className={local.eyebrow}>OUR RECOGNITIONS AND CERTIFICATIONS</p><h2 id="recognitions-title">Our Recognitions and Certifications</h2></div>
-        <p className={local.copy}>These recognitions come from the platforms we build on. They reflect the skills of our team and the quality of the solutions we deliver for clients.</p>
-        <Suspense fallback={<p className={local.recognitionStatus} role="status" aria-live="polite">Loading recognitions…</p>}>
+        <div className={local.sectionHeading} data-reveal="recognitions-heading"><p className={local.eyebrow}>OUR RECOGNITIONS AND CERTIFICATIONS</p><h2 id="recognitions-title">Our Recognitions and Certifications</h2></div>
+        <p className={local.copy} data-reveal="recognitions-intro" data-reveal-delay="90">These recognitions come from the platforms we build on. They reflect the skills of our team and the quality of the solutions we deliver for clients.</p>
+        <Suspense fallback={<RecognitionSkeleton />}>
           <RecognitionCards />
         </Suspense>
       </Container>
     </section>
     <section className={local.section} aria-labelledby="business-title">
       <Container>
-        <div className={local.sectionHeading}><h2 id="business-title">What This Means for Your Business</h2></div>
-        <p className={local.copy}>Working with a recognized and certified team lowers risk on projects that matter.</p>
+        <div className={local.sectionHeading} data-reveal="business-heading"><h2 id="business-title">What This Means for Your Business</h2></div>
+        <p className={local.copy} data-reveal="business-intro" data-reveal-delay="90">Working with a recognized and certified team lowers risk on projects that matter.</p>
         <div className={local.benefitGrid}>
-          <figure className={local.benefitVisual}>
+          <figure className={local.benefitVisual} data-reveal="business-image">
             <Image
               src="/images/recognitions/what-this-means-for-you.jpg"
               alt="A team collaborating around a laptop to review their work"
@@ -102,7 +103,7 @@ export default function RecognitionsPage() {
               sizes="(max-width: 540px) 84vw, (max-width: 900px) 320px, 28vw"
             />
           </figure>
-          {recognitionBenefits.map((benefit, index) => <div className={`${careers.openingCard} ${local.benefit} ${surface.surface} ${surface.bottomScrim}`} data-position={index} key={benefit.title}
+          {recognitionBenefits.map((benefit, index) => <div className={`${careers.openingCard} ${local.benefit} ${surface.surface} ${surface.bottomScrim}`} data-position={index} data-reveal={`benefit-${index}`} data-reveal-delay={Math.min((index + 1) * 90, 450)} key={benefit.title}
             style={{ "--benefit-gradient": 'url("/images/diagonal-sweep-gradient.webp")', "--benefit-gradient-transform": "none" } as CSSProperties}>
             <span className={local.icon}><FeatureIcon index={index} /></span>
             <div><h3>{benefit.title}</h3><p>{benefit.description}</p></div>
@@ -113,23 +114,14 @@ export default function RecognitionsPage() {
     <Suspense fallback={<FeaturedWork loading studies={[]} heading="Work We Deliver in Production" description={productionDescription} />}>
       <ProductionWork />
     </Suspense>
-    <div id="services" className={local.servicesGroup}>
-    <section className={local.section} aria-labelledby="explore-build-title">
-      <Container>
-        <div className={local.sectionHeading}><h2 id="explore-build-title">Explore What We Can Build for You</h2></div>
-        <p className={local.copy}>Whatever you&apos;re working on, our team can design, build and support it.</p>
-      </Container>
-    </section>
-    <Capabilities showHeading={false} linkCards cardsOnly sectionId="recognitions-service-cards" />
-    </div>
-    <section className={local.section} aria-labelledby="faq-title">
+    <section className={local.section} aria-labelledby="faq-title" data-reveal="faq">
       <FaqContent
         heading={<>
           <h2 id="faq-title">FAQs</h2>
           <p className={faqSupport.introduction}>Have questions about our services, approach, or what working with Vyntics looks like? Find answers to some of the questions we hear most often.</p>
           <div className={faqSupport.contactFallback}>
             <p className={faqSupport.contactPrompt}>Can’t find the answer you’re looking for?</p>
-            <p className={faqSupport.contactHelp}>Reach out to us at <span className={local.faqEmail}>contact@vyntics.com</span> and we’ll be happy to help.</p>
+            <p className={faqSupport.contactHelp}>Reach out to us at <a className={local.faqEmail} href="mailto:contact@vyntics.com">contact@vyntics.com</a> and we’ll be happy to help.</p>
           </div>
         </>}
         items={recognitionFaqs}
@@ -137,9 +129,10 @@ export default function RecognitionsPage() {
         label="Recognition questions"
       />
     </section>
-    <div className={local.contactSection}>
+    <div className={local.contactSection} data-reveal="contact-cta">
       <ContactCta showEyebrowAccent={false} sectionId="strategy-call" />
     </div>
+    <ScrollReveals scope='[data-reveal-scope="recognitions"]' />
     </div>
   </>;
 }

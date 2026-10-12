@@ -114,17 +114,32 @@ export function TechnologyOrb() {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let frame = 0;
     let lastFrame = performance.now();
-    let visible = true;
+    let visible = false;
     let scatterProgress = 0;
     let scatterAnchor: number | null = null;
 
+    const schedule = () => {
+      if (visible && !document.hidden && !frame) {
+        lastFrame = performance.now();
+        frame = requestAnimationFrame(render);
+      }
+    };
+    const updateVisibility = () => {
+      if (!visible || document.hidden) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      } else schedule();
+    };
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      updateVisibility();
     }, { threshold: 0.05 });
 
     observer.observe(stage);
 
     const render = (now: number) => {
+      frame = 0;
+      if (!visible || document.hidden) return;
       const delta = Math.min((now - lastFrame) / 16.67, 2.5);
       lastFrame = now;
 
@@ -194,11 +209,12 @@ export function TechnologyOrb() {
       frame = requestAnimationFrame(render);
     };
 
-    frame = requestAnimationFrame(render);
+    document.addEventListener("visibilitychange", updateVisibility);
 
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
+      document.removeEventListener("visibilitychange", updateVisibility);
     };
   }, []);
 

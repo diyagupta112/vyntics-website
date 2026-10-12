@@ -10,6 +10,8 @@ import { TestimonialCarousel } from "@/components/sections/careers/testimonial-c
 import { teamTestimonials } from "@/components/sections/careers/testimonial-data";
 import { WhyJoinScroll } from "@/components/sections/careers/why-join-scroll";
 import { Container } from "@/components/ui/container";
+import { OpeningsSkeleton } from "@/components/sections/careers/openings-skeleton";
+import { ScrollReveals } from "@/components/ui/scroll-reveals";
 import { getCareers } from "@/lib/careers";
 import styles from "./page.module.css";
 
@@ -22,20 +24,12 @@ function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
-function OpeningsSkeleton() {
-  return (
-    <div className={styles.openingsGrid} aria-label="Loading current openings" aria-busy="true">
-      {[0, 1].map((item) => <div className={styles.skeletonCard} key={item}><span /><span /><span /></div>)}
-    </div>
-  );
-}
-
 async function CareerOpenings() {
   const result = await getCareers();
 
   if (result.status === "error") {
     return (
-      <div className={styles.stateCard} role="status">
+      <div className={styles.stateCard} role="status" data-reveal="careers-openings-error">
         <p className={styles.stateLabel}>Unable to load openings</p>
         <h3>We couldn&apos;t retrieve the latest roles.</h3>
         <p>Please try again, or send your profile to us directly.</p>
@@ -46,7 +40,7 @@ async function CareerOpenings() {
 
   if (result.careers.length === 0) {
     return (
-      <div className={styles.stateCard} role="status">
+      <div className={styles.stateCard} role="status" data-reveal="careers-openings-empty">
         <p className={styles.stateLabel}>No current openings</p>
         <h3>There isn&apos;t a listed role right now.</h3>
         <p>New opportunities will appear here when they become available.</p>
@@ -87,7 +81,7 @@ export default function CareersPage() {
   return (
     <>
       <section className={styles.hero} aria-labelledby="careers-title">
-        <div className={styles.heroImage} aria-hidden="true" />
+        <div className={styles.heroImage} aria-hidden="true" data-reveal="careers-hero-image" />
         <div className={styles.heroOverlay} aria-hidden="true" />
         <Container className={styles.heroInner}>
           <RevealBlock className={styles.heroCopy}>
@@ -153,10 +147,11 @@ export default function CareersPage() {
             <p className={styles.eyebrow}>Don&apos;t see the right role?</p>
             <h2 id="career-contact-title">No problem. We&apos;re always looking for bright minds.</h2>
             <p>If you think you&apos;d be a great fit for Vyntics, we&apos;d still love to hear from you.</p>
-            <span className={styles.contactEmail}>contact@vyntics.com</span>
+            <a className={styles.contactEmail} href="mailto:contact@vyntics.com">contact@vyntics.com</a>
           </RevealBlock>
         </Container>
       </section>
+      <ScrollReveals scope="main" />
     </>
   );
 }

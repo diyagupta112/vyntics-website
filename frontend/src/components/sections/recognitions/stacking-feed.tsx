@@ -22,7 +22,7 @@ const serverSnapshot = () => false;
 type Entry = { key: number; index: number; exiting: boolean };
 
 function Thumbnail({ item, semantic = false }: { item: RecognitionUpdate; semantic?: boolean }) {
-  return <span className={`${styles.thumbnail} ${item.type === "testimonial" && !item.image ? styles.avatar : ""}`}>
+  return <span className={`${styles.thumbnail} ${item.type === "testimonial" && !item.image ? styles.avatar : ""}`} data-badge={item.id}>
     {item.image ? <Image src={item.image} alt={semantic ? item.imageAlt ?? "" : ""} width={72} height={72} loading="eager" unoptimized />
       : item.type === "testimonial" ? <span aria-hidden="true">{item.initials ?? ""}</span>
       : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4v6c0 4-8 8-8 8s-8-4-8-8V7l8-4Zm-4 9 3 3 5-6" /></svg>}
@@ -83,18 +83,29 @@ function EnteringTile({ item, reduceMotion }: { item: RecognitionUpdate; reduceM
 }
 
 export function StackingFeed({ items }: { items: readonly RecognitionUpdate[] }) {
+  const feedRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(true);
   const reduceMotion = useSyncExternalStore(subscribeMotion, reducedMotion, serverSnapshot);
   const hidden = useSyncExternalStore(subscribeVisibility, tabHidden, serverSnapshot);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [queue, setQueue] = useState<{ entries: Entry[]; cursor: number; serial: number }>({ entries: [], cursor: 0, serial: 0 });
-  const stopped = hovered || focused || hidden || reduceMotion;
-  const hasPaused = useRef(false);
+  const stopped = hovered || focused || hidden || reduceMotion || !inView;
+  // Initialize the first card even if the pointer already rests over the feed.
+  const waiting = hidden || reduceMotion || !inView || (queue.serial > 0 && (hovered || focused));
 
   useEffect(() => {
-    if (stopped) { hasPaused.current = true; return; }
+    const feed = feedRef.current;
+    if (!feed) return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting));
+    observer.observe(feed);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (waiting) return;
     if (items.length === 0) return;
-    const delay = queue.serial === 0 && !hasPaused.current ? 100 : 2500;
+    const delay = queue.serial === 0 ? 50 : 2500;
     const advance = () => setQueue(previous => {
       const entries = [{ key: previous.serial, index: previous.cursor % items.length, exiting: false }, ...previous.entries.filter(entry => !entry.exiting)];
       return {
@@ -106,7 +117,7 @@ export function StackingFeed({ items }: { items: readonly RecognitionUpdate[] })
     // Pause cancels only the next step. Every resume waits a full interval.
     const next = window.setTimeout(advance, delay);
     return () => window.clearTimeout(next);
-  }, [stopped, items.length, queue.serial]);
+  }, [waiting, items.length, queue.serial]);
 
   useEffect(() => {
     if (!queue.entries.some(entry => entry.exiting)) return;
@@ -119,7 +130,7 @@ export function StackingFeed({ items }: { items: readonly RecognitionUpdate[] })
 
   if (items.length === 0) return null;
 
-  return <div className={styles.feed} role="region" aria-label="Vyntics recognition updates"
+  return <div ref={feedRef} className={styles.feed} role="region" aria-label="Vyntics recognition updates"
     data-paused={stopped}
     onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
     onFocusCapture={() => setFocused(true)}

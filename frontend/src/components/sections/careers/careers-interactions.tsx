@@ -1,5 +1,6 @@
 "use client";
 
+import { ShinyButton } from "@/components/ui/shiny-button";
 import { motion, useReducedMotion } from "motion/react";
 import type { MouseEvent, ReactNode } from "react";
 
@@ -68,8 +69,8 @@ export function CurrentOpeningsLink({
   };
 
   return (
-    <a className={className} href="#current-openings" onClick={scrollToOpenings}>
+    <ShinyButton className={className} href="#current-openings" onClick={scrollToOpenings}>
       {children}
-    </a>
+    </ShinyButton>
   );
 }

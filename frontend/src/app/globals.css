@@ -105,3 +105,15 @@ svg {
 
 /* Optical adjustment leaves layout, wrapping and existing transforms intact. */
 .opticallyAlignedHeading { translate:var(--heading-optical-offset,0px) 0; }
+
+@keyframes scroll-reveal-enter {
+  from { opacity:0; transform:translateY(var(--scroll-reveal-distance,20px)) var(--scroll-reveal-base-transform,translateY(0)); }
+  to { opacity:var(--scroll-reveal-opacity,1); transform:translateY(0) var(--scroll-reveal-base-transform,translateY(0)); }
+}
+@media(max-width:760px) { [data-reveal] { --scroll-reveal-distance:14px; } }
+@media(prefers-reduced-motion:reduce) {
+  [data-reveal] { opacity:var(--scroll-reveal-opacity,1) !important; animation:none !important; transition:none !important; will-change:auto !important; }
+}
+@media print {
+  [data-reveal] { opacity:var(--scroll-reveal-opacity,1) !important; transform:none !important; animation:none !important; will-change:auto !important; }
+}

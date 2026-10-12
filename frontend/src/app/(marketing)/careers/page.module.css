@@ -73,7 +73,7 @@
 .contactCta .eyebrow { color: var(--color-primary); }
 .contactCta h2 { max-width: 22ch; }
 .contactInner > p:not(.eyebrow) { max-width: 40rem; margin-top: 1rem; color: var(--color-muted); line-height: 1.65; }
-.contactEmail { min-height: 3.1rem; margin-top: 1.35rem; padding-inline: 1.15rem; display: inline-flex; align-items: center; color: #fff; border-radius: 0.7rem; background: var(--color-primary); box-shadow: 0 0.8rem 2rem rgb(20 83 219 / 24%); font-size: 0.95rem; font-weight: 700; cursor: text; user-select: text; }
+.contactEmail { min-height: 3.1rem; margin-top: 1.35rem; padding-inline: 1.15rem; display: inline-flex; align-items: center; color: #fff; border-radius: 0.7rem; background: var(--color-primary); box-shadow: 0 0.8rem 2rem rgb(20 83 219 / 24%); font-size: 0.95rem; font-weight: 700; cursor: pointer; user-select: text; }
 @keyframes pulse { 50% { opacity: 0.46; } }
 @media (hover: hover) and (pointer: fine) {
   .primaryButton:hover svg,
@@ -126,3 +126,9 @@
     radial-gradient(ellipse 90% 65% at 50% 100%, rgb(221 219 255 / 52%) 0%, rgb(221 219 255 / 18%) 50%, transparent 100%),
     var(--color-surface);
 }
+
+.contactEmail:focus-visible { outline:2px solid var(--color-primary); outline-offset:4px; }
+
+.openingSkeletonDescription { margin-top:.65rem; margin-bottom:1rem; }
+.openingSkeletonMeta { display:flex; gap:.4rem; margin-bottom:1.1rem; }
+.openingSkeletonMeta > span { width:5rem; height:1.7rem; border-radius:999px; }
