@@ -2,50 +2,36 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState, type KeyboardEvent } from "react";
+import type { KeyboardEvent } from "react";
 import styles from "./data-engineering-services-showcase.module.css";
+import { useServiceRotation } from "./use-service-rotation";
 
 export type ServiceShowcaseItem = {
   name: string; href: string; image: string; imageAlt: string;
-  introduction: string; points: readonly string[];
+  introduction: string; points?: readonly string[];
 };
 
 const dataServices = [
   {
     name: "Data Pipelines & Integration",
-    href: "/services/data/data-pipelines-integration",
+    href: "/services/data-engineering/data-pipelines-integration",
     image: "/images/technology-data.png",
-    imageAlt: "Placeholder artwork representing connected data systems and automated pipelines.",
+    imageAlt: "Connected systems and automated data flows represented across a digital operations network.",
     introduction: "Move data reliably from operational systems into the places where teams can use it, without depending on manual exports or fragile scripts.",
-    points: [
-      "Connect APIs, databases, files, SaaS platforms, CRMs, and internal systems.",
-      "Build scheduled batch pipelines and event-driven streaming where lower latency is justified.",
-      "Add orchestration, retries, replay, reconciliation, freshness checks, and accountable alerts.",
-    ],
   },
   {
     name: "Data Warehousing & Lakehouse",
-    href: "/services/data/data-warehousing-lakehouse",
+    href: "/services/data-engineering/data-warehousing-lakehouse",
     image: "/images/technology-cloud.png",
-    imageAlt: "Placeholder artwork representing a governed cloud data platform.",
+    imageAlt: "Cloud data platform representing governed storage and analytical workloads.",
     introduction: "Create one governed, query-ready foundation for reporting, analytics, and AI while keeping performance, access, and cost visible.",
-    points: [
-      "Design warehouse or lakehouse architecture around actual workloads and growth.",
-      "Model shared facts, dimensions, definitions, and reusable analytical datasets.",
-      "Establish security boundaries, workload isolation, monitoring, retention, and ownership.",
-    ],
   },
   {
     name: "Data Quality & Governance",
-    href: "/services/data/data-quality-governance",
+    href: "/services/data-engineering/data-quality-governance",
     image: "/images/technology-analytics.png",
-    imageAlt: "Placeholder artwork representing data monitoring and quality signals.",
+    imageAlt: "Monitoring chart representing data quality signals and changing system health.",
     introduction: "Make critical data trustworthy by defining what it means, who owns it, who can access it, and what happens when it fails.",
-    points: [
-      "Profile data and automate checks for freshness, completeness, validity, and consistency.",
-      "Document business definitions, ownership, sensitivity, lineage, and access rules.",
-      "Route quality incidents to the right owner with context and a clear resolution path.",
-    ],
   },
 ] as const;
 
@@ -60,7 +46,6 @@ export function DataEngineeringServicesShowcase({
   headingId = "services-title",
   idPrefix = "data-service",
   label = "Data engineering services",
-  imageLabel = "Temporary image",
 }: {
   services?: readonly ServiceShowcaseItem[];
   eyebrow?: string;
@@ -70,24 +55,8 @@ export function DataEngineeringServicesShowcase({
   label?: string;
   imageLabel?: string;
 } = {}) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [manualPaused, setManualPaused] = useState(false);
-  const [interactionPaused, setInteractionPaused] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
+  const { activeIndex, advanceService, isRunning, progressKey, selectService, showcaseRef } = useServiceRotation(services.length);
   const activeService = services[activeIndex];
-  const isPaused = manualPaused || interactionPaused || reduceMotion;
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updatePreference = () => setReduceMotion(media.matches);
-    updatePreference();
-    media.addEventListener("change", updatePreference);
-    return () => media.removeEventListener("change", updatePreference);
-  }, []);
-
-  function selectService(index: number) {
-    setActiveIndex(index);
-  }
 
   function handleTabKeyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
     if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
@@ -102,15 +71,7 @@ export function DataEngineeringServicesShowcase({
   }
 
   return (
-    <div
-      className={styles.showcase}
-      onMouseEnter={() => setInteractionPaused(true)}
-      onMouseLeave={() => setInteractionPaused(false)}
-      onFocusCapture={() => setInteractionPaused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setInteractionPaused(false);
-      }}
-    >
+    <div className={`${styles.showcase} ${styles.compactShowcase}`} ref={showcaseRef}>
       <div className={styles.leftColumn}>
         <div className={styles.sectionHeading}>
           <p>{eyebrow}</p>
@@ -119,7 +80,6 @@ export function DataEngineeringServicesShowcase({
         <div className={styles.serviceRail} role="tablist" aria-label={label} aria-orientation="vertical">
           <div className={styles.railHeading}>
             <span>Services</span>
-            {!reduceMotion && <button type="button" onClick={() => setManualPaused((paused) => !paused)} aria-pressed={manualPaused}>{manualPaused ? "Resume" : "Pause"} rotation</button>}
           </div>
           {services.map((service, index) => {
             const isActive = index === activeIndex;
@@ -139,7 +99,7 @@ export function DataEngineeringServicesShowcase({
                 <span className={styles.serviceIndex}>{String(index + 1).padStart(2, "0")}</span>
                 <span className={styles.serviceName}>{service.name}</span>
                 <span className={styles.track} aria-hidden="true">
-                  {isActive && <span className={styles.progress} data-paused={isPaused} key={activeIndex} onAnimationEnd={() => setActiveIndex((current) => (current + 1) % services.length)} />}
+                  {isActive && isRunning && <span className={styles.progress} key={progressKey} onAnimationEnd={advanceService} />}
                 </span>
               </button>
             );
@@ -148,21 +108,17 @@ export function DataEngineeringServicesShowcase({
       </div>
 
       <article
-        className={styles.servicePanel}
+        className={`${styles.servicePanel} ${styles.compactPanel}`}
         id={`${idPrefix}-panel`}
         role="tabpanel"
         aria-labelledby={`${idPrefix}-tab-${activeIndex}`}
         key={activeService.name}
       >
-        <div className={styles.imageFrame}>
+        <div className={`${styles.imageFrame} ${styles.compactImageFrame}`}>
           <Image src={activeService.image} alt={activeService.imageAlt} fill sizes="(max-width: 760px) 100vw, 65vw" />
-          <span>{imageLabel}</span>
-          <div className={styles.panelContent}>
-            <p className={styles.panelEyebrow}>Service {String(activeIndex + 1).padStart(2, "0")}</p>
+          <div className={`${styles.panelContent} ${styles.compactPanelContent}`}>
             <h3>{activeService.name}</h3>
             <p className={styles.introduction}>{activeService.introduction}</p>
-            <p className={styles.listHeading}>Here&apos;s how we do it:</p>
-            <ul>{activeService.points.map((point) => <li key={point}>{point}</li>)}</ul>
             <Link href={activeService.href}>Explore {activeService.name} <ArrowIcon /></Link>
           </div>
         </div>

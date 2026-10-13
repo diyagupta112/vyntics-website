@@ -1,0 +1,32 @@
+.timeline { position: relative; max-width: 62rem; margin: clamp(1.5rem, 3vw, 2.25rem) auto 0; }
+.timeline ol { display: grid; gap: 0; list-style: none; }
+.rail, .progress { position: absolute; top: 1.15rem; bottom: 1.15rem; left: 1.1rem; width: 2px; border-radius: 999px; transform-origin: top; pointer-events: none; }
+.rail { background: color-mix(in srgb, var(--color-primary) 16%, var(--color-border)); }
+.progress { z-index: 1; background: linear-gradient(180deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 58%, #72a0ff)); }
+.timeline li { position: relative; display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: clamp(1rem, 2vw, 1.5rem); }
+.marker { position: relative; z-index: 2; width: 2.25rem; height: 2.25rem; display: grid; place-items: center; color: var(--color-primary); border: 1px solid color-mix(in srgb, var(--color-primary) 50%, var(--color-border)); border-radius: 50%; background: var(--color-surface); font-size: .58rem; font-weight: 780; letter-spacing: .08em; box-shadow: 0 0 0 .35rem color-mix(in srgb, var(--color-primary) 4%, var(--color-surface)); }
+.timeline article { min-height: 5.1rem; padding: .05rem 0 1rem; border-bottom: 1px solid var(--color-border); }
+.timeline li + li { padding-top: .75rem; }
+.meta { display: flex; align-items: center; justify-content: space-between; gap: 1rem; color: var(--color-primary); font-size: .62rem; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; }
+.meta span:last-child { color: var(--color-muted); font-weight: 680; letter-spacing: .08em; }
+.timeline h3 { margin-top: .3rem; font-size: clamp(1.15rem, 1.55vw, 1.4rem); line-height: 1.1; letter-spacing: -.035em; }
+.timeline article > p { max-width: 50rem; margin-top: .3rem; color: var(--color-muted); font-size: .82rem; line-height: 1.48; }
+
+@media (hover: hover) and (pointer: fine) {
+  .timeline article { transition: transform 220ms ease, border-color 220ms ease; }
+  .timeline li:hover article { border-color: color-mix(in srgb, var(--color-primary) 35%, var(--color-border)); transform: translateX(.3rem); }
+}
+
+@media (max-width: 620px) {
+  .timeline { margin-top: 2.25rem; }
+  .timeline li { grid-template-columns: 2.4rem minmax(0, 1fr); gap: 1rem; }
+  .rail, .progress { left: 1.15rem; }
+  .marker { width: 2.4rem; height: 2.4rem; }
+  .meta { align-items: flex-start; flex-direction: column; gap: .3rem; }
+  .timeline article { padding-bottom: 1.6rem; }
+  .timeline li + li { padding-top: 1.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline article { transition: none; }
+}
