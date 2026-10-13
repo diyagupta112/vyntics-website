@@ -9,7 +9,6 @@ export function CrmHero() {
     description={content.hero.introduction}
     primaryAction={{ href: "#contact", label: content.hero.primaryLabel }}
     secondaryAction={{ href: "#crm-services", label: content.hero.secondaryLabel }}
-    capabilities={content.services.map(service => ({ label: service.name, href: service.href, points: service.points }))}
-    badge={{ label: content.platforms[0].role, title: content.platforms[0].name }}
+    capabilities={content.services.map(service => ({ label: service.name, href: service.href }))}
   />;
 }
