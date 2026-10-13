@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineering-process-timeline";
 import { DataEngineeringServicesShowcase } from "@/components/pages/data-engineering-services-showcase";
 import { DataPlatformsHoverGrid } from "@/components/pages/data-platforms-hover-grid";
 import { ContactCta } from "@/components/sections/home/contact-cta";
@@ -35,14 +36,6 @@ const platforms = [
   { name: "Amazon Redshift", role: "AWS warehousing", description: "Integrated cloud warehousing for organizations already building their data estate on AWS." },
   { name: "Microsoft Fabric", role: "Microsoft data platform", description: "Integrated engineering, warehousing, semantic models, and Power BI delivery in one ecosystem." },
   { name: "dbt", role: "Transformation", description: "Versioned SQL models, tests, documentation, and lineage for maintainable analytics engineering." },
-] as const;
-
-const process = [
-  { title: "Assess", visual: "Sources and outcomes", description: "Map sources, consumers, ownership, definitions, risk, data quality, and the decisions the system must support." },
-  { title: "Design", visual: "Architecture and controls", description: "Define architecture, data contracts, models, security, lineage, quality rules, and operating responsibilities." },
-  { title: "Build", visual: "Pipelines and models", description: "Deliver in usable increments with version control, automated tests, reconciliation, and deployment discipline." },
-  { title: "Monitor", visual: "Quality and reliability", description: "Track freshness, volume, failures, quality, performance, lineage, usage, and cost in production." },
-  { title: "Support", visual: "Operate and improve", description: "Resolve incidents, maintain source integrations, improve weak points, and transfer practical ownership to your team." },
 ] as const;
 
 const measures = ["Data freshness", "Pipeline reliability", "Manual work removed", "Query performance", "Quality failures caught", "Platform cost"] as const;
@@ -112,31 +105,7 @@ export default function DataEngineeringPage() {
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
           <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">A clear path from assessment to dependable operations.</h2><p>Five focused stages. One accountable delivery process built around usable outcomes.</p></div>
-          <ol className={styles.processList}>
-            {process.map((step, index) => (
-              <li key={step.title}>
-                <article className={styles.processCard}>
-                  <span>Step {String(index + 1).padStart(2, "0")}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.description}</p>
-                </article>
-                <span className={styles.processMarker} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <div className={styles.processVisual} aria-hidden="true">
-                  <svg viewBox="0 0 180 100">
-                    <path d="M26 50h30m68 0h30M56 50l18-24m-18 24 18 24m50-24-18-24m18 24-18 24" />
-                    <circle cx="20" cy="50" r="6" />
-                    <circle cx="82" cy="20" r="8" />
-                    <circle cx="82" cy="80" r="8" />
-                    <rect x="76" y="41" width="28" height="18" rx="4" />
-                    <circle cx="112" cy="20" r="8" />
-                    <circle cx="112" cy="80" r="8" />
-                    <circle cx="160" cy="50" r="6" />
-                  </svg>
-                  <span>{step.visual}</span>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <DataEngineeringProcessTimeline />
         </Container>
       </section>
 

@@ -1,7 +1,7 @@
 .showcase { min-height: 42rem; display: grid; grid-template-columns: minmax(20rem, .82fr) minmax(0, 1.18fr); overflow: hidden; border: 1px solid var(--color-border); border-radius: 1.15rem; background: color-mix(in srgb, var(--color-surface) 97%, var(--color-primary)); box-shadow: 0 1.5rem 4rem rgb(11 11 15 / 8%); }
-.compactShowcase { min-height: 34rem; grid-template-columns: minmax(19rem, .9fr) minmax(0, 1.1fr); }
+.compactShowcase { min-height: 34rem; grid-template-columns: repeat(2, minmax(0, 42rem)); justify-content: center; column-gap: .5rem; padding-inline: clamp(2rem, 4vw, 5rem); overflow: visible; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
 .leftColumn { min-width: 0; padding: clamp(2rem, 3.5vw, 3.25rem); display: flex; flex-direction: column; justify-content: center; }
-.compactShowcase .leftColumn { padding-left: clamp(5.5rem, 8vw, 9rem); padding-right: clamp(.5rem, 1vw, 1rem); }
+.compactShowcase .leftColumn { padding: clamp(2rem, 3.5vw, 3.25rem) 0; }
 .sectionHeading { max-width: 32rem; }
 .sectionHeading > p { color: var(--color-primary); font-size: .7rem; font-weight: 760; letter-spacing: .16em; text-transform: uppercase; }
 .sectionHeading h2 { margin-top: .75rem; color: var(--color-foreground); font-size: clamp(1.85rem, 2.55vw, 2.75rem); line-height: 1.07; letter-spacing: -.045em; text-wrap: balance; }
@@ -18,9 +18,9 @@
 .activeTab .serviceIndex { color: var(--color-primary); }
 
 .servicePanel { min-width: 0; padding: clamp(2rem, 3.5vw, 3.25rem); display: flex; background: transparent; animation: panel-enter 420ms cubic-bezier(.2, .8, .2, 1) both; }
-.compactPanel { align-items: center; justify-content: flex-start; padding-left: 1rem; }
+.compactPanel { align-items: center; justify-content: flex-start; padding: clamp(2rem, 3.5vw, 3.25rem) 0; }
 .imageFrame { position: relative; width: 100%; min-height: 35rem; overflow: hidden; border: 1px solid var(--color-border); border-radius: .8rem; background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface)); box-shadow: 0 1rem 2.5rem rgb(11 11 15 / 10%); }
-.compactImageFrame { width: min(90%, 38rem); min-height: 27rem; flex: 0 0 auto; }
+.compactImageFrame { width: 100%; min-height: 27rem; flex: 0 0 auto; }
 .imageFrame img { object-fit: cover; }
 .imageFrame::after { position: absolute; inset: 0; z-index: 1; content: ""; background: linear-gradient(180deg, rgb(4 13 30 / 22%) 0%, rgb(4 13 30 / 58%) 42%, rgb(4 13 30 / 94%) 100%); pointer-events: none; }
 .panelContent { position: absolute; right: clamp(1.5rem, 3vw, 2.5rem); bottom: clamp(1.5rem, 3vw, 2.5rem); left: clamp(1.5rem, 3vw, 2.5rem); z-index: 2; max-width: 40rem; color: #fff; }
@@ -45,7 +45,7 @@
 
 @media (max-width: 820px) {
   .showcase { grid-template-columns: 1fr; gap: 0; }
-  .compactShowcase { min-height: auto; }
+  .compactShowcase { min-height: auto; padding-inline: 0; }
   .compactShowcase .leftColumn { padding-inline: clamp(2rem, 3.5vw, 3.25rem); }
   .sectionHeading { max-width: 38rem; }
   .serviceTab { padding-block: 1rem .85rem; }

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AiSolutionsServicesShowcase } from "@/components/pages/ai-solutions-services-showcase";
+import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineering-process-timeline";
+import { DataPlatformsHoverGrid } from "@/components/pages/data-platforms-hover-grid";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
 import { articles } from "@/content/articles";
@@ -113,10 +115,10 @@ export default function AiSolutionsPage() {
         </Container>
       </section>
 
-      <section className={`${styles.section} ${styles.platformSection} ${styles.aiPlatformSection}`} aria-labelledby="platforms-title">
+      <section className={`${styles.section} ${styles.platformSection}`} aria-labelledby="platforms-title">
         <Container>
           <div className={styles.sectionHeading}><p className={styles.label}>AI platforms we work with</p><h2 id="platforms-title">Choose the stack around the risk and workload.</h2><p>We keep the architecture modular where practical, so one model or vendor does not become the whole system.</p></div>
-          <div className={styles.aiPlatformGrid}>{platforms.map((platform) => <article key={platform.name}><p>{platform.role}</p><h3>{platform.name}</h3><span>{platform.description}</span></article>)}</div>
+          <DataPlatformsHoverGrid platforms={platforms} iconVariant="ai" />
           <Link className={styles.inlineLink} href="/technologies">View all technologies <ArrowIcon /></Link>
         </Container>
       </section>
@@ -131,7 +133,7 @@ export default function AiSolutionsPage() {
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
           <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">Discover. Pilot. Build. Deploy. Improve.</h2><p>Five focused stages. One accountable delivery process built around evidence and safe operation.</p></div>
-          <ol className={styles.processList}>{process.map((step, index) => <li key={step.title}><article className={styles.processCard}><span>Step {String(index + 1).padStart(2, "0")}</span><h3>{step.title}</h3><p>{step.description}</p></article><span className={styles.processMarker} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div className={styles.processVisual} aria-hidden="true"><svg viewBox="0 0 180 100"><path d="M26 50h30m68 0h30M56 50l18-24m-18 24 18 24m50-24-18-24m18 24-18 24" /><circle cx="20" cy="50" r="6" /><circle cx="82" cy="20" r="8" /><circle cx="82" cy="80" r="8" /><rect x="76" y="41" width="28" height="18" rx="4" /><circle cx="112" cy="20" r="8" /><circle cx="112" cy="80" r="8" /><circle cx="160" cy="50" r="6" /></svg><span>{step.visual}</span></div></li>)}</ol>
+          <DataEngineeringProcessTimeline steps={process} />
         </Container>
       </section>
 

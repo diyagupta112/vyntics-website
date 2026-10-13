@@ -97,7 +97,6 @@ export function DataEngineeringServicesShowcase() {
         <div className={`${styles.imageFrame} ${styles.compactImageFrame}`}>
           <Image src={activeService.image} alt={activeService.imageAlt} fill sizes="(max-width: 760px) 100vw, 65vw" />
           <div className={`${styles.panelContent} ${styles.compactPanelContent}`}>
-            <p className={styles.panelEyebrow}>Service {String(activeIndex + 1).padStart(2, "0")}</p>
             <h3>{activeService.name}</h3>
             <p className={styles.introduction}>{activeService.introduction}</p>
             <Link href={activeService.href}>Explore {activeService.name} <ArrowIcon /></Link>

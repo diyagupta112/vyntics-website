@@ -13,11 +13,6 @@ const services = [
     image: "/images/technology-ai.png",
     imageAlt: "Abstract visualization representing an AI assistant retrieving trusted knowledge.",
     introduction: "Give teams fast answers from approved company knowledge, with the source evidence attached to every important claim.",
-    points: [
-      "Connect documents, wikis, databases, and internal knowledge with access controls intact.",
-      "Combine semantic search, keyword retrieval, metadata filtering, and reranking.",
-      "Evaluate answer quality, citation accuracy, freshness, and safe refusal behaviour.",
-    ],
   },
   {
     name: "AI Agents",
@@ -25,11 +20,6 @@ const services = [
     image: "/images/about-hero-ai.png",
     imageAlt: "Abstract visualization representing connected AI agents and business systems.",
     introduction: "Build bounded agents that use approved tools, complete multi-step work, and stop for human approval when risk demands it.",
-    points: [
-      "Connect agents to APIs, CRMs, databases, ticketing, and internal systems.",
-      "Define permissions, validation, approval gates, retries, and stop conditions.",
-      "Trace every decision, tool call, output, failure, and human intervention.",
-    ],
   },
   {
     name: "Intelligent Automation",
@@ -37,11 +27,6 @@ const services = [
     image: "/images/technology-data.png",
     imageAlt: "Abstract visualization representing structured document processing.",
     introduction: "Combine document intelligence, workflow orchestration, and language models to remove repetitive work while keeping exceptions visible.",
-    points: [
-      "Classify and extract data from documents with validation and confidence thresholds.",
-      "Coordinate rules, AI decisions, approvals, notifications, and system updates.",
-      "Integrate structured LLM capabilities into existing products, APIs, and business tools.",
-    ],
   },
 ] as const;
 
@@ -66,7 +51,7 @@ export function AiSolutionsServicesShowcase() {
   }
 
   return (
-    <div className={styles.showcase} ref={showcaseRef}>
+    <div className={`${styles.showcase} ${styles.compactShowcase}`} ref={showcaseRef}>
       <div className={styles.leftColumn}>
         <div className={styles.sectionHeading}>
           <p>Our AI solutions</p>
@@ -102,15 +87,12 @@ export function AiSolutionsServicesShowcase() {
         </div>
       </div>
 
-      <article className={styles.servicePanel} id="ai-service-panel" role="tabpanel" aria-labelledby={`ai-service-tab-${activeIndex}`} key={activeService.name}>
-        <div className={styles.imageFrame}>
-          <Image src={activeService.image} alt={activeService.imageAlt} fill loading="eager" sizes="(max-width: 820px) 100vw, 58vw" />
-          <div className={styles.panelContent}>
-            <p className={styles.panelEyebrow}>AI service {String(activeIndex + 1).padStart(2, "0")}</p>
+      <article className={`${styles.servicePanel} ${styles.compactPanel}`} id="ai-service-panel" role="tabpanel" aria-labelledby={`ai-service-tab-${activeIndex}`} key={activeService.name}>
+        <div className={`${styles.imageFrame} ${styles.compactImageFrame}`}>
+          <Image src={activeService.image} alt={activeService.imageAlt} fill loading="eager" sizes="(max-width: 760px) 100vw, 65vw" />
+          <div className={`${styles.panelContent} ${styles.compactPanelContent}`}>
             <h3>{activeService.name}</h3>
             <p className={styles.introduction}>{activeService.introduction}</p>
-            <p className={styles.listHeading}>What it includes:</p>
-            <ul>{activeService.points.map((point) => <li key={point}>{point}</li>)}</ul>
             <Link href={activeService.href}>Explore {activeService.name} <ArrowIcon /></Link>
           </div>
         </div>

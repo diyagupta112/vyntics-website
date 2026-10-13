@@ -11,7 +11,12 @@ type DataPlatform = {
   description: string;
 };
 
-export function DataPlatformsHoverGrid({ platforms }: { platforms: readonly DataPlatform[] }) {
+type PlatformGridProps = {
+  platforms: readonly DataPlatform[];
+  iconVariant?: "data" | "ai";
+};
+
+export function DataPlatformsHoverGrid({ platforms, iconVariant = "data" }: PlatformGridProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const reduceMotion = useReducedMotion();
 
@@ -47,7 +52,11 @@ export function DataPlatformsHoverGrid({ platforms }: { platforms: readonly Data
           <span className={styles.content}>
             <span className={styles.meta}>
               <span className={styles.icon} aria-hidden="true">
-                <svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="6.5" ry="3" /><path d="M5.5 6v6c0 1.7 2.9 3 6.5 3s6.5-1.3 6.5-3V6M5.5 12v6c0 1.7 2.9 3 6.5 3s6.5-1.3 6.5-3v-6" /></svg>
+                {iconVariant === "ai" ? (
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" /><circle cx="5" cy="6" r="2" /><circle cx="19" cy="6" r="2" /><circle cx="5" cy="18" r="2" /><circle cx="19" cy="18" r="2" /><path d="m7 7.5 3 2.8m4-2.8-3 2.8m-4 6.2 3-2.8m4 2.8-3-2.8" /></svg>
+                ) : (
+                  <svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="6.5" ry="3" /><path d="M5.5 6v6c0 1.7 2.9 3 6.5 3s6.5-1.3 6.5-3V6M5.5 12v6c0 1.7 2.9 3 6.5 3s6.5-1.3 6.5-3v-6" /></svg>
+                )}
               </span>
               <span className={styles.role}>{platform.role}</span>
             </span>
