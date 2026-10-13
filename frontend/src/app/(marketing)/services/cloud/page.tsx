@@ -64,7 +64,7 @@ export default function CloudFoundationsPage() {
           <nav className={styles.scopeIndex} aria-label="Cloud Foundations services">
             <p>Cloud Foundations</p>
             <div className={styles.foundationSymbol} aria-hidden="true"><svg viewBox="0 0 80 64"><path d="m40 8 28 16-28 16L12 24 40 8ZM12 34l28 16 28-16M12 44l28 16 28-16" /></svg></div>
-            <ol>{canonicalCloudServices.map(service => <li key={service.slug}><Link href={`/services/cloud-foundations/${service.slug === "cloud-cost-optimization" ? "cloud-cost-optimisation" : service.slug}`}><span>{service.number}</span>{service.title}</Link></li>)}</ol>
+            <ol>{canonicalCloudServices.map(service => <li key={service.slug}><Link href={`/services/cloud-foundations/${service.slug}`}><span>{service.number}</span>{service.title}</Link></li>)}</ol>
           </nav>
         </Container>
       </section>
@@ -86,7 +86,7 @@ export default function CloudFoundationsPage() {
             label="Cloud Foundations services"
             services={canonicalCloudServices.map((service, index) => ({
               name: service.title,
-              href: `/services/cloud-foundations/${service.slug === "cloud-cost-optimization" ? "cloud-cost-optimisation" : service.slug}`,
+              href: `/services/cloud-foundations/${service.slug}`,
               image: ["/images/technology-cloud.png", "/images/technology-cloud-infrastructure.png", "/images/technology-cloud-network.png"][index],
               imageAlt: `Illustration representing ${service.title.toLowerCase()}.`,
               introduction: cloudServiceIntroductions[index].summary,

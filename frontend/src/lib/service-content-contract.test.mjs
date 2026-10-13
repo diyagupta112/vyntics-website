@@ -52,7 +52,7 @@ test("all five service pages wire their exact identifier without keyword fallbac
     const source = readFileSync(new URL(`../app/(marketing)/services/${page}/page.tsx`, import.meta.url), "utf8");
     if (["data", "ai"].includes(page)) {
       assert.ok(source.includes(`<PublishedServiceCaseStudies service="${service}"`));
-      assert.ok(source.includes(`<PublishedServiceBlogs service="${service}"`));
+      assert.ok(source.includes(`getBlogs("${service}")`));
       assert.ok(!source.includes("relatedInsights"));
     } else {
       assert.ok(source.includes(`getCaseStudies("${service}")`));

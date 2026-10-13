@@ -1,16 +1,24 @@
-import { PublishedServiceBlogs } from "@/components/pages/published-service-blogs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineering-process-timeline";
 import { DataEngineeringServicesShowcase } from "@/components/pages/data-engineering-services-showcase";
 import { DataPlatformsHoverGrid } from "@/components/pages/data-platforms-hover-grid";
+import { FaqContent } from "@/components/pages/faq-content";
+import { RelatedBlogCard } from "@/components/pages/related-blog-card";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
 import { NextServiceBanner } from "@/components/pages/next-service-banner";
 import { Suspense } from "react";
 import { PublishedServiceCaseStudies } from "@/components/pages/published-service-case-studies";
 import { FeaturedCaseStudySkeleton } from "@/components/sections/case-studies/case-study-skeleton";
-import reasonStyles from "@/components/pages/service-reason-card.module.css";
+import { getBlogs } from "@/lib/blogs";
+import { DataProblems } from "./data-problems";
+import { DataWhy } from "./data-why";
+import cloudStyles from "../cloud/page.module.css";
+import problemStyles from "../cloud/cloud-problems.module.css";
+import faqStyles from "../cloud/cloud-faq.module.css";
+import shared from "../../recognitions/page.module.css";
+import studyStyles from "../../case-studies/page.module.css";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -18,20 +26,6 @@ export const metadata: Metadata = {
   description: "Data engineering consulting for reliable pipelines, integration, cloud warehousing, lakehouse architecture, data quality, and governance.",
   alternates: { canonical: "https://vyntics.com/services/data-engineering" },
 };
-
-const problems = [
-  { title: "Manual data movement", description: "Teams still export spreadsheets, copy files, and repair recurring transfers by hand." },
-  { title: "Conflicting reports", description: "The same metric produces different answers because definitions and transformation logic are scattered." },
-  { title: "Slow or stale data", description: "Important decisions depend on refreshes that arrive late, fail silently, or cannot be replayed safely." },
-  { title: "Unclear ownership", description: "When data breaks, nobody knows who owns the source, the pipeline, the definition, or the fix." },
-] as const;
-
-const reasons = [
-  { title: "Engineering before tooling", description: "We choose technology after the workload, constraints, ownership, and recovery requirements are understood." },
-  { title: "Built for failure", description: "Retries, backfills, reconciliation, observability, and runbooks are part of the system—not postponed until production." },
-  { title: "Definitions with owners", description: "Important models and metrics have clear meaning, accountable owners, lineage, and a controlled change path." },
-  { title: "Direct technical delivery", description: "The engineers shaping the architecture stay involved through implementation, validation, and handover." },
-] as const;
 
 const platforms = [
   { name: "Snowflake", role: "Cloud data platform", description: "Elastic warehousing, governed sharing, and workload separation for analytical teams." },
@@ -42,7 +36,11 @@ const platforms = [
   { name: "dbt", role: "Transformation", description: "Versioned SQL models, tests, documentation, and lineage for maintainable analytics engineering." },
 ] as const;
 
-const measures = ["Data freshness", "Pipeline reliability", "Manual work removed", "Query performance", "Quality failures caught", "Platform cost"] as const;
+const dataServices = [
+  { number: "01", title: "Data Pipelines & Integration", slug: "data-pipelines-integration" },
+  { number: "02", title: "Data Warehousing & Lakehouse", slug: "data-warehousing-lakehouse" },
+  { number: "03", title: "Data Quality & Governance", slug: "data-quality-governance" },
+] as const;
 
 const faqs = [
   { question: "What do data engineering services include?", answer: "They typically cover source integration, batch and streaming pipelines, transformation, data modelling, cloud warehouses or lakehouses, quality controls, lineage, governance, monitoring, and production support. The right scope depends on the decisions and workloads the data must serve." },
@@ -57,29 +55,40 @@ function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
+async function DataInsights() {
+  const result = await getBlogs("data_engineering");
+  const posts = result.blogs.slice(0, 3);
+  if (!posts.length) return <p className={cloudStyles.contentState} role="status">{result.status === "error" ? "Related insights are temporarily unavailable. You can explore our articles on the Blog page." : "Data engineering insights will appear here when available."}</p>;
+  return <div className={studyStyles.otherGrid}>{posts.map(blog => <RelatedBlogCard blog={blog} variant="service" key={blog.id} />)}</div>;
+}
+
 export default function DataEngineeringPage() {
 
   return (
     <>
-      <section className={styles.hero} aria-labelledby="data-engineering-title">
-        <Container>
-          <Link className={styles.backLink} href="/#services">← All services</Link>
-          <p className={styles.eyebrow}>Data engineering services</p>
-          <h1 id="data-engineering-title">Build a data foundation your business can trust.</h1>
-          <p className={styles.heroIntro}>We connect scattered systems, automate reliable data movement, and create governed, query-ready foundations for analytics and AI.</p>
-          <div className={styles.heroActions}>
-            <a className={styles.primaryButton} href="#contact">Discuss your data estate <ArrowIcon /></a>
-            <a className={styles.secondaryLink} href="#data-services">Explore our services</a>
+      <section className={cloudStyles.hero} aria-labelledby="data-engineering-title">
+        <Container className={cloudStyles.heroGrid}>
+          <div className={cloudStyles.heroCopy}>
+            <p className={cloudStyles.eyebrow}>Data engineering services</p>
+            <h1 id="data-engineering-title">Build a data foundation your business can trust.</h1>
+            <p>We connect scattered systems, automate reliable data movement, and create governed, query-ready foundations for analytics and AI.</p>
+            <div className={cloudStyles.heroActions}>
+              <Link className={cloudStyles.primaryAction} href="#contact">Discuss your data estate <ArrowIcon /></Link>
+              <Link className={cloudStyles.secondaryAction} href="#data-services">Our data services</Link>
+            </div>
           </div>
+          <nav className={cloudStyles.scopeIndex} aria-label="Data Engineering services">
+            <p>Data Engineering</p>
+            <div className={cloudStyles.foundationSymbol} aria-hidden="true"><svg viewBox="0 0 80 64"><path d="M14 14h52v12H14zM14 38h52v12H14zM22 20h.01M22 44h.01M34 20h24M34 44h24M40 26v12" /></svg></div>
+            <ol>{dataServices.map(service => <li key={service.slug}><Link href={`/services/data-engineering/${service.slug}`}><span>{service.number}</span>{service.title}</Link></li>)}</ol>
+          </nav>
         </Container>
       </section>
 
-      <section className={styles.section} aria-labelledby="problems-title">
+      <section className={problemStyles.section} aria-labelledby="problems-title">
         <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>Data problems we solve</p><h2 id="problems-title">The warning signs usually appear before the platform fails.</h2><p>We start with the operational problem—not a predetermined stack.</p></div>
-          <div className={styles.problemGrid}>
-            {problems.map((problem, index) => <article key={problem.title}><span>{String(index + 1).padStart(2, "0")}</span><h3>{problem.title}</h3><p>{problem.description}</p></article>)}
-          </div>
+          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>Data Engineering</p><h2 id="problems-title">Data problems we solve</h2><p className={problemStyles.subtext}>From unreliable pipelines to conflicting reports, we solve the data problems that slow decisions and undermine trust.</p></header>
+          <DataProblems />
         </Container>
       </section>
 
@@ -89,12 +98,7 @@ export default function DataEngineeringPage() {
         </Container>
       </section>
 
-      <section className={styles.section} aria-labelledby="why-title">
-        <Container className={styles.whyLayout}>
-          <div className={styles.stickyHeading}><p className={styles.label}>Why choose us</p><h2 id="why-title">Systems designed to survive real operations.</h2><p>Architecture diagrams are easy. Reliable ownership, recovery, and trust are the hard parts.</p></div>
-          <div className={styles.reasonList}>{reasons.map((reason, index) => <article className={reasonStyles.card} key={reason.title}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{reason.title}</h3><p>{reason.description}</p></div></article>)}</div>
-        </Container>
-      </section>
+      <DataWhy />
 
       <section className={`${styles.section} ${styles.platformSection}`} aria-labelledby="platforms-title">
         <Container>
@@ -111,28 +115,38 @@ export default function DataEngineeringPage() {
         </Container>
       </section>
 
-      <section className={`${styles.section} ${styles.caseStudySection}`} aria-labelledby="case-study-title">
+      <section className={cloudStyles.workBridge} aria-labelledby="case-study-title">
         <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2></div>
+          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn complex data challenges into dependable, practical systems.</p></header>
           <Suspense fallback={<FeaturedCaseStudySkeleton />}><PublishedServiceCaseStudies service="data_engineering" /></Suspense>
-          <div className={styles.measureBar} aria-label="Measures used to evaluate data engineering results"><p>Results we measure</p><ul>{measures.map((measure) => <li key={measure}>{measure}</li>)}</ul></div>
+          <Link className={cloudStyles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
       </section>
 
       <NextServiceBanner id="data-next" currentService="data-engineering" sectionClassName={styles.section} />
 
-      <section className={`${styles.section} ${styles.insightsSection}`} aria-labelledby="insights-title">
+      <section className={cloudStyles.context} aria-labelledby="insights-title">
         <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>Related insights</p><h2 id="insights-title">Practical guidance for data leaders.</h2></div>
-          <Suspense fallback={<p role="status">Loading related insights…</p>}><PublishedServiceBlogs service="data_engineering" className={styles.insightGrid} /></Suspense>
+          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related insights</h2></header>
+          <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading data engineering insights…</p>}><DataInsights /></Suspense>
+          <Link className={cloudStyles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>
       </section>
 
-      <section className={styles.section} aria-labelledby="faq-title">
-        <Container className={styles.faqLayout}>
-          <div className={styles.stickyHeading}><p className={styles.label}>Frequently asked questions</p><h2 id="faq-title">Straight answers before the project starts.</h2></div>
-          <div className={styles.faqList}>{faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}</div>
-        </Container>
+      <section className={shared.section} aria-labelledby="faq-title">
+        <FaqContent
+          heading={<>
+            <h2 id="faq-title">Frequently Asked Questions</h2>
+            <p className={faqStyles.introduction}>Practical answers about data engineering, delivery timelines, existing systems, platforms, and project scope.</p>
+            <div className={faqStyles.contactFallback}>
+              <p className={faqStyles.contactPrompt}>Can’t find the answer you’re looking for?</p>
+              <p className={faqStyles.contactHelp}>Reach out to us at <a className={shared.faqEmail} href="mailto:contact@vyntics.com">contact@vyntics.com</a> and we’ll be happy to help.</p>
+            </div>
+          </>}
+          items={faqs}
+          name="data-engineering-faq"
+          label="Data engineering questions"
+        />
       </section>
 
       <ContactCta eyebrow="Data engineering consultation" title="Ready to make your data dependable?" intro="Tell us where the data is stuck, unreliable, or difficult to use. We’ll identify the practical first step and the evidence needed to scope it properly." submitLabel="Discuss your data project" />
