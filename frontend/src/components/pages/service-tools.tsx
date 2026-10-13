@@ -1,4 +1,5 @@
 import { Container } from "@/components/ui/container";
+import Link from "next/link";
 import styles from "./service-tools.module.css";
 
 type ToolDetail = { name: string; role: string; description: string };
@@ -43,13 +44,14 @@ const toolDescriptions: ReadonlyArray<readonly [readonly string[], string]> = [
   [["Grafana", "Prometheus", "Datadog", "Azure Monitor", "Amazon CloudWatch", "Google Cloud Operations", "OpenTelemetry"], "Metrics, logs, and traces for understanding system health and investigating production issues."],
 ];
 
-export function ServiceTools({ name, technologies, introduction, details, eyebrow = "Tools & platforms", title }: {
+export function ServiceTools({ name, technologies, introduction, details, eyebrow = "Tools & platforms", title, linkTools = false }: {
   name: string;
   eyebrow?: string;
   title?: string;
   technologies: readonly string[];
   introduction?: string;
   details?: readonly ToolDetail[];
+  linkTools?: boolean;
 }) {
   return (
     <section className={styles.section} aria-labelledby="service-tools-title">
@@ -65,7 +67,7 @@ export function ServiceTools({ name, technologies, introduction, details, eyebro
             const description = detail?.description ?? toolDescriptions.find(([names]) => names.includes(tool))?.[1];
             return (
               <article key={tool}>
-                <h3>{tool}</h3>
+                {linkTools ? <Link href="/technologies"><h3>{tool}</h3></Link> : <h3>{tool}</h3>}
                 {detail?.role && <span>{detail.role}</span>}
                 <p>{description ?? `Supports the ${name} workflow, with integration and configuration matched to your operating environment.`}</p>
               </article>

@@ -6,6 +6,8 @@ import { Container } from "@/components/ui/container";
 import styles from "./inner-service-detail.module.css";
 import { ServiceTools } from "./service-tools";
 import { ServiceApproach } from "./service-approach";
+import { DataServiceSections, type DataServicePageSections } from "./data-service-sections";
+import { AiServiceSections, type AiServicePageSections } from "./ai-service-sections";
 
 export type InnerServiceDetailContent = {
   slug: string;
@@ -20,6 +22,8 @@ export type InnerServiceDetailContent = {
   technologies: readonly string[];
   technologyIntroduction?: string;
   technologyDetails?: ReadonlyArray<{ name: string; role: string; description: string }>;
+  dataPage?: DataServicePageSections;
+  aiPage?: AiServicePageSections;
   metadataDescription: string;
 };
 
@@ -27,12 +31,17 @@ function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
+const dataServiceSlugs = new Set(["data-pipelines-integration", "data-warehousing-lakehouse", "data-quality-governance"]);
+
 export function InnerServiceDetail({ service }: { service: InnerServiceDetailContent }) {
+  const dataPage = dataServiceSlugs.has(service.slug) ? service.dataPage : undefined;
+  const aiPage = service.aiPage;
+
   return (
     <>
       <section className={`${styles.hero} ${service.slug === "rag-knowledge-assistants" ? styles.sequencedHero : ""}`} aria-labelledby="service-title">
         <Container>
-          <Link className={styles.backLink} href="/#services">← All services</Link>
+          <Link className={styles.backLink} href={service.aiPage ? "/services/ai-solutions" : "/#services"}>{service.aiPage ? "← AI Solutions" : "← All services"}</Link>
           <p className={styles.eyebrow}>{service.eyebrow}</p>
           <h1 id="service-title" aria-label={service.slug === "rag-knowledge-assistants" ? service.title : undefined}>
             {service.slug === "rag-knowledge-assistants" ? service.title.split(/\s+/).map((word, index) => (
@@ -44,6 +53,15 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
         </Container>
       </section>
 
+      {dataPage ? (
+        <DataServiceSections variant="problems" sections={dataPage} />
+      ) : aiPage ? <AiServiceSections variant="problems" sections={aiPage} /> : null}
+
+      {dataPage ? (
+        <DataServiceSections variant="services" sections={dataPage} />
+      ) : aiPage ? (
+        <AiServiceSections variant="capabilities" sections={aiPage} />
+      ) : (
       <section className={styles.about} aria-labelledby="about-title">
         <Container className={styles.aboutGrid}>
           <div className={styles.splitHeading}>
@@ -64,15 +82,27 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
           </div>
         </Container>
       </section>
+      )}
 
-      <ServiceApproach steps={service.process}
-        heading={service.slug === "rag-knowledge-assistants" ? "From isolated data to production-grade AI intelligence." : service.slug === "ai-agents" ? "From scope definition to supervised agent deployment." : service.slug === "intelligent-automation" ? "From workflow discovery to production-ready automation." : undefined}
-        introduction={service.slug === "rag-knowledge-assistants" ? "A structured 4-step engineering roadmap built to ensure security, high accuracy, and seamless deployment." : service.slug === "ai-agents" ? "A disciplined 4-stage development framework engineered for predictability, security, and measurable performance." : service.slug === "intelligent-automation" ? "A structured 4-step execution framework designed for precision, control, and seamless system integration." : undefined}
+      <ServiceApproach steps={dataPage?.process ?? aiPage?.process ?? service.process}
+        variant={dataPage || aiPage ? "stacked-cards" : "timeline"}
+        heading={dataPage ? "Our process." : aiPage ? "Our process" : undefined}
+        introduction={dataPage ? "A clear delivery path from assessment and design through implementation, validation, and ongoing operation." : aiPage ? "A controlled delivery path from a focused use case through evaluation, deployment, and ongoing improvement." : undefined}
       />
 
-      <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} />
+      {dataPage ? (
+        <DataServiceSections variant="architecture" sections={dataPage} />
+      ) : null}
 
-      <NextServiceBanner id="service-next" currentService={serviceSitemap.find(pillar => pillar.services.some(item => item.slug === service.slug))?.slug} />
+      <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} title={dataPage?.toolsHeading ?? aiPage?.toolsHeading} linkTools={Boolean(aiPage)} />
+
+      {dataPage ? (
+        <DataServiceSections variant="evidence" sections={dataPage} />
+      ) : aiPage ? <AiServiceSections variant="evidence" sections={aiPage} /> : null}
+
+      {dataPage || aiPage ? null : (
+        <NextServiceBanner id="service-next" currentService={serviceSitemap.find(pillar => pillar.services.some(item => item.slug === service.slug))?.slug} />
+      )}
 
       <ContactCta
         eyebrow={`${service.name} consultation`}
