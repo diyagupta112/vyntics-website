@@ -21,7 +21,7 @@ export default function HomePage() {
       <Hero />
       <ClientMarquee />
       <Suspense fallback={<FeaturedWork loading />}><FeaturedWork /></Suspense>
-      <Capabilities />
+      <Capabilities linkCards />
       <Testimonials />
       <Approach />
       <Suspense fallback={<BlogShowcase blogs={[]} loading />}><LatestBlogs /></Suspense>

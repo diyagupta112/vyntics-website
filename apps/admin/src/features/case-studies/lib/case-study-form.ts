@@ -1,3 +1,4 @@
+import type { RelatedService } from "@/lib/content/related-services";
 import type { ApiError } from "@/lib/api/errors";
 
 import type {
@@ -8,6 +9,7 @@ import type {
 } from "../types";
 
 export type CaseStudyFormValues = {
+  relatedService: RelatedService | "";
   title: string;
   slug: string;
   seoTitle: string;
@@ -26,6 +28,7 @@ export type CaseStudyFormErrors = Partial<
 >;
 
 export const emptyCaseStudyForm: CaseStudyFormValues = {
+  relatedService: "",
   title: "",
   slug: "",
   seoTitle: "",
@@ -41,6 +44,7 @@ export const emptyCaseStudyForm: CaseStudyFormValues = {
 
 export function caseStudyToForm(caseStudy: CaseStudy): CaseStudyFormValues {
   return {
+    relatedService: caseStudy.related_service ?? "",
     title: caseStudy.title,
     slug: caseStudy.slug,
     seoTitle: caseStudy.seo_title,
@@ -107,6 +111,7 @@ function commonPayload(values: CaseStudyFormValues) {
     tags: parseList(values.tags),
     featured: values.isFeatured,
     content: contentObject(values.content),
+    related_service: values.relatedService || null,
   };
 }
 
@@ -132,6 +137,7 @@ export function toUpdateRequest(
 }
 
 const fieldMap: Record<string, keyof CaseStudyFormValues> = {
+  related_service: "relatedService",
   title: "title",
   slug: "slug",
   seo_title: "seoTitle",

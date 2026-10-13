@@ -13,7 +13,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
   const service = getPlatformService("data", slug);
-  return service ? { title: service.name, description: service.metadataDescription } : {};
+  return service ? {
+    title: service.name,
+    description: service.metadataDescription,
+    alternates: { canonical: `https://vyntics.com/services/data-engineering/${service.slug}` },
+  } : {};
 }
 
 export default async function DataServiceDetailPage({ params }: ServicePageProps) {

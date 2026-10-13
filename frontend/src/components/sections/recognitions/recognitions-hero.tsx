@@ -1,4 +1,3 @@
-import { ShinyButton } from "@/components/ui/shiny-button";
 import type { ReactNode } from "react";
 import { Container } from "@/components/ui/container";
 import { getBadges } from "@/lib/badges";

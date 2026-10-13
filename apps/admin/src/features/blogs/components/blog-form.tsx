@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useRef, useState } from "react";
 import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
+import { RelatedServiceControl } from "@/components/forms/related-service-control";
+import { slugFromTitle } from "@/lib/content/slug";
 import { FeaturedControl } from "@/components/forms/featured-control";
 import { FormField } from "@/components/forms/form-field";
 import { RichTextEditor } from "@/components/forms/rich-text-editor";
@@ -23,6 +25,7 @@ type Props = { blog?: Blog; createFlow?: boolean; onCreated?: (blog: Blog) => vo
 export function BlogForm({ blog, createFlow = false, onCreated, onSaved }: Props) {
   const router = useRouter();
   const isCreate = !blog;
+  const slugIsManual = useRef(Boolean(blog));
   const [values, setValues] = useState<BlogFormValues>(() => blog ? blogToForm(blog) : emptyBlogForm);
   const [errors, setErrors] = useState<BlogFormErrors>({});
   const [busy, setBusy] = useState(false);
@@ -30,8 +33,17 @@ export function BlogForm({ blog, createFlow = false, onCreated, onSaved }: Props
   const [failure, setFailure] = useState<string>();
 
   function update<K extends keyof BlogFormValues>(field: K, value: BlogFormValues[K]) {
-    setValues((current) => ({ ...current, [field]: value }));
-    setErrors((current) => ({ ...current, [field]: undefined }));
+    if (field === "slug") slugIsManual.current = true;
+    const generatedSlug = field === "title" && !slugIsManual.current
+      ? slugFromTitle(String(value)) : undefined;
+    setValues((current) => ({
+      ...current, [field]: value,
+      ...(generatedSlug !== undefined ? { slug: generatedSlug } : {}),
+    }));
+    setErrors((current) => ({
+      ...current, [field]: undefined,
+      ...(generatedSlug !== undefined ? { slug: undefined } : {}),
+    }));
     setMessage(undefined); setFailure(undefined);
   }
 
@@ -71,6 +83,7 @@ export function BlogForm({ blog, createFlow = false, onCreated, onSaved }: Props
         <FormField htmlFor="category" label="Category" required error={errors.category}><Input id="category" value={values.category} aria-invalid={Boolean(errors.category)} onChange={(e) => update("category", e.target.value)} /></FormField>
         <FormField htmlFor="readTime" label="Read time (minutes)" required error={errors.readTime}><Input id="readTime" inputMode="numeric" type="number" step="1" value={values.readTime} aria-invalid={Boolean(errors.readTime)} onChange={(e) => update("readTime", e.target.value)} /></FormField>
         <FormField htmlFor="status" label="Status" required error={errors.status} hint={isCreate || createFlow ? "Add a cover in Step 2 before publishing." : "FastAPI validates publishing requirements."}><Select id="status" value={values.status} onChange={(e) => update("status", e.target.value as BlogStatus)}><option value="draft">Draft</option>{!isCreate && !createFlow ? <option value="published">Published</option> : null}<option value="unpublished">Unpublished</option></Select></FormField>
+        <RelatedServiceControl id="blog-related-service" value={values.relatedService} onChange={(value) => update("relatedService", value)} error={errors.relatedService} />
         <FeaturedControl id="blog-featured" checked={values.isFeatured} onChange={(checked) => update("isFeatured", checked)} resourceName="blog" error={errors.isFeatured} />
         <div className={styles.full}><FormField htmlFor="excerpt" label="Excerpt" required error={errors.excerpt}><Textarea id="excerpt" value={values.excerpt} aria-invalid={Boolean(errors.excerpt)} onChange={(e) => update("excerpt", e.target.value)} /></FormField></div>
         <div className={styles.full}><FormField htmlFor="content" label="Content" required error={errors.content} hint="Use the toolbar to structure and format the article."><RichTextEditor id="content" invalid={Boolean(errors.content)} value={values.content} onChange={(value) => update("content", value)} /></FormField></div>

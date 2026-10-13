@@ -89,14 +89,7 @@
   min-height: 3.25rem;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-}
-
-.number {
-  color: var(--color-muted);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  justify-content: flex-end;
 }
 
 .icon {

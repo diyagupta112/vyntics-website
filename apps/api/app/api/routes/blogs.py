@@ -20,6 +20,7 @@ from app.services.blogs import (
     BlogSlugConflictError,
     BlogValidationError,
 )
+from app.schemas.related_services import ServiceIdentifier
 from app.storage.supabase import StorageError
 from app.storage.uploads import UploadValidationError
 
@@ -46,10 +47,13 @@ async def preview_blogs(request: Request, service: BlogServiceDependency) -> dic
 
 
 @router.get("", response_model=BlogListResponse)
-async def list_blogs(service: BlogServiceDependency) -> BlogListResponse:
+async def list_blogs(
+    service: BlogServiceDependency,
+    related_service: ServiceIdentifier | None = None,
+) -> BlogListResponse:
     """List published Blogs ordered by publication time descending."""
 
-    blogs = await service.list_published()
+    blogs = await service.list_published(related_service=related_service) if related_service is not None else await service.list_published()
     return BlogListResponse(data=blogs)
 
 

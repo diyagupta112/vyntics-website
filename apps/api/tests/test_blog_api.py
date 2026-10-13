@@ -99,6 +99,7 @@ def test_get_blogs_uses_public_list_contract(blog_api) -> None:
     ]
     assert set(response.json()["data"][0]) == {
         "id",
+        "related_service",
         "is_featured",
         "slug",
         "title",
@@ -147,6 +148,7 @@ def test_get_admin_blogs_returns_all_statuses_with_admin_contract(blog_api) -> N
         set(item)
         == {
             "id",
+            "related_service",
             "is_featured",
             "slug",
             "title",
@@ -206,6 +208,7 @@ def test_create_blog_returns_confirmed_admin_contract(blog_api) -> None:
     assert response.status_code == 201
     assert set(response.json()) == {
         "id",
+        "related_service",
         "is_featured",
         "slug",
         "title",

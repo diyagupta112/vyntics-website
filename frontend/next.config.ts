@@ -33,7 +33,7 @@ const nextConfig: NextConfig = {
       { source: "/services/cloud/cloud-migration", destination: "/services/cloud/cloud-architecture-migration", permanent: true },
       { source: "/services/cloud/devops-infrastructure", destination: "/services/cloud/devops-reliability", permanent: true },
       { source: "/services/cloud/reliability-monitoring", destination: "/services/cloud/devops-reliability", permanent: true },
-      { source: "/services/cloud/cost-optimization", destination: "/services/cloud/cloud-cost-optimisation", permanent: true },
+      { source: "/services/cloud/cost-optimization", destination: "/services/cloud-foundations/cloud-cost-optimization", permanent: true },
     ];
     const redirectsBySource = new Map(redirects.map((redirect) => [redirect.source, redirect]));
     for (const [source, destination] of Object.entries(legacyServiceRoutes)) {

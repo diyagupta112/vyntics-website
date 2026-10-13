@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useRef, useState } from "react";
 import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
+import { RelatedServiceControl } from "@/components/forms/related-service-control";
+import { slugFromTitle } from "@/lib/content/slug";
 import { FeaturedControl } from "@/components/forms/featured-control";
 import { FormField } from "@/components/forms/form-field";
 import { RichTextEditor } from "@/components/forms/rich-text-editor";
@@ -38,6 +40,7 @@ type Props = {
 export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSaved }: Props) {
   const router = useRouter();
   const isCreate = !caseStudy;
+  const slugIsManual = useRef(Boolean(caseStudy));
   const [values, setValues] = useState<CaseStudyFormValues>(() =>
     caseStudy ? caseStudyToForm(caseStudy) : emptyCaseStudyForm,
   );
@@ -47,8 +50,17 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
   const [failure, setFailure] = useState<string>();
 
   function update<K extends keyof CaseStudyFormValues>(field: K, value: CaseStudyFormValues[K]) {
-    setValues((current) => ({ ...current, [field]: value }));
-    setErrors((current) => ({ ...current, [field]: undefined }));
+    if (field === "slug") slugIsManual.current = true;
+    const generatedSlug = field === "title" && !slugIsManual.current
+      ? slugFromTitle(String(value)) : undefined;
+    setValues((current) => ({
+      ...current, [field]: value,
+      ...(generatedSlug !== undefined ? { slug: generatedSlug } : {}),
+    }));
+    setErrors((current) => ({
+      ...current, [field]: undefined,
+      ...(generatedSlug !== undefined ? { slug: undefined } : {}),
+    }));
     setMessage(undefined);
     setFailure(undefined);
   }
@@ -170,6 +182,7 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
               <option value="unpublished">Unpublished</option>
             </Select>
           </FormField>
+          <RelatedServiceControl id="case-study-related-service" value={values.relatedService} onChange={(value) => update("relatedService", value)} error={errors.relatedService} />
           <FeaturedControl
             id="caseStudy-featured"
             checked={values.isFeatured}

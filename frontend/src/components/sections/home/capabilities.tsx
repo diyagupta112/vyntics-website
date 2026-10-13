@@ -7,7 +7,6 @@ import styles from "./capabilities.module.css";
 
 const capabilities = [
   {
-    number: "01",
     anchor: "services-ai",
     href: "/services/ai-solutions",
     shortLabel: "AI",
@@ -17,7 +16,6 @@ const capabilities = [
       "AI that answers from your data and cites where it got each answer. Our RAG systems run at 95%+ accuracy in production.",
   },
   {
-    number: "02",
     anchor: "services-data",
     href: "/services/data-engineering",
     shortLabel: "DATA",
@@ -27,7 +25,6 @@ const capabilities = [
       "We pull your scattered data into one clean, reliable place: pipelines, ETL and a cloud warehouse your team can query.",
   },
   {
-    number: "03",
     anchor: "services-analytics",
     href: "/services/analytics-bi",
     shortLabel: "BI",
@@ -37,7 +34,6 @@ const capabilities = [
       "Dashboards in Power BI, Tableau or QuickSight, built around metrics your team has agreed on, so nobody argues about whose number is right.",
   },
   {
-    number: "04",
     anchor: "services-cloud",
     href: "/services/cloud-foundations",
     shortLabel: "CLOUD",
@@ -47,14 +43,13 @@ const capabilities = [
       "We set up, move and tune your systems on AWS, GCP or Azure, sized to what you actually run so you stop paying for idle capacity.",
   },
   {
-    number: "05",
     anchor: "services-others",
-    href: "/services/other",
-    shortLabel: "MORE",
-    scope: "APIs · Integrations · Consulting",
-    title: "Backend & Integrations",
+    href: "/services/crm-revenue-ops",
+    shortLabel: "CRM",
+    scope: "CRM · Automation · Revenue Analytics",
+    title: "CRM & Revenue Operations",
     description:
-      "Backend services, API integrations and workflow automation, plus hands-on engineering help when your team needs an extra pair of hands.",
+      "We connect your CRM, sales workflows, and reporting so your team can follow every opportunity and act on reliable revenue data.",
   },
 ] as const;
 
@@ -103,7 +98,7 @@ export function Capabilities({ showHeading = true, linkCards = false, cardsOnly 
             <Card
               id={capability.anchor}
               className={styles.card}
-              key={capability.number}
+              key={capability.anchor}
               tabIndex={0}
               href={linkCards ? capability.href : undefined}
               role={linkCards ? undefined : "button"}
@@ -123,7 +118,6 @@ export function Capabilities({ showHeading = true, linkCards = false, cardsOnly 
               }}
             >
               <div className={styles.cardTop} aria-hidden="true">
-                <span className={styles.number}>{capability.number}</span>
                 <span className={styles.icon}>{capability.shortLabel}</span>
               </div>
               <div className={styles.cardCopy}>

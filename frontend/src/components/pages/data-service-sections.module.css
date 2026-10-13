@@ -1,0 +1,70 @@
+.problems, .services, .architecture, .results, .proof, .engagements, .insights, .faqs, .related { padding-block: clamp(4rem, 7vw, 6.5rem); }
+.problems, .results, .insights, .related { background: color-mix(in srgb, var(--color-surface) 94%, var(--color-primary)); }
+.eyebrow { color: var(--color-primary); font-size: .72rem; font-weight: 760; letter-spacing: .16em; text-transform: uppercase; }
+.heading { max-width: 52rem; }
+.heading h2, .proof h2, .faqLayout h2 { margin-top: .7rem; font-size: clamp(2rem, 3.8vw, 3.6rem); line-height: 1.04; letter-spacing: -.05em; text-wrap: balance; }
+.heading > p:last-child { max-width: 45rem; margin-top: 1.1rem; color: var(--color-muted); line-height: 1.75; }
+.problemGrid { margin-top: clamp(2.25rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--color-border); }
+.problemGrid article { min-height: 17rem; padding: 1.8rem; border-left: 1px solid var(--color-border); }
+.problemGrid article:last-child { border-right: 1px solid var(--color-border); }
+.problemGrid span, .engagementGrid > li > span { color: var(--color-primary); font-size: .7rem; font-weight: 760; letter-spacing: .12em; }
+.problemGrid h3 { margin-top: 4rem; font-size: 1.12rem; letter-spacing: -.025em; }
+.problemGrid p, .resultGrid p, .engagementGrid p, .insightGrid p, .relatedGrid p { margin-top: .7rem; color: var(--color-muted); font-size: .9rem; line-height: 1.65; }
+.serviceGroups { display: grid; gap: clamp(4rem, 8vw, 7rem); }
+.serviceGrid { margin-top: 2.5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--color-border); }
+.serviceGrid article { min-height: 14rem; padding: 1.6rem; border-left: 1px solid var(--color-border); }
+.serviceGrid article:last-child { border-right: 1px solid var(--color-border); }
+.serviceGrid article > span { color: var(--color-primary); font-size: .68rem; font-weight: 760; letter-spacing: .12em; }
+.serviceGrid h3 { margin-top: 3rem; font-size: 1.12rem; }
+.serviceGrid p { margin-top: .7rem; color: var(--color-muted); font-size: .9rem; line-height: 1.65; }
+.architectureFlow { margin-top: clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); list-style: none; }
+.architectureFlow li { position: relative; min-height: 10rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; border: 1px solid var(--color-border); background: var(--color-surface); }
+.architectureFlow li + li { border-left: 0; }
+.architectureFlow span { color: var(--color-primary); font-size: .68rem; font-weight: 760; }
+.architectureFlow strong { max-width: 13ch; font-size: 1rem; line-height: 1.35; }
+.architectureFlow svg { position: absolute; z-index: 1; top: 50%; right: -.65rem; width: 1.3rem; padding: .2rem; color: var(--color-primary); background: var(--color-surface); fill: none; stroke: currentColor; stroke-width: 1.5; }
+.resultGrid { margin-top: clamp(2.25rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.resultGrid article { min-height: 12rem; padding: 1.5rem; border: 1px solid var(--color-border); border-radius: .9rem; background: var(--color-surface); }
+.resultGrid h3 { font-size: 1.1rem; }
+.proofLayout { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 8vw, 8rem); align-items: end; }
+.proofLayout > div:last-child > p { color: var(--color-muted); line-height: 1.75; }
+.proof a, .insightGrid strong, .relatedGrid span { margin-top: 1.5rem; display: inline-flex; align-items: center; gap: .45rem; color: var(--color-primary); font-size: .82rem; font-weight: 740; }
+.proof svg, .insightGrid svg, .relatedGrid svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 1.6; transition: transform 180ms ease; }
+.engagementGrid { margin-top: 3rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; border-top: 1px solid var(--color-border); }
+.engagementGrid li { min-height: 14rem; padding: 1.75rem; border-bottom: 1px solid var(--color-border); border-right: 1px solid var(--color-border); }
+.engagementGrid li:first-child { border-left: 1px solid var(--color-border); }
+.engagementGrid h3 { margin-top: 3rem; font-size: 1.18rem; }
+.insightGrid, .relatedGrid { margin-top: 3rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.insightGrid > a, .relatedGrid > a { min-height: 17rem; padding: 1.6rem; border: 1px solid var(--color-border); border-radius: .9rem; background: var(--color-surface); transition: transform 180ms ease, border-color 180ms ease; }
+.insightGrid > a > span { color: var(--color-primary); font-size: .68rem; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; }
+.insightGrid h3, .relatedGrid h3 { max-width: 28ch; margin-top: 2.5rem; font-size: 1.25rem; line-height: 1.3; }
+.faqLayout { display: grid; grid-template-columns: minmax(15rem, .7fr) minmax(0, 1.3fr); gap: clamp(2rem, 8vw, 8rem); align-items: start; }
+.faqList { border-top: 1px solid var(--color-border); }
+.faqList details { border-bottom: 1px solid var(--color-border); }
+.faqList summary { padding-block: 1.3rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; list-style: none; }
+.faqList summary::-webkit-details-marker { display: none; }
+.faqList h3 { font-size: 1rem; line-height: 1.45; }
+.faqList summary span { color: var(--color-primary); font-size: 1.5rem; font-weight: 300; transition: transform 180ms ease; }
+.faqList details[open] summary span { transform: rotate(45deg); }
+.faqList details > p { max-width: 44rem; padding: 0 2rem 1.4rem 0; color: var(--color-muted); font-size: .92rem; line-height: 1.7; }
+.relatedGrid > a { min-height: 14rem; }
+@media (hover: hover) and (pointer: fine) {
+  .insightGrid > a:hover, .relatedGrid > a:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border)); }
+  .proof a:hover svg, .insightGrid a:hover svg, .relatedGrid a:hover svg { transform: translateX(.25rem); }
+}
+@media (max-width: 960px) {
+  .problemGrid { grid-template-columns: repeat(2, 1fr); }
+  .problemGrid article:nth-child(odd) { border-left: 1px solid var(--color-border); }
+  .problemGrid article:nth-child(even) { border-right: 1px solid var(--color-border); }
+  .architectureFlow { grid-template-columns: 1fr; }
+  .architectureFlow li + li { border-top: 0; border-left: 1px solid var(--color-border); }
+  .architectureFlow svg { top: auto; right: 1rem; bottom: -.65rem; transform: rotate(90deg); }
+  .proofLayout, .faqLayout { grid-template-columns: 1fr; }
+  .serviceGrid { grid-template-columns: 1fr; }
+  .serviceGrid article, .serviceGrid article:last-child { border-inline: 1px solid var(--color-border); }
+}
+@media (max-width: 680px) {
+  .problemGrid, .resultGrid, .engagementGrid, .insightGrid, .relatedGrid { grid-template-columns: 1fr; }
+  .problemGrid article, .problemGrid article:last-child, .engagementGrid li, .engagementGrid li:first-child { border-inline: 1px solid var(--color-border); }
+  .problemGrid h3, .engagementGrid h3 { margin-top: 2.25rem; }
+}

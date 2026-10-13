@@ -15,6 +15,7 @@ from app.db.models.blog import Blog
 from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.blogs import BlogRepository
 from app.schemas.blogs import BlogCreateRequest, BlogUpdateRequest
+from app.schemas.related_services import ServiceIdentifier
 from app.storage.supabase import StorageConfigurationError, StorageError
 from app.storage.uploads import PublicImageStorage
 
@@ -52,9 +53,11 @@ class BlogService:
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._image_storage = image_storage
 
-    async def list_published(self) -> list[Blog]:
+    async def list_published(self, *, related_service: ServiceIdentifier | None = None) -> list[Blog]:
         """Return Blogs eligible for the public listing."""
 
+        if related_service is not None:
+            return await self._blogs.list_published(related_service=related_service)
         return await self._blogs.list_published()
 
     async def list_all(self) -> list[Blog]:

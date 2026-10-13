@@ -19,6 +19,7 @@ from app.services.case_studies import (
     CaseStudySlugConflictError,
     CaseStudyValidationError,
 )
+from app.schemas.related_services import ServiceIdentifier
 from app.storage.supabase import StorageError
 from app.storage.uploads import UploadValidationError
 
@@ -32,10 +33,11 @@ admin_router = APIRouter(
 @router.get("", response_model=CaseStudyListResponse)
 async def list_case_studies(
     service: CaseStudyServiceDependency,
+    related_service: ServiceIdentifier | None = None,
 ) -> CaseStudyListResponse:
     """List published Case Studies ordered by publication time descending."""
 
-    case_studies = await service.list_published()
+    case_studies = await service.list_published(related_service=related_service) if related_service is not None else await service.list_published()
     return CaseStudyListResponse(data=case_studies)
 
 

@@ -10,6 +10,8 @@ import { siteConfig } from "@/config/site";
 import type { NavigationChild, NavigationItem } from "@/types/navigation";
 import styles from "./site-header.module.css";
 
+const MENU_CLOSE_DELAY_MS = 180;
+
 function matchesRoute(pathname: string, href: string) {
   if (!href.startsWith("/") || href.includes("#")) return false;
   return pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
@@ -39,8 +41,32 @@ function MenuIcon({ open }: { open: boolean }) {
 function ServiceSubmenu({ child, close }: { child: NavigationChild; close: () => void }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const id = `service-submenu-${child.label.toLowerCase().replace(/\s+/g, "-")}`;
-  return <div className={styles.serviceGroup} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)} onFocus={() => setOpen(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
+
+  const cancelClose = () => {
+    if (closeTimer.current !== null) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
+  };
+
+  const openSubmenu = () => {
+    cancelClose();
+    setOpen(true);
+  };
+
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => {
+      setOpen(false);
+      closeTimer.current = null;
+    }, MENU_CLOSE_DELAY_MS);
+  };
+
+  useEffect(() => cancelClose, []);
+
+  return <div className={styles.serviceGroup} onMouseEnter={openSubmenu} onMouseLeave={scheduleClose} onFocus={openSubmenu} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}>
     <div className={styles.serviceRow} data-current={isCurrentItem(pathname, child)}>
       {child.headingOnly ? (
         child.headingLink ? (
@@ -48,9 +74,9 @@ function ServiceSubmenu({ child, close }: { child: NavigationChild; close: () =>
             <strong>{child.label}</strong><small>{child.description}</small>
           </Link>
         ) : (
-          <div className={styles.serviceLabel}>
+          <button className={styles.serviceLabel} type="button" aria-expanded={open} aria-controls={id} onClick={openSubmenu}>
             <strong>{child.label}</strong><small>{child.description}</small>
-          </div>
+          </button>
         )
       ) : (
         <><Link className={styles.dropdownLink} href={child.href} onClick={close}><span>{child.label}</span><small>{child.description}</small></Link><button type="button" className={styles.submenuToggle} aria-label={`Show ${child.label} services`} aria-expanded={open} aria-controls={id} onClick={() => setOpen((value) => !value)}><ChevronIcon /></button></>
@@ -87,7 +113,7 @@ function DesktopMenuItem({
           className={styles.navTrigger}
           type="button"
           aria-expanded={isOpen}
-          onClick={() => setActive(isOpen ? null : item.label)}
+          onClick={() => setActive(item.label)}
         >
           <span>{item.label}</span>
           <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.18 }}>
@@ -131,6 +157,22 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const menuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cancelMenuClose = () => {
+    if (menuCloseTimer.current !== null) {
+      clearTimeout(menuCloseTimer.current);
+      menuCloseTimer.current = null;
+    }
+  };
+
+  const scheduleMenuClose = () => {
+    cancelMenuClose();
+    menuCloseTimer.current = setTimeout(() => {
+      setActive(null);
+      menuCloseTimer.current = null;
+    }, MENU_CLOSE_DELAY_MS);
+  };
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
@@ -141,7 +183,10 @@ export function SiteHeader() {
     };
 
     window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+    return () => {
+      window.removeEventListener("keydown", closeOnEscape);
+      cancelMenuClose();
+    };
   }, []);
 
   useEffect(() => {
@@ -196,7 +241,8 @@ export function SiteHeader() {
           <nav
             className={styles.desktopNav}
             aria-label="Primary navigation"
-            onMouseLeave={() => setActive(null)}
+            onMouseEnter={cancelMenuClose}
+            onMouseLeave={scheduleMenuClose}
             onBlur={(event) => {
               if (!event.currentTarget.contains(event.relatedTarget)) setActive(null);
             }}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useReducedMotion } from "motion/react";
+import Image from "next/image";
 import { useEffect, useState, type FocusEvent } from "react";
 import { Container } from "@/components/ui/container";
 import styles from "./testimonials.module.css";
@@ -11,6 +12,9 @@ type Testimonial = {
   role: string;
   company?: {
     name: string;
+    logoSrc: string;
+    logoWidth: number;
+    logoHeight: number;
     logoClass: string;
   };
 };
@@ -20,19 +24,19 @@ const testimonials: Testimonial[] = [
     text: "Arun and the Vyntics team transformed our data workflows. They developed a seamless, automated ingestion engine that streamlined our entire reporting process while remaining timely and budget-conscious. Their technical mastery of Cloud Data Warehousing makes them an indispensable partner.",
     name: "Mona McCormick",
     role: "Business & Royalty Analytics, SMGQ Law",
-    company: { name: "SMGQ Law", logoClass: styles.smgqLogo },
+    company: { name: "SMGQ Law", logoSrc: "/images/clients/smgqlogo-transparent.png", logoWidth: 1549, logoHeight: 1015, logoClass: styles.smgqLogo },
   },
   {
     text: "Vyntics team seamlessly transitioned our workforce to a fully remote AWS environment. Their technical precision and reliability made a complex migration feel effortless. they will be our first choice as we expand into advanced data analytics.",
     name: "Sergio Iturbe",
     role: "Managing Director, ITURBE PROPERTIES",
-    company: { name: "Iturbe Properties", logoClass: styles.iturbeLogo },
+    company: { name: "Iturbe Properties", logoSrc: "/images/clients/iturbelogo-transparent.png", logoWidth: 1774, logoHeight: 887, logoClass: styles.iturbeLogo },
   },
   {
     text: "Vyntics transformed our raw data into a powerful decision-making tool. Arun’s proactive approach to understanding our requirements resulted in comprehensive dashboards that far exceeded our expectations. Their technical intensity and commitment to excellence made them a pleasure to work with. A top-tier partner for data analytics.",
     name: "Balazs",
     role: "Founder & CEO, Rollout IT",
-    company: { name: "Rollout IT", logoClass: styles.rolloutLogo },
+    company: { name: "Rollout IT", logoSrc: "/images/clients/rolloutitlogo-transparent.png", logoWidth: 2035, logoHeight: 773, logoClass: styles.rolloutLogo },
   },
 ];
 
@@ -51,8 +55,15 @@ function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
 
   if (company) {
     return (
-      <span className={`${styles.avatar} ${styles.companyAvatar}`} aria-label={`${company.name} logo`}>
-        <span className={`${styles.companyLogo} ${company.logoClass}`} aria-hidden="true" />
+      <span className={styles.companyAvatar}>
+        <Image
+          alt={`${company.name} logo`}
+          className={`${styles.companyLogo} ${company.logoClass}`}
+          height={company.logoHeight}
+          sizes="7rem"
+          src={company.logoSrc}
+          width={company.logoWidth}
+        />
       </span>
     );
   }
@@ -106,7 +117,7 @@ export function Testimonials() {
       <Container>
         <div className={styles.headingBlock}>
           <p className={styles.eyebrow}>In their own words</p>
-          <h2 id="testimonials-title">Straight from our customers</h2>
+          <h2 id="testimonials-title">Straight from our clients</h2>
           <p>Learn how carefully designed systems help teams optimize their operations.</p>
         </div>
 

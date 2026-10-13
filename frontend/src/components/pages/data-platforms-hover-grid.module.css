@@ -1,0 +1,111 @@
+.grid {
+  margin-top: clamp(1.35rem, 2.5vh, 2rem);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  position: relative;
+  min-height: clamp(9.75rem, 19vh, 10.75rem);
+  overflow: hidden;
+  color: inherit;
+  border: 1px solid color-mix(in srgb, var(--color-foreground) 12%, var(--color-border));
+  border-radius: 1rem;
+  background: var(--color-surface);
+  box-shadow: 0 .8rem 2.25rem rgb(11 11 15 / 4%);
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.hoverBackground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  border: 1px solid color-mix(in srgb, var(--color-primary) 34%, var(--color-border));
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--color-primary) 5%, var(--color-surface));
+  box-shadow: 0 1rem 2.75rem color-mix(in srgb, var(--color-primary) 9%, transparent);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  min-height: clamp(9.75rem, 19vh, 10.75rem);
+  padding: clamp(1rem, 1.7vh, 1.25rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.icon {
+  width: 2.35rem;
+  height: 2.35rem;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+  border-radius: .7rem;
+  background: color-mix(in srgb, var(--color-primary) 10%, var(--color-surface));
+}
+
+.icon svg {
+  width: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.role {
+  color: var(--color-primary);
+  font-size: .62rem;
+  font-weight: 760;
+  letter-spacing: .1em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.content strong {
+  margin-top: clamp(.75rem, 1.5vh, 1rem);
+  font-size: 1.1rem;
+  letter-spacing: -.03em;
+}
+
+.description {
+  margin-top: .45rem;
+  color: var(--color-muted);
+  font-size: .82rem;
+  line-height: 1.48;
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: color-mix(in srgb, var(--color-primary) 36%, var(--color-border));
+  box-shadow: 0 1rem 2.75rem color-mix(in srgb, var(--color-primary) 8%, rgb(11 11 15 / 4%));
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+}

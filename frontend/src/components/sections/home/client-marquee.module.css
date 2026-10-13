@@ -27,42 +27,35 @@
 
 .logoItem {
   min-width: 0;
-  min-height: 6rem;
+  min-height: 7.5rem;
   display: grid;
   place-items: center;
+  padding: 0.75rem;
 }
 
 .logo {
-  position: relative;
-  z-index: 1;
-  width: 13.125rem;
-  height: 4.75rem;
   display: block;
-  background-image: url("/images/client-logos-source.png");
-  background-repeat: no-repeat;
-  background-size: 1407px 305px;
+  width: auto;
+  height: auto;
+  max-width: 100%;
   filter: var(--client-logo-filter);
-  mix-blend-mode: multiply;
-}
-
-:global(html[data-theme="dark"]) .logo {
-  mix-blend-mode: screen;
+  object-fit: contain;
 }
 
 .proEd {
-  background-position: -146px -127px;
+  width: 12rem;
 }
 
 .iturbe {
-  background-position: -427px -127px;
+  width: 9.5rem;
 }
 
 .rollout {
-  background-position: -701px -127px;
+  width: 13.5rem;
 }
 
 .smgq {
-  background-position: -985px -127px;
+  width: 10.25rem;
 }
 
 @media (max-width: 800px) {
@@ -87,6 +80,11 @@
 
   .logos {
     gap: 1.5rem 1rem;
+  }
+
+  .logoItem {
+    min-height: 7rem;
+    padding-inline: 0.5rem;
   }
 }
 
