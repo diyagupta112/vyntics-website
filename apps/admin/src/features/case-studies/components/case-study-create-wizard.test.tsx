@@ -36,6 +36,7 @@ describe("CaseStudyCreateWizard", () => {
     await waitFor(() => expect(caseStudiesApi.update).toHaveBeenCalledWith("study-1", expect.objectContaining({ title: "Updated Platform" })));
     expect(caseStudiesApi.create).toHaveBeenCalledTimes(1);
     expect(caseStudiesApi.create).toHaveBeenCalledWith(expect.objectContaining({ featured: true }));
+    await screen.findByRole("heading", { name: "Add Cover Image" });
     const file = new File(["image"], "cover.webp", { type: "image/webp" });
     fireEvent.change(screen.getByLabelText("Choose Case Study cover image"), { target: { files: [file] } });
     await waitFor(() => expect(caseStudiesApi.uploadCover).toHaveBeenCalledWith("study-1", file));

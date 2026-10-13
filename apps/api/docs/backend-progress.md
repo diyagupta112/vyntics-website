@@ -9,7 +9,8 @@ focused, real PostgreSQL, startup/health, and OpenAPI checks. Live Storage-provi
 verification remains pending.
 
 FAQ page association and Testimonials backend contracts are implemented and
-verified; applying the new production migration and deploying remain pending.
+verified. The existing shared migration is now applied to the configured database;
+application deployments remain separate.
 
 Automatic content slugs and Related Service targeting are implemented and
 verified across the API, Admin Panel, and public website; the new live migration
@@ -1161,7 +1162,8 @@ Case Study schema blocker was resolved in the data-loading correction below.
 
 ## FAQs and Testimonials backend contracts — 2026-10-13
 
-**Status:** Implemented and verified; production migration/deployment pending.
+**Status:** Implemented and verified; shared migration applied to the configured
+database during the FAQ creation diagnosis below. Deployments remain separate.
 
 - [x] Inspected existing content models, migrations, repositories, services,
   auth/audit dependencies, and public/admin API patterns. Neither new resource
@@ -1210,8 +1212,9 @@ Case Study schema blocker was resolved in the data-loading correction below.
 - [x] Created `20261013120000_create_faqs_and_testimonials.sql`, with NOT NULL
   fields, page/nonblank text CHECK constraints, ordering indexes, and triggers
   reusing `public.set_updated_at()`. It creates only the two resource tables;
-  existing production content is not modified. The migration has only been
-  exercised in a disposable PostgreSQL schema, not applied to production.
+  existing production content is not modified. Initial verification exercised
+  the migration in a disposable PostgreSQL schema; it was subsequently applied
+  to the configured database during the FAQ creation diagnosis below.
 - [x] Passed 97 focused new contract/model checks, then the full backend suite:
   941 passed, 28 opt-in database tests skipped. The new real PostgreSQL migration
   and HTTP lifecycle test passed separately, covering all five service keys,
@@ -1224,8 +1227,8 @@ Case Study schema blocker was resolved in the data-loading correction below.
   `services/cloud-foundations`, `services/data-engineering`,
   `services/analytics-bi`, `services/ai-solutions`, and
   `services/crm-revenue-ops`. These are examples, never the database value set.
-- [ ] Apply the migration before deploying this backend. Admin/public integration
-  is intentionally deferred. No frontend changes, Git operations, deployments,
+- [x] Applied the existing migration to the configured database during the FAQ
+  creation diagnosis below. This original backend phase deferred UI integration. No frontend changes, Git operations, deployments,
   secret output, or manual production data modifications were performed.
 
 ## Testimonial company-logo Storage support — 2026-10-13
@@ -1271,6 +1274,54 @@ Case Study schema blocker was resolved in the data-loading correction below.
   The pre-existing Testimonials table migration remains required wherever the
   table is absent. No production migration, deployments, frontend changes, or
   Git operations were performed.
+
+## FAQ creation failure — migration diagnosis and correction — 2026-10-13
+
+**Status:** Root cause corrected and configured-database create flow verified.
+
+- [x] Read the Admin Panel FAQ form/API client, canonical page options, shared
+  bearer-token client, backend routes/auth, schemas, model, repository, service,
+  audit transaction, and existing migration without changing application code.
+  The configured Admin Panel API origin is http://localhost:8000. Its POST /faqs
+  payload uses stable page keys, trimmed question/answer, integer display_order,
+  and boolean is_active. Admin list responses are correctly consumed as arrays.
+- [x] Reproduced POST /faqs against the configured DB with an isolated test-auth
+  context: 500 {"detail":"Unable to process FAQ request."}. PostgreSQL raised
+  UndefinedTable / SQLSTATE 42P01: relation "faqs" does not exist. Running
+  GET /faqs also returned the same 500. The FAQ insert failed before audit
+  insertion; authorization, page validation, and frontend payload were not
+  the cause of this reproduced failure.
+- [x] Confirmed public.faqs and public.testimonials were absent, shared migration
+  20261013120000 was not recorded, and public.set_updated_at() existed. Applied
+  exactly 20261013120000_create_faqs_and_testimonials.sql unchanged, using the
+  existing configured PostgreSQL connection and Supabase SQL/ledger workflow.
+  Both missing tables and the migration ledger entry committed atomically.
+  No existing tables/records or application implementations were modified.
+- [x] Verified all eight FAQ columns, nullability/defaults, UUID generation,
+  page/nonblank CHECK constraints, primary key, ordering index, timestamp trigger,
+  and exactly one ledger entry. No duplicate migration or table was created.
+- [x] Verified HTTP create for all five canonical service keys returns 201 on
+  the configured database. Real active normal-admin mapping, FK-backed audit
+  inserts, admin array reads, public filtered envelope reads, PATCH omission,
+  DELETE/404, and seven audit events passed. Invalid labels/URLs/query/fragment,
+  missing fields, and required-field null returned 422; missing token returned
+  401. Supabase token verification alone was mocked in the test process; the
+  deployed dependency/code was unchanged and the browser's token was not captured.
+- [x] Wrapped diagnostic creates/updates/deletes/audits in an outer PostgreSQL
+  transaction with savepoints and rolled it back. Aggregate FAQ/audit counts
+  matched before/after; no permanent diagnostic rows were retained. Running
+  /health, /faqs, and /openapi.json now return 200 without a code change/restart;
+  FAQ mutation security remains present in OpenAPI.
+- [x] Focused FAQ/shared contract and authentication checks: 136 passed. Full
+  backend suite: 989 passed, 28 opt-in DB tests skipped. The existing disposable
+  PostgreSQL FAQ/Testimonial HTTP lifecycle test passed separately (1 passed).
+  Compile checks passed. Only the existing Starlette test-client deprecation
+  warning remains.
+- [x] No Admin Panel changes are required. No backend code, public frontend,
+  testimonial implementation, migration file, or Git operations were changed.
+  The normal browser-session FAQ submission can be retried against the already
+  running configured backend; authenticated browser submission itself was not
+  observed in this diagnostic session.
 
 ## Validation
 

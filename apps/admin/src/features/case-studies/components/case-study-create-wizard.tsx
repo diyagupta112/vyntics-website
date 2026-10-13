@@ -1,5 +1,8 @@
 "use client";
 
+import { PreviewAction } from "@/components/preview/preview-action";
+import { caseStudySnapshot } from "@/components/preview/snapshot";
+import { caseStudyToForm } from "../lib/case-study-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { CreateFlowActions, TwoStepCreateFlow } from "@/components/create-flow/two-step-create-flow";
@@ -21,6 +24,7 @@ export function CaseStudyCreateWizard() {
   return <TwoStepCreateFlow currentStep={step} steps={steps}>
     {step === 1 ? <CaseStudyForm caseStudy={caseStudy} createFlow onCreated={advance} onSaved={advance} /> : caseStudy ? <>
       <CoverImageControl caseStudy={caseStudy} onBusyChange={setImageBusy} onChanged={setCaseStudy} />
+      <div><PreviewAction build={() => caseStudySnapshot(caseStudyToForm(caseStudy), caseStudy)} /></div>
       <CreateFlowActions backLabel="← Back" busy={imageBusy} busyLabel="Uploading…" onBack={() => setStep(1)} onPrimary={() => router.push(`/case-studies/${caseStudy.id}/edit?created=1`)} primaryLabel="Save & Finish" />
     </> : null}
   </TwoStepCreateFlow>;

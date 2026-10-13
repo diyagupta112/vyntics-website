@@ -21,6 +21,8 @@
 .compactPanel { align-items: center; justify-content: flex-start; padding: clamp(2rem, 3.5vw, 3.25rem) 0; }
 .imageFrame { position: relative; width: 100%; min-height: 35rem; overflow: hidden; border: 1px solid var(--color-border); border-radius: .8rem; background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface)); box-shadow: 0 1rem 2.5rem rgb(11 11 15 / 10%); }
 .compactImageFrame { width: 100%; min-height: 27rem; flex: 0 0 auto; }
+.withPoints { display: flex; flex-direction: column; justify-content: flex-end; }
+.withPoints .panelContent { position: relative; inset: auto; max-width: none; padding: 1.75rem 1.6rem 1.75rem clamp(2rem, 7vw, 4.5rem); }
 .imageFrame img { object-fit: cover; }
 .imageFrame::after { position: absolute; inset: 0; z-index: 1; content: ""; background: linear-gradient(180deg, rgb(4 13 30 / 22%) 0%, rgb(4 13 30 / 58%) 42%, rgb(4 13 30 / 94%) 100%); pointer-events: none; }
 .panelContent { position: absolute; right: clamp(1.5rem, 3vw, 2.5rem); bottom: clamp(1.5rem, 3vw, 2.5rem); left: clamp(1.5rem, 3vw, 2.5rem); z-index: 2; max-width: 40rem; color: #fff; }
@@ -60,9 +62,15 @@
   .imageFrame { min-height: 39rem; }
   .panelContent { right: 1.25rem; bottom: 1.25rem; left: 1.25rem; }
   .compactPanelContent { right: 1.25rem; bottom: 1.25rem; left: 1.25rem; }
+  .withPoints .panelContent { padding: 1.25rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .serviceTab, .panelContent > a svg { transition: none; }
   .servicePanel { animation: none; }
+  .progress { animation: none; }
 }
+
+.progress[data-paused="true"] { animation-play-state:paused; }
+.railHeading button { padding:.3rem 0; color:var(--color-muted); border:0; background:transparent; font:inherit; font-size:.7rem; cursor:pointer; }
+.railHeading button:focus-visible,.serviceTab:focus-visible { outline:2px solid var(--color-primary); outline-offset:3px; }

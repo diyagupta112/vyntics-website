@@ -1,5 +1,7 @@
 "use client";
 
+import { PreviewAction } from "@/components/preview/preview-action";
+import { blogSnapshot } from "@/components/preview/snapshot";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useRef, useState } from "react";
@@ -98,6 +100,7 @@ export function BlogForm({ blog, createFlow = false, onCreated, onSaved }: Props
     </section>
     {failure ? <div className={styles.feedback} role="alert"><strong>Changes were not saved</strong><p>{failure}</p></div> : null}
     {message ? <div className={styles.feedback} role="status"><strong>Saved</strong><p>{message}</p></div> : null}
+    <div className={styles.formActions}><PreviewAction build={() => blogSnapshot(values, blog)} /></div>
     {createFlow ? <CreateFlowActions backHref="/blogs" backLabel="Cancel" busy={busy} busyLabel={isCreate ? "Creating…" : "Saving…"} primaryLabel="Next →" primaryType="submit" /> : <div className={styles.formActions}><Button disabled={busy} type="submit">{busy ? "Saving…" : isCreate ? "Create Blog" : "Save changes"}</Button><Link className={styles.linkButton} href="/blogs">Cancel</Link></div>}
   </form>;
 }

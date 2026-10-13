@@ -1,5 +1,8 @@
 "use client";
 
+import { PreviewAction } from "@/components/preview/preview-action";
+import { blogSnapshot } from "@/components/preview/snapshot";
+import { blogToForm } from "../lib/blog-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { CreateFlowActions, TwoStepCreateFlow } from "@/components/create-flow/two-step-create-flow";
@@ -21,6 +24,7 @@ export function BlogCreateWizard() {
   return <TwoStepCreateFlow currentStep={step} steps={steps}>
     {step === 1 ? <BlogForm blog={blog} createFlow onCreated={advance} onSaved={advance} /> : blog ? <>
       <CoverImageControl blog={blog} onBusyChange={setImageBusy} onChanged={setBlog} />
+      <div><PreviewAction build={() => blogSnapshot(blogToForm(blog), blog)} /></div>
       <CreateFlowActions backLabel="← Back" busy={imageBusy} busyLabel="Uploading…" onBack={() => setStep(1)} onPrimary={() => router.push(`/blogs/${blog.id}/edit?created=1`)} primaryLabel="Save & Finish" />
     </> : null}
   </TwoStepCreateFlow>;

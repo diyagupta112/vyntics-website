@@ -55,3 +55,5 @@
 @media (max-width: 44rem) { .blogGrid { grid-template-columns: 1fr; } .cardImage, .imagePlaceholder { height: 11rem; } .fields { grid-template-columns: 1fr; } .full { grid-column: auto; } .formActions > * { width: 100%; } .section { padding: var(--space-5); } }
 
 .cardIndicators { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-1); }
+
+.cardActions .previewButton { font-size: var(--font-size-xs); min-height: 2.25rem; padding: var(--space-2) var(--space-3); }

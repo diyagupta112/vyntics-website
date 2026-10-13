@@ -1,3 +1,4 @@
+import { ServicesHero } from "@/components/pages/services-hero";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AiSolutionsServicesShowcase } from "@/components/pages/ai-solutions-services-showcase";
@@ -76,24 +77,16 @@ export default function AiSolutionsPage() {
 
   return (
     <>
-      <section className={cloudStyles.hero} aria-labelledby="ai-solutions-title">
-        <Container className={cloudStyles.heroGrid}>
-          <div className={cloudStyles.heroCopy}>
-            <p className={cloudStyles.eyebrow}>AI solutions</p>
-            <h1 id="ai-solutions-title">AI development services your business can verify and control.</h1>
-            <p>We deliver AI consulting and custom AI solutions—from generative AI and LLM integrations to grounded assistants, capable agents, and intelligent automation—around your data, systems, permissions, and operating reality.</p>
-            <div className={cloudStyles.heroActions}>
-              <Link className={cloudStyles.primaryAction} href="#contact">Discuss your AI use case <ArrowIcon /></Link>
-              <Link className={cloudStyles.secondaryAction} href="#ai-services">Our AI solutions</Link>
-            </div>
-          </div>
-          <nav className={cloudStyles.scopeIndex} aria-label="AI Solutions services">
-            <p>AI Solutions</p>
-            <div className={cloudStyles.foundationSymbol} aria-hidden="true"><svg viewBox="0 0 80 64"><path d="M20 14h40v12H20zM14 38h52v12H14zM30 20h20M22 44h36M40 26v12" /></svg></div>
-            <ol>{aiServices.map(service => <li key={service.slug}><Link href={`/services/ai-solutions/${service.slug}`}><span>{service.number}</span>{service.title}</Link></li>)}</ol>
-          </nav>
-        </Container>
-      </section>
+      <ServicesHero
+        service="ai-solutions"
+        headingId="ai-solutions-title"
+        eyebrow={"AI solutions"}
+        title={"AI development services your business can verify and control."}
+        description={"We deliver AI consulting and custom AI solutions\u2014from generative AI and LLM integrations to grounded assistants, capable agents, and intelligent automation\u2014around your data, systems, permissions, and operating reality."}
+        primaryAction={{ href: "#contact", label: "Discuss your AI use case" }}
+        secondaryAction={{ href: "#ai-services", label: "Our AI solutions" }}
+        capabilities={aiServices.map(service => ({ label: service.title, href: `/services/ai-solutions/${service.slug}` }))}
+      />
 
       <section className={problemStyles.section} aria-labelledby="problems-title">
         <Container>

@@ -22,4 +22,6 @@ export function validateTestimonialForm(values: TestimonialFormValues): Testimon
 export function testimonialCreateRequest(values: TestimonialFormValues): TestimonialCreate {
   return { quote: values.quote.trim(), author_name: values.authorName.trim(), author_role: values.authorRole.trim() || null, company_name: values.companyName.trim() || null, company_logo_url: values.companyLogoUrl.trim() || null, display_order: Number(values.displayOrder), is_active: values.isActive === "true" };
 }
-export function testimonialUpdateRequest(values: TestimonialFormValues): TestimonialUpdate { return testimonialCreateRequest(values); }
+export function testimonialUpdateRequest(values: TestimonialFormValues): TestimonialUpdate { const { company_logo_url: _logo, ...payload } = testimonialCreateRequest(values);
+  void _logo;
+  return payload; }

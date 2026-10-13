@@ -1,5 +1,8 @@
 "use client";
 
+import { PreviewAction } from "@/components/preview/preview-action";
+import { blogSnapshot } from "@/components/preview/snapshot";
+import { blogToForm } from "../lib/blog-form";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -60,6 +63,7 @@ export function BlogList() {
         </div>
       </Link>
       <div className={styles.cardActions}>
+        <PreviewAction saved label={`Preview ${blog.title}`} className={styles.previewButton} build={() => blogSnapshot(blogToForm(blog), blog)} />
         <Button className={styles.deleteButton} aria-label={`Delete ${blog.title}`} onClick={() => { setDeleteError(undefined); setDeleting(blog); }} variant="destructive">Delete</Button>
       </div>
     </article>)}</div> : null}

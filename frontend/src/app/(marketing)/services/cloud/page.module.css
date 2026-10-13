@@ -76,6 +76,8 @@
 .reservedSlot > div { width:65%; height:1px; margin-top:2rem; background:var(--color-border); }
 .reservedSlot > div:last-child { width:40%; margin-top:1rem; }
 .workBridge .secondaryAction { margin-top:1.5rem; }
+.workBridge > div > .secondaryAction[href="/case-studies"],
+.context > div > .secondaryAction[href="/blog"] { display:flex; margin-inline-start:auto; }
 .nextStage { background:color-mix(in srgb,var(--color-primary) 5%,var(--color-background)); }
 .workBridgeInner { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.7fr); gap:4rem; align-items:end; }
 .nextStage .nextStageName { margin-top:1.5rem; font-size:clamp(2.5rem,5vw,4.5rem); font-weight:600; letter-spacing:-.06em; line-height:1.05; }

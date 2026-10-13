@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { LogoutButton } from "@/features/auth/components/logout-button";
@@ -10,6 +13,8 @@ type AdminShellProps = Readonly<{
 }>;
 
 export function AdminShell({ children, userEmail }: AdminShellProps) {
+  const pathname = usePathname();
+  if (pathname === "/preview") return children;
   return (
     <div className={styles.shell}>
       <Sidebar />

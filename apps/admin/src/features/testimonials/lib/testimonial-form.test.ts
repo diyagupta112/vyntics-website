@@ -9,7 +9,7 @@ describe("Testimonial editorial contract", () => {
   it.each(["javascript:alert(1)", "data:image/png,invalid", "not a URL"])("rejects invalid logo URL %s", companyLogoUrl => expect(validateTestimonialForm({ ...testimonialToForm(testimonialFixture), companyLogoUrl }).companyLogoUrl).toBeDefined());
   it("loads and preserves optional attribution/logo values on edit", () => {
     const values = testimonialToForm(testimonialFixture);
-    expect(testimonialUpdateRequest(values)).toEqual({ quote: testimonialFixture.quote, author_name: testimonialFixture.author_name, author_role: testimonialFixture.author_role, company_name: testimonialFixture.company_name, company_logo_url: testimonialFixture.company_logo_url, display_order: 2, is_active: true });
+    expect(testimonialUpdateRequest(values)).toEqual({ quote: testimonialFixture.quote, author_name: testimonialFixture.author_name, author_role: testimonialFixture.author_role, company_name: testimonialFixture.company_name, display_order: 2, is_active: true });
   });
   it("submits blank optional fields as null without extra fields", () => {
     expect(testimonialCreateRequest({ ...emptyTestimonialForm, quote: " Quote ", authorName: " Name " })).toEqual({ quote: "Quote", author_name: "Name", author_role: null, company_name: null, company_logo_url: null, display_order: 0, is_active: true });

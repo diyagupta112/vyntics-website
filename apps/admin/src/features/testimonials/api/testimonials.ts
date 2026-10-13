@@ -7,5 +7,11 @@ export const testimonialsApi = {
   get(id: string) { return apiClient.get<Testimonial>(`/admin/testimonials/${encodeURIComponent(id)}`); },
   create(payload: TestimonialCreate) { return apiClient.post<Testimonial>("/testimonials", { json: payload }); },
   update(id: string, payload: TestimonialUpdate) { return apiClient.patch<Testimonial>(testimonialPath(id), { json: payload }); },
+  uploadLogo(id: string, file: File) {
+    const body = new FormData();
+    body.set("file", file);
+    return apiClient.put<Testimonial>(`${testimonialPath(id)}/company-logo`, { body });
+  },
+  deleteLogo(id: string) { return apiClient.delete(`${testimonialPath(id)}/company-logo`); },
   delete(id: string) { return apiClient.delete(testimonialPath(id)); },
 };

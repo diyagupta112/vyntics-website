@@ -1,3 +1,4 @@
+import { CrmHero } from "./crm-hero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
@@ -55,24 +56,7 @@ async function PageInsights() {
 export default function ServicePage() {
   return (
     <>
-      <section className={styles.hero} aria-labelledby="crm-title" data-cloud-section="Hero">
-        <Container className={styles.heroGrid}>
-          <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>{content.hero.eyebrow}</p>
-            <h1 id="crm-title">{content.hero.heading}</h1>
-            <p>{content.hero.introduction}</p>
-            <div className={styles.heroActions}>
-              <Link className={styles.primaryAction} href="#contact">{content.hero.primaryLabel} <ArrowIcon /></Link>
-              <Link className={styles.secondaryAction} href="#crm-services">{content.hero.secondaryLabel}</Link>
-            </div>
-          </div>
-          <nav className={styles.scopeIndex} aria-label={`${content.name} services`}>
-            <p>{content.name}</p>
-            <div className={styles.foundationSymbol} aria-hidden="true"><svg viewBox="0 0 80 64"><path d="m40 8 28 16-28 16L12 24 40 8ZM12 34l28 16 28-16M12 44l28 16 28-16" /></svg></div>
-            <ol>{content.services.map((service, index) => <li key={service.href}><Link href={service.href}><span>{String(index + 1).padStart(2, "0")}</span>{service.name}</Link></li>)}</ol>
-          </nav>
-        </Container>
-      </section>
+      <CrmHero />
 
       <section className={problemStyles.section} aria-labelledby="crm-problems-title" data-cloud-section={content.problemsHeading}>
         <Container>

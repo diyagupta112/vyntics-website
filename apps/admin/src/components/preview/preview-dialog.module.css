@@ -1,0 +1,9 @@
+.dialog { position:fixed; inset:0; z-index:150; display:flex; flex-direction:column; background:var(--color-white); }
+.header { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:var(--space-3); padding:var(--space-3) var(--space-4); border-bottom:1px solid var(--color-gray-200); }
+.header h2 { font-size:var(--font-size-section-title); }
+.header p { color:var(--color-gray-500); font-size:var(--font-size-xs); }
+.actions { display:flex; flex-wrap:wrap; gap:var(--space-2); }
+.viewport { flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; background:var(--color-gray-100); }
+.viewport > p,.viewport > div { padding:var(--space-3); }
+.frame,.mobile { display:block; border:0; background:white; flex:1; min-height:0; width:100%; }
+.mobile { width:min(100%,390px); }

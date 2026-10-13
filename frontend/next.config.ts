@@ -4,6 +4,7 @@ import { legacyServiceRoutes } from "./src/content/service-route-map";
 
 const nextConfig: NextConfig = {
   compiler: { styledComponents: true },
+  images: { qualities: [75, 90] },
   async redirects() {
     const redirects = [
       { source: "/rewards", destination: "/recognition", permanent: true },

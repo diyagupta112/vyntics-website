@@ -175,3 +175,5 @@
 @media (max-width: 48rem) { .studyList { grid-template-columns: 1fr; } }
 
 .cardIndicators { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-1); }
+
+.cardActions .previewButton { font-size: var(--font-size-xs); min-height: 2.25rem; padding: var(--space-2) var(--space-3); }

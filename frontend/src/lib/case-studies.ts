@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { serviceContentPath, type RelatedService, type ServiceIdentifier } from "./related-services.ts";
+import { getItemsForService, serviceContentPath, type RelatedService, type ServiceIdentifier } from "./related-services.ts";
 
 export type JsonValue =
   | string
@@ -119,7 +119,7 @@ export const getCaseStudies = cache(async (service?: ServiceIdentifier): Promise
   if (!isRecord(payload) || !Array.isArray(payload.data) || !payload.data.every(isListItem)) {
     throw new CaseStudyApiError("The case studies response did not match the public contract.");
   }
-  return payload.data;
+  return service ? getItemsForService(payload.data, service) : payload.data;
 });
 
 export const getCaseStudy = cache(async (slug: string): Promise<CaseStudyDetail> => {

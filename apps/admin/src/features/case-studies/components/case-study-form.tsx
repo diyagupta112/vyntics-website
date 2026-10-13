@@ -1,5 +1,7 @@
 "use client";
 
+import { PreviewAction } from "@/components/preview/preview-action";
+import { caseStudySnapshot } from "@/components/preview/snapshot";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useRef, useState } from "react";
@@ -344,6 +346,7 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
         </div>
       ) : null}
 
+    <div className={styles.formActions}><PreviewAction build={() => caseStudySnapshot(values, caseStudy)} /></div>
       {createFlow ? <CreateFlowActions backHref="/case-studies" backLabel="Cancel" busy={busy} busyLabel={isCreate ? "Creating…" : "Saving…"} primaryLabel="Next →" primaryType="submit" /> : <div className={styles.formActions}>
         <Button disabled={busy} type="submit">
           {busy

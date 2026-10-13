@@ -17,6 +17,22 @@ const blog: Blog = { id: "1", slug: "post", title: "Post", seo_title: "SEO", met
 
 describe("BlogForm", () => {
   beforeEach(() => vi.clearAllMocks());
+  it("previews current unsaved values without any API mutation", () => {
+    render(<BlogForm />);
+    fireEvent.change(screen.getByLabelText(/^Title/), { target: { value: "Unsaved preview title" } });
+    fireEvent.change(screen.getByLabelText("Related Service"), { target: { value: "all" } });
+    fireEvent.click(screen.getByRole("button", { name: "Preview" }));
+    const frame = screen.getByTitle("Blog page preview") as HTMLIFrameElement;
+    const instanceId = new URL(frame.src).searchParams.get("instance");
+    const post = vi.spyOn(frame.contentWindow!, "postMessage");
+    fireEvent(window, new MessageEvent("message", { source: frame.contentWindow, origin: window.location.origin, data: { type: "vyntics-preview/ready", instanceId } }));
+    expect(post).toHaveBeenCalledWith(expect.objectContaining({ snapshot: expect.objectContaining({ type: "blog", title: "Unsaved preview title", related_service: "all", is_featured: false }) }), window.location.origin);
+    expect(blogsApi.create).not.toHaveBeenCalled();
+    expect(blogsApi.update).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "Close Preview" }));
+    expect(screen.getByLabelText(/^Title/)).toHaveValue("Unsaved preview title");
+  });
+
 
   it.each([false, true])("loads featured=%s and sends its changed value on edit", async (featured) => {
     vi.mocked(blogsApi.update).mockResolvedValue({ ...blog, is_featured: !featured });

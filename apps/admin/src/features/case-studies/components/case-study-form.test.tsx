@@ -32,6 +32,22 @@ const caseStudy: CaseStudy = {
 
 describe("CaseStudyForm", () => {
   beforeEach(() => vi.clearAllMocks());
+  it("previews current unsaved values without any API mutation", () => {
+    render(<CaseStudyForm />);
+    fireEvent.change(screen.getByLabelText(/^Title/), { target: { value: "Unsaved preview title" } });
+    fireEvent.change(screen.getByLabelText("Related Service"), { target: { value: "all" } });
+    fireEvent.click(screen.getByRole("button", { name: "Preview" }));
+    const frame = screen.getByTitle("Case Study page preview") as HTMLIFrameElement;
+    const instanceId = new URL(frame.src).searchParams.get("instance");
+    const post = vi.spyOn(frame.contentWindow!, "postMessage");
+    fireEvent(window, new MessageEvent("message", { source: frame.contentWindow, origin: window.location.origin, data: { type: "vyntics-preview/ready", instanceId } }));
+    expect(post).toHaveBeenCalledWith(expect.objectContaining({ snapshot: expect.objectContaining({ type: "case-study", title: "Unsaved preview title", related_service: "all", featured: false }) }), window.location.origin);
+    expect(caseStudiesApi.create).not.toHaveBeenCalled();
+    expect(caseStudiesApi.update).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "Close Preview" }));
+    expect(screen.getByLabelText(/^Title/)).toHaveValue("Unsaved preview title");
+  });
+
 
   it.each([false, true])("loads featured=%s and sends its changed value on edit", async (featured) => {
     vi.mocked(caseStudiesApi.update).mockResolvedValue({ ...caseStudy, featured: !featured });

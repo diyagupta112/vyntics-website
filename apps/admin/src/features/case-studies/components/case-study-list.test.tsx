@@ -31,6 +31,35 @@ const caseStudy: CaseStudy = {
 
 describe("CaseStudyList", () => {
   beforeEach(() => vi.clearAllMocks());
+  it("opens saved-card Preview without following the edit link and restores focus", async () => {
+    vi.mocked(caseStudiesApi.list).mockResolvedValue([caseStudy]);
+    const cardClick = vi.fn();
+    render(<div onClick={cardClick}><CaseStudyList /></div>);
+    const preview = await screen.findByRole("button", { name: `Preview ${caseStudy.title}` });
+    const edit = screen.getByRole("link", { name: `Edit ${caseStudy.title}` });
+    expect(edit).toHaveAttribute("href", "/case-studies/1/edit");
+    expect(edit).not.toContainElement(preview);
+    const navigation = vi.fn((event: Event) => event.preventDefault());
+    edit.addEventListener("click", navigation);
+    preview.focus();
+    fireEvent.click(preview);
+    expect(navigation).not.toHaveBeenCalled();
+    expect(cardClick).not.toHaveBeenCalled();
+    expect(screen.getByRole("dialog", { name: "Case Study Preview" })).toBeInTheDocument();
+    expect(screen.getByText("Saved record preview · no changes are made")).toBeInTheDocument();
+    const frame = screen.getByTitle("Case Study page preview") as HTMLIFrameElement;
+    const instanceId = new URL(frame.src).searchParams.get("instance");
+    const post = vi.spyOn(frame.contentWindow!, "postMessage");
+    fireEvent(window, new MessageEvent("message", { source: frame.contentWindow, origin: location.origin, data: { type: "vyntics-preview/ready", instanceId } }));
+    expect(post).toHaveBeenCalledWith(expect.objectContaining({ snapshot: expect.objectContaining({ title: caseStudy.title, content: caseStudy.content, cover: caseStudy.cover_image_url }) }), location.origin);
+    fireEvent.click(screen.getByRole("button", { name: "Close Preview" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(preview).toHaveFocus();
+    fireEvent.click(edit);
+    expect(navigation).toHaveBeenCalledOnce();
+    expect(caseStudiesApi.delete).not.toHaveBeenCalled();
+  });
+
 
   it("shows loading then renders an image-led Case Study record", async () => {
     vi.mocked(caseStudiesApi.list).mockResolvedValue([caseStudy]);

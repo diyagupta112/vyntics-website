@@ -1,5 +1,8 @@
 "use client";
 
+import { PreviewAction } from "@/components/preview/preview-action";
+import { caseStudySnapshot } from "@/components/preview/snapshot";
+import { caseStudyToForm } from "../lib/case-study-form";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -136,6 +139,7 @@ export function CaseStudyList() {
                 </div>
               </Link>
               <div className={styles.cardActions}>
+        <PreviewAction saved label={`Preview ${caseStudy.title}`} className={styles.previewButton} build={() => caseStudySnapshot(caseStudyToForm(caseStudy), caseStudy)} />
                 <Button
                   className={styles.deleteButton}
                   aria-label={`Delete ${caseStudy.title}`}

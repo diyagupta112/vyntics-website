@@ -6,9 +6,10 @@ import { testimonialFixture } from "../test-fixtures";
 import { TestimonialList } from "./testimonial-list";
 import { TestimonialForm } from "./testimonial-form";
 import { TestimonialEditor } from "./testimonial-editor";
+vi.mock("next/image", () => ({ default: "img" }));
 const push = vi.fn();
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push }) }));
-vi.mock("../api/testimonials", () => ({ testimonialsApi: { list: vi.fn(), get: vi.fn(), create: vi.fn(), update: vi.fn(), delete: vi.fn() } }));
+vi.mock("../api/testimonials", () => ({ testimonialsApi: { list: vi.fn(), get: vi.fn(), create: vi.fn(), update: vi.fn(), uploadLogo: vi.fn(), deleteLogo: vi.fn(), delete: vi.fn() } }));
 beforeEach(() => vi.resetAllMocks());
 describe("Testimonial management", () => {
   it("renders loading, customer attribution and active/inactive cards", async () => {
@@ -51,9 +52,9 @@ describe("Testimonial management", () => {
     vi.mocked(testimonialsApi.update).mockResolvedValue({ ...testimonialFixture, quote: "Changed quote" }); render(<TestimonialForm item={testimonialFixture} />);
     expect(screen.getByLabelText("Author role")).toHaveValue(testimonialFixture.author_role);
     expect(screen.getByLabelText("Company name")).toHaveValue(testimonialFixture.company_name);
-    expect(screen.getByLabelText("Company logo URL")).toHaveValue(testimonialFixture.company_logo_url);
+    expect(screen.getByAltText("Testimonial company logo")).toHaveAttribute("src", testimonialFixture.company_logo_url);
     fireEvent.change(screen.getByLabelText(/^Quote/), { target: { value: "Changed quote" } }); fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
-    await waitFor(() => expect(testimonialsApi.update).toHaveBeenCalledWith(testimonialFixture.id, expect.objectContaining({ quote: "Changed quote", author_role: testimonialFixture.author_role, company_name: testimonialFixture.company_name, company_logo_url: testimonialFixture.company_logo_url })));
+    await waitFor(() => expect(testimonialsApi.update).toHaveBeenCalledWith(testimonialFixture.id, expect.objectContaining({ quote: "Changed quote", author_role: testimonialFixture.author_role, company_name: testimonialFixture.company_name })));
     expect(await screen.findByText("Testimonial changes saved.")).toBeInTheDocument();
   });
   it("loads Admin detail and uses shared editor deletion", async () => {
@@ -64,6 +65,7 @@ describe("Testimonial management", () => {
     fireEvent.click(screen.getByRole("button", { name: "Delete Permanently" }));
     fireEvent.click(within(screen.getByRole("dialog")).getByRole("button", { name: "Delete Permanently" }));
     await waitFor(() => expect(push).toHaveBeenCalledWith("/testimonials?deleted=1"));
+    expect(testimonialsApi.deleteLogo).not.toHaveBeenCalled();
   });
   it.each(["authentication", "permission", "not_found", "service_unavailable", "network", "unexpected"] as const)("shows safe %s errors", async kind => {
     vi.mocked(testimonialsApi.update).mockRejectedValue(new ApiError({ kind, message: "private" })); render(<TestimonialForm item={testimonialFixture} />);

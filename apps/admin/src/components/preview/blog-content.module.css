@@ -1,0 +1,14 @@
+.content { color: var(--color-muted); font-size: 1rem; line-height: 1.75; }
+.content > * + *,
+.content div > * + * { margin-top: 1rem; }
+.content h3,
+.content h4 { color: var(--color-foreground); letter-spacing: -0.025em; }
+.content h3 { font-size: 1.35rem; }
+.content h4 { font-size: 1.1rem; }
+.content ul,
+.content ol { padding-left: 1.25rem; display: grid; gap: 0.65rem; }
+.content li::marker { color: var(--color-primary); }
+.content li > p { display: inline; }
+.content li > div > * + * { margin-top: 0.4rem; }
+.content blockquote { padding-left: 1rem; border-left: 2px solid var(--color-border); }
+.content pre { max-width: 100%; padding: 0.85rem; overflow-x: auto; border: 1px solid var(--color-border); }

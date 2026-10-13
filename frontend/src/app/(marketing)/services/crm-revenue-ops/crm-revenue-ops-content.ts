@@ -24,13 +24,13 @@ export const crmContent = {
   services: [
     {
       name: "CRM Implementation & Integration", href: "/services/crm-revenue-ops/crm-implementation-integration",
-      image: "/images/technology-crm-workspace.png", imageAlt: "Person using a laptop with customer and reporting graphics.",
+      image: "/images/services/our-services-section/crm-implementation.png", imageAlt: "Colleagues reviewing a CRM sales pipeline on a laptop.",
       introduction: "Set up a CRM that supports the way your team sells and serves customers. We review your process, configure records and pipeline stages, and connect the CRM to other business systems, with data checks, controlled imports, and training before launch.",
       points: ["CRM setup, records, and pipeline stages", "Connected systems and customer data", "Data checks, launch planning, and training"],
     },
     {
       name: "Sales Automation & Revenue Analytics", href: "/services/crm-revenue-ops/sales-automation-revenue-analytics",
-      image: "/images/technology-analytics-connected.png", imageAlt: "Illustration of connected analytics and reporting views.",
+      image: "/images/services/our-services-section/sales-automation.png", imageAlt: "Team reviewing an automated lead follow-up workflow on a laptop.",
       introduction: "Make sales follow-through easier to manage and reporting easier to trust. We connect follow-up tasks, data entry, and team handoffs with automation, then define pipeline and revenue views around consistent records, clear ownership, and the questions your team needs to answer.",
       points: ["Follow-up automation and team handoffs", "Pipeline and revenue reporting", "Shared definitions and data-quality checks"],
     },

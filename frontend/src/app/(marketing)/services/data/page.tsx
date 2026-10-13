@@ -1,3 +1,4 @@
+import { ServicesHero } from "@/components/pages/services-hero";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineering-process-timeline";
@@ -66,24 +67,16 @@ export default function DataEngineeringPage() {
 
   return (
     <>
-      <section className={cloudStyles.hero} aria-labelledby="data-engineering-title">
-        <Container className={cloudStyles.heroGrid}>
-          <div className={cloudStyles.heroCopy}>
-            <p className={cloudStyles.eyebrow}>Data engineering services</p>
-            <h1 id="data-engineering-title">Build a data foundation your business can trust.</h1>
-            <p>We connect scattered systems, automate reliable data movement, and create governed, query-ready foundations for analytics and AI.</p>
-            <div className={cloudStyles.heroActions}>
-              <Link className={cloudStyles.primaryAction} href="#contact">Discuss your data estate <ArrowIcon /></Link>
-              <Link className={cloudStyles.secondaryAction} href="#data-services">Our data services</Link>
-            </div>
-          </div>
-          <nav className={cloudStyles.scopeIndex} aria-label="Data Engineering services">
-            <p>Data Engineering</p>
-            <div className={cloudStyles.foundationSymbol} aria-hidden="true"><svg viewBox="0 0 80 64"><path d="M14 14h52v12H14zM14 38h52v12H14zM22 20h.01M22 44h.01M34 20h24M34 44h24M40 26v12" /></svg></div>
-            <ol>{dataServices.map(service => <li key={service.slug}><Link href={`/services/data-engineering/${service.slug}`}><span>{service.number}</span>{service.title}</Link></li>)}</ol>
-          </nav>
-        </Container>
-      </section>
+      <ServicesHero
+        service="data-engineering"
+        headingId="data-engineering-title"
+        eyebrow={"Data engineering services"}
+        title={"Build a data foundation your business can trust."}
+        description={"We connect scattered systems, automate reliable data movement, and create governed, query-ready foundations for analytics and AI."}
+        primaryAction={{ href: "#contact", label: "Discuss your data estate" }}
+        secondaryAction={{ href: "#data-services", label: "Our data services" }}
+        capabilities={dataServices.map(service => ({ label: service.title, href: `/services/data-engineering/${service.slug}` }))}
+      />
 
       <section className={problemStyles.section} aria-labelledby="problems-title">
         <Container>

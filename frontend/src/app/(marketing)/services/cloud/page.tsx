@@ -1,3 +1,4 @@
+import { ServicesHero } from "@/components/pages/services-hero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
@@ -50,24 +51,16 @@ async function CloudInsights() {
 export default function CloudFoundationsPage() {
   return (
     <>
-      <section className={styles.hero} aria-labelledby="cloud-title" data-cloud-section="Hero">
-        <Container className={styles.heroGrid}>
-          <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>Cloud consulting services</p>
-            <h1 id="cloud-title">Build a stronger foundation for your cloud.</h1>
-            <p>Build, modernize, and support cloud infrastructure that works for your business. We bring architecture and migration together with reliability, security, cost optimization, and ongoing support.</p>
-            <div className={styles.heroActions}>
-              <Link className={styles.primaryAction} href="#contact">Talk to our cloud experts <ArrowIcon /></Link>
-              <Link className={styles.secondaryAction} href="#cloud-services">Our cloud services</Link>
-            </div>
-          </div>
-          <nav className={styles.scopeIndex} aria-label="Cloud Foundations services">
-            <p>Cloud Foundations</p>
-            <div className={styles.foundationSymbol} aria-hidden="true"><svg viewBox="0 0 80 64"><path d="m40 8 28 16-28 16L12 24 40 8ZM12 34l28 16 28-16M12 44l28 16 28-16" /></svg></div>
-            <ol>{canonicalCloudServices.map(service => <li key={service.slug}><Link href={`/services/cloud-foundations/${service.slug === "cloud-cost-optimization" ? "cloud-cost-optimisation" : service.slug}`}><span>{service.number}</span>{service.title}</Link></li>)}</ol>
-          </nav>
-        </Container>
-      </section>
+      <ServicesHero
+        service="cloud-foundations"
+        headingId="cloud-title"
+        eyebrow={"Cloud consulting services"}
+        title={"Build a stronger foundation for your cloud."}
+        description={"Build, modernize, and support cloud infrastructure that works for your business. We bring architecture and migration together with reliability, security, cost optimization, and ongoing support."}
+        primaryAction={{ href: "#contact", label: "Talk to our cloud experts" }}
+        secondaryAction={{ href: "#cloud-services", label: "Our cloud services" }}
+        capabilities={canonicalCloudServices.map(service => ({ label: service.title, href: `/services/cloud-foundations/${service.slug === "cloud-cost-optimization" ? "cloud-cost-optimisation" : service.slug}` }))}
+      />
 
       <section className={problemStyles.section} aria-labelledby="cloud-problems-title" data-cloud-section="Cloud problems we solve">
         <Container>
@@ -87,8 +80,8 @@ export default function CloudFoundationsPage() {
             services={canonicalCloudServices.map((service, index) => ({
               name: service.title,
               href: `/services/cloud-foundations/${service.slug === "cloud-cost-optimization" ? "cloud-cost-optimisation" : service.slug}`,
-              image: ["/images/technology-cloud.png", "/images/technology-cloud-infrastructure.png", "/images/technology-cloud-network.png"][index],
-              imageAlt: `Illustration representing ${service.title.toLowerCase()}.`,
+              image: ["/images/services/our-services-section/cloud-migration.png", "/images/services/our-services-section/devops-and-relability.jpg", "/images/services/our-services-section/cloud-cost-optimization.png"][index],
+              imageAlt: ["Team reviewing cloud migration progress on a large screen.", "Developer working with code and system monitoring on two screens.", "Laptop displaying a cloud cost dashboard with usage and spending charts."][index],
               introduction: cloudServiceIntroductions[index].summary,
               points: cloudServiceIntroductions[index].includes,
             }))}

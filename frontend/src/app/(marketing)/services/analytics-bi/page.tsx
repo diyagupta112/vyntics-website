@@ -1,3 +1,4 @@
+import { ServicesHero } from "@/components/pages/services-hero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
@@ -55,24 +56,16 @@ async function AnalyticsInsights() {
 export default function AnalyticsBiPage() {
   return (
     <>
-      <section className={styles.hero} aria-labelledby="analytics-title" data-cloud-section="Hero">
-        <Container className={styles.heroGrid}>
-          <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>{analyticsContent.hero.eyebrow}</p>
-            <h1 id="analytics-title">{analyticsContent.hero.heading}</h1>
-            <p>{analyticsContent.hero.introduction}</p>
-            <div className={styles.heroActions}>
-              <Link className={styles.primaryAction} href="#contact">{analyticsContent.hero.primaryLabel} <ArrowIcon /></Link>
-              <Link className={styles.secondaryAction} href="#analytics-services">Our analytics & BI services</Link>
-            </div>
-          </div>
-          <nav className={styles.scopeIndex} aria-label="Analytics & BI services">
-            <p>Analytics &amp; BI</p>
-            <div className={styles.foundationSymbol} aria-hidden="true"><svg viewBox="0 0 28 28"><path d="M4 20h17M7 16v-4M12 16V8M17 16V4" /></svg></div>
-            <ol>{analyticsContent.services.map((service, index) => <li key={service.href}><Link href={service.href}><span>{String(index + 1).padStart(2, "0")}</span>{service.name}</Link></li>)}</ol>
-          </nav>
-        </Container>
-      </section>
+      <ServicesHero
+        service="analytics-bi"
+        headingId="analytics-title"
+        eyebrow={analyticsContent.hero.eyebrow}
+        title={analyticsContent.hero.heading}
+        description={analyticsContent.hero.introduction}
+        primaryAction={{ href: "#contact", label: analyticsContent.hero.primaryLabel }}
+        secondaryAction={{ href: "#analytics-services", label: "Our analytics & BI services" }}
+        capabilities={analyticsContent.services.map(service => ({ label: service.name, href: service.href }))}
+      />
 
       <section className={problemStyles.section} aria-labelledby="analytics-problems-title" data-cloud-section="Analytics problems we solve">
         <Container>
