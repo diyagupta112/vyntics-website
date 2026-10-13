@@ -25,6 +25,7 @@ describe("Case Study form contract", () => {
     ]);
 
     const payload = toCreateRequest({
+      relatedService: "",
       title: "Platform redesign",
       slug: "platform-redesign",
       seoTitle: "Platform redesign | Vyntics",
@@ -39,6 +40,7 @@ describe("Case Study form contract", () => {
     });
 
     expect(payload).toEqual({
+      related_service: null,
       title: "Platform redesign",
       slug: "platform-redesign",
       seo_title: "Platform redesign | Vyntics",

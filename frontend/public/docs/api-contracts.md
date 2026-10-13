@@ -804,3 +804,37 @@ The frontend should submit only the public form/application fields defined by ea
 # 9. Contract Boundary
 
 This master document is the consolidated public website frontend API reference. It describes what the frontend should send and receive for the website APIs. Internal Admin Panel implementation, database schema, editor/storage implementation, authentication details, and other backend internals remain separate unless explicitly represented in the public contract because they affect frontend behavior.
+
+
+# Blog and Case Study Related Service targeting — 13 October 2026
+
+The existing Blog and Case Study create/PATCH schemas and public/admin list/detail
+responses now include optional nullable `related_service`:
+
+| Value | Target |
+| --- | --- |
+| `null` | No service page; still valid in general content listings |
+| `cloud_foundations` | Cloud Foundations (`/services/cloud-foundations`) |
+| `data_engineering` | Data Engineering (`/services/data-engineering`) |
+| `analytics_bi` | Analytics & BI (`/services/analytics-bi`) |
+| `ai_solutions` | AI Solutions (`/services/ai-solutions`) |
+| `crm_revenue_ops` | CRM & Revenue Ops (`/services/crm-revenue-ops`) |
+| `all` | All five service pages |
+
+Create defaults to null. PATCH omission preserves the value; explicit null clears
+it. Unsupported values return 422. Existing content remains null after migration;
+no automatic classification is performed.
+
+Use `GET /blogs?related_service=cloud_foundations` and
+`GET /case-studies?related_service=cloud_foundations` (substitute any of the five
+specific identifiers). The existing `{ data: [...] }` envelope is preserved.
+The backend filters in SQL to published records with that target OR `all`, keeps
+`published_at DESC` ordering, and excludes null/other targets. Omitting this
+parameter preserves the normal public listing. `all` is a stored targeting value,
+not a service-page query identifier. No new endpoint is introduced.
+
+Deploy migration `20261013090000_content_related_service.sql` before the updated
+backend; deploy both consumers after the backend. Frontend service identifiers
+and labels share `packages/types/src/related-services.json` and are checked against
+the backend contract. Existing general listing, detail, content, cover, and
+featured contracts remain available.

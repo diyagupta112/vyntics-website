@@ -95,3 +95,7 @@
 @media (max-width:960px) { .heroGrid,.situationsGrid,.platformGrid,.workBridgeInner { grid-template-columns:1fr; gap:2.5rem; }.stickyHeading { position:static; }.scopeIndex { max-width:35rem; }.insightsGrid { grid-template-columns:repeat(2,minmax(0,1fr)); }.platformGrid ul { max-width:35rem; } }
 @media (max-width:680px) { .hero { padding-block:3.5rem; }.hero h1 { font-size:clamp(3rem,13vw,4rem); }.heroActions { align-items:flex-start; flex-direction:column; }.scopeIndex { padding:1.4rem; }.serviceDisclosure summary { grid-template-columns:1.7rem minmax(0,1fr) 2rem; gap:.7rem; }.serviceExpanded { padding-left:2.4rem; grid-template-columns:1fr; gap:1.5rem; }.lifecycle,.projectGrid,.insightsGrid,.processLayout { grid-template-columns:1fr; }.lifecycle { gap:1.5rem; }.platformGrid li { font-size:1.1rem; }.processLayout { gap:1.5rem; }.processDetail { padding:1.5rem; }.nextStage .nextStageName { font-size:2.75rem; } }
 @media (prefers-reduced-motion:reduce) { .scopeIndex a,.processIndex button,.processDiagram span { transition:none; } }
+
+.platformDescription { max-width:18rem; color:var(--color-muted); font-size:.85rem; font-weight:400; line-height:1.75; letter-spacing:normal; }
+.platformGrid .secondaryAction { margin-top:1.5rem; }
+@media (max-width:680px) { .platformGrid ul { flex-direction:column; gap:2rem; } .platformDescription { max-width:100%; } }

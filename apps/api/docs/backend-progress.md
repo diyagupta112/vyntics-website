@@ -1,8 +1,19 @@
 # Backend Progress
 
-**Last updated:** 2026-10-05
+**Last updated:** 2026-10-13
 
 ## Current phase
+
+Testimonial company-logo Storage support is implemented and verified through
+focused, real PostgreSQL, startup/health, and OpenAPI checks. Live Storage-provider
+verification remains pending.
+
+FAQ page association and Testimonials backend contracts are implemented and
+verified; applying the new production migration and deploying remain pending.
+
+Automatic content slugs and Related Service targeting are implemented and
+verified across the API, Admin Panel, and public website; the new live migration
+and deployment remain pending.
 
 YouTube video blocks for Blogs and Case Studies are implemented and verified
 through focused and real PostgreSQL tests. The Case Study featured-column schema
@@ -1089,6 +1100,177 @@ Case Study schema blocker was resolved in the data-loading correction below.
   UI code were preserved. PostgreSQL test connections used a process-only
   transaction-pool override; the running API was verified with its existing
   connection configuration.
+
+## Automatic content slugs and Related Service targeting — 2026-10-13
+
+**Status:** Implemented and verified; live migration/deployment pending.
+
+- [x] Inspected the API, Admin Panel, `apps/web` scaffold, and active public
+  website in `frontend`. Existing slugs were manually entered; service pages
+  used unfiltered Case Studies, keyword classification, or static insights.
+- [x] Added one shared Admin slug utility. Create forms generate a slug as the
+  title changes until any manual slug edit; edit forms preserve API-returned
+  slugs and never regenerate them from title edits. Existing API slug-required
+  and authoritative uniqueness/HTTP 409 behavior remain unchanged.
+- [x] Added nullable `related_service` to Blog and Case Study persistence,
+  create/PATCH contracts, and public/admin responses. Values are
+  `cloud_foundations`, `data_engineering`, `analytics_bi`, `ai_solutions`,
+  `crm_revenue_ops`, `all`, or null. PATCH omission preserves targeting; explicit
+  null clears it. Unsupported values return 422. No service table was added.
+- [x] Added migration `20261013090000_content_related_service.sql`, using nullable
+  text columns and CHECK constraints. Existing records remain unassigned/null;
+  no titles, slugs, content, feature flags, covers, or statuses are rewritten.
+  Existing public status/timestamp indexes and ordering are retained; no new
+  index was added for these small content collections.
+- [x] Extended existing `GET /blogs` and `GET /case-studies` with optional
+  `related_service=<specific identifier>`. SQL returns published records
+  targeted to that service OR `all`, excluding null and other targets without
+  joins/duplicates. Omitting the parameter preserves the general listing.
+- [x] Added one shared Related Service select to both existing Admin forms.
+  No Related Service is the default; the chosen value is submitted on create
+  and PATCH and restored on edit. Existing two-step cover uploads, publishing,
+  featured state, rich text/video, errors, and auditing are preserved.
+- [x] Added shared frontend service labels/identifiers in
+  `packages/types/src/related-services.json`; a backend contract test verifies
+  its values match backend validation and OpenAPI. All five active public pillar
+  pages request filtered content, replacing keyword/static/unfiltered selection.
+  Data/AI use the existing insight-card design with API content. Existing section
+  display limits and API order are preserved. Service Blogs always use the
+  published endpoint, including local development, rather than the draft preview.
+- [x] Passed the full default backend suite: 858 passed, 27 opt-in database tests
+  skipped. Two real PostgreSQL migration/persistence/filter/HTTP tests passed in
+  disposable schemas; legacy-null backfill, all five service targets, `all`,
+  draft exclusion, updates/clearing, CHECK constraints, no duplicates, and
+  actual public/admin responses were verified. Compile, startup, health, and
+  OpenAPI checks passed.
+- [x] Passed all 291 Admin tests, TypeScript, ESLint, and production build.
+  Public website passed all 46 tests, TypeScript, ESLint (one existing unrelated
+  unused-import warning), and production build. Focused slug/form checks cover
+  automatic generation, manual override, stable edits, all/no-service distinctions,
+  and create/PATCH submission.
+- [x] Browser checks against the production public build and a disposable
+  PostgreSQL API confirmed all five service pages render only matching plus
+  All Services content, without duplicates or horizontal overflow. Both real
+  Admin form components were checked in a temporary component preview (test
+  navigation only) for generated/manual slugs, select behavior, and 390px mobile
+  layout; no production auth bypass or UI test route was added.
+- [ ] Apply the migration to each target database before deploying the backend,
+  then deploy the Admin Panel and public website. The migration has only been
+  applied to disposable verification schemas; live database data/configuration
+  have not been changed. No Git operations were performed.
+
+## FAQs and Testimonials backend contracts — 2026-10-13
+
+**Status:** Implemented and verified; production migration/deployment pending.
+
+- [x] Inspected existing content models, migrations, repositories, services,
+  auth/audit dependencies, and public/admin API patterns. Neither new resource
+  existed. Read the active website route folders and canonical service map without
+  modifying any frontend or Admin Panel files.
+- [x] Added `faqs` with UUID id, required text page/question/answer, integer
+  display_order, boolean is_active, and database-generated timestamps. Page is
+  validated text (up to 255 characters), never a database enum/table/foreign key.
+  Keys use lowercase letter/digit segments separated by `/`, with internal single
+  hyphens. Surrounding request whitespace is trimmed; leading/trailing slashes,
+  labels, URLs/domains, uppercase, queries, fragments, and malformed paths fail
+  with 422. Single-segment root-page keys and future nested paths are valid;
+  there is no fixed page whitelist or page-existence lookup.
+- [x] Public `GET /faqs?page=<key>` filters active/exact-page records in SQL.
+  Omitting page returns all active FAQs, following the optional-filter pattern
+  already used by Blogs/Case Studies. Responses use `{ data: [...] }`, including
+  `{ data: [] }` for no matches. `all` has no targeting/wildcard meaning; if used
+  as a literal key, only a request for that exact key retrieves it.
+- [x] Added authenticated `GET /admin/faqs`, `GET /admin/faqs/{resource_id}`,
+  `POST /faqs`, `PATCH /faqs/{resource_id}`, and `DELETE /faqs/{resource_id}`.
+  Admin lists include active/inactive rows and support the same page filter.
+  Normal active admins and superadmins use existing verified Supabase/admin
+  dependencies. Missing/invalid tokens, unmapped users, and inactive admins return
+  401; invalid IDs/inputs return 422 and missing records return 404.
+- [x] FAQ ordering is page ASC, display_order ASC, created_at ASC, id ASC.
+  Explicit display_order edits affect only the selected record; duplicate order
+  values are allowed and deterministically resolved. One index covers
+  `(page, is_active, display_order, created_at, id)`; no over-indexing or global
+  reorder operation was added.
+- [x] Added `testimonials` with UUID id, required quote/author_name, optional
+  author_role/company_name/company_logo_url, integer display_order, boolean
+  is_active, and timestamps. Company logos are optional HTTP(S) URL references;
+  no upload endpoint, bucket, status, SEO, slug, or page field was introduced.
+  Public `GET /testimonials` returns active rows in display_order/created_at/id
+  ascending order. Authenticated Admin list/detail and unprefixed POST/PATCH/DELETE
+  follow the same content-resource conventions. One index covers
+  `(is_active, display_order, created_at, id)`.
+- [x] Create defaults for both resources are display_order=0 and is_active=true.
+  PATCH omission preserves fields; explicit null for required fields is rejected.
+  Testimonial optional role/company/logo fields can explicitly be cleared to null.
+  Empty/no-op PATCH does not create an audit event. Actual mutations write existing
+  audit_logs atomically with actor id/email, resource type faq/testimonial,
+  resource id, safe state context, and sorted changed_fields. Answer/quote text and
+  authentication credentials are not copied into audit metadata. Database/service
+  errors return generic 500 responses without raw SQL details.
+- [x] Created `20261013120000_create_faqs_and_testimonials.sql`, with NOT NULL
+  fields, page/nonblank text CHECK constraints, ordering indexes, and triggers
+  reusing `public.set_updated_at()`. It creates only the two resource tables;
+  existing production content is not modified. The migration has only been
+  exercised in a disposable PostgreSQL schema, not applied to production.
+- [x] Passed 97 focused new contract/model checks, then the full backend suite:
+  941 passed, 28 opt-in database tests skipped. The new real PostgreSQL migration
+  and HTTP lifecycle test passed separately, covering all five service keys,
+  future paths, literal-all isolation, inactive filtering, order/ties, Admin
+  filtering, page reassignment, null rejection, testimonial clearing, deletion,
+  timestamp triggers, DB CHECK constraints, and verified audit actors. Compile,
+  startup, health, unauthenticated access, and OpenAPI checks passed. Only the
+  existing Starlette test-client deprecation warning remains.
+- [x] Canonical service keys confirmed from active route files:
+  `services/cloud-foundations`, `services/data-engineering`,
+  `services/analytics-bi`, `services/ai-solutions`, and
+  `services/crm-revenue-ops`. These are examples, never the database value set.
+- [ ] Apply the migration before deploying this backend. Admin/public integration
+  is intentionally deferred. No frontend changes, Git operations, deployments,
+  secret output, or manual production data modifications were performed.
+
+## Testimonial company-logo Storage support — 2026-10-13
+
+**Status:** Implemented and verified; live Storage-provider verification pending.
+
+- [x] Reused the existing SupabasePublicImageStorage validator/adapter and
+  application-lifetime Supabase Storage gateway, with the already-created public
+  `testimonial-logos` bucket. No bucket operations, new storage architecture,
+  model/schema changes, or new migration were introduced.
+- [x] Added authenticated `PUT /testimonials/{testimonial_id}/company-logo`
+  (multipart `file`, 200 TestimonialAdminResponse) and
+  `DELETE /testimonials/{testimonial_id}/company-logo` (204, idempotent when
+  absent). Existing active-admin mutation authorization allows both normal
+  admins and superadmins. Missing/invalid tokens, unmapped/inactive admins return
+  401; missing testimonials return 404; invalid IDs/files return 422; Storage
+  failures return generic 503 and DB failures return generic 500.
+- [x] Shared validation checks extension, declared MIME, image signatures, and
+  bounded content size: JPEG/PNG/WebP only, up to 5 MiB or a smaller configured
+  image limit. Paths use testimonial UUID/SHA-256 digest plus validated extension;
+  .jpeg canonicalizes to .jpg. The bucket setting only accepts testimonial-logos.
+- [x] Upload completes before changing company_logo_url; URL and existing update
+  audit commit together before old-object cleanup. DB failures roll back and
+  compensate the new upload. Same-content URLs are protected from cleanup.
+  Delete commits the cleared URL and audit before removing the managed object.
+  Cleanup failures use the existing best-effort safe warning pattern.
+- [x] Cleanup only removes this project's exact public bucket object under the
+  same testimonial ID. External logos remain supported and are never deleted.
+  Normal POST/PATCH URL semantics and public/admin response schemas are unchanged;
+  PATCH replacement/clearing and testimonial deletion also clean managed assets
+  after commit. No quote, image bytes, or credentials are copied into audit context.
+- [x] Added focused HTTP/storage/service/auth tests and extended the existing
+  disposable PostgreSQL lifecycle test with logo upload/replacement/deletion,
+  persisted public/admin URLs, external-URL safety, and verified audit records.
+  Focused checks: 143 passed. Real PostgreSQL plus logo checks: 45 passed.
+  Final full backend suite: 989 passed, 28 opt-in database tests skipped.
+  Compile, application startup/health, and authenticated multipart OpenAPI checks
+  passed. The existing Starlette test-client deprecation warning remains.
+  No separate lint/typecheck configuration exists for this backend.
+- [ ] Verify live provider upload/delete with the existing privileged Supabase
+  Storage configuration. Provider operations were mocked in tests; PostgreSQL
+  transactions used a disposable real schema, not SQLite or production records.
+  The pre-existing Testimonials table migration remains required wherever the
+  table is absent. No production migration, deployments, frontend changes, or
+  Git operations were performed.
 
 ## Validation
 

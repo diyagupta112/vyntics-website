@@ -21,7 +21,7 @@ This pass preserves the approved eleven-section order, Vyntics typography/tokens
 | Hero | Editorial split with a static architecture/service-navigation composition. |
 | Cloud problems we solve | Numbered typographic problem list with a sticky desktop heading; stacked on smaller screens. |
 | Our cloud services | Expandable editorial rows with real configured capability descriptions and canonical service links. |
-| Why Vyntics for cloud | Three open columns separated by quiet rules, using existing copy. |
+| Why Vyntics for Cloud | Three open columns separated by quiet rules, using existing copy. |
 | Cloud platforms we work with | Large restrained platform names and decorative marks; no certification or partnership claims. |
 | How we work | Five intentional buttons and a stable detail panel, with an accessible pressed state and no autoplay or scroll interception. |
 | Case studies | Existing backend-fed related cards, maximum two cloud-relevant published projects; honest loading/error/empty states. |

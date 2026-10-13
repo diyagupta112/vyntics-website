@@ -1,7 +1,10 @@
+import type { RelatedService } from "@/lib/content/related-services";
+
 export type CaseStudyStatus = "draft" | "published" | "unpublished";
 
 export type CaseStudy = {
   id: string;
+  related_service?: RelatedService | null;
   slug: string;
   title: string;
   seo_title: string;
@@ -20,6 +23,7 @@ export type CaseStudy = {
 };
 
 export type CaseStudyCreateRequest = {
+  related_service?: RelatedService | null;
   slug: string;
   title: string;
   seo_title: string;

@@ -1,0 +1,2 @@
+import type { Testimonial } from "./types";
+export const testimonialFixture: Testimonial = { id: "testimonial-1", quote: "The team helped us build a dependable platform.", author_name: "Example Author", author_role: "Engineering Lead", company_name: "Example Company", company_logo_url: "https://example.com/logo.png", display_order: 2, is_active: true, created_at: "2026-10-13T00:00:00Z", updated_at: "2026-10-13T00:00:00Z" };

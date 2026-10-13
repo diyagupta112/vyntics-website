@@ -26,10 +26,10 @@
 .platformSection .inlineLink { margin: 1rem 0 0 auto; display: flex; }
 .whyLayout, .faqLayout { display: grid; grid-template-columns: minmax(17rem, .75fr) minmax(0, 1.25fr); gap: clamp(3rem, 8vw, 8rem); align-items: start; }
 .stickyHeading { position: sticky; top: 8rem; }
-.reasonList { border-top: 1px solid var(--color-border); }
-.reasonList article { padding-block: 1.7rem; display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 1rem; border-bottom: 1px solid var(--color-border); }
+.reasonList { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.125rem; }
+.reasonList article { display:grid; grid-template-columns:1fr; align-content:start; gap:1rem; }
 .reasonList h3 { font-size: 1.12rem; letter-spacing: -.025em; }
-.reasonList p { margin-top: .55rem; color: var(--color-muted); font-size: .91rem; line-height: 1.67; }
+.reasonList p { margin-top: .55rem; color: var(--reason-copy); font-size: .91rem; line-height: 1.67; }
 .inlineLink { width: fit-content; margin-top: 1.5rem; display: inline-flex; align-items: center; gap: .45rem; color: var(--color-primary); font-size: .88rem; font-weight: 720; }
 .securitySection { position: relative; overflow: hidden; color: #fff; background: #0b1326; }
 .securitySection::after { position: absolute; width: 32rem; height: 32rem; right: -12rem; bottom: -18rem; content: ""; border-radius: 50%; background: color-mix(in srgb, var(--color-primary) 38%, transparent); filter: blur(7rem); opacity: .55; pointer-events: none; }
@@ -110,3 +110,5 @@
 @media (prefers-reduced-motion: reduce) {
   .backLink, .primaryButton svg, .inlineLink svg, .journeyGrid > a, .journeyGrid svg, .insightGrid > a, .insightGrid svg, .faqList summary span { transition: none; }
 }
+
+@media (max-width:560px) { .reasonList { grid-template-columns:1fr; } }

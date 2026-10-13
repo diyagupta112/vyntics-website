@@ -1,9 +1,11 @@
-export type Blog = { id: string; slug: string; title: string; author: string; category: string; excerpt: string; cover_image_url: string; read_time: number; published_at: string; status?: string };
-export async function getBlogs(): Promise<{ status: "success" | "error"; blogs: Blog[] }> {
+import { serviceContentPath, type RelatedService, type ServiceIdentifier } from "./related-services.ts";
+
+export type Blog = { id: string; slug: string; title: string; author: string; category: string; excerpt: string; cover_image_url: string; read_time: number; published_at: string; related_service?: RelatedService | null; status?: string };
+export async function getBlogs(service?: ServiceIdentifier): Promise<{ status: "success" | "error"; blogs: Blog[] }> {
   try {
     const base = (process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
     const localPreview = process.env.NODE_ENV === "development" && ["localhost", "127.0.0.1", "[::1]"].includes(new URL(base).hostname);
-    const response = await fetch(`${base}/blogs${localPreview ? "/preview/all" : ""}`, { cache: "no-store", signal: AbortSignal.timeout(5000) });
+    const response = await fetch(`${base}${localPreview && !service ? "/blogs/preview/all" : serviceContentPath("/blogs", service)}`, { cache: "no-store", signal: AbortSignal.timeout(5000) });
     if (!response.ok) throw new Error("Request failed");
     const payload = await response.json();
     if (!Array.isArray(payload.data)) throw new Error("Invalid response");

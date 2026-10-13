@@ -6,7 +6,12 @@ import type { KeyboardEvent } from "react";
 import styles from "./data-engineering-services-showcase.module.css";
 import { useServiceRotation } from "./use-service-rotation";
 
-const services = [
+export type ServiceShowcaseItem = {
+  name: string; href: string; image: string; imageAlt: string;
+  introduction: string; points?: readonly string[];
+};
+
+const dataServices = [
   {
     name: "Data Pipelines & Integration",
     href: "/services/data-engineering/data-pipelines-integration",
@@ -34,7 +39,22 @@ function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
-export function DataEngineeringServicesShowcase() {
+export function DataEngineeringServicesShowcase({
+  services = dataServices,
+  eyebrow = "Our data engineering services",
+  heading = "Three connected capabilities, one dependable data system.",
+  headingId = "services-title",
+  idPrefix = "data-service",
+  label = "Data engineering services",
+}: {
+  services?: readonly ServiceShowcaseItem[];
+  eyebrow?: string;
+  heading?: string;
+  headingId?: string;
+  idPrefix?: string;
+  label?: string;
+  imageLabel?: string;
+} = {}) {
   const { activeIndex, advanceService, isRunning, progressKey, selectService, showcaseRef } = useServiceRotation(services.length);
   const activeService = services[activeIndex];
 
@@ -47,17 +67,17 @@ export function DataEngineeringServicesShowcase() {
     else if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % services.length;
     else nextIndex = (index - 1 + services.length) % services.length;
     selectService(nextIndex);
-    document.getElementById(`data-service-tab-${nextIndex}`)?.focus();
+    document.getElementById(`${idPrefix}-tab-${nextIndex}`)?.focus();
   }
 
   return (
     <div className={`${styles.showcase} ${styles.compactShowcase}`} ref={showcaseRef}>
       <div className={styles.leftColumn}>
         <div className={styles.sectionHeading}>
-          <p>Our data engineering services</p>
-          <h2 id="services-title">Three connected capabilities, one dependable data system.</h2>
+          <p>{eyebrow}</p>
+          <h2 id={headingId}>{heading}</h2>
         </div>
-        <div className={styles.serviceRail} role="tablist" aria-label="Data engineering services" aria-orientation="vertical">
+        <div className={styles.serviceRail} role="tablist" aria-label={label} aria-orientation="vertical">
           <div className={styles.railHeading}>
             <span>Services</span>
           </div>
@@ -66,12 +86,12 @@ export function DataEngineeringServicesShowcase() {
             return (
               <button
                 className={`${styles.serviceTab} ${isActive ? styles.activeTab : ""}`}
-                id={`data-service-tab-${index}`}
+                id={`${idPrefix}-tab-${index}`}
                 key={service.name}
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                aria-controls="data-service-panel"
+                aria-controls={`${idPrefix}-panel`}
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => selectService(index)}
                 onKeyDown={(event) => handleTabKeyDown(event, index)}
@@ -89,9 +109,9 @@ export function DataEngineeringServicesShowcase() {
 
       <article
         className={`${styles.servicePanel} ${styles.compactPanel}`}
-        id="data-service-panel"
+        id={`${idPrefix}-panel`}
         role="tabpanel"
-        aria-labelledby={`data-service-tab-${activeIndex}`}
+        aria-labelledby={`${idPrefix}-tab-${activeIndex}`}
         key={activeService.name}
       >
         <div className={`${styles.imageFrame} ${styles.compactImageFrame}`}>

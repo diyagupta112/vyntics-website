@@ -22,6 +22,8 @@ EXPECTED_TABLES = {
     "admin_users",
     "audit_logs",
     "badges",
+    "faqs",
+    "testimonials",
     "blogs",
     "careers",
     "case_studies",

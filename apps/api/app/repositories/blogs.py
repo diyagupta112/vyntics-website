@@ -2,10 +2,11 @@
 
 from uuid import UUID
 
-from sqlalchemy import func, select, text
+from sqlalchemy import func, or_, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models.blog import Blog
+from app.schemas.related_services import ServiceIdentifier
 
 
 class BlogRepository:
@@ -14,7 +15,7 @@ class BlogRepository:
     def __init__(self, session: AsyncSession) -> None:
         self._session = session
 
-    async def list_published(self) -> list[Blog]:
+    async def list_published(self, *, related_service: ServiceIdentifier | None = None) -> list[Blog]:
         """Return published Blogs ordered newest-first."""
 
         statement = (
@@ -22,6 +23,11 @@ class BlogRepository:
             .where(Blog.status == "published")
             .order_by(Blog.published_at.desc())
         )
+        if related_service is not None:
+            statement = statement.where(or_(
+                Blog.related_service == related_service,
+                Blog.related_service == "all",
+            ))
         result = await self._session.scalars(statement)
         return list(result.all())
 

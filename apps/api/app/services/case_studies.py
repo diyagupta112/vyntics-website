@@ -18,6 +18,7 @@ from app.schemas.case_studies import (
     CaseStudyCreateRequest,
     CaseStudyUpdateRequest,
 )
+from app.schemas.related_services import ServiceIdentifier
 from app.storage.supabase import StorageConfigurationError, StorageError
 from app.storage.uploads import PublicImageStorage
 
@@ -55,9 +56,11 @@ class CaseStudyService:
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._image_storage = image_storage
 
-    async def list_published(self) -> list[CaseStudy]:
+    async def list_published(self, *, related_service: ServiceIdentifier | None = None) -> list[CaseStudy]:
         """Return Case Studies eligible for public listing."""
 
+        if related_service is not None:
+            return await self._case_studies.list_published(related_service=related_service)
         return await self._case_studies.list_published()
 
     async def list_all(self) -> list[CaseStudy]:

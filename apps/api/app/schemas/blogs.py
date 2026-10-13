@@ -8,6 +8,7 @@ from pydantic import AnyHttpUrl, StringConstraints, field_validator, model_valid
 
 from app.schemas.common import RequestSchema, ResponseSchema
 from app.schemas.content import BodyContent, StoredBodyContent
+from app.schemas.related_services import RelatedService
 
 
 BlogStatus: TypeAlias = Literal["draft", "published", "unpublished"]
@@ -20,6 +21,7 @@ NonEmptyString: TypeAlias = Annotated[
 class BlogCreateRequest(RequestSchema):
     """Client-controlled fields for creating a Blog."""
 
+    related_service: RelatedService | None = None
     slug: NonEmptyString
     title: NonEmptyString
     seo_title: NonEmptyString
@@ -45,6 +47,7 @@ class BlogCreateRequest(RequestSchema):
 class BlogUpdateRequest(RequestSchema):
     """Client-controlled fields that may be changed on an existing Blog."""
 
+    related_service: RelatedService | None = None
     slug: NonEmptyString | None = None
     title: NonEmptyString | None = None
     seo_title: NonEmptyString | None = None
@@ -84,6 +87,7 @@ class BlogListItem(ResponseSchema):
     """A lightweight published blog shown in public listings."""
 
     id: UUID
+    related_service: RelatedService | None = None
     slug: str
     title: str
     author: str
@@ -105,6 +109,7 @@ class BlogDetailResponse(ResponseSchema):
     """A published blog with SEO metadata and structured content."""
 
     id: UUID
+    related_service: RelatedService | None = None
     slug: str
     title: str
     seo_title: str
@@ -123,6 +128,7 @@ class BlogAdminResponse(ResponseSchema):
     """Confirmed admin response for Blog create and update operations."""
 
     id: UUID
+    related_service: RelatedService | None = None
     slug: str
     title: str
     seo_title: str
