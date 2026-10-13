@@ -1,3 +1,5 @@
+import { NextServiceBanner } from "./next-service-banner";
+import { serviceSitemap } from "@/content/service-sitemap";
 import Link from "next/link";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
@@ -69,6 +71,8 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
       />
 
       <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} />
+
+      <NextServiceBanner id="service-next" currentService={serviceSitemap.find(pillar => pillar.services.some(item => item.slug === service.slug))?.slug} />
 
       <ContactCta
         eyebrow={`${service.name} consultation`}

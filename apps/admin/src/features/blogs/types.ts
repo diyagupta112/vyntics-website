@@ -1,7 +1,10 @@
+import type { RelatedService } from "@/lib/content/related-services";
+
 export type BlogStatus = "draft" | "published" | "unpublished";
 
 export type Blog = {
   id: string;
+  related_service?: RelatedService | null;
   slug: string;
   title: string;
   seo_title: string;
@@ -20,6 +23,7 @@ export type Blog = {
 };
 
 export type BlogCreateRequest = {
+  related_service?: RelatedService | null;
   slug: string;
   title: string;
   seo_title: string;

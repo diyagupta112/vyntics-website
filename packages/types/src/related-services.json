@@ -1,0 +1,8 @@
+{
+  "cloud_foundations": { "label": "Cloud Foundations", "slug": "cloud-foundations" },
+  "data_engineering": { "label": "Data Engineering", "slug": "data-engineering" },
+  "analytics_bi": { "label": "Analytics & BI", "slug": "analytics-bi" },
+  "ai_solutions": { "label": "AI Solutions", "slug": "ai-solutions" },
+  "crm_revenue_ops": { "label": "CRM & Revenue Ops", "slug": "crm-revenue-ops" },
+  "all": { "label": "All Services", "slug": null }
+}

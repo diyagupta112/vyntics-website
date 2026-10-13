@@ -27,6 +27,11 @@ class Blog(Base):
     __tablename__ = "blogs"
     __table_args__ = (
         CheckConstraint(
+            "related_service IN ('cloud_foundations', 'data_engineering', "
+            "'analytics_bi', 'ai_solutions', 'crm_revenue_ops', 'all')",
+            name="ck_blogs_related_service",
+        ),
+        CheckConstraint(
             "status IN ('draft', 'published', 'unpublished')",
             name="ck_blogs_status",
         ),
@@ -38,6 +43,7 @@ class Blog(Base):
         primary_key=True,
         server_default=text("gen_random_uuid()"),
     )
+    related_service: Mapped[str | None] = mapped_column(Text, nullable=True)
     slug: Mapped[str] = mapped_column(Text, nullable=False, unique=True)
     title: Mapped[str] = mapped_column(Text, nullable=False)
     seo_title: Mapped[str] = mapped_column(Text, nullable=False)

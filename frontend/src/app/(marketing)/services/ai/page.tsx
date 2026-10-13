@@ -1,10 +1,14 @@
+import { PublishedServiceBlogs } from "@/components/pages/published-service-blogs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AiSolutionsServicesShowcase } from "@/components/pages/ai-solutions-services-showcase";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
-import { articles } from "@/content/articles";
-import { getProject } from "@/content/projects";
+import { NextServiceBanner } from "@/components/pages/next-service-banner";
+import { Suspense } from "react";
+import { PublishedServiceCaseStudies } from "@/components/pages/published-service-case-studies";
+import { FeaturedCaseStudySkeleton } from "@/components/sections/case-studies/case-study-skeleton";
+import reasonStyles from "@/components/pages/service-reason-card.module.css";
 import styles from "../data/page.module.css";
 
 export const metadata: Metadata = {
@@ -59,8 +63,6 @@ function ArrowIcon() {
 }
 
 export default function AiSolutionsPage() {
-  const project = getProject("compliance-rag-chatbot");
-  const relatedInsights = articles.filter((article) => article.category === "AI");
 
   return (
     <>
@@ -90,8 +92,8 @@ export default function AiSolutionsPage() {
 
       <section className={styles.section} aria-labelledby="why-title">
         <Container className={styles.whyLayout}>
-          <div className={styles.stickyHeading}><p className={styles.label}>Why Vyntics for AI</p><h2 id="why-title">AI systems designed for accountable use.</h2><p>Convincing output is not enough. Production AI must be measurable, reviewable, secure, and owned.</p></div>
-          <div className={styles.reasonList}>{reasons.map((reason, index) => <article key={reason.title}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{reason.title}</h3><p>{reason.description}</p></div></article>)}</div>
+          <div className={styles.stickyHeading}><p className={styles.label}>Why choose us</p><h2 id="why-title">AI systems designed for accountable use.</h2><p>Convincing output is not enough. Production AI must be measurable, reviewable, secure, and owned.</p></div>
+          <div className={styles.reasonList}>{reasons.map((reason, index) => <article className={reasonStyles.card} key={reason.title}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{reason.title}</h3><p>{reason.description}</p></div></article>)}</div>
         </Container>
       </section>
 
@@ -110,26 +112,19 @@ export default function AiSolutionsPage() {
         </Container>
       </section>
 
-      {project && <section className={`${styles.section} ${styles.caseStudySection}`} aria-labelledby="case-study-title">
+      <section className={`${styles.section} ${styles.caseStudySection}`} aria-labelledby="case-study-title">
         <Container>
-          <div className={styles.caseStudyCard}><div><p className={styles.label}>AI case study</p><h2 id="case-study-title">{project.title}</h2><p className={styles.caseSummary}>{project.summary}</p><ul>{project.proofPoints.map((point) => <li key={point}>{point}</li>)}</ul><Link href={`/case-studies/${project.slug}`}>Read the case study <ArrowIcon /></Link></div><div className={styles.caseMeasure}><strong>{project.metric}</strong><span>{project.metricLabel}</span><p>Built with {project.stack.join(", ")}.</p></div></div>
+          <div className={styles.sectionHeading}><p className={styles.label}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2></div>
+          <Suspense fallback={<FeaturedCaseStudySkeleton />}><PublishedServiceCaseStudies service="ai_solutions" /></Suspense>
           <div className={styles.measureBar} aria-label="Measures used to evaluate AI results"><p>Results we measure</p><ul>{measures.map((measure) => <li key={measure}>{measure}</li>)}</ul></div>
-        </Container>
-      </section>}
-
-      <section className={styles.section} aria-labelledby="journey-title">
-        <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>The wider journey</p><h2 id="journey-title">Useful AI needs trusted data—and a real workflow.</h2></div>
-          <div className={styles.journeyGrid}>
-            <Link href="/services/data"><span>Build the foundation</span><h3>Data Engineering</h3><p>Create reliable pipelines, governed models, and query-ready data for AI to use.</p><strong>Explore data engineering <ArrowIcon /></strong></Link>
-            <Link href="/services/crm"><span>Connect the workflow</span><h3>CRM & Revenue Operations</h3><p>Put AI into customer and revenue workflows with clear ownership and measurable outcomes.</p><strong>Explore CRM services <ArrowIcon /></strong></Link>
-          </div>
         </Container>
       </section>
 
-      {relatedInsights.length > 0 && <section className={`${styles.section} ${styles.insightsSection}`} aria-labelledby="insights-title">
-        <Container><div className={styles.sectionHeading}><p className={styles.label}>Related insights</p><h2 id="insights-title">Practical guidance for AI leaders.</h2></div><div className={styles.insightGrid}>{relatedInsights.map((article) => <a href={article.href} key={article.href}><span>{article.category} · {article.readTime}</span><h3>{article.title}</h3><p>{article.description}</p><strong>Read article <ArrowIcon /></strong></a>)}</div></Container>
-      </section>}
+      <NextServiceBanner id="ai-next" currentService="ai-solutions" sectionClassName={styles.section} />
+
+      <section className={`${styles.section} ${styles.insightsSection}`} aria-labelledby="insights-title">
+        <Container><div className={styles.sectionHeading}><p className={styles.label}>Related insights</p><h2 id="insights-title">Practical guidance for AI leaders.</h2></div><Suspense fallback={<p role="status">Loading related insights…</p>}><PublishedServiceBlogs service="ai_solutions" className={styles.insightGrid} /></Suspense></Container>
+      </section>
 
       <section className={styles.section} aria-labelledby="faq-title">
         <Container className={styles.faqLayout}><div className={styles.stickyHeading}><p className={styles.label}>Frequently asked questions</p><h2 id="faq-title">Straight answers before the AI project starts.</h2></div><div className={styles.faqList}>{faqs.map((faq) => <details key={faq.question}><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}</div></Container>

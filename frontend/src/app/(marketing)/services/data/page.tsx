@@ -1,10 +1,15 @@
+import { PublishedServiceBlogs } from "@/components/pages/published-service-blogs";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ServicePillarPlatforms, ServicePillarApproach } from "@/components/pages/service-pillar-sections";
 import { DataEngineeringServicesShowcase } from "@/components/pages/data-engineering-services-showcase";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
-import { articles } from "@/content/articles";
-import { getProject } from "@/content/projects";
+import { NextServiceBanner } from "@/components/pages/next-service-banner";
+import { Suspense } from "react";
+import { PublishedServiceCaseStudies } from "@/components/pages/published-service-case-studies";
+import { FeaturedCaseStudySkeleton } from "@/components/sections/case-studies/case-study-skeleton";
+import reasonStyles from "@/components/pages/service-reason-card.module.css";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -59,8 +64,6 @@ function ArrowIcon() {
 }
 
 export default function DataEngineeringPage() {
-  const project = getProject("property-data-platform");
-  const relatedInsights = articles.filter((article) => article.category === "Data Engineering").slice(0, 3);
 
   return (
     <>
@@ -94,74 +97,29 @@ export default function DataEngineeringPage() {
 
       <section className={styles.section} aria-labelledby="why-title">
         <Container className={styles.whyLayout}>
-          <div className={styles.stickyHeading}><p className={styles.label}>Why Vyntics for data</p><h2 id="why-title">Systems designed to survive real operations.</h2><p>Architecture diagrams are easy. Reliable ownership, recovery, and trust are the hard parts.</p></div>
-          <div className={styles.reasonList}>{reasons.map((reason, index) => <article key={reason.title}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{reason.title}</h3><p>{reason.description}</p></div></article>)}</div>
+          <div className={styles.stickyHeading}><p className={styles.label}>Why choose us</p><h2 id="why-title">Systems designed to survive real operations.</h2><p>Architecture diagrams are easy. Reliable ownership, recovery, and trust are the hard parts.</p></div>
+          <div className={styles.reasonList}>{reasons.map((reason, index) => <article className={reasonStyles.card} key={reason.title}><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{reason.title}</h3><p>{reason.description}</p></div></article>)}</div>
         </Container>
       </section>
 
-      <section className={`${styles.section} ${styles.platformSection}`} aria-labelledby="platforms-title">
-        <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>Data platforms we work with</p><h2 id="platforms-title">Choose the platform around the workload.</h2><p>We work across the major cloud data ecosystems and keep business logic portable where that is practical.</p></div>
-          <div className={styles.platformGrid}>{platforms.map((platform) => <article key={platform.name}><p>{platform.role}</p><h3>{platform.name}</h3><span>{platform.description}</span></article>)}</div>
-          <Link className={styles.inlineLink} href="/technologies">View all technologies <ArrowIcon /></Link>
-        </Container>
-      </section>
+      <ServicePillarPlatforms platforms={platforms} eyebrow="Data platforms we work with" heading="Choose the platform around the workload." introduction="We work across the major cloud data ecosystems and keep business logic portable where that is practical." />
 
-      <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
-        <Container>
-          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">A clear path from assessment to dependable operations.</h2><p>Five focused stages. One accountable delivery process built around usable outcomes.</p></div>
-          <ol className={styles.processList}>
-            {process.map((step, index) => (
-              <li key={step.title}>
-                <article className={styles.processCard}>
-                  <span>Step {String(index + 1).padStart(2, "0")}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.description}</p>
-                </article>
-                <span className={styles.processMarker} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <div className={styles.processVisual} aria-hidden="true">
-                  <svg viewBox="0 0 180 100">
-                    <path d="M26 50h30m68 0h30M56 50l18-24m-18 24 18 24m50-24-18-24m18 24-18 24" />
-                    <circle cx="20" cy="50" r="6" />
-                    <circle cx="82" cy="20" r="8" />
-                    <circle cx="82" cy="80" r="8" />
-                    <rect x="76" y="41" width="28" height="18" rx="4" />
-                    <circle cx="112" cy="20" r="8" />
-                    <circle cx="112" cy="80" r="8" />
-                    <circle cx="160" cy="50" r="6" />
-                  </svg>
-                  <span>{step.visual}</span>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </section>
+      <ServicePillarApproach process={process} heading="A clear path from assessment to dependable operations." introduction="Five focused stages. One accountable delivery process built around usable outcomes." />
 
-      {project && <section className={`${styles.section} ${styles.caseStudySection}`} aria-labelledby="case-study-title">
+      <section className={`${styles.section} ${styles.caseStudySection}`} aria-labelledby="case-study-title">
         <Container>
-          <div className={styles.caseStudyCard}>
-            <div><p className={styles.label}>Data case study</p><h2 id="case-study-title">{project.title}</h2><p className={styles.caseSummary}>{project.summary}</p><ul>{project.proofPoints.map((point) => <li key={point}>{point}</li>)}</ul><Link href={`/case-studies/${project.slug}`}>Read the case study <ArrowIcon /></Link></div>
-            <div className={styles.caseMeasure}><strong>{project.metric}</strong><span>{project.metricLabel}</span><p>Built with {project.stack.join(", ")}.</p></div>
-          </div>
+          <div className={styles.sectionHeading}><p className={styles.label}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2></div>
+          <Suspense fallback={<FeaturedCaseStudySkeleton />}><PublishedServiceCaseStudies service="data_engineering" /></Suspense>
           <div className={styles.measureBar} aria-label="Measures used to evaluate data engineering results"><p>Results we measure</p><ul>{measures.map((measure) => <li key={measure}>{measure}</li>)}</ul></div>
         </Container>
-      </section>}
-
-      <section className={styles.section} aria-labelledby="journey-title">
-        <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>The wider journey</p><h2 id="journey-title">A data platform needs a foundation—and a purpose.</h2></div>
-          <div className={styles.journeyGrid}>
-            <Link href="/services/cloud/cloud-architecture-migration"><span>Previous stage</span><h3>Cloud Foundations</h3><p>Establish secure, reliable infrastructure for data workloads.</p><strong>Explore cloud services <ArrowIcon /></strong></Link>
-            <Link href="/services/analytics/dashboards-executive-reporting"><span>What comes next</span><h3>Analytics & BI</h3><p>Turn trusted models into dashboards, KPIs, and reporting people can act on.</p><strong>Explore analytics services <ArrowIcon /></strong></Link>
-          </div>
-        </Container>
       </section>
+
+      <NextServiceBanner id="data-next" currentService="data-engineering" sectionClassName={styles.section} />
 
       <section className={`${styles.section} ${styles.insightsSection}`} aria-labelledby="insights-title">
         <Container>
           <div className={styles.sectionHeading}><p className={styles.label}>Related insights</p><h2 id="insights-title">Practical guidance for data leaders.</h2></div>
-          <div className={styles.insightGrid}>{relatedInsights.map((article) => <a href={article.href} key={article.href}><span>{article.category} · {article.readTime}</span><h3>{article.title}</h3><p>{article.description}</p><strong>Read article <ArrowIcon /></strong></a>)}</div>
+          <Suspense fallback={<p role="status">Loading related insights…</p>}><PublishedServiceBlogs service="data_engineering" className={styles.insightGrid} /></Suspense>
         </Container>
       </section>
 

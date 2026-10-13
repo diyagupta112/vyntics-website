@@ -1,9 +1,11 @@
+import type { RelatedService } from "@/lib/content/related-services";
 import type { ApiError } from "@/lib/api/errors";
 import { deserializeBlogContent, isBlogContentEmpty } from "@/components/forms/blog-content";
 
 import type { Blog, BlogCreateRequest, BlogStatus, BlogUpdateRequest } from "../types";
 
 export type BlogFormValues = {
+  relatedService: RelatedService | "";
   title: string;
   slug: string;
   seoTitle: string;
@@ -20,6 +22,7 @@ export type BlogFormValues = {
 export type BlogFormErrors = Partial<Record<keyof BlogFormValues, string>>;
 
 export const emptyBlogForm: BlogFormValues = {
+  relatedService: "",
   title: "",
   slug: "",
   seoTitle: "",
@@ -35,6 +38,7 @@ export const emptyBlogForm: BlogFormValues = {
 
 export function blogToForm(blog: Blog): BlogFormValues {
   return {
+    relatedService: blog.related_service ?? "",
     title: blog.title,
     slug: blog.slug,
     seoTitle: blog.seo_title,
@@ -88,6 +92,7 @@ function commonPayload(values: BlogFormValues) {
     excerpt: values.excerpt.trim(), read_time: Number(values.readTime),
     is_featured: values.isFeatured,
     content: contentObject(values.content),
+    related_service: values.relatedService || null,
   };
 }
 
@@ -101,6 +106,7 @@ export function toUpdateRequest(values: BlogFormValues): BlogUpdateRequest {
 }
 
 const fieldMap: Record<string, keyof BlogFormValues> = {
+  related_service: "relatedService",
   title: "title", slug: "slug", seo_title: "seoTitle",
   meta_description: "metaDescription", author: "author", category: "category",
   excerpt: "excerpt", read_time: "readTime", content: "content", status: "status", is_featured: "isFeatured",

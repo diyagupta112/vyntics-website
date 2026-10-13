@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { serviceContentPath, type RelatedService, type ServiceIdentifier } from "./related-services.ts";
 
 export type JsonValue =
   | string
@@ -19,6 +20,7 @@ export type CaseStudyListItem = {
   cover_image_url: string;
   tech_stack: string[];
   tags: string[];
+  related_service?: RelatedService | null;
   featured: boolean;
   published_at: string;
 };
@@ -112,8 +114,8 @@ async function request(path: string): Promise<unknown> {
   }
 }
 
-export const getCaseStudies = cache(async (): Promise<CaseStudyListItem[]> => {
-  const payload = await request("/case-studies");
+export const getCaseStudies = cache(async (service?: ServiceIdentifier): Promise<CaseStudyListItem[]> => {
+  const payload = await request(serviceContentPath("/case-studies", service));
   if (!isRecord(payload) || !Array.isArray(payload.data) || !payload.data.every(isListItem)) {
     throw new CaseStudyApiError("The case studies response did not match the public contract.");
   }

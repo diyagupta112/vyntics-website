@@ -5,7 +5,12 @@ import Link from "next/link";
 import { useEffect, useState, type KeyboardEvent } from "react";
 import styles from "./data-engineering-services-showcase.module.css";
 
-const services = [
+export type ServiceShowcaseItem = {
+  name: string; href: string; image: string; imageAlt: string;
+  introduction: string; points: readonly string[];
+};
+
+const dataServices = [
   {
     name: "Data Pipelines & Integration",
     href: "/services/data/data-pipelines-integration",
@@ -48,7 +53,23 @@ function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
-export function DataEngineeringServicesShowcase() {
+export function DataEngineeringServicesShowcase({
+  services = dataServices,
+  eyebrow = "Our data engineering services",
+  heading = "Three connected capabilities, one dependable data system.",
+  headingId = "services-title",
+  idPrefix = "data-service",
+  label = "Data engineering services",
+  imageLabel = "Temporary image",
+}: {
+  services?: readonly ServiceShowcaseItem[];
+  eyebrow?: string;
+  heading?: string;
+  headingId?: string;
+  idPrefix?: string;
+  label?: string;
+  imageLabel?: string;
+} = {}) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [manualPaused, setManualPaused] = useState(false);
   const [interactionPaused, setInteractionPaused] = useState(false);
@@ -77,7 +98,7 @@ export function DataEngineeringServicesShowcase() {
     else if (event.key === "ArrowDown" || event.key === "ArrowRight") nextIndex = (index + 1) % services.length;
     else nextIndex = (index - 1 + services.length) % services.length;
     selectService(nextIndex);
-    document.getElementById(`data-service-tab-${nextIndex}`)?.focus();
+    document.getElementById(`${idPrefix}-tab-${nextIndex}`)?.focus();
   }
 
   return (
@@ -92,10 +113,10 @@ export function DataEngineeringServicesShowcase() {
     >
       <div className={styles.leftColumn}>
         <div className={styles.sectionHeading}>
-          <p>Our data engineering services</p>
-          <h2 id="services-title">Three connected capabilities, one dependable data system.</h2>
+          <p>{eyebrow}</p>
+          <h2 id={headingId}>{heading}</h2>
         </div>
-        <div className={styles.serviceRail} role="tablist" aria-label="Data engineering services" aria-orientation="vertical">
+        <div className={styles.serviceRail} role="tablist" aria-label={label} aria-orientation="vertical">
           <div className={styles.railHeading}>
             <span>Services</span>
             {!reduceMotion && <button type="button" onClick={() => setManualPaused((paused) => !paused)} aria-pressed={manualPaused}>{manualPaused ? "Resume" : "Pause"} rotation</button>}
@@ -105,12 +126,12 @@ export function DataEngineeringServicesShowcase() {
             return (
               <button
                 className={`${styles.serviceTab} ${isActive ? styles.activeTab : ""}`}
-                id={`data-service-tab-${index}`}
+                id={`${idPrefix}-tab-${index}`}
                 key={service.name}
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                aria-controls="data-service-panel"
+                aria-controls={`${idPrefix}-panel`}
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => selectService(index)}
                 onKeyDown={(event) => handleTabKeyDown(event, index)}
@@ -128,14 +149,14 @@ export function DataEngineeringServicesShowcase() {
 
       <article
         className={styles.servicePanel}
-        id="data-service-panel"
+        id={`${idPrefix}-panel`}
         role="tabpanel"
-        aria-labelledby={`data-service-tab-${activeIndex}`}
+        aria-labelledby={`${idPrefix}-tab-${activeIndex}`}
         key={activeService.name}
       >
         <div className={styles.imageFrame}>
           <Image src={activeService.image} alt={activeService.imageAlt} fill sizes="(max-width: 760px) 100vw, 65vw" />
-          <span>Temporary image</span>
+          <span>{imageLabel}</span>
           <div className={styles.panelContent}>
             <p className={styles.panelEyebrow}>Service {String(activeIndex + 1).padStart(2, "0")}</p>
             <h3>{activeService.name}</h3>

@@ -5,10 +5,10 @@ import { cloudProblems } from "./cloud-foundations-content";
 import styles from "./cloud-problems.module.css";
 
 const solutions = {
-  "ageing servers": "We modernize legacy infrastructure and migrate workloads to reliable cloud environments built for long-term performance.",
-  "scaling limits": "We redesign infrastructure to scale with your business, using flexible cloud architecture that handles changing workloads efficiently.",
-  "high maintenance cost": "We automate infrastructure management and optimize cloud resources to reduce manual effort, waste, and ongoing operational costs.",
-  "security gaps": "We strengthen your cloud environment with secure architecture, access controls, monitoring, and practices built around your business needs.",
+  "Ageing Servers": "We modernize legacy infrastructure and migrate workloads to reliable cloud environments built for long-term performance.",
+  "Scaling Limits": "We redesign infrastructure to scale with your business, using flexible cloud architecture that handles changing workloads efficiently.",
+  "High Maintenance Cost": "We automate infrastructure management and optimize cloud resources to reduce manual effort, waste, and ongoing operational costs.",
+  "Security Gaps": "We strengthen your cloud environment with secure architecture, access controls, monitoring, and practices built around your business needs.",
 } satisfies Record<(typeof cloudProblems)[number], string>;
 
 const iconPaths = [

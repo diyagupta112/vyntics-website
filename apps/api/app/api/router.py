@@ -14,6 +14,8 @@ from app.api.routes.careers import router as careers_router
 from app.api.routes.contact_submissions import admin_router as admin_contacts_router
 from app.api.routes.contact_submissions import public_router as contacts_router
 from app.api.routes.health import router as health_router
+from app.api.routes.faqs import router as faqs_router, admin_router as admin_faqs_router
+from app.api.routes.testimonials import router as testimonials_router, admin_router as admin_testimonials_router
 from app.api.routes.job_application_export import router as application_export_router
 from app.api.routes.job_applications import (
     admin_career_router as admin_career_applications_router,
@@ -40,3 +42,8 @@ api_router.include_router(admin_applications_router)
 api_router.include_router(contacts_router)
 api_router.include_router(admin_contacts_router)
 api_router.include_router(team_members_router)
+
+api_router.include_router(faqs_router)
+api_router.include_router(admin_faqs_router)
+api_router.include_router(testimonials_router)
+api_router.include_router(admin_testimonials_router)

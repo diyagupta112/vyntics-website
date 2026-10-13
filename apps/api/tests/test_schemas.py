@@ -32,6 +32,7 @@ PUBLISHED_AT = datetime(2026, 9, 22, 10, 30, tzinfo=timezone.utc)
 
 def _blog_list_item() -> dict[str, object]:
     return {
+        "related_service": None,
         "is_featured": False,
         "id": RESOURCE_ID,
         "slug": "example-blog-slug",
@@ -224,6 +225,7 @@ def test_blog_admin_response_matches_confirmed_fields() -> None:
 
     assert set(response.model_dump()) == {
         "id",
+        "related_service",
         "is_featured",
         "slug",
         "title",

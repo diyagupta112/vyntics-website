@@ -64,7 +64,7 @@ describe("CaseStudyForm", () => {
     expect(caseStudiesApi.create).not.toHaveBeenCalled();
   });
 
-  it.each([false, true])("creates with featured=%s and moves to edit", async (featured) => {
+  it.each([[false, ""], [true, ""], [false, "cloud_foundations"], [false, "data_engineering"], [false, "analytics_bi"], [false, "ai_solutions"], [false, "crm_revenue_ops"], [true, "all"]] as const)("creates with featured=%s and moves to edit", async (featured, target) => {
     vi.mocked(caseStudiesApi.create).mockResolvedValue(caseStudy);
     render(<CaseStudyForm />);
     const values: Record<string, string> = {
@@ -84,9 +84,11 @@ describe("CaseStudyForm", () => {
     expect(checkbox).not.toBeChecked();
     fireEvent.click(checkbox);
     if (!featured) fireEvent.click(checkbox);
+    fireEvent.change(screen.getByLabelText("Related Service"), { target: { value: target } });
     fireEvent.click(screen.getByRole("button", { name: "Create Case Study" }));
     await waitFor(() => expect(caseStudiesApi.create).toHaveBeenCalled());
     expect(caseStudiesApi.create).toHaveBeenCalledWith(expect.objectContaining({ featured: featured }));
+    expect(caseStudiesApi.create).toHaveBeenCalledWith(expect.objectContaining({ related_service: target || null }));
     expect(push).toHaveBeenCalledWith("/case-studies/1/edit?created=1");
   });
 
@@ -141,5 +143,62 @@ describe("CaseStudyForm", () => {
     expect(await screen.findByRole("button", { name: "Saving…" })).toBeDisabled();
     fireEvent.click(screen.getByRole("button", { name: "Saving…" }));
     expect(caseStudiesApi.update).toHaveBeenCalledTimes(1);
+  });
+});
+
+
+describe("Content slug and service targeting", () => {
+  beforeEach(() => vi.clearAllMocks());
+
+  it.each([null, "cloud_foundations", "data_engineering", "analytics_bi", "ai_solutions", "crm_revenue_ops", "all"] as const)("loads and preserves existing service %s during an unrelated edit", async (service) => {
+    vi.mocked(caseStudiesApi.update).mockResolvedValue({ ...caseStudy, related_service: service });
+    render(<CaseStudyForm caseStudy={{ ...caseStudy, related_service: service }} />);
+    expect(screen.getByLabelText("Related Service")).toHaveValue(service ?? "");
+    fireEvent.change(screen.getByLabelText(/^Title/), { target: { value: "Updated title" } });
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    await waitFor(() => expect(caseStudiesApi.update).toHaveBeenCalledWith(caseStudy.id, expect.objectContaining({ related_service: service, slug: caseStudy.slug })));
+  });
+
+  it("generates a slug until the admin manually changes it", () => {
+    render(<CaseStudyForm />);
+    const title = document.getElementById("caseStudyTitle")!;
+    const slug = document.getElementById("caseStudySlug")!;
+    fireEvent.change(title, { target: { value: "How We Helped ABC" } });
+    expect(slug).toHaveValue("how-we-helped-abc");
+    fireEvent.change(title, { target: { value: "How We Helped XYZ" } });
+    expect(slug).toHaveValue("how-we-helped-xyz");
+    fireEvent.change(slug, { target: { value: "custom-public-url" } });
+    fireEvent.change(title, { target: { value: "Another title" } });
+    expect(slug).toHaveValue("custom-public-url");
+  });
+
+  it("keeps an existing slug stable on title edits and allows manual editing", () => {
+    render(<CaseStudyForm caseStudy={caseStudy} />);
+    const title = document.getElementById("caseStudyTitle")!;
+    const slug = document.getElementById("caseStudySlug")!;
+    expect(slug).toHaveValue(caseStudy.slug);
+    fireEvent.change(title, { target: { value: "Changed title" } });
+    expect(slug).toHaveValue(caseStudy.slug);
+    fireEvent.change(slug, { target: { value: "changed-manually" } });
+    expect(slug).toHaveValue("changed-manually");
+  });
+
+  it("defaults to no service and distinguishes All Services", () => {
+    render(<CaseStudyForm />);
+    const select = screen.getByLabelText("Related Service");
+    expect(select).toHaveValue("");
+    expect(screen.getByRole("option", { name: "No Related Service" })).toHaveValue("");
+    expect(screen.getByRole("option", { name: "All Services" })).toHaveValue("all");
+    expect(screen.getAllByRole("option").filter(option => option.closest("select") === select)).toHaveLength(7);
+  });
+
+  it.each(["cloud_foundations", "data_engineering", "analytics_bi", "ai_solutions", "crm_revenue_ops", "all", ""] as const)("loads targeting and submits changed target %s on edit", async (target) => {
+    vi.mocked(caseStudiesApi.update).mockResolvedValue({ ...caseStudy, related_service: target || null });
+    render(<CaseStudyForm caseStudy={{ ...caseStudy, related_service: "data_engineering" }} />);
+    const select = screen.getByLabelText("Related Service");
+    expect(select).toHaveValue("data_engineering");
+    fireEvent.change(select, { target: { value: target } });
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    await waitFor(() => expect(caseStudiesApi.update).toHaveBeenCalledWith(caseStudy.id, expect.objectContaining({ related_service: target || null })));
   });
 });

@@ -95,6 +95,10 @@ class Settings(BaseSettings):
         default="team-photos",
         validation_alias="STORAGE_TEAM_PHOTOS_BUCKET",
     )
+    testimonial_logos_bucket: Literal["testimonial-logos"] = Field(
+        default="testimonial-logos",
+        validation_alias="STORAGE_TESTIMONIAL_LOGOS_BUCKET",
+    )
     badge_logos_bucket: str = Field(
         default="badge-logos",
         validation_alias="STORAGE_BADGE_LOGOS_BUCKET",
