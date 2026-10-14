@@ -10,22 +10,25 @@ const services = [
   {
     name: "RAG & Knowledge Assistants",
     href: "/services/ai-solutions/rag-knowledge-assistants",
-    image: "/images/technology-ai.png",
-    imageAlt: "Abstract visualization representing an AI assistant retrieving trusted knowledge.",
+    image: "/images/ai-service-rag-review.jpg",
+    imageAlt: "Two colleagues reviewing documents together.",
+    imagePosition: "center",
     introduction: "Give teams fast answers from approved company knowledge, with the source evidence attached to every important claim.",
   },
   {
     name: "AI Agents",
     href: "/services/ai-solutions/ai-agents",
-    image: "/images/about-hero-ai.png",
-    imageAlt: "Abstract visualization representing connected AI agents and business systems.",
+    image: "/images/ai-service-agents.jpg",
+    imageAlt: "Two developers working together on software code.",
+    imagePosition: "center",
     introduction: "Build bounded agents that use approved tools, complete multi-step work, and stop for human approval when risk demands it.",
   },
   {
     name: "Intelligent Automation",
     href: "/services/ai-solutions/intelligent-automation",
-    image: "/images/technology-data.png",
-    imageAlt: "Abstract visualization representing structured document processing.",
+    image: "/images/ai-service-automation.jpg",
+    imageAlt: "Person working with a laptop and printed documents.",
+    imagePosition: "center",
     introduction: "Combine document intelligence, workflow orchestration, and language models to remove repetitive work while keeping exceptions visible.",
   },
 ] as const;
@@ -89,7 +92,7 @@ export function AiSolutionsServicesShowcase() {
 
       <article className={`${styles.servicePanel} ${styles.compactPanel}`} id="ai-service-panel" role="tabpanel" aria-labelledby={`ai-service-tab-${activeIndex}`} key={activeService.name}>
         <div className={`${styles.imageFrame} ${styles.compactImageFrame}`}>
-          <Image src={activeService.image} alt={activeService.imageAlt} fill loading="eager" sizes="(max-width: 760px) 100vw, 65vw" />
+          <Image src={activeService.image} alt={activeService.imageAlt} fill loading="eager" sizes="(max-width: 760px) 100vw, 65vw" style={{ objectPosition: activeService.imagePosition }} />
           <div className={`${styles.panelContent} ${styles.compactPanelContent}`}>
             <h3>{activeService.name}</h3>
             <p className={styles.introduction}>{activeService.introduction}</p>

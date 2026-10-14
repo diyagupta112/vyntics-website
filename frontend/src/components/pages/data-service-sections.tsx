@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import Link from "next/link";
+import { FeaturedWork } from "@/components/sections/home/featured-work";
 import { Container } from "@/components/ui/container";
 import styles from "./data-service-sections.module.css";
 
@@ -94,12 +96,7 @@ function Evidence({ sections }: { sections: DataServicePageSections }) {
       </Container>
     </section>
 
-    <section className={styles.proof} aria-labelledby="data-service-proof-title">
-      <Container className={styles.proofLayout}>
-        <div><p className={styles.eyebrow}>Proof</p><h2 id="data-service-proof-title">Case study.</h2></div>
-        <div><p>We do not publish invented performance figures. Explore the case-study library for documented work, constraints, and outcomes from completed engagements.</p><Link href="/case-studies">Explore case studies <ArrowIcon /></Link></div>
-      </Container>
-    </section>
+    <Suspense fallback={<FeaturedWork loading />}><FeaturedWork /></Suspense>
 
     <section className={styles.engagements} aria-labelledby="data-service-engagements-title">
       <Container>
@@ -128,14 +125,6 @@ function Evidence({ sections }: { sections: DataServicePageSections }) {
       </Container>
     </section>
 
-    <section className={styles.related} aria-labelledby="data-service-related-title">
-      <Container>
-        <header className={styles.heading}><p className={styles.eyebrow}>Continue exploring</p><h2 id="data-service-related-title">Related services.</h2></header>
-        <div className={styles.relatedGrid}>
-          {sections.relatedServices.map(item => <Link href={item.href} key={item.name}><h3>{item.name}</h3><p>{item.description}</p><span>Explore service <ArrowIcon /></span></Link>)}
-        </div>
-      </Container>
-    </section>
   </>;
 }
 

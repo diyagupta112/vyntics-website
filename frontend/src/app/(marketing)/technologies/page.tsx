@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import type { CSSProperties } from "react";
+import { Suspense, type CSSProperties } from "react";
+import { FeaturedWork } from "@/components/sections/home/featured-work";
 import { Container } from "@/components/ui/container";
-import { projects } from "@/content/projects";
 import { ProcessStack } from "./process-stack";
-import { ClientWorkCarousel } from "./client-work-carousel";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -115,14 +114,7 @@ export default function TechnologiesPage() {
 
       <ProcessStack steps={process} />
 
-      <section className={styles.clientWork} aria-labelledby="client-work-title">
-        <Container>
-          <div className={styles.clientHeading}>
-            <div><p className={styles.eyebrow}>Using technology in customer service</p><h2 id="client-work-title">Stacks put together according to actual operational requirements.</h2></div>
-          </div>
-          <ClientWorkCarousel projects={projects} />
-        </Container>
-      </section>
+      <Suspense fallback={<FeaturedWork loading />}><FeaturedWork /></Suspense>
 
     </>
   );

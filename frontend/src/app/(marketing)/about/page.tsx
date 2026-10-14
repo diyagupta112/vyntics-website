@@ -58,8 +58,8 @@ export default function AboutPage() {
 
           <figure className={styles.companyIntroVisual}>
             <Image
-              src="/images/about-vyntics-team.png"
-              alt="A business team collaborating during a meeting"
+              src="/images/about-vyntics-office-meeting.jpg"
+              alt="A team collaborating in a modern office meeting"
               fill
               sizes="(max-width: 860px) 100vw, 46vw"
             />
@@ -108,8 +108,8 @@ export default function AboutPage() {
         <Container className={styles.storyGrid}>
           <figure className={styles.storyMarker}>
             <Image
-              src="/images/about-story-collaboration.png"
-              alt="A team collaborating around a table with laptops"
+              src="/images/about-story-team-meeting.jpg"
+              alt="A creative team discussing work together around a table"
               fill
               sizes="(max-width: 860px) 100vw, 38vw"
             />

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import dataImage from "../../../../../public/images/technology-data-team.png";
+import dataImage from "../../../../../public/images/data-engineering-why-team.jpg";
 import { Container } from "@/components/ui/container";
 import { ScrollReveals } from "@/components/ui/scroll-reveals";
 import reasonStyles from "@/components/pages/service-reason-card.module.css";
@@ -16,7 +16,7 @@ export function DataWhy() {
   return <section id="data-why" className={styles.section} aria-labelledby="data-why-title">
     <Container className={styles.layout}>
       <div className={styles.image} data-reveal="data-why-image">
-        <Image src={dataImage} alt="Data specialists collaborating around analytical systems." fill sizes="(max-width: 900px) 100vw, 40vw" />
+        <Image src={dataImage} alt="Data engineering team joining hands around a shared workspace." fill sizes="(max-width: 900px) 100vw, 40vw" />
       </div>
       <div className={styles.content}>
         <header data-reveal="data-why-heading" data-reveal-delay="90">

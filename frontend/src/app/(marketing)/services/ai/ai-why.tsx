@@ -1,5 +1,5 @@
 import Image from "next/image";
-import aiImage from "../../../../../public/images/about-hero-ai.png";
+import aiImage from "../../../../../public/images/ai-why-meeting.jpg";
 import { Container } from "@/components/ui/container";
 import { ScrollReveals } from "@/components/ui/scroll-reveals";
 import reasonStyles from "@/components/pages/service-reason-card.module.css";
@@ -16,7 +16,7 @@ export function AiWhy() {
   return <section id="ai-why" className={styles.section} aria-labelledby="ai-why-title">
     <Container className={styles.layout}>
       <div className={styles.image} data-reveal="ai-why-image">
-        <Image src={aiImage} alt="A person interacting with a connected artificial intelligence network." fill sizes="(max-width: 900px) 100vw, 40vw" />
+        <Image src={aiImage} alt="A diverse team discussing work around a conference table." fill sizes="(max-width: 900px) 100vw, 40vw" style={{ objectPosition: "center 68%" }} />
       </div>
       <div className={styles.content}>
         <header data-reveal="ai-why-heading" data-reveal-delay="90">
