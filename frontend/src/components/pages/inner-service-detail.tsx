@@ -6,7 +6,7 @@ import { Container } from "@/components/ui/container";
 import styles from "./inner-service-detail.module.css";
 import { ServiceTools } from "./service-tools";
 import { ServiceApproach } from "./service-approach";
-import { DataServiceSections, type DataServicePageSections } from "./data-service-sections";
+import { DataServiceHeroVisual, DataServiceSections, type DataServicePageSections } from "./data-service-sections";
 import { AiServiceSections, type AiServicePageSections } from "./ai-service-sections";
 
 export type InnerServiceDetailContent = {
@@ -25,6 +25,7 @@ export type InnerServiceDetailContent = {
   dataPage?: DataServicePageSections;
   aiPage?: AiServicePageSections;
   metadataDescription: string;
+  keywords?: readonly string[];
 };
 
 function ArrowIcon() {
@@ -40,16 +41,19 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
   return (
     <>
       <section className={`${styles.hero} ${service.slug === "rag-knowledge-assistants" ? styles.sequencedHero : ""}`} aria-labelledby="service-title">
-        <Container>
-          <Link className={styles.backLink} href={service.aiPage ? "/services/ai-solutions" : "/#services"}>{service.aiPage ? "← AI Solutions" : "← All services"}</Link>
-          <p className={styles.eyebrow}>{service.eyebrow}</p>
-          <h1 id="service-title" aria-label={service.slug === "rag-knowledge-assistants" ? service.title : undefined}>
-            {service.slug === "rag-knowledge-assistants" ? service.title.split(/\s+/).map((word, index) => (
-              <span className={styles.heroWord} aria-hidden="true" key={`${word}-${index}`} style={{ animationDelay: `${.45 + index * .12}s` }}>{word}{" "}</span>
-            )) : service.title}
-          </h1>
-          <p className={styles.introduction}>{service.introduction}</p>
-          <button className={styles.primaryButton} type="button" data-scroll-target="contact">Discuss {service.name} <ArrowIcon /></button>
+        <Container className={dataPage ? styles.dataHeroGrid : undefined}>
+          <div>
+            <Link className={styles.backLink} href={dataPage ? "/services/data-engineering" : service.aiPage ? "/services/ai-solutions" : "/#services"}>{dataPage ? "← Data Engineering" : service.aiPage ? "← AI Solutions" : "← All services"}</Link>
+            <p className={styles.eyebrow}>{service.eyebrow}</p>
+            <h1 id="service-title" aria-label={service.slug === "rag-knowledge-assistants" ? service.title : undefined}>
+              {service.slug === "rag-knowledge-assistants" ? service.title.split(/\s+/).map((word, index) => (
+                <span className={styles.heroWord} aria-hidden="true" key={`${word}-${index}`} style={{ animationDelay: `${.45 + index * .12}s` }}>{word}{" "}</span>
+              )) : service.title}
+            </h1>
+            <p className={styles.introduction}>{service.introduction}</p>
+            <button className={styles.primaryButton} type="button" data-scroll-target="contact">Discuss {service.name} <ArrowIcon /></button>
+          </div>
+          {dataPage ? <DataServiceHeroVisual kind={dataPage.kind} /> : null}
         </Container>
       </section>
 
@@ -84,17 +88,20 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
       </section>
       )}
 
+      {dataPage?.spotlight ? <DataServiceSections variant="spotlight" sections={dataPage} /> : null}
+
       <ServiceApproach steps={dataPage?.process ?? aiPage?.process ?? service.process}
         variant={dataPage || aiPage ? "stacked-cards" : "timeline"}
         heading={dataPage ? "Our process." : aiPage ? "Our process" : undefined}
         introduction={dataPage ? "A clear delivery path from assessment and design through implementation, validation, and ongoing operation." : aiPage ? "A controlled delivery path from a focused use case through evaluation, deployment, and ongoing improvement." : undefined}
+        theme={dataPage?.kind}
       />
 
       {dataPage ? (
         <DataServiceSections variant="architecture" sections={dataPage} />
       ) : null}
 
-      <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} title={dataPage?.toolsHeading ?? aiPage?.toolsHeading} linkTools={Boolean(aiPage)} />
+      <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} title={dataPage?.toolsHeading ?? aiPage?.toolsHeading} linkTools={Boolean(dataPage || aiPage)} />
 
       {dataPage ? (
         <DataServiceSections variant="evidence" sections={dataPage} />
@@ -103,6 +110,8 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
       {dataPage || aiPage ? null : (
         <NextServiceBanner id="service-next" currentService={serviceSitemap.find(pillar => pillar.services.some(item => item.slug === service.slug))?.slug} />
       )}
+
+      {dataPage ? <DataServiceSections variant="related" sections={dataPage} /> : null}
 
       <ContactCta
         eyebrow={`${service.name} consultation`}

@@ -1,15 +1,51 @@
-.problems, .services, .architecture, .results, .proof, .engagements, .insights, .faqs, .related { padding-block: clamp(4rem, 7vw, 6.5rem); }
+.problems, .services, .spotlight, .architecture, .results, .proof, .engagements, .insights, .faqs, .related { padding-block: clamp(4rem, 7vw, 6.5rem); }
 .problems, .results, .insights, .related { background: color-mix(in srgb, var(--color-surface) 94%, var(--color-primary)); }
 .eyebrow { color: var(--color-primary); font-size: .72rem; font-weight: 760; letter-spacing: .16em; text-transform: uppercase; }
 .heading { max-width: 52rem; }
 .heading h2, .proof h2, .faqLayout h2 { margin-top: .7rem; font-size: clamp(2rem, 3.8vw, 3.6rem); line-height: 1.04; letter-spacing: -.05em; text-wrap: balance; }
 .heading > p:last-child { max-width: 45rem; margin-top: 1.1rem; color: var(--color-muted); line-height: 1.75; }
+.heroVisual { position: relative; min-height: 27rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border)); border-radius: 1.2rem; background: linear-gradient(145deg, color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)), var(--color-surface)); box-shadow: 0 1.4rem 4rem rgb(20 83 219 / 8%); }
+.heroVisual span, .heroVisual strong { display: grid; place-items: center; min-height: 2.65rem; padding-inline: .75rem; border: 1px solid color-mix(in srgb, var(--color-primary) 24%, var(--color-border)); border-radius: .65rem; background: color-mix(in srgb, var(--color-surface) 94%, var(--color-primary)); font-size: .72rem; font-weight: 730; letter-spacing: .04em; }
+.sourceColumn, .destinationColumn, .warehouseSources, .warehouseOutputs, .governanceRail { position: absolute; z-index: 2; display: grid; gap: .75rem; }
+.sourceColumn { top: 22%; left: 7%; }
+.destinationColumn { top: 34%; right: 6%; }
+.heroVisual > svg { position: absolute; inset: 12% 12%; width: 76%; height: 76%; overflow: visible; fill: none; stroke: color-mix(in srgb, var(--color-primary) 60%, var(--color-border)); stroke-width: 1.5; stroke-linecap: round; }
+.heroVisual > svg circle { fill: var(--color-surface); stroke-width: 2; }
+.warehouseSources { top: 18%; left: 7%; }
+.warehouseLayers { position: absolute; top: 17%; left: 34%; width: 34%; display: grid; gap: 0; }
+.warehouseLayers span, .warehouseLayers strong { min-height: 4.8rem; border-radius: .2rem; box-shadow: 0 .7rem 1.8rem rgb(20 83 219 / 7%); }
+.warehouseLayers span + span, .warehouseLayers strong { margin-top: -.35rem; }
+.warehouseOutputs { top: 32%; right: 7%; }
+.recordTable { position: absolute; top: 20%; left: 7%; width: 37%; display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; padding: 1rem; border: 1px solid var(--color-border); border-radius: .8rem; background: var(--color-surface); }
+.recordTable span { min-height: 3.6rem; padding: 0; border-radius: .35rem; }
+.recordTable span:nth-child(2), .recordTable span:nth-child(5) { border-color: #d79a9a; background: #fff7f7; }
+.qualityGate { position: absolute; top: 34%; left: 48%; display: grid; gap: .5rem; text-align: center; }
+.qualityGate strong { color: var(--color-primary); font-size: 1.2rem; }
+.governanceRail { top: 24%; right: 6%; }
 .problemGrid { margin-top: clamp(2.25rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--color-border); }
 .problemGrid article { min-height: 17rem; padding: 1.8rem; border-left: 1px solid var(--color-border); }
 .problemGrid article:last-child { border-right: 1px solid var(--color-border); }
 .problemGrid span, .engagementGrid > li > span { color: var(--color-primary); font-size: .7rem; font-weight: 760; letter-spacing: .12em; }
 .problemGrid h3 { margin-top: 4rem; font-size: 1.12rem; letter-spacing: -.025em; }
 .problemGrid p, .resultGrid p, .engagementGrid p, .insightGrid p, .relatedGrid p { margin-top: .7rem; color: var(--color-muted); font-size: .9rem; line-height: 1.65; }
+.problems[data-kind="pipelines"] { --notch-bg: color-mix(in srgb, var(--color-surface) 94%, var(--color-primary)); }
+.problems[data-kind="pipelines"] .heading { margin-inline: auto; text-align: center; }
+.problems[data-kind="pipelines"] .heading > p:last-child { margin-inline: auto; }
+.notchedGrid { gap: clamp(1rem, 2vw, 1.6rem); border: 0; }
+.notchedGrid .notchedCard, .notchedGrid .notchedCard:last-child { min-width: 0; min-height: 0; padding: 0; border: 0; outline: none; background: transparent; }
+.notchedCard:focus-visible { border-radius: 1.75rem; outline: 2px solid var(--color-primary); outline-offset: .4rem; }
+.notchedMedia { --notch-size: 4.5rem; --curve-size: 1.625rem; --badge-size: 3.625rem; position: relative; }
+.notchedVisual { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--color-border); border-radius: 1.75rem; background: var(--color-surface); }
+.problemImage { object-fit: cover; filter: grayscale(1) contrast(.96); transition: transform 500ms cubic-bezier(.2,.8,.2,1), filter 500ms ease; }
+.notchCore, .notchCurve, .notchBadge { position: absolute; right: 0; bottom: 0; }
+.notchCore { width: var(--notch-size); height: var(--notch-size); border-top-left-radius: 2.75rem; background: var(--notch-bg); }
+.notchCurve { width: var(--curve-size); height: var(--curve-size); background: radial-gradient(circle at top left, transparent calc(var(--curve-size) - .5px), var(--notch-bg) var(--curve-size)); }
+.notchCurveTop { bottom: var(--notch-size); }
+.notchCurveLeft { right: var(--notch-size); }
+.notchBadge { z-index: 2; width: var(--badge-size); height: var(--badge-size); display: grid; place-items: center; border: 1px solid color-mix(in srgb, var(--color-primary) 32%, var(--color-border)); border-radius: 50%; color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 9%, var(--color-surface)); transition: transform 300ms cubic-bezier(.2,.8,.2,1), color 300ms ease, background-color 300ms ease; }
+.notchBadge svg { width: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
+.notchedGrid .notchedCard h3 { margin-top: 1.25rem; font-size: 1.12rem; line-height: 1.3; }
+.notchedGrid .notchedCard p { margin-top: .6rem; font-size: .87rem; line-height: 1.65; }
 .serviceGroups { display: grid; gap: clamp(4rem, 8vw, 7rem); }
 .serviceGrid { margin-top: 2.5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--color-border); }
 .serviceGrid article { min-height: 14rem; padding: 1.6rem; border-left: 1px solid var(--color-border); }
@@ -17,6 +53,15 @@
 .serviceGrid article > span { color: var(--color-primary); font-size: .68rem; font-weight: 760; letter-spacing: .12em; }
 .serviceGrid h3 { margin-top: 3rem; font-size: 1.12rem; }
 .serviceGrid p { margin-top: .7rem; color: var(--color-muted); font-size: .9rem; line-height: 1.65; }
+.spotlight { background: #101622; color: #fff; }
+.spotlightLayout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; }
+.spotlight .heading > p:last-child { color: #aeb8c9; }
+.monitorPanel { border-top: 1px solid rgb(255 255 255 / 20%); }
+.monitorPanel article { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: 1rem; padding-block: 1.3rem; border-bottom: 1px solid rgb(255 255 255 / 16%); }
+.monitorPanel article > span { display: flex; align-items: center; gap: .65rem; color: #98a6bb; font-size: .7rem; }
+.monitorPanel i { width: .5rem; height: .5rem; border-radius: 50%; background: #58a0ff; box-shadow: 0 0 0 .3rem rgb(88 160 255 / 14%); }
+.monitorPanel h3 { font-size: 1rem; }
+.monitorPanel p { margin-top: .45rem; color: #aeb8c9; font-size: .85rem; line-height: 1.65; }
 .architectureFlow { margin-top: clamp(2.5rem, 5vw, 4rem); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); list-style: none; }
 .architectureFlow li { position: relative; min-height: 10rem; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; border: 1px solid var(--color-border); background: var(--color-surface); }
 .architectureFlow li + li { border-left: 0; }
@@ -48,10 +93,20 @@
 .faqList details[open] summary span { transform: rotate(45deg); }
 .faqList details > p { max-width: 44rem; padding: 0 2rem 1.4rem 0; color: var(--color-muted); font-size: .92rem; line-height: 1.7; }
 .relatedGrid > a { min-height: 14rem; }
+.relatedGrid > a { position: relative; overflow: hidden; box-shadow: 0 .5rem 1.6rem rgb(20 83 219 / 3%); transition: transform 300ms cubic-bezier(.2,.8,.2,1), border-color 300ms ease, box-shadow 300ms ease; }
+.relatedGrid > a::before { position: absolute; inset: 0 0 auto; height: 2px; content: ""; background: var(--color-primary); transform: scaleX(0); transform-origin: left; transition: transform 300ms ease; }
+.relatedGrid > a:focus-visible, .insightGrid > a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 3px; }
 @media (hover: hover) and (pointer: fine) {
-  .insightGrid > a:hover, .relatedGrid > a:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border)); }
+  .notchedCard:hover .problemImage { transform: scale(1.04); filter: none; }
+  .notchedCard:hover .notchBadge { transform: scale(1.05); color: #fff; background: var(--color-primary); }
+  .notchedCard:hover .notchBadge svg { transform: translate(.12rem, -.12rem); }
+  .insightGrid > a:hover, .relatedGrid > a:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border)); box-shadow: 0 1rem 2.4rem rgb(20 83 219 / 9%); }
+  .relatedGrid > a:hover::before { transform: scaleX(1); }
   .proof a:hover svg, .insightGrid a:hover svg, .relatedGrid a:hover svg { transform: translateX(.25rem); }
 }
+.notchedCard:focus-visible .problemImage { transform: scale(1.04); filter: none; }
+.notchedCard:focus-visible .notchBadge { transform: scale(1.05); color: #fff; background: var(--color-primary); }
+.notchedCard:focus-visible .notchBadge svg { transform: translate(.12rem, -.12rem); }
 @media (max-width: 960px) {
   .problemGrid { grid-template-columns: repeat(2, 1fr); }
   .problemGrid article:nth-child(odd) { border-left: 1px solid var(--color-border); }
@@ -59,9 +114,34 @@
   .architectureFlow { grid-template-columns: 1fr; }
   .architectureFlow li + li { border-top: 0; border-left: 1px solid var(--color-border); }
   .architectureFlow svg { top: auto; right: 1rem; bottom: -.65rem; transform: rotate(90deg); }
-  .proofLayout, .faqLayout { grid-template-columns: 1fr; }
+  .proofLayout, .faqLayout, .spotlightLayout { grid-template-columns: 1fr; }
   .serviceGrid { grid-template-columns: 1fr; }
   .serviceGrid article, .serviceGrid article:last-child { border-inline: 1px solid var(--color-border); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .revealGroup > * { opacity: .01; transform: translateY(18px); transition: opacity 600ms cubic-bezier(.2,.8,.2,1), transform 600ms cubic-bezier(.2,.8,.2,1); }
+  .revealGroup > *:nth-child(2) { transition-delay: 100ms; }
+  .revealGroup > *:nth-child(3) { transition-delay: 170ms; }
+  .revealGroup > *:nth-child(4) { transition-delay: 240ms; }
+  .revealGroup[data-revealed="true"] > * { opacity: 1; transform: none; }
+  .architectureReveal .architectureFlow > li, .engagementReveal .engagementGrid > li { opacity: .01; transform: translateY(18px); transition: opacity 600ms cubic-bezier(.2,.8,.2,1), transform 600ms cubic-bezier(.2,.8,.2,1); }
+  .architectureReveal[data-revealed="true"] .architectureFlow > li, .engagementReveal[data-revealed="true"] .engagementGrid > li { opacity: 1; transform: none; }
+  .architectureReveal .architectureFlow > li:nth-child(2), .engagementReveal .engagementGrid > li:nth-child(2) { transition-delay: 100ms; }
+  .architectureReveal .architectureFlow > li:nth-child(3), .engagementReveal .engagementGrid > li:nth-child(3) { transition-delay: 170ms; }
+  .architectureReveal .architectureFlow > li:nth-child(4) { transition-delay: 240ms; }
+  .architectureReveal .architectureFlow > li:nth-child(5) { transition-delay: 310ms; }
+  .pipelines > svg path { stroke-dasharray: 8 7; animation: pipelineFlow 5s linear infinite; }
+}
+@keyframes pipelineFlow { to { stroke-dashoffset: -60; } }
+@media (prefers-reduced-motion: reduce) {
+  .relatedGrid > a, .relatedGrid > a::before, .insightGrid > a, .insightGrid svg, .relatedGrid svg, .problemImage, .notchBadge, .notchBadge svg { transition: none; }
+  .notchedCard:hover .problemImage, .notchedCard:focus-visible .problemImage, .notchedCard:hover .notchBadge, .notchedCard:focus-visible .notchBadge { transform: none; }
+}
+@media (max-width: 760px) {
+  .heroVisual { min-height: 21rem; }
+  .sourceColumn, .warehouseSources { left: 4%; }
+  .destinationColumn, .warehouseOutputs, .governanceRail { right: 4%; }
+  .recordTable { left: 4%; width: 40%; }
 }
 @media (max-width: 680px) {
   .problemGrid, .resultGrid, .engagementGrid, .insightGrid, .relatedGrid { grid-template-columns: 1fr; }

@@ -17,11 +17,13 @@ export function ServiceApproach({
   heading = "Clear decisions from discovery through delivery.",
   introduction = "Four focused stages. One accountable path from the first conversation to a working solution.",
   variant = "timeline",
+  theme,
 }: {
   steps: ReadonlyArray<{ title: string; description: string }>;
   heading?: string;
   introduction?: string;
   variant?: "timeline" | "stacked-cards";
+  theme?: "pipelines" | "warehouse" | "quality";
 }) {
   const timelineRef = useRef<HTMLOListElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
@@ -52,7 +54,7 @@ export function ServiceApproach({
   }, [variant]);
 
   return (
-    <section className={styles.section} aria-labelledby="approach-title">
+    <section className={styles.section} data-theme={theme} aria-labelledby="approach-title">
       <Container>
         <header className={styles.heading}>
           <p>Our approach</p>

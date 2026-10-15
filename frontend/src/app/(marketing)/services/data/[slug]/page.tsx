@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   return service ? {
     title: service.name,
     description: service.metadataDescription,
+    keywords: service.keywords ? [...service.keywords] : undefined,
     alternates: { canonical: `https://vyntics.com/services/data-engineering/${service.slug}` },
   } : {};
 }

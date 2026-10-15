@@ -1,4 +1,5 @@
 .hero { padding-block: clamp(4rem, 8vw, 7rem); }
+.dataHeroGrid { display: grid; grid-template-columns: minmax(0, .92fr) minmax(24rem, 1.08fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
 .heroWord { display: inline; }
 @media (prefers-reduced-motion: no-preference) {
   .sequencedHero .eyebrow { animation: heroReveal 400ms ease both; }
@@ -66,6 +67,7 @@
   .toolGrid article:hover { transform: translateY(-.25rem); border-color: color-mix(in srgb, var(--color-primary) 36%, var(--color-border)); box-shadow: 0 1.2rem 3rem rgb(20 83 219 / 8%); }
 }
 @media (max-width: 760px) {
+  .dataHeroGrid { grid-template-columns: 1fr; }
   .splitHeading { grid-template-columns: 1fr; gap: 1.4rem; }
   .approach li > div { grid-template-columns: 1fr; gap: .6rem; }
   .toolGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }

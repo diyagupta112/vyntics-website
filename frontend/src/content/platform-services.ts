@@ -91,6 +91,7 @@ export const platformServices = {
       group: "data", slug: "data-pipelines-integration", name: "Data Pipelines & Integration", eyebrow: "Data engineering · Pipelines & integration",
       title: "Move business data reliably between the systems that need it.",
       introduction: "We build observable batch and streaming pipelines that connect APIs, databases, files, SaaS tools, and internal platforms.",
+      keywords: ["data pipeline services", "ETL services", "ELT development", "data integration services", "ETL pipeline development", "real-time data streaming", "API data integration"],
       promise: "Replace fragile exports and hidden scripts with dependable, owned data movement.",
       promiseDetail: "Reliable pipelines need clear contracts, incremental processing, retries, idempotency, reconciliation, and visible ownership. We design those controls before scaling volume.",
       deliverables: [
@@ -99,6 +100,7 @@ export const platformServices = {
         { title: "Operational monitoring", description: "Freshness, volume, failure, lineage, and reconciliation checks with accountable alerts." },
       ],
       dataPage: {
+        kind: "pipelines",
         serviceGroups: [
           {
             title: "Our data pipeline services.",
@@ -121,10 +123,10 @@ export const platformServices = {
         ],
         process: [
           { title: "Discover sources", description: "Map databases, SaaS platforms, files, APIs, owners, volumes, update patterns, and downstream consumers." },
-          { title: "Design the flow", description: "Choose ETL, ELT, batch, or streaming patterns and define contracts, checkpoints, security, and recovery behavior." },
-          { title: "Build for replay", description: "Implement modular ingestion and transformation with idempotency, version control, retries, and safe backfills." },
-          { title: "Test and reconcile", description: "Exercise schema changes and failure cases, then compare critical totals and records with their source systems." },
-          { title: "Monitor and improve", description: "Track freshness, uptime, volume, cost, and errors with alerts connected to accountable owners." },
+          { title: "Design", description: "Choose ETL, ELT, batch, or streaming patterns and define contracts, checkpoints, security, and recovery behavior." },
+          { title: "Build", description: "Implement modular ingestion and transformation with idempotency, version control, retries, and safe backfills." },
+          { title: "Test", description: "Exercise schema changes and failure cases, then compare critical totals and records with their source systems." },
+          { title: "Monitor", description: "Track freshness, uptime, volume, cost, and errors with alerts connected to accountable owners." },
         ],
         toolsHeading: "Tools we use.",
         signs: {
@@ -133,8 +135,8 @@ export const platformServices = {
           items: [
             { title: "Manual exports", description: "Teams repeatedly download, copy, and merge files to keep reporting or operations moving." },
             { title: "Broken reports", description: "Dashboards fail or silently drift because an upstream field, schema, or schedule changed." },
-            { title: "Disconnected systems", description: "Customer, finance, product, and operational data remain trapped in separate tools." },
-            { title: "Slow or stale data", description: "Decisions rely on yesterday's snapshot because refreshes are fragile, opaque, or too expensive." },
+            { title: "Data stuck in separate tools", description: "Customer, finance, product, and operational data remain trapped in separate tools." },
+            { title: "Slow or outdated data", description: "Decisions rely on yesterday's snapshot because refreshes are fragile, opaque, or too expensive." },
           ],
         },
         architecture: {
@@ -162,22 +164,23 @@ export const platformServices = {
         faqs: [
           { question: "What is the difference between ETL and ELT?", answer: "ETL transforms data before loading it into the destination. ELT loads source data first and performs most transformation inside the warehouse or lakehouse. The right choice depends on security, source constraints, scale, latency, and the target platform." },
           { question: "How long does it take to build a data pipeline?", answer: "A focused production pipeline can take a few weeks; a multi-source platform takes longer. Timing depends on source access, data quality, transformation complexity, testing, and operational requirements. We scope those dependencies before committing to a schedule." },
-          { question: "Can you connect our CRM, ERP, and other tools?", answer: "Yes, where the systems provide supported APIs, database access, files, events, or approved connectors. We verify authentication, rate limits, field mappings, history, and failure behavior before selecting an integration method." },
+          { question: "Can you connect our CRM, ERP and other tools?", answer: "Yes, where the systems provide supported APIs, database access, files, events, or approved connectors. We verify authentication, rate limits, field mappings, history, and failure behavior before selecting an integration method." },
           { question: "Do you support real-time data?", answer: "Yes, when the business decision genuinely needs it. We use streaming or event-driven patterns for appropriate workloads and choose simpler batch processing when it is more reliable and cost-effective." },
           { question: "What happens when a pipeline fails?", answer: "Failures are logged and alerted with enough context to identify the affected source and consumers. Pipelines are designed for safe retry or replay, with checkpoints, idempotency, and reconciliation to prevent duplication or silent data loss." },
-          { question: "How much does pipeline development cost?", answer: "Cost depends on the number and quality of sources, latency, transformation logic, infrastructure, security, and support expectations. An audit or discovery phase produces a defensible scope instead of a misleading fixed estimate." },
+          { question: "How much does data pipeline development cost?", answer: "Cost depends on the number and quality of sources, latency, transformation logic, infrastructure, security, and support expectations. An audit or discovery phase produces a defensible scope instead of a misleading fixed estimate." },
         ],
         relatedServices: [
           { name: "Data Warehousing & Lakehouse", description: "Give pipeline outputs a governed, query-ready analytical foundation.", href: "/services/data-engineering/data-warehousing-lakehouse" },
           { name: "Data Quality & Governance", description: "Add ownership, validation, lineage, and issue workflows to critical data.", href: "/services/data-engineering/data-quality-governance" },
         ],
       },
-      technologies: ["Python", "SQL", "Apache Airflow", "dbt", "Kafka", "Fivetran", "AWS Glue", "Azure Data Factory"],
+      technologies: ["Apache Airflow", "dbt", "Fivetran", "Airbyte", "Apache Kafka", "AWS Glue", "Azure Data Factory"],
     }),
     "data-warehousing-lakehouse": defineService({
       group: "data", slug: "data-warehousing-lakehouse", name: "Data Warehousing & Lakehouse", eyebrow: "Data engineering · Warehouse & lakehouse",
       title: "Create one governed foundation for analytics and AI.",
       introduction: "We design and implement cloud warehouses and lakehouses that organize raw operational data into secure, reusable analytical models.",
+      keywords: ["data warehousing services", "data warehouse consulting", "Snowflake consulting", "BigQuery consulting", "Amazon Redshift services", "data lakehouse services", "Databricks consulting", "data warehouse modernization"],
       promise: "Give teams query-ready data without creating another unowned data swamp.",
       promiseDetail: "The platform choice matters less than the model, workload, governance, and operating discipline around it. We design storage and compute around actual access patterns and growth.",
       deliverables: [
@@ -186,6 +189,7 @@ export const platformServices = {
         { title: "Platform operations", description: "Access, monitoring, performance, backup, retention, deployment, and ownership practices." },
       ],
       dataPage: {
+        kind: "warehouse",
         serviceGroups: [
           {
             title: "Our data warehousing services.",
@@ -207,15 +211,15 @@ export const platformServices = {
           },
         ],
         process: [
-          { title: "Assess workloads", description: "Map current sources, reports, users, query patterns, security constraints, pain points, and growth expectations." },
-          { title: "Model the foundation", description: "Define raw, standardized, and business-ready layers with ownership, history, and access rules." },
-          { title: "Build the platform", description: "Configure storage, compute, ingestion, transformation, environments, deployment, and observability." },
-          { title: "Migrate and reconcile", description: "Move subject areas in controlled stages and prove results against the systems they replace." },
-          { title: "Optimise operations", description: "Tune query performance, concurrency, storage, compute, and cost from observed production use." },
+          { title: "Assess", description: "Map current sources, reports, users, query patterns, security constraints, pain points, and growth expectations." },
+          { title: "Model", description: "Define raw, standardized, and business-ready layers with ownership, history, and access rules." },
+          { title: "Build", description: "Configure storage, compute, ingestion, transformation, environments, deployment, and observability." },
+          { title: "Migrate", description: "Move subject areas in controlled stages and prove results against the systems they replace." },
+          { title: "Optimise", description: "Tune query performance, concurrency, storage, compute, and cost from observed production use." },
         ],
         toolsHeading: "Platforms.",
         signs: {
-          title: "Signs you need a data warehouse or lakehouse.",
+          title: "Signs you need a data warehouse.",
           introduction: "A central platform is justified when fragmented data is already slowing decisions and increasing the cost of every new report or model.",
           items: [
             { title: "Conflicting reports", description: "The same metric produces different answers because logic and source selection are inconsistent." },
@@ -247,8 +251,8 @@ export const platformServices = {
           { title: "Data Engineering vs Data Science", description: "See how reliable data foundations support analysis, modeling, and operational use.", href: "https://vyntics.com/blog/data-engineering-vs-data-science" },
         ],
         faqs: [
-          { question: "What is the difference between a data warehouse, data lake, and lakehouse?", answer: "A warehouse is optimized for governed analytical tables and predictable SQL workloads. A lake stores large volumes of raw and varied data. A lakehouse adds warehouse-style management and query capabilities over lake storage. The right pattern depends on workload, governance, skills, and cost." },
-          { question: "Which is better: Snowflake, BigQuery, or Redshift?", answer: "None is universally better. Snowflake emphasizes workload separation and cross-cloud availability, BigQuery offers serverless operation on Google Cloud, and Redshift integrates deeply with AWS. We compare them against your data volume, concurrency, ecosystem, skills, governance, and cost model." },
+          { question: "What is the difference between a data warehouse, a data lake and a lakehouse?", answer: "A warehouse is optimized for governed analytical tables and predictable SQL workloads. A lake stores large volumes of raw and varied data. A lakehouse adds warehouse-style management and query capabilities over lake storage. The right pattern depends on workload, governance, skills, and cost." },
+          { question: "Which is better: Snowflake, BigQuery or Redshift?", answer: "None is universally better. Snowflake emphasizes workload separation and cross-cloud availability, BigQuery offers serverless operation on Google Cloud, and Redshift integrates deeply with AWS. We compare them against your data volume, concurrency, ecosystem, skills, governance, and cost model." },
           { question: "How long does it take to build a data warehouse?", answer: "A first useful subject area may be delivered in weeks, while a broader migration usually takes months. Source access, data quality, historical logic, security, reconciliation, and the number of business domains determine the real schedule." },
           { question: "Can you migrate our existing database to a modern warehouse?", answer: "Yes. We inventory workloads, select migration waves, rebuild or adapt models, validate historical data, test performance, and plan cutover and rollback. We avoid a single high-risk big-bang move where incremental migration is possible." },
           { question: "How much does a cloud data warehouse cost to run?", answer: "Cost depends on stored data, compute time, query patterns, concurrency, data movement, retention, and platform pricing. We model expected workloads and add allocation, budgets, and monitoring so spend remains visible after launch." },
@@ -257,14 +261,18 @@ export const platformServices = {
         relatedServices: [
           { name: "Data Pipelines & Integration", description: "Bring source data into the platform through recoverable, observable flows.", href: "/services/data-engineering/data-pipelines-integration" },
           { name: "Data Quality & Governance", description: "Define the ownership and controls that keep shared data trustworthy.", href: "/services/data-engineering/data-quality-governance" },
+          { name: "Dashboards & Executive Reporting", description: "Turn governed warehouse models into focused operational and leadership reporting.", href: "/services/analytics-bi/dashboards-executive-reporting" },
+          { name: "RAG & Knowledge Assistants", description: "Ground retrieval and assistant workflows in governed enterprise data.", href: "/services/ai-solutions/rag-knowledge-assistants" },
+          { name: "Cloud Architecture & Migration", description: "Create the secure cloud foundation around your modern data platform.", href: "/services/cloud-foundations/cloud-architecture-migration" },
         ],
       },
-      technologies: ["Snowflake", "Databricks", "BigQuery", "Amazon Redshift", "Microsoft Fabric", "dbt", "Apache Spark", "SQL"],
+      technologies: ["Snowflake", "Google BigQuery", "Amazon Redshift", "Databricks", "Azure Synapse"],
     }),
     "data-quality-governance": defineService({
       group: "data", slug: "data-quality-governance", name: "Data Quality & Governance", eyebrow: "Data engineering · Quality & governance",
       title: "Make trusted data a managed system, not an assumption.",
       introduction: "We establish definitions, ownership, validation, lineage, access, and issue workflows that keep important data dependable and explainable.",
+      keywords: ["data quality services", "data governance consulting", "data quality management", "master data management", "data observability", "data catalog implementation", "data compliance services"],
       promise: "Expose data problems early and give the right people a clear way to resolve them.",
       promiseDetail: "Governance fails when it becomes paperwork detached from delivery. We focus controls on critical data, automate checks where possible, and assign real operational ownership.",
       deliverables: [
@@ -273,6 +281,7 @@ export const platformServices = {
         { title: "Governance workflow", description: "Catalog, lineage, access requests, issue triage, change control, and accountable resolution." },
       ],
       dataPage: {
+        kind: "quality",
         serviceGroups: [
           {
             title: "Our data quality services.",
@@ -292,22 +301,22 @@ export const platformServices = {
               { title: "Compliance workflows", description: "Support retention, deletion, auditability, and access processes for requirements such as GDPR and India's DPDP Act." },
             ],
           },
-          {
-            title: "Data observability.",
-            introduction: "Monitoring and alerts catch bad data before it reaches a report, application, or AI system.",
-            items: [
-              { title: "Freshness and volume", description: "Detect late loads, missing partitions, abnormal row counts, and unexpected distribution changes." },
-              { title: "Lineage-aware alerting", description: "Show which sources, models, reports, and users are affected so failures can be prioritized correctly." },
-              { title: "Incident response", description: "Route failures with severity, evidence, ownership, and a clear path from diagnosis through verified resolution." },
-            ],
-          },
         ],
+        spotlight: {
+          title: "Data observability.",
+          introduction: "Monitoring and alerts catch bad data before it reaches a report, application, or AI system.",
+          items: [
+            { title: "Freshness and volume", description: "Detect late loads, missing partitions, abnormal row counts, and unexpected distribution changes." },
+            { title: "Lineage-aware alerting", description: "Show which sources, models, reports, and users are affected so failures can be prioritized correctly." },
+            { title: "Incident response", description: "Route failures with severity, evidence, ownership, and a clear path from diagnosis through verified resolution." },
+          ],
+        },
         process: [
-          { title: "Assess critical data", description: "Prioritize datasets and fields tied to decisions, customer experiences, financial reporting, or regulatory duties." },
-          { title: "Define rules and owners", description: "Agree definitions, quality dimensions, thresholds, service levels, sensitivity, access, and accountable owners." },
-          { title: "Clean and reconcile", description: "Profile existing data, resolve duplicates and invalid values, and document accepted exceptions." },
-          { title: "Automate controls", description: "Run tests, lineage capture, policy checks, and issue routing inside delivery workflows." },
-          { title: "Monitor and improve", description: "Track recurring failures to their source and improve the process, contract, or ownership causing them." },
+          { title: "Assess", description: "Prioritize datasets and fields tied to decisions, customer experiences, financial reporting, or regulatory duties." },
+          { title: "Define rules", description: "Agree definitions, quality dimensions, thresholds, service levels, sensitivity, access, and accountable owners." },
+          { title: "Clean", description: "Profile existing data, resolve duplicates and invalid values, and document accepted exceptions." },
+          { title: "Automate", description: "Run tests, lineage capture, policy checks, and issue routing inside delivery workflows." },
+          { title: "Monitor", description: "Track recurring failures to their source and improve the process, contract, or ownership causing them." },
         ],
         toolsHeading: "Tools we use.",
         signs: {
@@ -325,7 +334,7 @@ export const platformServices = {
           items: [
             { title: "Quality pass rate", description: "Critical records and datasets meeting completeness, validity, uniqueness, and relationship rules." },
             { title: "Defects removed", description: "Duplicate, missing, invalid, and inconsistent records resolved with traceable remediation." },
-            { title: "Detection and resolution time", description: "Time from a quality failure occurring to alert, ownership, diagnosis, and correction." },
+            { title: "Manual checking time", description: "Hours previously spent finding, validating, and reconciling data issues by hand." },
           ],
         },
         engagementOptions: [
@@ -342,15 +351,17 @@ export const platformServices = {
           { question: "How do you measure data quality?", answer: "We define rules across dimensions such as completeness, validity, uniqueness, consistency, freshness, and reconciliation. Each rule needs a threshold, business context, owner, severity, and response path so the score leads to action." },
           { question: "How long does a data quality audit take?", answer: "A focused audit of a critical domain may take a few weeks. The scope depends on the number of sources, datasets, rules, owners, and historical issues. We prioritize critical data instead of attempting to profile everything equally." },
           { question: "Can you fix our existing bad data?", answer: "Yes, where correction rules and reliable source evidence exist. We profile, deduplicate, standardize, reconcile, and document exceptions. We also fix the upstream process or control where possible so the same defects do not immediately return." },
-          { question: "How do you help with GDPR or India's DPDP Act?", answer: "We help identify sensitive data, document purpose and ownership, apply access and retention controls, support lineage and deletion workflows, and preserve audit evidence. This is engineering support, not legal advice; legal interpretation remains with your counsel." },
+          { question: "How do you help with data compliance like GDPR or the DPDP Act?", answer: "We help identify sensitive data, document purpose and ownership, apply access and retention controls, support lineage and deletion workflows, and preserve audit evidence. This is engineering support, not legal advice; legal interpretation remains with your counsel." },
           { question: "Do we need a data catalog?", answer: "Not always. A catalog is useful when many teams need shared definitions, discovery, lineage, ownership, and access workflows. For a smaller estate, a simpler documented inventory may deliver more value with less overhead." },
         ],
         relatedServices: [
           { name: "Data Pipelines & Integration", description: "Enforce quality and reconciliation inside the flows that move business data.", href: "/services/data-engineering/data-pipelines-integration" },
           { name: "Data Warehousing & Lakehouse", description: "Apply governance to a shared analytical foundation with controlled access and models.", href: "/services/data-engineering/data-warehousing-lakehouse" },
+          { name: "Dashboards & Executive Reporting", description: "Build reporting on governed definitions and tested datasets.", href: "/services/analytics-bi/dashboards-executive-reporting" },
+          { name: "AI Solutions", description: "Prepare trusted, permission-aware data for practical AI systems.", href: "/services/ai-solutions" },
         ],
       },
-      technologies: ["dbt", "Great Expectations", "Soda", "Microsoft Purview", "AWS Glue", "Databricks Unity Catalog", "Collibra", "SQL"],
+      technologies: ["Great Expectations", "dbt tests", "Monte Carlo", "Collibra", "Alation", "Databricks Unity Catalog"],
     }),
   },
   analytics: {

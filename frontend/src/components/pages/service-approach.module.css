@@ -1,4 +1,6 @@
 .section{padding-block:clamp(3rem,5vh,4rem);background:transparent}
+.section[data-theme="warehouse"]{background:linear-gradient(180deg,var(--color-surface),color-mix(in srgb,var(--color-surface) 94%,var(--color-primary)))}
+.section[data-theme="quality"]{background:var(--color-surface)}
 .heading{max-width:48rem;margin-inline:auto;text-align:center}
 .heading>p,.stage{color:var(--color-primary);font-size:.7rem;font-weight:750;letter-spacing:.14em;text-transform:uppercase}
 .heading h2{margin-top:.8rem;font-size:clamp(2rem,3vw,3rem);line-height:1.12;letter-spacing:-.045em;text-wrap:balance}
