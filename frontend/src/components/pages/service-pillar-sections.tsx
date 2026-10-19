@@ -15,7 +15,7 @@ export function ServicePillarPlatforms({ platforms, eyebrow, heading, introducti
     <Container>
       <div className={styles.sectionHeading}><p className={styles.label}>{eyebrow}</p><h2 id={headingId}>{heading}</h2><p>{introduction}</p></div>
           <div className={styles.platformGrid}>{platforms.map((platform) => <article key={platform.name}><p>{platform.role}</p><h3>{platform.name}</h3><span>{platform.description}</span></article>)}</div>
-      <Link className={styles.inlineLink} href="/technologies">View all technologies <ArrowIcon /></Link>
+      <Link className={`${styles.inlineLink} siteCta`} href="/technologies">View all technologies <ArrowIcon /></Link>
     </Container>
   </section>;
 }

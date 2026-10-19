@@ -69,12 +69,12 @@ export default function DataEngineeringPage() {
       <section className={cloudStyles.hero} aria-labelledby="data-engineering-title">
         <Container className={cloudStyles.heroGrid}>
           <div className={cloudStyles.heroCopy}>
-            <p className={cloudStyles.eyebrow}>Data engineering services</p>
-            <h1 id="data-engineering-title">Build a data foundation your business can trust.</h1>
+            <p className={cloudStyles.eyebrow}>Data Engineering</p>
+            <h1 id="data-engineering-title">Data Engineering for a foundation your business can trust.</h1>
             <p>We connect scattered systems, automate reliable data movement, and create governed, query-ready foundations for analytics and AI.</p>
             <div className={cloudStyles.heroActions}>
-              <Link className={cloudStyles.primaryAction} href="#contact">Discuss your data estate <ArrowIcon /></Link>
-              <Link className={cloudStyles.secondaryAction} href="#data-services">Our data services</Link>
+              <Link className={`${cloudStyles.primaryAction} siteCta`} href="#contact">Discuss your data estate <ArrowIcon /></Link>
+              <Link className={`${cloudStyles.secondaryAction} siteCta`} href="#data-services">Explore Data Engineering</Link>
             </div>
           </div>
           <nav className={cloudStyles.scopeIndex} aria-label="Data Engineering services">
@@ -104,7 +104,7 @@ export default function DataEngineeringPage() {
         <Container>
           <div className={styles.sectionHeading}><p className={styles.label}>Data platforms we work with</p><h2 id="platforms-title">Choose the platform around the workload.</h2><p>We work across the major cloud data ecosystems and keep business logic portable where that is practical.</p></div>
           <DataPlatformsHoverGrid platforms={platforms} />
-          <Link className={styles.inlineLink} href="/technologies">View all technologies <ArrowIcon /></Link>
+          <Link className={`${styles.inlineLink} siteCta`} href="/technologies">View all technologies <ArrowIcon /></Link>
         </Container>
       </section>
 
@@ -119,7 +119,7 @@ export default function DataEngineeringPage() {
         <Container>
           <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn complex data challenges into dependable, practical systems.</p></header>
           <Suspense fallback={<FeaturedCaseStudySkeleton />}><PublishedServiceCaseStudies service="data_engineering" /></Suspense>
-          <Link className={cloudStyles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
+          <Link className={`${cloudStyles.secondaryAction} siteCta`} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
       </section>
 
@@ -129,7 +129,7 @@ export default function DataEngineeringPage() {
         <Container>
           <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related insights</h2></header>
           <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading data engineering insights…</p>}><DataInsights /></Suspense>
-          <Link className={cloudStyles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
+          <Link className={`${cloudStyles.secondaryAction} siteCta`} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>
       </section>
 

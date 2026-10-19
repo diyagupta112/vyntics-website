@@ -7,9 +7,9 @@ type SendButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   state?: "idle" | "submitting" | "success" | "error";
 };
 
-export default function SendButton({ children = "Send", state = "idle", type = "submit", ...props }: SendButtonProps) {
+export default function SendButton({ children = "Send", className, state = "idle", type = "submit", ...props }: SendButtonProps) {
   return <StyledWrapper>
-    <button {...props} type={type} data-state={state} aria-busy={state === "submitting"}>
+    <button {...props} className={[className, "siteCta"].filter(Boolean).join(" ")} type={type} data-state={state} aria-busy={state === "submitting"}>
       <div className="svg-wrapper-1" aria-hidden="true"><div className="svg-wrapper">
         <svg viewBox="0 0 24 24" width={24} height={24}>
           {state === "success" ? <path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" strokeWidth="2" /> : <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z" />}
@@ -45,12 +45,6 @@ const StyledWrapper = styled.div`
   @keyframes sending-label { 0%,85% { opacity: 0; } 100% { opacity: 1; } }
   @keyframes sent-label { from { opacity: 0; transform: translateY(.4rem); } to { opacity: 1; transform: none; } }
   .spinner { transform-origin: center; animation: spin 800ms linear infinite; }
-  @media (hover:hover) and (pointer:fine) {
-    button:not(:disabled):hover .svg-wrapper { animation: fly-1 .6s ease-in-out infinite alternate; }
-    button:not(:disabled):hover svg { transform: translateX(1.2em) rotate(45deg) scale(1.1); }
-    button:not(:disabled):hover span { transform: translateX(5em); opacity: 0; }
-  }
-  @keyframes fly-1 { from { transform: translateY(.1em); } to { transform: translateY(-.1em); } }
   @keyframes spin { to { transform: rotate(360deg); } }
   @media(prefers-reduced-motion:reduce) {
     *,svg,span { animation: none !important; transition: none !important; }

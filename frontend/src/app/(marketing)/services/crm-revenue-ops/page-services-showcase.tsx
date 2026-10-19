@@ -122,7 +122,7 @@ export function PageServicesShowcase({
             <p className={styles.introduction}>{activeService.introduction}</p>
             <p className={styles.listHeading}>Here&apos;s how we do it:</p>
             <ul>{activeService.points.map((point) => <li key={point}>{point}</li>)}</ul>
-            <Link href={activeService.href}>Explore {activeService.name} <ArrowIcon /></Link>
+            <Link className="siteCta" href={activeService.href}>Explore {activeService.name} <ArrowIcon /></Link>
           </div>
         </div>
       </article>

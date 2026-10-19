@@ -73,7 +73,7 @@ export function FeaturedCaseStudyCarousel({ studies, caseStudySeo = false }: { s
             {tags.length > 0 && <ul className={design.proofPoints} aria-label="Project tags">{tags.map((tag, i) => <li key={`${tag}-${i}`}>{tag}</li>)}</ul>}
             <div className={design.cardFooter}>
               {study.tech_stack.length > 0 && <ul className={design.stack} aria-label="Technology stack">{study.tech_stack.map((name, i) => <li key={`${name}-${i}`}>{name}</li>)}</ul>}
-              <Link aria-label={caseStudySeo ? `Read the ${study.title} case study` : undefined} className={design.caseStudyLink} href={`/case-studies/${encodeURIComponent(study.slug)}`}>Read the full case study <span aria-hidden="true">→</span></Link>
+              <Link aria-label={caseStudySeo ? `Read the ${study.title} case study` : undefined} className={`${design.caseStudyLink} siteCta`} href={`/case-studies/${encodeURIComponent(study.slug)}`}>Read the full case study <span aria-hidden="true">→</span></Link>
             </div>
           </div>
         </motion.article>

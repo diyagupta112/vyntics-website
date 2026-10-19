@@ -96,7 +96,7 @@ export function AiSolutionsServicesShowcase() {
           <div className={`${styles.panelContent} ${styles.compactPanelContent}`}>
             <h3>{activeService.name}</h3>
             <p className={styles.introduction}>{activeService.introduction}</p>
-            <Link href={activeService.href}>Explore {activeService.name} <ArrowIcon /></Link>
+            <Link className="siteCta" href={activeService.href}>Explore {activeService.name} <ArrowIcon /></Link>
           </div>
         </div>
       </article>

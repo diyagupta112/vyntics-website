@@ -22,7 +22,7 @@ import studyStyles from "../../case-studies/page.module.css";
 import styles from "../data/page.module.css";
 
 export const metadata: Metadata = {
-  title: "AI Development Services",
+  title: "AI Solutions & Development Services",
   description: "AI development services for secure knowledge assistants, AI agents, intelligent automation, generative AI, and production LLM integrations.",
   alternates: { canonical: "/services/ai-solutions" },
 };
@@ -79,12 +79,12 @@ export default function AiSolutionsPage() {
       <section className={cloudStyles.hero} aria-labelledby="ai-solutions-title">
         <Container className={cloudStyles.heroGrid}>
           <div className={cloudStyles.heroCopy}>
-            <p className={cloudStyles.eyebrow}>AI solutions</p>
-            <h1 id="ai-solutions-title">AI development services your business can verify and control.</h1>
+            <p className={cloudStyles.eyebrow}>AI Solutions</p>
+            <h1 id="ai-solutions-title">AI Solutions built for control, evidence, and real workflows.</h1>
             <p>We deliver AI consulting and custom AI solutions—from generative AI and LLM integrations to grounded assistants, capable agents, and intelligent automation—around your data, systems, permissions, and operating reality.</p>
             <div className={cloudStyles.heroActions}>
-              <Link className={cloudStyles.primaryAction} href="#contact">Discuss your AI use case <ArrowIcon /></Link>
-              <Link className={cloudStyles.secondaryAction} href="#ai-services">Our AI solutions</Link>
+              <Link className={`${cloudStyles.primaryAction} siteCta`} href="#contact">Discuss your AI use case <ArrowIcon /></Link>
+              <Link className={`${cloudStyles.secondaryAction} siteCta`} href="#ai-services">Explore AI Solutions</Link>
             </div>
           </div>
           <nav className={cloudStyles.scopeIndex} aria-label="AI Solutions services">
@@ -112,7 +112,7 @@ export default function AiSolutionsPage() {
         <Container>
           <div className={styles.sectionHeading}><p className={styles.label}>AI platforms we work with</p><h2 id="platforms-title">Choose the stack around the risk and workload.</h2><p>We keep the architecture modular where practical, so one model or vendor does not become the whole system.</p></div>
           <DataPlatformsHoverGrid platforms={platforms} iconVariant="ai" />
-          <Link className={styles.inlineLink} href="/technologies">View all technologies <ArrowIcon /></Link>
+          <Link className={`${styles.inlineLink} siteCta`} href="/technologies">View all technologies <ArrowIcon /></Link>
         </Container>
       </section>
 
@@ -127,7 +127,7 @@ export default function AiSolutionsPage() {
         <Container>
           <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn practical AI use cases into controlled, production-ready systems.</p></header>
           <Suspense fallback={<FeaturedCaseStudySkeleton />}><PublishedServiceCaseStudies service="ai_solutions" /></Suspense>
-          <Link className={cloudStyles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
+          <Link className={`${cloudStyles.secondaryAction} siteCta`} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
       </section>
 
@@ -137,7 +137,7 @@ export default function AiSolutionsPage() {
         <Container>
           <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related insights</h2></header>
           <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading AI insights…</p>}><AiInsights /></Suspense>
-          <Link className={cloudStyles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
+          <Link className={`${cloudStyles.secondaryAction} siteCta`} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>
       </section>
 

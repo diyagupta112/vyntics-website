@@ -62,8 +62,8 @@ export default function ServicePage() {
             <h1 id="crm-title">{content.hero.heading}</h1>
             <p>{content.hero.introduction}</p>
             <div className={styles.heroActions}>
-              <Link className={styles.primaryAction} href="#contact">{content.hero.primaryLabel} <ArrowIcon /></Link>
-              <Link className={styles.secondaryAction} href="#crm-services">{content.hero.secondaryLabel}</Link>
+              <Link className={`${styles.primaryAction} siteCta`} href="#contact">{content.hero.primaryLabel} <ArrowIcon /></Link>
+              <Link className={`${styles.secondaryAction} siteCta`} href="#crm-services">{content.hero.secondaryLabel}</Link>
             </div>
           </div>
           <nav className={styles.scopeIndex} aria-label={`${content.name} services`}>
@@ -118,7 +118,7 @@ export default function ServicePage() {
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>{content.caseStudies.eyebrow}</p><h2 id="crm-work-title">{content.caseStudies.heading}</h2><p className={styles.contentState}>{content.caseStudies.introduction}</p></header>
           <Suspense fallback={<ReservedContent count={2} message="Loading case studies…" />}><PageProjects /></Suspense>
-          <Link className={styles.secondaryAction} href="/case-studies">{content.caseStudies.linkLabel} <ArrowIcon /></Link>
+          <Link className={`${styles.secondaryAction} siteCta`} href="/case-studies">{content.caseStudies.linkLabel} <ArrowIcon /></Link>
         </Container>
       </section>
 
@@ -128,7 +128,7 @@ export default function ServicePage() {
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>{content.insights.eyebrow}</p><h2 id="crm-insights-title">{content.insights.heading}</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading related insights…" />}><PageInsights /></Suspense>
-          <Link className={styles.secondaryAction} href="/blog">{content.insights.linkLabel} <ArrowIcon /></Link>
+          <Link className={`${styles.secondaryAction} siteCta`} href="/blog">{content.insights.linkLabel} <ArrowIcon /></Link>
         </Container>
       </section>
 

@@ -13,7 +13,7 @@ export function CaseStudiesHero() { return (
           <p className={styles.eyebrow}>Case studies</p>
           <h1 id="case-studies-title">Real Challenges Turned into Production-Grade Systems</h1>
           <p className={styles.heroLead}>A look inside the custom software, data platforms, AI and cloud infrastructure we engineer to solve critical business problems.</p>
-          <a className={styles.heroAction} href="#featured-case-studies"><span>View case studies</span> <ArrowIcon /></a>
+          <a className={`${styles.heroAction} siteCta`} href="#featured-case-studies"><span>View case studies</span> <ArrowIcon /></a>
         </Container>
       </section>
 ); }

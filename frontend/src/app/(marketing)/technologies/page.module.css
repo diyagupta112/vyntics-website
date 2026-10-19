@@ -47,8 +47,11 @@
 .cardDetails ul{flex-shrink:0}
 .landscapeCard .cardDetails li{text-transform:uppercase}
 .landscapeCard{height:clamp(22rem,42vh,25rem)}
-.landscapeCard::after{inset:0 0 4.3rem;background-size:cover;background-repeat:no-repeat;filter:brightness(1.2)}
+.landscapeCard::after{inset:0 0 4.3rem;background-size:cover;background-repeat:no-repeat}
 .landscapeCard::before{background:none}
+.landscapeCard[style*="Data%20Engineering"],.landscapeCard[style*="Analytics%26BI"]{background:#101a2a}
+.landscapeCard[style*="Data%20Engineering"]::after,.landscapeCard[style*="Analytics%26BI"]::after{filter:brightness(.82) saturate(.82)}
+.landscapeCard[style*="Data%20Engineering"]::before,.landscapeCard[style*="Analytics%26BI"]::before{background:linear-gradient(180deg,transparent 52%,rgb(4 8 18/.12) 72%,rgb(4 8 18/.48))}
 .landscapeCard:focus::after{transform:none}
 .landscapeGrid .landscapeCard:focus{flex:2;filter:none}
 @media(hover:hover) and (pointer:fine){.landscapeGrid:hover .landscapeCard{filter:none}.landscapeGrid .landscapeCard:hover{flex:2}.landscapeCard:hover::after{transform:none}}

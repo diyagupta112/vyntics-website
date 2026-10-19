@@ -145,7 +145,7 @@ export function ApplicationForm({ slug, title }: Props) {
         <p className={styles.eyebrow}>Application received</p>
         <h2>Thank you for applying.</h2>
         <p>Our team will reach out to you soon if your profile meets our requirements. No further action is needed right now.</p>
-        <Link href="/careers#current-openings">View current openings</Link>
+        <Link className="siteCta" href="/careers#current-openings">View current openings</Link>
       </div>
     );
   }

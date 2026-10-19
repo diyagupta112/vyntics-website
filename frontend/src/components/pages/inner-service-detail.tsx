@@ -51,7 +51,7 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
               )) : service.title}
             </h1>
             <p className={styles.introduction}>{service.introduction}</p>
-            <button className={styles.primaryButton} type="button" data-scroll-target="contact">Discuss {service.name} <ArrowIcon /></button>
+            <button className={`${styles.primaryButton} siteCta`} type="button" data-scroll-target="contact">Discuss {service.name} <ArrowIcon /></button>
           </div>
           {dataPage ? <DataServiceHeroVisual kind={dataPage.kind} /> : null}
         </Container>

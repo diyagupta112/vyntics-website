@@ -108,11 +108,3 @@
 .technology ul { max-width:none; display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; margin-top:1rem; }
 .technology li { padding:0; border:0; font-size:1rem; font-weight:400; line-height:1.75; color:var(--color-muted); }
 .consultationInner { justify-content:space-between; gap:clamp(1.5rem,3vw,3rem); }
-/* Origin fill is clipped without altering the CTA's dimensions or placement. */
-.consultationAction { position:relative; isolation:isolate; overflow:hidden; box-shadow:inset 0 0 0 1px var(--color-primary); }
-.consultationFill { position:absolute; border-radius:50%; background:var(--color-primary); pointer-events:none; z-index:-1; }
-.consultationLabel { display:inline-flex; align-items:center; gap:.6rem; position:relative; }
-
-.consultationAction { transition:color 200ms ease; }
-.consultationAction[data-interacting="true"] { color:var(--color-white); }
-@media(prefers-reduced-motion:reduce) { .consultationAction { transition:none; } }

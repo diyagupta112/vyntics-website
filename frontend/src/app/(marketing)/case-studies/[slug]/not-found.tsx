@@ -9,7 +9,7 @@ export default function CaseStudyNotFound() {
         <p>Case study not found</p>
         <h1 id="case-study-not-found-title">This project story isn&apos;t available.</h1>
         <span>It may have moved or no longer be published. Return to the collection to explore the work currently available.</span>
-        <div className={styles.actions}><Link href="/case-studies">View all case studies</Link></div>
+        <div className={styles.actions}><Link className="siteCta" href="/case-studies">View all case studies</Link></div>
       </Container>
     </section>
   );

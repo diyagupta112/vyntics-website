@@ -2,10 +2,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { serviceSitemap } from './service-sitemap.ts';
 import { legacyServiceRoutes, canonicalServiceHref } from './service-route-map.ts';
+import { platformServices } from './platform-services.ts';
 
 const destinations = new Set(['/services', ...serviceSitemap.flatMap(pillar => [
   `/services/${pillar.slug}`, ...pillar.services.map(service => `/services/${pillar.slug}/${service.slug}`),
 ])]);
+
+const platformGroupToPillar = {
+  cloud: 'cloud-foundations',
+  data: 'data-engineering',
+  analytics: 'analytics-bi',
+  ai: 'ai-solutions',
+  crm: 'crm-revenue-ops',
+};
 
 test('canonical service architecture has exactly five pillars and thirteen unique services', () => {
   assert.equal(serviceSitemap.length, 5);
@@ -39,5 +48,32 @@ test('unmapped legacy services are retained rather than assigned invented redire
   for (const href of ['/services/other', '/services/ai/llm-integrations']) {
     assert.equal(legacyServiceRoutes[href], undefined);
     assert.equal(canonicalServiceHref(href), href);
+  }
+});
+
+test('canonical service content uses the navbar names in every child-service heading', () => {
+  for (const [group, services] of Object.entries(platformServices)) {
+    const pillar = serviceSitemap.find(item => item.slug === platformGroupToPillar[group]);
+    assert.ok(pillar, `Missing navbar pillar for ${group}`);
+    assert.deepEqual(Object.keys(services), pillar.services.map(service => service.slug));
+
+    for (const [slug, service] of Object.entries(services)) {
+      const navbarService = pillar.services.find(item => item.slug === slug);
+      assert.ok(navbarService, `Missing navbar service for ${group}/${slug}`);
+      assert.equal(service.name, navbarService.name);
+      assert.ok(service.title.startsWith(navbarService.name), `${slug} heading must start with ${navbarService.name}`);
+    }
+  }
+});
+
+test('every related-service card uses a navbar name and an existing canonical route', () => {
+  const catalog = new Map(serviceSitemap.flatMap(pillar => [
+    [`/services/${pillar.slug}`, pillar.name],
+    ...pillar.services.map(service => [`/services/${pillar.slug}/${service.slug}`, service.name]),
+  ]));
+
+  for (const services of Object.values(platformServices)) for (const service of Object.values(services)) {
+    const related = [...(service.dataPage?.relatedServices ?? []), ...(service.aiPage?.relatedServices ?? [])];
+    for (const item of related) assert.equal(catalog.get(item.href), item.name, `${service.slug}: ${item.href}`);
   }
 });

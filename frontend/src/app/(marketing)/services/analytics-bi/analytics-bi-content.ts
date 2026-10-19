@@ -6,7 +6,7 @@ export const analyticsContent = {
   seoDescription: "Vyntics provides business intelligence services, dashboards, reporting and analytics consulting to help businesses turn data into clearer decisions.",
   hero: {
     eyebrow: "Analytics & BI",
-    heading: "Turn your data into better decisions with BI.",
+    heading: "Analytics & BI for clearer business decisions.",
     introduction: "Our business intelligence services connect trusted data to dashboards, reporting, and analytics, so teams can review performance and leaders have a clear view of the decisions ahead.",
     primaryLabel: "Discuss your BI needs",
   },

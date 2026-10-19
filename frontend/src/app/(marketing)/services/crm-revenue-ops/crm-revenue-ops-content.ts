@@ -2,15 +2,15 @@
 export const crmContent = {
   name: "CRM & Revenue Ops", slug: "crm-revenue-ops", shortName: "CRM",
   seo: {
-    title: "CRM & Revenue Operations Services | Vyntics",
+    title: "CRM & Revenue Ops Services | Vyntics",
     description: "CRM implementation, integration, sales automation, and revenue analytics shaped around your team's processes, connected data, and reporting needs.",
     canonical: "https://vyntics.com/services/crm-revenue-ops",
   },
   hero: {
-    eyebrow: "CRM and revenue operations",
-    heading: "Make your CRM work the way your team does.",
+    eyebrow: "CRM & Revenue Ops",
+    heading: "CRM & Revenue Ops built around how your team works.",
     introduction: "CRM & Revenue Ops should fit how your team sells and serves customers. We bring CRM implementation and integration together with sales automation, connected data, and revenue analytics for clearer reporting.",
-    primaryLabel: "Talk to our CRM experts", secondaryLabel: "Our CRM services",
+    primaryLabel: "Talk to our CRM experts", secondaryLabel: "Explore CRM & Revenue Ops",
   },
   problemsHeading: "CRM problems we solve",
   problemIntroduction: "From disconnected customer records to manual follow-up, we help teams address the CRM problems that slow everyday work.",
@@ -20,7 +20,7 @@ export const crmContent = {
     { title: "Unclear Pipeline", description: "We align pipeline stages and reporting definitions so your team can review sales activity and revenue without reconciling conflicting reports." },
     { title: "Awkward CRM Workflows", description: "We configure the CRM around how people sell and support customers, with clear handoffs, usable records, and practical team training." },
   ],
-  servicesHeading: "Our CRM services",
+  servicesHeading: "CRM & Revenue Ops services",
   services: [
     {
       name: "CRM Implementation & Integration", href: "/services/crm-revenue-ops/crm-implementation-integration",

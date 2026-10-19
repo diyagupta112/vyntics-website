@@ -53,7 +53,7 @@ export default async function CareerDetailPage({ params }: Props) {
           <h1>We couldn&apos;t retrieve this opening.</h1>
           <p>Please try again, or return to the complete list of opportunities.</p>
           <div className={styles.errorActions}>
-            <a className={styles.primaryButton} href={`/careers/${encodeURIComponent(slug)}`}>Try again <ArrowIcon /></a>
+            <a className={`${styles.primaryButton} siteCta`} href={`/careers/${encodeURIComponent(slug)}`}>Try again <ArrowIcon /></a>
             <Link className={styles.textLink} href="/careers#current-openings"><ArrowIcon back /> Current openings</Link>
           </div>
         </Container>
@@ -79,7 +79,7 @@ export default async function CareerDetailPage({ params }: Props) {
               </ul>
             </div>
             <div className={styles.heroAction}>
-              <ApplyButton className={styles.primaryButton}>Apply for this role <ArrowIcon /></ApplyButton>
+              <ApplyButton className={`${styles.primaryButton} siteCta`}>Apply for this role <ArrowIcon /></ApplyButton>
             </div>
           </div>
         </Container>

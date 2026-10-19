@@ -98,7 +98,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
         <Container>
           <div className={styles.relatedHeading} data-case-study-reveal="text">
             <div><p className={styles.eyebrow}>Continue exploring</p><h2 id="related-title">More work from Vyntics.</h2></div>
-            <Link href="/case-studies">View all work <ArrowIcon /></Link>
+            <Link className="siteCta" href="/case-studies">View all work <ArrowIcon /></Link>
           </div>
           {related.length > 0 ? (
             <div className={styles.relatedGrid} data-case-study-reveal="cards">

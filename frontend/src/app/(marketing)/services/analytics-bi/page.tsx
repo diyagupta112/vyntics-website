@@ -19,7 +19,7 @@ import { AnalyticsFaq } from "./analytics-faq";
 import styles from "../cloud/page.module.css";
 import studyStyles from "../../case-studies/page.module.css";
 
-const seoTitle = "Business Intelligence Services | Vyntics";
+const seoTitle = "Analytics & BI Services | Vyntics";
 const seoDescription = analyticsContent.seoDescription;
 const canonical = "https://vyntics.com/services/analytics-bi";
 
@@ -62,8 +62,8 @@ export default function AnalyticsBiPage() {
             <h1 id="analytics-title">{analyticsContent.hero.heading}</h1>
             <p>{analyticsContent.hero.introduction}</p>
             <div className={styles.heroActions}>
-              <Link className={styles.primaryAction} href="#contact">{analyticsContent.hero.primaryLabel} <ArrowIcon /></Link>
-              <Link className={styles.secondaryAction} href="#analytics-services">Our analytics & BI services</Link>
+              <Link className={`${styles.primaryAction} siteCta`} href="#contact">{analyticsContent.hero.primaryLabel} <ArrowIcon /></Link>
+              <Link className={`${styles.secondaryAction} siteCta`} href="#analytics-services">Explore Analytics &amp; BI</Link>
             </div>
           </div>
           <nav className={styles.scopeIndex} aria-label="Analytics & BI services">
@@ -119,7 +119,7 @@ export default function AnalyticsBiPage() {
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>CASE STUDIES</p><h2 id="analytics-work-title">Case studies</h2><p className={styles.contentState}>{analyticsContent.caseStudiesIntroduction}</p></header>
           <Suspense fallback={<ReservedContent count={2} message="Loading case studies…" />}><AnalyticsProjects /></Suspense>
-          <Link className={styles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
+          <Link className={`${styles.secondaryAction} siteCta`} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
       </section>
 
@@ -129,7 +129,7 @@ export default function AnalyticsBiPage() {
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="analytics-insights-title">Related insights</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading related insights…" />}><AnalyticsInsights /></Suspense>
-          <Link className={styles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
+          <Link className={`${styles.secondaryAction} siteCta`} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>
       </section>
 

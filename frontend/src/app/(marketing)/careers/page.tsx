@@ -33,7 +33,7 @@ async function CareerOpenings() {
         <p className={styles.stateLabel}>Unable to load openings</p>
         <h3>We couldn&apos;t retrieve the latest roles.</h3>
         <p>Please try again, or send your profile to us directly.</p>
-        <Link href="/careers#current-openings">Try again <ArrowIcon /></Link>
+        <Link className="siteCta" href="/careers#current-openings">Try again <ArrowIcon /></Link>
       </div>
     );
   }
@@ -87,7 +87,7 @@ export default function CareersPage() {
           <RevealBlock className={styles.heroCopy}>
             <h1 id="careers-title">Join a team solving problems with real impact.</h1>
             <p>Bring thoughtful ideas, practical skills, and a willingness to contribute as we solve problems that matter.</p>
-            <CurrentOpeningsLink className={styles.primaryButton}>View Current Openings <ArrowIcon /></CurrentOpeningsLink>
+            <CurrentOpeningsLink className={`${styles.primaryButton} siteCta`}>View Current Openings <ArrowIcon /></CurrentOpeningsLink>
           </RevealBlock>
         </Container>
       </section>

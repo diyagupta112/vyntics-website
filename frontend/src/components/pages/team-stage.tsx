@@ -138,7 +138,7 @@ function TeamMemberDialog({ summary, onDismiss }: { summary: TeamMemberSummary; 
           ) : detail.status === "error" ? (
             <div className={styles.dialogError} role="alert">
               <p>We could not load this profile. Please try again.</p>
-              <button type="button" onClick={() => { setDetail({ status: "loading" }); setRequestKey((key) => key + 1); }}>Try again</button>
+              <button className="siteCta" type="button" onClick={() => { setDetail({ status: "loading" }); setRequestKey((key) => key + 1); }}>Try again</button>
             </div>
           ) : (
             <>

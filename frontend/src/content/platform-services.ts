@@ -48,7 +48,7 @@ export const platformServices = {
   cloud: {
     "cloud-architecture-migration": defineService({
       group: "cloud", slug: "cloud-architecture-migration", name: "Cloud Architecture & Migration", eyebrow: "Cloud foundations · Architecture & migration",
-      title: "Design the right cloud foundation, then move with control.",
+      title: "Cloud Architecture & Migration with controlled delivery.",
       introduction: "We design secure, observable target architectures and migrate applications, databases, and workloads with tested cutovers and recovery paths.",
       promise: "Move to an environment your team can understand, operate, and afford.",
       promiseDetail: "Architecture and migration are one connected decision. We tie service choices to workload behavior, reliability, security, team capability, and budget before production cutover.",
@@ -61,7 +61,7 @@ export const platformServices = {
     }),
     "devops-reliability": defineService({
       group: "cloud", slug: "devops-reliability", name: "DevOps & Reliability", eyebrow: "Cloud foundations · DevOps & reliability",
-      title: "Repeatable delivery and production systems you can trust.",
+      title: "DevOps & Reliability for repeatable delivery and trusted operations.",
       introduction: "We build infrastructure as code, delivery pipelines, observability, service objectives, and incident practices that reduce manual production risk.",
       promise: "Make every change reviewable, observable, and recoverable.",
       promiseDetail: "A toolchain alone does not create reliability. We connect deployment controls and production signals to ownership, response procedures, and recurring improvement work.",
@@ -74,7 +74,7 @@ export const platformServices = {
     }),
     "cloud-cost-optimization": defineService({
       group: "cloud", slug: "cloud-cost-optimization", name: "Cloud Cost Optimization", eyebrow: "Cloud foundations · Cost optimization",
-      title: "Reduce cloud waste without weakening the workload.",
+      title: "Cloud Cost Optimization without compromising reliability.",
       introduction: "We connect cloud spend to services, usage, ownership, and business value, then implement practical changes with measurable impact.",
       promise: "Make cloud cost understandable and controllable, not a surprise at month end.",
       promiseDetail: "Cost optimisation is continuous engineering. We combine allocation, rightsizing, architecture changes, commitments, and guardrails without trading away reliability.",
@@ -89,7 +89,7 @@ export const platformServices = {
   data: {
     "data-pipelines-integration": defineService({
       group: "data", slug: "data-pipelines-integration", name: "Data Pipelines & Integration", eyebrow: "Data engineering · Pipelines & integration",
-      title: "Move business data reliably between the systems that need it.",
+      title: "Data Pipelines & Integration for dependable data movement.",
       introduction: "We build observable batch and streaming pipelines that connect APIs, databases, files, SaaS tools, and internal platforms.",
       keywords: ["data pipeline services", "ETL services", "ELT development", "data integration services", "ETL pipeline development", "real-time data streaming", "API data integration"],
       promise: "Replace fragile exports and hidden scripts with dependable, owned data movement.",
@@ -178,7 +178,7 @@ export const platformServices = {
     }),
     "data-warehousing-lakehouse": defineService({
       group: "data", slug: "data-warehousing-lakehouse", name: "Data Warehousing & Lakehouse", eyebrow: "Data engineering · Warehouse & lakehouse",
-      title: "Create one governed foundation for analytics and AI.",
+      title: "Data Warehousing & Lakehouse for governed analytics and AI.",
       introduction: "We design and implement cloud warehouses and lakehouses that organize raw operational data into secure, reusable analytical models.",
       keywords: ["data warehousing services", "data warehouse consulting", "Snowflake consulting", "BigQuery consulting", "Amazon Redshift services", "data lakehouse services", "Databricks consulting", "data warehouse modernization"],
       promise: "Give teams query-ready data without creating another unowned data swamp.",
@@ -270,7 +270,7 @@ export const platformServices = {
     }),
     "data-quality-governance": defineService({
       group: "data", slug: "data-quality-governance", name: "Data Quality & Governance", eyebrow: "Data engineering · Quality & governance",
-      title: "Make trusted data a managed system, not an assumption.",
+      title: "Data Quality & Governance for dependable, explainable data.",
       introduction: "We establish definitions, ownership, validation, lineage, access, and issue workflows that keep important data dependable and explainable.",
       keywords: ["data quality services", "data governance consulting", "data quality management", "master data management", "data observability", "data catalog implementation", "data compliance services"],
       promise: "Expose data problems early and give the right people a clear way to resolve them.",
@@ -367,7 +367,7 @@ export const platformServices = {
   analytics: {
     "dashboards-executive-reporting": defineService({
       group: "analytics", slug: "dashboards-executive-reporting", name: "Dashboards & Executive Reporting", eyebrow: "Analytics & BI · Dashboards & reporting",
-      title: "Reporting built around decisions, not data volume.",
+      title: "Dashboards & Executive Reporting built around business decisions.",
       introduction: "We turn agreed business definitions into focused dashboards and leadership reporting that show performance, exceptions, trends, and context.",
       promise: "Give every audience a reliable view of what changed and where action is required.",
       promiseDetail: "The hard part is agreeing on meaning, ownership, timing, targets, and exceptions. We settle those questions before designing the reporting experience.",
@@ -380,7 +380,7 @@ export const platformServices = {
     }),
     "bi-consulting": defineService({
       group: "analytics", slug: "bi-consulting", name: "BI Consulting", eyebrow: "Analytics & BI · BI consulting",
-      title: "Build a BI platform your teams can use and maintain.",
+      title: "BI Consulting for maintainable reporting and analytics.",
       introduction: "We advise, implement, and improve Power BI, Tableau, and Amazon QuickSight environments from semantic models through governance and adoption.",
       promise: "Turn scattered reports into a consistent decision layer without unnecessary platform weight.",
       promiseDetail: "Good BI combines trusted models, sensible permissions, usable design, predictable refresh, and clear publishing ownership. We address the full operating model, not only the charts.",
@@ -395,8 +395,8 @@ export const platformServices = {
   ai: {
     "rag-knowledge-assistants": defineService({
       group: "ai", slug: "rag-knowledge-assistants", name: "RAG & Knowledge Assistants", eyebrow: "AI solutions · RAG & knowledge assistants",
-      title: "AI chatbot development services grounded in your knowledge.",
-      introduction: "We build private knowledge assistants that retrieve approved content, respect access controls, and cite the evidence behind each response.",
+      title: "RAG & Knowledge Assistants grounded in approved business content.",
+      introduction: "Our AI chatbot development services build private knowledge assistants that retrieve approved content, respect access controls, and cite the evidence behind each response.",
       promise: "Make organizational knowledge easier to use without asking people to trust unsupported answers.",
       promiseDetail: "A reliable assistant depends on content quality, retrieval, permissions, evaluation, and user experience. We engineer and measure the full system rather than treating the model as the product.",
       deliverables: [
@@ -497,8 +497,8 @@ export const platformServices = {
     }),
     "ai-agents": defineService({
       group: "ai", slug: "ai-agents", name: "AI Agents", eyebrow: "AI solutions · AI agents",
-      title: "AI agent development services built around clear operational boundaries.",
-      introduction: "We build agents that reason over business context, use approved tools, and complete controlled workflow steps with traceable decisions.",
+      title: "AI Agents with clear operational boundaries.",
+      introduction: "Our AI agent development services build agents that reason over business context, use approved tools, and complete controlled workflow steps with traceable decisions.",
       promise: "Automate multi-step work without handing unchecked authority to a model.",
       promiseDetail: "Useful agents require deterministic controls around probabilistic reasoning. We constrain tools, validate inputs and outputs, preserve audit trails, and escalate exceptions to people.",
       deliverables: [
@@ -612,8 +612,8 @@ export const platformServices = {
     }),
     "intelligent-automation": defineService({
       group: "ai", slug: "intelligent-automation", name: "Intelligent Automation", eyebrow: "AI solutions · Intelligent automation",
-      title: "Intelligent automation services for document and workflow work.",
-      introduction: "We combine deterministic workflow automation with AI for extraction, classification, drafting, routing, and exception handling.",
+      title: "Intelligent Automation for document and workflow operations.",
+      introduction: "Our intelligent automation services combine deterministic workflows with AI for extraction, classification, drafting, routing, and exception handling.",
       promise: "Remove repetitive work while keeping judgment, accountability, and recovery visible.",
       promiseDetail: "Not every step needs AI. We use models where interpretation adds value, conventional rules where certainty matters, and human review where risk demands it.",
       deliverables: [
@@ -716,7 +716,7 @@ export const platformServices = {
   crm: {
     "crm-implementation-integration": defineService({
       group: "crm", slug: "crm-implementation-integration", name: "CRM Implementation & Integration", eyebrow: "CRM & revenue ops · Implementation & integration",
-      title: "A connected CRM configured around how your team works.",
+      title: "CRM Implementation & Integration built around how your team works.",
       introduction: "We design and implement CRM foundations, migrate clean data, and connect websites, marketing, support, finance, and internal systems.",
       promise: "Launch a CRM that supports the customer journey instead of creating more administration.",
       promiseDetail: "CRM implementation is an operating-design project. We align teams on the process, define system ownership, and engineer reliable integrations with visible failure handling.",
@@ -729,7 +729,7 @@ export const platformServices = {
     }),
     "sales-automation-revenue-analytics": defineService({
       group: "crm", slug: "sales-automation-revenue-analytics", name: "Sales Automation & Revenue Analytics", eyebrow: "CRM & revenue ops · Automation & analytics",
-      title: "Automate sales follow-through and expose honest revenue signals.",
+      title: "Sales Automation & Revenue Analytics for clearer commercial decisions.",
       introduction: "We automate routing, follow-ups, stages, approvals, and handoffs, then build trusted reporting for pipeline, conversion, forecasting, and customer activity.",
       promise: "Reduce repetitive CRM work while giving leaders a clearer view of commercial performance.",
       promiseDetail: "Automation and analytics share the same foundation: consistent stages, clean data, clear ownership, and durable history. We repair that model before adding workflows or dashboards.",

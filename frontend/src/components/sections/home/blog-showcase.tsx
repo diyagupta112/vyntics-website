@@ -75,7 +75,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
             <p>Helpful manuals for developing dependable systems outside of the demonstration.</p>
           </div>
 
-          <Link className={styles.viewAll} href="/blog">
+          <Link className={`${styles.viewAll} siteCta`} href="/blog">
             View all Blogs <ArrowIcon />
           </Link>
         </header>
@@ -141,7 +141,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
                       <p>{article.description}</p>
                       <div className={styles.cardFooter}>
                         <time dateTime={article.dateTime}>{article.date}</time>
-                        <a className={styles.readMore} href={article.href} tabIndex={isActive ? 0 : -1}>
+                        <a className={`${styles.readMore} siteCta`} href={article.href} tabIndex={isActive ? 0 : -1}>
                           Read article <ArrowIcon />
                         </a>
                       </div>

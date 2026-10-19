@@ -65,24 +65,7 @@
   cursor: pointer;
   isolation: isolate;
   transform-style: preserve-3d;
-  transition:
-    border-color 260ms ease,
-    box-shadow 260ms ease;
   transform-origin: 50% 50%;
-  will-change: transform, filter, opacity;
-}
-
-.card::before {
-  position: absolute;
-  inset: auto -35% -45% 12%;
-  z-index: -1;
-  height: 12rem;
-  content: "";
-  border-radius: 50%;
-  background: rgb(37 99 235 / 14%);
-  filter: blur(35px);
-  opacity: 0;
-  transition: opacity 260ms ease, transform 260ms ease;
 }
 
 .cardTop {
@@ -104,7 +87,6 @@
   font-size: 0.66rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  transition: color 260ms ease, background-color 260ms ease, transform 260ms ease;
 }
 
 .cardCopy {
@@ -142,26 +124,9 @@
   line-height: 1.35;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .card:hover,
-  .card:focus-visible {
-    border-color: color-mix(in srgb, var(--color-primary) 52%, var(--color-border));
-    box-shadow: 0 24px 65px rgb(20 83 219 / 14%);
-  }
-
-  .card:hover::before,
-  .card:focus-visible::before {
-    opacity: 1;
-    transform: translateY(-1rem);
-  }
-
-  .card:hover .icon,
-  .card:focus-visible .icon {
-    color: #ffffff;
-    background: var(--color-primary);
-    transform: rotate(-5deg) scale(1.06);
-  }
-
+.card:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 4px;
 }
 
 @media (max-width: 1050px) {
@@ -203,15 +168,6 @@
   .detail {
     min-height: auto;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .card,
-  .card::before,
-  .icon {
-    transition: none;
-  }
-
 }
 
 /* Recognitions embeds cards beneath its own introduction. */

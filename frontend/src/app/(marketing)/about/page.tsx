@@ -32,7 +32,7 @@ export default function AboutPage() {
               We are Vyntics, a group of engineers and strategists that assist businesses in transforming complicated data into reliable choices, practical automation, and long-lasting systems.
             </p>
             <div className={styles.heroActions}>
-              <Link className={styles.primaryButton} href="/#contact">Start a conversation <ArrowIcon /></Link>
+              <Link className={`${styles.primaryButton} siteCta`} href="/#contact">Start a conversation <ArrowIcon /></Link>
             </div>
           </div>
 
@@ -139,7 +139,7 @@ export default function AboutPage() {
             <p className={styles.eyebrow}>Are you prepared to proceed?</p>
             <h2>Together, we can transform your data into a useful resource for your team.</h2>
           </div>
-          <Link href="/#contact">Get started <ArrowIcon /></Link>
+          <Link className="siteCta" href="/#contact">Get started <ArrowIcon /></Link>
         </Container>
       </section>
     </>

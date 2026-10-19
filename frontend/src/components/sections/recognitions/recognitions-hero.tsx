@@ -22,7 +22,7 @@ export function RecognitionsHeroShell({ children, loading = false }: { children:
         <h1><span>Recognized for</span>{" "}<span>the quality</span>{" "}<span>of our work</span></h1>
         <p className={styles.intro}>Vyntics is an OpenAI Select Partner and a Databricks Brickbuilder Partner, with a team delivering data, AI, cloud, CRM, analytics and BI solutions.</p>
         <div className={styles.actions}>
-          <a className={page.button} href="#strategy-call">Book a strategy call</a>
+          <a className={`${page.button} siteCta`} href="#strategy-call">Book a strategy call</a>
         </div>
       </div>
       <div className={styles.visual}>{children}</div>

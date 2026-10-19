@@ -21,7 +21,7 @@ import styles from "./page.module.css";
 import studyStyles from "../../case-studies/page.module.css";
 
 export const metadata: Metadata = {
-  title: "Cloud Consulting Services",
+  title: "Cloud Foundations & Consulting Services",
   description: "Vyntics provides cloud consulting services across architecture, migration, DevOps, reliability and cloud cost optimization for businesses.",
   alternates: { canonical: "/services/cloud-foundations" },
 };
@@ -53,12 +53,12 @@ export default function CloudFoundationsPage() {
       <section className={styles.hero} aria-labelledby="cloud-title" data-cloud-section="Hero">
         <Container className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>Cloud consulting services</p>
-            <h1 id="cloud-title">Build a stronger foundation for your cloud.</h1>
+            <p className={styles.eyebrow}>Cloud Foundations</p>
+            <h1 id="cloud-title">Cloud Foundations for reliable, cost-controlled infrastructure.</h1>
             <p>Build, modernize, and support cloud infrastructure that works for your business. We bring architecture and migration together with reliability, security, cost optimization, and ongoing support.</p>
             <div className={styles.heroActions}>
-              <Link className={styles.primaryAction} href="#contact">Talk to our cloud experts <ArrowIcon /></Link>
-              <Link className={styles.secondaryAction} href="#cloud-services">Our cloud services</Link>
+              <Link className={`${styles.primaryAction} siteCta`} href="#contact">Talk to our cloud experts <ArrowIcon /></Link>
+              <Link className={`${styles.secondaryAction} siteCta`} href="#cloud-services">Explore Cloud Foundations</Link>
             </div>
           </div>
           <nav className={styles.scopeIndex} aria-label="Cloud Foundations services">
@@ -76,11 +76,11 @@ export default function CloudFoundationsPage() {
         </Container>
       </section>
 
-      <section id="cloud-services" className={`${dataStyles.section} ${dataStyles.servicesSection}`} aria-labelledby="cloud-services-title" data-cloud-section="Our cloud services">
+      <section id="cloud-services" className={`${dataStyles.section} ${dataStyles.servicesSection}`} aria-labelledby="cloud-services-title" data-cloud-section="Cloud Foundations services">
         <Container>
           <DataEngineeringServicesShowcase
             eyebrow="Cloud Foundations"
-            heading="Our cloud services"
+            heading="Cloud Foundations services"
             headingId="cloud-services-title"
             idPrefix="cloud-service"
             label="Cloud Foundations services"
@@ -124,7 +124,7 @@ export default function CloudFoundationsPage() {
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>CASE STUDIES</p><h2 id="cloud-work-title">Case studies</h2><p className={styles.contentState}>Explore how we’ve helped businesses solve complex technology challenges and turn them into practical outcomes.</p></header>
           <Suspense fallback={<ReservedContent count={2} message="Loading case studies…" />}><CloudProjects /></Suspense>
-          <Link className={styles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
+          <Link className={`${styles.secondaryAction} siteCta`} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
       </section>
 
@@ -134,7 +134,7 @@ export default function CloudFoundationsPage() {
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="cloud-insights-title">Related insights</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading cloud insights…" />}><CloudInsights /></Suspense>
-          <Link className={styles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
+          <Link className={`${styles.secondaryAction} siteCta`} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>
       </section>
 
@@ -142,7 +142,7 @@ export default function CloudFoundationsPage() {
 
       <ContactCta
         eyebrow="CLOUD FOUNDATIONS"
-        title="Build a stronger foundation for your cloud."
+        title="Build reliable, cost-controlled cloud foundations."
         intro="From architecture and migration to reliability and cost optimization, we help you build, optimize, and support cloud infrastructure that works for your business."
         submitLabel="Talk to our cloud experts"
       />

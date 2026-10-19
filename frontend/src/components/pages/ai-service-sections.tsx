@@ -83,7 +83,7 @@ function Evidence({ sections }: { sections: AiServicePageSections }) {
     <section className={styles.proof} aria-labelledby="ai-service-proof-title">
       <Container className={styles.proofLayout}>
         <div><p className={styles.eyebrow}>Proof</p><h2 id="ai-service-proof-title">Case study</h2></div>
-        <div><p>We do not invent performance figures. Explore documented work for the constraints, delivery approach, and measurable outcomes behind completed engagements.</p><Link href="/case-studies">Explore case studies <ArrowIcon /></Link></div>
+        <div><p>We do not invent performance figures. Explore documented work for the constraints, delivery approach, and measurable outcomes behind completed engagements.</p><Link className="siteCta" href="/case-studies">Explore case studies <ArrowIcon /></Link></div>
       </Container>
     </section>
 

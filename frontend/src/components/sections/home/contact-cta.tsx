@@ -84,7 +84,7 @@ export function ContactCta({
           <h2 id={`${sectionId}-title`}>{title}</h2>
           <p className={styles.intro}>{intro}</p>
           {primaryAction && (
-            <Link className={styles.emailLink} href={primaryAction.href}>
+            <Link className={`${styles.emailLink} siteCta`} href={primaryAction.href}>
               {primaryAction.label}
             </Link>
           )}

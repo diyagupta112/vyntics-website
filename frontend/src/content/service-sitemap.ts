@@ -8,7 +8,7 @@ export const serviceSitemap = [
       {
         "slug": "cloud-architecture-migration",
         "name": "Cloud Architecture & Migration",
-        "description": "Systems designed for scale and operational simplicity.",
+        "description": "Target architecture and controlled workload migration.",
         "sources": [
           {
             "group": "cloud",
@@ -23,7 +23,7 @@ export const serviceSitemap = [
       {
         "slug": "devops-reliability",
         "name": "DevOps & Reliability",
-        "description": "Repeatable environments and automated deployments.",
+        "description": "Automated delivery, observability, and resilient operations.",
         "sources": [
           {
             "group": "cloud",
@@ -38,7 +38,7 @@ export const serviceSitemap = [
       {
         "slug": "cloud-cost-optimization",
         "name": "Cloud Cost Optimization",
-        "description": "Cost visibility and practical right-sizing.",
+        "description": "Cost visibility, right-sizing, and sustainable FinOps controls.",
         "sources": [
           {
             "group": "cloud",
@@ -76,7 +76,7 @@ export const serviceSitemap = [
       {
         "slug": "data-warehousing-lakehouse",
         "name": "Data Warehousing & Lakehouse",
-        "description": "A shared foundation for analytics and reporting.",
+        "description": "A governed analytical foundation for reporting and AI.",
         "sources": [
           {
             "group": "data",
@@ -87,7 +87,7 @@ export const serviceSitemap = [
       {
         "slug": "data-quality-governance",
         "name": "Data Quality & Governance",
-        "description": "Consistent metrics, refresh checks, and validation.",
+        "description": "Definitions, ownership, validation, lineage, and access controls.",
         "sources": [
           {
             "group": "data",
@@ -133,7 +133,7 @@ export const serviceSitemap = [
       {
         "slug": "bi-consulting",
         "name": "BI Consulting",
-        "description": "Dashboards and reporting built around business decisions.",
+        "description": "BI strategy, platform design, governance, and adoption.",
         "sources": []
       }
     ]
@@ -192,7 +192,7 @@ export const serviceSitemap = [
       {
         "slug": "crm-implementation-integration",
         "name": "CRM Implementation & Integration",
-        "description": "Configure a CRM around your sales and service process.",
+        "description": "Configure CRM processes and connect dependable customer data.",
         "sources": [
           {
             "group": "crm",
@@ -207,7 +207,7 @@ export const serviceSitemap = [
       {
         "slug": "sales-automation-revenue-analytics",
         "name": "Sales Automation & Revenue Analytics",
-        "description": "Track pipeline health, conversion, and customer activity.",
+        "description": "Automate sales workflows and measure pipeline and revenue performance.",
         "sources": [
           {
             "group": "crm",
