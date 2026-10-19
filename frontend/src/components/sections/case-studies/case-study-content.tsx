@@ -49,19 +49,19 @@ function markedText(value: JsonObject, key: string): ReactNode {
   return <span key={key}>{rendered}</span>;
 }
 
-function renderNode(value: JsonValue, key: string): ReactNode {
+function renderNode(value: JsonValue, key: string, imageContext: string): ReactNode {
   if (typeof value === "string" || typeof value === "number") {
     const text = String(value).trim();
     return text ? <p key={key}>{text}</p> : null;
   }
   if (value === null || typeof value === "boolean") return null;
   if (Array.isArray(value)) {
-    return value.map((item, index) => renderNode(item, `${key}-${index}`));
+    return value.map((item, index) => renderNode(item, `${key}-${index}`, imageContext));
   }
 
   const attrs = isObject(value.attrs) ? value.attrs : value;
   const content = Array.isArray(value.content) ? value.content : [];
-  const children = content.map((item, index) => renderNode(item, `${key}-${index}`));
+  const children = content.map((item, index) => renderNode(item, `${key}-${index}`, imageContext));
   const type = typeof value.type === "string" ? value.type : "";
 
   if (type === "text") return markedText(value, key);
@@ -79,7 +79,7 @@ function renderNode(value: JsonValue, key: string): ReactNode {
   if (type === "blockquote") return <blockquote key={key}>{children}</blockquote>;
   if (type === "quote") return <blockquote key={key}>{children.length ? children : textFromNode(value)}</blockquote>;
   if (type === "list" && Array.isArray(value.items)) {
-    return <ul key={key}>{value.items.map((item, index) => <li key={`${key}-${index}`}>{typeof item === "string" || typeof item === "number" ? String(item) : renderNode(item, `${key}-${index}-content`)}</li>)}</ul>;
+    return <ul key={key}>{value.items.map((item, index) => <li key={`${key}-${index}`}>{typeof item === "string" || typeof item === "number" ? String(item) : renderNode(item, `${key}-${index}-content`, imageContext)}</li>)}</ul>;
   }
   if (type === "hardBreak" || type === "hard_break") return <br key={key} />;
   if (type === "link") {
@@ -89,7 +89,7 @@ function renderNode(value: JsonValue, key: string): ReactNode {
   if (type === "image") {
     const src = safeUrl(attrs.src ?? attrs.url ?? attrs.image_url ?? attrs.imageUrl);
     const caption = typeof attrs.caption === "string" ? attrs.caption : typeof value.caption === "string" ? value.caption : undefined;
-    return src ? <figure key={key}><img src={src} alt={typeof attrs.alt === "string" ? attrs.alt : "Project visual"} loading="lazy" />{caption ? <figcaption>{caption}</figcaption> : null}</figure> : null;
+    return src ? <figure key={key}><img src={src} alt={typeof attrs.alt === "string" ? attrs.alt : caption?.trim() || `Supporting visual for ${imageContext}`} loading="lazy" />{caption ? <figcaption>{caption}</figcaption> : null}</figure> : null;
   }
   if (type === "video") {
     const src = safeUrl(attrs.src ?? attrs.url ?? value.video_url ?? value.videoUrl);
@@ -102,17 +102,17 @@ function renderNode(value: JsonValue, key: string): ReactNode {
 
   if (typeof value.headline === "string" || typeof value.description === "string") {
     const knownKeys = new Set(["eyebrow", "headline", "description"]);
-    return <div key={key}>{typeof value.eyebrow === "string" ? <p><strong>{value.eyebrow}</strong></p> : null}{typeof value.headline === "string" ? <h3>{value.headline}</h3> : null}{typeof value.description === "string" ? <p>{value.description}</p> : null}{Object.entries(value).filter(([entryKey]) => !reservedKeys.has(entryKey) && !knownKeys.has(entryKey)).map(([, entryValue], index) => renderNode(entryValue, `${key}-value-${index}`))}</div>;
+    return <div key={key}>{typeof value.eyebrow === "string" ? <p><strong>{value.eyebrow}</strong></p> : null}{typeof value.headline === "string" ? <h3>{value.headline}</h3> : null}{typeof value.description === "string" ? <p>{value.description}</p> : null}{Object.entries(value).filter(([entryKey]) => !reservedKeys.has(entryKey) && !knownKeys.has(entryKey)).map(([, entryValue], index) => renderNode(entryValue, `${key}-value-${index}`, imageContext))}</div>;
   }
 
   const nested = Object.entries(value)
     .filter(([entryKey]) => !reservedKeys.has(entryKey))
-    .map(([, entryValue], index) => renderNode(entryValue, `${key}-value-${index}`));
+    .map(([, entryValue], index) => renderNode(entryValue, `${key}-value-${index}`, imageContext));
   return nested.length ? nested : null;
 }
 
-export function CaseStudyContent({ content }: { content: JsonObject }) {
+export function CaseStudyContent({ content, imageContext = "this case study" }: { content: JsonObject; imageContext?: string }) {
   // Render authored nodes in their original order; object keys are never
   // interpreted as required sections, labels, or outcome fields.
-  return <div className={styles.prose}>{renderNode(content, "document")}</div>;
+  return <div className={styles.prose}>{renderNode(content, "document", imageContext)}</div>;
 }

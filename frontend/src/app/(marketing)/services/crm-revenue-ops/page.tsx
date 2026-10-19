@@ -87,6 +87,7 @@ export default function ServicePage() {
         sectionName={content.platformsHeading}
         introduction={content.platformsIntroduction}
         platforms={content.platforms}
+        showTechnologyLinks={false}
       />
 
       <ServicePillarApproach

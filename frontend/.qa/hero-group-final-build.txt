@@ -1,0 +1,91 @@
+
+> vyntics-website@0.1.0 build
+> next build
+
+▲ Next.js 16.3.5 (Turbopack)
+- Environments: .env
+✓ Running next.config.ts took 38ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 788ms
+  Running TypeScript ...
+  Finished TypeScript in 3.9s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/52) ...
+  Generating static pages using 7 workers (13/52) 
+  Generating static pages using 7 workers (26/52) 
+  Generating static pages using 7 workers (39/52) 
+✓ Generating static pages using 7 workers (52/52) in 2.2s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /about
+├ ƒ /blog
+├ ƒ /blog/[slug]
+├ ƒ /careers
+├ ƒ /careers/[slug]
+├ ƒ /case-studies
+├ ƒ /case-studies/[slug]
+├ ○ /contact
+├ ○ /recognition
+├ ƒ /recognitions
+├ ƒ /services/ai
+├ ƒ /services/ai-solutions
+├   /services/ai-solutions/[slug]
+│ ├ ● /services/ai-solutions/rag-knowledge-assistants
+│ ├ ● /services/ai-solutions/ai-agents
+│ └ ● /services/ai-solutions/intelligent-automation
+├   /services/ai/[slug]
+│ ├ ● /services/ai/rag-knowledge-assistants
+│ ├ ● /services/ai/ai-agents
+│ └ ● /services/ai/intelligent-automation
+├ ƒ /services/analytics-bi
+├   /services/analytics-bi/[slug]
+│ ├ ● /services/analytics-bi/dashboards-executive-reporting
+│ └ ● /services/analytics-bi/bi-consulting
+├   /services/analytics/[slug]
+│ ├ ● /services/analytics/dashboards-executive-reporting
+│ └ ● /services/analytics/bi-consulting
+├ ƒ /services/cloud
+├ ƒ /services/cloud-foundations
+├   /services/cloud-foundations/[slug]
+│ ├ ● /services/cloud-foundations/cloud-architecture-migration
+│ ├ ● /services/cloud-foundations/devops-reliability
+│ └ ● /services/cloud-foundations/cloud-cost-optimisation
+├   /services/cloud/[slug]
+│ ├ ● /services/cloud/cloud-architecture-migration
+│ ├ ● /services/cloud/devops-reliability
+│ └ ● /services/cloud/cloud-cost-optimisation
+├ ○ /services/cloud/architecture
+├ ○ /services/cloud/cost-optimization
+├ ○ /services/cloud/devops-infrastructure
+├ ○ /services/cloud/migration
+├ ○ /services/cloud/reliability-monitoring
+├ ƒ /services/crm-revenue-ops
+├   /services/crm-revenue-ops/[slug]
+│ ├ ● /services/crm-revenue-ops/crm-implementation-integration
+│ └ ● /services/crm-revenue-ops/sales-automation-revenue-analytics
+├   /services/crm/[slug]
+│ ├ ● /services/crm/crm-implementation-integration
+│ └ ● /services/crm/sales-automation-revenue-analytics
+├ ƒ /services/data
+├ ƒ /services/data-engineering
+├   /services/data-engineering/[slug]
+│ ├ ● /services/data-engineering/data-pipelines-integration
+│ ├ ● /services/data-engineering/data-warehousing-lakehouse
+│ └ ● /services/data-engineering/data-quality-governance
+├   /services/data/[slug]
+│ ├ ● /services/data/data-pipelines-integration
+│ ├ ● /services/data/data-warehousing-lakehouse
+│ └ ● /services/data/data-quality-governance
+├ ○ /sitemap.xml
+├ ○ /team
+└ ○ /technologies
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

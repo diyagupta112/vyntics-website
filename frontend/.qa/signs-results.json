@@ -1,0 +1,2742 @@
+[
+  {
+    "key": "migration",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 357.421875,
+        "left": 56.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 348.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 640.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 932.5,
+        "width": 276,
+        "height": 270.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "migration",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 357.421875,
+        "left": 56.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 348.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 640.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 932.5,
+        "width": 276,
+        "height": 270.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "migration",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 372.875,
+        "left": 136.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 428.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 720.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 1012.5,
+        "width": 276,
+        "height": 279.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "migration",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 372.875,
+        "left": 136.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 428.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 720.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 1012.5,
+        "width": 276,
+        "height": 279.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "migration",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 374.609375,
+        "left": 376.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 668.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 960.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 1252.5,
+        "width": 276,
+        "height": 283.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "migration",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 374.609375,
+        "left": 376.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 668.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 960.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 1252.5,
+        "width": 276,
+        "height": 283.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "migration",
+    "width": 820,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 313.3125,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 313.3125,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "migration",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 313.3125,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 313.3125,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "migration",
+    "width": 360,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 400.734375,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 626.515625,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      },
+      {
+        "top": 877.109375,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      },
+      {
+        "top": 1127.703125,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "migration",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "An on-premise to cloud migration should address a business or operating constraint, not just move the same problems elsewhere.",
+    "titles": [
+      "Aging servers",
+      "Scaling limits",
+      "High maintenance costs",
+      "Security gaps"
+    ],
+    "descriptions": [
+      "Hardware refreshes, unsupported software, and limited spare capacity make routine changes harder to manage.",
+      "Demand changes faster than your infrastructure can respond, or capacity planning depends on large purchases made well in advance.",
+      "Your team spends time patching, replacing hardware, and maintaining environments that could be simpler to operate.",
+      "Access controls, patching, backups, or recovery procedures need a more consistent approach before the next major change."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 400.734375,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 626.515625,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      },
+      {
+        "top": 877.109375,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      },
+      {
+        "top": 1127.703125,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 357.421875,
+        "left": 56.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 348.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 640.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 932.5,
+        "width": 276,
+        "height": 270.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 357.421875,
+        "left": 56.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 348.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 640.5,
+        "width": 276,
+        "height": 270.59375
+      },
+      {
+        "top": 357.421875,
+        "left": 932.5,
+        "width": 276,
+        "height": 270.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 372.875,
+        "left": 136.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 428.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 720.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 1012.5,
+        "width": 276,
+        "height": 279.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 372.875,
+        "left": 136.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 428.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 720.5,
+        "width": 276,
+        "height": 279.40625
+      },
+      {
+        "top": 372.875,
+        "left": 1012.5,
+        "width": 276,
+        "height": 279.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 374.609375,
+        "left": 376.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 668.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 960.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 1252.5,
+        "width": 276,
+        "height": 283.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 374.609375,
+        "left": 376.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 668.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 960.5,
+        "width": 276,
+        "height": 283.40625
+      },
+      {
+        "top": 374.609375,
+        "left": 1252.5,
+        "width": 276,
+        "height": 283.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 820,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 313.3125,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 313.3125,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 313.3125,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 313.3125,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 360,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 373.546875,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 599.328125,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      },
+      {
+        "top": 849.921875,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 1075.703125,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "devops",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "The strongest reason to change your process is a recurring problem your team can identify and measure.",
+    "titles": [
+      "Slow manual deployments",
+      "Frequent outages",
+      "No visibility into failures",
+      "Environments that do not match"
+    ],
+    "descriptions": [
+      "Releases depend on remembered commands, individual access, or a long sequence of manual checks.",
+      "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes.",
+      "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started.",
+      "Configuration differences between development, testing, and production make release behavior hard to predict."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 373.546875,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 599.328125,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      },
+      {
+        "top": 849.921875,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 1075.703125,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 357.421875,
+        "left": 56.5,
+        "width": 276,
+        "height": 245.78125
+      },
+      {
+        "top": 357.421875,
+        "left": 348.5,
+        "width": 276,
+        "height": 245.78125
+      },
+      {
+        "top": 357.421875,
+        "left": 640.5,
+        "width": 276,
+        "height": 245.78125
+      },
+      {
+        "top": 357.421875,
+        "left": 932.5,
+        "width": 276,
+        "height": 245.78125
+      },
+      {
+        "top": 619.203125,
+        "left": 56.5,
+        "width": 276,
+        "height": 270.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 357.421875,
+        "left": 56.5,
+        "width": 276,
+        "height": 245.78125
+      },
+      {
+        "top": 357.421875,
+        "left": 348.5,
+        "width": 276,
+        "height": 245.78125
+      },
+      {
+        "top": 357.421875,
+        "left": 640.5,
+        "width": 276,
+        "height": 245.78125
+      },
+      {
+        "top": 357.421875,
+        "left": 932.5,
+        "width": 276,
+        "height": 245.78125
+      },
+      {
+        "top": 619.203125,
+        "left": 56.5,
+        "width": 276,
+        "height": 270.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 372.875,
+        "left": 136.5,
+        "width": 276,
+        "height": 254.59375
+      },
+      {
+        "top": 372.875,
+        "left": 428.5,
+        "width": 276,
+        "height": 254.59375
+      },
+      {
+        "top": 372.875,
+        "left": 720.5,
+        "width": 276,
+        "height": 254.59375
+      },
+      {
+        "top": 372.875,
+        "left": 1012.5,
+        "width": 276,
+        "height": 254.59375
+      },
+      {
+        "top": 643.46875,
+        "left": 136.5,
+        "width": 276,
+        "height": 279.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 372.875,
+        "left": 136.5,
+        "width": 276,
+        "height": 254.59375
+      },
+      {
+        "top": 372.875,
+        "left": 428.5,
+        "width": 276,
+        "height": 254.59375
+      },
+      {
+        "top": 372.875,
+        "left": 720.5,
+        "width": 276,
+        "height": 254.59375
+      },
+      {
+        "top": 372.875,
+        "left": 1012.5,
+        "width": 276,
+        "height": 254.59375
+      },
+      {
+        "top": 643.46875,
+        "left": 136.5,
+        "width": 276,
+        "height": 279.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 374.609375,
+        "left": 376.5,
+        "width": 276,
+        "height": 258.59375
+      },
+      {
+        "top": 374.609375,
+        "left": 668.5,
+        "width": 276,
+        "height": 258.59375
+      },
+      {
+        "top": 374.609375,
+        "left": 960.5,
+        "width": 276,
+        "height": 258.59375
+      },
+      {
+        "top": 374.609375,
+        "left": 1252.5,
+        "width": 276,
+        "height": 258.59375
+      },
+      {
+        "top": 649.203125,
+        "left": 376.5,
+        "width": 276,
+        "height": 283.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 374.609375,
+        "left": 376.5,
+        "width": 276,
+        "height": 258.59375
+      },
+      {
+        "top": 374.609375,
+        "left": 668.5,
+        "width": 276,
+        "height": 258.59375
+      },
+      {
+        "top": 374.609375,
+        "left": 960.5,
+        "width": 276,
+        "height": 258.59375
+      },
+      {
+        "top": 374.609375,
+        "left": 1252.5,
+        "width": 276,
+        "height": 258.59375
+      },
+      {
+        "top": 649.203125,
+        "left": 376.5,
+        "width": 276,
+        "height": 283.40625
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 820,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 313.3125,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 313.3125,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 764.875,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 313.3125,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 313.3125,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 539.09375,
+        "left": 418,
+        "width": 386,
+        "height": 209.78125
+      },
+      {
+        "top": 764.875,
+        "left": 16,
+        "width": 386,
+        "height": 209.78125
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 360,
+    "theme": "light",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 400.734375,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 626.515625,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 852.296875,
+        "left": 16,
+        "width": 328,
+        "height": 184.96875
+      },
+      {
+        "top": 1053.265625,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 1279.046875,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(11, 11, 15, 0.62)",
+        "background": "color(srgb 1 1 1 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  },
+  {
+    "key": "cost",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Signs you need to change",
+    "intro": "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.",
+    "titles": [
+      "Idle resources",
+      "Oversized instances",
+      "No tagging or visibility",
+      "Unused storage",
+      "Missed discounts"
+    ],
+    "descriptions": [
+      "Unused development environments or resources with little activity continue to generate charges.",
+      "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size.",
+      "Costs cannot be tied consistently to a team, workload, environment, or owner.",
+      "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision.",
+      "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04",
+      "05"
+    ],
+    "highlighted": 1,
+    "firstHighlighted": true,
+    "boxes": [
+      {
+        "top": 400.734375,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 626.515625,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 852.296875,
+        "left": 16,
+        "width": 328,
+        "height": 184.96875
+      },
+      {
+        "top": 1053.265625,
+        "left": 16,
+        "width": 328,
+        "height": 209.78125
+      },
+      {
+        "top": 1279.046875,
+        "left": 16,
+        "width": 328,
+        "height": 234.59375
+      }
+    ],
+    "styles": [
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(37, 99, 235), rgb(20, 83, 219))"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      },
+      {
+        "opacity": "1",
+        "transition": "0s",
+        "color": "rgba(255, 255, 255, 0.62)",
+        "background": "color(srgb 0.0823529 0.0823529 0.105882 / 0.88)",
+        "image": "none"
+      }
+    ],
+    "overflow": false,
+    "buttons": 0,
+    "carousel": false
+  }
+]

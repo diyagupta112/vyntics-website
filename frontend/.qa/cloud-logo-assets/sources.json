@@ -1,0 +1,13 @@
+{
+  "aws": "https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png",
+  "google": "https://www.gstatic.com/images/branding/product/2x/google_cloud_64dp.png",
+  "github": "https://raw.githubusercontent.com/github/explore/main/topics/github-actions/github-actions.png",
+  "jenkins": "https://www.jenkins.io/images/logos/jenkins/jenkins.svg",
+  "kubernetes": "https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/icon/color/kubernetes-icon-color.svg",
+  "prometheus": "https://raw.githubusercontent.com/cncf/artwork/master/projects/prometheus/icon/color/prometheus-icon-color.svg",
+  "grafana": "https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg",
+  "terraform": "https://www.datocms-assets.com/2885/1679095195-devdot-terraform_lm.png",
+  "docker": "https://www.docker.com/app/uploads/2024/01/icon-docker-square.svg",
+  "azurezip": "https://arch-center.azureedge.net/icons/Azure_Public_Service_Icons_V24.zip",
+  "awszip": "https://d1.awsstatic.com/onedam/marketing-channels/website/public/shared/architecture-icon-release/Icon-package_07312026.5846e92413caa21490223536cc97f1269e44fa92.zip"
+}

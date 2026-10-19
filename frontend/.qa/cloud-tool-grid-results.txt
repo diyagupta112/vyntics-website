@@ -1,0 +1,32 @@
+migration 1280 light PASS 3
+migration 1280 dark PASS 3
+migration 1440 light PASS 3
+migration 1440 dark PASS 3
+migration 1920 light PASS 3
+migration 1920 dark PASS 3
+migration 820 light PASS 2
+migration 820 dark PASS 2
+migration 360 light PASS 1
+migration 360 dark PASS 1
+devops 1280 light PASS 4
+devops 1280 dark PASS 4
+devops 1440 light PASS 4
+devops 1440 dark PASS 4
+devops 1920 light PASS 4
+devops 1920 dark PASS 4
+devops 820 light PASS 2
+devops 820 dark PASS 2
+devops 360 light PASS 1
+devops 360 dark PASS 1
+cost 1280 light PASS 3
+cost 1280 dark PASS 3
+cost 1440 light PASS 3
+cost 1440 dark PASS 3
+cost 1920 light PASS 3
+cost 1920 dark PASS 3
+cost 820 light PASS 2
+cost 820 dark PASS 2
+cost 360 light PASS 1
+cost 360 dark PASS 1
+Existing reveal and keyboard focus PASS
+Other service-page tool presentation remains unchanged PASS

@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: { absolute: study.seo_title },
       description: study.meta_description,
-      openGraph: { title: study.seo_title, description: study.meta_description, images: [study.cover_image_url] },
+      openGraph: { title: study.seo_title, description: study.meta_description, images: [{ url: study.cover_image_url, alt: `${study.title} project cover` }] },
     };
   } catch {
     return { title: "Case Study" };
@@ -79,7 +79,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
                 <ul>{study.tech_stack.map((item) => <li key={item}>{item}</li>)}</ul>
               </div>
             ) : null}>
-              <CaseStudyContent content={bodyContent} />
+              <CaseStudyContent content={bodyContent} imageContext={study.title} />
             </CaseStudyStoryTimeline>
           </Container>
         </section>

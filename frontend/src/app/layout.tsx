@@ -5,6 +5,7 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vyntics.com"),
   title: {
     default: "Vyntics",
     template: "%s | Vyntics",

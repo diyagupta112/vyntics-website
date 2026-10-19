@@ -51,7 +51,7 @@ function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
 
   if (company) {
     return (
-      <span className={`${styles.avatar} ${styles.companyAvatar}`} aria-label={`${company.name} logo`}>
+      <span className={`${styles.avatar} ${styles.companyAvatar}`} role="img" aria-label={`${company.name} logo`}>
         <span className={`${styles.companyLogo} ${company.logoClass}`} aria-hidden="true" />
       </span>
     );

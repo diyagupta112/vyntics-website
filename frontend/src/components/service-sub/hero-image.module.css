@@ -1,0 +1,12 @@
+.image {
+  object-fit: cover;
+  -webkit-mask-image: linear-gradient(to right, transparent, rgb(0 0 0 / 15%) 12%, rgb(0 0 0 / 55%) 28%, #000 50%);
+  mask-image: linear-gradient(to right, transparent, rgb(0 0 0 / 15%) 12%, rgb(0 0 0 / 55%) 28%, #000 50%);
+}
+
+@media (max-width: 760px) {
+  .image {
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}

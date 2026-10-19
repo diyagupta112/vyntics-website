@@ -59,7 +59,7 @@ export default function CloudFoundationsPage() {
         description={"Build, modernize, and support cloud infrastructure that works for your business. We bring architecture and migration together with reliability, security, cost optimization, and ongoing support."}
         primaryAction={{ href: "#contact", label: "Talk to our cloud experts" }}
         secondaryAction={{ href: "#cloud-services", label: "Our cloud services" }}
-        capabilities={canonicalCloudServices.map(service => ({ label: service.title, href: `/services/cloud-foundations/${service.slug === "cloud-cost-optimization" ? "cloud-cost-optimisation" : service.slug}` }))}
+        capabilities={canonicalCloudServices.map(service => ({ label: service.title, href: `/services/cloud-foundations/${service.slug}` }))}
       />
 
       <section className={problemStyles.section} aria-labelledby="cloud-problems-title" data-cloud-section="Cloud problems we solve">
@@ -79,8 +79,8 @@ export default function CloudFoundationsPage() {
             label="Cloud Foundations services"
             services={canonicalCloudServices.map((service, index) => ({
               name: service.title,
-              href: `/services/cloud-foundations/${service.slug === "cloud-cost-optimization" ? "cloud-cost-optimisation" : service.slug}`,
-              image: ["/images/services/our-services-section/cloud-migration.png", "/images/services/our-services-section/devops-and-relability.jpg", "/images/services/our-services-section/cloud-cost-optimization.png"][index],
+              href: `/services/cloud-foundations/${service.slug}`,
+              image: ["/images/services/our-services-section/cloud-migration.png", "/images/services/our-services-section/devops-and-reliability-2.png", "/images/services/our-services-section/cloud-cost-optimization.png"][index],
               imageAlt: ["Team reviewing cloud migration progress on a large screen.", "Developer working with code and system monitoring on two screens.", "Laptop displaying a cloud cost dashboard with usage and spending charts."][index],
               introduction: cloudServiceIntroductions[index].summary,
               points: cloudServiceIntroductions[index].includes,

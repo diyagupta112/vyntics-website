@@ -42,7 +42,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
   return <article><header className={articleStyles.hero}>{/^(https?:\/\/|\/)/.test(blog.cover_image_url) && (
     // Backend image hosts are dynamic.
     // eslint-disable-next-line @next/next/no-img-element
-    <img className={articleStyles.cover} src={blog.cover_image_url} alt="" fetchPriority="high" />
+    <img className={articleStyles.cover} src={blog.cover_image_url} alt={`${blog.title} article cover`} fetchPriority="high" />
   )}<div className={articleStyles.shade} /><div className={articleStyles.heroInner}><Link className={articleStyles.back} href="/blog">← All blogs</Link><div className={articleStyles.titleBlock}><p className={articleStyles.category}>{blog.category}</p><h1>{blog.title}</h1><a className={articleStyles.scroll} href="#article-content">Scroll to read <span aria-hidden="true">↓</span></a></div></div></header>
     <div id="article-content" className={articleStyles.readingLayout}>
       <aside className={articleStyles.leftSidebar} aria-label="About this article"><div className={articleStyles.infoCard}><p className={articleStyles.sideLabel}>ABOUT THIS ARTICLE</p><dl><div><dt>Author</dt><dd>{blog.author}</dd></div><div><dt>{blog.status && blog.status !== "published" ? "Created" : "Published"}</dt><dd><time dateTime={blog.published_at}>{new Intl.DateTimeFormat("en", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(blog.published_at))}</time></dd></div><div><dt>Reading time</dt><dd>{blog.read_time} min read</dd></div><div><dt>Category</dt><dd>{blog.category}</dd></div></dl></div></aside>

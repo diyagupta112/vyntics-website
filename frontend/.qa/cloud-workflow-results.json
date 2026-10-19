@@ -1,0 +1,2092 @@
+[
+  {
+    "key": "migration",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 107.5,
+        "y": 431.9375
+      },
+      {
+        "x": 482.828125,
+        "y": 431.9375
+      },
+      {
+        "x": 858.15625,
+        "y": 431.9375
+      },
+      {
+        "x": 858.15625,
+        "y": 694.203125
+      },
+      {
+        "x": 482.828125,
+        "y": 694.203125
+      },
+      {
+        "x": 107.5,
+        "y": 694.203125
+      }
+    ],
+    "maxPathDistance": 1.223388671875,
+    "moves": 1,
+    "length": 2429.223388671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "migration",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 107.5,
+        "y": 431.9375
+      },
+      {
+        "x": 482.828125,
+        "y": 431.9375
+      },
+      {
+        "x": 858.15625,
+        "y": 431.9375
+      },
+      {
+        "x": 858.15625,
+        "y": 694.203125
+      },
+      {
+        "x": 482.828125,
+        "y": 694.203125
+      },
+      {
+        "x": 107.5,
+        "y": 694.203125
+      }
+    ],
+    "maxPathDistance": 1.223388671875,
+    "moves": 1,
+    "length": 2429.223388671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "migration",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 187.5,
+        "y": 432.078125
+      },
+      {
+        "x": 562.828125,
+        "y": 432.078125
+      },
+      {
+        "x": 938.15625,
+        "y": 432.078125
+      },
+      {
+        "x": 938.15625,
+        "y": 697.4375
+      },
+      {
+        "x": 562.828125,
+        "y": 697.4375
+      },
+      {
+        "x": 187.5,
+        "y": 697.4375
+      }
+    ],
+    "maxPathDistance": 0.989013671875,
+    "moves": 1,
+    "length": 2432.317138671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "migration",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 187.5,
+        "y": 432.078125
+      },
+      {
+        "x": 562.828125,
+        "y": 432.078125
+      },
+      {
+        "x": 938.15625,
+        "y": 432.078125
+      },
+      {
+        "x": 938.15625,
+        "y": 697.4375
+      },
+      {
+        "x": 562.828125,
+        "y": 697.4375
+      },
+      {
+        "x": 187.5,
+        "y": 697.4375
+      }
+    ],
+    "maxPathDistance": 0.989013671875,
+    "moves": 1,
+    "length": 2432.317138671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "migration",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 427.5,
+        "y": 432.171875
+      },
+      {
+        "x": 802.828125,
+        "y": 432.171875
+      },
+      {
+        "x": 1178.15625,
+        "y": 432.171875
+      },
+      {
+        "x": 1178.15625,
+        "y": 697.640625
+      },
+      {
+        "x": 802.828125,
+        "y": 697.640625
+      },
+      {
+        "x": 427.5,
+        "y": 697.640625
+      }
+    ],
+    "maxPathDistance": 0.9016113286414766,
+    "moves": 1,
+    "length": 2432.426513671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "migration",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 427.5,
+        "y": 432.171875
+      },
+      {
+        "x": 802.828125,
+        "y": 432.171875
+      },
+      {
+        "x": 1178.15625,
+        "y": 432.171875
+      },
+      {
+        "x": 1178.15625,
+        "y": 697.640625
+      },
+      {
+        "x": 802.828125,
+        "y": 697.640625
+      },
+      {
+        "x": 427.5,
+        "y": 697.640625
+      }
+    ],
+    "maxPathDistance": 0.9016113286414766,
+    "moves": 1,
+    "length": 2432.426513671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "migration",
+    "width": 820,
+    "theme": "light",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 67,
+        "y": 374.515625
+      },
+      {
+        "x": 444,
+        "y": 374.515625
+      },
+      {
+        "x": 444,
+        "y": 626.984375
+      },
+      {
+        "x": 67,
+        "y": 626.984375
+      },
+      {
+        "x": 67,
+        "y": 855.6875
+      },
+      {
+        "x": 444,
+        "y": 855.6875
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2364.0869140625,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "migration",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 67,
+        "y": 374.515625
+      },
+      {
+        "x": 444,
+        "y": 374.515625
+      },
+      {
+        "x": 444,
+        "y": 626.984375
+      },
+      {
+        "x": 67,
+        "y": 626.984375
+      },
+      {
+        "x": 67,
+        "y": 855.6875
+      },
+      {
+        "x": 444,
+        "y": 855.6875
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2364.0869140625,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "migration",
+    "width": 360,
+    "theme": "light",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 55,
+        "y": 389.53125
+      },
+      {
+        "x": 55,
+        "y": 587.578125
+      },
+      {
+        "x": 55,
+        "y": 762.40625
+      },
+      {
+        "x": 55,
+        "y": 937.234375
+      },
+      {
+        "x": 55,
+        "y": 1112.0625
+      },
+      {
+        "x": 55,
+        "y": 1286.890625
+      }
+    ],
+    "maxPathDistance": 1.359375,
+    "moves": 1,
+    "length": 897.359375,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "migration",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Our migration process",
+    "intro": "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Assess",
+        "visual": "Workloads and dependencies",
+        "description": "We inventory workloads, data, dependencies, security requirements, and operating constraints."
+      },
+      {
+        "title": "Plan",
+        "visual": "Architecture and cutover",
+        "description": "We define the target architecture, migration sequence, acceptance checks, and rollback approach."
+      },
+      {
+        "title": "Pilot",
+        "visual": "A representative workload",
+        "description": "We test the approach on a representative workload and use the findings to refine the plan."
+      },
+      {
+        "title": "Migrate",
+        "visual": "Controlled workload moves",
+        "description": "We move applications and data in agreed groups while tracking issues and cutover decisions."
+      },
+      {
+        "title": "Validate",
+        "visual": "Data and service checks",
+        "description": "We check data integrity, application behavior, access, performance, backups, and recovery readiness."
+      },
+      {
+        "title": "Optimise",
+        "visual": "Operate and improve",
+        "description": "We review resource usage, monitoring, cost, and operating documentation after the move."
+      }
+    ],
+    "positions": [
+      {
+        "x": 55,
+        "y": 389.53125
+      },
+      {
+        "x": 55,
+        "y": 587.578125
+      },
+      {
+        "x": 55,
+        "y": 762.40625
+      },
+      {
+        "x": 55,
+        "y": 937.234375
+      },
+      {
+        "x": 55,
+        "y": 1112.0625
+      },
+      {
+        "x": 55,
+        "y": 1286.890625
+      }
+    ],
+    "maxPathDistance": 1.359375,
+    "moves": 1,
+    "length": 897.359375,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 107.5,
+        "y": 455.78125
+      },
+      {
+        "x": 670.5,
+        "y": 455.78125
+      },
+      {
+        "x": 670.5,
+        "y": 694.28125
+      },
+      {
+        "x": 107.5,
+        "y": 694.28125
+      }
+    ],
+    "maxPathDistance": 1.457763671875,
+    "moves": 1,
+    "length": 2405.457763671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 107.5,
+        "y": 455.78125
+      },
+      {
+        "x": 670.5,
+        "y": 455.78125
+      },
+      {
+        "x": 670.5,
+        "y": 694.28125
+      },
+      {
+        "x": 107.5,
+        "y": 694.28125
+      }
+    ],
+    "maxPathDistance": 1.457763671875,
+    "moves": 1,
+    "length": 2405.457763671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 187.5,
+        "y": 455.0625
+      },
+      {
+        "x": 750.5,
+        "y": 455.0625
+      },
+      {
+        "x": 750.5,
+        "y": 696.65625
+      },
+      {
+        "x": 187.5,
+        "y": 696.65625
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2408.551513671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 187.5,
+        "y": 455.0625
+      },
+      {
+        "x": 750.5,
+        "y": 455.0625
+      },
+      {
+        "x": 750.5,
+        "y": 696.65625
+      },
+      {
+        "x": 187.5,
+        "y": 696.65625
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2408.551513671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 427.5,
+        "y": 456.15625
+      },
+      {
+        "x": 990.5,
+        "y": 456.15625
+      },
+      {
+        "x": 990.5,
+        "y": 697.859375
+      },
+      {
+        "x": 427.5,
+        "y": 697.859375
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2408.660888671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 427.5,
+        "y": 456.15625
+      },
+      {
+        "x": 990.5,
+        "y": 456.15625
+      },
+      {
+        "x": 990.5,
+        "y": 697.859375
+      },
+      {
+        "x": 427.5,
+        "y": 697.859375
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2408.660888671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 820,
+    "theme": "light",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 67,
+        "y": 375.265625
+      },
+      {
+        "x": 444,
+        "y": 375.265625
+      },
+      {
+        "x": 444,
+        "y": 627.734375
+      },
+      {
+        "x": 67,
+        "y": 627.734375
+      }
+    ],
+    "maxPathDistance": 1.4263916015625,
+    "moves": 1,
+    "length": 1691.4263916015625,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 67,
+        "y": 375.265625
+      },
+      {
+        "x": 444,
+        "y": 375.265625
+      },
+      {
+        "x": 444,
+        "y": 627.734375
+      },
+      {
+        "x": 67,
+        "y": 627.734375
+      }
+    ],
+    "maxPathDistance": 1.4263916015625,
+    "moves": 1,
+    "length": 1691.4263916015625,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 360,
+    "theme": "light",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 55,
+        "y": 423.34375
+      },
+      {
+        "x": 55,
+        "y": 621.390625
+      },
+      {
+        "x": 55,
+        "y": 819.4375
+      },
+      {
+        "x": 55,
+        "y": 994.265625
+      }
+    ],
+    "maxPathDistance": 0.921875,
+    "moves": 1,
+    "length": 570.921875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "devops",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Our DevOps and reliability process",
+    "intro": "We start with the current delivery path, then improve the steps that create repeated work or operational risk.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Delivery and production",
+        "description": "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent."
+      },
+      {
+        "title": "Automate",
+        "visual": "Repeatable changes",
+        "description": "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership."
+      },
+      {
+        "title": "Monitor",
+        "visual": "Useful service signals",
+        "description": "We connect agreed service health signals to dashboards, alerts, and response procedures."
+      },
+      {
+        "title": "Improve",
+        "visual": "Feedback from operations",
+        "description": "We use release and incident findings to prioritize the next improvement with your team."
+      }
+    ],
+    "positions": [
+      {
+        "x": 55,
+        "y": 423.34375
+      },
+      {
+        "x": 55,
+        "y": 621.390625
+      },
+      {
+        "x": 55,
+        "y": 819.4375
+      },
+      {
+        "x": 55,
+        "y": 994.265625
+      }
+    ],
+    "maxPathDistance": 0.921875,
+    "moves": 1,
+    "length": 570.921875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 107.5,
+        "y": 456.125
+      },
+      {
+        "x": 670.5,
+        "y": 456.125
+      },
+      {
+        "x": 670.5,
+        "y": 694.625
+      },
+      {
+        "x": 107.5,
+        "y": 694.625
+      }
+    ],
+    "maxPathDistance": 1.457763671875,
+    "moves": 1,
+    "length": 2405.457763671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 107.5,
+        "y": 456.125
+      },
+      {
+        "x": 670.5,
+        "y": 456.125
+      },
+      {
+        "x": 670.5,
+        "y": 694.625
+      },
+      {
+        "x": 107.5,
+        "y": 694.625
+      }
+    ],
+    "maxPathDistance": 1.457763671875,
+    "moves": 1,
+    "length": 2405.457763671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 187.5,
+        "y": 455.671875
+      },
+      {
+        "x": 750.5,
+        "y": 455.671875
+      },
+      {
+        "x": 750.5,
+        "y": 697.265625
+      },
+      {
+        "x": 187.5,
+        "y": 697.265625
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2408.551513671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 187.5,
+        "y": 455.671875
+      },
+      {
+        "x": 750.5,
+        "y": 455.671875
+      },
+      {
+        "x": 750.5,
+        "y": 697.265625
+      },
+      {
+        "x": 187.5,
+        "y": 697.265625
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2408.551513671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 427.5,
+        "y": 481.3125
+      },
+      {
+        "x": 990.5,
+        "y": 481.3125
+      },
+      {
+        "x": 990.5,
+        "y": 723.015625
+      },
+      {
+        "x": 427.5,
+        "y": 723.015625
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2408.660888671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 427.5,
+        "y": 481.3125
+      },
+      {
+        "x": 990.5,
+        "y": 481.3125
+      },
+      {
+        "x": 990.5,
+        "y": 723.015625
+      },
+      {
+        "x": 427.5,
+        "y": 723.015625
+      }
+    ],
+    "maxPathDistance": 1,
+    "moves": 1,
+    "length": 2408.660888671875,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 820,
+    "theme": "light",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 67,
+        "y": 374.84375
+      },
+      {
+        "x": 444,
+        "y": 374.84375
+      },
+      {
+        "x": 444,
+        "y": 603.546875
+      },
+      {
+        "x": 67,
+        "y": 603.546875
+      }
+    ],
+    "maxPathDistance": 1.6607666015625,
+    "moves": 1,
+    "length": 1667.6607666015625,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 67,
+        "y": 374.84375
+      },
+      {
+        "x": 444,
+        "y": 374.84375
+      },
+      {
+        "x": 444,
+        "y": 603.546875
+      },
+      {
+        "x": 67,
+        "y": 603.546875
+      }
+    ],
+    "maxPathDistance": 1.6607666015625,
+    "moves": 1,
+    "length": 1667.6607666015625,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 360,
+    "theme": "light",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 55,
+        "y": 423.015625
+      },
+      {
+        "x": 55,
+        "y": 621.0625
+      },
+      {
+        "x": 55,
+        "y": 795.890625
+      },
+      {
+        "x": 55,
+        "y": 970.71875
+      }
+    ],
+    "maxPathDistance": 1.703125,
+    "moves": 1,
+    "length": 547.703125,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  },
+  {
+    "key": "cost",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Our cloud cost optimization process",
+    "intro": "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.",
+    "eyebrow": "How we work",
+    "items": [
+      {
+        "title": "Audit",
+        "visual": "Spend and resource usage",
+        "description": "We review billing, resource inventory, usage patterns, ownership, and current commitments."
+      },
+      {
+        "title": "Quick wins",
+        "visual": "Reviewed low-risk changes",
+        "description": "We prioritize changes with clear ownership and limited operational risk, then validate their effect."
+      },
+      {
+        "title": "Long-term savings",
+        "visual": "Capacity and commitments",
+        "description": "We assess resource design, scaling, retention, and commitment options against expected demand."
+      },
+      {
+        "title": "Ongoing monitoring",
+        "visual": "Track changes in spend",
+        "description": "We establish reporting and review points so owners can investigate new cost changes."
+      }
+    ],
+    "positions": [
+      {
+        "x": 55,
+        "y": 423.015625
+      },
+      {
+        "x": 55,
+        "y": 621.0625
+      },
+      {
+        "x": 55,
+        "y": 795.890625
+      },
+      {
+        "x": 55,
+        "y": 970.71875
+      }
+    ],
+    "maxPathDistance": 1.703125,
+    "moves": 1,
+    "length": 547.703125,
+    "overflow": false,
+    "clipped": false,
+    "opacity": true,
+    "transition": "0s",
+    "reduced": true,
+    "markerColors": [
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)",
+      "rgb(20, 83, 219)"
+    ],
+    "active": true
+  }
+]

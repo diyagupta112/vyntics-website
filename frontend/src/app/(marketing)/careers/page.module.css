@@ -1,7 +1,7 @@
 .hero { position: relative; isolation: isolate; min-height: max(39rem, calc(100svh - 5rem)); display: grid; align-items: center; overflow: hidden; color: #fff; background: #0b0b0f; }
 .heroImage,
 .heroOverlay { position: absolute; inset: 0; }
-.heroImage { z-index: -2; background-image: url("/images/careers/1.png"); background-position: center; background-repeat: no-repeat; background-size: cover; transform: scale(1.015); }
+.heroImage { z-index: -2; background-image: url("/images/careers/careers-team-hero.png"); background-position: center; background-repeat: no-repeat; background-size: cover; transform: scale(1.015); }
 .heroOverlay { z-index: -1; background: linear-gradient(90deg, rgb(11 11 15 / 80%) 0%, rgb(11 11 15 / 53%) 48%, rgb(11 11 15 / 10%) 100%), linear-gradient(0deg, rgb(11 11 15 / 52%) 0%, transparent 58%); }
 .heroInner { position: relative; z-index: 1; width: min(100% - 2rem, var(--content-width)); padding-block: clamp(3.75rem, 8vh, 5.5rem); }
 .heroCopy { max-width: 46rem; }

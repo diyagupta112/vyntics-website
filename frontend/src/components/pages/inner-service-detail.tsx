@@ -1,6 +1,9 @@
 import { NextServiceBanner } from "./next-service-banner";
 import { serviceSitemap } from "@/content/service-sitemap";
 import Link from "next/link";
+import Image from "next/image";
+import { subServiceHeroImages } from "@/content/sub-service-hero-images";
+import imageStyles from "@/components/service-sub/hero-image.module.css";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
 import styles from "./inner-service-detail.module.css";
@@ -28,10 +31,12 @@ function ArrowIcon() {
 }
 
 export function InnerServiceDetail({ service }: { service: InnerServiceDetailContent }) {
+  const image = subServiceHeroImages[service.slug];
   return (
     <>
       <section className={`${styles.hero} ${service.slug === "rag-knowledge-assistants" ? styles.sequencedHero : ""}`} aria-labelledby="service-title">
-        <Container>
+        <Container className={image ? styles.heroLayout : undefined}>
+          <div>
           <Link className={styles.backLink} href="/#services">← All services</Link>
           <p className={styles.eyebrow}>{service.eyebrow}</p>
           <h1 id="service-title" aria-label={service.slug === "rag-knowledge-assistants" ? service.title : undefined}>
@@ -41,6 +46,12 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
           </h1>
           <p className={styles.introduction}>{service.introduction}</p>
           <button className={styles.primaryButton} type="button" data-scroll-target="contact">Discuss {service.name} <ArrowIcon /></button>
+          </div>
+          {image && <div className={styles.heroImage}>
+            <div className={styles.heroImageFrame}>
+              <Image className={imageStyles.image} src={image.src} alt={image.alt} fill preload sizes="(max-width: 760px) 100vw, 50vw" />
+            </div>
+          </div>}
         </Container>
       </section>
 
@@ -70,7 +81,7 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
         introduction={service.slug === "rag-knowledge-assistants" ? "A structured 4-step engineering roadmap built to ensure security, high accuracy, and seamless deployment." : service.slug === "ai-agents" ? "A disciplined 4-stage development framework engineered for predictability, security, and measurable performance." : service.slug === "intelligent-automation" ? "A structured 4-step execution framework designed for precision, control, and seamless system integration." : undefined}
       />
 
-      <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} />
+      <ServiceTools name={service.name} technologies={service.technologies} introduction={service.technologyIntroduction} details={service.technologyDetails} presentation="platforms" balancedPlatforms showTechnologyLinks />
 
       <NextServiceBanner id="service-next" currentService={serviceSitemap.find(pillar => pillar.services.some(item => item.slug === service.slug))?.slug} />
 

@@ -1,0 +1,1962 @@
+[
+  {
+    "key": "migration",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 244.984375,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 244.984375,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 244.984375,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "migration",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 244.984375,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 244.984375,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 244.984375,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "migration",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 260.484375,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 260.484375,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 260.484375,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "migration",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 260.484375,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 260.484375,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 260.484375,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "migration",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 265.21875,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 265.21875,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 265.21875,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "migration",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 265.21875,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 265.21875,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 265.21875,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "migration",
+    "width": 820,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 203.6875,
+        "width": 384,
+        "height": 276.125
+      },
+      {
+        "top": 203.6875,
+        "width": 384,
+        "height": 276.125
+      },
+      {
+        "top": 499.8125,
+        "width": 384,
+        "height": 276.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 2,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "migration",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 203.6875,
+        "width": 384,
+        "height": 276.125
+      },
+      {
+        "top": 203.6875,
+        "width": 384,
+        "height": 276.125
+      },
+      {
+        "top": 499.8125,
+        "width": 384,
+        "height": 276.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 2,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "migration",
+    "width": 360,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 290.03125,
+        "width": 328,
+        "height": 301.703125
+      },
+      {
+        "top": 607.734375,
+        "width": 328,
+        "height": 301.703125
+      },
+      {
+        "top": 925.4375,
+        "width": 328,
+        "height": 301.703125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 1,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "migration",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 290.03125,
+        "width": 328,
+        "height": 301.703125
+      },
+      {
+        "top": 607.734375,
+        "width": 328,
+        "height": 301.703125
+      },
+      {
+        "top": 925.4375,
+        "width": 328,
+        "height": 301.703125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 1,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 357.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 357.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 357.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 357.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 468.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 468.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 468.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 468.90625,
+        "width": 273,
+        "height": 91.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 4,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 357.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 357.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 357.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 357.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 468.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 468.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 468.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 468.90625,
+        "width": 273,
+        "height": 91.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 4,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 372.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 372.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 372.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 372.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 483.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 483.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 483.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 483.90625,
+        "width": 273,
+        "height": 91.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 4,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 372.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 372.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 372.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 372.4375,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 483.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 483.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 483.90625,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 483.90625,
+        "width": 273,
+        "height": 91.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 4,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 374.953125,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 374.953125,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 374.953125,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 374.953125,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 486.421875,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 486.421875,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 486.421875,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 486.421875,
+        "width": 273,
+        "height": 91.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 4,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 374.953125,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 374.953125,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 374.953125,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 374.953125,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 486.421875,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 486.421875,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 486.421875,
+        "width": 273,
+        "height": 91.46875
+      },
+      {
+        "top": 486.421875,
+        "width": 273,
+        "height": 91.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 4,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 820,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 312.484375,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 312.484375,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 407.953125,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 407.953125,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 503.421875,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 503.421875,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 598.890625,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 598.890625,
+        "width": 384,
+        "height": 75.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 2,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 312.484375,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 312.484375,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 407.953125,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 407.953125,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 503.421875,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 503.421875,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 598.890625,
+        "width": 384,
+        "height": 75.46875
+      },
+      {
+        "top": 598.890625,
+        "width": 384,
+        "height": 75.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 2,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 360,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 337.734375,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 429.203125,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 520.671875,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 612.140625,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 703.609375,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 795.078125,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 886.546875,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 978.015625,
+        "width": 328,
+        "height": 75.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 1,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "devops",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 337.734375,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 429.203125,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 520.671875,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 612.140625,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 703.609375,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 795.078125,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 886.546875,
+        "width": 328,
+        "height": 75.46875
+      },
+      {
+        "top": 978.015625,
+        "width": 328,
+        "height": 75.46875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 1,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 270.609375,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 270.609375,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 270.609375,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 270.609375,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 270.609375,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 270.609375,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 285.5625,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 285.5625,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 285.5625,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 285.5625,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 285.5625,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 285.5625,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 290.734375,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 290.734375,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 290.734375,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 290.734375,
+        "width": 370.65625,
+        "height": 292.125
+      },
+      {
+        "top": 290.734375,
+        "width": 370.671875,
+        "height": 292.125
+      },
+      {
+        "top": 290.734375,
+        "width": 370.65625,
+        "height": 292.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 3,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 820,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 229.03125,
+        "width": 384,
+        "height": 250.546875
+      },
+      {
+        "top": 229.03125,
+        "width": 384,
+        "height": 250.546875
+      },
+      {
+        "top": 499.578125,
+        "width": 384,
+        "height": 250.546875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 2,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 229.03125,
+        "width": 384,
+        "height": 250.546875
+      },
+      {
+        "top": 229.03125,
+        "width": 384,
+        "height": 250.546875
+      },
+      {
+        "top": 499.578125,
+        "width": 384,
+        "height": 250.546875
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 2,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 360,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 339.390625,
+        "width": 328,
+        "height": 276.125
+      },
+      {
+        "top": 631.515625,
+        "width": 328,
+        "height": 276.125
+      },
+      {
+        "top": 923.640625,
+        "width": 328,
+        "height": 276.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 1,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  },
+  {
+    "key": "cost",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 339.390625,
+        "width": 328,
+        "height": 276.125
+      },
+      {
+        "top": 631.515625,
+        "width": 328,
+        "height": 276.125
+      },
+      {
+        "top": 923.640625,
+        "width": 328,
+        "height": 276.125
+      }
+    ],
+    "display": "grid",
+    "overflow": false,
+    "gridColumns": 1,
+    "transition": "0s",
+    "clipped": false,
+    "buttons": 0,
+    "svg": 0,
+    "links": [],
+    "carousel": false,
+    "hidden": false
+  }
+]

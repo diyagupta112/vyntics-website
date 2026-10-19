@@ -1,4 +1,6 @@
 export const legacyServiceRoutes: Readonly<Record<string, string>> = {
+  "/services/cloud-foundations/cloud-cost-optimisation": "/services/cloud-foundations/cloud-cost-optimization",
+  "/services/cloud/cloud-cost-optimisation": "/services/cloud-foundations/cloud-cost-optimization",
   "/services/cloud": "/services/cloud-foundations",
   "/services/data": "/services/data-engineering",
   "/services/crm": "/services/crm-revenue-ops",

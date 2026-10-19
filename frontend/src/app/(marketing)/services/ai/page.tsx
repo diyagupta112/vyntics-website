@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AiSolutionsServicesShowcase } from "@/components/pages/ai-solutions-services-showcase";
 import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineering-process-timeline";
-import { DataPlatformsHoverGrid } from "@/components/pages/data-platforms-hover-grid";
+import { ServiceTools } from "@/components/pages/service-tools";
 import { FaqContent } from "@/components/pages/faq-content";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
 import { ContactCta } from "@/components/sections/home/contact-cta";
@@ -101,13 +101,9 @@ export default function AiSolutionsPage() {
 
       <AiWhy />
 
-      <section className={`${styles.section} ${styles.platformSection}`} aria-labelledby="platforms-title">
-        <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>AI platforms we work with</p><h2 id="platforms-title">Choose the stack around the risk and workload.</h2><p>We keep the architecture modular where practical, so one model or vendor does not become the whole system.</p></div>
-          <DataPlatformsHoverGrid platforms={platforms} iconVariant="ai" />
-          <Link className={styles.inlineLink} href="/technologies">View all technologies <ArrowIcon /></Link>
-        </Container>
-      </section>
+      <ServiceTools id="ai-platforms" headingId="platforms-title" sectionName="AI platforms we work with" name="AI Solutions" eyebrow="AI platforms we work with"
+        title="Choose the stack around the risk and workload." introduction="We keep the architecture modular where practical, so one model or vendor does not become the whole system."
+        technologies={platforms.map(platform => platform.name)} details={platforms} presentation="platforms" balancedPlatforms note={null} />
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>

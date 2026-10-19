@@ -1,0 +1,3582 @@
+[
+  {
+    "key": "migration",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 244.984375,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 442.796875,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 640.609375,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "migration",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 244.984375,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 442.796875,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 640.609375,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "migration",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 260.484375,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 458.296875,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 656.109375,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "migration",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 260.484375,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 458.296875,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 656.109375,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "migration",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 265.21875,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 463.03125,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 660.84375,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "migration",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 265.21875,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 463.03125,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 660.84375,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "migration",
+    "width": 820,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 203.6875,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      },
+      {
+        "top": 411.078125,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      },
+      {
+        "top": 618.46875,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "migration",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 203.6875,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      },
+      {
+        "top": 411.078125,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      },
+      {
+        "top": 618.46875,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "migration",
+    "width": 360,
+    "theme": "light",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 290.03125,
+        "left": 16,
+        "width": 328,
+        "height": 377.703125,
+        "columns": "286px"
+      },
+      {
+        "top": 683.734375,
+        "left": 16,
+        "width": 328,
+        "height": 377.703125,
+        "columns": "286px"
+      },
+      {
+        "top": 1077.4375,
+        "left": 16,
+        "width": 328,
+        "height": 377.703125,
+        "columns": "286px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "migration",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Cloud platforms for your migration",
+    "intro": "We compare the fit with your existing systems, data requirements, team skills, and operating model.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move.",
+      "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination.",
+      "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks."
+    ],
+    "roles": [
+      "Workload migration",
+      "Connected Microsoft environments",
+      "Applications and data"
+    ],
+    "boxes": [
+      {
+        "top": 290.03125,
+        "left": 16,
+        "width": 328,
+        "height": 377.703125,
+        "columns": "286px"
+      },
+      {
+        "top": 683.734375,
+        "left": 16,
+        "width": 328,
+        "height": 377.703125,
+        "columns": "286px"
+      },
+      {
+        "top": 1077.4375,
+        "left": 16,
+        "width": 328,
+        "height": 377.703125,
+        "columns": "286px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 357.4375,
+        "left": 56.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 357.4375,
+        "left": 349.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 357.4375,
+        "left": 642.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 357.4375,
+        "left": 935.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 455.4375,
+        "left": 56.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 455.4375,
+        "left": 349.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 455.4375,
+        "left": 642.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 455.4375,
+        "left": 935.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 357.4375,
+        "left": 56.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 357.4375,
+        "left": 349.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 357.4375,
+        "left": 642.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 357.4375,
+        "left": 935.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 455.4375,
+        "left": 56.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 455.4375,
+        "left": 349.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 455.4375,
+        "left": 642.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 455.4375,
+        "left": 935.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 372.4375,
+        "left": 136.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 372.4375,
+        "left": 429.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 372.4375,
+        "left": 722.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 372.4375,
+        "left": 1015.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 470.4375,
+        "left": 136.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 470.4375,
+        "left": 429.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 470.4375,
+        "left": 722.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 470.4375,
+        "left": 1015.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 372.4375,
+        "left": 136.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 372.4375,
+        "left": 429.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 372.4375,
+        "left": 722.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 372.4375,
+        "left": 1015.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 470.4375,
+        "left": 136.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 470.4375,
+        "left": 429.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 470.4375,
+        "left": 722.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 470.4375,
+        "left": 1015.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 374.953125,
+        "left": 376.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 374.953125,
+        "left": 669.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 374.953125,
+        "left": 962.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 374.953125,
+        "left": 1255.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 472.953125,
+        "left": 376.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 472.953125,
+        "left": 669.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 472.953125,
+        "left": 962.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 472.953125,
+        "left": 1255.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 374.953125,
+        "left": 376.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 374.953125,
+        "left": 669.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 374.953125,
+        "left": 962.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 374.953125,
+        "left": 1255.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 472.953125,
+        "left": 376.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 472.953125,
+        "left": 669.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 472.953125,
+        "left": 962.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 472.953125,
+        "left": 1255.5,
+        "width": 273,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 820,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 312.484375,
+        "left": 16,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 312.484375,
+        "left": 420,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 410.484375,
+        "left": 16,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 410.484375,
+        "left": 420,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 508.484375,
+        "left": 16,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 508.484375,
+        "left": 420,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 606.484375,
+        "left": 16,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 606.484375,
+        "left": 420,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 312.484375,
+        "left": 16,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 312.484375,
+        "left": 420,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 410.484375,
+        "left": 16,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 410.484375,
+        "left": 420,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 508.484375,
+        "left": 16,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 508.484375,
+        "left": 420,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 606.484375,
+        "left": 16,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 606.484375,
+        "left": 420,
+        "width": 384,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 360,
+    "theme": "light",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 337.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 431.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 525.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 619.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 713.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 807.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 901.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 995.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "devops",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Tools we use",
+    "intro": "We select tools around your delivery process, application requirements, and the systems your team can maintain.",
+    "titles": [
+      "GitHub Actions",
+      "Jenkins",
+      "Terraform",
+      "Docker",
+      "Kubernetes",
+      "Prometheus",
+      "Grafana",
+      "CloudWatch"
+    ],
+    "descriptions": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "roles": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "boxes": [
+      {
+        "top": 337.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 431.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 525.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 619.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 713.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 807.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 901.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      },
+      {
+        "top": 995.734375,
+        "left": 16,
+        "width": 328,
+        "height": 78,
+        "columns": "none"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 44,
+        "height": 44,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies",
+      "/technologies"
+    ],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 1280,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 270.609375,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 468.421875,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 666.234375,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 1280,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 270.609375,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 468.421875,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 666.234375,
+        "left": 56.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 1440,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 285.5625,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 483.375,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 681.1875,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 1440,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 285.5625,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 483.375,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 681.1875,
+        "left": 136.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 1920,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 290.734375,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 488.546875,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 686.359375,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 1920,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 290.734375,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 488.546875,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      },
+      {
+        "top": 686.359375,
+        "left": 376.5,
+        "width": 1152,
+        "height": 181.8125,
+        "columns": "213.188px 852.812px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 120,
+        "height": 120,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 820,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 229.03125,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      },
+      {
+        "top": 436.421875,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      },
+      {
+        "top": 643.8125,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 820,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 229.03125,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      },
+      {
+        "top": 436.421875,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      },
+      {
+        "top": 643.8125,
+        "left": 16,
+        "width": 788,
+        "height": 191.390625,
+        "columns": "143.594px 574.406px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 88,
+        "height": 88,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 360,
+    "theme": "light",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 339.390625,
+        "left": 16,
+        "width": 328,
+        "height": 352.125,
+        "columns": "286px"
+      },
+      {
+        "top": 707.515625,
+        "left": 16,
+        "width": 328,
+        "height": 352.125,
+        "columns": "286px"
+      },
+      {
+        "top": 1075.640625,
+        "left": 16,
+        "width": 328,
+        "height": 352.125,
+        "columns": "286px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  },
+  {
+    "key": "cost",
+    "width": 360,
+    "theme": "dark",
+    "heading": "Cost tools across cloud platforms",
+    "intro": "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.",
+    "titles": [
+      "AWS",
+      "Azure",
+      "Google Cloud"
+    ],
+    "descriptions": [
+      "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes.",
+      "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within.",
+      "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage."
+    ],
+    "roles": [
+      "Billing and usage analysis",
+      "Cost Management",
+      "Cloud Billing"
+    ],
+    "boxes": [
+      {
+        "top": 339.390625,
+        "left": 16,
+        "width": 328,
+        "height": 352.125,
+        "columns": "286px"
+      },
+      {
+        "top": 707.515625,
+        "left": 16,
+        "width": 328,
+        "height": 352.125,
+        "columns": "286px"
+      },
+      {
+        "top": 1075.640625,
+        "left": 16,
+        "width": 328,
+        "height": 352.125,
+        "columns": "286px"
+      }
+    ],
+    "logos": [
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      },
+      {
+        "loaded": true,
+        "alt": "",
+        "fit": "contain",
+        "filter": "none",
+        "width": 72,
+        "height": 72,
+        "back": "rgb(255, 255, 255)",
+        "hidden": "true"
+      }
+    ],
+    "overflow": false,
+    "clipped": false,
+    "buttons": 0,
+    "links": [],
+    "carousel": false,
+    "transition": "0s"
+  }
+]

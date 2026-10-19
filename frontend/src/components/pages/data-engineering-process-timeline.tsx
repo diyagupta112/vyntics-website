@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, useScroll, useSpring } from "motion/react";
 import { useRef } from "react";
 import styles from "./data-engineering-process-timeline.module.css";
+import { CloudWorkflowTimeline } from "@/components/service-sub/cloud-workflow-timeline";
 
 const dataEngineeringProcess = [
   { title: "Assess", visual: "Sources and outcomes", description: "Map sources, consumers, ownership, definitions, risk, data quality, and the decisions the system must support." },
@@ -18,11 +19,13 @@ type ProcessStep = {
   description: string;
 };
 
-export function DataEngineeringProcessTimeline({ steps = dataEngineeringProcess }: { steps?: readonly ProcessStep[] }) {
+export function DataEngineeringProcessTimeline({ steps = dataEngineeringProcess, presentation = "timeline", revealPrefix = "workflow" }: { steps?: readonly ProcessStep[]; presentation?: "timeline" | "workflow"; revealPrefix?: string }) {
   const timelineRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: timelineRef, offset: ["start 75%", "end 35%"] });
   const progress = useSpring(scrollYProgress, { stiffness: 110, damping: 26, mass: 0.35 });
+
+  if (presentation === "workflow") return <CloudWorkflowTimeline steps={steps} progress={progress} timelineRef={timelineRef} revealPrefix={revealPrefix} />;
 
   return (
     <div className={styles.timeline} ref={timelineRef}>

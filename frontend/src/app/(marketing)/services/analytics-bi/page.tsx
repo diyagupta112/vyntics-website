@@ -97,6 +97,7 @@ export default function AnalyticsBiPage() {
         sectionName="BI tools we work with"
         introduction={analyticsContent.platformsIntroduction}
         platforms={analyticsContent.platforms}
+        showTechnologyLinks={false}
       />
 
       <ServicePillarApproach

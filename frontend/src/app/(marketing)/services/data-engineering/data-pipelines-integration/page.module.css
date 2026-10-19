@@ -1,0 +1,12 @@
+.page { min-width: 0; }
+.section,.process { scroll-margin-top: 6.5rem; }
+.heading { max-width: 48rem; margin-bottom: 2rem; }
+.heading h2 { color: var(--color-foreground); font-size: clamp(2rem, 3.2vw, 3rem); line-height: 1.12; letter-spacing: -.04em; }
+.heading > p { margin-top: 1rem; color: var(--color-muted); font-size: 1.05rem; line-height: 1.7; }
+.architecture { position: relative; min-height: 18rem; padding: 2rem; border: 1px solid var(--color-border); border-radius: .9rem; background: var(--color-surface); display: grid; place-items: center; }
+.architectureCenter { display: grid; place-items: center; width: 8rem; height: 8rem; border-radius: 50%; background: var(--color-primary); color: #fff; font-weight: 700; }
+.architectureNodes { position: absolute; inset: 1.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; align-items: start; }
+.architectureNodes span { padding: .75rem .5rem; border: 1px solid var(--color-border); border-radius: .65rem; background: var(--color-background); color: var(--color-foreground); text-align: center; font-size: .86rem; }
+.architecture figcaption { position: absolute; right: 1.5rem; bottom: 1rem; left: 1.5rem; color: var(--color-muted); font-size: .82rem; text-align: center; }
+.page a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+@media (max-width: 600px) { .heading > p { font-size: 1rem; }.architecture { min-height: 25rem; }.architectureNodes { inset: 1rem; grid-template-columns: repeat(2, 1fr); }.architectureCenter { width: 6rem; height: 6rem; } }

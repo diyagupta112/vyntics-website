@@ -10,8 +10,7 @@ export const serviceNavigation: readonly NavigationChild[] = serviceSitemap.map(
   description: pillar.description,
   children: pillar.services.map(service => ({
     label: service.name,
-    // The existing cost page uses UK spelling in its route.
-    href: `/services/${pillar.slug}/${service.slug === "cloud-cost-optimization" ? "cloud-cost-optimisation" : service.slug}`,
+    href: `/services/${pillar.slug}/${service.slug}`,
     description: service.description,
   })),
 }));

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineering-process-timeline";
 import { DataEngineeringServicesShowcase } from "@/components/pages/data-engineering-services-showcase";
-import { DataPlatformsHoverGrid } from "@/components/pages/data-platforms-hover-grid";
+import { ServiceTools } from "@/components/pages/service-tools";
 import { FaqContent } from "@/components/pages/faq-content";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
 import { ContactCta } from "@/components/sections/home/contact-cta";
@@ -93,13 +93,10 @@ export default function DataEngineeringPage() {
 
       <DataWhy />
 
-      <section className={`${styles.section} ${styles.platformSection}`} aria-labelledby="platforms-title">
-        <Container>
-          <div className={styles.sectionHeading}><p className={styles.label}>Data platforms we work with</p><h2 id="platforms-title">Choose the platform around the workload.</h2><p>We work across the major cloud data ecosystems and keep business logic portable where that is practical.</p></div>
-          <DataPlatformsHoverGrid platforms={platforms} />
-          <Link className={styles.inlineLink} href="/technologies">View all technologies <ArrowIcon /></Link>
-        </Container>
-      </section>
+      <ServiceTools id="data-platforms" headingId="platforms-title" sectionName="Data platforms we work with" name="Data Engineering" eyebrow="Data platforms we work with"
+        title="Choose the platform around the workload." introduction="We work across the major cloud data ecosystems and keep business logic portable where that is practical."
+        technologies={platforms.map(platform => platform.name)} details={platforms} presentation="platforms" balancedPlatforms showTechnologyLinks note={null}
+        sectionLink={{ href: "/technologies", label: "View all technologies" }} />
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>

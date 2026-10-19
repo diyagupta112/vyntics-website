@@ -1,0 +1,146 @@
+content cloud-foundations {'h1': 1, 'title': 'Build a stronger foundation for your cloud.', 'links': [{'label': 'Talk to our cloud experts ', 'href': '#contact'}, {'label': 'Our cloud services', 'href': '#cloud-services'}, {'label': '01Cloud Architecture & Migration↗', 'href': '/services/cloud-foundations/cloud-architecture-migration'}, {'label': '02DevOps & Reliability↗', 'href': '/services/cloud-foundations/devops-reliability'}, {'label': '03Cloud Cost Optimization↗', 'href': '/services/cloud-foundations/cloud-cost-optimisation'}], 'video': False}
+group cloud-foundations 901 light {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 901 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group cloud-foundations 901 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 901 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group cloud-foundations 1024 light {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 1024 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group cloud-foundations 1024 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 1024 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group cloud-foundations 1280 light {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 1280 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group cloud-foundations 1280 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 1280 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group cloud-foundations 1440 light {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 1440 light {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group cloud-foundations 1440 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 1440 dark {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group cloud-foundations 1920 light {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 1920 light {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group cloud-foundations 1920 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 1920 dark {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group cloud-foundations 820 light {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 820 light {'overflow': False, 'height': 974.390625, 'clipped': 0, 'broken': 0}
+group cloud-foundations 820 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 820 dark {'overflow': False, 'height': 974.390625, 'clipped': 0, 'broken': 0}
+group cloud-foundations 360 light {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 360 light {'overflow': False, 'height': 848.890625, 'clipped': 0, 'broken': 0}
+group cloud-foundations 360 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit cloud-foundations 360 dark {'overflow': False, 'height': 848.890625, 'clipped': 0, 'broken': 0}
+content data-engineering {'h1': 1, 'title': 'Build a data foundation your business can trust.', 'links': [{'label': 'Discuss your data estate ', 'href': '#contact'}, {'label': 'Our data services', 'href': '#data-services'}, {'label': '01Data Pipelines & Integration↗', 'href': '/services/data-engineering/data-pipelines-integration'}, {'label': '02Data Warehousing & Lakehouse↗', 'href': '/services/data-engineering/data-warehousing-lakehouse'}, {'label': '03Data Quality & Governance↗', 'href': '/services/data-engineering/data-quality-governance'}], 'video': False}
+group data-engineering 901 light {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 901 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group data-engineering 901 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 901 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group data-engineering 1024 light {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 1024 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group data-engineering 1024 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 1024 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group data-engineering 1280 light {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 1280 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group data-engineering 1280 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 1280 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group data-engineering 1440 light {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 1440 light {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group data-engineering 1440 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 1440 dark {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group data-engineering 1920 light {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 1920 light {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group data-engineering 1920 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 1920 dark {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group data-engineering 820 light {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 820 light {'overflow': False, 'height': 944.15625, 'clipped': 0, 'broken': 0}
+group data-engineering 820 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 820 dark {'overflow': False, 'height': 944.15625, 'clipped': 0, 'broken': 0}
+group data-engineering 360 light {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 360 light {'overflow': False, 'height': 821.703125, 'clipped': 0, 'broken': 0}
+group data-engineering 360 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit data-engineering 360 dark {'overflow': False, 'height': 821.703125, 'clipped': 0, 'broken': 0}
+content analytics-bi {'h1': 1, 'title': 'Turn your data into better decisions with BI.', 'links': [{'label': 'Discuss your BI needs ', 'href': '#contact'}, {'label': 'Our analytics & BI services', 'href': '#analytics-services'}, {'label': '01Dashboards & Executive Reporting↗', 'href': '/services/analytics-bi/dashboards-executive-reporting'}, {'label': '02BI Consulting↗', 'href': '/services/analytics-bi/bi-consulting'}], 'video': False}
+group analytics-bi 901 light {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 901 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group analytics-bi 901 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 901 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group analytics-bi 1024 light {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 1024 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group analytics-bi 1024 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 1024 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group analytics-bi 1280 light {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 1280 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group analytics-bi 1280 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 1280 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group analytics-bi 1440 light {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 1440 light {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group analytics-bi 1440 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 1440 dark {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group analytics-bi 1920 light {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 1920 light {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group analytics-bi 1920 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 1920 dark {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group analytics-bi 820 light {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 820 light {'overflow': False, 'height': 974.390625, 'clipped': 0, 'broken': 0}
+group analytics-bi 820 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 820 dark {'overflow': False, 'height': 974.390625, 'clipped': 0, 'broken': 0}
+group analytics-bi 360 light {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 360 light {'overflow': False, 'height': 794.296875, 'clipped': 0, 'broken': 0}
+group analytics-bi 360 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit analytics-bi 360 dark {'overflow': False, 'height': 794.296875, 'clipped': 0, 'broken': 0}
+content ai-solutions {'h1': 1, 'title': 'AI development services your business can verify and control.', 'links': [{'label': 'Discuss your AI use case ', 'href': '#contact'}, {'label': 'Our AI solutions', 'href': '#ai-services'}, {'label': '01RAG & Knowledge Assistants↗', 'href': '/services/ai-solutions/rag-knowledge-assistants'}, {'label': '02AI Agents↗', 'href': '/services/ai-solutions/ai-agents'}, {'label': '03Intelligent Automation↗', 'href': '/services/ai-solutions/intelligent-automation'}], 'video': False}
+group ai-solutions 901 light {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 901 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group ai-solutions 901 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 901 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group ai-solutions 1024 light {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 1024 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group ai-solutions 1024 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 1024 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group ai-solutions 1280 light {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 1280 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group ai-solutions 1280 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 1280 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group ai-solutions 1440 light {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 1440 light {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group ai-solutions 1440 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 1440 dark {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group ai-solutions 1920 light {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 1920 light {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group ai-solutions 1920 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 1920 dark {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group ai-solutions 820 light {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 820 light {'overflow': False, 'height': 1026.046875, 'clipped': 0, 'broken': 0}
+group ai-solutions 820 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 820 dark {'overflow': False, 'height': 1026.046875, 'clipped': 0, 'broken': 0}
+group ai-solutions 360 light {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 360 light {'overflow': False, 'height': 892.28125, 'clipped': 0, 'broken': 0}
+group ai-solutions 360 dark {'unified': True, 'rows': True, 'tabs': 3}
+fit ai-solutions 360 dark {'overflow': False, 'height': 892.28125, 'clipped': 0, 'broken': 0}
+content crm-revenue-ops {'h1': 1, 'title': 'Make your CRM work the way your team does.', 'links': [{'label': 'Talk to our CRM experts ', 'href': '#contact'}, {'label': 'Our CRM services', 'href': '#crm-services'}, {'label': '01CRM Implementation & Integration✓CRM setup, records, and pipeline stages✓Connected systems and customer data✓Data checks, launch planning, and training↗', 'href': '/services/crm-revenue-ops/crm-implementation-integration'}, {'label': '02Sales Automation & Revenue Analytics✓Follow-up automation and team handoffs✓Pipeline and revenue reporting✓Shared definitions and data-quality checks↗', 'href': '/services/crm-revenue-ops/sales-automation-revenue-analytics'}], 'video': False}
+group crm-revenue-ops 901 light {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 901 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 901 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 901 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 1024 light {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 1024 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 1024 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 1024 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 1280 light {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 1280 light {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 1280 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 1280 dark {'overflow': False, 'height': 566.078125, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 1440 light {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 1440 light {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 1440 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 1440 dark {'overflow': False, 'height': 619.1875, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 1920 light {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 1920 light {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 1920 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 1920 dark {'overflow': False, 'height': 634.765625, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 820 light {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 820 light {'overflow': False, 'height': 974.390625, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 820 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 820 dark {'overflow': False, 'height': 974.390625, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 360 light {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 360 light {'overflow': False, 'height': 1106.859375, 'clipped': 0, 'broken': 0}
+group crm-revenue-ops 360 dark {'unified': True, 'rows': True, 'tabs': 2}
+fit crm-revenue-ops 360 dark {'overflow': False, 'height': 1106.859375, 'clipped': 0, 'broken': 0}
+runtime errors []

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { CaseStudyScrollReveal } from "./scroll-reveal";
 import styles from "./page.module.css";
@@ -5,8 +6,7 @@ function ArrowIcon() { return <svg viewBox="0 0 20 20" aria-hidden="true"><path 
 export function CaseStudiesHero() { return (
       <section className={styles.hero} aria-labelledby="case-studies-title">
         <div className={styles.heroCarousel} aria-hidden="true">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className={styles.heroImage} src="/images/case-studies/4.jpg" alt="" fetchPriority="high" />
+          <Image className={styles.heroImage} src="/images/case-studies/team-project-discussion.jpg" alt="" fill unoptimized sizes="100vw" loading="eager" fetchPriority="high" />
         </div>
         <div className={styles.heroShade} aria-hidden="true" />
         <Container className={styles.heroInner}>

@@ -1,0 +1,10 @@
+
+> vyntics-website@0.1.0 lint
+> eslint --ignore-pattern .qa/**
+
+
+/home/vipul-sharma/Desktop/vyntics_website/frontend/src/components/sections/recognitions/recognitions-hero.tsx
+  1:10  warning  'ShinyButton' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 1 problem (0 errors, 1 warning)
+

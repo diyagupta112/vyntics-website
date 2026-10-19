@@ -1,0 +1,1582 @@
+[
+  {
+    "width": 1280,
+    "theme": "light",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      347.296875,
+      347.296875,
+      514.046875,
+      514.046875
+    ],
+    "lines": [
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 315.296875,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 822.25,
+      "top": 347.296875,
+      "width": 386.25,
+      "height": 409.59375
+    },
+    "content": {
+      "left": 56.5,
+      "top": 347.296875,
+      "right": 771.0625,
+      "bottom": 648.796875
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      347.296875,
+      347.296875,
+      514.046875,
+      514.046875
+    ],
+    "lines": [
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 315.296875,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 822.25,
+      "top": 347.296875,
+      "width": 386.25,
+      "height": 409.59375
+    },
+    "content": {
+      "left": 56.5,
+      "top": 347.296875,
+      "right": 771.0625,
+      "bottom": 648.796875
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1440,
+    "theme": "light",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      405.59375,
+      405.59375,
+      572.34375,
+      572.34375
+    ],
+    "lines": [
+      {
+        "width": 341.1875,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.203125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.1875,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.203125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 373.59375,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 904.484375,
+      "top": 405.59375,
+      "width": 384.015625,
+      "height": 460.796875
+    },
+    "content": {
+      "left": 136.5,
+      "top": 405.59375,
+      "right": 846.890625,
+      "bottom": 707.09375
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1440,
+    "theme": "dark",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      405.59375,
+      405.59375,
+      572.34375,
+      572.34375
+    ],
+    "lines": [
+      {
+        "width": 341.1875,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.203125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.1875,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.203125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 373.59375,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 904.484375,
+      "top": 405.59375,
+      "width": 384.015625,
+      "height": 460.796875
+    },
+    "content": {
+      "left": 136.5,
+      "top": 405.59375,
+      "right": 846.890625,
+      "bottom": 707.09375
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1920,
+    "theme": "light",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      413.078125,
+      413.078125,
+      579.828125,
+      579.828125
+    ],
+    "lines": [
+      {
+        "width": 339.109375,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.109375,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 381.078125,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 1146.734375,
+      "top": 413.078125,
+      "width": 381.765625,
+      "height": 500
+    },
+    "content": {
+      "left": 376.5,
+      "top": 413.078125,
+      "right": 1082.734375,
+      "bottom": 714.578125
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1920,
+    "theme": "dark",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      413.078125,
+      413.078125,
+      579.828125,
+      579.828125
+    ],
+    "lines": [
+      {
+        "width": 339.109375,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.109375,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 381.078125,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 1146.734375,
+      "top": 413.078125,
+      "width": 381.765625,
+      "height": 500
+    },
+    "content": {
+      "left": 376.5,
+      "top": 413.078125,
+      "right": 1082.734375,
+      "bottom": 714.578125
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 820,
+    "theme": "light",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      309.875,
+      309.875,
+      476.625,
+      476.625
+    ],
+    "lines": [
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 277.875,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 202,
+      "top": 643.375,
+      "width": 416,
+      "height": 520
+    },
+    "content": {
+      "left": 16,
+      "top": 309.875,
+      "right": 804,
+      "bottom": 611.375
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 820,
+    "theme": "dark",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      309.875,
+      309.875,
+      476.625,
+      476.625
+    ],
+    "lines": [
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 277.875,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 202,
+      "top": 643.375,
+      "width": 416,
+      "height": 520
+    },
+    "content": {
+      "left": 16,
+      "top": 309.875,
+      "right": 804,
+      "bottom": 611.375
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 360,
+    "theme": "light",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      400.28125,
+      563.03125,
+      725.78125,
+      888.53125
+    ],
+    "lines": [
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 368.28125,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 16,
+      "top": 1055.28125,
+      "width": 328,
+      "height": 437.328125
+    },
+    "content": {
+      "left": 16,
+      "top": 400.28125,
+      "right": 344,
+      "bottom": 1023.28125
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 360,
+    "theme": "dark",
+    "motion": "reduce",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      400.28125,
+      563.03125,
+      725.78125,
+      888.53125
+    ],
+    "lines": [
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 368.28125,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 16,
+      "top": 1055.28125,
+      "width": 328,
+      "height": 437.328125
+    },
+    "content": {
+      "left": 16,
+      "top": 400.28125,
+      "right": 344,
+      "bottom": 1023.28125
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1280,
+    "theme": "light",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      347.296875,
+      347.296875,
+      514.046875,
+      514.046875
+    ],
+    "lines": [
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 315.296875,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 822.25,
+      "top": 347.296875,
+      "width": 386.25,
+      "height": 409.59375
+    },
+    "content": {
+      "left": 56.5,
+      "top": 347.296875,
+      "right": 771.0625,
+      "bottom": 648.796875
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1280,
+    "theme": "dark",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      347.296875,
+      347.296875,
+      514.046875,
+      514.046875
+    ],
+    "lines": [
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 343.28125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 315.296875,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 822.25,
+      "top": 347.296875,
+      "width": 386.25,
+      "height": 409.59375
+    },
+    "content": {
+      "left": 56.5,
+      "top": 347.296875,
+      "right": 771.0625,
+      "bottom": 648.796875
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1440,
+    "theme": "light",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      405.59375,
+      405.59375,
+      572.34375,
+      572.34375
+    ],
+    "lines": [
+      {
+        "width": 341.1875,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.203125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.1875,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.203125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 373.59375,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 904.484375,
+      "top": 405.59375,
+      "width": 384.015625,
+      "height": 460.796875
+    },
+    "content": {
+      "left": 136.5,
+      "top": 405.59375,
+      "right": 846.890625,
+      "bottom": 707.09375
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1440,
+    "theme": "dark",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      405.59375,
+      405.59375,
+      572.34375,
+      572.34375
+    ],
+    "lines": [
+      {
+        "width": 341.1875,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.203125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.1875,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 341.203125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 373.59375,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 904.484375,
+      "top": 405.59375,
+      "width": 384.015625,
+      "height": 460.796875
+    },
+    "content": {
+      "left": 136.5,
+      "top": 405.59375,
+      "right": 846.890625,
+      "bottom": 707.09375
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1920,
+    "theme": "light",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      413.078125,
+      413.078125,
+      579.828125,
+      579.828125
+    ],
+    "lines": [
+      {
+        "width": 339.109375,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.109375,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 381.078125,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 1146.734375,
+      "top": 413.078125,
+      "width": 381.765625,
+      "height": 500
+    },
+    "content": {
+      "left": 376.5,
+      "top": 413.078125,
+      "right": 1082.734375,
+      "bottom": 714.578125
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 1920,
+    "theme": "dark",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      413.078125,
+      413.078125,
+      579.828125,
+      579.828125
+    ],
+    "lines": [
+      {
+        "width": 339.109375,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.109375,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 339.125,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 381.078125,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 1146.734375,
+      "top": 413.078125,
+      "width": 381.765625,
+      "height": 500
+    },
+    "content": {
+      "left": 376.5,
+      "top": 413.078125,
+      "right": 1082.734375,
+      "bottom": 714.578125
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 820,
+    "theme": "light",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      309.875,
+      309.875,
+      476.625,
+      476.625
+    ],
+    "lines": [
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 277.875,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 202,
+      "top": 643.375,
+      "width": 416,
+      "height": 520
+    },
+    "content": {
+      "left": 16,
+      "top": 309.875,
+      "right": 804,
+      "bottom": 611.375
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 820,
+    "theme": "dark",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      309.875,
+      309.875,
+      476.625,
+      476.625
+    ],
+    "lines": [
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 380,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 277.875,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 202,
+      "top": 643.375,
+      "width": 416,
+      "height": 520
+    },
+    "content": {
+      "left": 16,
+      "top": 309.875,
+      "right": 804,
+      "bottom": 611.375
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 360,
+    "theme": "light",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      400.28125,
+      563.03125,
+      725.78125,
+      888.53125
+    ],
+    "lines": [
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 368.28125,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 16,
+      "top": 1055.28125,
+      "width": 328,
+      "height": 437.328125
+    },
+    "content": {
+      "left": 16,
+      "top": 400.28125,
+      "right": 344,
+      "bottom": 1023.28125
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  },
+  {
+    "width": 360,
+    "theme": "dark",
+    "motion": "no-preference",
+    "title": "What a well-planned migration can improve",
+    "intro": "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.",
+    "titles": [
+      "Cost visibility",
+      "Scalability",
+      "Security",
+      "Speed of change"
+    ],
+    "descriptions": [
+      "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment.",
+      "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases.",
+      "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable.",
+      "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage."
+    ],
+    "numbers": [
+      "01",
+      "02",
+      "03",
+      "04"
+    ],
+    "tops": [
+      400.28125,
+      563.03125,
+      725.78125,
+      888.53125
+    ],
+    "lines": [
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      },
+      {
+        "width": 328,
+        "border": "4px",
+        "color": "rgb(20, 83, 219)",
+        "topBorder": "0px"
+      }
+    ],
+    "headingBottom": 368.28125,
+    "visible": true,
+    "imageLoaded": true,
+    "src": "/_next/image?url=%2Fimages%2Fservices%2Fsub-services%2Fbenefits%2Fcloud-architecture-and-migration.jpg&w=3840&q=75",
+    "alt": "Three colleagues collaborating around a laptop, with one holding a tablet",
+    "visual": {
+      "left": 16,
+      "top": 1055.28125,
+      "width": 328,
+      "height": 437.328125
+    },
+    "content": {
+      "left": 16,
+      "top": 400.28125,
+      "right": 344,
+      "bottom": 1023.28125
+    },
+    "overflow": false,
+    "boxes": false,
+    "bottomAccent": false,
+    "rules": false,
+    "carousel": false
+  }
+]

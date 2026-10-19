@@ -156,7 +156,7 @@ export function WhyJoinScroll() {
               alt="Team members collaborating around laptops"
               fill
               sizes="(max-width: 760px) min(calc(100vw - 2rem), 20rem), (max-width: 1000px) 22rem, 27rem"
-              src="/images/careers/2.jpg"
+              src="/images/careers/team-collaboration.jpg"
             />
           </motion.div>
 
