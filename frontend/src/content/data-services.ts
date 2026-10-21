@@ -25,7 +25,7 @@ export const dataServices: Record<DataServiceSlug, DataServiceContent> = {
     slug: "data-pipelines",
     name: "Data Pipelines",
     eyebrow: "Data engineering · Data pipelines",
-    title: "Data that arrives on time—and recovers when it does not.",
+    title: "Data that arrives on time-and recovers when it does not.",
     introduction:
       "We build automated batch and streaming pipelines that move data from operational systems into dependable analytics and application-ready stores.",
     promise:
@@ -85,7 +85,7 @@ export const dataServices: Record<DataServiceSlug, DataServiceContent> = {
     promise:
       "Give teams a shared source of truth without creating an expensive, opaque data platform.",
     promiseDetail:
-      "A useful warehouse balances performance, cost, security, history, and ease of use. We shape the architecture around actual workloads and ownership—not a generic reference diagram.",
+      "A useful warehouse balances performance, cost, security, history, and ease of use. We shape the architecture around actual workloads and ownership-not a generic reference diagram.",
     deliverables: [
       { title: "Warehouse architecture", description: "Define storage, compute, environments, ingestion zones, transformation layers, and workload separation." },
       { title: "Dimensional modeling", description: "Create facts, dimensions, marts, and historical models that reflect how the business measures performance." },

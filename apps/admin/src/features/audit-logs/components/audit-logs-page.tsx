@@ -361,7 +361,7 @@ export function AuditLogsPage() {
                     </td>
                     <td data-label="Resource">{readableLabel(auditLog.resource_type)}</td>
                     <td data-label="Resource ID" className={styles.identifier}>
-                      {auditLog.resource_id ?? "—"}
+                      {auditLog.resource_id ?? "-"}
                     </td>
                     <td data-label="Date / Time">
                       <time dateTime={auditLog.created_at}>

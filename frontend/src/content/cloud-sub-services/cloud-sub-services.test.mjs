@@ -36,7 +36,7 @@ for (const page of Object.values(cloudSubPages)) {
     else assert.equal(howTo, undefined);
     const { title, introduction, outcome, cta, imageAlt } = page.hero;
     const heroCopy = { title, introduction, outcome, cta, imageAlt };
-    assert.ok(!/[—!]|\d|\b(?:guaranteed|partnership)\b/i.test(JSON.stringify({ hero: heroCopy, sections: [...page.offerings, page.results, page.engagements], faqs: page.faqs })));
+    assert.ok(!/[-!]|\d|\b(?:guaranteed|partnership)\b/i.test(JSON.stringify({ hero: heroCopy, sections: [...page.offerings, page.results, page.engagements], faqs: page.faqs })));
   });
 }
 test('Cost Optimization page uses the planned content, links, and local imagery', () => {

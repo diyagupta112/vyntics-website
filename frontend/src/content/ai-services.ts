@@ -156,7 +156,7 @@ export const aiServices: Record<AiServiceSlug, AiServiceContent> = {
       { title: "Observe the real workflow", description: "Map triggers, handoffs, workarounds, decision points, failure cases, and current measures." },
       { title: "Separate rules from judgment", description: "Automate deterministic steps directly and use AI only where it adds measurable value." },
       { title: "Build for exceptions", description: "Add idempotency, retries, approvals, alerts, and clear ownership before the happy path goes live." },
-      { title: "Measure the operating result", description: "Track cycle time, manual touches, failure rates, and exception causes—not merely run counts." },
+      { title: "Measure the operating result", description: "Track cycle time, manual touches, failure rates, and exception causes-not merely run counts." },
     ],
     outcomes: ["Fewer repetitive handoffs", "Clear ownership of exceptions", "Recoverable and observable execution", "Measured improvements in cycle time"],
     technologies: ["n8n", "Temporal", "Python", "Node.js", "FastAPI", "PostgreSQL", "REST APIs", "AWS"],
@@ -170,7 +170,7 @@ export const aiServices: Record<AiServiceSlug, AiServiceContent> = {
     introduction:
       "We add secure, production-ready language capabilities to existing products and business tools without forcing teams into a separate AI destination.",
     promise:
-      "Make the model a dependable part of your product architecture—not an isolated demo.",
+      "Make the model a dependable part of your product architecture-not an isolated demo.",
     promiseDetail:
       "Production integration means more than calling an API. It requires stable contracts, prompt and model versioning, latency and cost controls, safety checks, observability, and graceful degradation.",
     deliverables: [

@@ -53,7 +53,7 @@ const process = [
 
 const faqs = [
   { question: "What do AI development services include?", answer: "They can include AI consulting, grounded knowledge assistants, tool-using agents, intelligent document processing, workflow automation, generative AI features, and LLM integrations inside existing software. The right scope starts with a specific business decision or task, not a model." },
-  { question: "How do we know if our business is ready for AI?", answer: "You need a defined use case, an accountable owner, usable data or knowledge, access to the systems involved, and a measurable outcome. If those basics are missing, the honest first step is readiness work—not an AI build." },
+  { question: "How do we know if our business is ready for AI?", answer: "You need a defined use case, an accountable owner, usable data or knowledge, access to the systems involved, and a measurable outcome. If those basics are missing, the honest first step is readiness work-not an AI build." },
   { question: "How long does it take to build an AI solution?", answer: "A focused assessment or pilot can take a few weeks. A production system with integrations, permissions, evaluation, security, and operational controls takes longer. Any precise estimate before reviewing the workflow and data is guesswork." },
   { question: "How much does AI development cost?", answer: "Cost depends on data readiness, integrations, security requirements, evaluation depth, user volume, and whether the work is a pilot or a production system. We scope those variables before proposing a budget instead of quoting a meaningless flat price." },
   { question: "Is our data safe when using AI?", answer: "It can be, when identity, permissions, retrieval boundaries, provider data policies, encryption, logging, retention, and deployment architecture are designed correctly. Security cannot be bolted on after sensitive sources are connected." },
@@ -81,8 +81,8 @@ export default function AiSolutionsPage() {
         service="ai-solutions"
         headingId="ai-solutions-title"
         eyebrow={"AI solutions"}
-        title={"AI development services your business can verify and control."}
-        description={"We deliver AI consulting and custom AI solutions\u2014from generative AI and LLM integrations to grounded assistants, capable agents, and intelligent automation\u2014around your data, systems, permissions, and operating reality."}
+        title={"AI solutions built for control and trust."}
+        description={"We build custom AI solutions - from LLM integrations and grounded assistants to AI agents and intelligent automation - designed around your data, systems, and workflows."}
         primaryAction={{ href: "#contact", label: "Discuss your AI use case" }}
         secondaryAction={{ href: "#ai-services", label: "Our AI solutions" }}
         capabilities={aiServices.map(service => ({ label: service.title, href: `/services/ai-solutions/${service.slug}` }))}

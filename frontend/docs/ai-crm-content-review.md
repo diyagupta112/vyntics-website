@@ -56,16 +56,16 @@ CRM uses the two capabilities supplied by the user, rather than inventing a thir
 | problems.3.description | We configure the CRM around how people sell and support customers, with clear handoffs, usable records, and practical team training. | 132 | 139 | 95% |
 | servicesHeading | Our CRM services | 16 | 18 | 89% |
 | services.0.name | CRM Implementation & Integration | 32 | 30 | 107% |
-| services.0.href | /services/crm-revenue-ops/crm-implementation-integration | 56 | — | — |
-| services.0.image | /images/technology-crm-workspace.png | 36 | — | — |
+| services.0.href | /services/crm-revenue-ops/crm-implementation-integration | 56 | - | - |
+| services.0.image | /images/technology-crm-workspace.png | 36 | - | - |
 | services.0.imageAlt | Person using a laptop with customer and reporting graphics. | 59 | 57 | 104% |
 | services.0.introduction | Set up a CRM that supports the way your team sells and serves customers. We review your process, configure records and pipeline stages, and connect the CRM to other business systems, with data checks, controlled imports, and training before launch. | 248 | 262 | 95% |
 | services.0.points.0 | CRM setup, records, and pipeline stages | 39 | 41 | 95% |
 | services.0.points.1 | Connected systems and customer data | 35 | 39 | 90% |
 | services.0.points.2 | Data checks, launch planning, and training | 42 | 34 | 124% |
 | services.1.name | Sales Automation & Revenue Analytics | 36 | 20 | 180% |
-| services.1.href | /services/crm-revenue-ops/sales-automation-revenue-analytics | 60 | — | — |
-| services.1.image | /images/technology-analytics-connected.png | 42 | — | — |
+| services.1.href | /services/crm-revenue-ops/sales-automation-revenue-analytics | 60 | - | - |
+| services.1.image | /images/technology-analytics-connected.png | 42 | - | - |
 | services.1.imageAlt | Illustration of connected analytics and reporting views. | 56 | 47 | 119% |
 | services.1.introduction | Make sales follow-through easier to manage and reporting easier to trust. We connect follow-up tasks, data entry, and team handoffs with automation, then define pipeline and revenue views around consistent records, clear ownership, and the questions your team needs to answer. | 276 | 259 | 107% |
 | services.1.points.0 | Follow-up automation and team handoffs | 38 | 32 | 119% |
@@ -73,20 +73,20 @@ CRM uses the two capabilities supplied by the user, rather than inventing a thir
 | services.1.points.2 | Shared definitions and data-quality checks | 42 | 47 | 89% |
 | whyEyebrow | Why choose us | 13 | 13 | 100% |
 | whyIntroduction | We shape CRM around your team, customer records, and reporting decisions. | 73 | 74 | 99% |
-| whyImage.src | /images/technology-crm-workspace.png | 36 | — | — |
+| whyImage.src | /images/technology-crm-workspace.png | 36 | - | - |
 | whyImage.alt | Person using a laptop with customer and reporting graphics. | 59 | 41 | 144% |
 | reasons.0.title | Process first | 13 | 22 | 59% |
 | reasons.0.description | CRM setup shaped around how your team sells, supports customers, and hands work over. | 85 | 80 | 106% |
-| reasons.0.path | M4 9 12 4l8 5-8 5-8-5Zm0 6 8 5 8-5M4 20l8 5 8-5 | 47 | — | — |
+| reasons.0.path | M4 9 12 4l8 5-8 5-8-5Zm0 6 8 5 8-5M4 20l8 5 8-5 | 47 | - | - |
 | reasons.1.title | Connected customer data | 23 | 21 | 110% |
 | reasons.1.description | Connect customer records across your business systems, with clear field mappings, data checks, and ownership before launch. | 123 | 121 | 102% |
-| reasons.1.path | M4 6h6v6H4zM14 16h6v6h-6zM16 6h5v5M21 6l-9 9 | 44 | — | — |
+| reasons.1.path | M4 6h6v6H4zM14 16h6v6h-6zM16 6h5v5M21 6l-9 9 | 44 | - | - |
 | reasons.2.title | Usable reporting | 16 | 14 | 114% |
 | reasons.2.description | Reporting shaped around agreed pipeline stages and revenue definitions, so teams can use a consistent view. | 107 | 97 | 110% |
-| reasons.2.path | M4 20h17M7 16v-4M12 16V8M17 16V4 | 32 | — | — |
+| reasons.2.path | M4 20h17M7 16v-4M12 16V8M17 16V4 | 32 | - | - |
 | reasons.3.title | Team adoption | 13 | 24 | 54% |
 | reasons.3.description | Connect the setup with practical training, documentation, and support so people can use and refine it as work changes. | 118 | 115 | 103% |
-| reasons.3.path | M20 8a8 8 0 1 0 1 8M20 3v5h-5M8 12l3 3 5-6 | 42 | — | — |
+| reasons.3.path | M20 8a8 8 0 1 0 1 8M20 3v5h-5M8 12l3 3 5-6 | 42 | - | - |
 | platformsHeading | CRM systems we connect | 22 | 28 | 79% |
 | platformsIntroduction | We plan CRM connections around your customer process, current systems, data ownership, and the reports your team needs. | 119 | 109 | 109% |
 | platforms.0.name | CRM | 3 | 3 | 100% |

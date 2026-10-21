@@ -1,5 +1,5 @@
 import Image from "next/image";
-import dataImage from "../../../../../public/images/technology-data-team.png";
+import dataImage from "../../../../../public/images/services/why-choose-data.jpg";
 import { Container } from "@/components/ui/container";
 import { ScrollReveals } from "@/components/ui/scroll-reveals";
 import reasonStyles from "@/components/pages/service-reason-card.module.css";
@@ -16,7 +16,7 @@ export function DataWhy() {
   return <section id="data-why" className={styles.section} aria-labelledby="data-why-title">
     <Container className={styles.layout}>
       <div className={styles.image} data-reveal="data-why-image">
-        <Image src={dataImage} alt="Vyntics data engineering team reviewing data charts and dashboards." fill sizes="(max-width: 900px) 100vw, 40vw" />
+        <Image src={dataImage} alt="Vyntics data engineering team joining hands over a meeting table in a show of teamwork" fill quality={90} sizes="(max-width: 900px) 100vw, 1000px" />
       </div>
       <div className={styles.content}>
         <header data-reveal="data-why-heading" data-reveal-delay="90">

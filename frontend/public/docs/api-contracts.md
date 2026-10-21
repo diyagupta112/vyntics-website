@@ -806,7 +806,7 @@ The frontend should submit only the public form/application fields defined by ea
 This master document is the consolidated public website frontend API reference. It describes what the frontend should send and receive for the website APIs. Internal Admin Panel implementation, database schema, editor/storage implementation, authentication details, and other backend internals remain separate unless explicitly represented in the public contract because they affect frontend behavior.
 
 
-# Blog and Case Study Related Service targeting — 13 October 2026
+# Blog and Case Study Related Service targeting - 13 October 2026
 
 The existing Blog and Case Study create/PATCH schemas and public/admin list/detail
 responses now include optional nullable `related_service`:

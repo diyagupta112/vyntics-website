@@ -15,7 +15,7 @@ export function RelatedBlogCard({ blog, variant = "sidebar" }: { blog: Blog; var
         {hasImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={blog.cover_image_url} alt={`${blog.title} article cover`} width="960" height="540" loading="lazy" onError={() => setFailed(true)} />
-        ) : <div role="img" aria-label={`${blog.title} — cover unavailable`} style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "var(--color-muted)", fontSize: ".8rem" }}>Article preview unavailable</div>}
+        ) : <div role="img" aria-label={`${blog.title} - cover unavailable`} style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "var(--color-muted)", fontSize: ".8rem" }}>Article preview unavailable</div>}
       </div>
       <div className={studyStyles.otherCopy}>
         <p>{blog.category && <>{blog.category} · </>}<time dateTime={blog.published_at}>{new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(blog.published_at))}</time></p>

@@ -11,15 +11,15 @@ const services = [
   {
     name: "AI Agents",
     href: "/services/ai-solutions/ai-agents",
-    image: "/images/about-hero-ai.png",
-    imageAlt: "Hand interacting with a connected AI network.",
+    image: "/images/services/our-services-section/ai-service-agents.jpg",
+    imageAlt: "Team reviewing an AI agent workflow on a laptop.",
     introduction: "Build bounded agents that use approved tools, complete multi-step work, and stop for human approval when risk demands it.",
   },
   {
     name: "Intelligent Automation",
     href: "/services/ai-solutions/intelligent-automation",
-    image: "/images/technology-data.png",
-    imageAlt: "Digital workflows and connected system illustrations.",
+    image: "/images/services/our-services-section/ai-service-automation.jpg",
+    imageAlt: "Person reviewing a printed document while working at a laptop.",
     introduction: "Combine document intelligence, workflow orchestration, and language models to remove repetitive work while keeping exceptions visible.",
   },
 ] as const;

@@ -14,22 +14,22 @@ const dataServices = [
   {
     name: "Data Pipelines & Integration",
     href: "/services/data-engineering/data-pipelines-integration",
-    image: "/images/technology-data.png",
-    imageAlt: "Connected data systems overlaid on a business workspace.",
+    image: "/images/services/our-services-section/data-pipelines-integration.jpg",
+    imageAlt: "Data professional working at a computer on data pipelines in an office.",
     introduction: "Move data reliably from operational systems into the places where teams can use it, without depending on manual exports or fragile scripts.",
   },
   {
     name: "Data Warehousing & Lakehouse",
     href: "/services/data-engineering/data-warehousing-lakehouse",
-    image: "/images/technology-cloud.png",
-    imageAlt: "Cloud storage and data transfer illustration.",
+    image: "/images/services/our-services-section/data-warehousing-lakehouse.jpg",
+    imageAlt: "Operator monitoring several data systems on large control-room displays.",
     introduction: "Create one governed, query-ready foundation for reporting, analytics, and AI while keeping performance, access, and cost visible.",
   },
   {
     name: "Data Quality & Governance",
     href: "/services/data-engineering/data-quality-governance",
-    image: "/images/technology-analytics.png",
-    imageAlt: "Line chart showing changing values on a grid.",
+    image: "/images/services/our-services-section/data-quality-governance.jpg",
+    imageAlt: "Colleagues reviewing printed data quality reports and charts together.",
     introduction: "Make critical data trustworthy by defining what it means, who owns it, who can access it, and what happens when it fails.",
   },
 ] as const;

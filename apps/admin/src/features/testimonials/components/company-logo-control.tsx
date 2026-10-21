@@ -76,7 +76,7 @@ export function CompanyLogoControl({ item, selectedFile, onSelected, onChanged, 
     <div className={logoStyles.control}>
       <CompactImagePreview alt="Testimonial company logo" emptyText="No company logo uploaded" imageUrl={item ? item.company_logo_url : selectedFile ? preview ?? null : null} label="Company logo" />
       <input ref={input} className={logoStyles.fileInput} aria-label="Choose company logo" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" disabled={busy} onChange={select} />
-      {selectedFile ? <p>{selectedFile.name} — {operation ? "uploading" : "not uploaded yet"}</p> : null}
+      {selectedFile ? <p>{selectedFile.name} - {operation ? "uploading" : "not uploaded yet"}</p> : null}
       <div className={styles.actions}>
         <Button disabled={busy} onClick={() => input.current?.click()} variant="secondary">{operation === "upload" ? "Uploading…" : selectedFile || item?.company_logo_url ? "Replace Logo" : "Upload Logo"}</Button>
         {item && selectedFile ? <Button disabled={busy} onClick={() => void upload(selectedFile)} variant="secondary">Retry Logo Upload</Button> : null}

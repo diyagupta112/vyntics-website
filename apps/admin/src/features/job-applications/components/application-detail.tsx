@@ -89,7 +89,7 @@ export function ApplicationDetail({ detail, onDelete, onUpdated }: Props) {
           <h3>Application information</h3>
           <dl className={styles.detailList}>
             <div><dt>Career</dt><dd>{detail.career_title_snapshot}</dd></div>
-            <div><dt>Career availability</dt><dd>{detail.career_id ? "Available" : "Deleted — historical snapshot retained"}</dd></div>
+            <div><dt>Career availability</dt><dd>{detail.career_id ? "Available" : "Deleted - historical snapshot retained"}</dd></div>
             <div><dt>Applied</dt><dd><time dateTime={detail.submitted_at}>{new Intl.DateTimeFormat(undefined, { dateStyle: "long", timeStyle: "short" }).format(new Date(detail.submitted_at))}</time></dd></div>
             <div><dt>Application ID</dt><dd>{detail.id}</dd></div>
           </dl>

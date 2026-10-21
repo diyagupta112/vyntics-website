@@ -36,22 +36,22 @@ The Job Application candidate-information contract extension is completed and
 verified through schema, API, OpenAPI, migration, service, audit, resume, and
 real Supabase PostgreSQL tests.
 
-Phase 15 — Current Admin Identity API is completed and verified through API,
+Phase 15 - Current Admin Identity API is completed and verified through API,
 authentication, authorization, OpenAPI, and real Supabase PostgreSQL tests.
 
-Phase 6 — Blog API, including the additional admin read endpoints, is complete.
-Phase 7 — Case Studies is implemented and verified through automated contract,
+Phase 6 - Blog API, including the additional admin read endpoints, is complete.
+Phase 7 - Case Studies is implemented and verified through automated contract,
 repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
-Phase 11 — Contact Us is implemented and verified through automated schema,
+Phase 11 - Contact Us is implemented and verified through automated schema,
 repository, service, API, OpenAPI, and real Supabase PostgreSQL tests.
-Phase 10 — Our Team is implemented and verified through automated schema,
+Phase 10 - Our Team is implemented and verified through automated schema,
 repository, service, API, OpenAPI, migration, and real Supabase PostgreSQL
 tests.
-Phase 8 — Careers is implemented and verified through schema, repository,
+Phase 8 - Careers is implemented and verified through schema, repository,
 service, API/OpenAPI, full-suite, live Supabase PostgreSQL, and manual live API
 checks.
 
-## Phase 1 — FastAPI Bootstrap
+## Phase 1 - FastAPI Bootstrap
 
 - [x] Added Python project and dependency configuration in `pyproject.toml`.
 - [x] Added FastAPI and Uvicorn runtime dependencies.
@@ -67,7 +67,7 @@ checks.
 - [x] Verified `GET /health` returns 200.
 - [x] Verified `GET /docs` returns 200 and serves Swagger UI.
 
-## Phase 2 — Configuration and Environment Setup
+## Phase 2 - Configuration and Environment Setup
 
 - [x] Added typed settings based on `pydantic-settings`.
 - [x] Added explicit development, test, and production environment values.
@@ -83,7 +83,7 @@ checks.
 - [x] Added tests for environment-variable parsing, secret masking, settings injection, and CORS.
 - [x] Verified the configured application boots under Uvicorn without external services.
 
-## Phase 3 — Database + SQLAlchemy
+## Phase 3 - Database + SQLAlchemy
 
 Completed foundation:
 
@@ -121,7 +121,7 @@ Remaining Phase 3 work:
   database.
 - [ ] Decide and implement RLS only after access policies are explicitly approved.
 
-## Phase 4 — Pydantic API Schemas
+## Phase 4 - Pydantic API Schemas
 
 - [x] Added shared Pydantic v2 request and response schema foundations.
 - [x] Configured request schemas to reject undeclared/client-controlled fields.
@@ -145,7 +145,7 @@ Remaining Phase 3 work:
 - [x] Did not add routes, service/repository logic, authentication, storage, or
   database changes.
 
-## Phase 5 — Database Connectivity Foundation
+## Phase 5 - Database Connectivity Foundation
 
 - [x] Verified the settings layer reads `DATABASE_URL` as a masked `SecretStr`
   from environment variables and dotenv files.
@@ -176,7 +176,7 @@ Live verification result:
 - [x] The standalone connectivity command uses a Windows Selector event loop so
   Psycopg async mode works on Windows.
 
-## Phase 6 — Blogs
+## Phase 6 - Blogs
 
 - [x] Added public `GET /blogs` with published-only filtering and
   `published_at DESC` ordering.
@@ -244,7 +244,7 @@ Completed additional work:
 
 Existing public Blog GET behavior remains unchanged.
 
-## Phase 7 — Case Studies preparation
+## Phase 7 - Case Studies preparation
 
 - [x] Reviewed the Phase 7 plan against the existing Case Study SQLAlchemy
   model, Supabase migration, and Phase 4 public schemas.
@@ -284,7 +284,7 @@ Existing public Blog GET behavior remains unchanged.
   route and schema coverage is verified automatically.
 - [x] Authentication and authorization were added in Phase 12.
 
-## Phase 8 — Careers documentation preparation
+## Phase 8 - Careers documentation preparation
 
 - [x] Reviewed the architecture, implementation plan, progress record, Career
   ORM model, initial Supabase migration, existing public Career schemas, prior
@@ -336,7 +336,7 @@ Existing public Blog GET behavior remains unchanged.
   operations, response fields, ordering, generated/preserved `published_at`,
   duplicate slug, restricted delete, missing behavior, and empty 204 bodies.
 
-## Phase 9 — Job Applications documentation preparation
+## Phase 9 - Job Applications documentation preparation
 
 - [x] Reviewed the architecture, implementation plan, progress record, Job
   Application ORM model and migration, existing multipart request schema,
@@ -561,7 +561,7 @@ Existing public Blog GET behavior remains unchanged.
   or unrelated API implementation was changed. No new Storage implementation or
   secret was introduced.
 
-## Phase 10 — Our Team documentation preparation
+## Phase 10 - Our Team documentation preparation
 
 - [x] Reviewed the existing Team Member ORM model, initial Supabase migration,
   Phase 4 response schema, database conventions, and prior API patterns.
@@ -609,7 +609,7 @@ Existing public Blog GET behavior remains unchanged.
   OpenAPI and the real database lifecycle were verified automatically.
 - [x] Authentication and authorization were added in Phase 12.
 
-## Phase 11 — Contact Us documentation preparation
+## Phase 11 - Contact Us documentation preparation
 
 - [x] Reviewed the existing Contact Submission ORM model, Supabase migration,
   Phase 4 request schema, database/session infrastructure, and prior resource
@@ -707,7 +707,7 @@ Existing public Blog GET behavior remains unchanged.
   active `admin` and `superadmin` records can use current protected operations.
 - [x] Confirmed no schema or migration change was required.
 
-## Phase 13 — Supabase Storage implementation
+## Phase 13 - Supabase Storage implementation
 
 - [x] Confirmed the server-owned architecture is Admin Panel → FastAPI →
   Supabase Storage; no direct browser mutation path or broad authenticated-user
@@ -750,7 +750,7 @@ Existing public Blog GET behavior remains unchanged.
 - [ ] Live Storage upload/sign/delete verification remains blocked until
   `SUPABASE_SERVICE_ROLE_KEY` contains a valid privileged Supabase server key.
 
-## Phase 14 — Audit Logs Read API
+## Phase 14 - Audit Logs Read API
 
 **Status:** Completed.
 
@@ -830,7 +830,7 @@ Implementation decisions and verification limits:
 - Admin Panel UI/navigation, audit retention, and audit generation were not
   changed.
 
-## Phase 15 — Current Admin Identity API
+## Phase 15 - Current Admin Identity API
 
 **Status:** Completed.
 
@@ -998,7 +998,7 @@ Implementation decisions and limitations:
 - [x] No frontend changes, additional endpoints, dependencies, or Git operations
   were made.
 
-## YouTube video blocks — Blogs and Case Studies
+## YouTube video blocks - Blogs and Case Studies
 
 **Status:** Implemented; focused and PostgreSQL video tests passed. The earlier
 Case Study schema blocker was resolved in the data-loading correction below.
@@ -1062,7 +1062,7 @@ Case Study schema blocker was resolved in the data-loading correction below.
   remains.
 - [x] No frontend changes or Git operations were performed.
 
-## Case Study data-loading correction — 2026-10-05
+## Case Study data-loading correction - 2026-10-05
 
 **Status:** Fixed; live public loading and real PostgreSQL admin reads verified.
 
@@ -1102,7 +1102,7 @@ Case Study schema blocker was resolved in the data-loading correction below.
   transaction-pool override; the running API was verified with its existing
   connection configuration.
 
-## Automatic content slugs and Related Service targeting — 2026-10-13
+## Automatic content slugs and Related Service targeting - 2026-10-13
 
 **Status:** Implemented and verified; live migration/deployment pending.
 
@@ -1160,7 +1160,7 @@ Case Study schema blocker was resolved in the data-loading correction below.
   applied to disposable verification schemas; live database data/configuration
   have not been changed. No Git operations were performed.
 
-## FAQs and Testimonials backend contracts — 2026-10-13
+## FAQs and Testimonials backend contracts - 2026-10-13
 
 **Status:** Implemented and verified; shared migration applied to the configured
 database during the FAQ creation diagnosis below. Deployments remain separate.
@@ -1231,7 +1231,7 @@ database during the FAQ creation diagnosis below. Deployments remain separate.
   creation diagnosis below. This original backend phase deferred UI integration. No frontend changes, Git operations, deployments,
   secret output, or manual production data modifications were performed.
 
-## Testimonial company-logo Storage support — 2026-10-13
+## Testimonial company-logo Storage support - 2026-10-13
 
 **Status:** Implemented and verified; live Storage-provider verification pending.
 
@@ -1275,7 +1275,7 @@ database during the FAQ creation diagnosis below. Deployments remain separate.
   table is absent. No production migration, deployments, frontend changes, or
   Git operations were performed.
 
-## FAQ creation failure — migration diagnosis and correction — 2026-10-13
+## FAQ creation failure - migration diagnosis and correction - 2026-10-13
 
 **Status:** Root cause corrected and configured-database create flow verified.
 
@@ -1527,7 +1527,7 @@ The future Admin Panel must implement its Supabase browser login and send access
 tokens to the protected APIs; that browser flow cannot be verified until the
 Admin Panel exists.
 
-### Public Case Studies data-flow audit — 2026-10-05
+### Public Case Studies data-flow audit - 2026-10-05
 
 - Read-only inspection of the configured database found 3 Case Studies: 1
   published and 2 drafts. `CaseStudyRepository.list_published()` filters only

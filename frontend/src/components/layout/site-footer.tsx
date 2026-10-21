@@ -129,7 +129,7 @@ export function SiteFooter() {
                   <a href={siteConfig.socialLinks.linkedin} target="_blank" rel="noreferrer" aria-label="Vyntics on LinkedIn"><LinkedInIcon /></a>
                   <a href={siteConfig.socialLinks.instagram} target="_blank" rel="noreferrer" aria-label="Vyntics on Instagram"><InstagramIcon /></a>
                   <a href={siteConfig.socialLinks.twitter} target="_blank" rel="noreferrer" aria-label="Vyntics on X, formerly Twitter"><TwitterIcon /></a>
-                  {youtubeUrl ? <a href={youtubeUrl} target="_blank" rel="noreferrer" aria-label="Vyntics on YouTube"><YouTubeIcon /></a> : <span className={styles.socialPlaceholder} role="img" aria-label="Vyntics on YouTube — link coming soon" title="YouTube link coming soon"><YouTubeIcon /></span>}
+                  {youtubeUrl ? <a href={youtubeUrl} target="_blank" rel="noreferrer" aria-label="Vyntics on YouTube"><YouTubeIcon /></a> : <span className={styles.socialPlaceholder} role="img" aria-label="Vyntics on YouTube - link coming soon" title="YouTube link coming soon"><YouTubeIcon /></span>}
                 </div>
               </div>
             </section>
