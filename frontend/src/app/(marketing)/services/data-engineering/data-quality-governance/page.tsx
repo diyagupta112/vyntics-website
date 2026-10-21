@@ -29,7 +29,7 @@ export default async function DataQualityGovernancePage() {
   const insights = blogResult.blogs.filter(post => (!post.status || post.status === "published") && relevance.test(`${post.title} ${post.category} ${post.excerpt}`)).slice(0, 3);
   const contentId = "data-quality-content";
   const heroPage = { ...qualityService, key: "data-quality-governance" };
-  return <div className={styles.page} data-data-sub-page="data-quality-governance"><CloudSubHero page={heroPage} /><div id={contentId}>
+  return <div className={styles.page} data-data-sub-page="data-quality-governance"><CloudSubHero page={heroPage} showOutcome={false} /><div id={contentId}>
     <DraftCardSection section={qualitySections.signs} variant="diagnostic" signalEyebrow="" />
     <DraftCardSection section={qualitySections.quality} variant="services" />
     <DraftCardSection section={qualitySections.governance} variant="services" />

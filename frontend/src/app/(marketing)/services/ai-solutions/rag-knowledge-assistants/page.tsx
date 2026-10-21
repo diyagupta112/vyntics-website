@@ -30,7 +30,7 @@ export default async function RagKnowledgeAssistantsPage() {
   const insights = blogResult.blogs.filter(post => (!post.status || post.status === "published") && relevance.test(`${post.title} ${post.category} ${post.excerpt}`)).slice(0, 3);
   const contentId = "rag-content";
   const heroPage = { ...ragService, key: "rag-knowledge-assistants" };
-  return <div className={styles.page} data-ai-sub-page="rag-knowledge-assistants"><CloudSubHero page={heroPage} /><div id={contentId}>
+  return <div className={styles.page} data-ai-sub-page="rag-knowledge-assistants"><CloudSubHero page={heroPage} opticalAlign showOutcome={false} /><div id={contentId}>
     <DraftCardSection section={ragSections.signs} variant="diagnostic" signalEyebrow="" />
     <DraftCardSection section={ragSections.builds} variant="services" />
     <RagArchitecture />

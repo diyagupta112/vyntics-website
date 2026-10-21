@@ -30,10 +30,10 @@ export const intelligentAutomationSections: {
     title: "Signs you need intelligent automation",
     introduction: "Paperwork and repetitive steps can slow down work when information must be copied, checked, and routed by hand.",
     items: [
-      { title: "Manual data entry from PDFs and emails", description: "Staff repeatedly transfer information from incoming documents into business systems." },
-      { title: "Slow approvals", description: "Requests wait for manual handoffs, reminders, or checks before the next person can act." },
-      { title: "Errors caused by copy-pasting", description: "Repeated transcription can introduce inconsistencies that need further review." },
-      { title: "Too much time spent on repetitive work", description: "Routine paperwork and process steps take time away from work that needs human attention." },
+      { title: "Staff keep typing details from incoming PDFs and emails by hand", description: "Documents arrive as unstructured PDFs and emails, and no document processing tool reads and routes them automatically." },
+      { title: "Requests sit waiting for someone to review and approve them", description: "Approvals depend on email, reminders and manual handoffs, with no workflow automation to route requests." },
+      { title: "Small mistakes keep slipping into records and need correcting later", description: "Information is retyped or copied between systems, which makes small inconsistencies likely and hard to spot." },
+      { title: "Staff spend too much of their time on repetitive paperwork", description: "Routine steps are still handled by people because the process has not been automated end to end." },
     ],
   },
   documentProcessing: {

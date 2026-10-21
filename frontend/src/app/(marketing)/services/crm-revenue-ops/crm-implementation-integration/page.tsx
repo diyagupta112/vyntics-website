@@ -42,7 +42,7 @@ export default async function CrmImplementationIntegrationPage() {
   const heroPage = { ...crmImplementationService, key: "crm-implementation-integration" };
 
   return <div className={styles.page} data-crm-sub-page="crm-implementation-integration">
-    <CloudSubHero page={heroPage} />
+    <CloudSubHero page={heroPage} opticalAlign showOutcome={false} />
     <div id={contentId}>
       <DraftCardSection section={crmSections.signs} variant="diagnostic" signalEyebrow="" />
       <DraftCardSection section={crmSections.implementation} variant="services" />

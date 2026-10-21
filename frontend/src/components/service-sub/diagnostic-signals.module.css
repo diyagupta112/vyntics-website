@@ -7,6 +7,8 @@
   --signals-divider:color-mix(in srgb,var(--color-border) 35%,transparent);
   --signals-wash:color-mix(in srgb,var(--color-primary) 4%,var(--color-background));
   --signals-copy:#43434b;
+  --signals-strong:1.08rem;
+  --signals-soft:calc(var(--signals-strong) * .9);
   position:relative;
   isolation:isolate;
   overflow:hidden;
@@ -27,8 +29,8 @@
 .row + .row { border-top:1px solid var(--signals-divider); }
 .symptom,.cause { min-width:0; }
 .symptom { padding:var(--signals-row-padding) var(--signals-inset) var(--signals-row-padding) 0; }
-.symptom h3 { color:var(--color-foreground); font-size:1.08rem; font-weight:600; line-height:1.45; letter-spacing:-.02em; }
-.cause { align-self:stretch; margin:0; padding:var(--signals-row-padding) var(--signals-inset); color:var(--signals-copy); font-size:.94rem; line-height:1.7; }
+.symptom h3 { color:var(--signals-copy); font-size:var(--signals-soft); font-weight:500; line-height:1.45; letter-spacing:-.01em; }
+.cause { align-self:stretch; margin:0; padding:var(--signals-row-padding) var(--signals-inset); color:var(--color-foreground); font-size:var(--signals-strong); font-weight:600; line-height:1.55; letter-spacing:-.01em; }
 .mobileLabel { display:none; }
 :global(html[data-theme="dark"]) .list { --signals-wash:color-mix(in srgb,var(--color-primary) 10%,var(--color-background)); --signals-copy:color-mix(in srgb,var(--color-foreground) 74%,var(--color-background)); }
 :global(html[data-theme="dark"]) .eyebrow,:global(html[data-theme="dark"]) .index,:global(html[data-theme="dark"]) .columnHeaders,:global(html[data-theme="dark"]) .mobileLabel { color:color-mix(in srgb,var(--color-primary) 65%,var(--color-white)); }
@@ -38,7 +40,7 @@
   .row { grid-template-columns:minmax(0,1fr); }
   .index { padding:1.5rem var(--signals-inset) 0; }
   .symptom { padding:1rem var(--signals-inset) 1.5rem; }
-  .cause { padding:1.5rem var(--signals-inset); background:var(--signals-wash); font-size:.9rem; }
+  .cause { padding:1.5rem var(--signals-inset); background:var(--signals-wash); }
   .mobileLabel { display:block; margin-bottom:.4rem; color:var(--color-primary); font-size:.65rem; font-weight:650; line-height:1.5; letter-spacing:.08em; text-transform:uppercase; }
 }
 @media(prefers-reduced-motion:reduce) { .row { transition:none; } }

@@ -40,7 +40,7 @@ export default async function SalesAutomationRevenueAnalyticsPage() {
   const heroPage = { ...salesAutomationService, key: "sales-automation" };
 
   return <div className={styles.page} data-crm-sub-page="sales-automation-revenue-analytics">
-    <CloudSubHero page={heroPage} />
+    <CloudSubHero page={heroPage} opticalAlign showOutcome={false} />
     <div id={contentId}>
       <DraftCardSection section={salesSections.signs} variant="diagnostic" signalEyebrow="" />
       <DraftCardSection section={salesSections.automation} variant="services" />

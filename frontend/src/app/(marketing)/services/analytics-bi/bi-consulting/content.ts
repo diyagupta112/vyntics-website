@@ -33,9 +33,9 @@ export const biConsultingSections: {
     introduction: "BI problems often become visible through low adoption, unreliable reporting, rising licence costs, or a lack of internal ownership.",
     items: [
       { title: "A BI tool nobody uses", description: "Reports exist, but they do not fit how people review information or make decisions." },
-      { title: "Slow or broken reports", description: "Report models or refresh setups are not keeping up, so reports load slowly, refreshes fail, or calculations cannot be trusted." },
-      { title: "High licence costs", description: "The current licensing setup may no longer match the people, capacity, and features the business needs." },
-      { title: "No in-house BI skills", description: "Your team needs help choosing, implementing, improving, or supporting the BI environment." },
+      { title: "Reports load slowly, and scheduled refreshes sometimes fail", description: "Data models and refresh schedules may be poorly designed, so reports struggle as data and users grow." },
+      { title: "BI license costs keep growing, with little to show for them", description: "The current licensing setup may no longer match the people, capacity, and features the business needs." },
+      { title: "Requests to improve reports wait for the one person who knows how", description: "Your team may need BI consulting support to choose, build and maintain the right tools." },
     ],
   },
   powerBi: {

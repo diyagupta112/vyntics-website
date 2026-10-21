@@ -30,7 +30,7 @@ export default async function DataPipelinesIntegrationPage() {
   const insights = blogResult.blogs.filter(post => (!post.status || post.status === "published") && relevance.test(`${post.title} ${post.category} ${post.excerpt}`)).slice(0, 3);
   const contentId = "data-pipelines-content";
   const heroPage = { ...pipelineService, key: "data-pipelines-integration" };
-  return <div className={styles.page} data-data-sub-page="data-pipelines-integration"><CloudSubHero page={heroPage} /><div id={contentId}>
+  return <div className={styles.page} data-data-sub-page="data-pipelines-integration"><CloudSubHero page={heroPage} showOutcome={false} /><div id={contentId}>
     <DraftCardSection section={pipelineSections.signs} variant="diagnostic" signalEyebrow="" />
     <DraftCardSection section={pipelineSections.pipelines} variant="services" />
     <DraftCardSection section={pipelineSections.integrations} variant="services" />

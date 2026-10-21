@@ -5,10 +5,10 @@ export const pipelineService = { key: "data-pipelines-integration", slug: "data-
 
 export const pipelineSections: { signs: SubSection; pipelines: SubSection; integrations: SubSection; results: SubSection; related: SubSection } = {
   signs: { id: "pipeline-signs", title: "Signs you need better data pipelines", introduction: "Pipeline problems often show up in the time it takes to prepare information and trust the result.", items: [
-    { title: "Manual exports", description: "Teams repeatedly download, reshape, and combine files to prepare the same information." },
-    { title: "Broken reports", description: "Reports fail or disagree because the data feeding them is incomplete, late, or inconsistent." },
-    { title: "Data stuck in separate tools", description: "Important information stays inside individual apps instead of reaching one usable destination." },
-    { title: "Slow or outdated data", description: "Decisions rely on yesterday's information because refreshes are delayed or difficult to manage." },
+    { title: "The same spreadsheet gets rebuilt by hand again and again", description: "Data is moved by hand because no automated ETL or ELT pipeline loads it into one place" },
+    { title: "Reports break, or two reports show different numbers", description: "Data may reach reports late or incomplete because pipelines are not scheduled, checked or monitored" },
+    { title: "Getting the full picture means opening several different tools", description: "Data stays locked inside individual apps because they are not integrated into one central destination" },
+    { title: "Decisions rely on old numbers, and real-time data feels out of reach", description: "Data is refreshed in slow, manual or batch-only runs, so current information is not available when it is needed" },
   ] },
   pipelines: { id: "data-pipeline-services", title: "Our data pipeline services", introduction: "We design pipeline patterns around your sources, destinations, data freshness, and operating ownership.", items: [
     { title: "ETL and ELT pipelines", description: "Build repeatable flows that extract, transform, and load data into a destination your teams can use." },

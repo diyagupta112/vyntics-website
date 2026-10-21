@@ -49,7 +49,7 @@ export default async function BiConsultingPage() {
   const contentId = "bi-consulting-content";
 
   return <div className={styles.page} data-analytics-sub-page="bi-consulting">
-    <CloudSubHero page={biConsultingService} />
+    <CloudSubHero page={biConsultingService} showOutcome={false} />
     <div id={contentId}>
       <DraftCardSection section={biConsultingSections.signs} variant="diagnostic" signalEyebrow="" />
 

@@ -6,9 +6,9 @@ export const warehouseService = { key: "data-warehousing-lakehouse", slug: "data
 export const warehouseSections: { signs: SubSection; warehousing: SubSection; lakehouse: SubSection; results: SubSection; related: SubSection } = {
   signs: { id: "warehouse-signs", title: "Signs you need a data warehouse", introduction: "A trusted data layer becomes important when reporting and decisions depend on inconsistent or difficult-to-reach information.", items: [
     { title: "Numbers don't match across reports", description: "Different teams use different definitions, sources, or refreshes for the same business measure." },
-    { title: "Slow queries", description: "Reports and analysis take too long because the current data environment is difficult to query efficiently." },
-    { title: "Data spread across tools", description: "Business information remains in separate systems without a shared, governed destination." },
-    { title: "No single source of truth", description: "Teams cannot easily agree which data is current, complete, or appropriate for a decision." },
+    { title: "Reports take too long to load, even for simple questions", description: "Data may sit in many raw tables and sources, and is not organized for fast analysis." },
+    { title: "Answering one question means pulling data from several places", description: "Business information remains in separate systems without a shared, governed data warehouse." },
+    { title: "Teams argue over which numbers are the right ones", description: "There may be no single source of truth, so each team builds its own version of the data." },
   ] },
   warehousing: { id: "data-warehousing-services", title: "Our data warehousing services", introduction: "We create a practical data warehouse foundation around your sources, definitions, users, and operating needs.", items: [
     { title: "Warehouse design and data modelling", description: "Shape a maintainable structure for shared business definitions, reporting, analytics, and future change." },

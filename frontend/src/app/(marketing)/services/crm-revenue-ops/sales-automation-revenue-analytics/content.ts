@@ -29,10 +29,10 @@ export const salesSections: {
     title: "Signs you need sales automation",
     introduction: "Manual work and unclear follow-through can make it harder to keep a consistent view of sales activity.",
     items: [
-      { title: "Reps spending hours on admin", description: "Routine updates and coordination take time away from customer conversations." },
+      { title: "Reps spend more time on admin than on talking to customers", description: "Logging calls, updating records and routing leads are still done by hand instead of through sales automation." },
       { title: "Leads falling through the cracks", description: "Ownership or next steps are not always clear when a new lead arrives." },
-      { title: "Slow follow-ups", description: "The process depends on manual reminders and individual habits to keep a response moving." },
-      { title: "No reliable forecast", description: "Pipeline stages or reporting definitions may not provide a consistent view of expected revenue." },
+      { title: "Customers wait too long to hear back after they reach out", description: "The process depends on manual reminders and individual habits to keep a response moving." },
+      { title: "Leaders cannot say how much revenue to expect with confidence", description: "Pipeline stages or reporting definitions may not give the consistent view that revenue analytics needs." },
     ],
   },
   automation: {

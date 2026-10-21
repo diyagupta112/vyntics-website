@@ -30,7 +30,7 @@ export default async function DataWarehousingLakehousePage() {
   const insights = blogResult.blogs.filter(post => (!post.status || post.status === "published") && relevance.test(`${post.title} ${post.category} ${post.excerpt}`)).slice(0, 3);
   const contentId = "data-warehouse-content";
   const heroPage = { ...warehouseService, key: "data-warehousing-lakehouse" };
-  return <div className={styles.page} data-data-sub-page="data-warehousing-lakehouse"><CloudSubHero page={heroPage} /><div id={contentId}>
+  return <div className={styles.page} data-data-sub-page="data-warehousing-lakehouse"><CloudSubHero page={heroPage} showOutcome={false} /><div id={contentId}>
     <DraftCardSection section={warehouseSections.signs} variant="diagnostic" signalEyebrow="" />
     <DraftCardSection section={warehouseSections.warehousing} variant="services" />
     <DraftCardSection section={warehouseSections.lakehouse} variant="services" />

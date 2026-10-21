@@ -5,10 +5,10 @@ export const qualityService = { key: "data-quality-governance", slug: "data-qual
 
 export const qualitySections: { signs: SubSection; quality: SubSection; governance: SubSection; observability: SubSection; results: SubSection; related: SubSection } = {
   signs: { id: "quality-signs", title: "Signs of a data quality problem", introduction: "Trust in data is difficult to maintain when records, definitions, and ownership are unclear.", items: [
-    { title: "Duplicate records", description: "Repeated customers, products, or transactions make ownership and reporting harder to trust." },
-    { title: "Missing values", description: "Important fields are incomplete, inconsistent, or unavailable when people need them." },
-    { title: "Reports contradict each other", description: "Different teams see different numbers because sources, rules, or definitions are not aligned." },
-    { title: "Teams don't trust the numbers", description: "People spend time checking data manually before they can act on a report or model." },
+    { title: "One customer shows up several times, and nobody knows which is right", description: "Duplicate records are created when systems and teams enter or import the same data without matching rules." },
+    { title: "People open records and find important details left blank", description: "Fields may be optional or entered inconsistently, with no validation checks at the point of data entry." },
+    { title: "Two reports on the same topic show different numbers", description: "Reports may draw on different sources, rules or definitions, and nobody has agreed which version is correct." },
+    { title: "Teams double-check every number before they will act on it", description: "Data quality is not measured or monitored, so errors are found late, usually by the people using the data." },
   ] },
   quality: { id: "data-quality-services", title: "Our data quality services", introduction: "We help teams understand, improve, and continuously check the quality of the data they rely on.", items: [
     { title: "Data profiling", description: "Inspect completeness, consistency, patterns, and anomalies so priorities are based on evidence." },

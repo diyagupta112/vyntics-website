@@ -30,7 +30,7 @@ export const dashboardSections: {
     title: "Signs you need better dashboards",
     introduction: "Reporting friction often shows up in how information is prepared, shared, and revisited.",
     items: [
-      { title: "Reports built manually in Excel", description: "Recurring views depend on people repeating the same spreadsheet preparation, so the process is hard to reuse or review." },
+      { title: "Preparing executive reports takes a lot of manual work each time", description: "Recurring views depend on people repeating the same spreadsheet preparation, so there is no reusable dashboard to rely on." },
       { title: "Numbers that arrive days late", description: "Reporting cycles take longer than the decisions they support, so leaders review information after it has changed." },
       { title: "Too many reports nobody reads", description: "Reports have grown without a shared structure, so it is hard to find the view that answers a given question." },
       { title: "Leaders asking for the same data again and again", description: "Key measures are not available in a consistent, shared view, so people ask for them each time they are needed." },

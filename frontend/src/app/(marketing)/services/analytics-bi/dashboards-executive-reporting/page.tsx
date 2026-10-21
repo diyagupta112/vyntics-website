@@ -39,7 +39,7 @@ export default async function DashboardExecutiveReportingPage() {
   const heroPage = { ...dashboardService, key: "dashboard-reporting" };
 
   return <div className={styles.page} data-analytics-sub-page="dashboards-executive-reporting">
-    <CloudSubHero page={heroPage} />
+    <CloudSubHero page={heroPage} showOutcome={false} />
     <div id={contentId}>
       <DraftCardSection section={dashboardSections.signs} variant="diagnostic" signalEyebrow="" />
       <DraftCardSection section={dashboardSections.dashboardServices} variant="services" />

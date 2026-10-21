@@ -36,6 +36,12 @@
   .connector span { display:inline; margin-left:.5rem; }
   .heading > p { font-size:1rem; }
 }
+/* The hero boxes already share one left edge. The large H1's first letter has a built-in side bearing that makes it look indented next to the small eyebrow, so it is cancelled in em units (scales with the H1). */
+.heroCopy h1 { margin-left:-.045em; }
+/* Without the outcome line, the gap above the buttons equals the gap above the paragraph, so the text block keeps an even rhythm at each breakpoint. */
+.heroCopy { --hero-actions-gap:1.7rem; }
+@media(min-width:901px) { .heroCopy { --hero-actions-gap:1.15rem; } .heroCopy[data-title-fit="long"] { --hero-actions-gap:.9rem; } }
+@media(max-width:560px) { .heroCopy { --hero-actions-gap:1.25rem; } }
 .outcome { margin-top:1rem; color:var(--color-foreground); font-weight:650; line-height:1.5; }
 .heroFrame { position:absolute; inset:1.5rem; overflow:hidden; border-radius:.85rem; }
 .heroFrame img { object-fit:cover; }

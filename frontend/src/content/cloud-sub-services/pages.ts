@@ -100,10 +100,10 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
     seoTitle: "DevOps Consulting Services | Vyntics", seoDescription: "Vyntics DevOps consulting services help you improve CI/CD pipelines, infrastructure as code, monitoring, and production reliability.",
     hero: { title: "DevOps consulting services for reliable releases", introduction: "Our DevOps consulting services help your team make deployments repeatable, see production issues sooner, and recover with clearer operating procedures.", outcome: "Release faster, break less", cta: "Get a free DevOps assessment", expectedImage: "/images/services/our-services-section/devops-and-reliability-2.png", imageAlt: "Developer working with code and system monitoring on two screens" },
     signs: { id: "devops-signs", title: "Signs you need DevOps", introduction: "Repeated release and reliability problems make it harder to deliver changes with confidence. These signals help show where a more consistent approach can help.", items: [
-      { title: "Slow manual deployments", description: "Releases depend on remembered commands, individual access, or a long sequence of manual checks." },
-      { title: "Frequent outages", description: "Changes repeatedly cause incidents, and the team spends more time restoring service than addressing the underlying causes." },
-      { title: "No visibility into failures", description: "Logs, metrics, and alerts are missing or scattered, so it is difficult to understand where a problem started." },
-      { title: "Environments that do not match", description: "Configuration differences between development, testing, and production make release behavior hard to predict." },
+      { title: "Shipping a release takes a long time and a lot of effort", description: "Releases rely on remembered commands, individual access or manual checks instead of a CI/CD pipeline." },
+      { title: "Outages keep happening, and the team is always busy restoring service", description: "Changes often go live without enough testing or an easy rollback, so problems reach users first." },
+      { title: "When something breaks, you cannot easily see where it started", description: "Logs, metrics and alerts are scattered or missing, and there is little cloud monitoring to tie them together." },
+      { title: "Code that works in testing behaves differently in production", description: "Configuration differences between development, testing, and production make release behavior hard to predict." },
     ] },
     offerings: [
       { id: "devops-services", title: "Our DevOps services", introduction: "Our CI/CD pipeline services connect code changes, checks, and deployment decisions. We use DevOps automation where it reduces repeated work and keeps the process understandable.", items: [
@@ -156,11 +156,11 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
     seoTitle: "Cloud Cost Optimization Services | Vyntics", seoDescription: "Vyntics cloud cost optimization services help you review spend, rightsize resources, evaluate commitments, and build practical FinOps controls.",
     hero: { title: "Cloud cost optimization services", introduction: "Our cloud cost optimization services help you reduce cloud costs by connecting your bill to resource usage, ownership, and the performance your applications need.", outcome: "Pay only for the cloud you actually use", cta: "Get a free cloud cost audit", expectedImage: "/images/services/our-services-section/cloud-cost-optimization.png", imageAlt: "Laptop displaying a cloud cost dashboard with usage and spending charts" },
     signs: { id: "cost-signs", title: "Why cloud bills keep growing", introduction: "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.", items: [
-      { title: "Idle resources", description: "Unused development environments or resources with little activity continue to generate charges." },
-      { title: "Oversized instances", description: "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size." },
-      { title: "No tagging or visibility", description: "Costs cannot be tied consistently to a team, workload, environment, or owner." },
-      { title: "Unused storage", description: "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision." },
-      { title: "Missed discounts", description: "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand." },
+      { title: "Your cloud bill keeps rising, even in months when little has changed", description: "Unused development environments or resources with little activity continue to generate charges." },
+      { title: "Monitoring shows servers using only a fraction of what you pay for", description: "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size." },
+      { title: "When the bill jumps, nobody can say who or what caused it", description: "Costs cannot be tied consistently to a team, workload, environment, or owner." },
+      { title: "Storage costs keep growing, and no one is sure what can be deleted", description: "Old snapshots, unattached volumes, or stored data remain without a reviewed retention or ownership decision." },
+      { title: "Steady workloads still appear on the invoice at full on-demand prices", description: "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand." },
     ] },
     offerings: [
       { id: "cost-services", title: "Our cost optimization services", introduction: "We review the cloud cost management decisions that drive your bill. We can also build AI tools that monitor your cloud spend and flag possible waste for human review.", items: [

@@ -56,7 +56,7 @@ export default async function IntelligentAutomationPage() {
   const heroPage = { ...intelligentAutomation, key: "intelligent-automation" };
 
   return <div className={styles.page} data-ai-sub-page="intelligent-automation">
-    <CloudSubHero page={heroPage} />
+    <CloudSubHero page={heroPage} opticalAlign showOutcome={false} />
     <div id={contentId}>
       <DraftCardSection section={intelligentAutomationSections.signs} variant="diagnostic" signalEyebrow="" />
       <DraftCardSection section={intelligentAutomationSections.documentProcessing} variant="services" />

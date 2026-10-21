@@ -67,4 +67,5 @@ pnpm-lock.yaml.tmp
 
 # Local QA / performance artifacts
 frontend/.qa-tmp/
+frontend/.qa/
 frontend/PERFORMANCE-AUDIT.md

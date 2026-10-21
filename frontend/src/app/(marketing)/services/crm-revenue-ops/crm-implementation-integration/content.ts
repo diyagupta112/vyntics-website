@@ -20,10 +20,10 @@ export const crmImplementationService = {
 
 export const crmSections: { signs: SubSection; implementation: SubSection; integrations: SubSection; results: SubSection; related: SubSection } = {
   signs: { id: "crm-help-signs", title: "Signs you need CRM help", introduction: "A CRM should make customer information easier to manage, share, and act on.", items: [
-    { title: "Leads tracked in spreadsheets", description: "Important opportunities live in separate files instead of a shared process." },
-    { title: "A CRM nobody updates", description: "The CRM does not fit how your team works, so the information inside it is incomplete or out of date." },
-    { title: "Duplicate contacts", description: "Repeated records make ownership, communication, and reporting harder to trust." },
-    { title: "Data stuck between the CRM and other tools", description: "Customer information does not move reliably between the systems your teams use." },
+    { title: "Nobody can see every open lead and its next step together", description: "Leads are kept in personal spreadsheets and inboxes, with no shared CRM process for the whole team." },
+    { title: "Records in the CRM are often old, and people stop trusting them", description: "The CRM may not match how your team actually works, so updating it feels like extra effort." },
+    { title: "The same customer shows up more than once, with different details", description: "Records are created from several sources without duplicate checks, so one contact ends up with many entries." },
+    { title: "Customer details differ between the CRM and the other tools you use", description: "There is no CRM integration with other tools, so information is copied by hand or never shared." },
   ] },
   implementation: { id: "crm-implementation-services", title: "Our CRM implementation services", introduction: "We help you choose, configure, and adopt a CRM around the way your teams work.", items: [
     { title: "CRM selection", description: "Compare practical options against your processes, users, data, and integration needs." },

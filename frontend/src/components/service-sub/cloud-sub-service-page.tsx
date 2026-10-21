@@ -41,7 +41,7 @@ export async function CloudSubServicePage({ pageKey }: { pageKey: CloudSubPageKe
     : undefined;
   return <div className={styles.page} data-cloud-sub-page={pageKey}>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cloudSubStructuredData(page)).replace(/</g, "\\u003c") }} />
-    <CloudSubHero page={page} />
+    <CloudSubHero page={page} opticalAlign showOutcome={false} />
     <div id={contentId}>
       <DraftCardSection section={page.signs} variant={pageKey === "migration" || pageKey === "devops" || pageKey === "cost" ? "diagnostic" : "signs"} signalEyebrow={pageKey === "devops" ? "DevOps signals" : "Cloud signals"} />
       {page.offerings.map(section => <DraftCardSection section={section} key={section.id} variant={pageKey === "devops" || pageKey === "migration" && ["architecture-services", "migration-services"].includes(section.id) || pageKey === "cost" && ["cost-services", "finops"].includes(section.id) ? "services" : "cards"} />)}

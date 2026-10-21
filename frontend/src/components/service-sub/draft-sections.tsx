@@ -34,6 +34,7 @@ export function DraftCardSection({ section, variant = "cards", signalEyebrow = "
   const serviceCards = variant === "services";
   const fiveServiceCards = serviceCards && section.items.length === 5;
   const sixServiceCards = serviceCards && section.items.length === 6;
+  const threeServiceCards = serviceCards && section.items.length === 3;
   if (connected) return <MigrationBenefits section={section} visual={visual} />;
   if (variant === "diagnostic") return <DiagnosticSignals section={section} eyebrow={signalEyebrow} />;
   return <section id={section.id} className={`${sectionStyles.section} ${styles.section}${numbered ? ` ${signs.section}` : ""}${serviceCards ? ` ${architectureServices.section}` : ""}`} aria-labelledby={`${section.id}-title`}>
@@ -42,7 +43,7 @@ export function DraftCardSection({ section, variant = "cards", signalEyebrow = "
         <h2 id={`${section.id}-title`}>{displayTitle ?? (numbered ? "Signs you need to change" : section.title)}</h2>
         <p>{section.introduction}</p>
       </header>
-      <div className={numbered ? signs.grid : serviceCards ? `${architectureServices.grid}${fiveServiceCards ? ` ${architectureServices.fiveItems}` : ""}${sixServiceCards ? ` ${architectureServices.sixItems}` : ""}` : styles.cards}>
+      <div className={numbered ? signs.grid : serviceCards ? `${architectureServices.grid}${fiveServiceCards ? ` ${architectureServices.fiveItems}` : ""}${sixServiceCards ? ` ${architectureServices.sixItems}` : ""}${threeServiceCards ? ` ${architectureServices.threeItems}` : ""}` : styles.cards}>
         {section.items.map((item, index) => <article className={numbered ? `${signs.card}${index === 0 ? ` ${signs.highlighted}` : ""}` : serviceCards ? architectureServices.card : item.href ? `${styles.card} ${styles.linkCard}` : styles.card} key={item.title} data-reveal={`${section.id}-item-${index}`} data-reveal-delay={Math.min(index * 90, 450)}>
           {numbered && <span className={signs.number} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>}
           {serviceCards && <ArchitectureServiceIcon index={index} />}
