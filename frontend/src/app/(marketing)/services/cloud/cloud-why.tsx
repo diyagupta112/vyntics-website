@@ -16,7 +16,7 @@ export function CloudWhy() {
   return <section id="cloud-why" className={styles.section} aria-labelledby="cloud-why-title" data-cloud-section="Why Vyntics for Cloud">
     <Container className={styles.layout}>
         <div className={styles.image} data-reveal="cloud-why-image">
-          <Image src={cloudImage} alt="Colleagues collaborating around a laptop." fill sizes="(max-width: 900px) 100vw, 40vw" />
+          <Image src={cloudImage} alt="Vyntics team collaborating around a laptop on a cloud project." fill sizes="(max-width: 900px) 100vw, 40vw" />
         </div>
         <div className={styles.content}>
           <header data-reveal="cloud-why-heading" data-reveal-delay="90">

@@ -37,7 +37,7 @@ export const crmContent = {
   ],
   whyEyebrow: "Why choose us",
   whyIntroduction: "We shape CRM around your team, customer records, and reporting decisions.",
-  whyImage: { src: "/images/services/why-choose-crm.jpg", alt: "Colleagues collaborating around a laptop and tablet." },
+  whyImage: { src: "/images/services/why-choose-crm.jpg", alt: "Vyntics team collaborating around a laptop and tablet on a CRM and revenue operations project." },
   reasons: [
     { title: "Process first", description: "CRM setup shaped around how your team sells, supports customers, and hands work over.", path: "M4 9 12 4l8 5-8 5-8-5Zm0 6 8 5 8-5M4 20l8 5 8-5" },
     { title: "Connected customer data", description: "Connect customer records across your business systems, with clear field mappings, data checks, and ownership before launch.", path: "M4 6h6v6H4zM14 16h6v6h-6zM16 6h5v5M21 6l-9 9" },

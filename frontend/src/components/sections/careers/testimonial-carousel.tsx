@@ -135,7 +135,7 @@ export function TestimonialCarousel({ testimonials }: Props) {
               <span>
                 <Image
                   src={testimonial.imageUrl}
-                  alt=""
+                  alt={testimonial.imageAlt}
                   fill
                   sizes="52px"
                   style={{ objectPosition: testimonial.thumbnailPosition }}

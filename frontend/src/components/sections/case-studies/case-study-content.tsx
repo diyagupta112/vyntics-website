@@ -95,7 +95,7 @@ function renderNode(value: JsonValue, key: string, imageContext: string): ReactN
     const src = safeUrl(attrs.src ?? attrs.url ?? value.video_url ?? value.videoUrl);
     const poster = safeUrl(attrs.poster ?? attrs.poster_url ?? attrs.posterUrl);
     const caption = typeof attrs.caption === "string" ? attrs.caption : typeof value.caption === "string" ? value.caption : undefined;
-    return src ? <figure key={key}><video src={src} controls playsInline preload="metadata" poster={poster} aria-label={typeof attrs.alt === "string" ? attrs.alt : "Project demonstration"} />{caption ? <figcaption>{caption}</figcaption> : null}</figure> : null;
+    return src ? <figure key={key}><video src={src} controls playsInline preload="metadata" poster={poster} aria-label={typeof attrs.alt === "string" ? attrs.alt : "Case study project demonstration video"} />{caption ? <figcaption>{caption}</figcaption> : null}</figure> : null;
   }
   if (type === "doc" || type === "document") return <>{children}</>;
   if (children.length) return <>{children}</>;

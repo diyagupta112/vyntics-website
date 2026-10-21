@@ -120,7 +120,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
                 />
 
                 <div className={styles.artwork} aria-hidden="true">
-                  {article.cover && <BlogCover src={article.cover} />}
+                  {article.cover && <BlogCover src={article.cover} alt={`Cover image for ${article.title}`} />}
                   <span className={styles.motif}>{article.motif}</span>
                   <span className={styles.orbit} />
                 </div>
@@ -182,10 +182,9 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
   );
 }
 
-function BlogCover({ src }: { src: string }) {
+function BlogCover({ src, alt }: { src: string; alt: string }) {
   const [failed, setFailed] = useState(false);
   if (failed) return null;
-  // Decorative cover; the article title provides the accessible name.
   // eslint-disable-next-line @next/next/no-img-element
-  return <img className={styles.coverImage} src={src} alt="" loading="lazy" onError={() => setFailed(true)} />;
+  return <img className={styles.coverImage} src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />;
 }

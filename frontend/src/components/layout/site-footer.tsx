@@ -102,7 +102,7 @@ export function SiteFooter() {
             <div className={styles.brandIdentity}>
               <Link className={styles.brand} href="/" aria-label={`${siteConfig.name} home`}>
                 <span className={styles.logoBox}>
-                  <Image src="/images/vyntics-mark.png" alt="" width={107} height={81} />
+                  <Image src="/images/vyntics-mark.png" alt="Vyntics logo" width={107} height={81} />
                 </span>
                 <span>VYNTICS</span>
               </Link>

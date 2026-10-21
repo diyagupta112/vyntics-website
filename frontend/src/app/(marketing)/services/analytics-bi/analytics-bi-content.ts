@@ -26,7 +26,7 @@ export const analyticsContent = {
   whyIntroduction: "As a business analytics company, we connect your data, reporting, and decisions.",
   whyImage: {
     src: "/images/services/why-choose-analytics.jpg",
-    alt: "Colleagues reviewing reports together around a laptop.",
+    alt: "Vyntics team reviewing analytics and BI reports together around a laptop.",
   },
   services: [
     {

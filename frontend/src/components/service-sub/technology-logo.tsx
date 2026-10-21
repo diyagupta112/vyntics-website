@@ -84,6 +84,6 @@ export function TechnologyLogo({ name, compact = false }: { name: string; compac
   const files = logo ? (typeof logo === "string" ? [logo] : logo) : [];
   const brand = name === "Salesforce" ? "salesforce" : name === "AWS" || name === "AWS Glue" || name === "Amazon Web Services" || name === "Amazon Redshift" || name === "Amazon QuickSight" ? "aws" : name === "Google Cloud" || name === "Google BigQuery" ? "google" : name === "dbt" || name === "dbt tests" || name === "Fivetran" || name === "Tableau" ? "wide" : undefined;
   return <span className={`${styles.logoFrame}${compact ? ` ${styles.compactLogo}` : ""}`} data-brand={brand} aria-hidden="true">
-    {files.length > 1 ? <span className={styles.logoGroup}>{files.map(file => <Image key={file} className={styles.logoImage} src={`/images/services/logos/${file}`} alt="" width={160} height={160} />)}</span> : files.length === 1 ? <Image className={styles.logoImage} src={`/images/services/logos/${files[0]}`} alt="" width={160} height={160} /> : <span className={styles.logoFallback}>{name.slice(0, 1)}</span>}
+    {files.length > 1 ? <span className={styles.logoGroup}>{files.map((file, index) => <Image key={file} className={styles.logoImage} src={`/images/services/logos/${file}`} alt={`${name.split(" & ")[index] ?? name} logo`} width={160} height={160} />)}</span> : files.length === 1 ? <Image className={styles.logoImage} src={`/images/services/logos/${files[0]}`} alt={`${name} logo`} width={160} height={160} /> : <span className={styles.logoFallback}>{name.slice(0, 1)}</span>}
   </span>;
 }

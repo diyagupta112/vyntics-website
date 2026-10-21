@@ -4,5 +4,5 @@ import type { CloudSubPage } from "./pages";
 
 export function resolveSubHeroImage(page: CloudSubPage) {
   const available = existsSync(join(process.cwd(), "public", page.hero.expectedImage));
-  return { src: available ? page.hero.expectedImage : "/images/diagonal-sweep-gradient.webp", alt: available ? page.hero.imageAlt : "", missing: !available };
+  return { src: available ? page.hero.expectedImage : "/images/diagonal-sweep-gradient.webp", alt: available ? page.hero.imageAlt : `Soft gradient background for the Vyntics ${page.name} hero`, missing: !available };
 }
