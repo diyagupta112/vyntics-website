@@ -157,6 +157,10 @@ export function SiteFooter() {
 
         <div className={styles.utilityBar}>
           <p>&copy; {new Date().getFullYear()} {siteConfig.name}</p>
+          <div className={styles.legalLinks}>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>
+          </div>
         </div>
 
       </Container>
