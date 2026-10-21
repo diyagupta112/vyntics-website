@@ -29,7 +29,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       title: "Cloud migration services for your next move",
       introduction: "Our cloud migration services help you move applications and data with a clear cloud migration strategy, tested cutover steps, and an operating plan your team can use.",
       outcome: "Move with a clear plan and a tested path to production.", cta: "Discuss your cloud migration",
-      expectedImage: "/image/services/cloud-migration-hero.webp", imageAlt: "Cloud architecture and workload migration planning",
+      expectedImage: "/images/services/our-services-section/cloud-migration-v2.png", imageAlt: "Cloud architecture and workload migration planning",
     },
     signs: {
       id: "migration-signs", title: "Cloud problems often show up before you know the cause.",

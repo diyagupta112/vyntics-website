@@ -1,6 +1,6 @@
 // Matches the existing parent-page Our Services carousel assets.
 export const subServiceHeroImages: Readonly<Record<string, { src: string; alt: string }>> = {
-  "cloud-architecture-migration": { src: "/images/services/our-services-section/cloud-migration.png", alt: "Team reviewing a cloud migration architecture diagram on a large screen." },
+  "cloud-architecture-migration": { src: "/images/services/our-services-section/cloud-migration-v2.png", alt: "Team reviewing a cloud migration architecture diagram on a large screen." },
   "devops-reliability": { src: "/images/services/our-services-section/devops-and-reliability-2.png", alt: "Developer working with code and system monitoring on two screens." },
   "cloud-cost-optimization": { src: "/images/services/our-services-section/cloud-cost-optimization.png", alt: "Laptop displaying a cloud cost dashboard with usage and spending charts." },
   "dashboards-executive-reporting": { src: "/images/services/our-services-section/dashboards-and-analytics.png", alt: "Laptop displaying an analytics dashboard with charts and KPI summaries." },

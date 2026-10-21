@@ -80,7 +80,7 @@ export default function CloudFoundationsPage() {
             services={canonicalCloudServices.map((service, index) => ({
               name: service.title,
               href: `/services/cloud-foundations/${service.slug}`,
-              image: ["/images/services/our-services-section/cloud-migration.png", "/images/services/our-services-section/devops-and-reliability-2.png", "/images/services/our-services-section/cloud-cost-optimization.png"][index],
+              image: ["/images/services/our-services-section/cloud-migration-v2.png", "/images/services/our-services-section/devops-and-reliability-2.png", "/images/services/our-services-section/cloud-cost-optimization.png"][index],
               imageAlt: ["Team reviewing cloud migration progress on a large screen.", "Developer working with code and system monitoring on two screens.", "Laptop displaying a cloud cost dashboard with usage and spending charts."][index],
               introduction: cloudServiceIntroductions[index].summary,
               points: cloudServiceIntroductions[index].includes,
