@@ -6,7 +6,7 @@
 .column { min-width:0; }
 .updated { position:absolute; right:clamp(1rem,2.5vw,1.75rem); bottom:clamp(.75rem,1.8vw,1.25rem); color:var(--color-white); font-size:.9rem; font-weight:700; line-height:1.4; text-shadow:0 1px 6px rgb(0 0 0 / 55%); }
 @media(max-width:600px) { .updated { font-size:.8rem; } }
-.sidebar { display:none; --toc-eyebrow:#6b7a99; --toc-text:#4a5878; --toc-strong:#16224a; --toc-num:#7a87a3; --toc-rail:#dce3f2; --toc-hover:rgb(22 34 74 / 4%); --toc-active-bg:rgb(20 83 219 / 7%); --toc-indicator:#1453db; --toc-scroll:#c5cee3; }
+.sidebar { --toc-top:calc(5rem + 24px); display:none; --toc-eyebrow:#6b7a99; --toc-text:#4a5878; --toc-strong:#16224a; --toc-num:#7a87a3; --toc-rail:#dce3f2; --toc-hover:rgb(22 34 74 / 4%); --toc-active-bg:rgb(20 83 219 / 7%); --toc-indicator:#1453db; --toc-scroll:#c5cee3; }
 :global(html[data-theme="dark"]) .sidebar { --toc-eyebrow:#8794b3; --toc-text:#a9b4ce; --toc-strong:#fff; --toc-num:#8794b3; --toc-rail:#2a3558; --toc-hover:rgb(255 255 255 / 6%); --toc-active-bg:rgb(91 135 230 / 14%); --toc-indicator:#5b87e6; --toc-scroll:#3a4668; }
 .sidebar::-webkit-scrollbar { width:6px; }
 .sidebar::-webkit-scrollbar-track { background:transparent; }
@@ -44,7 +44,9 @@
 :global(html[data-theme="dark"]) .article a { color:color-mix(in srgb,var(--color-primary) 65%,var(--color-white)); }
 @media(min-width:1024px) {
   .layout { display:grid; grid-template-columns:280px minmax(0,760px); column-gap:56px; justify-content:center; align-items:start; padding-inline:0; }
-  .sidebar { display:block; padding:20px 12px 0 0; scrollbar-width:thin; scrollbar-color:var(--toc-scroll) transparent; position:sticky; top:calc(5rem + 24px); max-height:calc(100svh - 5rem - 48px); overflow:auto; }
+  .sidebar { display:block; padding:20px 12px 0 0; scrollbar-width:thin; scrollbar-color:var(--toc-scroll) transparent; position:sticky; top:var(--toc-top); max-height:calc(100svh - var(--toc-top) - 24px); overflow:auto; transition:top 280ms cubic-bezier(.22,1,.36,1); }
+  /* The site header slides away while scrolling down. Follow it, so no empty band is left above the sidebar. */
+  :global(body):has([class*="headerHidden"]) .sidebar { --toc-top:24px; }
   .mobileToc { display:none; }
   .article { margin-top:1rem; font-size:18px; }
 }
@@ -53,3 +55,4 @@
 @media(min-width:1280px) { .layout { column-gap:96px; } }
 @media(max-width:600px) { .article section { margin-top:2rem; } }
 @media print { .sidebar,.mobileToc { display:none; } }
+@media(prefers-reduced-motion:reduce) { .sidebar { transition:none; } }
