@@ -140,6 +140,7 @@ export function DataEngineeringServicesShowcase({
       >
         <div className={styles.imageFrame}>
           <Image src={activeService.image} alt={activeService.imageAlt} fill sizes="(max-width: 760px) 100vw, 65vw" />
+          <Link className={styles.imageLink} href={activeService.href} aria-hidden="true" tabIndex={-1} />
           <span>{eyebrow}</span>
           <div className={styles.panelContent}>
             <p className={styles.panelEyebrow}>Service {String(activeIndex + 1).padStart(2, "0")}</p>

@@ -24,6 +24,8 @@
 .withPoints { display: flex; flex-direction: column; justify-content: flex-end; }
 .withPoints .panelContent { position: relative; inset: auto; max-width: none; padding: 1.75rem 1.6rem 1.75rem clamp(2rem, 7vw, 4.5rem); }
 .imageFrame img { object-fit: cover; }
+/* The whole card is clickable. The visible "Explore" link remains the keyboard and screen-reader target. */
+.imageLink { position: absolute; inset: 0; z-index: 3; }
 .imageFrame::after { position: absolute; inset: 0; z-index: 1; content: ""; background: linear-gradient(180deg, rgb(4 13 30 / 22%) 0%, rgb(4 13 30 / 58%) 42%, rgb(4 13 30 / 94%) 100%); pointer-events: none; }
 .panelContent { position: absolute; right: clamp(1.5rem, 3vw, 2.5rem); bottom: clamp(1.5rem, 3vw, 2.5rem); left: clamp(1.5rem, 3vw, 2.5rem); z-index: 2; max-width: 40rem; color: #fff; }
 .compactPanelContent { right: 1.6rem; bottom: 1.75rem; left: clamp(2rem, 7vw, 4.5rem); max-width: 30rem; }
@@ -43,6 +45,7 @@
 @media (hover: hover) and (pointer: fine) {
   .serviceTab:hover { color: var(--color-foreground); }
   .panelContent > a:hover svg { transform: translateX(.22rem); }
+  .imageFrame:hover .panelContent > a svg { transform: translateX(.22rem); }
 }
 
 @media (max-width: 820px) {
