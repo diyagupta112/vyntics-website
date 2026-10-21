@@ -32,7 +32,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       expectedImage: "/images/services/our-services-section/cloud-migration-v2.png", imageAlt: "Cloud architecture and workload migration planning",
     },
     signs: {
-      id: "migration-signs", title: "Cloud problems often show up before you know the cause.",
+      id: "migration-signs", title: "Signs you need to migrate",
       introduction: "The signs are usually visible in day-to-day operations. We help identify what is behind them and what needs to change.",
       items: [
         { title: "Applications are becoming slower or less reliable", description: "Ageing infrastructure may be reaching its performance or lifecycle limits." },
