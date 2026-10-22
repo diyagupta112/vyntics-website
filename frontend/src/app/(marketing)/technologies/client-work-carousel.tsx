@@ -60,7 +60,7 @@ export function ClientWorkCarousel({ projects }: { projects: readonly Project[] 
       <div className={styles.controls}>
         <div className={styles.dots}>{projects.map((project, index) => <button key={project.slug} type="button"
           aria-label={`Show ${project.title}`} aria-pressed={active === index} onClick={() => setActive(index)} />)}</div>
-        <Link className={styles.allStudies} href="/case-studies">Go through every case study. <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg></Link>
+        <Link className={`${styles.allStudies} siteCta`} href="/case-studies">Go through every case study. <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg></Link>
       </div>
       <p className={styles.status}>{projects[active]?.title}</p>
     </div>

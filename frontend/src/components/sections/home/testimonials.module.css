@@ -94,35 +94,37 @@
 }
 
 .companyAvatar {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
-  background: #ffffff;
+  width: 7rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .companyLogo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 13.125rem;
-  height: 4.75rem;
   display: block;
-  background-image: url("/images/client-logos-source.png");
-  background-repeat: no-repeat;
-  background-size: 1407px 305px;
-  transform: translate(-50%, -50%) scale(0.2);
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .iturbeLogo {
-  background-position: -427px -127px;
+  width: 6rem;
 }
 
 .rolloutLogo {
-  background-position: -701px -127px;
+  width: 7rem;
 }
 
 .smgqLogo {
-  background-position: -985px -127px;
+  width: 4.75rem;
+}
+
+.active .companyLogo,
+:global(html[data-theme="dark"]) .companyLogo {
+  filter: grayscale(1) brightness(0) invert(1);
 }
 
 .card blockquote {

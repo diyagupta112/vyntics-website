@@ -1,9 +1,5 @@
 .section {
-  min-height: calc(100svh - 5rem);
-  display: grid;
-  align-items: center;
-  padding-block: clamp(1.75rem, 3.5vh, 2.75rem);
-  overflow: hidden;
+  padding-block: clamp(2.5rem, 5vw, 4.5rem) 0;
   background: transparent;
   scroll-margin-top: 5rem;
 }
@@ -39,189 +35,265 @@
   line-height: 1.55;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0.85rem;
-  perspective: 1000px;
-  transform-style: preserve-3d;
+.showcaseLink span {
+  display: inline-block;
+  margin-left: 0.25rem;
+  color: #6fa0ff;
+  transition: transform 220ms ease;
 }
 
-.card {
+.showcaseLink:is(:hover, :focus-visible) span {
+  transform: translateX(0.3rem);
+}
+
+.showcaseLink:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-primary) 55%, #fff);
+  outline-offset: 4px;
+}
+
+.showcase {
   position: relative;
-  min-height: clamp(19rem, 43vh, 22rem);
-  height: 100%;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  align-content: stretch;
-  gap: 1.5rem;
-  overflow: hidden;
-  padding: clamp(1.25rem, 2vw, 1.65rem);
-  border: 1px solid var(--color-border);
-  border-radius: 1.35rem;
-  outline: none;
-  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
-  box-shadow: 0 16px 45px rgb(11 11 15 / 5%);
-  cursor: pointer;
-  isolation: isolate;
-  transform-style: preserve-3d;
-  transition:
-    border-color 260ms ease,
-    box-shadow 260ms ease;
-  transform-origin: 50% 50%;
-  will-change: transform, filter, opacity;
+  margin-top: clamp(1.75rem, 3.5vw, 3rem);
 }
 
-.card::before {
-  position: absolute;
-  inset: auto -35% -45% 12%;
-  z-index: -1;
-  height: 12rem;
-  content: "";
-  border-radius: 50%;
-  background: rgb(37 99 235 / 14%);
-  filter: blur(35px);
-  opacity: 0;
-  transition: opacity 260ms ease, transform 260ms ease;
-}
-
-.cardTop {
-  min-height: 3.25rem;
+.showcaseViewport {
+  min-height: calc(100svh - 5rem);
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
 }
 
-.number {
-  color: var(--color-muted);
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+.showcaseTrack {
+  --panel-width: min(78vw, 72rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  width: max-content;
+  padding-inline: calc((100vw - var(--panel-width)) / 2);
+  will-change: transform;
 }
 
-.icon {
-  width: 3.25rem;
-  aspect-ratio: 1;
+.showcasePanel {
+  width: var(--panel-width);
+  min-height: min(31rem, calc(100svh - 9rem));
+  flex: 0 0 auto;
   display: grid;
-  place-items: center;
+  grid-template-columns: minmax(13rem, 1fr) minmax(0, 3fr);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: clamp(1.25rem, 2.5vw, 2rem);
+  background: var(--color-surface);
+  box-shadow: 0 1.75rem 5rem rgb(6 16 34 / 10%);
+}
+
+.showcaseMedia {
+  position: relative;
+  min-height: 28rem;
+  overflow: hidden;
+  background: #10141d;
+}
+
+.showcaseImage {
+  object-fit: cover;
+}
+
+.showcaseImageShade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 55%, rgb(9 19 38 / 20%));
+}
+
+.showcaseCopy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2rem, 4vw, 3.75rem);
+}
+
+.showcaseLabel {
+  position: relative;
   color: var(--color-primary);
-  border: 1px solid color-mix(in srgb, var(--color-primary) 24%, transparent);
-  border-radius: 0.9rem;
-  background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  transition: color 260ms ease, background-color 260ms ease, transform 260ms ease;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.cardCopy {
-  display: grid;
-  grid-template-rows: 5rem minmax(0, 1fr);
-  align-content: start;
-}
-
-.card h3 {
-  max-width: 13ch;
-  font-size: clamp(1.18rem, 1.55vw, 1.45rem);
-  line-height: 1.08;
-  letter-spacing: -0.035em;
+.showcaseCopy h3 {
+  position: relative;
+  max-width: 18ch;
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 3.4vw, 3.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
   text-wrap: balance;
 }
 
-.card p {
-  margin-top: 0.85rem;
-  align-self: start;
-  color: var(--color-muted);
-  font-size: 0.88rem;
-  line-height: 1.55;
-  text-wrap: pretty;
+.showcaseTitleLink {
+  color: inherit;
+  transition: color 180ms ease;
 }
 
-.detail {
-  min-height: 3.5rem;
-  display: flex;
-  align-items: flex-start;
-  padding-top: 0.85rem;
+.showcaseTitleLink:hover {
   color: var(--color-primary);
-  border-top: 1px solid var(--color-border);
-  font-size: 0.75rem;
-  font-weight: 720;
-  line-height: 1.35;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .card:hover,
-  .card:focus-visible {
-    border-color: color-mix(in srgb, var(--color-primary) 52%, var(--color-border));
-    box-shadow: 0 24px 65px rgb(20 83 219 / 14%);
-  }
-
-  .card:hover::before,
-  .card:focus-visible::before {
-    opacity: 1;
-    transform: translateY(-1rem);
-  }
-
-  .card:hover .icon,
-  .card:focus-visible .icon {
-    color: #ffffff;
-    background: var(--color-primary);
-    transform: rotate(-5deg) scale(1.06);
-  }
-
+.showcaseDescription {
+  position: relative;
+  max-width: 52rem;
+  margin-top: 1.25rem;
+  color: var(--color-muted);
+  font-size: clamp(0.94rem, 1.2vw, 1.06rem);
+  line-height: 1.6;
 }
 
-@media (max-width: 1050px) {
+.highlightList {
+  position: relative;
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1.75rem;
+  list-style: none;
+}
+
+.highlightList li {
+  position: relative;
+  padding-left: 1rem;
+  color: color-mix(in srgb, var(--color-foreground) 82%, transparent);
+  font-size: 0.9rem;
+  font-weight: 750;
+  line-height: 1.4;
+}
+
+.highlightList li::before {
+  content: "";
+  position: absolute;
+  top: 0.48em;
+  left: 0;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+.highlightLink {
+  display: inline-block;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-primary) 42%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: color 180ms ease, text-decoration-color 180ms ease, transform 180ms ease;
+}
+
+.highlightLink:hover {
+  color: color-mix(in srgb, var(--color-primary) 78%, var(--color-foreground));
+  text-decoration-color: currentColor;
+  transform: translateX(0.2rem);
+}
+
+.showcaseTitleLink:focus-visible,
+.highlightLink:focus-visible {
+  color: var(--color-primary);
+  border-radius: 0.2rem;
+  outline: 2px solid color-mix(in srgb, var(--color-primary) 58%, transparent);
+  outline-offset: 3px;
+}
+
+.showcaseLink {
+  position: relative;
+  width: fit-content;
+  margin-top: 1.8rem;
+  color: var(--color-foreground);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+@media (max-width: 960px) {
   .section {
+    padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .showcaseViewport {
     min-height: auto;
     overflow: visible;
   }
 
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .showcaseTrack {
+    width: min(100% - 2rem, var(--content-width));
+    margin-inline: auto;
+    display: grid;
+    gap: 1.5rem;
+    padding: 0;
+    transform: none !important;
+    will-change: auto;
   }
 
-  .card {
-    min-height: 18rem;
+  .showcasePanel {
+    width: 100%;
+    min-height: 0;
+    grid-template-columns: minmax(12rem, 0.55fr) minmax(0, 1.45fr);
   }
 
-  .cardCopy {
-    grid-template-rows: 3.5rem minmax(0, 1fr);
+  .showcaseMedia {
+    min-height: 28rem;
   }
 }
 
-@media (max-width: 560px) {
-  .section {
-    padding-block: 3.5rem;
-  }
-
-  .grid {
+@media (max-width: 720px) {
+  .showcasePanel {
     grid-template-columns: 1fr;
   }
 
-  .card {
-    min-height: 16rem;
+  .showcaseMedia {
+    min-height: 18rem;
   }
 
-  .cardCopy {
-    grid-template-rows: auto minmax(0, 1fr);
+  .showcaseCopy {
+    min-height: 24rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .showcaseCopy {
+    min-height: 0;
+    padding: 2rem 1.5rem;
   }
 
-  .detail {
-    min-height: auto;
+  .highlightList {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card,
-  .card::before,
-  .icon {
+  .showcaseTitleLink,
+  .highlightLink,
+  .showcaseLink span {
     transition: none;
   }
 
-}
+  .highlightLink:hover {
+    transform: none;
+  }
 
-/* Recognitions embeds cards beneath its own introduction. */
-.cardsOnly { overflow: visible; }
-.cardsOnly .grid { padding-block: 2rem; }
-.cardsOnly .cardCopy { grid-template-rows: auto minmax(0, 1fr); }
+  .showcaseViewport {
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .showcaseTrack {
+    width: min(100% - 2rem, var(--content-width));
+    margin-inline: auto;
+    display: grid;
+    gap: 1.5rem;
+    padding: 0;
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .showcasePanel {
+    width: 100%;
+  }
+}

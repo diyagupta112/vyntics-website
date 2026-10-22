@@ -85,7 +85,6 @@ export function ProcessStack({ steps }: ProcessStackProps) {
               >
                 <div className={styles.processCardTop}>
                   <span className={styles.processNumber} aria-hidden="true">0{index + 1}</span>
-                  <span className={styles.processStage}>Process</span>
                 </div>
                 <h3>{step.title}</h3>
                 <p>{step.description}</p>

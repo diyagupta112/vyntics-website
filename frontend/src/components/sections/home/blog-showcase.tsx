@@ -19,12 +19,10 @@ function ArrowIcon({ direction = "right" }: { direction?: "left" | "right" }) {
 }
 
 export function BlogShowcase({ blogs, unavailable = false, loading = false }: { blogs: Blog[]; unavailable?: boolean; loading?: boolean }) {
-  const articles = blogs.map((blog, index) => ({
-    category: blog.category, title: blog.title, railTitle: blog.title, description: blog.excerpt,
-    date: new Date(blog.published_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }),
-    dateTime: blog.published_at, readTime: `${blog.read_time} min read`,
+  const articles = blogs.map((blog) => ({
+    title: blog.title,
     href: `/blog/${encodeURIComponent(blog.slug)}`,
-    accent: "#2563eb", soft: "#DDDBFF", motif: String(index + 1).padStart(2, "0"), cover: blog.cover_image_url,
+    accent: "#2563eb", soft: "#DDDBFF", cover: blog.cover_image_url,
   }));
   const reduceMotion = useReducedMotion();
   const [articleOrder, setArticleOrder] = useState(() => blogs.map((_, index) => index));
@@ -62,7 +60,10 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
   }, [isPaused, reduceMotion, blogs.length]);
 
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
-    if (!event.currentTarget.contains(event.relatedTarget)) setHasFocus(false);
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      setHasFocus(false);
+      setHoveredIndex(null);
+    }
   };
 
   return (
@@ -72,10 +73,10 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
           <div className={styles.headingBlock}>
             <p className={styles.eyebrow}>Thoughts from the industry</p>
             <h2 id="blogs-title">Useful data and AI concepts</h2>
-            <p>helpful manuals for developing dependable systems outside of the demonstration.</p>
+            <p>Helpful manuals for developing dependable systems outside of the demonstration.</p>
           </div>
 
-          <Link className={styles.viewAll} href="/blog">
+          <Link className={`${styles.viewAll} siteCta`} href="/blog">
             View all Blogs <ArrowIcon />
           </Link>
         </header>
@@ -109,44 +110,20 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
                   } as CSSProperties
                 }
                 onMouseEnter={() => setHoveredIndex(articleIndex)}
-                onFocusCapture={() => showArticle(articleIndex)}
+                onFocusCapture={() => setHoveredIndex(articleIndex)}
               >
-                <button
-                  type="button"
-                  className={styles.cardTrigger}
-                  aria-label={`Show ${article.title}`}
-                  aria-pressed={isActive}
-                  onClick={() => showArticle(articleIndex)}
-                />
-
-                <div className={styles.artwork} aria-hidden="true">
-                  {article.cover && <BlogCover src={article.cover} alt={`Cover image for ${article.title}`} />}
-                  <span className={styles.motif}>{article.motif}</span>
-                  <span className={styles.orbit} />
-                </div>
-                <div className={styles.overlay} />
-                <span className={styles.railLabel} aria-hidden="true">{article.railTitle}</span>
-
-                <div className={styles.cardContent}>
-                  <div className={styles.meta}>
-                    <span>{article.category}</span>
-                    <span aria-hidden="true">·</span>
-                    <span>{article.readTime}</span>
+                <Link className={styles.cardLink} href={article.href} aria-label={`Read ${article.title}`}>
+                  <div className={styles.artwork} aria-hidden="true">
+                    {article.cover && <BlogCover src={article.cover} />}
+                    <span className={styles.orbit} />
                   </div>
 
-                  <div className={styles.copy}>
-                    <h3>{article.title}</h3>
-                    <div className={styles.details} aria-hidden={!isActive || undefined}>
-                      <p>{article.description}</p>
-                      <div className={styles.cardFooter}>
-                        <time dateTime={article.dateTime}>{article.date}</time>
-                        <Link className={styles.readMore} href={article.href} tabIndex={isActive ? 0 : -1}>
-                          Read article <ArrowIcon />
-                        </Link>
-                      </div>
+                  <div className={styles.cardContent}>
+                    <div className={styles.copy}>
+                      <h3>{article.title}</h3>
                     </div>
                   </div>
-                </div>
+                </Link>
               </motion.article>
             );
           })}
@@ -182,9 +159,10 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
   );
 }
 
-function BlogCover({ src, alt }: { src: string; alt: string }) {
+function BlogCover({ src }: { src: string }) {
   const [failed, setFailed] = useState(false);
   if (failed) return null;
+  // Decorative cover; the article title provides the accessible name.
   // eslint-disable-next-line @next/next/no-img-element
-  return <img className={styles.coverImage} src={src} alt={alt} loading="lazy" onError={() => setFailed(true)} />;
+  return <img className={styles.coverImage} src={src} alt="" loading="lazy" onError={() => setFailed(true)} />;
 }

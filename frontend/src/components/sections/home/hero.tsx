@@ -14,7 +14,7 @@ export function Hero() {
         scope it. Every response from our compliance chatbot has a source, covering
         more than 20,000 documents.
       </p>
-      <Link className={styles.cta} href="/#contact">
+      <Link className={`${styles.cta} siteCta`} href="/#contact">
         Book a strategy call
       </Link>
     </Container>

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import type { CSSProperties } from "react";
+import { Suspense, type CSSProperties } from "react";
+import { FeaturedWork } from "@/components/sections/home/featured-work";
 import { Container } from "@/components/ui/container";
-import { projects } from "@/content/projects";
 import { ProcessStack } from "./process-stack";
-import { ClientWorkCarousel } from "./client-work-carousel";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -12,11 +11,11 @@ export const metadata: Metadata = {
 };
 
 const technologyGroups = [
-  { label: "AI & intelligence", image: "/images/technology-ai-robot.png", description: "AI systems designed for practical business applications, intelligent automation, and grounded responses.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "LangChain", "Google Gemini", "Pinecone", "LangGraph", "PGVector", "RAG", "LLM Assessment"] },
-  { label: "Data engineering", image: "/images/technology-data-finance-dashboard.png", description: "Ingestion, transformation, storage, modeling, and controlled access are all reliable.", tools: ["Snowflake", "dbt", "PostgreSQL", "Python", "SQL", "Apache Spark", "Apache Airflow", "Kafka", "AWS Glue", "Amazon S3"] },
-  { label: "Analytics & BI", image: "/images/technology-analytics-connected.png", description: "Data is transformed into understandable decisions through shared metrics and reporting layers.", tools: ["Power BI", "Tableau", "QuickSight", "Looker", "Grafana", "DAX", "Power Query", "Semantic models", "KPI modeling"] },
-  { label: "Cloud & platform", image: "/images/technology-cloud-network.png", description: "Infrastructure that is observable, secure, and built on dependability and affordability.", tools: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "AWS Fargate", "GitHub Actions", "CI/CD", "Observability"] },
-  { label: "CRM", image: "/images/technology-crm-workspace.png", description: "Automation throughout the customer lifetime, sales processes, and linked customer data.", tools: ["Salesforce", "HubSpot", "Dynamics 365", "Zoho CRM", "Salesforce Flow", "HubSpot Workflows", "Power Automate", "n8n", "REST APIs", "MuleSoft"] },
+  { label: "AI Solutions", image: "/images/technology-ai.png", description: "AI systems designed for practical business applications, intelligent automation, and grounded responses.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "LangChain", "Google Gemini", "Pinecone", "LangGraph", "PGVector", "RAG", "LLM Assessment"] },
+  { label: "Data Engineering", image: "/images/Data%20Engineering.jpg", description: "Ingestion, transformation, storage, modeling, and controlled access are all reliable.", tools: ["Snowflake", "dbt", "PostgreSQL", "Python", "SQL", "Apache Spark", "Apache Airflow", "Kafka", "AWS Glue", "Amazon S3"] },
+  { label: "Analytics & BI", image: "/images/Analytics%26BI.jpg", description: "Data is transformed into understandable decisions through shared metrics and reporting layers.", tools: ["Power BI", "Tableau", "QuickSight", "Looker", "Grafana", "DAX", "Power Query", "Semantic models", "KPI modeling"] },
+  { label: "Cloud Foundations", image: "/images/Cloud%20Operations.png", description: "Infrastructure that is observable, secure, and built on dependability and affordability.", tools: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "AWS Fargate", "GitHub Actions", "CI/CD", "Observability"] },
+  { label: "CRM & Revenue Ops", image: "/images/CRM.jpg", description: "Automation throughout the customer lifetime, sales processes, and linked customer data.", tools: ["Salesforce", "HubSpot", "Dynamics 365", "Zoho CRM", "Salesforce Flow", "HubSpot Workflows", "Power Automate", "n8n", "REST APIs", "MuleSoft"] },
 ] as const;
 
 const toolGroups = [
@@ -115,14 +114,7 @@ export default function TechnologiesPage() {
 
       <ProcessStack steps={process} />
 
-      <section className={styles.clientWork} aria-labelledby="client-work-title">
-        <Container>
-          <div className={styles.clientHeading}>
-            <div><p className={styles.eyebrow}>Using technology in customer service</p><h2 id="client-work-title">Stacks put together according to actual operational requirements.</h2></div>
-          </div>
-          <ClientWorkCarousel projects={projects} />
-        </Container>
-      </section>
+      <Suspense fallback={<FeaturedWork loading />}><FeaturedWork /></Suspense>
 
     </>
   );
