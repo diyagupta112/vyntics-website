@@ -1,0 +1,115 @@
+.frame {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  border-radius: 1.5rem;
+  background: #ffffff;
+}
+
+/* Faint grid, decorative only. */
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(20 83 219 / 7%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(20 83 219 / 7%) 1px, transparent 1px);
+  background-size: 3.5rem 3.5rem;
+  mask-image: radial-gradient(ellipse at 60% 50%, #000 20%, transparent 78%);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem max(1rem, calc((100vw - var(--content-width)) / 2)) 0;
+}
+
+.stage {
+  position: relative;
+  height: clamp(22rem, 95vw, 30rem);
+}
+
+@media (min-width: 52rem) {
+  .frame {
+    grid-template-columns: 5fr 7fr;
+    min-height: 36rem;
+  }
+
+  .content {
+    padding: 3rem 0 3rem max(3.5rem, calc((100vw - var(--content-width)) / 2));
+  }
+
+  .stage {
+    height: auto;
+  }
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgb(11 11 15 / 5%), transparent 60%);
+  transition: opacity 300ms ease;
+}
+
+.placeholder[data-hidden="true"] {
+  opacity: 0;
+}
+
+/* Wider than the stage (centered, not clipped by it) so the arms and hands have room and are not cut by the canvas edge. Tune --scene-width, --scene-height and --scene-top. */
+.canvas {
+  --scene-width: 160%;
+  --scene-height: 150%;
+  --scene-top: -5%;
+  position: absolute;
+  top: var(--scene-top);
+  left: calc((100% - var(--scene-width)) / 2);
+  width: var(--scene-width);
+  height: var(--scene-height);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.canvas[data-loaded="true"] {
+  opacity: 1;
+}
+
+.canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Decorative only: never intercepts pointer events. */
+.spotlight {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18rem;
+  height: 18rem;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at center, rgb(37 99 235 / 28%), transparent 70%);
+  filter: blur(16px);
+  transform: translate(calc(var(--spot-x) - 50%), calc(var(--spot-y) - 50%));
+  transition: transform 120ms ease-out, opacity 200ms ease;
+}
+
+.frame:hover .spotlight {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight,
+  .canvas,
+  .placeholder {
+    transition: none;
+  }
+}

@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^2.0.103",
     "gsap": "^3.15.0",
     "lucide-react": "^1.57.0",
     "motion": "^13.4.0",
