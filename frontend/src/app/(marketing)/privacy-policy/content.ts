@@ -87,11 +87,10 @@ export const policySections: readonly LegalSection[] = [
     { type: "p", text: "You should avoid submitting sensitive personal information that is not relevant to your application." },
   ] },
   { title: "6. Cookies and Similar Technologies", blocks: [
-    { type: "p", text: "Our website may use cookies or similar technologies for purposes such as website functionality, preferences, security, performance, or understanding how the website is used." },
-    { type: "p", text: "The specific cookies and similar technologies used by the website may change over time as we add, remove, or update website functionality." },
-    { type: "p", text: "Where applicable, we may provide controls that allow you to manage optional cookies or similar technologies." },
-    { type: "p", text: "We will not describe a particular analytics, advertising, or tracking service as being used by Vyntics unless that service is actually implemented on the website." },
-    { type: "p", text: "For more information about our current cookie practices and available choices, please refer to our cookie preferences or cookie notice where available." },
+    { type: "p", text: "Our website uses cookies and similar technologies to help keep Vyntics working properly and to understand how visitors use our website." },
+    { type: "p", text: "Some cookies are essential to the operation of the website and are always enabled. We may also use analytics cookies to understand website usage and improve our website. Marketing cookies are optional and can be enabled or disabled through our cookie preferences." },
+    { type: "p", text: "When you first visit our website, you can choose to accept all cookies or accept essential cookies only. You can change your cookie preferences at any time through Cookie Settings, where available." },
+    { type: "p", text: "The specific cookies and similar technologies used may change as we update our website and its functionality." },
   ] },
   { title: "7. Third-Party Services and Links", blocks: [
     { type: "p", text: "Our website may use third-party services to support certain website functionality, infrastructure, content delivery, communication, analytics, or other operational requirements." },

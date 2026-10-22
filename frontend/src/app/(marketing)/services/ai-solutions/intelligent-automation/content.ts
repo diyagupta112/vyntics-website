@@ -108,13 +108,13 @@ export const intelligentAutomationProcess = [
 ] as const;
 
 export const intelligentAutomationTools = [
-  "Azure Document Intelligence",
-  "Amazon Textract",
-  "Google Document AI",
   "n8n",
   "Make",
-  "Power Automate",
   "Zapier",
+  "Amazon Textract",
+  "Google Document AI",
+  "Azure Document Intelligence",
+  "Power Automate",
 ] as const;
 
 export const automationEngagements: readonly MigrationEngagementStep[] = [

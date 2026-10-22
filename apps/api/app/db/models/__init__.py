@@ -10,6 +10,7 @@ from app.db.models.career import Career
 from app.db.models.case_study import CaseStudy
 from app.db.models.contact_submission import ContactSubmission
 from app.db.models.job_application import JobApplication
+from app.db.models.life_at_vyntics import LifeAtVyntics
 from app.db.models.team_member import TeamMember
 
 __all__ = [
@@ -23,5 +24,6 @@ __all__ = [
     "CaseStudy",
     "ContactSubmission",
     "JobApplication",
+    "LifeAtVyntics",
     "TeamMember",
 ]

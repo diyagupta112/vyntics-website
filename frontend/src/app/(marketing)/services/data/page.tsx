@@ -29,8 +29,8 @@ export const metadata: Metadata = {
 };
 
 const platforms = [
-  { name: "Snowflake", role: "Cloud data platform", description: "Elastic warehousing, governed sharing, and workload separation for analytical teams." },
   { name: "Databricks", role: "Lakehouse", description: "Unified engineering, analytics, and machine-learning workloads over structured and unstructured data." },
+  { name: "Snowflake", role: "Cloud data platform", description: "Elastic warehousing, governed sharing, and workload separation for analytical teams." },
   { name: "Google BigQuery", role: "Serverless warehouse", description: "Managed analytical compute for teams that need scale without operating warehouse infrastructure." },
   { name: "Amazon Redshift", role: "AWS warehousing", description: "Integrated cloud warehousing for organizations already building their data estate on AWS." },
   { name: "Microsoft Fabric", role: "Microsoft data platform", description: "Integrated engineering, warehousing, semantic models, and Power BI delivery in one ecosystem." },

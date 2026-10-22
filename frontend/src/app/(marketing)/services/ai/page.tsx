@@ -30,11 +30,13 @@ export const metadata: Metadata = {
 
 const platforms = [
   { name: "OpenAI", role: "Language models", description: "Reasoning, generation, structured outputs, embeddings, and tool use across production AI workloads." },
-  { name: "Azure AI", role: "Enterprise AI", description: "Governed model access and document intelligence for organizations operating in the Microsoft ecosystem." },
   { name: "Anthropic", role: "Language models", description: "Long-context reasoning and generation for knowledge, analysis, and controlled agent workflows." },
-  { name: "Pinecone & Qdrant", role: "Vector retrieval", description: "Scalable semantic search, metadata filtering, and retrieval across enterprise knowledge collections." },
-  { name: "LangGraph & LangChain", role: "AI orchestration", description: "Stateful agent workflows, retrieval pipelines, tool coordination, tracing, and human checkpoints." },
-  { name: "FastAPI & PostgreSQL", role: "Application foundation", description: "Typed APIs, durable data, audit records, permissions, and integration with existing products and systems." },
+  { name: "n8n", role: "Workflow automation", description: "Coordinate repeatable workflows, system actions, and automated hand-offs." },
+  { name: "Pinecone", role: "Vector retrieval", description: "Scalable semantic search, metadata filtering, and retrieval across enterprise knowledge collections." },
+  { name: "Qdrant", role: "Vector retrieval", description: "Scalable semantic search, metadata filtering, and retrieval across enterprise knowledge collections." },
+  { name: "LangGraph", role: "AI orchestration", description: "Stateful agent workflows, tool coordination, and human checkpoints." },
+  { name: "LangChain", role: "AI orchestration", description: "Retrieval pipelines, tool coordination, and tracing across AI workflows." },
+  { name: "Azure AI", role: "Enterprise AI", description: "Governed model access and document intelligence for organizations operating in the Microsoft ecosystem." },
 ] as const;
 
 const aiServices = [

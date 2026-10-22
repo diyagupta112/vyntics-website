@@ -29,6 +29,7 @@ EXPECTED_TABLES = {
     "case_studies",
     "contact_submissions",
     "job_applications",
+    "life_at_vyntics",
     "team_members",
 }
 

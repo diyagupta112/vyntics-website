@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CookieSettingsButton } from "@/components/consent/cookie-settings-button";
 import { Container } from "@/components/ui/container";
 import { serviceNavigation } from "@/content/service-navigation";
 import { siteConfig } from "@/config/site";
@@ -160,6 +161,7 @@ export function SiteFooter() {
           <div className={styles.legalLinks}>
             <Link href="/privacy-policy">Privacy Policy</Link>
             <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>
+            <CookieSettingsButton className={styles.cookieSettings} />
           </div>
         </div>
 

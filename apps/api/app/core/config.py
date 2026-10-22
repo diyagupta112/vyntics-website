@@ -99,6 +99,10 @@ class Settings(BaseSettings):
         default="testimonial-logos",
         validation_alias="STORAGE_TESTIMONIAL_LOGOS_BUCKET",
     )
+    life_at_vyntics_bucket: str = Field(
+        default="life-at-vyntics",
+        validation_alias="STORAGE_LIFE_AT_VYNTICS_BUCKET",
+    )
     badge_logos_bucket: str = Field(
         default="badge-logos",
         validation_alias="STORAGE_BADGE_LOGOS_BUCKET",

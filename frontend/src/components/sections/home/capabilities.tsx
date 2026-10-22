@@ -35,7 +35,7 @@ const capabilityDetails: ReadonlyArray<{
   {
     pillar: "data-engineering",
     anchor: "services-data",
-    image: "/images/Data%20Engineering.jpg",
+    image: "/images/technology-Data-Engineering.jpg",
     imageAlt: "Team reviewing data visualizations",
     imagePosition: "52% center",
     description:
@@ -49,7 +49,7 @@ const capabilityDetails: ReadonlyArray<{
   {
     pillar: "analytics-bi",
     anchor: "services-analytics",
-    image: "/images/Analytics%26BI.jpg",
+    image: "/images/technology-Analytics%26BI.jpg",
     imageAlt: "Analyst working with business dashboards",
     imagePosition: "43% center",
     description:
@@ -63,7 +63,7 @@ const capabilityDetails: ReadonlyArray<{
   {
     pillar: "cloud-foundations",
     anchor: "services-cloud",
-    image: "/images/Cloud%20Operations.png",
+    image: "/images/technology-Cloud%20Operations.png",
     imageAlt: "Engineers monitoring cloud infrastructure",
     imagePosition: "58% center",
     description:
@@ -77,7 +77,7 @@ const capabilityDetails: ReadonlyArray<{
   {
     pillar: "crm-revenue-ops",
     anchor: "services-others",
-    image: "/images/CRM.jpg",
+    image: "/images/technology-CRM.jpg",
     imageAlt: "Customer operations team collaborating at a workstation",
     imagePosition: "46% center",
     description:
@@ -221,7 +221,9 @@ export function Capabilities({
                       src={capability.image}
                       alt={capability.imageAlt}
                       fill
-                      sizes="(max-width: 720px) calc(100vw - 2rem), (max-width: 960px) 28vw, 20vw"
+                      // The panel is tall and narrow, so the cover crop displays these landscape photos much wider than the panel itself.
+                      sizes="(max-width: 960px) 100vw, 1400px"
+                      quality={90}
                       style={{ objectPosition: capability.imagePosition }}
                     />
                     <span className={styles.showcaseImageShade} aria-hidden="true" />

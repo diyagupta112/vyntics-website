@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { preconnect, preload } from "react-dom";
 import { OpticalHeadingAlignment } from "@/components/layout/optical-heading-alignment";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader, SiteHeaderSpacer } from "@/components/layout/site-header";
@@ -15,6 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
+  // Start fetching the scene while the page renders instead of after hydration.
+  preconnect("https://prod.spline.design");
+  preload(NOT_FOUND_SCENE, { as: "fetch", crossOrigin: "anonymous" });
+
   return (
     <>
       <OpticalHeadingAlignment />

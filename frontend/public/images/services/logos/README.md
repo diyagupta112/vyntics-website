@@ -51,3 +51,6 @@ Assets are copied without editing paths, fills, colors or embedded artwork. Logo
 - `mcp.svg`: [Simple Icons Model Context Protocol mark](https://github.com/simple-icons/simple-icons/blob/develop/icons/modelcontextprotocol.svg), with source project https://modelcontextprotocol.io.
 - `power-automate.svg`: Microsoft Power Automate logo from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Microsoft_Power_Automate.svg), copied without edits.
 - `dynamics-365.svg`: Microsoft Dynamics 365 logo from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Microsoft_Dynamics_365_Logo_(2021%E2%80%93present).svg). Only the `viewBox` was changed, to show the icon without the wordmark.
+- `microsoft-fabric.svg`: Microsoft Fabric icon from the [theSVG color collection](https://api.iconify.design/thesvg-color/microsoft-fabric.svg) (MIT), only the width and height attributes were set to 48.
+
+Color note: `anthropic.svg`, `make.svg`, `n8n.svg`, `qdrant.svg`, `langchain.svg`, `langgraph.svg` and `zapier.svg` have the brand color from Simple Icons added as a `fill` on the root element (Anthropic #D97757, Make #6D00CC, Zapier #FF4F00, n8n #EA4B71, Qdrant #DC244C, LangChain and LangGraph #7FC8FF). Paths are unchanged.

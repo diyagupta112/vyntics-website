@@ -16,6 +16,7 @@ const logos: Readonly<Record<string, string | readonly string[]>> = {
   "Dynamics 365": "dynamics-365.svg",
   HubSpot: "hubspot.svg",
   "Zoho CRM": "zoho.svg",
+  "Microsoft Fabric": "microsoft-fabric.svg",
   Databricks: "databricks.svg",
   "Databricks Unity Catalog": "databricks.svg",
   "Azure Synapse": "azure.svg",

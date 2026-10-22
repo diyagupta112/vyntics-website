@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ConsentProvider } from "@/components/consent/consent-provider";
+import { CookieConsent } from "@/components/consent/cookie-consent";
 import { StyledComponentsRegistry } from "@/components/ui/styled-components-registry";
 import "@fontsource-variable/dm-sans";
 import "./globals.css";
@@ -19,7 +21,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script id="vyntics-theme-init" src="/theme-init.js" async />
       </head>
-      <body><StyledComponentsRegistry>{children}</StyledComponentsRegistry></body>
+      <body>
+        <ConsentProvider>
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          <CookieConsent />
+        </ConsentProvider>
+      </body>
     </html>
   );
 }

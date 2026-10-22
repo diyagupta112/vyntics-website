@@ -74,6 +74,9 @@
 .socialLinks svg { width:1rem; }
 .utilityBar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.5rem 1.5rem; padding-block:1.25rem; border-top:1px solid var(--color-border); color:var(--color-muted); font-size:.72rem; }
 .legalLinks { display:flex; flex-wrap:wrap; gap:.5rem 1.25rem; }
+.cookieSettings { padding:0; border:0; background:none; color:inherit; font:inherit; cursor:pointer; }
+.cookieSettings:hover { color:color-mix(in srgb,var(--color-primary) 55%,var(--color-foreground)); }
+.cookieSettings:focus-visible { outline:3px solid var(--color-primary); outline-offset:4px; border-radius:.2rem; }
 .utilityBar a:hover { color:color-mix(in srgb,var(--color-primary) 55%,var(--color-foreground)); }
 .footer a { transition:color 160ms ease,background-color 160ms ease; }
 .itemList a:hover { color:color-mix(in srgb,var(--color-primary) 55%,var(--color-foreground)); }

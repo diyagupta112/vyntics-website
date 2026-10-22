@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   images: { qualities: [75, 90] },
   async redirects() {
     const redirects = [
+      { source: "/services", destination: "/services/data-engineering", permanent: false },
       { source: "/rewards", destination: "/recognition", permanent: true },
       { source: "/services/cloud", destination: "/#services", permanent: true },
       { source: "/services/analytics", destination: "/#services", permanent: true },

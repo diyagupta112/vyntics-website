@@ -22,6 +22,8 @@ from app.api.routes.job_applications import (
 )
 from app.api.routes.job_applications import admin_router as admin_applications_router
 from app.api.routes.job_applications import public_router as applications_router
+from app.api.routes.life_at_vyntics import admin_router as admin_life_at_vyntics_router
+from app.api.routes.life_at_vyntics import router as life_at_vyntics_router
 from app.api.routes.team_members import router as team_members_router
 
 api_router = APIRouter()
@@ -47,3 +49,6 @@ api_router.include_router(faqs_router)
 api_router.include_router(admin_faqs_router)
 api_router.include_router(testimonials_router)
 api_router.include_router(admin_testimonials_router)
+
+api_router.include_router(life_at_vyntics_router)
+api_router.include_router(admin_life_at_vyntics_router)
