@@ -8,6 +8,21 @@
   scroll-margin-top: 5rem;
 }
 
+.section .headingBlock {
+  max-width: 62rem;
+  margin-inline: auto;
+  justify-items: center;
+  text-align: center;
+}
+
+.section .headingBlock h2 {
+  max-width: none;
+}
+
+.section > div > div:nth-child(2) {
+  margin-top: 0.5rem;
+}
+
 .sectionHeader {
   margin-bottom: clamp(1rem, 2vh, 1.5rem);
 }
@@ -99,6 +114,12 @@
   position: relative;
 }
 
+.section .carouselViewport {
+  left: 50%;
+  width: 95vw;
+  transform: translateX(-50%);
+}
+
 .card {
   overflow: hidden;
   border: 1px solid var(--color-border);
@@ -106,6 +127,13 @@
   background: var(--color-surface);
   box-shadow: 0 35px 90px rgb(11 11 15 / 11%);
   transition: box-shadow 250ms ease;
+}
+
+.section .card {
+  height: clamp(30rem, 70svh, 42rem);
+  min-height: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .card:hover {
@@ -122,6 +150,19 @@
   transform-style: preserve-3d;
 }
 
+.section .cardGrid {
+  height: 100%;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 0;
+  padding: 0;
+}
+
+.section .content {
+  justify-content: center;
+  gap: clamp(1rem, 2.5vh, 1.75rem);
+  padding: clamp(1.5rem, 3vw, 3rem);
+}
+
 .visualFrame {
   min-width: 0;
   min-height: 0;
@@ -129,6 +170,13 @@
   align-self: stretch;
   overflow: hidden;
   border-radius: 1.2rem;
+}
+
+.section .visualFrame,
+.section .visual {
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .visual {
@@ -448,6 +496,23 @@
     height: auto;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
+  }
+
+  .section .carouselViewport {
+    width: 100%;
+    left: auto;
+    transform: none;
+  }
+
+  .section .card {
+    height: auto;
+  }
+
+  .section .cardGrid {
+    height: auto;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
   }
 
   .visual {

@@ -23,6 +23,9 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
     title: blog.title,
     href: `/blog/${encodeURIComponent(blog.slug)}`,
     accent: "#2563eb", soft: "#DDDBFF", cover: blog.cover_image_url,
+    category: blog.category,
+    publishedAt: new Date(blog.published_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+    readTime: blog.read_time,
   }));
   const reduceMotion = useReducedMotion();
   const [articleOrder, setArticleOrder] = useState(() => blogs.map((_, index) => index));
@@ -121,6 +124,12 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
                   <div className={styles.cardContent}>
                     <div className={styles.copy}>
                       <h3>{article.title}</h3>
+                      {isActive && (
+                        <>
+                          <p className={styles.meta}>{article.category} <span aria-hidden="true">·</span> {article.publishedAt} <span aria-hidden="true">·</span> {article.readTime} min read</p>
+                          <span className={styles.readStory}>Read the story <span aria-hidden="true">→</span></span>
+                        </>
+                      )}
                     </div>
                   </div>
                 </Link>

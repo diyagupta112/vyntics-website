@@ -30,13 +30,14 @@ export function ContactCta({
 }: ContactCtaProps = {}) {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [feedback, setFeedback] = useState("");
+  const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(() => {
     if (submitState !== "success") return;
     const timer = window.setTimeout(() => {
       setSubmitState("idle");
       setFeedback("");
-    }, 7000);
+    }, 5000);
     return () => window.clearTimeout(timer);
   }, [submitState]);
 
@@ -68,6 +69,7 @@ export function ContactCta({
       if (!response.ok) throw new Error(`Contact request failed with status ${response.status}`);
 
       form.reset();
+      setFormIsValid(false);
       setSubmitState("success");
       setFeedback("Thanks—your message has been sent. We’ll get back to you shortly.");
     } catch {
@@ -104,7 +106,8 @@ export function ContactCta({
         <form
           className={styles.form}
           onSubmit={handleSubmit}
-          onInput={() => {
+          onInput={(event) => {
+            setFormIsValid(event.currentTarget.checkValidity());
             if (submitState === "success" || submitState === "error") {
               setSubmitState("idle");
               setFeedback("");
@@ -142,6 +145,7 @@ export function ContactCta({
           <SendButton
             type="submit"
             state={submitState}
+            data-ready={formIsValid}
             disabled={submitState === "submitting" || submitState === "success"}
           >
               {submitState === "submitting" ? "Sending…" : submitState === "success" ? "Message sent" : submitState === "error" ? "Try again" : submitLabel}

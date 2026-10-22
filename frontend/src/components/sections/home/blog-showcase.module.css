@@ -8,29 +8,33 @@
   scroll-margin-top: 5rem;
 }
 
-.header { display: flex; align-items: end; justify-content: space-between; gap: 2rem; }
-.headingBlock { max-width: 38rem; }
+.header { position: relative; display: flex; align-items: end; justify-content: center; gap: 2rem; text-align: center; }
+.headingBlock { max-width: 38rem; margin-inline: auto; }
 .eyebrow { color: var(--color-brand); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.17em; text-transform: uppercase; }
 .headingBlock h2 { max-width: 15ch; margin-top: 0.45rem; font-size: clamp(2rem, 3.1vw, 3rem); line-height: 0.98; letter-spacing: -0.05em; text-wrap: balance; }
 .headingBlock > p:last-child { margin-top: 0.6rem; color: var(--color-muted); font-size: clamp(0.9rem, 1.1vw, 1rem); line-height: 1.45; }
-.viewAll { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.65rem; padding-bottom: 0.4rem; border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 45%, transparent); color: var(--color-primary); font-size: 0.92rem; font-weight: 700; }
+.viewAll { position: absolute; right: 0; bottom: 0; display: inline-flex; align-items: center; gap: 0.65rem; padding-bottom: 0.4rem; border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 45%, transparent); color: var(--color-primary); font-size: 0.92rem; font-weight: 700; }
 .viewAll svg, .arrows svg { width: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 
-.expandingCards { height: clamp(21rem, 42vh, 26rem); margin-top: clamp(1.25rem, 2.5vh, 2rem); display: flex; flex-direction: row; direction: ltr; gap: 0.6rem; }
+.expandingCards { height: clamp(30rem, 70svh, 42rem); margin-top: clamp(1.25rem, 2.5vh, 2rem); display: flex; flex-direction: row; direction: ltr; gap: 0.6rem; }
 .card { position: relative; flex: 0.72 1 0; min-width: 4.5rem; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-white) 14%, transparent); border-radius: 1.15rem; background: #101116; box-shadow: 0 18px 48px rgb(11 11 15 / 10%); isolation: isolate; transition: flex 560ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 400ms ease; }
 .activeCard { flex: 4 1 0; box-shadow: 0 24px 64px rgb(11 11 15 / 16%); }
-.cardLink { width: 100%; height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; color: #fff; outline: none; }
+.cardLink { position: relative; width: 100%; height: 100%; display: block; color: #fff; outline: none; }
 .cardLink:focus-visible { box-shadow: inset 0 0 0 3px var(--color-primary); }
 
-.artwork { position: relative; overflow: hidden; background: radial-gradient(circle at 72% 20%, color-mix(in srgb, var(--article-soft) 70%, transparent), transparent 31%), radial-gradient(circle at 22% 70%, color-mix(in srgb, var(--article-accent) 80%, transparent), transparent 37%), linear-gradient(145deg, color-mix(in srgb, var(--article-accent) 58%, #07101f), #0a0b12 72%); transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), filter 400ms ease; }
-.card:not(.activeCard) .artwork { filter: saturate(0.72) brightness(0.72); transform: scale(1.08); }
+.artwork { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(circle at 72% 20%, color-mix(in srgb, var(--article-soft) 70%, transparent), transparent 31%), radial-gradient(circle at 22% 70%, color-mix(in srgb, var(--article-accent) 80%, transparent), transparent 37%), linear-gradient(145deg, color-mix(in srgb, var(--article-accent) 58%, #07101f), #0a0b12 72%); transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), filter 400ms ease; }
+.card:not(.activeCard) .artwork { filter: none; transform: none; }
 .artwork::before { position: absolute; inset: 0; content: ""; background-image: linear-gradient(rgb(255 255 255 / 8%) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / 8%) 1px, transparent 1px); background-size: 3rem 3rem; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
 .artwork::after { position: absolute; width: 14rem; aspect-ratio: 1; right: -3rem; top: 14%; content: ""; border: 1px solid rgb(255 255 255 / 28%); border-radius: 50%; box-shadow: 0 0 0 2.7rem rgb(255 255 255 / 5%), 0 0 0 5.4rem rgb(255 255 255 / 4%); }
 .orbit { position: absolute; width: 0.48rem; aspect-ratio: 1; top: 48%; right: 4rem; border-radius: 50%; background: var(--color-white); box-shadow: 0 0 1.8rem var(--color-white); }
-.cardContent { min-width: 0; padding: 1rem 1.15rem 1.1rem; color: #ffffff; border-top: 1px solid rgb(255 255 255 / 16%); background: #101116; }
-.copy { min-width: min(31rem, 70vw); transition: opacity 180ms ease; }
-.card:not(.activeCard) .copy { opacity: 0; visibility: hidden; }
+.cardContent { position: absolute; inset: auto 0 0; min-width: 0; padding: clamp(1.1rem, 3vw, 2.25rem); color: #ffffff; background: linear-gradient(0deg, rgb(7 10 16 / 92%), rgb(7 10 16 / 68%) 62%, transparent); }
+.copy { min-width: 0; transition: opacity 180ms ease; }
+.card:not(.activeCard) .cardContent { inset: 0; display: flex; align-items: flex-end; justify-content: center; padding: 0.8rem 0.35rem; background: linear-gradient(0deg, rgb(7 10 16 / 78%), transparent 48%); }
 .copy h3 { max-width: 28ch; overflow: hidden; font-size: clamp(1.05rem, 1.45vw, 1.3rem); line-height: 1.2; letter-spacing: -0.025em; text-overflow: ellipsis; white-space: nowrap; }
+.card:not(.activeCard) .copy h3 { max-height: 75%; margin-inline: auto; overflow: hidden; font-size: 0.74rem; line-height: 1.25; text-align: center; text-overflow: clip; white-space: normal; writing-mode: vertical-rl; transform: rotate(180deg); }
+.meta { margin-top: 0.65rem; color: rgb(255 255 255 / 78%); font-size: 0.78rem; line-height: 1.4; }
+.meta span { padding-inline: 0.2rem; color: rgb(255 255 255 / 58%); }
+.readStory { display: inline-block; margin-top: 0.75rem; color: #ffffff; font-size: 0.85rem; font-weight: 650; }
 
 .controls { margin-top: 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .dots { display: flex; align-items: center; gap: 0.4rem; }
@@ -48,16 +52,17 @@
 
 @media (max-width: 900px) {
   .section { min-height: auto; }
-  .expandingCards { height: 27rem; }
+  .expandingCards { height: clamp(30rem, 65svh, 40rem); }
   .card { min-width: 3.5rem; }
   .activeCard { flex-grow: 5; }
 }
 
 @media (max-width: 640px) {
   .section { min-height: auto; padding-block: 3.5rem; }
-  .header { align-items: flex-start; flex-direction: column; gap: 1rem; }
+  .header { align-items: center; flex-direction: column; gap: 1rem; }
+  .viewAll { position: static; }
   .headingBlock h2 { font-size: clamp(1.9rem, 9vw, 2.6rem); }
-  .expandingCards { height: 24rem; gap: 0.35rem; }
+  .expandingCards { height: 32rem; gap: 0.35rem; }
   .card { min-width: 2.35rem; flex-grow: 0.55; }
   .activeCard { flex-grow: 7; }
   .copy { min-width: min(18rem, calc(100vw - 8.5rem)); }

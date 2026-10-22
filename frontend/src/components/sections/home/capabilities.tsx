@@ -135,6 +135,7 @@ export function Capabilities({
     let cancelled = false;
     let context: { revert: () => void } | undefined;
     let media: gsap.MatchMedia | undefined;
+    let refreshFrame = 0;
 
     void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
       ([{ gsap }, { ScrollTrigger }]) => {
@@ -158,6 +159,11 @@ export function Capabilities({
               const reduceMotion = conditions.reduceMotion ?? false;
               if (!desktop || reduceMotion) return;
 
+              const panels = Array.from(track.querySelectorAll<HTMLElement>("[data-service-panel]"));
+              if (panels.length < 2) return;
+
+              gsap.set(track, { x: 0 });
+
               const horizontalDistance = () =>
                 Math.max(0, track.scrollWidth - viewport.clientWidth);
 
@@ -165,13 +171,14 @@ export function Capabilities({
                 x: () => -horizontalDistance(),
                 ease: "none",
                 scrollTrigger: {
-                  trigger: viewport,
-                  start: "top 80px",
+                  trigger: showcase,
+                  start: "top top+=80",
                   end: () => `+=${Math.max(horizontalDistance(), 1)}`,
-                  pin: viewport,
-                  scrub: 0.65,
+                  pin: showcase,
+                  scrub: true,
                   anticipatePin: 1,
                   invalidateOnRefresh: true,
+                  onRefreshInit: () => gsap.set(track, { x: 0 }),
                 },
               });
 
@@ -179,13 +186,14 @@ export function Capabilities({
             },
           );
 
-          ScrollTrigger.refresh();
+          refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
         }, showcase);
       },
     );
 
     return () => {
       cancelled = true;
+      cancelAnimationFrame(refreshFrame);
       media?.revert();
       context?.revert();
     };
@@ -198,23 +206,21 @@ export function Capabilities({
       aria-labelledby={showHeading ? "capabilities-title" : undefined}
       aria-label={showHeading ? undefined : "Services"}
     >
-      <Container>
-        {showHeading && (
-          <header className={styles.headingBlock}>
-            <p className={styles.eyebrow}>Services</p>
-            <h2 id="capabilities-title">From raw data to working AI</h2>
-            <p>From custom AI to the data foundations it runs on-end to end.</p>
-          </header>
-        )}
-
-      </Container>
-
       {linkCards && (
         <div ref={showcaseRef} className={styles.showcase} aria-label="Service details">
+          {showHeading && (
+            <Container>
+              <header className={styles.headingBlock}>
+                <p className={styles.eyebrow}>Services</p>
+                <h2 id="capabilities-title">From raw data to working AI</h2>
+                <p>From custom AI to the data foundations it runs on-end to end.</p>
+              </header>
+            </Container>
+          )}
           <div className={styles.showcaseViewport} data-service-viewport>
             <div className={styles.showcaseTrack} data-service-track>
               {capabilities.map((capability) => (
-                <article id={capability.anchor} className={styles.showcasePanel} key={capability.pillar}>
+                <article id={capability.anchor} className={styles.showcasePanel} data-service-panel key={capability.pillar}>
                   <div className={styles.showcaseMedia}>
                     <Image
                       className={styles.showcaseImage}
@@ -252,6 +258,15 @@ export function Capabilities({
             </div>
           </div>
         </div>
+      )}
+      {!linkCards && showHeading && (
+        <Container>
+          <header className={styles.headingBlock}>
+            <p className={styles.eyebrow}>Services</p>
+            <h2 id="capabilities-title">From raw data to working AI</h2>
+            <p>From custom AI to the data foundations it runs on-end to end.</p>
+          </header>
+        </Container>
       )}
     </section>
   );

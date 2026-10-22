@@ -35,8 +35,9 @@ const StyledWrapper = styled.div`
   && button:active:not(:disabled) { transform: scale(.95); }
   && button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
   && button:disabled { opacity: 1; cursor: wait; }
-  && button[data-state="success"] { background: #16803c; cursor: default; }
+  && button[data-state="success"] { background: transparent; color: #16803c; box-shadow: none; cursor: default; }
   && button[data-state="error"] { background: #b91c1c; }
+  button[data-state="idle"][data-ready="true"]:hover:not(:disabled) svg { transform: translateX(.45rem) rotate(12deg); }
   button[data-state="submitting"] .svg-wrapper-1 { animation: send-away 700ms cubic-bezier(.4,0,1,1) both; }
   button[data-state="submitting"] svg { transform: translateX(1.2em) rotate(45deg) scale(1.1); }
   button[data-state="submitting"] > span { animation: sending-label 700ms ease both; }
