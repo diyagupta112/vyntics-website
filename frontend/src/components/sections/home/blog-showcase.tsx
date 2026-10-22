@@ -19,12 +19,10 @@ function ArrowIcon({ direction = "right" }: { direction?: "left" | "right" }) {
 }
 
 export function BlogShowcase({ blogs, unavailable = false, loading = false }: { blogs: Blog[]; unavailable?: boolean; loading?: boolean }) {
-  const articles = blogs.map((blog, index) => ({
-    category: blog.category, title: blog.title, railTitle: blog.title, description: blog.excerpt,
-    date: new Date(blog.published_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }),
-    dateTime: blog.published_at, readTime: `${blog.read_time} min read`,
+  const articles = blogs.map((blog) => ({
+    title: blog.title,
     href: `/blog/${encodeURIComponent(blog.slug)}`,
-    accent: "#2563eb", soft: "#DDDBFF", motif: String(index + 1).padStart(2, "0"), cover: blog.cover_image_url,
+    accent: "#2563eb", soft: "#DDDBFF", cover: blog.cover_image_url,
   }));
   const reduceMotion = useReducedMotion();
   const [articleOrder, setArticleOrder] = useState(() => blogs.map((_, index) => index));
@@ -62,7 +60,10 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
   }, [isPaused, reduceMotion, blogs.length]);
 
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
-    if (!event.currentTarget.contains(event.relatedTarget)) setHasFocus(false);
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      setHasFocus(false);
+      setHoveredIndex(null);
+    }
   };
 
   return (
@@ -109,45 +110,20 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
                   } as CSSProperties
                 }
                 onMouseEnter={() => setHoveredIndex(articleIndex)}
-                onFocusCapture={() => showArticle(articleIndex)}
+                onFocusCapture={() => setHoveredIndex(articleIndex)}
               >
-                {!isActive && (
-                  <button
-                    type="button"
-                    className={styles.cardTrigger}
-                    aria-label={`Show ${article.title}`}
-                    onClick={() => showArticle(articleIndex)}
-                  />
-                )}
-
-                <div className={styles.artwork} aria-hidden="true">
-                  {article.cover && <BlogCover src={article.cover} />}
-                  <span className={styles.motif}>{article.motif}</span>
-                  <span className={styles.orbit} />
-                </div>
-                <div className={styles.overlay} />
-                <span className={styles.railLabel} aria-hidden="true">{article.railTitle}</span>
-
-                <div className={styles.cardContent}>
-                  <div className={styles.meta}>
-                    <span>{article.category}</span>
-                    <span aria-hidden="true">·</span>
-                    <span>{article.readTime}</span>
+                <Link className={styles.cardLink} href={article.href} aria-label={`Read ${article.title}`}>
+                  <div className={styles.artwork} aria-hidden="true">
+                    {article.cover && <BlogCover src={article.cover} />}
+                    <span className={styles.orbit} />
                   </div>
 
-                  <div className={styles.copy}>
-                    <h3>{article.title}</h3>
-                    <div className={styles.details} aria-hidden={!isActive || undefined}>
-                      <p>{article.description}</p>
-                      <div className={styles.cardFooter}>
-                        <time dateTime={article.dateTime}>{article.date}</time>
-                        <a className={`${styles.readMore} siteCta`} href={article.href} tabIndex={isActive ? 0 : -1}>
-                          Read article <ArrowIcon />
-                        </a>
-                      </div>
+                  <div className={styles.cardContent}>
+                    <div className={styles.copy}>
+                      <h3>{article.title}</h3>
                     </div>
                   </div>
-                </div>
+                </Link>
               </motion.article>
             );
           })}

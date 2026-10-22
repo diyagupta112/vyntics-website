@@ -1,12 +1,23 @@
 .section {
+  --process-background: #f6f7f8;
+  --process-card: var(--color-surface);
+  --process-ink: var(--color-foreground);
+  --process-muted: var(--color-muted);
+  --process-line: color-mix(in srgb, var(--color-foreground) 48%, transparent);
+  --process-border: color-mix(in srgb, var(--color-foreground) 42%, transparent);
+  --process-ring: color-mix(in srgb, var(--color-surface) 88%, var(--color-background));
   min-height: calc(100svh - 5rem);
   display: grid;
   align-items: center;
   padding-block: clamp(2.5rem, 5vh, 4rem);
   overflow: hidden;
-  color: #0b0b0f;
-  background: #f6f7f8;
+  color: var(--process-ink);
+  background: var(--process-background);
   scroll-margin-top: 5rem;
+}
+
+:global(html[data-theme="dark"]) .section {
+  --process-background: color-mix(in srgb, var(--color-background) 94%, var(--color-surface));
 }
 
 .headingBlock {
@@ -18,7 +29,7 @@
 }
 
 .eyebrow {
-  color: #1453db;
+  color: var(--color-primary);
   font-size: 0.72rem;
   font-weight: 760;
   letter-spacing: 0.2em;
@@ -33,7 +44,7 @@
 }
 
 .headingBlock > p:last-child {
-  color: #676b73;
+  color: var(--process-muted);
   font-size: clamp(0.95rem, 1.35vw, 1.08rem);
 }
 
@@ -57,7 +68,7 @@
 .flowStem,
 .flowPath {
   fill: none;
-  stroke: #777b82;
+  stroke: var(--process-line);
   stroke-width: 1.35;
   vector-effect: non-scaling-stroke;
 }
@@ -70,7 +81,7 @@
 
 .flowMotion {
   fill: none;
-  stroke: #1453db;
+  stroke: var(--color-primary);
   stroke-width: 2.2;
   stroke-linecap: round;
   stroke-dasharray: 0.035 0.215;
@@ -85,7 +96,7 @@
 }
 
 .flowDot {
-  stroke: #f6f7f8;
+  stroke: var(--process-background);
   stroke-width: 4;
   opacity: 0;
   transform-box: fill-box;
@@ -152,7 +163,7 @@
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  border: 0.48rem solid #fff;
+  border: 0.48rem solid var(--process-ring);
   border-radius: 50%;
   color: #fff;
   background: #6c56b3;
@@ -204,10 +215,10 @@
   flex-direction: column;
   justify-content: center;
   padding: clamp(1rem, 1.4vw, 1.3rem);
-  border: 1px solid #8d9096;
+  border: 1px solid var(--process-border);
   border-radius: 1rem;
-  background: #fff;
-  box-shadow: 0 0.4rem 1rem rgb(21 28 42 / 4%);
+  background: var(--process-card);
+  box-shadow: 0 0.4rem 1rem rgb(0 0 0 / 8%);
   text-align: center;
   opacity: 0;
   transform: translateY(0.75rem);
@@ -227,7 +238,7 @@
 }
 
 .stepLabel {
-  color: #1453db;
+  color: var(--color-primary);
   font-size: 0.63rem;
   font-weight: 780;
   letter-spacing: 0.16em;
@@ -243,7 +254,7 @@
 
 .description {
   margin-top: 0.52rem;
-  color: #676b73;
+  color: var(--process-muted);
   font-size: clamp(0.69rem, 0.74vw, 0.77rem);
   line-height: 1.4;
 }
@@ -289,7 +300,7 @@
   }
 
   .step:hover .stepCard {
-    border-color: #1453db;
+    border-color: var(--color-primary);
     box-shadow: 0 0.75rem 1.7rem rgb(20 83 219 / 9%);
   }
 }
@@ -336,7 +347,7 @@
     left: 50%;
     width: 1px;
     content: "";
-    background: #8d9096;
+    background: var(--process-line);
   }
 
   .step:nth-child(even)::before {
@@ -351,7 +362,7 @@
     width: 0.7rem;
     aspect-ratio: 1;
     content: "";
-    border: 3px solid #f6f7f8;
+    border: 3px solid var(--process-background);
     border-radius: 50%;
     background: #6c56b3;
     transform: translate(-50%, -50%);
@@ -401,7 +412,7 @@
     left: 2.5rem;
     width: 1px;
     content: "";
-    background: #8d9096;
+    background: var(--process-line);
   }
 
   .step,

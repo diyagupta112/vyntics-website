@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const technologyGroups = [
-  { label: "AI Solutions", image: "/images/technology-ai-robot.png", description: "AI systems designed for practical business applications, intelligent automation, and grounded responses.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "LangChain", "Google Gemini", "Pinecone", "LangGraph", "PGVector", "RAG", "LLM Assessment"] },
+  { label: "AI Solutions", image: "/images/technology-ai.png", description: "AI systems designed for practical business applications, intelligent automation, and grounded responses.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "LangChain", "Google Gemini", "Pinecone", "LangGraph", "PGVector", "RAG", "LLM Assessment"] },
   { label: "Data Engineering", image: "/images/Data%20Engineering.jpg", description: "Ingestion, transformation, storage, modeling, and controlled access are all reliable.", tools: ["Snowflake", "dbt", "PostgreSQL", "Python", "SQL", "Apache Spark", "Apache Airflow", "Kafka", "AWS Glue", "Amazon S3"] },
   { label: "Analytics & BI", image: "/images/Analytics%26BI.jpg", description: "Data is transformed into understandable decisions through shared metrics and reporting layers.", tools: ["Power BI", "Tableau", "QuickSight", "Looker", "Grafana", "DAX", "Power Query", "Semantic models", "KPI modeling"] },
   { label: "Cloud Foundations", image: "/images/Cloud%20Operations.png", description: "Infrastructure that is observable, secure, and built on dependability and affordability.", tools: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "AWS Fargate", "GitHub Actions", "CI/CD", "Observability"] },
