@@ -1,3 +1,4 @@
+import { cloudPlatforms } from "@/content/service-platforms";
 import { ServicesHero } from "@/components/pages/services-hero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -97,11 +98,7 @@ export default function CloudFoundationsPage() {
         headingId="cloud-platforms-title"
         sectionName="Cloud platforms we work with"
         introduction="We choose the cloud platform around your workloads, existing systems, security requirements, and team skills."
-        platforms={[
-          { name: "AWS", role: "Cloud infrastructure", description: "Architecture, workload migration, and operational tooling for applications and data on AWS." },
-          { name: "Azure", role: "Microsoft cloud", description: "Cloud infrastructure services that connect Microsoft environments with secure, manageable Azure workloads." },
-          { name: "Google Cloud", role: "Applications and data", description: "Cloud services for businesses building applications and data platforms on Google Cloud." },
-        ]}
+        platforms={cloudPlatforms}
       />
 
       <ServicePillarApproach

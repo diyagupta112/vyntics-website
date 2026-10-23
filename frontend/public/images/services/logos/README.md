@@ -54,3 +54,37 @@ Assets are copied without editing paths, fills, colors or embedded artwork. Logo
 - `microsoft-fabric.svg`: Microsoft Fabric icon from the [theSVG color collection](https://api.iconify.design/thesvg-color/microsoft-fabric.svg) (MIT), only the width and height attributes were set to 48.
 
 Color note: `anthropic.svg`, `make.svg`, `n8n.svg`, `qdrant.svg`, `langchain.svg`, `langgraph.svg` and `zapier.svg` have the brand color from Simple Icons added as a `fill` on the root element (Anthropic #D97757, Make #6D00CC, Zapier #FF4F00, n8n #EA4B71, Qdrant #DC244C, LangChain and LangGraph #7FC8FF). Paths are unchanged.
+
+## Additional Technology showcase artwork
+
+The following marks use the installed Simple Icons dataset. Original paths are unchanged; the dataset brand color is applied to the root SVG. No package was added or upgraded.
+
+- `google-bigquery.svg`: Google BigQuery. Brand source: https://cloud.google.com/icons.
+- `python.svg`: Python. Brand source: https://www.python.org/community/logos/.
+- `redis.svg`: Redis. Brand source: https://redis.io/brand-guidelines.
+- `apache-spark.svg`: Apache Spark. Brand source: https://apache.org/logos.
+- `cloudflare.svg`: Cloudflare. Brand source: https://www.cloudflare.com/logo/.
+- `datadog.svg`: Datadog. Brand source: https://www.datadoghq.com/about/resources.
+- `opentelemetry.svg`: OpenTelemetry. Brand source: https://cncf-branding.netlify.app/projects/opentelemetry/.
+- `sql.svg`: an original, generic database symbol labeled SQL. SQL is a language, so this is a neutral technology icon, not a vendor or official SQL logo.
+
+## Complete service audit additions (October 23, 2026)
+
+Product-specific artwork is used by the Technology showcase only; service-page logo mappings are preserved.
+
+- `soda.png`: [Soda's official site icon](https://framerusercontent.com/images/58rM94IqerBOZybc1FCDgKLQ8s.png), linked as the favicon on https://soda.io/.
+- `google-document-ai.svg`, `google-cloud-billing.svg`: unchanged document_ai/document_ai.svg and billing/billing.svg from [Google's official legacy console icon package](https://services.google.com/fh/files/misc/google-cloud-legacy-icons.zip), linked by the [official icon library](https://cloud.google.com/icons).
+
+- `react.svg`: installed Simple Icons React paths and brand color. [Publisher source](https://github.com/facebook/create-react-app/blob/282c03f9525fdf8061ffa1ec50dce89296d916bd/test/fixtures/relative-paths/src/logo.svg).
+- `supabase.svg`: installed Simple Icons Supabase paths and brand color. [Publisher source](https://github.com/supabase/supabase/blob/4031a7549f5d46da7bc79c01d56be4177dc7c114/packages/common/assets/images/supabase-logo-wordmark--light.svg).
+- `aws-redshift.png`, `aws-glue.png`: [AWS Labs v23.1 Analytics product icons](https://github.com/awslabs/aws-icons-for-plantuml/tree/v23.1/dist/Analytics), Redshift.png and Glue.png.
+- `aws-lambda.png`: [AWS Labs Lambda icon](https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v23.1/dist/Compute/Lambda.png).
+- `aws-cost-explorer.png`: [AWS Labs Cost Explorer icon](https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v23.1/dist/CloudFinancialManagement/CostExplorer.png).
+- `amazon-textract.png`: [AWS Labs Textract icon](https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v23.1/dist/ArtificialIntelligence/Textract.png).
+- `amazon-quicksight.png`: [AWS Labs QuickSight icon](https://raw.githubusercontent.com/awslabs/aws-icons-for-plantuml/v20.0/dist/Analytics/QuickSight.png). The service page names QuickSight, so its product icon is retained rather than substituting the newer Quick Suite identity.
+- `azure-data-factory.svg`, `azure-synapse.svg`, `azure-ai.svg`, `azure-document-intelligence.svg`, `azure-openai.svg`, `azure-cost-management.svg`: unchanged SVG files from the [official Microsoft Azure V24 architecture package](https://arch-center.azureedge.net/icons/Azure_Public_Service_Icons_V24.zip). Original IDs: 10126 Data Factories; 00606 Azure Synapse Analytics; 10162 Cognitive Services; 00819 Form Recognizers (Document Intelligence); 03438 Azure OpenAI; 10019 Cost Management.
+- `power-query.svg`: [Microsoft Power Query colored mark](https://raw.githubusercontent.com/microsoft/PowerBI-Icons/main/SVG/Power-Query-Colored.svg).
+- `excel.svg`: [Microsoft Excel workbook mark](https://raw.githubusercontent.com/microsoft/PowerBI-Icons/main/SVG/Excel-Workbook.svg).
+- `mulesoft.png`: [Salesforce MuleSoft media-library asset](https://www.salesforce.com/news/wp-content/uploads/sites/3/2023/09/MuleSoft-From-Salesforce-Logo-RGB.png).
+
+Distinct Tableau deployment products and Power BI Service use their correct family marks. They are not collapsed into another product solely because their official artwork is shared. Unverified product logos and generic placeholder artwork are not substituted; those technologies retain readable names.

@@ -1,48 +1,44 @@
 export const serviceSitemap = [
   {
-    "slug": "cloud-foundations",
-    "name": "Cloud Foundations",
-    "description": "Cloud architecture, delivery, cost, and reliability.",
-    "base": "cloud",
+    "slug": "ai-solutions",
+    "name": "AI Solutions",
+    "description": "AI assistants, agents, and automation grounded in your data.",
+    "base": "ai",
     "services": [
       {
-        "slug": "cloud-architecture-migration",
-        "name": "Cloud Architecture & Migration",
-        "description": "Systems designed for scale and operational simplicity.",
+        "slug": "rag-knowledge-assistants",
+        "name": "RAG & Knowledge Assistants",
+        "description": "Answers grounded in approved content with verifiable sources.",
         "sources": [
           {
-            "group": "cloud",
-            "slug": "cloud-architecture"
-          },
-          {
-            "group": "cloud",
-            "slug": "cloud-migration"
+            "group": "ai",
+            "slug": "rag-assistants"
           }
         ]
       },
       {
-        "slug": "devops-reliability",
-        "name": "DevOps & Reliability",
-        "description": "Repeatable environments and automated deployments.",
+        "slug": "ai-agents",
+        "name": "AI Agents",
+        "description": "Connected tools and controlled workflow actions.",
         "sources": [
           {
-            "group": "cloud",
-            "slug": "devops-infrastructure"
-          },
-          {
-            "group": "cloud",
-            "slug": "reliability-monitoring"
+            "group": "ai",
+            "slug": "ai-agents"
           }
         ]
       },
       {
-        "slug": "cloud-cost-optimization",
-        "name": "Cloud Cost Optimization",
-        "description": "Cost visibility and practical right-sizing.",
+        "slug": "intelligent-automation",
+        "name": "Intelligent Automation",
+        "description": "Automate repeated steps with human oversight.",
         "sources": [
           {
-            "group": "cloud",
-            "slug": "cost-optimization"
+            "group": "ai",
+            "slug": "document-automation"
+          },
+          {
+            "group": "ai",
+            "slug": "workflow-automation"
           }
         ]
       }
@@ -98,86 +94,49 @@ export const serviceSitemap = [
     ]
   },
   {
-    "slug": "analytics-bi",
-    "name": "Analytics & BI",
-    "description": "Dashboards and reporting built around business decisions.",
-    "base": "data",
+    "slug": "cloud-foundations",
+    "name": "Cloud Foundations",
+    "description": "Cloud architecture, delivery, cost, and reliability.",
+    "base": "cloud",
     "services": [
       {
-        "slug": "dashboards-executive-reporting",
-        "name": "Dashboards & Executive Reporting",
-        "description": "Shared metrics and decision-ready views.",
+        "slug": "cloud-architecture-migration",
+        "name": "Cloud Architecture & Migration",
+        "description": "Systems designed for scale and operational simplicity.",
         "sources": [
           {
-            "group": "analytics",
-            "slug": "kpi-dashboards"
+            "group": "cloud",
+            "slug": "cloud-architecture"
           },
           {
-            "group": "analytics",
-            "slug": "executive-reporting"
-          },
-          {
-            "group": "analytics",
-            "slug": "power-bi"
-          },
-          {
-            "group": "analytics",
-            "slug": "tableau"
-          },
-          {
-            "group": "analytics",
-            "slug": "amazon-quicksight"
+            "group": "cloud",
+            "slug": "cloud-migration"
           }
         ]
       },
       {
-        "slug": "bi-consulting",
-        "name": "BI Consulting",
-        "description": "Dashboards and reporting built around business decisions.",
-        "sources": []
-      }
-    ]
-  },
-  {
-    "slug": "ai-solutions",
-    "name": "AI Solutions",
-    "description": "AI assistants, agents, and automation grounded in your data.",
-    "base": "ai",
-    "services": [
-      {
-        "slug": "rag-knowledge-assistants",
-        "name": "RAG & Knowledge Assistants",
-        "description": "Answers grounded in approved content with verifiable sources.",
+        "slug": "devops-reliability",
+        "name": "DevOps & Reliability",
+        "description": "Repeatable environments and automated deployments.",
         "sources": [
           {
-            "group": "ai",
-            "slug": "rag-assistants"
-          }
-        ]
-      },
-      {
-        "slug": "ai-agents",
-        "name": "AI Agents",
-        "description": "Connected tools and controlled workflow actions.",
-        "sources": [
-          {
-            "group": "ai",
-            "slug": "ai-agents"
-          }
-        ]
-      },
-      {
-        "slug": "intelligent-automation",
-        "name": "Intelligent Automation",
-        "description": "Automate repeated steps with human oversight.",
-        "sources": [
-          {
-            "group": "ai",
-            "slug": "document-automation"
+            "group": "cloud",
+            "slug": "devops-infrastructure"
           },
           {
-            "group": "ai",
-            "slug": "workflow-automation"
+            "group": "cloud",
+            "slug": "reliability-monitoring"
+          }
+        ]
+      },
+      {
+        "slug": "cloud-cost-optimization",
+        "name": "Cloud Cost Optimization",
+        "description": "Cost visibility and practical right-sizing.",
+        "sources": [
+          {
+            "group": "cloud",
+            "slug": "cost-optimization"
           }
         ]
       }
@@ -220,5 +179,47 @@ export const serviceSitemap = [
         ]
       }
     ]
+  },
+  {
+    "slug": "analytics-bi",
+    "name": "Analytics & BI",
+    "description": "Dashboards and reporting built around business decisions.",
+    "base": "data",
+    "services": [
+      {
+        "slug": "dashboards-executive-reporting",
+        "name": "Dashboards & Executive Reporting",
+        "description": "Shared metrics and decision-ready views.",
+        "sources": [
+          {
+            "group": "analytics",
+            "slug": "kpi-dashboards"
+          },
+          {
+            "group": "analytics",
+            "slug": "executive-reporting"
+          },
+          {
+            "group": "analytics",
+            "slug": "power-bi"
+          },
+          {
+            "group": "analytics",
+            "slug": "tableau"
+          },
+          {
+            "group": "analytics",
+            "slug": "amazon-quicksight"
+          }
+        ]
+      },
+      {
+        "slug": "bi-consulting",
+        "name": "BI Consulting",
+        "description": "Dashboards and reporting built around business decisions.",
+        "sources": []
+      }
+    ]
   }
+
 ] as const;

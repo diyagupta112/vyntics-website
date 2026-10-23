@@ -1,3 +1,4 @@
+import { aiPlatforms as platforms } from "@/content/service-platforms";
 import { ServicesHero } from "@/components/pages/services-hero";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -28,16 +29,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/services/ai-solutions" },
 };
 
-const platforms = [
-  { name: "OpenAI", role: "Language models", description: "Reasoning, generation, structured outputs, embeddings, and tool use across production AI workloads." },
-  { name: "Anthropic", role: "Language models", description: "Long-context reasoning and generation for knowledge, analysis, and controlled agent workflows." },
-  { name: "n8n", role: "Workflow automation", description: "Coordinate repeatable workflows, system actions, and automated hand-offs." },
-  { name: "Pinecone", role: "Vector retrieval", description: "Scalable semantic search, metadata filtering, and retrieval across enterprise knowledge collections." },
-  { name: "Qdrant", role: "Vector retrieval", description: "Scalable semantic search, metadata filtering, and retrieval across enterprise knowledge collections." },
-  { name: "LangGraph", role: "AI orchestration", description: "Stateful agent workflows, tool coordination, and human checkpoints." },
-  { name: "LangChain", role: "AI orchestration", description: "Retrieval pipelines, tool coordination, and tracing across AI workflows." },
-  { name: "Azure AI", role: "Enterprise AI", description: "Governed model access and document intelligence for organizations operating in the Microsoft ecosystem." },
-] as const;
+
 
 const aiServices = [
   { number: "01", title: "RAG & Knowledge Assistants", slug: "rag-knowledge-assistants" },

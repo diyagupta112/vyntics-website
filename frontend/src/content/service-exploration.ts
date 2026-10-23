@@ -9,9 +9,9 @@ export const explorationServices: Record<ServicePillar, { name: string; descript
   "crm-revenue-ops": { name: "CRM & Revenue Ops", description: "CRM implementation and analytics that fit how your team sells.", image: "/images/technology-crm-workspace.png", iconPath: "M15 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM5 21v-3a7 7 0 0 1 14 0v3M19 5a3 3 0 0 1 0 6M21 15a5 5 0 0 1 3 5" },
 };
 export const serviceExplorationOrder: Record<ServicePillar, readonly ServicePillar[]> = {
-  "cloud-foundations": ["data-engineering", "analytics-bi", "ai-solutions", "crm-revenue-ops"],
-  "data-engineering": ["analytics-bi", "ai-solutions", "cloud-foundations", "crm-revenue-ops"],
-  "analytics-bi": ["ai-solutions", "data-engineering", "crm-revenue-ops", "cloud-foundations"],
-  "ai-solutions": ["crm-revenue-ops", "data-engineering", "analytics-bi", "cloud-foundations"],
-  "crm-revenue-ops": ["analytics-bi", "ai-solutions", "data-engineering", "cloud-foundations"],
+  "cloud-foundations": ["ai-solutions", "data-engineering", "crm-revenue-ops", "analytics-bi"],
+  "data-engineering": ["ai-solutions", "cloud-foundations", "crm-revenue-ops", "analytics-bi"],
+  "analytics-bi": ["ai-solutions", "data-engineering", "cloud-foundations", "crm-revenue-ops"],
+  "ai-solutions": ["data-engineering", "cloud-foundations", "crm-revenue-ops", "analytics-bi"],
+  "crm-revenue-ops": ["ai-solutions", "data-engineering", "cloud-foundations", "analytics-bi"],
 };

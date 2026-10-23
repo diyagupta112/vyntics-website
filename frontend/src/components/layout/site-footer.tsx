@@ -19,14 +19,12 @@ type ServiceGroup = {
   items: readonly FooterItem[];
 };
 
-// Share the header's real service destinations while keeping the footer order.
-const serviceGroups: readonly ServiceGroup[] = [
-  "Cloud Foundations", "Data Engineering", "Analytics & BI", "AI Solutions", "CRM & Revenue Ops",
-].map(label => {
-  const group = serviceNavigation.find(item => item.label === label);
-  if (!group) throw new Error(`Missing service navigation group: ${label}`);
-  return { label: group.label, href: group.href, items: (group.children ?? []).map(item => ({ label: item.label, href: item.href })) };
-});
+// Share the header's service destinations and order.
+const serviceGroups: readonly ServiceGroup[] = serviceNavigation.map(group => ({
+  label: group.label,
+  href: group.href,
+  items: (group.children ?? []).map(item => ({ label: item.label, href: item.href })),
+}));
 
 // One heading track plus enough shared tracks for the longest service list.
 const serviceGridStyle = {

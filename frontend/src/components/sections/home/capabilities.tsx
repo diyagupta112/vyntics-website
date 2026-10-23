@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { Container } from "@/components/ui/container";
 import { serviceSitemap } from "@/content/service-sitemap";
 import styles from "./capabilities.module.css";
@@ -47,20 +47,6 @@ const capabilityDetails: ReadonlyArray<{
     ],
   },
   {
-    pillar: "analytics-bi",
-    anchor: "services-analytics",
-    image: "/images/technology-Analytics%26BI.jpg",
-    imageAlt: "Analyst working with business dashboards",
-    imagePosition: "43% center",
-    description:
-      "Analytics & BI turns governed data into clear metrics, dashboards, and executive reporting that support real decisions. We align definitions across teams, design useful reporting layers, and select tools that match how people work. Leaders gain a consistent view of performance, while analysts spend less time reconciling conflicting numbers and more time explaining what the data means.",
-    highlights: [
-      { label: "Dashboards", service: "dashboards-executive-reporting" },
-      { label: "Executive Reporting", service: "dashboards-executive-reporting" },
-      { label: "BI Consulting", service: "bi-consulting" },
-    ],
-  },
-  {
     pillar: "cloud-foundations",
     anchor: "services-cloud",
     image: "/images/technology-Cloud%20Operations.png",
@@ -89,6 +75,21 @@ const capabilityDetails: ReadonlyArray<{
       { label: "Revenue Analytics", service: "sales-automation-revenue-analytics" },
     ],
   },
+  {
+    pillar: "analytics-bi",
+    anchor: "services-analytics",
+    image: "/images/technology-Analytics%26BI.jpg",
+    imageAlt: "Analyst working with business dashboards",
+    imagePosition: "43% center",
+    description:
+      "Analytics & BI turns governed data into clear metrics, dashboards, and executive reporting that support real decisions. We align definitions across teams, design useful reporting layers, and select tools that match how people work. Leaders gain a consistent view of performance, while analysts spend less time reconciling conflicting numbers and more time explaining what the data means.",
+    highlights: [
+      { label: "Dashboards", service: "dashboards-executive-reporting" },
+      { label: "Executive Reporting", service: "dashboards-executive-reporting" },
+      { label: "BI Consulting", service: "bi-consulting" },
+    ],
+  }
+
 ];
 
 const capabilities = capabilityDetails.map((capability) => {
@@ -126,7 +127,7 @@ export function Capabilities({
 }: CapabilitiesProps = {}) {
   const showcaseRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!linkCards) return;
 
     const showcase = showcaseRef.current;
