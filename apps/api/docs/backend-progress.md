@@ -4,9 +4,9 @@
 
 ## Current phase
 
-Life at Vyntics gallery backend is implemented and verified (see the Life at
-Vyntics section below). The migration is added but not yet applied to the
-configured database; live Storage-provider verification remains pending.
+Life at Vyntics image-gallery backend is implemented, verified, and both of its
+migrations are applied to the configured database (see the Life at Vyntics
+section below).
 
 Testimonial company-logo Storage support is implemented and verified through
 focused, real PostgreSQL, startup/health, and OpenAPI checks. Live Storage-provider
@@ -1552,54 +1552,70 @@ Admin Panel exists.
   Client regression coverage preserves 25 records without adding query limits
   and verifies malformed payloads/service errors are surfaced instead of hidden.
 
-## Life at Vyntics gallery backend - 2026-10-22
+## Life at Vyntics image gallery backend - 2026-10-22 (simplified 2026-10-23)
 
-**Status:** Implemented and verified with mocked-provider and real PostgreSQL
-tests. Migration `20261022120000_create_life_at_vyntics.sql` is not yet applied
-to the configured database; live Storage verification pending.
+**Status:** Implemented and verified with mocked-provider and real PostgreSQL tests.
+`20261022120000_create_life_at_vyntics.sql` and the simplifying forward migration
+`20261023120000_simplify_life_at_vyntics.sql` were both applied to the configured
+database with `supabase db push` on 2026-10-23 (dry run first; the ledger was not
+edited by hand). The table held 0 rows when the second migration ran. Live Storage
+behavior was verified against the real `life-at-vyntics` bucket before the
+simplification.
 
-**Purpose:** photos from offsites, festivals, team outings and internal events.
+**Purpose:** an image-only gallery of company moments (offsites, celebrations,
+outings, team events) for the public About page. There is no title, description,
+active flag, status, or other content metadata.
 
-**Fields:** `id` (uuid), `title` (required, non-blank), `description` (nullable),
-`image_url` (nullable, backend-managed), `display_order` (int, default 0),
-`is_active` (bool, default true), `created_at`, `updated_at` (trigger-maintained).
-Index `(is_active, display_order, created_at, id)`. No RLS; access is through the
-privileged backend like other resources.
+**Fields:** `id` (uuid), `image_url` (nullable, backend-managed), `display_order`
+(integer >= 1, unique, dense 1..n), `created_at`, `updated_at` (trigger-maintained).
+The unique constraint is `DEFERRABLE INITIALLY DEFERRED` so one UPDATE can shift a
+range of positions inside a transaction. No RLS.
 
 **Public endpoints (no auth):**
-- `GET /life-at-vyntics` returns `{ "data": [...] }` of active rows ordered by
-  `display_order, created_at, id` (public fields only: id, title, description,
-  image_url, display_order).
-- `GET /life-at-vyntics/{id}` returns one active row; missing or inactive is 404.
+- `GET /life-at-vyntics` returns `{ "data": [...] }`, every row, ordered by
+  `display_order, created_at, id`.
+- `GET /life-at-vyntics/{id}` returns one row or 404.
 
 **Protected endpoints (existing admin authentication, any active admin role):**
-- `GET /admin/life-at-vyntics` (all rows, plain array) and
+- `GET /admin/life-at-vyntics` (plain array, same order) and
   `GET /admin/life-at-vyntics/{id}`.
-- `POST /life-at-vyntics` (title, optional description/display_order/is_active).
-- `PATCH /life-at-vyntics/{id}`; omitted fields unchanged; `description` may be
-  null; null `title`, `display_order`, `is_active` are rejected. `image_url` is
-  not accepted by POST or PATCH.
-- `DELETE /life-at-vyntics/{id}`; hard delete, then best-effort removal of the
-  managed image.
-- `PUT /life-at-vyntics/{id}/image` (multipart `file`) and
-  `DELETE /life-at-vyntics/{id}/image`.
+- `POST /life-at-vyntics` with optional `{"display_order": n}`. Omitted appends at
+  the end. A supplied position inserts there and shifts later rows up by one;
+  positions beyond the end are clamped to count + 1. No image is sent here.
+- `PATCH /life-at-vyntics/{id}` with `{"display_order": n}`, the only editable field.
+  Moving up or down shifts exactly the rows between the old and new positions;
+  n is clamped to the row count; moving to the current position is a no-op without
+  an audit event. Zero, negatives, decimals, strings, booleans and explicit null
+  are rejected with 422, as are unknown fields.
+- `DELETE /life-at-vyntics/{id}`: deletes the row, decrements every later position
+  so no gap remains, then removes the managed image object.
+- `PUT /life-at-vyntics/{id}/image` and `DELETE /life-at-vyntics/{id}/image`
+  change only `image_url`; display_order and the record are untouched.
 
-**Storage:** existing public bucket `life-at-vyntics` (setting
-`STORAGE_LIFE_AT_VYNTICS_BUCKET`); the backend never creates it. Objects are
-stored at `{resource_id}/{sha256}.{ext}` through the shared
-`SupabasePublicImageStorage`: JPEG, PNG or WebP, at most 5 MiB, with extension,
-declared MIME and content signature all validated. Upload order is Storage
-upload, DB update and audit in one commit, then deletion of the previous managed
-object. If the DB step fails the new object is removed and the previous state is
-kept. Cleanup failures after commit are logged, not rolled back. External URLs
-and objects outside the item's own prefix are never deleted from Storage.
+**Response:** `{id, image_url, display_order, created_at, updated_at}`.
 
-**Audit:** create, update, delete write `audit_logs` rows with resource type
-`life_at_vyntics`. Image upload, replace and delete are recorded as `update`
-with `changed_fields: ["image_url"]` and `image_operation` of `upload`,
-`replace` or `delete`. Titles and descriptions are not copied into audit context.
+**Ordering algorithm:** every create, reorder and delete runs in one transaction
+that first takes `pg_advisory_xact_lock(hashtext('life_at_vyntics_display_order'))`,
+so concurrent admin operations serialize and cannot produce duplicates or gaps.
+The row is reloaded after the lock before positions are computed. Shifts are single
+set-based UPDATE statements. The audit entry and the shift commit together.
 
-**Verification:** focused API/auth/storage/audit tests in
-`tests/test_life_at_vyntics.py`; real PostgreSQL migration and lifecycle test in
-`tests/test_life_at_vyntics_integration.py`. Admin Panel and public website were
-not changed.
+**Storage:** existing public bucket `life-at-vyntics` (`STORAGE_LIFE_AT_VYNTICS_BUCKET`);
+the backend never creates it. Objects are `{resource_id}/{sha256}.{ext}` through
+the shared `SupabasePublicImageStorage` (JPEG, PNG, WebP, at most 5 MiB, extension,
+MIME and signature validated). Upload, then DB update plus audit and commit, then
+cleanup of the previous managed object; a DB failure removes the new object.
+External URLs and objects outside the item's own prefix are never deleted.
+
+**Audit:** resource type `life_at_vyntics`. create, update (reorder, with
+`changed_fields: ["display_order"]` and `previous_display_order`), delete, and image
+upload/replace/delete (`update` with `image_operation`).
+
+**Migration data notes:** the forward migration renumbers existing rows to 1..n by
+`(display_order, created_at, id)`, keeps every row and `image_url`, and drops
+`title`, `description`, `is_active`. Rows that were inactive become public.
+
+**Verification:** `tests/test_life_at_vyntics.py` (API, auth, ordering, Storage,
+audit) and `tests/test_life_at_vyntics_integration.py` (previous-schema to new-schema
+migration with data, then real PostgreSQL ordering, concurrency and Storage
+lifecycle). The Admin Panel and public website are updated separately.

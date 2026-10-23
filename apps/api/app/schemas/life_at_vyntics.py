@@ -1,50 +1,46 @@
-"""Life at Vyntics request and public/admin response contracts."""
+"""Life at Vyntics image-gallery request and response contracts."""
 
 from datetime import datetime
 from typing import Annotated, TypeAlias
 from uuid import UUID
 
-from pydantic import StrictBool, StrictInt, StringConstraints, field_validator
+from pydantic import Field, field_validator, model_validator
 
 from app.schemas.common import RequestSchema, ResponseSchema
 
-NonEmptyText: TypeAlias = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
+Position: TypeAlias = Annotated[int, Field(strict=True, ge=1)]
 
 
 class LifeAtVynticsCreateRequest(RequestSchema):
-    title: NonEmptyText
-    description: str | None = None
-    display_order: StrictInt = 0
-    is_active: StrictBool = True
+    """Omitted display_order appends; a supplied one inserts and shifts the rest."""
+
+    display_order: Position | None = None
+
+    @model_validator(mode="after")
+    def reject_explicit_null(self) -> "LifeAtVynticsCreateRequest":
+        if "display_order" in self.model_fields_set and self.display_order is None:
+            raise ValueError("display_order cannot be null")
+        return self
 
 
 class LifeAtVynticsUpdateRequest(RequestSchema):
-    title: NonEmptyText | None = None
-    description: str | None = None
-    display_order: StrictInt | None = None
-    is_active: StrictBool | None = None
+    display_order: Position | None = None
 
-    @field_validator("title", "display_order", "is_active")
+    @field_validator("display_order")
     @classmethod
-    def reject_null_required_fields(cls, value: object) -> object:
+    def reject_null(cls, value: object) -> object:
         if value is None:
             raise ValueError("field cannot be null")
         return value
 
 
-class LifeAtVynticsPublicItem(ResponseSchema):
+class LifeAtVynticsResponse(ResponseSchema):
     id: UUID
-    title: str
-    description: str | None
     image_url: str | None
     display_order: int
+    created_at: datetime
+    updated_at: datetime
 
 
 class LifeAtVynticsListResponse(ResponseSchema):
-    data: list[LifeAtVynticsPublicItem]
-
-
-class LifeAtVynticsAdminResponse(LifeAtVynticsPublicItem):
-    is_active: bool
-    created_at: datetime
-    updated_at: datetime
+    data: list[LifeAtVynticsResponse]

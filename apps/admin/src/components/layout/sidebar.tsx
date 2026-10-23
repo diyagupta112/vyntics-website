@@ -5,6 +5,7 @@ import {
   BriefcaseBusiness,
   BadgeCheck,
   ClipboardList,
+  Images,
   FolderKanban,
   Inbox,
   LayoutDashboard,
@@ -38,6 +39,7 @@ const navigation: readonly NavigationItem[] = [
   { label: "Careers", href: "/careers", icon: BriefcaseBusiness },
   { label: "Job Applications", href: "/job-applications", icon: ClipboardList },
   { label: "Our Team", href: "/team", icon: UsersRound },
+  { label: "Life at Vyntics", href: "/life-at-vyntics", icon: Images },
   { label: "Contact Submissions", href: "/contact", icon: Inbox },
 ];
 

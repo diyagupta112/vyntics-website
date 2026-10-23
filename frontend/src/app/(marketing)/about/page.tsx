@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { LifeAtVyntics, LifeAtVynticsSkeleton } from "@/components/pages/life-at-vyntics";
 import { TeamShowcase } from "@/components/pages/team-showcase";
 import { Container } from "@/components/ui/container";
 import styles from "./page.module.css";
@@ -58,13 +60,12 @@ export default function AboutPage() {
 
           <figure className={styles.companyIntroVisual}>
             <Image
-              src="/images/about-vyntics-team.png"
-              alt="A business team collaborating during a meeting"
+              src="/images/about-vyntics-office-meeting.jpg"
+              alt="A team meeting around a desk in a modern glass-walled office"
               fill
               sizes="(max-width: 860px) 100vw, 46vw"
             />
             <figcaption>
-              <span>Built in Jaipur</span>
               <strong>Designed for real operating environments.</strong>
             </figcaption>
           </figure>
@@ -108,8 +109,8 @@ export default function AboutPage() {
         <Container className={styles.storyGrid}>
           <figure className={styles.storyMarker}>
             <Image
-              src="/images/about-story-collaboration.png"
-              alt="A team collaborating around a table with laptops"
+              src="/images/about-story-team-meeting.jpg"
+              alt="Four colleagues discussing a project around a table in a brick-walled office"
               fill
               sizes="(max-width: 860px) 100vw, 38vw"
             />
@@ -132,6 +133,10 @@ export default function AboutPage() {
       </section>
 
       <TeamShowcase />
+
+      <Suspense fallback={<LifeAtVynticsSkeleton />}>
+        <LifeAtVyntics />
+      </Suspense>
 
       <section className={styles.cta}>
         <Container className={styles.ctaInner}>

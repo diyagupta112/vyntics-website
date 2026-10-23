@@ -8,10 +8,9 @@ from fastapi import APIRouter, File, HTTPException, Response, UploadFile
 from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.life_at_vyntics import LifeAtVynticsServiceDependency
 from app.schemas.life_at_vyntics import (
-    LifeAtVynticsAdminResponse,
     LifeAtVynticsCreateRequest,
     LifeAtVynticsListResponse,
-    LifeAtVynticsPublicItem,
+    LifeAtVynticsResponse,
     LifeAtVynticsUpdateRequest,
 )
 from app.services.life_at_vyntics import LifeAtVynticsNotFoundError, LifeAtVynticsPersistenceError
@@ -23,7 +22,7 @@ admin_router = APIRouter(prefix="/admin/life-at-vyntics", tags=["admin life at v
 
 
 def _not_found() -> HTTPException:
-    return HTTPException(status_code=404, detail="Life at Vyntics item not found.")
+    return HTTPException(status_code=404, detail="Life at Vyntics image not found.")
 
 
 def _service_error() -> HTTPException:
@@ -37,22 +36,22 @@ def _storage_unavailable() -> HTTPException:
 @router.get("", response_model=LifeAtVynticsListResponse)
 async def list_public_life_at_vyntics(service: LifeAtVynticsServiceDependency) -> LifeAtVynticsListResponse:
     try:
-        return LifeAtVynticsListResponse(data=await service.list_public())
+        return LifeAtVynticsListResponse(data=await service.list_all())
     except LifeAtVynticsPersistenceError:
         raise _service_error() from None
 
 
-@router.get("/{resource_id}", response_model=LifeAtVynticsPublicItem)
+@router.get("/{resource_id}", response_model=LifeAtVynticsResponse)
 async def get_public_life_at_vyntics(resource_id: UUID, service: LifeAtVynticsServiceDependency) -> object:
     try:
-        return await service.get_public_by_id(resource_id)
+        return await service.get_by_id(resource_id)
     except LifeAtVynticsNotFoundError:
         raise _not_found() from None
     except LifeAtVynticsPersistenceError:
         raise _service_error() from None
 
 
-@admin_router.get("", response_model=list[LifeAtVynticsAdminResponse])
+@admin_router.get("", response_model=list[LifeAtVynticsResponse])
 async def list_admin_life_at_vyntics(_admin: AuthenticatedAdminDependency, service: LifeAtVynticsServiceDependency) -> list[object]:
     try:
         return await service.list_all()
@@ -60,7 +59,7 @@ async def list_admin_life_at_vyntics(_admin: AuthenticatedAdminDependency, servi
         raise _service_error() from None
 
 
-@admin_router.get("/{resource_id}", response_model=LifeAtVynticsAdminResponse)
+@admin_router.get("/{resource_id}", response_model=LifeAtVynticsResponse)
 async def get_admin_life_at_vyntics(resource_id: UUID, _admin: AuthenticatedAdminDependency, service: LifeAtVynticsServiceDependency) -> object:
     try:
         return await service.get_by_id(resource_id)
@@ -70,7 +69,7 @@ async def get_admin_life_at_vyntics(resource_id: UUID, _admin: AuthenticatedAdmi
         raise _service_error() from None
 
 
-@router.post("", response_model=LifeAtVynticsAdminResponse, status_code=201)
+@router.post("", response_model=LifeAtVynticsResponse, status_code=201)
 async def create_life_at_vyntics(request: LifeAtVynticsCreateRequest, admin: AuthenticatedAdminDependency, service: LifeAtVynticsServiceDependency) -> object:
     try:
         return await service.create(request, actor=admin)
@@ -78,7 +77,7 @@ async def create_life_at_vyntics(request: LifeAtVynticsCreateRequest, admin: Aut
         raise _service_error() from None
 
 
-@router.patch("/{resource_id}", response_model=LifeAtVynticsAdminResponse)
+@router.patch("/{resource_id}", response_model=LifeAtVynticsResponse)
 async def update_life_at_vyntics(resource_id: UUID, request: LifeAtVynticsUpdateRequest, admin: AuthenticatedAdminDependency, service: LifeAtVynticsServiceDependency) -> object:
     try:
         return await service.update(resource_id, request, actor=admin)
@@ -99,7 +98,7 @@ async def delete_life_at_vyntics(resource_id: UUID, admin: AuthenticatedAdminDep
     return Response(status_code=204)
 
 
-@router.put("/{resource_id}/image", response_model=LifeAtVynticsAdminResponse)
+@router.put("/{resource_id}/image", response_model=LifeAtVynticsResponse)
 async def upload_life_at_vyntics_image(
     resource_id: UUID,
     admin: AuthenticatedAdminDependency,
