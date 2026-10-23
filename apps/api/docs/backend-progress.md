@@ -1619,3 +1619,33 @@ upload/replace/delete (`update` with `image_operation`).
 audit) and `tests/test_life_at_vyntics_integration.py` (previous-schema to new-schema
 migration with data, then real PostgreSQL ordering, concurrency and Storage
 lifecycle). The Admin Panel and public website are updated separately.
+
+## Database pool exhaustion behind Admin 500/CORS failures - 2026-10-23
+
+**Symptom:** Admin Dashboard requests (`/admin/me`, `/admin/blogs`, `/admin/case-studies`,
+`/admin/job-applications`, `/admin/contact-submissions`) failed with a browser CORS error
+and a 500, locally and against the hosted API.
+
+**Root cause:** the Supabase session-mode pooler allows 15 clients in total
+(`EMAXCONNSESSION`), shared by every API instance, test run and script using the same
+`DATABASE_URL`. The engine used SQLAlchemy's default pool (5 + 10 overflow), so a single
+process could claim all 15 slots. When the pooler was full, `psycopg.OperationalError`
+escaped from the shared `admin_users` lookup in `require_authenticated_admin` (and from
+public queries) as an unhandled exception. Starlette answers those outside
+`CORSMiddleware`, so the 500 had no `Access-Control-Allow-Origin` and the browser
+reported CORS.
+
+**Fix:**
+- Pool is bounded per process and configurable: `DATABASE_POOL_SIZE=3`,
+  `DATABASE_MAX_OVERFLOW=2`, `DATABASE_POOL_TIMEOUT_SECONDS=10`,
+  `DATABASE_POOL_RECYCLE_SECONDS=1800`.
+- `OperationalError` and pool `TimeoutError` now return 503
+  `{"detail": "The database is temporarily unavailable."}` with `Retry-After`, produced
+  inside CORS so allowed origins still see the real status. The traceback is logged.
+  Authentication is unchanged: a missing or invalid token is still 401.
+- Tests: `tests/test_database_unavailable.py`.
+
+**Deployment:** the hosted API needs this code deployed. Because it shares the same
+15-client limit, also confirm no other long-lived process (other developers, scripts,
+duplicate instances) holds connections, or move `DATABASE_URL` to the Supabase
+transaction pooler (port 6543) after confirming psycopg prepared-statement settings.

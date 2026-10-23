@@ -12,7 +12,7 @@ import { crmContent as content } from "./crm-revenue-ops-content";
 import { PageProblems } from "./page-problems";
 import problemStyles from "../cloud/cloud-problems.module.css";
 import { PageServicesShowcase } from "./page-services-showcase";
-import { ServicePillarPlatforms, ServicePillarApproach } from "@/components/pages/service-pillar-sections";
+import { ServicePillarApproach } from "@/components/pages/service-pillar-sections";
 import dataStyles from "../data/page.module.css";
 import { NextServiceBanner } from "@/components/pages/next-service-banner";
 import { PageWhy } from "./page-why";
@@ -79,16 +79,6 @@ export default function ServicePage() {
       </section>
 
       <PageWhy />
-
-      <ServicePillarPlatforms
-        eyebrow={content.name}
-        heading={content.platformsHeading}
-        headingId="crm-platforms-title"
-        sectionName={content.platformsHeading}
-        introduction={content.platformsIntroduction}
-        platforms={content.platforms}
-        showTechnologyLinks={false}
-      />
 
       <ServicePillarApproach
         eyebrow={content.approachEyebrow}

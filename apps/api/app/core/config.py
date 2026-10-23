@@ -53,6 +53,29 @@ class Settings(BaseSettings):
         default=None,
         validation_alias="DATABASE_URL",
     )
+    # Per-process pool bounds. Supabase's session-mode pooler allows only 15
+    # clients in total, shared by every running API instance, so one process
+    # must never be able to claim them all (the SQLAlchemy default is 15).
+    database_pool_size: int = Field(
+        default=3,
+        ge=1,
+        validation_alias="DATABASE_POOL_SIZE",
+    )
+    database_max_overflow: int = Field(
+        default=2,
+        ge=0,
+        validation_alias="DATABASE_MAX_OVERFLOW",
+    )
+    database_pool_timeout_seconds: float = Field(
+        default=10,
+        gt=0,
+        validation_alias="DATABASE_POOL_TIMEOUT_SECONDS",
+    )
+    database_pool_recycle_seconds: int = Field(
+        default=1800,
+        gt=0,
+        validation_alias="DATABASE_POOL_RECYCLE_SECONDS",
+    )
 
     # Supabase
     supabase_url: AnyHttpUrl | None = Field(

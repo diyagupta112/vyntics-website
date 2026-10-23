@@ -44,13 +44,6 @@ export const crmContent = {
     { title: "Usable reporting", description: "Reporting shaped around agreed pipeline stages and revenue definitions, so teams can use a consistent view.", path: "M4 20h17M7 16v-4M12 16V8M17 16V4" },
     { title: "Team adoption", description: "Connect the setup with practical training, documentation, and support so people can use and refine it as work changes.", path: "M20 8a8 8 0 1 0 1 8M20 3v5h-5M8 12l3 3 5-6" },
   ],
-  platformsHeading: "CRM systems we connect",
-  platformsIntroduction: "We plan CRM connections around your customer process, current systems, data ownership, and the reports your team needs.",
-  platforms: [
-    { name: "CRM", role: "Customer operations", description: "Customer records, pipeline stages, and team workflows shaped around your sales and support process." },
-    { name: "Business systems", role: "Connected data", description: "Connections between your CRM and other business systems, with field mappings, checks, and clear ownership." },
-    { name: "Revenue reporting", role: "Pipeline and revenue", description: "Reporting built around consistent customer records, agreed stages, and clear revenue definitions." },
-  ],
   approachEyebrow: "Our approach", approachHeading: "How we work",
   approachIntroduction: "Five focused stages. A connected delivery process built around your team and customer data.",
   steps: [
