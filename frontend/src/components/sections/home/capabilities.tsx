@@ -144,7 +144,8 @@ export function Capabilities({
         context = gsap.context(() => {
           const viewport = showcase.querySelector<HTMLElement>("[data-service-viewport]");
           const track = showcase.querySelector<HTMLElement>("[data-service-track]");
-          if (!viewport || !track) return;
+          const section = showcase.closest<HTMLElement>("[data-service-section]");
+          if (!viewport || !track || !section) return;
 
           media = gsap.matchMedia();
           media.add(
@@ -165,10 +166,10 @@ export function Capabilities({
                 x: () => -horizontalDistance(),
                 ease: "none",
                 scrollTrigger: {
-                  trigger: viewport,
-                  start: "top 80px",
+                  trigger: section,
+                  start: "top top",
                   end: () => `+=${Math.max(horizontalDistance(), 1)}`,
-                  pin: viewport,
+                  pin: section,
                   scrub: 0.65,
                   anticipatePin: 1,
                   invalidateOnRefresh: true,
@@ -195,6 +196,7 @@ export function Capabilities({
     <section
       id={sectionId}
       className={styles.section}
+      data-service-section
       aria-labelledby={showHeading ? "capabilities-title" : undefined}
       aria-label={showHeading ? undefined : "Services"}
     >

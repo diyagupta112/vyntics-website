@@ -21,6 +21,8 @@ function ArrowIcon({ direction = "right" }: { direction?: "left" | "right" }) {
 export function BlogShowcase({ blogs, unavailable = false, loading = false }: { blogs: Blog[]; unavailable?: boolean; loading?: boolean }) {
   const articles = blogs.map((blog) => ({
     title: blog.title,
+    publishedAt: new Date(blog.published_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+    readTime: `${blog.read_time} min read`,
     href: `/blog/${encodeURIComponent(blog.slug)}`,
     accent: "#2563eb", soft: "#DDDBFF", cover: blog.cover_image_url,
   }));
@@ -120,7 +122,10 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
 
                   <div className={styles.cardContent}>
                     <div className={styles.copy}>
-                      <h3>{article.title}</h3>
+                      {isActive && <>
+                        <p className={styles.metadata}>{article.publishedAt}<span aria-hidden="true">·</span>{article.readTime}</p>
+                        <span className={styles.readStory}>Read the story <ArrowIcon /></span>
+                      </>}
                     </div>
                   </div>
                 </Link>
