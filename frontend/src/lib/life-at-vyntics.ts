@@ -27,6 +27,11 @@ export function isLifeAtVynticsImage(value: unknown): value is LifeAtVynticsImag
   return typeof record.id === "string" && isHttpUrl(record.image_url) && typeof record.display_order === "number";
 }
 
+/** An API record whose photo URL is present and usable. Narrows `image_url` from nullable to string. */
+function hasUsablePhoto(record: LifeAtVyntics): record is LifeAtVyntics & { image_url: string } {
+  return isLifeAtVynticsImage(record);
+}
+
 function apiBaseUrl() {
   return (
     process.env.API_BASE_URL ??
@@ -48,7 +53,7 @@ export async function getLifeAtVyntics(): Promise<LifeAtVynticsImage[]> {
     if (!Array.isArray(payload.data)) return [];
 
     return payload.data
-      .filter(isLifeAtVynticsImage)
+      .filter(hasUsablePhoto)
       .map(({ id, image_url, display_order }) => ({ id, image_url, display_order }))
       .sort((a, b) => a.display_order - b.display_order);
   } catch {
