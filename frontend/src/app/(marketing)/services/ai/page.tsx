@@ -75,14 +75,14 @@ export default function AiSolutionsPage() {
         service="ai-solutions"
         headingId="ai-solutions-title"
         eyebrow={"AI solutions"}
-        title={"AI solutions built for control and trust."}
+        title={"AI solutions built for control and trust"}
         description={"We build custom AI solutions - from LLM integrations and grounded assistants to AI agents and intelligent automation - designed around your data, systems, and workflows."}
-        primaryAction={{ href: "#contact", label: "Discuss your AI use case" }}
+        primaryAction={{ href: "/#contact", label: "Discuss your AI use case" }}
         secondaryAction={{ href: "#ai-services", label: "Our AI solutions" }}
         capabilities={aiServices.map(service => ({ label: service.title, href: `/services/ai-solutions/${service.slug}` }))}
       />
 
-      <section className={problemStyles.section} aria-labelledby="problems-title">
+      <section className={`${problemStyles.section} ${styles.noDivider}`} aria-labelledby="problems-title">
         <Container>
           <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>AI Solutions</p><h2 id="problems-title">AI problems we solve</h2><p className={problemStyles.subtext}>From trapped knowledge to risky automation, we solve the operating problems that keep useful AI from reaching production.</p></header>
           <AiProblems />
@@ -96,8 +96,8 @@ export default function AiSolutionsPage() {
       <AiWhy />
 
       <ServiceTools id="ai-platforms" headingId="platforms-title" sectionName="AI platforms we work with" name="AI Solutions" eyebrow="AI platforms we work with"
-        title="Choose the stack around the risk and workload." introduction="We keep the architecture modular where practical, so one model or vendor does not become the whole system."
-        technologies={platforms.map(platform => platform.name)} details={platforms} presentation="platforms" balancedPlatforms note={null} />
+        title="Choose the stack around the risk and workload" introduction="We keep the architecture modular where practical, so one model or vendor does not become the whole system."
+        technologies={platforms.map(platform => platform.name)} details={platforms.map(platform => ({ ...platform, role: platform.role.replace(/\b\w/g, letter => letter.toUpperCase()) }))} presentation="platforms" balancedPlatforms note={null} />
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
@@ -106,19 +106,19 @@ export default function AiSolutionsPage() {
         </Container>
       </section>
 
-      <section className={cloudStyles.workBridge} aria-labelledby="case-study-title">
+      <section className={`${cloudStyles.workBridge} ${styles.noDivider}`} aria-labelledby="case-study-title">
         <Container>
-          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn practical AI use cases into controlled, production-ready systems.</p></header>
+          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case Studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn practical AI use cases into controlled, production-ready systems.</p></header>
           <Suspense fallback={<FeaturedCaseStudySkeleton />}><PublishedServiceCaseStudies service="ai_solutions" /></Suspense>
           <Link className={cloudStyles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
       </section>
 
-      <NextServiceBanner id="ai-next" currentService="ai-solutions" sectionClassName={styles.section} />
+      <NextServiceBanner id="ai-next" currentService="ai-solutions" sectionClassName={styles.section} title="What Comes Next" />
 
-      <section className={cloudStyles.context} aria-labelledby="insights-title">
+      <section className={`${cloudStyles.context} ${styles.noDivider}`} aria-labelledby="insights-title">
         <Container>
-          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related insights</h2></header>
+          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related Insights</h2></header>
           <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading AI insights…</p>}><AiInsights /></Suspense>
           <Link className={cloudStyles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>

@@ -27,7 +27,7 @@ export default function AboutPage() {
         <Container className={styles.heroGrid}>
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>AI and data you can rely on</p>
-            <h1>Converting data into a competitive advantage.</h1>
+            <h1>Converting Data into a Competitive Advantage</h1>
             <p className={styles.lead}>
               We are Vyntics, a group of engineers and strategists that assist businesses in transforming complicated data into reliable choices, practical automation, and long-lasting systems.
             </p>
@@ -46,7 +46,7 @@ export default function AboutPage() {
         <Container className={styles.companyIntroGrid}>
           <div className={styles.companyIntroCopy}>
             <p className={styles.introLabel}>About Vyntics</p>
-            <h2 id="company-intro-title">Where actual work takes place, we make <span>data and AI</span> useful.</h2>
+            <h2 id="company-intro-title">Where actual work takes place, we make <span>Data and AI</span> useful</h2>
             <p>
               Vyntics is a data engineering and applied AI firm that assists businesses in transforming disjointed data, manual procedures, and difficult technological choices into dependable functional solutions.
             </p>
@@ -75,12 +75,12 @@ export default function AboutPage() {
         <Container className={styles.missionInner}>
           <header className={styles.missionHeading}>
             <p className={styles.eyebrow}>Our goal</p>
-            <h2 id="mission-title">Utilizing <span>AI and data</span> to assist teams in making better decisions.</h2>
+            <h2 id="mission-title">Utilizing <span>AI and Data</span> to assist teams in making better decisions</h2>
           </header>
           <div className={styles.missionCopy}>
             <div className={styles.missionPanelTitle}>
               <span aria-hidden="true" />
-              <h3>Purpose-driven intelligence</h3>
+              <h3>Purpose-Driven Intelligence</h3>
             </div>
             <p>
               Every company should be equipped with the knowledge and resources necessary to make data-driven, confident decisions. It is our responsibility to eliminate the needless complication that stands between a reliable technological solution and a business problem.
@@ -98,7 +98,7 @@ export default function AboutPage() {
         <Container>
           <div className={styles.sectionHeading}>
             <p className={styles.eyebrow}>Our beliefs</p>
-            <h2 id="values-title">How we improve the work and the collaboration.</h2>
+            <h2 id="values-title">How we improve the work and the collaboration</h2>
           </div>
           <ValueCards />
         </Container>
@@ -115,14 +115,14 @@ export default function AboutPage() {
             />
             <figcaption>
               <span>Built for</span>
-              <strong>real work</strong>
+              <strong>Real Work</strong>
             </figcaption>
           </figure>
           <div className={styles.storyCopy}>
             <p className={styles.eyebrow}>Our tale</p>
-            <h2 id="story-title">Designed to transform data into trustworthy automation decisions.</h2>
+            <h2 id="story-title">Designed to transform data into trustworthy automation decisions</h2>
             <p>
-              Vyntics was designed to be an expert-led consulting team that was small enough to work quickly, knowledgeable enough to make wise technical choices, and direct enough to keep clients close to the workers.
+              <strong className={styles.storyBrand}>Vyntics</strong> was designed to be an expert-led consulting team that was small enough to work quickly, knowledgeable enough to make wise technical choices, and direct enough to keep clients close to the workers.
             </p>
             <p>
               We offer organized execution and long-term maintainability, not just a list of suggestions, whether the demand is for a cutting-edge data platform, analytics leadership that is actually used, or useful AI automation.
@@ -137,9 +137,9 @@ export default function AboutPage() {
         <Container className={styles.ctaInner}>
           <div>
             <p className={styles.eyebrow}>Are you prepared to proceed?</p>
-            <h2>Together, we can transform your data into a useful resource for your team.</h2>
+            <h2>Together, we can transform your data into a useful resource for your team</h2>
           </div>
-          <Link href="/#contact">Get started <ArrowIcon /></Link>
+          <a href="/#contact">Get started <ArrowIcon /></a>
         </Container>
       </section>
     </>

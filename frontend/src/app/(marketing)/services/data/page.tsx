@@ -42,7 +42,7 @@ const faqs = [
   { question: "Why does my business need data engineering?", answer: "If teams spend time exporting data, reconciling reports, waiting for refreshes, or debating which number is correct, the underlying data system is limiting the business. Data engineering creates the dependable flow, structure, and controls that reporting and AI require." },
   { question: "How long does a data engineering project take?", answer: "A focused pipeline or assessment can take weeks; a multi-source platform or migration can take several months. A credible estimate requires the source systems, data volume, quality, security, migration risk, and operating model to be assessed first." },
   { question: "How much do data engineering services cost?", answer: "There is no honest fixed price without scope. Cost depends on source count, data volume and velocity, platform choice, transformation complexity, security, migration, service levels, and the amount of ongoing support required." },
-  { question: "Which tools and platforms do you work with?", answer: "We work across Snowflake, Databricks, BigQuery, Amazon Redshift, Microsoft Fabric, dbt, Airflow, Kafka, Python, SQL, AWS, Azure, and Google Cloud. We select the smallest sensible stack for the workload instead of forcing one vendor everywhere." },
+  { question: "Which tools and platforms do you work with?", answer: "We work across Snowflake, Databricks, BigQuery, Amazon Redshift, Microsoft Fabric, DBT, Airflow, Kafka, Python, SQL, AWS, Azure, and Google Cloud. We select the smallest sensible stack for the workload instead of forcing one vendor everywhere." },
   { question: "Can you work with our existing data systems?", answer: "Yes. Most engagements begin with existing databases, SaaS tools, files, APIs, reports, and partially working pipelines. We preserve useful systems, replace weak parts deliberately, and avoid a full rebuild unless the evidence justifies one." },
 ] as const;
 
@@ -65,41 +65,41 @@ export default function DataEngineeringPage() {
         service="data-engineering"
         headingId="data-engineering-title"
         eyebrow={"Data engineering services"}
-        title={"Build a data foundation your business can trust."}
+        title={"Build a data foundation your business can trust"}
         description={"We connect scattered systems, automate reliable data movement, and create governed, query-ready foundations for analytics and AI."}
-        primaryAction={{ href: "#contact", label: "Discuss your data estate" }}
+        primaryAction={{ href: "/#contact", label: "Discuss your data estate" }}
         secondaryAction={{ href: "#data-services", label: "Our data services" }}
         capabilities={dataServices.map(service => ({ label: service.title, href: `/services/data-engineering/${service.slug}` }))}
       />
 
-      <section className={problemStyles.section} aria-labelledby="problems-title">
+      <section className={`${problemStyles.section} ${styles.noDivider}`} aria-labelledby="problems-title">
         <Container>
-          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>Data Engineering</p><h2 id="problems-title">Data problems we solve</h2><p className={problemStyles.subtext}>From unreliable pipelines to conflicting reports, we solve the data problems that slow decisions and undermine trust.</p></header>
+          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>Data Engineering</p><h2 id="problems-title">Data Problems We Solve</h2><p className={problemStyles.subtext}>From unreliable pipelines to conflicting reports, we solve the data problems that slow decisions and undermine trust.</p></header>
           <DataProblems />
         </Container>
       </section>
 
       <section className={`${styles.section} ${styles.servicesSection}`} id="data-services" aria-labelledby="services-title">
         <Container>
-          <DataEngineeringServicesShowcase />
+          <DataEngineeringServicesShowcase heading="Three connected capabilities, one dependable data system" />
         </Container>
       </section>
 
       <DataWhy />
 
       <ServiceTools id="data-platforms" headingId="platforms-title" sectionName="Data platforms we work with" name="Data Engineering" eyebrow="Data platforms we work with"
-        title="Choose the platform around the workload." introduction="We work across the major cloud data ecosystems and keep business logic portable where that is practical."
-        technologies={platforms.map(platform => platform.name)} details={platforms} presentation="platforms" balancedPlatforms showTechnologyLinks note={null}
+        title="Choose the platform around the workload" introduction="We work across the major cloud data ecosystems and keep business logic portable where that is practical."
+        technologies={platforms.map(platform => platform.name)} details={platforms.map(platform => ({ ...platform, displayName: platform.name === "dbt" ? "DBT" : platform.name }))} presentation="platforms" balancedPlatforms showTechnologyLinks note={null}
         sectionLink={{ href: "/technologies", label: "View all technologies" }} />
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
-          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">A clear path from assessment to dependable operations.</h2><p>Five focused stages. One accountable delivery process built around usable outcomes.</p></div>
+          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">A clear path from assessment to dependable operations</h2><p>Five focused stages. One accountable delivery process built around usable outcomes.</p></div>
           <DataEngineeringProcessTimeline />
         </Container>
       </section>
 
-      <section className={cloudStyles.workBridge} aria-labelledby="case-study-title">
+      <section className={`${cloudStyles.workBridge} ${styles.noDivider}`} aria-labelledby="case-study-title">
         <Container>
           <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn complex data challenges into dependable, practical systems.</p></header>
           <Suspense fallback={<FeaturedCaseStudySkeleton />}><PublishedServiceCaseStudies service="data_engineering" /></Suspense>
@@ -109,7 +109,7 @@ export default function DataEngineeringPage() {
 
       <NextServiceBanner id="data-next" currentService="data-engineering" sectionClassName={styles.section} />
 
-      <section className={cloudStyles.context} aria-labelledby="insights-title">
+      <section className={`${cloudStyles.context} ${styles.noDivider}`} aria-labelledby="insights-title">
         <Container>
           <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related insights</h2></header>
           <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading data engineering insights…</p>}><DataInsights /></Suspense>

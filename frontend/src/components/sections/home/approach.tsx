@@ -9,14 +9,14 @@ const steps = [
     number: "01",
     label: "Explore",
     icon: "explore",
-    title: "In-depth Research",
+    title: "In-Depth Research",
     description: "Before writing code, we understand your data environment, business objectives, and pain points.",
   },
   {
     number: "02",
     label: "Architect",
     icon: "architect",
-    title: "Design of the System",
+    title: "Design Of The System",
     description: "We create an architecture suited to your scale, avoiding unnecessary complexity while allowing room to grow.",
   },
   {

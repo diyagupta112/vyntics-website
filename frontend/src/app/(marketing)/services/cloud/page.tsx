@@ -58,7 +58,7 @@ export default function CloudFoundationsPage() {
         eyebrow={"Cloud consulting services"}
         title={"Build a stronger foundation for your cloud."}
         description={"Build, modernize, and support cloud infrastructure that works for your business. We bring architecture and migration together with reliability, security, cost optimization, and ongoing support."}
-        primaryAction={{ href: "#contact", label: "Talk to our cloud experts" }}
+        primaryAction={{ href: "/#contact", label: "Talk to our cloud experts" }}
         secondaryAction={{ href: "#cloud-services", label: "Our cloud services" }}
         capabilities={canonicalCloudServices.map(service => ({ label: service.title, href: `/services/cloud-foundations/${service.slug}` }))}
       />

@@ -50,6 +50,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
         {extensions.map((section) => <section className={articleStyles.extraSection} key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{section.points && <ul>{section.points.map((point) => <li key={point}>{point}</li>)}</ul>}</section>)}
         <footer className={articleStyles.footer}><span>Written by {blog.author}</span><Link href="/blog">Explore more blogs →</Link></footer>
       </section>
-      <aside className={articleStyles.rightSidebar} aria-label="More blogs"><nav className={articleStyles.infoCard}><h2>More blogs</h2>{related.map((post) => <RelatedBlogCard key={post.id} blog={post} />)}<Link className={articleStyles.allBlogs} href="/blog">View all blogs →</Link></nav></aside>
+      <aside className={articleStyles.rightSidebar} aria-label="More blogs"><nav className={articleStyles.infoCard}><h2>More blogs</h2>{related.map((post) => <RelatedBlogCard key={post.id} blog={post} />)}</nav></aside>
     </div></article>;
 }

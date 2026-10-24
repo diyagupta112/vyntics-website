@@ -11,10 +11,11 @@ const panelGradients = [
   "/images/bottom-left-gradient.webp",
 ];
 
-export function NextServiceBanner({ currentService, id, sectionClassName, introduction = "Our services work best together. Explore the other ways we can help you build, connect and grow your technology." }: {
+export function NextServiceBanner({ currentService, id, sectionClassName, title = "What comes next", introduction = "Our services work best together. Explore the other ways we can help you build, connect and grow your technology." }: {
   currentService?: ServicePillar;
   id: string;
   sectionClassName?: string;
+  title?: string;
   introduction?: string;
 }) {
   if (!currentService) return null;
@@ -22,7 +23,7 @@ export function NextServiceBanner({ currentService, id, sectionClassName, introd
     <Container>
       <header className={styles.heading} data-reveal={`${id}-heading`}>
         <p className={styles.eyebrow}>Our services</p>
-        <h2 id={`${id}-title`}>What comes next</h2>
+        <h2 id={`${id}-title`}>{title}</h2>
         <p className={styles.intro}>{introduction}</p>
       </header>
       <div className={styles.grid}>

@@ -11,7 +11,7 @@ const values = [
     icon: "spark",
   },
   {
-    title: "Have confidence",
+    title: "Have Confidence",
     text: "Through open communication, dependable delivery, and candid decision-making, we establish enduring relationships.",
     detail: "Clear ownership, open communication about trade-offs, shared priorities, and no delivery surprises.",
     icon: "shield",

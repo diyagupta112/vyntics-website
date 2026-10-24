@@ -35,7 +35,7 @@ export function BiToolComparison() {
           <h3>Choose the tool that fits your data and your team.</h3>
           <p>We help you evaluate the right BI platform based on your data environment, reporting requirements, users, and long-term analytics goals, then implement it around how your business actually works.</p>
         </div>
-        <a className={styles.compareCta} href="#contact">Talk to our BI experts <span aria-hidden="true">→</span></a>
+        <a className={styles.compareCta} href="/#contact">Talk to our BI experts <span aria-hidden="true">→</span></a>
       </div>
     </Container>
   </section>;

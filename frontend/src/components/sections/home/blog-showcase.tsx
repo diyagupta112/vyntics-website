@@ -75,7 +75,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
           <div className={styles.headingBlock}>
             <p className={styles.eyebrow}>Thoughts from the industry</p>
             <h2 id="blogs-title">Useful data and AI concepts</h2>
-            <p>Helpful manuals for developing dependable systems outside of the demonstration.</p>
+            <p>Helpful manuals for developing dependable systems outside of the demonstration</p>
           </div>
 
           <Link className={`${styles.viewAll} siteCta`} href="/blog">

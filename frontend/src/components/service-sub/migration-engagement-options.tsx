@@ -162,7 +162,7 @@ export function MigrationEngagementOptions({
         })}
       </div>
       <span className={styles.connector} aria-hidden="true" />
-      <div className={styles.action}><Link href="#contact" className={styles.cta}>Talk to our experts <ArrowIcon /></Link></div>
+      <div className={styles.action}><Link href="/#contact" className={styles.cta}>Talk to our experts <ArrowIcon /></Link></div>
       </div>
     </Container>
   </section>;

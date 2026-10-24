@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import type { CaseStudyMedia } from "@/lib/case-studies";
 import { CaseStudyCover } from "./case-study-cover";
@@ -33,19 +33,61 @@ function loadPlayerApi(): Promise<YouTube> {
   return playerApi;
 }
 
-export function CaseStudyVideo({ media, title, fallbackSrc, className, controls = true, interactivePreview = false, optimizedCover = false }: {
+export function CaseStudyVideo({ media, title, fallbackSrc, className, controls = true, interactivePreview = false, optimizedCover = false, onPreviewVisibilityChange }: {
   media: CaseStudyMedia; title: string; fallbackSrc: string; className?: string; controls?: boolean; interactivePreview?: boolean; optimizedCover?: boolean;
+  onPreviewVisibilityChange?: (visible: boolean) => void;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const preview = useRef<HTMLDivElement>(null);
   const nativeVideo = useRef<HTMLVideoElement>(null);
   const playerRef = useRef<Player | null>(null);
   const wantsPlayback = useRef(false);
+  const inViewport = useRef(false);
+  const manuallyPaused = useRef(false);
+  const [inView, setInView] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
   const [fullscreenMessage, setFullscreenMessage] = useState("");
   const reducedMotion = useReducedMotion();
+  const playback = useCallback((play: boolean) => {
+    wantsPlayback.current = play;
+    const player = playerRef.current;
+    if (player) {
+      player.mute();
+      if (play) player.playVideo(); else player.pauseVideo();
+    }
+    const video = nativeVideo.current;
+    if (video) {
+      video.muted = true;
+      if (play) void video.play().catch(() => { wantsPlayback.current = false; setPlaying(false); });
+      else video.pause();
+    }
+  }, []);
+  useEffect(() => {
+    if (!interactivePreview || failed || media.type !== "video") return;
+    const element = preview.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      // Separate entry and exit thresholds prevent flicker near the viewport edge.
+      const visible = entry.isIntersecting && entry.intersectionRatio >= (inViewport.current ? .35 : .5);
+      if (visible === inViewport.current) return;
+      inViewport.current = visible;
+      setInView(visible);
+      if (!visible) manuallyPaused.current = false;
+      playback(visible && !reducedMotion && !document.hidden && !manuallyPaused.current);
+    }, { rootMargin: "-64px 0px -32px 0px", threshold: [0, .35, .5] });
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      inViewport.current = false;
+      playback(false);
+    };
+  }, [interactivePreview, failed, media.type, reducedMotion, playback]);
+  useEffect(() => {
+    onPreviewVisibilityChange?.(inView && !failed);
+    return () => onPreviewVisibilityChange?.(false);
+  }, [inView, failed, onPreviewVisibilityChange]);
   useEffect(() => {
     if (!interactivePreview) return;
     const update = () => setFullscreen(document.fullscreenElement === preview.current && preview.current !== null);
@@ -94,31 +136,13 @@ export function CaseStudyVideo({ media, title, fallbackSrc, className, controls 
 
   useEffect(() => {
     if (!interactivePreview) return;
-    const pauseWhenHidden = () => {
-      if (!document.hidden) return;
-      wantsPlayback.current = false;
-      playerRef.current?.pauseVideo();
-      nativeVideo.current?.pause();
-      setPlaying(false);
+    const syncVisibility = () => {
+      playback(!document.hidden && inViewport.current && !reducedMotion && !manuallyPaused.current);
+      if (document.hidden) setPlaying(false);
     };
-    document.addEventListener("visibilitychange", pauseWhenHidden);
-    return () => document.removeEventListener("visibilitychange", pauseWhenHidden);
-  }, [interactivePreview]);
-
-  function playback(play: boolean) {
-    wantsPlayback.current = play;
-    const player = playerRef.current;
-    if (player) {
-      player.mute();
-      if (play) player.playVideo(); else player.pauseVideo();
-    }
-    const video = nativeVideo.current;
-    if (video) {
-      video.muted = true;
-      if (play) void video.play().catch(() => { wantsPlayback.current = false; setPlaying(false); });
-      else video.pause();
-    }
-  }
+    document.addEventListener("visibilitychange", syncVisibility);
+    return () => document.removeEventListener("visibilitychange", syncVisibility);
+  }, [interactivePreview, reducedMotion, playback]);
 
   async function toggleFullscreen() {
     setFullscreenMessage("");
@@ -141,13 +165,11 @@ export function CaseStudyVideo({ media, title, fallbackSrc, className, controls 
     : <video className={className} ref={nativeVideo} src={media.src} autoPlay={!interactivePreview && !reducedMotion} muted loop playsInline controls={controls} preload="metadata" poster={media.poster ?? fallbackSrc} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setFailed(true)} aria-label={`${title} product demonstration`} />;
   if (!interactivePreview) return video;
   return (
-    <div className={styles.preview} ref={preview}
-      onPointerEnter={event => { if (event.pointerType === "mouse") playback(true); }}
-      onPointerLeave={event => { if (event.pointerType === "mouse") playback(false); }}>
+    <div className={styles.preview} ref={preview} data-preview-active={inView && !reducedMotion ? "true" : "false"}>
       {video}
       <div className={styles.hoverTarget} aria-hidden="true" />
       <button className={`${styles.playback} ${styles.playToggle}`} type="button" aria-label={playing ? "Pause product preview" : "Play product preview"}
-        onClick={() => playback(!playing)}>
+        onClick={() => { manuallyPaused.current = playing; playback(!playing); }}>
         <svg viewBox="0 0 20 20" aria-hidden="true">{playing ? <path d="M6 4h3v12H6zm5 0h3v12h-3z" /> : <path d="m6 3 11 7-11 7z" />}</svg>
       </button>
       <button className={styles.playback} type="button" aria-label={fullscreen ? "Exit fullscreen" : "Enter fullscreen"}

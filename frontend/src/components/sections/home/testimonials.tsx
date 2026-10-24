@@ -118,7 +118,7 @@ export function Testimonials() {
         <div className={styles.headingBlock}>
           <p className={styles.eyebrow}>In their own words</p>
           <h2 id="testimonials-title">Straight from our clients</h2>
-          <p>Learn how carefully designed systems help teams optimize their operations.</p>
+          <p>Learn how carefully designed systems help teams optimize their operations</p>
         </div>
 
         <div

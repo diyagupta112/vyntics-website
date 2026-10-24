@@ -24,7 +24,7 @@ function UseCaseDetail({ team, showTitle }: { team: UseCase; showTitle: boolean 
     <p className={styles.control}><strong>Where people stay in control</strong><span>{team.control}</span></p>
     <p className={styles.cta}>
       <span>{team.cta}</span>
-      <a href="#contact">Talk to our experts <span aria-hidden="true">→</span></a>
+      <a href="/#contact">Talk to our experts <span aria-hidden="true">→</span></a>
     </p>
   </>;
 }
