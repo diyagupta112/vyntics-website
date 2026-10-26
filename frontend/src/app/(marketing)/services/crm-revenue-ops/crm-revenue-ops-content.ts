@@ -8,7 +8,7 @@ export const crmContent = {
   },
   hero: {
     eyebrow: "CRM and revenue operations",
-    heading: "Make your CRM work the way your team does",
+    heading: "Make Your CRM Work The Way Your Team Does",
     introduction: "CRM & Revenue Ops should fit how your team sells and serves customers. We bring CRM implementation and integration together with sales automation, connected data, and revenue analytics for clearer reporting.",
     primaryLabel: "Talk to our CRM experts", secondaryLabel: "Our CRM services",
   },
@@ -69,5 +69,5 @@ export const crmContent = {
       { question: "How do you keep CRM data and revenue reporting consistent?", answer: "We define pipeline stages, field mappings, record ownership, and reporting terms with your team. We check data as it moves between systems and validate reports against those definitions. Keeping records consistent also depends on the team's daily practices, so documentation, training, and review are part of the approach." },
     ],
   },
-  cta: { eyebrow: "CRM & REVENUE OPS", heading: "Make your CRM work the way your team does", introduction: "From CRM setup and connected customer data to sales automation and revenue reporting, we help you shape a practical system around the way your team sells and supports customers.", submitLabel: "Talk to our CRM experts" },
+  cta: { eyebrow: "CRM & REVENUE OPS", heading: "Make Your CRM Work The Way Your Team Does", introduction: "From CRM setup and connected customer data to sales automation and revenue reporting, we help you shape a practical system around the way your team sells and supports customers.", submitLabel: "Talk to our CRM experts" },
 } as const;

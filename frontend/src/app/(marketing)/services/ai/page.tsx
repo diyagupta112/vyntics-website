@@ -75,7 +75,7 @@ export default function AiSolutionsPage() {
         service="ai-solutions"
         headingId="ai-solutions-title"
         eyebrow={"AI solutions"}
-        title={"AI solutions built for control and trust"}
+        title={"AI Solutions Built For Control And Trust"}
         description={"We build custom AI solutions - from LLM integrations and grounded assistants to AI agents and intelligent automation - designed around your data, systems, and workflows."}
         primaryAction={{ href: "/#contact", label: "Discuss your AI use case" }}
         secondaryAction={{ href: "#ai-services", label: "Our AI solutions" }}
@@ -96,7 +96,7 @@ export default function AiSolutionsPage() {
       <AiWhy />
 
       <ServiceTools id="ai-platforms" headingId="platforms-title" sectionName="AI platforms we work with" name="AI Solutions" eyebrow="AI Platforms We Work With"
-        title="Choose the stack around the risk and workload" introduction="We keep the architecture modular where practical, so one model or vendor does not become the whole system."
+        title="Choose The Stack Around The Risk And Workload" introduction="We keep the architecture modular where practical, so one model or vendor does not become the whole system."
         technologies={platforms.map(platform => platform.name)} details={platforms.map(platform => ({ ...platform, role: platform.role.replace(/\b\w/g, letter => letter.toUpperCase()) }))} presentation="platforms" balancedPlatforms note={null} />
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
@@ -140,7 +140,7 @@ export default function AiSolutionsPage() {
         />
       </section>
 
-      <ContactCta eyebrow="AI solutions consultation" title="Ready to turn an AI use case into a working system?" intro="Tell us where knowledge, documents, decisions, or repetitive work are slowing the team down. We’ll identify the practical first step and the evidence needed to scope it properly." submitLabel="Discuss your AI project" />
+      <ContactCta eyebrow="AI solutions consultation" title="Ready To Turn An AI Use Case Into A Working System?" intro="Tell us where knowledge, documents, decisions, or repetitive work are slowing the team down. We’ll identify the practical first step and the evidence needed to scope it properly." submitLabel="Discuss your AI project" />
     </>
   );
 }

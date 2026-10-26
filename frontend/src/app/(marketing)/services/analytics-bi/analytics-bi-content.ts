@@ -6,7 +6,7 @@ export const analyticsContent = {
   seoDescription: "Vyntics provides business intelligence services, dashboards, reporting and analytics consulting to help businesses turn data into clearer decisions.",
   hero: {
     eyebrow: "Analytics & BI",
-    heading: "Turn your data into better decisions with BI",
+    heading: "Turn Your Data Into Better Decisions With BI",
     introduction: "Our business intelligence services connect trusted data to dashboards, reporting, and analytics, so teams can review performance and leaders have a clear view of the decisions ahead.",
     primaryLabel: "Discuss your BI needs",
   },
@@ -73,7 +73,7 @@ export const analyticsContent = {
   nextIntroduction: "Reliable reporting is the next step after Data Engineering. With that foundation in place, AI Solutions can add assistants, agents, and automation around the information your team uses.",
   cta: {
     eyebrow: "Analytics & BI",
-    heading: "Make your reporting work for the decisions ahead",
+    heading: "Make Your Reporting Work For The Decisions Ahead",
     introduction: "Tell us about your reporting challenges, dashboard requirements, or BI strategy. We can review your data and analytics needs together and identify a practical starting point.",
     submitLabel: "Discuss your BI needs",
   },

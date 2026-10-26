@@ -25,5 +25,5 @@ const services = [
 ] as const;
 
 export function AiSolutionsServicesShowcase() {
-  return <DataEngineeringServicesShowcase services={services} eyebrow="Our AI solutions" heading="Three focused capabilities, built as one controlled AI system" headingId="services-title" idPrefix="ai-service" label="AI solutions" />;
+  return <DataEngineeringServicesShowcase services={services} eyebrow="Our AI solutions" heading="Three Focused Capabilities, Built As One Controlled AI System" headingId="services-title" idPrefix="ai-service" label="AI solutions" />;
 }

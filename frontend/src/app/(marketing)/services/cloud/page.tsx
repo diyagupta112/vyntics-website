@@ -55,7 +55,7 @@ export default function CloudFoundationsPage() {
         service="cloud-foundations"
         headingId="cloud-title"
         eyebrow={"Cloud consulting services"}
-        title={"Build a stronger foundation for your cloud"}
+        title={"Build A Stronger Foundation For Your Cloud"}
         description={"Build, modernize, and support cloud infrastructure that works for your business. We bring architecture and migration together with reliability, security, cost optimization, and ongoing support."}
         primaryAction={{ href: "#contact", label: "Talk to our cloud experts" }}
         secondaryAction={{ href: "#cloud-services", label: "Our cloud services" }}
@@ -135,7 +135,7 @@ export default function CloudFoundationsPage() {
 
       <ContactCta
         eyebrow="CLOUD FOUNDATIONS"
-        title="Build a stronger foundation for your cloud."
+        title="Build A Stronger Foundation For Your Cloud."
         intro="From architecture and migration to reliability and cost optimization, we help you build, optimize, and support cloud infrastructure that works for your business."
         submitLabel="Talk to our cloud experts"
       />
