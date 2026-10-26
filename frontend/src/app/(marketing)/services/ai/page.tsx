@@ -116,7 +116,7 @@ export default function AiSolutionsPage() {
 
       <section className={cloudStyles.workBridge} aria-labelledby="case-study-title">
         <Container>
-          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn practical AI use cases into controlled, production-ready systems.</p></header>
+          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case Studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn practical AI use cases into controlled, production-ready systems.</p></header>
           <Suspense fallback={<FeaturedCaseStudySkeleton />}><PublishedServiceCaseStudies service="ai_solutions" /></Suspense>
           <Link className={cloudStyles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
@@ -126,7 +126,7 @@ export default function AiSolutionsPage() {
 
       <section className={cloudStyles.context} aria-labelledby="insights-title">
         <Container>
-          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related insights</h2></header>
+          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related Insights</h2></header>
           <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading AI insights…</p>}><AiInsights /></Suspense>
           <Link className={cloudStyles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>

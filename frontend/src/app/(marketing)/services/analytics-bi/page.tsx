@@ -111,7 +111,7 @@ export default function AnalyticsBiPage() {
 
       <section className={styles.workBridge} aria-labelledby="analytics-work-title" data-cloud-section="Case studies">
         <Container>
-          <header className={styles.sectionHeading}><p className={styles.eyebrow}>CASE STUDIES</p><h2 id="analytics-work-title">Case studies</h2><p className={styles.contentState}>{analyticsContent.caseStudiesIntroduction}</p></header>
+          <header className={styles.sectionHeading}><p className={styles.eyebrow}>CASE STUDIES</p><h2 id="analytics-work-title">Case Studies</h2><p className={styles.contentState}>{analyticsContent.caseStudiesIntroduction}</p></header>
           <Suspense fallback={<ReservedContent count={2} message="Loading case studies…" />}><AnalyticsProjects /></Suspense>
           <Link className={styles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
@@ -121,7 +121,7 @@ export default function AnalyticsBiPage() {
 
       <section className={styles.context} aria-labelledby="analytics-insights-title" data-cloud-section="Related insights">
         <Container>
-          <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="analytics-insights-title">Related insights</h2></header>
+          <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="analytics-insights-title">Related Insights</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading related insights…" />}><AnalyticsInsights /></Suspense>
           <Link className={styles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>

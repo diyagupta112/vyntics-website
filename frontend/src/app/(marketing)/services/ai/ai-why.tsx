@@ -21,7 +21,7 @@ export function AiWhy() {
       <div className={styles.content}>
         <header data-reveal="ai-why-heading" data-reveal-delay="90">
           <p className={styles.eyebrow}>Why choose us</p>
-          <h2 id="ai-why-title">Why Vyntics for <span>AI Solutions</span></h2>
+          <h2 id="ai-why-title">Why <span>Vyntics</span> for AI Solutions</h2>
           <p className={styles.introduction}>We make the use case, evidence, controls, and operating tradeoffs clear before delivery.</p>
         </header>
         <ul className={styles.reasons}>

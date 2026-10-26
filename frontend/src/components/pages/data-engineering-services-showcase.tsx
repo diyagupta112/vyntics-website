@@ -103,7 +103,6 @@ export function DataEngineeringServicesShowcase({
         <div className={styles.serviceRail} role="tablist" aria-label={label} aria-orientation="vertical">
           <div className={styles.railHeading}>
             <span>Services</span>
-            {!reduceMotion && <button type="button" onClick={() => setManualPaused((paused) => !paused)} aria-pressed={manualPaused}>{manualPaused ? "Resume" : "Pause"} rotation</button>}
           </div>
           {services.map((service, index) => {
             const isActive = index === activeIndex;
@@ -143,7 +142,6 @@ export function DataEngineeringServicesShowcase({
           <Link className={styles.imageLink} href={activeService.href} aria-hidden="true" tabIndex={-1} />
           <span>{eyebrow}</span>
           <div className={styles.panelContent}>
-            <p className={styles.panelEyebrow}>Service {String(activeIndex + 1).padStart(2, "0")}</p>
             <h3>{activeService.name}</h3>
             <p className={styles.introduction}>{activeService.introduction}</p>
             {!!activeService.points?.length && <>
@@ -153,6 +151,7 @@ export function DataEngineeringServicesShowcase({
             <Link href={activeService.href}>Explore {activeService.name} <ArrowIcon /></Link>
           </div>
         </div>
+        {!reduceMotion && <button className={styles.pauseButton} type="button" onClick={() => setManualPaused((paused) => !paused)} aria-pressed={manualPaused}>{manualPaused ? "Resume" : "Pause"} rotation</button>}
       </article>
     </div>
   );

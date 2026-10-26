@@ -53,8 +53,8 @@ export const crmContent = {
     { title: "Launch", visual: "Training and launch", description: "Train your team, validate workflows, and agree ownership before launch." },
     { title: "Refine", visual: "Support and refine", description: "Review feedback, support the setup, and refine automation and reports as your process changes." },
   ],
-  caseStudies: { eyebrow: "CASE STUDIES", heading: "Case studies", introduction: "Explore how connected systems, practical automation, and clearer reporting help teams manage their customer workflows.", linkLabel: "Explore all case studies" },
-  insights: { eyebrow: "RELATED INSIGHTS", heading: "Related insights", linkLabel: "View all insights" },
+  caseStudies: { eyebrow: "CASE STUDIES", heading: "Case Studies", introduction: "Explore how connected systems, practical automation, and clearer reporting help teams manage their customer workflows.", linkLabel: "Explore all case studies" },
+  insights: { eyebrow: "RELATED INSIGHTS", heading: "Related Insights", linkLabel: "View all insights" },
   faq: {
     heading: "Frequently Asked Questions",
     introduction: "Practical answers about CRM implementation, integrations, sales automation, and pipeline and revenue reporting.",

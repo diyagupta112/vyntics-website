@@ -39,6 +39,7 @@ const companyLinks: readonly FooterItem[] = [
   { label: "Careers", href: "/careers" },
   { label: "Technologies", href: "/technologies" },
   { label: "Recognitions", href: "/recognitions" },
+  { label: "Contact Us", href: "/contact-us" },
 ];
 
 const resourceLinks: readonly FooterItem[] = [

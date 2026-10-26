@@ -30,7 +30,7 @@ export function AnalyticsProblems() {
     {analyticsContent.problems.map((problem, index) => <li className={styles.problem} key={problem.title} tabIndex={0}
       onPointerEnter={enterSpotlight} onPointerMove={moveSpotlight}
       onPointerLeave={event => { delete event.currentTarget.dataset.spotlight; boundsRef.current = null; }}>
-      <div className={styles.topline}><svg viewBox="0 0 32 32" aria-hidden="true">{iconPaths[index]}</svg><span>{String(index + 1).padStart(2, "0")}</span></div>
+      <div className={styles.topline}><svg viewBox="0 0 32 32" aria-hidden="true">{iconPaths[index]}</svg></div>
       <h3>{problem.title}</h3>
       <p className={styles.description}>{problem.description}</p>
     </li>)}

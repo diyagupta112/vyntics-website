@@ -21,7 +21,7 @@ export function DataWhy() {
       <div className={styles.content}>
         <header data-reveal="data-why-heading" data-reveal-delay="90">
           <p className={styles.eyebrow}>Why choose us</p>
-          <h2 id="data-why-title">Why Vyntics for <span>Data Engineering</span></h2>
+          <h2 id="data-why-title">Why <span>Vyntics</span> for Data Engineering</h2>
           <p className={styles.introduction}>We make the architecture, ownership, and operational tradeoffs clear before delivery.</p>
         </header>
         <ul className={styles.reasons}>

@@ -21,7 +21,7 @@ export function CloudWhy() {
         <div className={styles.content}>
           <header data-reveal="cloud-why-heading" data-reveal-delay="90">
             <p className={styles.eyebrow}>Why choose us</p>
-            <h2 id="cloud-why-title">Why Vyntics for <span>Cloud</span></h2>
+            <h2 id="cloud-why-title">Why <span>Vyntics</span> for Cloud</h2>
             <p className={styles.introduction}>As a cloud solutions company, we make the tradeoffs clear before delivery.</p>
           </header>
           <ul className={styles.reasons}>
