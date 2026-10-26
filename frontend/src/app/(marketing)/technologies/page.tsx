@@ -50,7 +50,7 @@ export default function TechnologiesPage() {
         <Container className={styles.heroGrid}>
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>Vyntics&apos;s technology</p>
-            <h1><span>Production-Ready AI,</span><span>Data, and Cloud Technology</span></h1>
+            <h1><span>Production-Ready AI,</span><span>Data, And Cloud Technology</span></h1>
             <p>We employ tried-and-true AI, data engineering, analytics, and cloud technologies to create dependable systems that address actual business issues rather than just showy demonstrations.</p>
             <p>From cloud infrastructure and analytics to clever AI solutions and data platforms, we select the best technology depending on business objectives, technical environment, scalability requirements, and long-term ownership.</p>
           </div>
@@ -61,7 +61,7 @@ export default function TechnologiesPage() {
         <Container>
           <div className={styles.sectionHeading}>
             <p className={styles.eyebrow}>Our technological environment</p>
-            <h2 id="technology-landscape">One interconnected landscape of engineering.</h2>
+            <h2 id="technology-landscape">One Interconnected Landscape Of Engineering</h2>
             <p>We integrate the layers into a single, manageable system, from raw data to a functional application.</p>
           </div>
           <div className={styles.landscapeGrid}>
@@ -98,7 +98,7 @@ export default function TechnologiesPage() {
 
       <ProcessStack steps={process} />
 
-      <Suspense fallback={<FeaturedWork loading />}><FeaturedWork /></Suspense>
+      <Suspense fallback={<FeaturedWork loading heading="Give Your Business An Edge With AI" />}><FeaturedWork heading="Give Your Business An Edge With AI" /></Suspense>
 
     </>
   );

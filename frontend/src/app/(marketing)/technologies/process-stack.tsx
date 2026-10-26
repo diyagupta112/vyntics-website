@@ -67,7 +67,7 @@ export function ProcessStack({ steps }: ProcessStackProps) {
       <Container className={styles.processSticky} data-process-panel>
         <div className={styles.sectionHeading}>
           <p className={styles.eyebrow}>How we utilize technology</p>
-          <h2 id="process-title">Engineering includes selection.</h2>
+          <h2 id="process-title">Engineering Includes Selection</h2>
           <p>The newest tool isn&apos;t always the best one. After lowering risk, we create the most straightforward, reliable route to the outcome.</p>
         </div>
 
