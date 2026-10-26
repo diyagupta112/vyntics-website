@@ -9,6 +9,7 @@
 .secondaryLink { color: var(--color-muted); font-size: .88rem; font-weight: 680; }
 .primaryButton svg, .inlineLink svg, .caseStudyCard a svg, .journeyGrid strong svg, .insightGrid strong svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: transform 180ms ease; }
 .section { padding-block: clamp(4.25rem, 8vw, 7rem); }
+.noDivider.noDivider { border-top: 0; }
 .sectionHeading { max-width: 48rem; }
 .sectionHeading h2, .stickyHeading h2, .caseStudyCard h2 { margin-top: .7rem; font-size: clamp(2.2rem, 4vw, 3.8rem); line-height: 1.04; letter-spacing: -.05em; text-wrap: balance; }
 .sectionHeading > p:last-child, .stickyHeading > p:last-child { max-width: 43rem; margin-top: 1.1rem; color: var(--color-muted); line-height: 1.7; }

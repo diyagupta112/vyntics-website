@@ -5,7 +5,7 @@ import editorial from "@/components/service-sub/editorial-tool-grid.module.css";
 import sectionStyles from "@/app/(marketing)/services/data/page.module.css";
 import { TechnologyLogo } from "@/components/service-sub/technology-logo";
 
-type ToolDetail = { id?: string; name: string; role?: string; description?: string; features?: readonly string[] };
+type ToolDetail = { id?: string; name: string; displayName?: string; role?: string; description?: string; features?: readonly string[] };
 
 const toolDescriptions: ReadonlyArray<readonly [readonly string[], string]> = [
   [["OpenAI", "Azure OpenAI", "Anthropic", "Anthropic Claude", "Google Gemini"], "Language models for generating, summarising, and extracting information within controlled workflows."],
@@ -89,7 +89,7 @@ export function ServiceTools({ name, technologies, introduction, details, eyebro
           {technologies.map((tool, index) => {
             const detail = details?.find((item) => item.name === tool);
             const description = detail?.description ?? toolDescriptions.find(([names]) => names.includes(tool))?.[1];
-            const copy = <><h3>{tool}</h3>{detail?.role && <span>{detail.role}</span>}{showDescriptions && <p>{description ?? `Supports the ${name} workflow, with integration and configuration matched to your operating environment.`}</p>}{detail?.features && <ul className={editorial.featureList}>{detail.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}</>;
+            const copy = <><h3>{detail?.displayName ?? tool}</h3>{detail?.role && <span>{detail.role}</span>}{showDescriptions && <p>{description ?? `Supports the ${name} workflow, with integration and configuration matched to your operating environment.`}</p>}{detail?.features && <ul className={editorial.featureList}>{detail.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>}</>;
             return (
               <article id={detail?.id} className={isEditorial ? `${editorial.card}${isPlatform ? ` ${editorial.platformCard}${balancedPlatforms ? ` ${editorial.balancedPlatformCard}` : ""}` : ""}` : undefined} key={tool} data-reveal={revealPrefix ? `${revealPrefix}-${index}` : undefined} data-reveal-delay={revealPrefix ? String(Math.min(index * 90, 450)) : undefined}>
                 {isPlatform ? <><TechnologyLogo name={tool} /><div className={`${editorial.platformCopy}${balancedPlatforms ? ` ${editorial.balancedPlatformCopy}` : ""}`}>{copy}</div></> : copy}

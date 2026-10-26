@@ -5,9 +5,11 @@
 }
 
 .headingBlock {
-  margin-bottom: clamp(1.5rem, 3vh, 2.25rem);
+  margin-bottom: 0;
   display: grid;
   gap: 0.55rem;
+  justify-items: center;
+  text-align: center;
 }
 
 .eyebrow {
@@ -53,14 +55,27 @@
 
 .showcase {
   position: relative;
-  margin-top: clamp(1.75rem, 3.5vw, 3rem);
+  margin-top: clamp(0.25rem, 0.75vw, 0.625rem);
 }
 
 .showcaseViewport {
-  min-height: calc(100svh - 5rem);
+  min-height: calc(100svh - 9rem);
   display: flex;
   align-items: center;
   overflow: hidden;
+}
+
+.section:has(.showcase) {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.section:has(.showcase) .headingBlock {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 2rem, var(--content-width));
+  margin-inline: auto;
+  padding-top: 0.25rem;
 }
 
 .showcaseTrack {
@@ -78,7 +93,7 @@
   min-height: min(31rem, calc(100svh - 9rem));
   flex: 0 0 auto;
   display: grid;
-  grid-template-columns: minmax(13rem, 1fr) minmax(0, 3fr);
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: clamp(1.25rem, 2.5vw, 2rem);
@@ -88,7 +103,7 @@
 
 .showcaseMedia {
   position: relative;
-  min-height: 28rem;
+  min-height: 0;
   overflow: hidden;
   background: #10141d;
 }
@@ -109,7 +124,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(2rem, 4vw, 3.75rem);
+  padding: clamp(1.5rem, 3vw, 2.75rem);
 }
 
 .showcaseLabel {
@@ -216,6 +231,19 @@
     padding-bottom: clamp(3rem, 6vw, 4.5rem);
   }
 
+  .section:has(.showcase) {
+    padding-top: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  .section:has(.showcase) .headingBlock {
+    width: auto;
+    padding-top: 0;
+  }
+
+  .showcase {
+    margin-top: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
   .showcaseViewport {
     min-height: auto;
     overflow: visible;
@@ -234,11 +262,11 @@
   .showcasePanel {
     width: 100%;
     min-height: 0;
-    grid-template-columns: minmax(12rem, 0.55fr) minmax(0, 1.45fr);
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   }
 
   .showcaseMedia {
-    min-height: 28rem;
+    min-height: 0;
   }
 }
 

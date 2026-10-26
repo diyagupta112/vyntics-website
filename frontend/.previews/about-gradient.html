@@ -1,0 +1,13 @@
+<style>
+  #about-gradient-preview { padding: 24px 0; }
+  #about-gradient-preview .quote-surface { padding: 28px; background: light-dark(#ffffff, #0b1220); }
+  #about-gradient-preview blockquote { max-width: 39rem; margin: 0; padding-left: 1.15rem; border-left: 0.2rem solid #1453db; font-family: "DM Sans", sans-serif; font-size: 1.2rem; font-weight: 700; line-height: 1.48; color: light-dark(#1453db, #77a5ff); }
+  @supports (background-clip: text) or (-webkit-background-clip: text) {
+    #about-gradient-preview blockquote { background-image: linear-gradient(90deg, light-dark(#1453db, #77a5ff), light-dark(#7c3aed, #b897ff)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+  }
+</style>
+<div id="about-gradient-preview" class="viz-dotted-background">
+  <div class="quote-surface">
+    <blockquote>Our goal is to simplify the adoption, trust, and ownership of cutting-edge technology.</blockquote>
+  </div>
+</div>

@@ -7,7 +7,7 @@ export function CrmHero() {
     service="crm-revenue-ops" headingId="crm-title"
     eyebrow={content.hero.eyebrow} title={content.hero.heading} titleLines={lines}
     description={content.hero.introduction}
-    primaryAction={{ href: "#contact", label: content.hero.primaryLabel }}
+    primaryAction={{ href: "/#contact", label: content.hero.primaryLabel }}
     secondaryAction={{ href: "#crm-services", label: content.hero.secondaryLabel }}
     capabilities={content.services.map(service => ({ label: service.name, href: service.href }))}
   />;

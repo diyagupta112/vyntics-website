@@ -11,7 +11,7 @@ test('canonical service architecture has exactly five pillars and thirteen uniqu
   assert.equal(serviceSitemap.length, 5);
   assert.equal(serviceSitemap.flatMap(pillar => pillar.services).length, 13);
   assert.equal(destinations.size, 19);
-  assert.deepEqual(serviceSitemap.map(pillar => pillar.slug), ['cloud-foundations', 'data-engineering', 'analytics-bi', 'ai-solutions', 'crm-revenue-ops']);
+  assert.deepEqual(serviceSitemap.map(pillar => pillar.slug), ['ai-solutions', 'data-engineering', 'cloud-foundations', 'crm-revenue-ops', 'analytics-bi']);
 });
 
 test('every mapped legacy content source redirects directly to its canonical service', () => {

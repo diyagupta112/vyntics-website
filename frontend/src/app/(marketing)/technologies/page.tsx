@@ -1,3 +1,5 @@
+import { technologyToolGroups } from "@/content/technology-tools";
+import { ToolsPlatforms } from "./tools-platforms";
 import type { Metadata } from "next";
 import { Suspense, type CSSProperties } from "react";
 import { FeaturedWork } from "@/components/sections/home/featured-work";
@@ -13,16 +15,9 @@ export const metadata: Metadata = {
 const technologyGroups = [
   { label: "AI Solutions", image: "/images/technology-ai.png", description: "AI systems designed for practical business applications, intelligent automation, and grounded responses.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "LangChain", "Google Gemini", "Pinecone", "LangGraph", "PGVector", "RAG", "LLM Assessment"] },
   { label: "Data Engineering", image: "/images/technology-Data-Engineering.jpg", description: "Ingestion, transformation, storage, modeling, and controlled access are all reliable.", tools: ["Snowflake", "dbt", "PostgreSQL", "Python", "SQL", "Apache Spark", "Apache Airflow", "Kafka", "AWS Glue", "Amazon S3"] },
-  { label: "Analytics & BI", image: "/images/technology-Analytics%26BI.jpg", description: "Data is transformed into understandable decisions through shared metrics and reporting layers.", tools: ["Power BI", "Tableau", "QuickSight", "Looker", "Grafana", "DAX", "Power Query", "Semantic models", "KPI modeling"] },
   { label: "Cloud Foundations", image: "/images/technology-Cloud%20Operations.png", description: "Infrastructure that is observable, secure, and built on dependability and affordability.", tools: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "AWS Fargate", "GitHub Actions", "CI/CD", "Observability"] },
   { label: "CRM & Revenue Ops", image: "/images/technology-CRM.jpg", description: "Automation throughout the customer lifetime, sales processes, and linked customer data.", tools: ["Salesforce", "HubSpot", "Dynamics 365", "Zoho CRM", "Salesforce Flow", "HubSpot Workflows", "Power Automate", "n8n", "REST APIs", "MuleSoft"] },
-] as const;
-
-const toolGroups = [
-  { title: "Build", description: "Create dependable applications, APIs, and connected services.", tools: ["Python", "Node.js", "FastAPI", "REST APIs", "PostgreSQL"] },
-  { title: "Transform", description: "Turn raw data into organised, accessible foundations.", tools: ["Snowflake", "dbt", "SQL", "Pinecone", "Amazon S3"] },
-  { title: "Understand", description: "Bring metrics, reporting, and operational insights into focus.", tools: ["Power BI", "Tableau", "QuickSight", "Grafana"] },
-  { title: "Operate", description: "Deploy, monitor, and maintain systems with confidence.", tools: ["Docker", "Kubernetes", "Terraform", "CI/CD", "AWS Fargate"] },
+  { label: "Analytics & BI", image: "/images/technology-Analytics%26BI.jpg", description: "Data is transformed into understandable decisions through shared metrics and reporting layers.", tools: ["Power BI", "Tableau", "QuickSight", "Looker", "Grafana", "DAX", "Power Query", "Semantic models", "KPI modeling"] },
 ] as const;
 
 const process = [
@@ -93,22 +88,11 @@ export default function TechnologiesPage() {
       <section className={styles.toolIndex} aria-labelledby="tool-index-title">
         <Container className={styles.toolIndexGrid}>
           <div className={styles.stickyHeading}>
-            <p className={styles.eyebrow}>The instruments we employ</p>
-            <h2 id="tool-index-title">A useful toolbox for the whole lifespan of delivery.</h2>
-            <p>These aren&apos;t a set vendor checklist; rather, they are representative tools. What the system truly requires is what we use.</p>
+            <p className={styles.eyebrow}>TECHNOLOGY STACK</p>
+            <h2 id="tool-index-title">Tools &amp; Platforms</h2>
+            <p>The technologies and platforms we use to design, build, integrate, and scale solutions across data, AI, cloud, CRM, and analytics.</p>
           </div>
-          <div className={styles.toolRows}>
-            {toolGroups.map((group, index) => (
-              <article key={group.title}>
-                <div className={styles.toolCardHeading}>
-                  <span aria-hidden="true">0{index + 1}</span>
-                  <h3>{group.title}</h3>
-                </div>
-                <p className={styles.toolDescription}>{group.description}</p>
-                <ul>{group.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul>
-              </article>
-            ))}
-          </div>
+          <ToolsPlatforms groups={technologyToolGroups} />
         </Container>
       </section>
 

@@ -25,6 +25,7 @@ export function FeaturedCaseStudyCarousel({ studies, caseStudySeo = false }: { s
   const [focused, setFocused] = useState(false);
   const [paused, setPaused] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [videoVisible, setVideoVisible] = useState(false);
   const reducedMotion = useReducedMotion();
   useEffect(() => {
     const update = () => setHidden(document.hidden);
@@ -33,10 +34,10 @@ export function FeaturedCaseStudyCarousel({ studies, caseStudySeo = false }: { s
     return () => document.removeEventListener("visibilitychange", update);
   }, []);
   useEffect(() => {
-    if (studies.length < 2 || hovered || focused || paused || hidden || reducedMotion) return;
+    if (studies.length < 2 || hovered || focused || paused || hidden || reducedMotion || videoVisible) return;
     const timer = window.setTimeout(() => { setDirection(1); setIndex(current => (current + 1) % studies.length); }, 4000);
     return () => window.clearTimeout(timer);
-  }, [index, studies.length, hovered, focused, paused, hidden, reducedMotion]);
+  }, [index, studies.length, hovered, focused, paused, hidden, reducedMotion, videoVisible]);
   const touchStart = useRef<number | null>(null);
   if (!studies.length) return null;
   const activeIndex = index % studies.length;
@@ -62,9 +63,9 @@ export function FeaturedCaseStudyCarousel({ studies, caseStudySeo = false }: { s
             if (!(event.target instanceof Element) || event.target.closest("a, button, input, select, textarea") || window.getSelection()?.toString()) return;
             router.push(`/case-studies/${encodeURIComponent(study.slug)}`);
           }}>
-          <ThreeDCard wrapperClassName={design.visualFrame} className={design.visual}>
+          <ThreeDCard wrapperClassName={`${design.visualFrame} ${styles.videoFrame}`} className={design.visual}>
             <div className={styles.media}>
-              <CaseStudyVideo optimizedCover={caseStudySeo} media={study.media} fallbackSrc={study.cover_image_url} title={study.title} controls={false} interactivePreview />
+              <CaseStudyVideo optimizedCover={caseStudySeo} media={study.media} fallbackSrc={study.cover_image_url} title={study.title} controls={false} interactivePreview onPreviewVisibilityChange={setVideoVisible} />
             </div>
             <span className={`${design.projectType} ${styles.projectType}`}>Case study</span>
           </ThreeDCard>
