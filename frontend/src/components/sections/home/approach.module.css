@@ -49,6 +49,7 @@
 }
 
 .process {
+  --process-node-size: clamp(7.5rem, 10vw, 9.25rem);
   position: relative;
   width: min(100%, 78rem);
   height: clamp(30rem, 58vh, 34rem);
@@ -155,11 +156,29 @@
   left: 78%;
 }
 
+.step::before {
+  position: absolute;
+  z-index: -1;
+  top: calc(0.85rem + var(--process-node-size));
+  bottom: calc(50% - 6.4815%);
+  left: 50%;
+  width: 1px;
+  content: "";
+  background: var(--process-line);
+  opacity: 0;
+  transition: opacity 480ms ease 120ms;
+}
+
+.step:nth-child(even)::before {
+  top: calc(50% - 6.4815%);
+  bottom: calc(0.85rem + var(--process-node-size));
+}
+
 .iconNode {
   position: absolute;
   top: 0.85rem;
   left: 50%;
-  width: clamp(7.5rem, 10vw, 9.25rem);
+  width: var(--process-node-size);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
@@ -275,6 +294,7 @@
 }
 
 .section[data-in-view="true"] .flowStem,
+.section[data-in-view="true"] .step::before,
 .section[data-in-view="true"] .flowDot,
 .section[data-in-view="true"] .iconNode,
 .section[data-in-view="true"] .stepCard {
@@ -312,6 +332,7 @@
   }
 
   .process {
+    --process-node-size: 8.25rem;
     width: min(100%, 43rem);
     height: auto;
   }
@@ -342,7 +363,7 @@
   .step::before {
     position: absolute;
     z-index: -1;
-    top: 50%;
+    top: calc(0.85rem + var(--process-node-size));
     bottom: 10.5rem;
     left: 50%;
     width: 1px;
@@ -352,7 +373,7 @@
 
   .step:nth-child(even)::before {
     top: 10.5rem;
-    bottom: 50%;
+    bottom: calc(0.85rem + var(--process-node-size));
   }
 
   .step::after {
@@ -474,6 +495,7 @@
   }
 
   .flowStem,
+  .step::before,
   .flowDot,
   .iconNode,
   .stepCard {
