@@ -27,7 +27,7 @@ export default function AboutPage() {
         <Container className={styles.heroGrid}>
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>AI and data you can rely on</p>
-            <h1>Converting Data into a Competitive Advantage</h1>
+            <h1>Converting Data Into A Competitive Advantage</h1>
             <p className={styles.lead}>
               We are Vyntics, a group of engineers and strategists that assist businesses in transforming complicated data into reliable choices, practical automation, and long-lasting systems.
             </p>
@@ -46,7 +46,7 @@ export default function AboutPage() {
         <Container className={styles.companyIntroGrid}>
           <div className={styles.companyIntroCopy}>
             <p className={styles.introLabel}>About Vyntics</p>
-            <h2 id="company-intro-title">Where actual work takes place, we make <span>Data and AI</span> useful</h2>
+            <h2 id="company-intro-title">Where Actual Work Takes Place, We Make <span>Data And AI</span> Useful</h2>
             <p>
               Vyntics is a data engineering and applied AI firm that assists businesses in transforming disjointed data, manual procedures, and difficult technological choices into dependable functional solutions.
             </p>
@@ -75,7 +75,7 @@ export default function AboutPage() {
         <Container className={styles.missionInner}>
           <header className={styles.missionHeading}>
             <p className={styles.eyebrow}>Our goal</p>
-            <h2 id="mission-title">Utilizing <span>AI and Data</span> to assist teams in making better decisions</h2>
+            <h2 id="mission-title">Utilizing <span>AI And Data</span> To Assist Teams In Making Better Decisions</h2>
           </header>
           <div className={styles.missionCopy}>
             <div className={styles.missionPanelTitle}>
