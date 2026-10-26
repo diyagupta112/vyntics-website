@@ -73,7 +73,7 @@ export default function CaseStudiesPage() {
         <CaseStudySections />
       </Suspense>
       <CaseStudyScrollReveal>
-      <ContactCta eyebrow="" showEyebrowAccent={false} title="Have a similar challenge? Talk to our experts."
+      <ContactCta eyebrow="" showEyebrowAccent={false} title="Have a similar challenge? Talk to our experts"
         intro="Tell us what you're trying to solve. Talk directly with our experts about your data, AI, cloud or analytics project. It's a straight conversation about what's possible and what it would take, with no sales pitch." />
       </CaseStudyScrollReveal>
       <ScrollReveals scope="main" />

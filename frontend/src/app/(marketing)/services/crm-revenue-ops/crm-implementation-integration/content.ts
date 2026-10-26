@@ -9,7 +9,7 @@ export const crmImplementationService = {
   seoTitle: "CRM Implementation Services | Vyntics",
   seoDescription: "CRM implementation services for businesses setting up, migrating, customizing, and integrating Salesforce, HubSpot, Zoho CRM, or Dynamics 365.",
   hero: {
-    title: "CRM implementation services for a connected customer process",
+    title: "CRM Implementation Services For A Connected Customer Process",
     introduction: "Set up a new CRM, switch from an existing system, or connect customer data across the tools your teams use.",
     outcome: "Implement a CRM your team can use, update, and maintain.",
     cta: "Discuss your CRM implementation",
@@ -19,33 +19,33 @@ export const crmImplementationService = {
 } as const;
 
 export const crmSections: { signs: SubSection; implementation: SubSection; integrations: SubSection; results: SubSection; related: SubSection } = {
-  signs: { id: "crm-help-signs", title: "Signs you need CRM help", introduction: "A CRM should make customer information easier to manage, share, and act on.", items: [
+  signs: { id: "crm-help-signs", title: "Signs You Need CRM Help", introduction: "A CRM should make customer information easier to manage, share, and act on.", items: [
     { title: "Nobody can see every open lead and its next step together", description: "Leads are kept in personal spreadsheets and inboxes, with no shared CRM process for the whole team." },
     { title: "Records in the CRM are often old, and people stop trusting them", description: "The CRM may not match how your team actually works, so updating it feels like extra effort." },
     { title: "The same customer shows up more than once, with different details", description: "Records are created from several sources without duplicate checks, so one contact ends up with many entries." },
     { title: "Customer details differ between the CRM and the other tools you use", description: "There is no CRM integration with other tools, so information is copied by hand or never shared." },
   ] },
-  implementation: { id: "crm-implementation-services", title: "Our CRM implementation services", introduction: "We help you choose, configure, and adopt a CRM around the way your teams work.", items: [
-    { title: "CRM selection", description: "Compare practical options against your processes, users, data, and integration needs." },
-    { title: "Setup and configuration", description: "Configure records, permissions, pipelines, fields, and workflows for your operating model." },
+  implementation: { id: "crm-implementation-services", title: "Our CRM Implementation Services", introduction: "We help you choose, configure, and adopt a CRM around the way your teams work.", items: [
+    { title: "CRM Selection", description: "Compare practical options against your processes, users, data, and integration needs." },
+    { title: "Setup And Configuration", description: "Configure records, permissions, pipelines, fields, and workflows for your operating model." },
     { title: "Customisation", description: "Adapt the CRM experience where standard configuration does not meet a clear business need." },
-    { title: "Data migration", description: "Plan, clean, map, and move data from spreadsheets or an existing CRM with reviewable checks." },
-    { title: "User training", description: "Help teams understand the new process and the habits that keep CRM data useful." },
+    { title: "Data Migration", description: "Plan, clean, map, and move data from spreadsheets or an existing CRM with reviewable checks." },
+    { title: "User Training", description: "Help teams understand the new process and the habits that keep CRM data useful." },
   ] },
-  integrations: { id: "crm-integration-services", title: "Our CRM integration services", introduction: "Connect the CRM with the systems that create, enrich, and support your customer relationships.", items: [
+  integrations: { id: "crm-integration-services", title: "Our CRM Integration Services", introduction: "Connect the CRM with the systems that create, enrich, and support your customer relationships.", items: [
     { title: "Website", description: "Connect forms and customer actions to the records and follow-up process your team owns." },
     { title: "Email", description: "Keep relevant conversations and messages connected to the right customer context." },
     { title: "ERP", description: "Link customer and commercial information across CRM and operational systems." },
     { title: "Accounting", description: "Connect billing and account information without creating duplicate manual work." },
-    { title: "Support desk", description: "Give teams a clearer view of customer requests and account history." },
-    { title: "Marketing tools", description: "Share consented customer and campaign context across marketing workflows." },
+    { title: "Support Desk", description: "Give teams a clearer view of customer requests and account history." },
+    { title: "Marketing Tools", description: "Share consented customer and campaign context across marketing workflows." },
   ] },
-  results: { id: "crm-results", title: "What a better CRM can improve", introduction: "We focus on outcomes your team can review after implementation, without assuming a fixed result.", items: [
+  results: { id: "crm-results", title: "What A Better CRM Can Improve", introduction: "We focus on outcomes your team can review after implementation, without assuming a fixed result.", items: [
     { title: "CRM adoption", description: "Make the system useful enough for teams to return to it as part of their normal work." },
     { title: "Time saved on data entry", description: "Reduce repeated updates by connecting the CRM to the tools where work already happens." },
     { title: "Data accuracy", description: "Use clearer ownership, validation, and reviewable migration checks to improve trust in records." },
   ] },
-  related: { id: "crm-related-services", title: "Keep improving your customer operations", introduction: "Connect CRM implementation with the data and revenue services that support the next stage of growth.", items: [
+  related: { id: "crm-related-services", title: "Keep Improving Your Customer Operations", introduction: "Connect CRM implementation with the data and revenue services that support the next stage of growth.", items: [
     { title: "Sales Automation & Revenue Analytics", description: "Automate sales workflows and build clearer visibility into pipeline and revenue.", href: "/services/crm-revenue-ops/sales-automation-revenue-analytics", linkLabel: "Explore Sales Automation & Revenue Analytics" },
     { title: "Data Pipelines & Integration", description: "Build dependable connections between the systems your teams rely on.", href: "/services/data-engineering/data-pipelines-integration", linkLabel: "Explore Data Pipelines & Integration" },
   ] },
@@ -55,7 +55,7 @@ export const crmProcess = [
   { title: "Audit", visual: "Current process", description: "Review how your teams capture, update, and use customer information today." },
   { title: "Plan", visual: "Target CRM", description: "Agree the platform, scope, ownership, data, and integration priorities." },
   { title: "Configure", visual: "Working setup", description: "Set up the records, permissions, workflows, and views your teams need." },
-  { title: "Migrate data", visual: "Checked records", description: "Map, clean, move, and review the data that belongs in the new CRM." },
+  { title: "Migrate Data", visual: "Checked records", description: "Map, clean, move, and review the data that belongs in the new CRM." },
   { title: "Train", visual: "Confident users", description: "Walk through the new process with the people who will use and own it." },
   { title: "Support", visual: "Continuous improvement", description: "Review feedback and help the CRM remain useful as your needs change." },
 ] as const;

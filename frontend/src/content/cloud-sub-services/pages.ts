@@ -26,13 +26,13 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
     seoTitle: "Cloud Migration Services | Vyntics",
     seoDescription: "Plan your cloud move with Vyntics cloud migration services. Assess workloads, design architecture, migrate applications, and validate the result.",
     hero: {
-      title: "Cloud migration services for your next move",
+      title: "Cloud Migration Services For Your Next Move",
       introduction: "Our cloud migration services help you move applications and data with a clear cloud migration strategy, tested cutover steps, and an operating plan your team can use.",
       outcome: "Move with a clear plan and a tested path to production.", cta: "Discuss your cloud migration",
       expectedImage: "/images/services/our-services-section/cloud-migration-v2.png", imageAlt: "Cloud architecture and workload migration planning",
     },
     signs: {
-      id: "migration-signs", title: "Signs you need to migrate",
+      id: "migration-signs", title: "Signs You Need To Migrate",
       introduction: "The signs are usually visible in day-to-day operations. We help identify what is behind them and what needs to change.",
       items: [
         { title: "Applications are becoming slower or less reliable", description: "Ageing infrastructure may be reaching its performance or lifecycle limits." },
@@ -42,20 +42,20 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       ],
     },
     offerings: [
-      { id: "architecture-services", title: "Our cloud architecture services", introduction: "Our cloud architecture consulting starts with your workloads, dependencies, and ownership needs. We document the choices your team and cloud solution architect need to review.", items: [
-        { title: "Well-architected design", description: "We map application boundaries, traffic, data flows, and service requirements before choosing compute, storage, and managed services." },
-        { title: "Landing zones", description: "We define the account or subscription structure, environment separation, identity controls, and policies that support consistent deployment." },
-        { title: "Security and network design", description: "We plan private connectivity, access boundaries, encryption, and network segmentation around the systems your workloads need to reach." },
-        { title: "High availability and disaster recovery", description: "We design redundancy, backup, and recovery options against agreed business requirements, then identify what needs to be tested." },
+      { id: "architecture-services", title: "Our Cloud Architecture Services", introduction: "Our cloud architecture consulting starts with your workloads, dependencies, and ownership needs. We document the choices your team and cloud solution architect need to review.", items: [
+        { title: "Well-Architected Design", description: "We map application boundaries, traffic, data flows, and service requirements before choosing compute, storage, and managed services." },
+        { title: "Landing Zones", description: "We define the account or subscription structure, environment separation, identity controls, and policies that support consistent deployment." },
+        { title: "Security And Network Design", description: "We plan private connectivity, access boundaries, encryption, and network segmentation around the systems your workloads need to reach." },
+        { title: "High Availability And Disaster Recovery", description: "We design redundancy, backup, and recovery options against agreed business requirements, then identify what needs to be tested." },
       ] },
-      { id: "migration-services", title: "Our cloud migration services", introduction: "We select a migration approach for each workload. The right choice depends on application constraints, risk, and the changes your team is ready to own.", items: [
-        { title: "Rehost: lift and shift", description: "Move a workload with limited application changes when a straightforward infrastructure move is appropriate." },
+      { id: "migration-services", title: "Our Cloud Migration Services", introduction: "We select a migration approach for each workload. The right choice depends on application constraints, risk, and the changes your team is ready to own.", items: [
+        { title: "Rehost: Lift And Shift", description: "Move a workload with limited application changes when a straightforward infrastructure move is appropriate." },
         { title: "Replatform", description: "Adjust selected platform components, such as a database or application runtime, while keeping most application behavior intact." },
         { title: "Refactor", description: "Change application architecture where the business case supports the additional development, testing, and operational work." },
-        { title: "Database and application migration", description: "Plan data transfer, dependency sequencing, validation, cutover, and rollback together so applications and their data move coherently." },
+        { title: "Database And Application Migration", description: "Plan data transfer, dependency sequencing, validation, cutover, and rollback together so applications and their data move coherently." },
       ] },
     ],
-    process: { title: "Our migration process", introduction: "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.", steps: [
+    process: { title: "Our Migration Process", introduction: "We turn your cloud migration strategy into reviewable stages, with acceptance checks before workloads move into production.", steps: [
       { title: "Assess", visual: "Workloads and dependencies", description: "We inventory workloads, data, dependencies, security requirements, and operating constraints." },
       { title: "Plan", visual: "Architecture and cutover", description: "We define the target architecture, migration sequence, acceptance checks, and rollback approach." },
       { title: "Pilot", visual: "A representative workload", description: "We test the approach on a representative workload and use the findings to refine the plan." },
@@ -63,19 +63,19 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       { title: "Validate", visual: "Data and service checks", description: "We check data integrity, application behavior, access, performance, backups, and recovery readiness." },
       { title: "Optimise", visual: "Operate and improve", description: "We review resource usage, monitoring, cost, and operating documentation after the move." },
     ] },
-    diagram: { type: "migration", title: "Sample migration architecture", caption: "A typical migration moves on-premises servers, a database, and file storage to cloud application services behind a load balancer, with a managed database and cloud storage. This is an illustrative starting point, not a design for your environment." },
-    platforms: { title: "Cloud platforms for your migration", introduction: "We compare the fit with your existing systems, data requirements, team skills, and operating model.", items: [
+    diagram: { type: "migration", title: "Sample Migration Architecture", caption: "A typical migration moves on-premises servers, a database, and file storage to cloud application services behind a load balancer, with a managed database and cloud storage. This is an illustrative starting point, not a design for your environment." },
+    platforms: { title: "Cloud Platforms For Your Migration", introduction: "We compare the fit with your existing systems, data requirements, team skills, and operating model.", items: [
       { name: "AWS", role: "Workload migration", description: "AWS migration services typically involve workload discovery, target account and network planning, and a suitable compute and database destination. We plan validation and operational ownership alongside the move." },
       { name: "Azure", role: "Connected Microsoft environments", description: "Azure migration services typically include readiness assessment, subscription and identity planning, and application or database migration. We review dependencies on existing Microsoft systems before choosing a destination." },
       { name: "Google Cloud", role: "Applications and data", description: "A move to Google Cloud starts with workload discovery and dependency assessment. We compare infrastructure and managed-service options, then plan the data transfer and acceptance checks." },
     ] },
-    results: { id: "migration-benefits", title: "What a well-planned migration can improve", introduction: "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.", items: [
+    results: { id: "migration-benefits", title: "What A Well-Planned Migration Can Improve", introduction: "The benefits depend on your starting environment and the decisions made during the move. We review these areas against your requirements with your team.", items: [
       { title: "Cost visibility", description: "Connect resource choices and usage to operating costs, including the cost of maintaining the new environment." },
       { title: "Scalability", description: "Choose capacity and scaling options that can respond to demand without relying only on hardware purchases." },
       { title: "Security", description: "Make access, network boundaries, patching responsibilities, and recovery procedures explicit and reviewable." },
       { title: "Speed of change", description: "Use repeatable environment setup and clearer operating documentation to make infrastructure changes easier to manage." },
     ] },
-    engagements: { id: "migration-engagements", title: "Choose the right starting point", introduction: "We agree on scope, access, responsibilities, and acceptance criteria before delivery starts.", items: [
+    engagements: { id: "migration-engagements", title: "Choose The Right Starting Point", introduction: "We agree on scope, access, responsibilities, and acceptance criteria before delivery starts.", items: [
       { title: "Migration assessment", description: "Review the current environment, dependencies, risks, and destination options before committing to a migration plan." },
       { title: "Full migration", description: "Work through architecture, planning, pilot, migration, validation, and the agreed handoff as one scoped engagement." },
       { title: "Ongoing management", description: "Discuss monitoring, maintenance, incident handling, and improvement responsibilities for the migrated environment." },
@@ -88,7 +88,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       { question: "What is the difference between rehosting, replatforming and refactoring?", answer: "Rehosting moves a workload with limited application changes. Replatforming changes selected platform components while keeping much of the application intact. Refactoring changes the application architecture and typically requires more development and testing." },
       { question: "Should we choose AWS, Azure or Google Cloud?", answer: "The choice depends on your applications, existing systems, skills, security requirements, and cost model. There is no single best platform for every workload. We compare suitable options against the requirements you need to meet." },
     ],
-    related: { id: "migration-related", title: "Keep building your cloud foundation", introduction: "Migration is one part of an operating environment. Explore the services that support what happens after the move.", items: [
+    related: { id: "migration-related", title: "Keep Building Your Cloud Foundation", introduction: "Migration is one part of an operating environment. Explore the services that support what happens after the move.", items: [
       { title: "DevOps & Reliability", description: "Build repeatable releases and an operating view of the migrated services.", href: devopsPath, linkLabel: "Explore DevOps & Reliability" },
       { title: "Cloud Cost Optimization", description: "Review resource usage and cloud spend after your workloads settle into their new environment.", href: costPath, linkLabel: "Explore Cloud Cost Optimization" },
       { title: "Data Warehousing & Lakehouse", description: "Plan a governed data foundation for reporting and analytics after migration.", href: "/services/data-engineering/data-warehousing-lakehouse", linkLabel: "Explore Data Warehousing & Lakehouse" },
@@ -98,41 +98,41 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
   devops: {
     key: "devops", slug: "devops-reliability", name: "DevOps & Reliability", keyword: "DevOps consulting services",
     seoTitle: "DevOps Consulting Services | Vyntics", seoDescription: "Vyntics DevOps consulting services help you improve CI/CD pipelines, infrastructure as code, monitoring, and production reliability.",
-    hero: { title: "DevOps consulting services for reliable releases", introduction: "Our DevOps consulting services help your team make deployments repeatable, see production issues sooner, and recover with clearer operating procedures.", outcome: "Release faster, break less", cta: "Get a free DevOps assessment", expectedImage: "/images/services/our-services-section/devops-and-reliability-2.png", imageAlt: "Developer working with code and system monitoring on two screens" },
-    signs: { id: "devops-signs", title: "Signs you need DevOps", introduction: "Repeated release and reliability problems make it harder to deliver changes with confidence. These signals help show where a more consistent approach can help.", items: [
+    hero: { title: "DevOps Consulting Services For Reliable Releases", introduction: "Our DevOps consulting services help your team make deployments repeatable, see production issues sooner, and recover with clearer operating procedures.", outcome: "Release faster, break less", cta: "Get a free DevOps assessment", expectedImage: "/images/services/our-services-section/devops-and-reliability-2.png", imageAlt: "Developer working with code and system monitoring on two screens" },
+    signs: { id: "devops-signs", title: "Signs You Need DevOps", introduction: "Repeated release and reliability problems make it harder to deliver changes with confidence. These signals help show where a more consistent approach can help.", items: [
       { title: "Shipping a release takes a long time and a lot of effort", description: "Releases rely on remembered commands, individual access or manual checks instead of a CI/CD pipeline." },
       { title: "Outages keep happening, and the team is always busy restoring service", description: "Changes often go live without enough testing or an easy rollback, so problems reach users first." },
       { title: "When something breaks, you cannot easily see where it started", description: "Logs, metrics and alerts are scattered or missing, and there is little cloud monitoring to tie them together." },
       { title: "Code that works in testing behaves differently in production", description: "Configuration differences between development, testing, and production make release behavior hard to predict." },
     ] },
     offerings: [
-      { id: "devops-services", title: "Our DevOps services", introduction: "Our CI/CD pipeline services connect code changes, checks, and deployment decisions. We use DevOps automation where it reduces repeated work and keeps the process understandable.", items: [
-        { title: "CI/CD pipelines", description: "We build automated build, test, and deployment steps with approval gates, release records, and a rollback approach suited to your applications." },
-        { title: "Infrastructure as code", description: "We use Terraform where appropriate to define infrastructure in version-controlled files, review changes, and make environments more repeatable." },
-        { title: "Containers and Kubernetes", description: "We review packaging, deployment, and scaling needs before introducing orchestration. Our Kubernetes consulting focuses on a setup your team can operate." },
+      { id: "devops-services", title: "Our DevOps Services", introduction: "Our CI/CD pipeline services connect code changes, checks, and deployment decisions. We use DevOps automation where it reduces repeated work and keeps the process understandable.", items: [
+        { title: "CI/CD Pipelines", description: "We build automated build, test, and deployment steps with approval gates, release records, and a rollback approach suited to your applications." },
+        { title: "Infrastructure As Code", description: "We use Terraform where appropriate to define infrastructure in version-controlled files, review changes, and make environments more repeatable." },
+        { title: "Containers And Kubernetes", description: "We review packaging, deployment, and scaling needs before introducing orchestration. Our Kubernetes consulting focuses on a setup your team can operate." },
         { title: "DevSecOps", description: "We include dependency checks, secret handling, access controls, and security review points in the delivery workflow rather than leaving them until release." },
       ] },
-      { id: "reliability-services", title: "Our reliability services", introduction: "Our site reliability engineering services focus on the health of the service your users depend on. We agree on useful signals, response responsibilities, and recovery expectations.", items: [
-        { title: "Monitoring and alerting", description: "Our cloud monitoring services connect service health signals with alerts that tell the right person what needs attention." },
+      { id: "reliability-services", title: "Our Reliability Services", introduction: "Our site reliability engineering services focus on the health of the service your users depend on. We agree on useful signals, response responsibilities, and recovery expectations.", items: [
+        { title: "Monitoring And Alerting", description: "Our cloud monitoring services connect service health signals with alerts that tell the right person what needs attention." },
         { title: "Logging", description: "We organize logs so teams can trace a failure across services and find the information needed for investigation." },
-        { title: "Uptime and SLA targets", description: "We define measurable service objectives with your team and review any contractual service-level targets without promising universal uptime." },
-        { title: "Incident response", description: "We document triage, escalation, recovery, and follow-up steps so incidents produce a clearer operating response." },
-        { title: "Backup and disaster recovery", description: "We review backup coverage, restoration procedures, and recovery tests against your business requirements." },
+        { title: "Uptime And SLA Targets", description: "We define measurable service objectives with your team and review any contractual service-level targets without promising universal uptime." },
+        { title: "Incident Response", description: "We document triage, escalation, recovery, and follow-up steps so incidents produce a clearer operating response." },
+        { title: "Backup And Disaster Recovery", description: "We review backup coverage, restoration procedures, and recovery tests against your business requirements." },
       ] },
     ],
-    process: { title: "Our DevOps and reliability process", introduction: "We start with the current delivery path, then improve the steps that create repeated work or operational risk.", steps: [
+    process: { title: "Our DevOps And Reliability Process", introduction: "We start with the current delivery path, then improve the steps that create repeated work or operational risk.", steps: [
       { title: "Audit", visual: "Delivery and production", description: "We review deployments, environments, access, monitoring, and the incidents your team is trying to prevent." },
       { title: "Automate", visual: "Repeatable changes", description: "We introduce scoped delivery and infrastructure automation with checks, review points, and documented ownership." },
       { title: "Monitor", visual: "Useful service signals", description: "We connect agreed service health signals to dashboards, alerts, and response procedures." },
       { title: "Improve", visual: "Feedback from operations", description: "We use release and incident findings to prioritize the next improvement with your team." },
     ] },
     tools: ["GitHub Actions", "Jenkins", "Terraform", "Docker", "Kubernetes", "Prometheus", "Grafana", "CloudWatch"],
-    results: { id: "devops-results", title: "Measure the operating changes that matter", introduction: "We agree on a starting point and review trends after changes. The measures help identify what to improve.", items: [
+    results: { id: "devops-results", title: "Measure The Operating Changes That Matter", introduction: "We agree on a starting point and review trends after changes. The measures help identify what to improve.", items: [
       { title: "Deployment frequency", description: "Track how often useful changes reach production and which checks or handoffs slow the process." },
       { title: "Downtime", description: "Review when users cannot use the service, what caused the interruption, and whether recurring failure paths are being addressed." },
       { title: "Recovery time", description: "Measure how long it takes to identify and restore a failed service, then improve the response and recovery steps." },
     ] },
-    engagements: { id: "devops-engagements", title: "Start with the problem you need to solve", introduction: "We agree on the delivery scope and operating responsibilities before selecting a support arrangement.", items: [
+    engagements: { id: "devops-engagements", title: "Start With The Problem You Need To Solve", introduction: "We agree on the delivery scope and operating responsibilities before selecting a support arrangement.", items: [
       { title: "DevOps audit", description: "Review the current pipeline, environments, and production practices to identify a practical sequence of improvements." },
       { title: "Implementation", description: "Deliver the agreed pipeline, infrastructure, monitoring, or reliability changes with documentation and handoff." },
       { title: "Managed DevOps", description: "Discuss ongoing pipeline maintenance, monitoring, incident handling, and improvement work with explicit coverage and escalation rules." },
@@ -145,7 +145,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       { question: "Do we need Kubernetes?", answer: "Not every application needs Kubernetes. It can be useful when orchestration requirements justify the additional operating work, but simpler hosting options may fit your team better. We compare the deployment needs and ownership effort before recommending it." },
       { question: "Can you provide ongoing monitoring and support?", answer: "We can discuss ongoing monitoring, maintenance, and incident support as a separate operating scope. Coverage hours, response expectations, escalation, and ownership need to be agreed for your environment. A managed engagement should make those responsibilities explicit." },
     ],
-    related: { id: "devops-related", title: "Connect delivery with the rest of your cloud work", introduction: "Reliable releases depend on the environment they run in.", items: [
+    related: { id: "devops-related", title: "Connect Delivery With The Rest Of Your Cloud Work", introduction: "Reliable releases depend on the environment they run in.", items: [
       { title: "Cloud Architecture & Migration", description: "Review the architecture and workload move that sit underneath your delivery process.", href: migrationPath, linkLabel: "Explore Cloud Architecture & Migration" },
       { title: "Cloud Cost Optimization", description: "Connect operational decisions with resource usage and cloud spend.", href: costPath, linkLabel: "Explore Cloud Cost Optimization" },
     ] },
@@ -154,8 +154,8 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
   cost: {
     key: "cost", slug: "cloud-cost-optimization", name: "Cloud Cost Optimization", keyword: "cloud cost optimization services",
     seoTitle: "Cloud Cost Optimization Services | Vyntics", seoDescription: "Vyntics cloud cost optimization services help you review spend, rightsize resources, evaluate commitments, and build practical FinOps controls.",
-    hero: { title: "Cloud cost optimization services", introduction: "Our cloud cost optimization services help you reduce cloud costs by connecting your bill to resource usage, ownership, and the performance your applications need.", outcome: "Pay only for the cloud you actually use", cta: "Get a free cloud cost audit", expectedImage: "/images/services/our-services-section/cloud-cost-optimization.png", imageAlt: "Laptop displaying a cloud cost dashboard with usage and spending charts" },
-    signs: { id: "cost-signs", title: "Why cloud bills keep growing", introduction: "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.", items: [
+    hero: { title: "Cloud Cost Optimization Services", introduction: "Our cloud cost optimization services help you reduce cloud costs by connecting your bill to resource usage, ownership, and the performance your applications need.", outcome: "Pay only for the cloud you actually use", cta: "Get a free cloud cost audit", expectedImage: "/images/services/our-services-section/cloud-cost-optimization.png", imageAlt: "Laptop displaying a cloud cost dashboard with usage and spending charts" },
+    signs: { id: "cost-signs", title: "Why Cloud Bills Keep Growing", introduction: "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.", items: [
       { title: "Your cloud bill keeps rising, even in months when little has changed", description: "Unused development environments or resources with little activity continue to generate charges." },
       { title: "Monitoring shows servers using only a fraction of what you pay for", description: "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size." },
       { title: "When the bill jumps, nobody can say who or what caused it", description: "Costs cannot be tied consistently to a team, workload, environment, or owner." },
@@ -163,37 +163,37 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       { title: "Steady workloads still appear on the invoice at full on-demand prices", description: "Eligible, predictable usage is not reviewed against commitment options, or existing commitments no longer fit demand." },
     ] },
     offerings: [
-      { id: "cost-services", title: "Our cost optimization services", introduction: "We review the cloud cost management decisions that drive your bill. We can also build AI tools that monitor your cloud spend and flag possible waste for human review.", items: [
-        { title: "Cloud cost audit", description: "We connect billing data, resource inventory, usage, and ownership to identify the areas worth investigating." },
+      { id: "cost-services", title: "Our Cost Optimization Services", introduction: "We review the cloud cost management decisions that drive your bill. We can also build AI tools that monitor your cloud spend and flag possible waste for human review.", items: [
+        { title: "Cloud Cost Audit", description: "We connect billing data, resource inventory, usage, and ownership to identify the areas worth investigating." },
         { title: "Rightsizing", description: "We compare resource capacity with usage and performance requirements before proposing smaller or different configurations." },
-        { title: "Reserved instances and savings plans", description: "We review eligible usage, commitment coverage, and expected demand before considering a purchasing commitment." },
-        { title: "Auto-scaling", description: "We review scaling policies, thresholds, and minimum capacity so the environment responds to demand within agreed service limits." },
-        { title: "Storage cleanup", description: "We review ownership, retention, access needs, and recovery requirements before removing or changing stored data." },
-        { title: "Cost dashboards and alerts", description: "We make spend easier to review by workload and team, with alerts that prompt owners to investigate changes in usage." },
+        { title: "Reserved Instances And Savings Plans", description: "We review eligible usage, commitment coverage, and expected demand before considering a purchasing commitment." },
+        { title: "Auto-Scaling", description: "We review scaling policies, thresholds, and minimum capacity so the environment responds to demand within agreed service limits." },
+        { title: "Storage Cleanup", description: "We review ownership, retention, access needs, and recovery requirements before removing or changing stored data." },
+        { title: "Cost Dashboards And Alerts", description: "We make spend easier to review by workload and team, with alerts that prompt owners to investigate changes in usage." },
       ] },
-      { id: "finops", title: "FinOps: keeping costs low long-term", introduction: "FinOps consulting connects financial decisions with engineering ownership. Our cloud cost optimisation review helps your team build a repeatable habit of checking usage, cost, and business need.", items: [
+      { id: "finops", title: "FinOps: Keeping Costs Low Long-Term", introduction: "FinOps consulting connects financial decisions with engineering ownership. Our cloud cost optimisation review helps your team build a repeatable habit of checking usage, cost, and business need.", items: [
         { title: "Budgets", description: "We define useful spending thresholds and review points. Budget alerts notify owners; they do not automatically stop all cloud spending." },
         { title: "Tagging", description: "We agree on workload, environment, and ownership labels so cost reports can support decisions and follow-up." },
-        { title: "Team-level cost reports", description: "We connect usage and spend with responsible teams, explain material changes, and record who will act on them." },
+        { title: "Team-Level Cost Reports", description: "We connect usage and spend with responsible teams, explain material changes, and record who will act on them." },
       ] },
     ],
-    process: { title: "Our cloud cost optimization process", introduction: "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.", steps: [
+    process: { title: "Our Cloud Cost Optimization Process", introduction: "We separate low-risk changes from decisions that need workload testing, financial review, or a longer operating view.", steps: [
       { title: "Audit", visual: "Spend and resource usage", description: "We review billing, resource inventory, usage patterns, ownership, and current commitments." },
-      { title: "Quick wins", visual: "Reviewed low-risk changes", description: "We prioritize changes with clear ownership and limited operational risk, then validate their effect." },
-      { title: "Long-term savings", visual: "Capacity and commitments", description: "We assess resource design, scaling, retention, and commitment options against expected demand." },
-      { title: "Ongoing monitoring", visual: "Track changes in spend", description: "We establish reporting and review points so owners can investigate new cost changes." },
+      { title: "Quick Wins", visual: "Reviewed low-risk changes", description: "We prioritize changes with clear ownership and limited operational risk, then validate their effect." },
+      { title: "Long-Term Savings", visual: "Capacity and commitments", description: "We assess resource design, scaling, retention, and commitment options against expected demand." },
+      { title: "Ongoing Monitoring", visual: "Track changes in spend", description: "We establish reporting and review points so owners can investigate new cost changes." },
     ] },
-    platforms: { title: "Cost tools across cloud platforms", introduction: "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.", items: [
+    platforms: { title: "Cost Tools Across Cloud Platforms", introduction: "We use the billing and usage information available in your cloud environment to support an AWS cost optimization or Azure cost optimization review, or a Google Cloud cost review.", items: [
       { name: "AWS", role: "Billing and usage analysis", description: "AWS Cost Explorer and billing reports can help investigate spend and evaluate eligible commitments. We connect that information with workload usage and resource ownership before proposing changes." },
       { name: "Azure", role: "Cost Management", description: "Azure Cost Management supports cost analysis and budget alerts. We review costs alongside resource utilization, ownership, and the limits your applications need to operate within." },
       { name: "Google Cloud", role: "Cloud Billing", description: "Cloud Billing reports and budgets help teams review spend and investigate changes. We relate those views to projects, workload owners, and resource decisions; budget alerts alone do not cap usage." },
     ] },
-    results: { id: "cost-results", title: "Understand what changed, not just what was suggested", introduction: "Savings depend on your environment, usage, existing commitments, and the changes your team can safely make. We compare actual costs and workload behavior without assuming a fixed savings percentage.", items: [
+    results: { id: "cost-results", title: "Understand What Changed, Not Just What Was Suggested", introduction: "Savings depend on your environment, usage, existing commitments, and the changes your team can safely make. We compare actual costs and workload behavior without assuming a fixed savings percentage.", items: [
       { title: "Less avoidable waste", description: "Review unused resources, excess capacity, and retention choices against the needs of each workload." },
       { title: "Clearer ownership", description: "Give teams a useful view of the costs they influence and the recommendations they need to review." },
       { title: "Performance-aware decisions", description: "Check resource changes against service requirements so a lower bill is not the only acceptance measure." },
     ] },
-    engagements: { id: "cost-engagements", title: "Choose a cost review that fits your needs", introduction: "We discuss access, scope, reporting needs, and approval responsibilities before starting work.", items: [
+    engagements: { id: "cost-engagements", title: "Choose A Cost Review That Fits Your Needs", introduction: "We discuss access, scope, reporting needs, and approval responsibilities before starting work.", items: [
       { title: "One-time audit", description: "Review the bill and usage data, then receive a prioritized set of findings to discuss with your team." },
       { title: "Optimization project", description: "Work through agreed resource, configuration, reporting, or commitment changes with validation and ownership checks." },
       { title: "Monthly FinOps support", description: "Discuss a recurring cost review, reporting, and follow-up arrangement that fits your workload and team responsibilities." },
@@ -206,7 +206,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       { question: "What are reserved instances and savings plans?", answer: "These are cloud purchasing options that can reduce eligible usage charges in exchange for a commitment. On AWS, Reserved Instances apply to specified instance configurations, while Savings Plans use a spending commitment for eligible usage. The right choice depends on demand, eligibility, and how much flexibility you need." },
       { question: "How do you charge for cost optimization?", answer: "We discuss the fee and scope for an audit, implementation project, or ongoing support before work begins. The proposal depends on the environment, access, analysis, and delivery responsibilities involved. Your cloud provider charges and any purchasing commitments are separate from our consulting scope." },
     ],
-    related: { id: "cost-related", title: "Connect cost decisions with architecture and operations", introduction: "Cloud spend is shaped by application design, delivery practices, and the information teams use to make decisions.", items: [
+    related: { id: "cost-related", title: "Connect Cost Decisions With Architecture And Operations", introduction: "Cloud spend is shaped by application design, delivery practices, and the information teams use to make decisions.", items: [
       { title: "Cloud Architecture & Migration", description: "Review the architecture and migration choices that affect your future operating costs.", href: migrationPath, linkLabel: "Explore Cloud Architecture & Migration" },
       { title: "DevOps & Reliability", description: "Build repeatable changes and useful operating signals for your cloud environment.", href: devopsPath, linkLabel: "Explore DevOps & Reliability" },
     ] },

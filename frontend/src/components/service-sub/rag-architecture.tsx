@@ -268,7 +268,7 @@ export function RagArchitecture() {
     <Container>
       <header className={styles.heading} data-reveal="how-rag-heading">
         <p className={styles.eyebrow}>Architecture</p>
-        <h2 id="how-rag-title">How RAG works</h2>
+        <h2 id="how-rag-title">How RAG Works</h2>
         <p className={styles.intro}>Retrieval-augmented generation searches your approved knowledge before the model creates an answer.</p>
       </header>
       <ol className={styles.strip} aria-label="RAG in three steps">

@@ -248,7 +248,7 @@ export function DevopsPipeline() {
     <Container>
       <header className={styles.heading} data-reveal="devops-pipeline-heading">
         <p className={styles.eyebrow}>Pipeline</p>
-        <h2 id="devops-pipeline-title">Sample DevOps pipeline</h2>
+        <h2 id="devops-pipeline-title">Sample DevOps Pipeline</h2>
         <p className={styles.intro}>How a change moves from code commit to production, with checks at every stage.</p>
       </header>
       <figure className={styles.figure}>

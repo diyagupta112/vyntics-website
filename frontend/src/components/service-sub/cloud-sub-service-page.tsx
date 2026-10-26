@@ -54,7 +54,7 @@ export async function CloudSubServicePage({ pageKey }: { pageKey: CloudSubPageKe
       {pageKey === "migration" && page.diagram && <MigrationArchitecture />}
       {pageKey === "devops" && <DevopsPipeline />}
       {page.platforms && <div className={pageKey === "migration" ? styles.migrationPlatforms : undefined} data-reveal={`${pageKey}-platforms`}><ServiceTools presentation="platforms" balancedPlatforms showTechnologyLinks name={page.name} title={page.platforms.title} introduction={page.platforms.introduction} technologies={page.platforms.items.map(item => item.name)} details={page.platforms.items} /></div>}
-      {page.tools && pageKey === "devops" && <ServiceTools presentation="platforms" balancedPlatforms showTechnologyLinks name={page.name} title="Tools we use" introduction="We use tools that make delivery, infrastructure changes, and service health easier to review and operate." technologies={page.tools} />}
+      {page.tools && pageKey === "devops" && <ServiceTools presentation="platforms" balancedPlatforms showTechnologyLinks name={page.name} title="Tools We Use" introduction="We use tools that make delivery, infrastructure changes, and service health easier to review and operate." technologies={page.tools} />}
       {page.tools && pageKey !== "devops" && <DraftToolLinks presentation="editorial" tools={page.tools} pageKey={pageKey} />}
       <DraftCardSection section={page.results} variant={pageKey === "migration" || pageKey === "devops" || pageKey === "cost" ? "connected" : "cards"}
         visual={pageKey === "devops" ? { src: "/images/services/sub-services/benefits/devops-and-reliability.jpg", alt: "Colleagues reviewing work together around a laptop during a planning session" } : pageKey === "cost" ? { src: "/images/services/sub-services/benefits/cloud-cost-optimization.jpg", alt: "Colleagues gathered around a laptop, reviewing work together" } : undefined} />
@@ -73,7 +73,7 @@ export async function CloudSubServicePage({ pageKey }: { pageKey: CloudSubPageKe
         </Container>
       </section>
       <section className={`${sectionStyles.section} ${styles.section}`} aria-labelledby={`${pageKey}-faq-title`} data-reveal={`${pageKey}-faq`}>
-        <FaqContent heading={<><h2 id={`${pageKey}-faq-title`}>Frequently asked questions</h2><p className={styles.faqIntro}>Practical answers about {page.name.toLowerCase()}.</p><p className={styles.faqContact}>Have a question about your environment? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
+        <FaqContent heading={<><h2 id={`${pageKey}-faq-title`}>Frequently Asked Questions</h2><p className={styles.faqIntro}>Practical answers about {page.name.toLowerCase()}.</p><p className={styles.faqContact}>Have a question about your environment? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
           items={page.faqs} name={`${pageKey}-faq`} label={`${page.name} questions`} />
       </section>
       <DraftCardSection section={page.related} />

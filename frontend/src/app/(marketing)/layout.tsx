@@ -1,3 +1,4 @@
+import { ContactLinkScroll } from "@/components/layout/contact-link-scroll";
 import { OpticalHeadingAlignment } from "@/components/layout/optical-heading-alignment";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader, SiteHeaderSpacer } from "@/components/layout/site-header";
@@ -6,6 +7,7 @@ export default function MarketingLayout({ children }: LayoutProps<"/">) {
   return (
     <>
       <OpticalHeadingAlignment />
+      <ContactLinkScroll />
       <SiteHeader />
       <SiteHeaderSpacer />
       <main>{children}</main>

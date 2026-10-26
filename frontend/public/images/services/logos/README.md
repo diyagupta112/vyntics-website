@@ -88,3 +88,4 @@ Product-specific artwork is used by the Technology showcase only; service-page l
 - `mulesoft.png`: [Salesforce MuleSoft media-library asset](https://www.salesforce.com/news/wp-content/uploads/sites/3/2023/09/MuleSoft-From-Salesforce-Logo-RGB.png).
 
 Distinct Tableau deployment products and Power BI Service use their correct family marks. They are not collapsed into another product solely because their official artwork is shared. Unverified product logos and generic placeholder artwork are not substituted; those technologies retain readable names.
+- `amazon-quick-suite.svg`: official Amazon Quick Suite service icon (`Arch_Amazon-Quick-Suite_64.svg`) from the [AWS architecture icons](https://aws.amazon.com/architecture/icons/) set, as listed on [AWS Fundamentals](https://awsfundamentals.com/aws-icons/amazon-quick-suite), copied without edits.

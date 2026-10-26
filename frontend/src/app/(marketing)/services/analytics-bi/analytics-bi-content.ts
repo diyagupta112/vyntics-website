@@ -6,7 +6,7 @@ export const analyticsContent = {
   seoDescription: "Vyntics provides business intelligence services, dashboards, reporting and analytics consulting to help businesses turn data into clearer decisions.",
   hero: {
     eyebrow: "Analytics & BI",
-    heading: "Turn your data into better decisions with BI.",
+    heading: "Turn your data into better decisions with BI",
     introduction: "Our business intelligence services connect trusted data to dashboards, reporting, and analytics, so teams can review performance and leaders have a clear view of the decisions ahead.",
     primaryLabel: "Discuss your BI needs",
   },
@@ -18,10 +18,10 @@ export const analyticsContent = {
   ],
   problemIntroduction: "From disconnected reports to unclear metrics, we help teams build a reporting setup they can use for everyday decisions.",
   reasons: [
-    { title: "Decisions first", description: "We start with the questions your team needs to answer, then shape the metrics, reports, and dashboard views around them.", path: "M4 9 12 4l8 5-8 5-8-5Zm0 6 8 5 8-5M4 20l8 5 8-5" },
-    { title: "Consistent foundations", description: "Connect existing data systems with shared KPI definitions and checks, so reporting has a clear, maintainable foundation.", path: "M4 6h6v6H4zM14 16h6v6h-6zM16 6h5v5M21 6l-9 9" },
-    { title: "Clear visualization", description: "Focused dashboard design makes comparisons, trends, and exceptions easier to review without crowding the screen.", path: "M4 20h17M7 16v-4M12 16V8M17 16V4" },
-    { title: "Support beyond delivery", description: "Connect implementation with training, documentation, and ongoing support as your data sources and reporting needs change.", path: "M20 8a8 8 0 1 0 1 8M20 3v5h-5M8 12l3 3 5-6" },
+    { title: "Decisions First", description: "We start with the questions your team needs to answer, then shape the metrics, reports, and dashboard views around them.", path: "M4 9 12 4l8 5-8 5-8-5Zm0 6 8 5 8-5M4 20l8 5 8-5" },
+    { title: "Consistent Foundations", description: "Connect existing data systems with shared KPI definitions and checks, so reporting has a clear, maintainable foundation.", path: "M4 6h6v6H4zM14 16h6v6h-6zM16 6h5v5M21 6l-9 9" },
+    { title: "Clear Visualization", description: "Focused dashboard design makes comparisons, trends, and exceptions easier to review without crowding the screen.", path: "M4 20h17M7 16v-4M12 16V8M17 16V4" },
+    { title: "Support Beyond Delivery", description: "Connect implementation with training, documentation, and ongoing support as your data sources and reporting needs change.", path: "M20 8a8 8 0 1 0 1 8M20 3v5h-5M8 12l3 3 5-6" },
   ],
   whyIntroduction: "As a business analytics company, we connect your data, reporting, and decisions.",
   whyImage: {
@@ -48,9 +48,9 @@ export const analyticsContent = {
   ],
   platformsIntroduction: "We choose tools for business intelligence solutions around your data, reporting needs, existing systems, and team skills.",
   platforms: [
+    { name: "Amazon QuickSight", role: "AWS and embedded BI", description: "For teams using AWS or embedding analytics in their applications, with setup and dashboard delivery." },
     { name: "Power BI", role: "Models and reporting", description: "For connected KPI reporting, with data modeling, DAX, dashboard setup, and Power BI Service guidance." },
     { name: "Tableau", role: "Visual exploration", description: "For interactive dashboards and data exploration, with setup, performance tuning, and publishing support." },
-    { name: "Amazon QuickSight", role: "AWS and embedded BI", description: "For teams using AWS or embedding analytics in their applications, with setup and dashboard delivery." },
   ],
   approachIntroduction: "Five practical stages, from understanding your reporting needs to supporting the BI solution your team uses.",
   steps: [
@@ -73,7 +73,7 @@ export const analyticsContent = {
   nextIntroduction: "Reliable reporting is the next step after Data Engineering. With that foundation in place, AI Solutions can add assistants, agents, and automation around the information your team uses.",
   cta: {
     eyebrow: "Analytics & BI",
-    heading: "Make your reporting work for the decisions ahead.",
+    heading: "Make your reporting work for the decisions ahead",
     introduction: "Tell us about your reporting challenges, dashboard requirements, or BI strategy. We can review your data and analytics needs together and identify a practical starting point.",
     submitLabel: "Discuss your BI needs",
   },

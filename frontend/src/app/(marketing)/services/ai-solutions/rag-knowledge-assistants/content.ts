@@ -1,41 +1,41 @@
 import type { SubSection } from "@/content/cloud-sub-services/pages";
 import type { MigrationEngagementStep } from "@/components/service-sub/migration-engagement-options.data";
 
-export const ragService = { key: "rag-knowledge-assistants", slug: "rag-knowledge-assistants", name: "RAG & Knowledge Assistants", keyword: "AI chatbot development services", seoTitle: "AI Chatbot Development Services | Vyntics", seoDescription: "AI chatbot development services for private document search, RAG knowledge assistants, source citations, and practical business workflows.", hero: { title: "AI chatbot development services for your company knowledge", introduction: "Help people find answers in your documents, policies, and knowledge bases with an assistant built around your private business context.", outcome: "Give teams useful answers with the sources and controls to review them.", cta: "Discuss your knowledge assistant", expectedImage: "/images/services/hero/ai.jpg", imageAlt: "Team reviewing an AI knowledge assistant workspace" } } as const;
+export const ragService = { key: "rag-knowledge-assistants", slug: "rag-knowledge-assistants", name: "RAG & Knowledge Assistants", keyword: "AI chatbot development services", seoTitle: "AI Chatbot Development Services | Vyntics", seoDescription: "AI chatbot development services for private document search, RAG knowledge assistants, source citations, and practical business workflows.", hero: { title: "AI Chatbot Development Services For Your Company Knowledge", introduction: "Help people find answers in your documents, policies, and knowledge bases with an assistant built around your private business context.", outcome: "Give teams useful answers with the sources and controls to review them.", cta: "Discuss your knowledge assistant", expectedImage: "/images/services/hero/ai.jpg", imageAlt: "Team reviewing an AI knowledge assistant workspace" } } as const;
 export const ragSections: { signs: SubSection; builds: SubSection; security: SubSection; integrations: SubSection; results: SubSection; related: SubSection } = {
-  signs: { id: "rag-signs", title: "Signs you need an AI knowledge assistant", introduction: "Knowledge work becomes expensive when answers are difficult to find or repeat across teams.", items: [
+  signs: { id: "rag-signs", title: "Signs You Need An AI Knowledge Assistant", introduction: "Knowledge work becomes expensive when answers are difficult to find or repeat across teams.", items: [
     { title: "Staff spend too much time searching documents for answers", description: "Company knowledge lives in many folders and tools, and ordinary search cannot find answers from it." },
     { title: "The same support questions are answered repeatedly every day", description: "Answers are not captured in a consistent, searchable knowledge base, so teams repeat the same explanations." },
     { title: "Important knowledge is locked inside PDFs and wikis", description: "Useful context exists, but it is difficult to search in the flow of everyday work." },
     { title: "New employees take too long to find information", description: "Onboarding depends on knowing where information lives and who to ask." },
   ] },
-  builds: { id: "rag-builds", title: "What we build", introduction: "Practical AI knowledge assistants shaped around the people, content, and questions they need to handle.", items: [
-    { title: "Internal knowledge assistants", description: "Help employees find answers across policies, procedures, documentation, and internal knowledge." },
-    { title: "Customer support chatbots", description: "Give customers a useful first response from approved support content and product information." },
-    { title: "Compliance and policy assistants", description: "Make approved policies easier to search while keeping access and source context visible." },
+  builds: { id: "rag-builds", title: "What We Build", introduction: "Practical AI knowledge assistants shaped around the people, content, and questions they need to handle.", items: [
+    { title: "Internal Knowledge Assistants", description: "Help employees find answers across policies, procedures, documentation, and internal knowledge." },
+    { title: "Customer Support Chatbots", description: "Give customers a useful first response from approved support content and product information." },
+    { title: "Compliance And Policy Assistants", description: "Make approved policies easier to search while keeping access and source context visible." },
     { title: "Document Q&A", description: "Ask questions of private documents and receive answers grounded in the retrieved content." },
   ] },
-  security: { id: "rag-accuracy-security", title: "Accuracy & security", introduction: "A useful assistant needs practical controls around its answers, sources, users, and deployment environment.", items: [
-    { title: "Answers with source citations", description: "Show the documents or passages used so people can review the context behind an answer." },
-    { title: "Guardrails against made-up answers", description: "Test retrieval, prompts, fallback behavior, and failure cases instead of assuming every answer is correct." },
-    { title: "Access control", description: "Respect the permissions and content boundaries that apply to the people using the assistant." },
-    { title: "Private deployment", description: "Review deployment, data handling, and integration choices around your security requirements." },
+  security: { id: "rag-accuracy-security", title: "Accuracy & Security", introduction: "A useful assistant needs practical controls around its answers, sources, users, and deployment environment.", items: [
+    { title: "Answers With Source Citations", description: "Show the documents or passages used so people can review the context behind an answer." },
+    { title: "Guardrails Against Made-Up Answers", description: "Test retrieval, prompts, fallback behavior, and failure cases instead of assuming every answer is correct." },
+    { title: "Access Control", description: "Respect the permissions and content boundaries that apply to the people using the assistant." },
+    { title: "Private Deployment", description: "Review deployment, data handling, and integration choices around your security requirements." },
   ] },
   integrations: { id: "rag-integrations", title: "Integrations", introduction: "Connect your knowledge assistant to the tools your team already uses.", items: ["Slack", "Microsoft Teams", "Website chat", "WhatsApp", "SharePoint", "Google Drive", "Notion", "Confluence"].map(title => ({ title, description: `Connect approved knowledge and assistant interactions through ${title}.` })) },
-  results: { id: "rag-results", title: "What a knowledge assistant can improve", introduction: "We review outcomes against your content, users, and use case rather than assuming a fixed result.", items: [
+  results: { id: "rag-results", title: "What A Knowledge Assistant Can Improve", introduction: "We review outcomes against your content, users, and use case rather than assuming a fixed result.", items: [
     { title: "Support tickets reduced", description: "Help people resolve recurring questions earlier with relevant answers and source context." },
     { title: "Time saved finding answers", description: "Reduce the time teams spend searching across documents, wikis, and internal systems." },
     { title: "Answer accuracy", description: "Evaluate retrieval and response quality against the questions and content that matter to your business." },
   ] },
-  related: { id: "rag-related-services", title: "Extend your AI foundation", introduction: "Knowledge assistants work alongside AI agents and automation when teams need systems to answer, decide, and act.", items: [
+  related: { id: "rag-related-services", title: "Extend Your AI Foundation", introduction: "Knowledge assistants work alongside AI agents and automation when teams need systems to answer, decide, and act.", items: [
     { title: "AI Agents", description: "Build assistants that can plan and complete multi-step work across connected tools.", href: "/services/ai-solutions/ai-agents", linkLabel: "Explore AI Agents" },
     { title: "Intelligent Automation", description: "Automate document-heavy workflows, approvals, and repetitive operations with AI.", href: "/services/ai-solutions/intelligent-automation", linkLabel: "Explore Intelligent Automation" },
   ] },
 };
 export const ragProcess = [
   { title: "Discover", visual: "Use case and users", description: "Understand the business use case, users, knowledge sources, access requirements, and desired outcome." },
-  { title: "Prepare data", visual: "Organised knowledge", description: "Organise and prepare the documents and knowledge sources the assistant will use." },
-  { title: "Build pilot", visual: "Focused assistant", description: "Create a focused assistant around a real use case and representative content." },
+  { title: "Prepare Data", visual: "Organised knowledge", description: "Organise and prepare the documents and knowledge sources the assistant will use." },
+  { title: "Build Pilot", visual: "Focused assistant", description: "Create a focused assistant around a real use case and representative content." },
   { title: "Evaluate", visual: "Quality and controls", description: "Test answer quality, retrieval, citations, access controls, and failure cases." },
   { title: "Deploy", visual: "Connected channels", description: "Connect the assistant to the required channels and business environment." },
   { title: "Improve", visual: "Feedback loop", description: "Monitor usage and feedback, then improve retrieval, prompts, content, and workflows." },

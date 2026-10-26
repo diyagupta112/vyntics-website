@@ -4,10 +4,10 @@ import { useRef, type PointerEvent } from "react";
 import styles from "../cloud/cloud-problems.module.css";
 
 const problems = [
-  { title: "Knowledge stays trapped", description: "We connect approved company knowledge to grounded assistants so teams can find useful answers with source evidence attached." },
-  { title: "Manual work does not scale", description: "We combine language models, document intelligence, and workflow orchestration to remove repetitive work without hiding exceptions." },
-  { title: "AI pilots never reach production", description: "We design permissions, evaluation, integration, observability, and ownership into the system before the pilot becomes operational." },
-  { title: "Automation creates hidden risk", description: "We constrain model and agent actions with clear limits, approval gates, traceability, and dependable recovery paths." },
+  { title: "Knowledge Stays Trapped", description: "We connect approved company knowledge to grounded assistants so teams can find useful answers with source evidence attached." },
+  { title: "Manual Work Does Not Scale", description: "We combine language models, document intelligence, and workflow orchestration to remove repetitive work without hiding exceptions." },
+  { title: "AI Pilots Never Reach Production", description: "We design permissions, evaluation, integration, observability, and ownership into the system before the pilot becomes operational." },
+  { title: "Automation Creates Hidden Risk", description: "We constrain model and agent actions with clear limits, approval gates, traceability, and dependable recovery paths." },
 ] as const;
 
 const iconPaths = [

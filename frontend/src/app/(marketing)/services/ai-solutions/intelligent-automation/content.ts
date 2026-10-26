@@ -8,7 +8,7 @@ export const intelligentAutomation = {
   seoTitle: "Intelligent Automation Services | Vyntics",
   seoDescription: "Vyntics delivers intelligent automation services for document processing and AI workflow automation across invoices, forms, approvals, and connected systems.",
   hero: {
-    title: "Intelligent automation services for repetitive work",
+    title: "Intelligent Automation Services For Repetitive Work",
     introduction: "Use AI-powered document processing and workflow automation to reduce manual administration across invoices, forms, approvals, and other repeatable processes.",
     outcome: "Connect document understanding with workflows your team can review and operate.",
     cta: "Discuss intelligent automation",
@@ -27,7 +27,7 @@ export const intelligentAutomationSections: {
 } = {
   signs: {
     id: "intelligent-automation-signs",
-    title: "Signs you need intelligent automation",
+    title: "Signs You Need Intelligent Automation",
     introduction: "Paperwork and repetitive steps can slow down work when information must be copied, checked, and routed by hand.",
     items: [
       { title: "Staff keep typing details from incoming PDFs and emails by hand", description: "Documents arrive as unstructured PDFs and emails, and no document processing tool reads and routes them automatically." },
@@ -38,29 +38,29 @@ export const intelligentAutomationSections: {
   },
   documentProcessing: {
     id: "intelligent-document-processing",
-    title: "Intelligent document processing",
+    title: "Intelligent Document Processing",
     introduction: "AI can identify and extract relevant information from invoices, contracts, forms, IDs, and receipts, turning document content into structured data for downstream workflows.",
     items: [
-      { title: "Identify relevant information", description: "Apply document recognition to locate fields and content needed by a specific process." },
-      { title: "Extract structured data", description: "Organize extracted values so they can be checked and passed to connected business systems." },
-      { title: "Reduce manual data entry", description: "Limit repeated transcription while keeping validation in the process." },
-      { title: "Route exceptions for review", description: "Send uncertain or incomplete cases to a person when the workflow requires human judgment." },
+      { title: "Identify Relevant Information", description: "Apply document recognition to locate fields and content needed by a specific process." },
+      { title: "Extract Structured Data", description: "Organize extracted values so they can be checked and passed to connected business systems." },
+      { title: "Reduce Manual Data Entry", description: "Limit repeated transcription while keeping validation in the process." },
+      { title: "Route Exceptions For Review", description: "Send uncertain or incomplete cases to a person when the workflow requires human judgment." },
     ],
   },
   workflowAutomation: {
     id: "ai-workflow-automation",
-    title: "AI workflow automation",
+    title: "AI Workflow Automation",
     introduction: "AI process automation adds AI-assisted steps to existing workflows to coordinate approvals, notifications, data entry, and handoffs across the tools your business already uses.",
     items: [
       { title: "Approvals", description: "Route requests and extracted information to the appropriate reviewer using agreed rules." },
       { title: "Notifications", description: "Notify owners when a request needs attention or a workflow step is ready." },
-      { title: "Data entry", description: "Pass validated information into connected tools rather than re-entering it manually." },
-      { title: "Handoffs across tools", description: "Coordinate process steps across systems while keeping ownership and exceptions visible." },
+      { title: "Data Entry", description: "Pass validated information into connected tools rather than re-entering it manually." },
+      { title: "Handoffs Across Tools", description: "Coordinate process steps across systems while keeping ownership and exceptions visible." },
     ],
   },
   useCases: {
     id: "intelligent-automation-use-cases",
-    title: "Use cases",
+    title: "Use Cases",
     introduction: "Apply document and workflow automation to specific, reviewable business processes.",
     items: [
       { title: "Invoice processing", description: "Extract invoice details for validation and routing through an accounts payable workflow." },
@@ -72,7 +72,7 @@ export const intelligentAutomationSections: {
   },
   results: {
     id: "intelligent-automation-results",
-    title: "What intelligent automation can improve",
+    title: "What Intelligent Automation Can Improve",
     introduction: "We review the outcomes that matter to each workflow and measure them against your own baseline, without assuming a fixed result.",
     items: [
       { title: "Hours saved", description: "Review how much staff time routine document handling and repeated process steps require." },
@@ -82,7 +82,7 @@ export const intelligentAutomationSections: {
   },
   related: {
     id: "intelligent-automation-related-services",
-    title: "Connect automation with AI knowledge and action",
+    title: "Connect Automation With AI Knowledge And Action",
     introduction: "Intelligent automation can work alongside AI systems that retrieve company knowledge or complete controlled multi-step tasks.",
     items: [
       { title: "AI Agents", description: "Build controlled agents that use approved tools to carry out defined workflow steps.", href: "/services/ai-solutions/ai-agents", linkLabel: "Explore AI Agents" },
@@ -100,7 +100,7 @@ export const automationUseCasesFlow = [
 ] as const;
 
 export const intelligentAutomationProcess = [
-  { title: "Map the workflow", visual: "Inputs, rules, and exceptions", description: "Understand the existing process, inputs, approvals, systems, exceptions, and business rules." },
+  { title: "Map The Workflow", visual: "Inputs, rules, and exceptions", description: "Understand the existing process, inputs, approvals, systems, exceptions, and business rules." },
   { title: "Pilot", visual: "A focused workflow", description: "Select a focused workflow and prove the automation approach with representative cases." },
   { title: "Automate", visual: "Connected process steps", description: "Build the document processing, workflow logic, integrations, and required controls." },
   { title: "Test", visual: "Normal and edge cases", description: "Test normal cases, edge cases, validation, exceptions, and human-review paths." },

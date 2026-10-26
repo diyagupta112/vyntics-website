@@ -90,7 +90,7 @@ export function SiteFooter() {
             <section className={styles.contact} aria-label="Get in touch">
               {/* Use native fragment navigation so repeated clicks always reach the contact form. */}
               {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a className={styles.conversationLink} href="/#contact">
+              <a className={styles.conversationLink} href="/contact-us">
                 <span>Start a Conversation</span>
                 <svg className={styles.conversationArrow} viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" /></svg>
               </a>

@@ -44,7 +44,7 @@ CRM uses the two capabilities supplied by the user, rather than inventing a thir
 | hero.introduction | CRM & Revenue Ops should fit how your team sells and serves customers. We bring CRM implementation and integration together with sales automation, connected data, and revenue analytics for clearer reporting. | 207 | 193 | 107% |
 | hero.primaryLabel | Talk to our CRM experts | 23 | 25 | 92% |
 | hero.secondaryLabel | Our CRM services | 16 | 18 | 89% |
-| problemsHeading | CRM problems we solve | 21 | 23 | 91% |
+| problemsHeading | CRM Problems We Solve | 21 | 23 | 91% |
 | problemIntroduction | From disconnected customer records to manual follow-up, we help teams address the CRM problems that slow everyday work. | 119 | 120 | 99% |
 | problems.0.title | Disconnected Records | 20 | 14 | 143% |
 | problems.0.description | We connect CRM records with your business systems, define data ownership, and help teams use consistent customer information. | 125 | 120 | 104% |

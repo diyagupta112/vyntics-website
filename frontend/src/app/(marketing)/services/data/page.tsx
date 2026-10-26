@@ -87,14 +87,14 @@ export default function DataEngineeringPage() {
 
       <DataWhy />
 
-      <ServiceTools id="data-platforms" headingId="platforms-title" sectionName="Data platforms we work with" name="Data Engineering" eyebrow="Data platforms we work with"
+      <ServiceTools id="data-platforms" headingId="platforms-title" sectionName="Data platforms we work with" name="Data Engineering" eyebrow="Data Platforms We Work With"
         title="Choose the platform around the workload" introduction="We work across the major cloud data ecosystems and keep business logic portable where that is practical."
         technologies={platforms.map(platform => platform.name)} details={platforms.map(platform => ({ ...platform, displayName: platform.name === "dbt" ? "DBT" : platform.name }))} presentation="platforms" balancedPlatforms showTechnologyLinks note={null}
         sectionLink={{ href: "/technologies", label: "View all technologies" }} />
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
-          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">A clear path from assessment to dependable operations</h2><p>Five focused stages. One accountable delivery process built around usable outcomes.</p></div>
+          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How We Work</p><h2 id="process-title">A clear path from assessment to dependable operations</h2><p>Five focused stages. One accountable delivery process built around usable outcomes.</p></div>
           <DataEngineeringProcessTimeline />
         </Container>
       </section>

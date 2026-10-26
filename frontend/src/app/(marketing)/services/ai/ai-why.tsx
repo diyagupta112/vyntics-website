@@ -6,10 +6,10 @@ import reasonStyles from "@/components/pages/service-reason-card.module.css";
 import styles from "../cloud/cloud-why.module.css";
 
 const reasons = [
-  { title: "Use case before model", description: "We define the user, decision, evidence, workflow, risk, and measurable outcome before choosing a model or framework.", path: "M4 9 12 4l8 5-8 5-8-5Zm0 6 8 5 8-5M4 20l8 5 8-5" },
-  { title: "Evaluation from the start", description: "Retrieval, answer quality, structured outputs, tool use, safety, latency, and cost are tested against representative cases.", path: "M4 20h17M7 16v-4M12 16V8M17 16V4" },
-  { title: "Control is part of the design", description: "Permissions, human approval, audit trails, uncertainty, refusals, and recovery paths are built into the operating workflow.", path: "M20 8a8 8 0 1 0 1 8M20 3v5h-5M8 12l3 3 5-6" },
-  { title: "Direct technical delivery", description: "The engineers shaping the architecture stay involved through integration, production release, monitoring, and handover.", path: "M4 6h6v6H4zM14 16h6v6h-6zM16 6h5v5M21 6l-9 9" },
+  { title: "Use Case Before Model", description: "We define the user, decision, evidence, workflow, risk, and measurable outcome before choosing a model or framework.", path: "M4 9 12 4l8 5-8 5-8-5Zm0 6 8 5 8-5M4 20l8 5 8-5" },
+  { title: "Evaluation From The Start", description: "Retrieval, answer quality, structured outputs, tool use, safety, latency, and cost are tested against representative cases.", path: "M4 20h17M7 16v-4M12 16V8M17 16V4" },
+  { title: "Control Is Part Of The Design", description: "Permissions, human approval, audit trails, uncertainty, refusals, and recovery paths are built into the operating workflow.", path: "M20 8a8 8 0 1 0 1 8M20 3v5h-5M8 12l3 3 5-6" },
+  { title: "Direct Technical Delivery", description: "The engineers shaping the architecture stay involved through integration, production release, monitoring, and handover.", path: "M4 6h6v6H4zM14 16h6v6h-6zM16 6h5v5M21 6l-9 9" },
 ] as const;
 
 export function AiWhy() {

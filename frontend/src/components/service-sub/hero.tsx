@@ -13,7 +13,7 @@ import styles from "./service-sub.module.css";
 type SubServiceHeroPage = Pick<CloudSubPage, "slug" | "name" | "hero"> & { key: string };
 
 /** Page-local adaptation of the site's hero styling, with a separate outcome and image slot. */
-export function CloudSubHero({ page, opticalAlign = false, showOutcome = true }: { page: SubServiceHeroPage; opticalAlign?: boolean; showOutcome?: boolean }) {
+export function CloudSubHero({ page, opticalAlign = false, showOutcome = true, processId }: { page: SubServiceHeroPage; opticalAlign?: boolean; showOutcome?: boolean; processId?: string }) {
   const id = `${page.key}-hero`;
   const image = subServiceHeroImages[page.slug] ?? { src: page.hero.expectedImage, alt: page.hero.imageAlt };
   return <section id={id} className={`${heroStyles.hero} ${heroStyles.flexible}`} aria-labelledby={`${page.key}-title`}>
@@ -26,7 +26,7 @@ export function CloudSubHero({ page, opticalAlign = false, showOutcome = true }:
         {showOutcome && <p className={styles.outcome} data-reveal={`${id}-outcome`} data-reveal-delay="180">{page.hero.outcome}</p>}
         <div className={buttons.heroActions} style={showOutcome ? undefined : { marginTop: "var(--hero-actions-gap)" }} data-reveal={`${id}-actions`} data-reveal-delay="270">
           <Link className={buttons.primaryAction} href="/#contact">{page.hero.cta} <span aria-hidden="true">→</span></Link>
-          <Link className={buttons.secondaryAction} href={`#${page.key}-process`}>See our process</Link>
+          <Link className={buttons.secondaryAction} href={`#${processId ?? `${page.key}-process`}`}>See our process</Link>
         </div>
       </div>
       <div className={`${heroStyles.visual} ${styles.heroVisual}`}>

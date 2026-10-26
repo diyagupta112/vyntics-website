@@ -84,7 +84,7 @@ export default function AiSolutionsPage() {
 
       <section className={`${problemStyles.section} ${styles.noDivider}`} aria-labelledby="problems-title">
         <Container>
-          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>AI Solutions</p><h2 id="problems-title">AI problems we solve</h2><p className={problemStyles.subtext}>From trapped knowledge to risky automation, we solve the operating problems that keep useful AI from reaching production.</p></header>
+          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>AI Solutions</p><h2 id="problems-title">AI Problems We Solve</h2><p className={problemStyles.subtext}>From trapped knowledge to risky automation, we solve the operating problems that keep useful AI from reaching production.</p></header>
           <AiProblems />
         </Container>
       </section>
@@ -95,13 +95,13 @@ export default function AiSolutionsPage() {
 
       <AiWhy />
 
-      <ServiceTools id="ai-platforms" headingId="platforms-title" sectionName="AI platforms we work with" name="AI Solutions" eyebrow="AI platforms we work with"
+      <ServiceTools id="ai-platforms" headingId="platforms-title" sectionName="AI platforms we work with" name="AI Solutions" eyebrow="AI Platforms We Work With"
         title="Choose the stack around the risk and workload" introduction="We keep the architecture modular where practical, so one model or vendor does not become the whole system."
         technologies={platforms.map(platform => platform.name)} details={platforms.map(platform => ({ ...platform, role: platform.role.replace(/\b\w/g, letter => letter.toUpperCase()) }))} presentation="platforms" balancedPlatforms note={null} />
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
-          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">Discover. Pilot. Build. Deploy. Improve.</h2><p>Five focused stages. One accountable delivery process built around evidence and safe operation.</p></div>
+          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How We Work</p><h2 id="process-title">Discover. Pilot. Build. Deploy. Improve.</h2><p>Five focused stages. One accountable delivery process built around evidence and safe operation.</p></div>
           <DataEngineeringProcessTimeline steps={process} />
         </Container>
       </section>

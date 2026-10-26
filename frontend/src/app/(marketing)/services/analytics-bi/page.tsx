@@ -69,7 +69,7 @@ export default function AnalyticsBiPage() {
 
       <section className={problemStyles.section} aria-labelledby="analytics-problems-title" data-cloud-section="Analytics problems we solve">
         <Container>
-          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>Analytics &amp; BI</p><h2 id="analytics-problems-title">Analytics problems we solve</h2><p className={problemStyles.subtext}>{analyticsContent.problemIntroduction}</p></header>
+          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>Analytics &amp; BI</p><h2 id="analytics-problems-title">Analytics Problems We Solve</h2><p className={problemStyles.subtext}>{analyticsContent.problemIntroduction}</p></header>
           <AnalyticsProblems />
         </Container>
       </section>
@@ -78,7 +78,7 @@ export default function AnalyticsBiPage() {
         <Container>
           <DataEngineeringServicesShowcase
             eyebrow="Analytics & BI"
-            heading="Our analytics & BI services"
+            heading="Our Analytics & BI Services"
             headingId="analytics-services-title"
             idPrefix="analytics-service"
             label="Analytics & BI services"
@@ -92,7 +92,7 @@ export default function AnalyticsBiPage() {
 
       <ServicePillarPlatforms
         eyebrow="Analytics & BI"
-        heading="BI tools we work with"
+        heading="BI Tools We Work With"
         headingId="analytics-platforms-title"
         sectionName="BI tools we work with"
         introduction={analyticsContent.platformsIntroduction}
@@ -102,14 +102,14 @@ export default function AnalyticsBiPage() {
 
       <ServicePillarApproach
         eyebrow="Our approach"
-        heading="How we work"
+        heading="How We Work"
         headingId="analytics-approach-title"
         sectionName="How we work"
         introduction={analyticsContent.approachIntroduction}
         process={analyticsContent.steps}
       />
 
-      <section className={styles.workBridge} aria-labelledby="analytics-work-title" data-cloud-section="Case studies">
+      <section className={`${styles.workBridge} ${styles.noTopRule}`} aria-labelledby="analytics-work-title" data-cloud-section="Case studies">
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>CASE STUDIES</p><h2 id="analytics-work-title">Case Studies</h2><p className={styles.contentState}>{analyticsContent.caseStudiesIntroduction}</p></header>
           <Suspense fallback={<ReservedContent count={2} message="Loading case studies…" />}><AnalyticsProjects /></Suspense>
@@ -119,7 +119,7 @@ export default function AnalyticsBiPage() {
 
       <NextServiceBanner id="analytics-next" currentService="analytics-bi" sectionClassName={styles.context} introduction={analyticsContent.nextIntroduction} />
 
-      <section className={styles.context} aria-labelledby="analytics-insights-title" data-cloud-section="Related insights">
+      <section className={`${styles.context} ${styles.noTopRule}`} aria-labelledby="analytics-insights-title" data-cloud-section="Related insights">
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="analytics-insights-title">Related Insights</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading related insights…" />}><AnalyticsInsights /></Suspense>

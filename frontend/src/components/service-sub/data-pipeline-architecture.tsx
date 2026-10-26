@@ -272,7 +272,7 @@ export function DataPipelineArchitecture() {
     <Container>
       <header className={styles.heading} data-reveal="sample-pipeline-heading">
         <p className={styles.eyebrow}>Architecture</p>
-        <h2 id="sample-pipeline-title">Sample pipeline architecture</h2>
+        <h2 id="sample-pipeline-title">Sample Pipeline Architecture</h2>
         <p className={styles.intro}>How data moves from your source systems into one central warehouse, with scheduling and monitoring around every step.</p>
       </header>
       <figure className={styles.figure}>
