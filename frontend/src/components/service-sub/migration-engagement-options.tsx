@@ -80,6 +80,7 @@ export function MigrationEngagementOptions({
   }, []);
 
   const hover = (index: number | null) => {
+    // 1200px matches the interactive three-column layout in this component's stylesheet, so it stays component-specific.
     if (!matchMedia("(min-width:1200px) and (hover:hover) and (pointer:fine)").matches) return;
     if (hoverTimer.current) clearTimeout(hoverTimer.current);
     hoverTimer.current = setTimeout(() => {

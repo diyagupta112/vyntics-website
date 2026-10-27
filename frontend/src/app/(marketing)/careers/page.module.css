@@ -3,7 +3,7 @@
 .heroOverlay { position: absolute; inset: 0; }
 .heroImage { z-index: -2; object-fit: cover; object-position: center; transform: scale(1.015); }
 .heroOverlay { z-index: -1; background: linear-gradient(90deg, rgb(11 11 15 / 80%) 0%, rgb(11 11 15 / 53%) 48%, rgb(11 11 15 / 10%) 100%), linear-gradient(0deg, rgb(11 11 15 / 52%) 0%, transparent 58%); }
-.heroInner { position: relative; z-index: 1; width: min(100% - 2rem, var(--content-width)); padding-block: clamp(3.75rem, 8vh, 5.5rem); }
+.heroInner { position: relative; z-index: 1; width: min(100% - 2 * var(--gutter), var(--content-width)); padding-block: clamp(3.75rem, 8vh, 5.5rem); }
 .heroCopy { max-width: 46rem; }
 .eyebrow { color: var(--color-primary); font-size: 0.7rem; font-weight: 760; letter-spacing: 0.17em; text-transform: uppercase; }
 .hero .eyebrow { color: #a9c5ff; }

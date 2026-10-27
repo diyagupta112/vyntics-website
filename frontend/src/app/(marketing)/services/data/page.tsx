@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineering-process-timeline";
 import { DataEngineeringServicesShowcase } from "@/components/pages/data-engineering-services-showcase";
+import { DataEngineeringDatabricksCredential } from "@/components/pages/data-engineering-databricks-credential";
 import { ServiceTools } from "@/components/pages/service-tools";
 import { FaqContent } from "@/components/pages/faq-content";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
@@ -71,6 +72,8 @@ export default function DataEngineeringPage() {
         secondaryAction={{ href: "#data-services", label: "Our data services" }}
         capabilities={dataServices.map(service => ({ label: service.title, href: `/services/data-engineering/${service.slug}` }))}
       />
+
+      <DataEngineeringDatabricksCredential />
 
       <section className={`${problemStyles.section} ${styles.noDivider}`} aria-labelledby="problems-title">
         <Container>

@@ -20,6 +20,7 @@ import {
   type ArchitectureReference,
 } from "./migration-architecture-data";
 import styles from "./migration-architecture.module.css";
+import { mobileQuery } from "@/lib/breakpoints";
 
 type PanelPlacement = "right" | "left" | "below" | "above" | "fallback";
 type PanelPosition = { x: number; y: number; placement: PanelPlacement; fallback: boolean };
@@ -59,7 +60,7 @@ export function MigrationArchitecture() {
   }, [clearTimers]);
 
   const showMobileCard = useCallback(() => {
-    if (!window.matchMedia("(max-width:767px)").matches) return;
+    if (!window.matchMedia(mobileQuery).matches) return;
     requestAnimationFrame(() => requestAnimationFrame(() => {
       const panel = panelRef.current;
       if (!panel) return;
@@ -121,7 +122,7 @@ export function MigrationArchitecture() {
   const placePanel = useCallback(() => {
     const drawing = drawingRef.current;
     const panel = panelRef.current;
-    if (!drawing || !panel || active === null || window.matchMedia("(max-width:767px)").matches) {
+    if (!drawing || !panel || active === null || window.matchMedia(mobileQuery).matches) {
       setPanelPosition(null);
       return;
     }

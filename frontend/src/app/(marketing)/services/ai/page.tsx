@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { AiSolutionsServicesShowcase } from "@/components/pages/ai-solutions-services-showcase";
 import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineering-process-timeline";
+import { DataEngineeringDatabricksCredential } from "@/components/pages/data-engineering-databricks-credential";
 import { ServiceTools } from "@/components/pages/service-tools";
 import { FaqContent } from "@/components/pages/faq-content";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
@@ -56,6 +57,15 @@ const faqs = [
   { question: "How do we know whether the AI is delivering value?", answer: "We agree on operating measures before implementation: task success, answer and citation quality, manual work removed, exception rates, cycle time, latency, adoption, and cost. Model benchmarks alone do not prove business value." },
 ] as const;
 
+const openAiCredential = {
+  badgeName: "OpenAI Select Partner",
+  sectionTitle: "Recognized for AI Excellence",
+  eyebrow: "OpenAI Partnership",
+  heading: "Recognized as an OpenAI Select Partner",
+  body: "Vyntics builds production AI solutions, including retrieval-based assistants grounded in client data and automation around the systems our clients already use.",
+  titleId: "openai-credential-title",
+} as const;
+
 function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
@@ -81,6 +91,8 @@ export default function AiSolutionsPage() {
         secondaryAction={{ href: "#ai-services", label: "Our AI solutions" }}
         capabilities={aiServices.map(service => ({ label: service.title, href: `/services/ai-solutions/${service.slug}` }))}
       />
+
+      <DataEngineeringDatabricksCredential content={openAiCredential} />
 
       <section className={`${problemStyles.section} ${styles.noDivider}`} aria-labelledby="problems-title">
         <Container>

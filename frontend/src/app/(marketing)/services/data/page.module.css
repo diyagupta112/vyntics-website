@@ -43,7 +43,7 @@
 .securityGrid p { margin-top: .75rem; color: rgb(255 255 255 / 68%); font-size: .91rem; line-height: 1.67; }
 .processSection { min-height: calc(100svh - 5rem); padding-block: clamp(1.5rem, 3vh, 2.5rem); display: flex; align-items: center; overflow: hidden; background: var(--color-band-faint); }
 .processHeading { margin-inline: auto; text-align: center; }
-.processHeading h2 { scroll-margin-top: 7rem; font-size: clamp(2rem, 3.2vw, 3rem); }
+.processHeading h2 { scroll-margin-top: 7rem; font-size:var(--text-h2); }
 .processHeading > p:last-child { margin-inline: auto; }
 .caseStudyCard { padding: clamp(1.5rem, 4vw, 3rem); display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(16rem, .8fr); gap: clamp(2.5rem, 7vw, 7rem); border: 1px solid var(--color-border); border-radius: 1.25rem; background: var(--color-surface); }
 .caseStudyCard h2 { max-width: 17ch; }

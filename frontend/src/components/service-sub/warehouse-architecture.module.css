@@ -37,7 +37,7 @@
 }
 .heading { max-width:48rem; margin:0 0 2rem; }
 .eyebrow { color:var(--wh-label); font-size:.72rem; font-weight:760; letter-spacing:.16em; text-transform:uppercase; }
-.heading h2 { margin-top:.8rem; color:var(--color-foreground); font-size:clamp(2rem,3.2vw,3rem); line-height:1.12; letter-spacing:-.04em; }
+.heading h2 { margin-top:.8rem; color:var(--color-foreground); font-size:var(--text-h2); line-height:1.12; letter-spacing:-.04em; }
 .intro { margin-top:1rem; color:var(--wh-muted); font-size:1.05rem; line-height:1.7; }
 .figure { display:grid; grid-template-columns:minmax(0,1fr); justify-items:center; gap:0; }
 .drawing { position:relative; width:min(100%,calc((100svh - 180px) * 1100 / 572)); min-width:0; }

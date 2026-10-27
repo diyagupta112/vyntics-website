@@ -28,7 +28,7 @@
 
 .about, .approach, .tools { padding-block: clamp(4rem, 7vw, 6.25rem); }
 .about { min-height: calc(100svh - 5rem); padding-block: clamp(2.5rem, 5vh, 4rem); display: flex; align-items: center; }
-.aboutGrid { --content-width: 82rem; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+.aboutGrid { --content-width: var(--content-width-wide); display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
 .about .splitHeading { display: block; }
 .about .splitHeading h2 { margin-top: .9rem; font-size: clamp(2rem, 2.8vw, 3rem); max-width: 19ch; line-height: 1.12; }
 .about .splitHeading > div > p { max-width: 37rem; font-size: .95rem; line-height: 1.7; color: color-mix(in srgb, var(--color-foreground) 78%, var(--color-surface)); }

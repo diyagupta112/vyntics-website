@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type AnimationEvent, type CSSProperties, type FocusEvent, type PointerEvent } from "react";
+import { mobileQuery } from "@/lib/breakpoints";
 
 /**
  * Auto-rotates tabbed content. The active tab's blue line fills over `interval` ms (CSS animation on the root's
@@ -16,7 +17,7 @@ export function useAutoRotate(count: number, active: number, setActive: (index: 
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    const query = window.matchMedia("(prefers-reduced-motion:reduce), (max-width:767px)");
+    const query = window.matchMedia(`(prefers-reduced-motion:reduce), ${mobileQuery}`);
     const update = () => setEnabled(!query.matches);
     update();
     query.addEventListener("change", update);

@@ -131,6 +131,7 @@ export function WhyJoinScroll() {
       const trackTop = track.getBoundingClientRect().top + window.scrollY;
       // Start only the desktop image earlier; the reason progress and its
       // original 12% handoff are unchanged. Small-screen travel stays as before.
+      // 1000px matches this section's own pinned-layout breakpoint in its stylesheet, so it stays component-specific.
       const lead = window.innerWidth > 1000 ? window.innerHeight * 0.2 : 0;
       entryStart.set(trackTop - lead);
       entryEnd.set(trackTop + Math.max(0, track.offsetHeight - window.innerHeight) * 0.12);

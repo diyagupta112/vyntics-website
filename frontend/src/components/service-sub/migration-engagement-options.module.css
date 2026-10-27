@@ -20,7 +20,7 @@
 }
 .heading { max-width:48rem; }
 .eyebrow { color:var(--reveal-label-accent); font-size:.72rem; font-weight:760; letter-spacing:.16em; text-transform:uppercase; }
-.heading h2 { margin-top:.75rem; color:var(--color-foreground); font-size:clamp(2rem,3.2vw,3rem); line-height:1.12; letter-spacing:-.04em; text-wrap:balance; }
+.heading h2 { margin-top:.75rem; color:var(--color-foreground); font-size:var(--text-h2); line-height:1.12; letter-spacing:-.04em; text-wrap:balance; }
 .introduction { max-width:45rem; margin-top:1rem; color:var(--color-muted); font-size:1.05rem; line-height:1.7; text-wrap:balance; }
 .flow { margin-top:clamp(2.25rem,5vw,3.75rem); }
 .stages { display:grid; gap:2rem; }

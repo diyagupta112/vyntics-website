@@ -1,7 +1,7 @@
 .page { min-width:0; }
 .section,.process { scroll-margin-top:6.5rem; }
 .heading { max-width:48rem; margin-bottom:2rem; }
-.heading h2 { color:var(--color-foreground); font-size:clamp(2rem,3.2vw,3rem); line-height:1.12; letter-spacing:-.04em; }
+.heading h2 { color:var(--color-foreground); font-size:var(--text-h2); line-height:1.12; letter-spacing:-.04em; }
 .heading > p { margin-top:1rem; color:var(--color-muted); font-size:1.05rem; line-height:1.7; }
 .relatedWorkflow { max-width:var(--content-width); margin:clamp(-2rem,-2vw,-1rem) auto clamp(3rem,5vw,4.5rem); padding-inline:var(--page-gutter,1.5rem); display:flex; flex-wrap:wrap; align-items:center; gap:.7rem 1.2rem; }
 .relatedWorkflow > span { color:var(--color-muted); font-size:.73rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }

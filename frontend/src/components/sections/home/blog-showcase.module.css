@@ -8,7 +8,7 @@
   scroll-margin-top: 5rem;
 }
 
-.section > div { width: min(calc(100% - 2rem), 90rem); }
+.section > div { width: min(calc(100% - 2 * var(--gutter)), var(--content-width-wide)); }
 .header { position: relative; display: block; text-align: center; }
 .headingBlock { max-width: 40rem; margin-inline: auto; }
 .eyebrow { color: var(--color-brand); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.17em; text-transform: uppercase; }

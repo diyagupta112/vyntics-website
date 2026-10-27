@@ -1,5 +1,5 @@
 .section{min-height:calc(100svh - 5rem);padding-block:clamp(2.5rem,5vh,4rem);display:flex;align-items:center;background:transparent}
-.section>div{width:min(100% - 2rem,80rem)}
+.section>div{width:min(100% - 2 * var(--gutter),var(--content-width-wide))}
 .heading{max-width:52rem;margin-inline:auto;text-align:center}
 .label{color:var(--color-primary);font-size:.7rem;font-weight:750;letter-spacing:.16em;text-transform:uppercase}
 .heading h2{margin-top:.8rem;font-size:clamp(2rem,3vw,3rem);line-height:1.12;letter-spacing:-.045em;text-wrap:balance}

@@ -12,7 +12,7 @@
 }
 
 .teamContainer {
-  width: min(100% - 2rem, 88rem);
+  width: min(100% - 2 * var(--gutter), var(--content-width-wide));
 }
 
 .heading {

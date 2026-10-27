@@ -25,6 +25,7 @@ import {
   type CrmIntegrationReference,
 } from "./crm-integration-data";
 import styles from "./crm-integration.module.css";
+import { mobileQuery } from "@/lib/breakpoints";
 
 type PanelPlacement = "right" | "left" | "below" | "above" | "fallback";
 type PanelPosition = { x: number; y: number; placement: PanelPlacement; fallback: boolean };
@@ -157,7 +158,7 @@ export function CrmIntegrationArchitecture() {
   const placePanel = useCallback(() => {
     const drawing = drawingRef.current;
     const panel = panelRef.current;
-    if (!drawing || !panel || active === null || window.matchMedia("(max-width:767px)").matches) {
+    if (!drawing || !panel || active === null || window.matchMedia(mobileQuery).matches) {
       setPanelPosition(null);
       return;
     }

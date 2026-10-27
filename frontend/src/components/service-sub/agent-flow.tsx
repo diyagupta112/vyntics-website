@@ -16,6 +16,7 @@ import { Container } from "@/components/ui/container";
 import { AgentFlowDiagram, AgentFlowIconGlyph } from "./agent-flow-diagram";
 import { AF, VIEW_H, VIEW_W, agentFlowBadges, agentFlowGuardrails, agentFlowLabels, agentFlowLegend, agentFlowNodes, agentFlowResult, agentFlowTools, agentFlowTrigger, type AgentFlowReference } from "./agent-flow-data";
 import styles from "./agent-flow.module.css";
+import { mobileQuery } from "@/lib/breakpoints";
 
 type PanelPlacement = "below" | "above" | "right" | "left" | "fallback";
 type PanelPosition = { x: number; y: number; arrow: number; placement: PanelPlacement; fallback: boolean };
@@ -140,7 +141,7 @@ export function AgentFlow() {
   const placePanel = useCallback(() => {
     const drawing = drawingRef.current;
     const panel = panelRef.current;
-    if (!drawing || !panel || active === null || window.matchMedia("(max-width:767px)").matches) {
+    if (!drawing || !panel || active === null || window.matchMedia(mobileQuery).matches) {
       setPanelPosition(null);
       return;
     }

@@ -6,7 +6,7 @@
   --color-border:rgb(255 255 255 / 12%);
   --color-surface:#15151b;
   --logo-filter:invert(1);
-  box-sizing:border-box; position:relative; isolation:isolate; --content-width:84rem; color:var(--color-foreground); background:var(--color-background); border-top:1px solid var(--color-border); }
+  box-sizing:border-box; position:relative; isolation:isolate; --content-width:var(--content-width-wide); color:var(--color-foreground); background:var(--color-background); border-top:1px solid var(--color-border); }
 .footerMain { display:grid; grid-template-columns:minmax(12rem,.8fr) minmax(0,3.2fr); gap:clamp(2.5rem,4vw,4rem); align-items:start; padding-block:clamp(3rem,5vw,4.25rem) 2rem; }
 .footerMain { position:relative; }
 .closingContainer { position:relative; z-index:1; }

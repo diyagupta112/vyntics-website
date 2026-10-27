@@ -23,7 +23,51 @@
   --color-client-card: var(--color-white);
   --client-logo-filter: none;
   --logo-filter: none;
-  --content-width: 72rem;
+
+  /* ---------------------------------------------------------------------------
+     Responsive system. Components consume these tokens instead of inventing
+     their own global sizes.
+
+     Breakpoints (CSS cannot read variables inside @media, so these values are
+     documented here and mirrored in src/lib/breakpoints.ts for JavaScript):
+       640px  small tablet      768px  tablet (mobile layouts end below this)
+       1024px laptop            1280px desktop
+       1536px large desktop     1920px wide desktop
+     Use these values in @media queries. Genuinely component-specific breakpoints
+     may differ, with a comment explaining why.
+     --------------------------------------------------------------------------- */
+
+  /* Layout tokens */
+  --gutter: 1rem;                                     /* page side padding; grows from 1280px */
+  --content-width: clamp(72rem, 80vw, 88rem);         /* standard content: 1152px up to 1408px */
+  --content-width-wide: clamp(88rem, 90vw, 104rem);   /* intentionally wide layouts: 1408px up to 1664px */
+  --space-section: clamp(2.5rem, 4vw, 5rem);          /* vertical rhythm between sections */
+  --grid-gap: clamp(1rem, 1.6vw, 2rem);               /* standard grid and card gap */
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  /* Typography tokens (shared headings and body copy; unique editorial text keeps its own sizes) */
+  --text-display: clamp(3rem, 5vw, 5.5rem);           /* home hero */
+  --text-h1: clamp(2.8rem, 4.5vw, 5rem);              /* primary page and service hero headings */
+  --text-h2: clamp(2rem, 3.2vw, 3.5rem);              /* section headings */
+  --text-h3: clamp(1.25rem, 1.6vw, 1.6rem);           /* sub-headings */
+  --text-body: clamp(1rem, 0.9rem + 0.25vw, 1.15rem); /* lead and hero body copy */
+}
+
+/* The gutter is fluid only on desktop widths, so mobile, tablet and laptop keep their 1rem padding. */
+@media (min-width: 1280px) {
+  :root {
+    --gutter: clamp(1rem, 2vw, 2rem);
+  }
 }
 
 html[data-theme="dark"] {
@@ -127,7 +171,7 @@ svg {
    Heroes keep their own spacing; on service pages the contact form does too. */
 [data-service-pages] section:not([class*="hero"]):not(#contact):not(section section) {
   min-height: 0;
-  padding-block: clamp(2.5rem, 4vw, 3.75rem);
+  padding-block: var(--space-section);
   border-top: 0;
   border-bottom: 0;
 }

@@ -27,6 +27,7 @@ import {
   type WarehouseReference,
 } from "./warehouse-architecture-data";
 import styles from "./warehouse-architecture.module.css";
+import { mobileQuery } from "@/lib/breakpoints";
 
 type PanelPlacement = "right" | "left" | "below" | "above" | "fallback";
 type PanelPosition = { x: number; y: number; placement: PanelPlacement; fallback: boolean };
@@ -180,7 +181,7 @@ export function WarehouseArchitecture() {
   const placePanel = useCallback(() => {
     const drawing = drawingRef.current;
     const panel = panelRef.current;
-    if (!drawing || !panel || active === null || window.matchMedia("(max-width:767px)").matches) {
+    if (!drawing || !panel || active === null || window.matchMedia(mobileQuery).matches) {
       setPanelPosition(null);
       return;
     }

@@ -16,6 +16,7 @@ import { Container } from "@/components/ui/container";
 import { AutomationFlowDiagram, AutomationFlowIconGlyph } from "./automation-flow-diagram";
 import { VIEW_H, VIEW_W, automationFlowBadges, automationFlowLegend, automationFlowTiles, type AutomationFlowReference } from "./automation-flow-data";
 import styles from "./automation-flow.module.css";
+import { mobileQuery } from "@/lib/breakpoints";
 
 type PanelPosition = { x: number; y: number; arrow: number; placement: "below"; fallback: boolean };
 
@@ -119,7 +120,7 @@ export function AutomationFlow() {
   const placePanel = useCallback(() => {
     const drawing = drawingRef.current;
     const panel = panelRef.current;
-    if (!drawing || !panel || active === null || window.matchMedia("(max-width:767px)").matches) {
+    if (!drawing || !panel || active === null || window.matchMedia(mobileQuery).matches) {
       setPanelPosition(null);
       return;
     }

@@ -27,6 +27,7 @@ export function CaseStudyEntrances({ slug }: { slug: string }) {
       remember(element);
       // Set the initial state immediately, including during the short stagger delay.
       element.style.opacity = "0";
+      // 860px mirrors this page's own stacked story layout in page.module.css, so it stays component-specific.
       const distance = matchMedia("(max-width: 860px)").matches ? 16 : 24;
       const animation = animate(element, media ? { opacity: [0, 1], scale: [.985, 1] } : { opacity: [0, 1], y: [distance, 0] }, {
         duration: .65, delay, ease: [.16, 1, .3, 1],

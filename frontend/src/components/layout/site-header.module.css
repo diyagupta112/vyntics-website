@@ -28,7 +28,7 @@
 }
 
 .inner {
-  width: min(calc(100% - 4rem), 110rem);
+  width: min(calc(100% - 4rem), var(--content-width-wide));
   min-height: 5rem;
   margin-inline: auto;
   display: flex;
@@ -299,7 +299,7 @@
   }
 
   .inner {
-    width: min(100% - 2rem, var(--content-width));
+    width: min(100% - 2 * var(--gutter), var(--content-width));
     min-height: 4.5rem;
     display: flex;
     justify-content: flex-start;

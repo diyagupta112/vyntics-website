@@ -3,7 +3,7 @@
 .intro { position:sticky; top:7rem; min-width:0; max-width:26rem; }
 .eyebrow { display:flex; align-items:center; gap:.65rem; color:var(--color-primary); font-size:.72rem; font-weight:760; letter-spacing:.16em; text-transform:uppercase; }
 .eyebrow svg { flex-shrink:0; }
-.intro h2 { margin-top:1rem; color:var(--color-foreground); font-size:clamp(2rem,3.2vw,3rem); line-height:1.12; letter-spacing:-.04em; text-wrap:balance; }
+.intro h2 { margin-top:1rem; color:var(--color-foreground); font-size:var(--text-h2); line-height:1.12; letter-spacing:-.04em; text-wrap:balance; }
 .description { margin-top:1rem; color:var(--color-muted); font-size:1.05rem; line-height:1.7; }
 .timeline { position:relative; min-width:0; list-style:none; }
 .step { position:relative; padding-left:2rem; padding-bottom:1.5rem; min-width:0; }
