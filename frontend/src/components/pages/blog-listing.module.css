@@ -7,6 +7,7 @@
 .page.fullScreenPage { max-width: none; padding: 0; }
 .carousel { position: relative; }
 .featured { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: calc(100svh - 5rem); overflow: hidden; color: #fff; background: #102544; }
+.featured::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(to top, rgb(4 12 25 / 75%) 0%, transparent 20%); }
 .carouselViewport { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
 .carouselViewport::-webkit-scrollbar { display: none; }
 .carouselViewport > .featured { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }

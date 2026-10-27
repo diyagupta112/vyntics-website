@@ -43,13 +43,13 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
     // Backend image hosts are dynamic.
     // eslint-disable-next-line @next/next/no-img-element
     <img className={articleStyles.cover} src={blog.cover_image_url} alt="" fetchPriority="high" />
-  )}<div className={articleStyles.shade} /><div className={articleStyles.heroInner}><Link className={articleStyles.back} href="/blog">← All blogs</Link><div className={articleStyles.titleBlock}><a className={articleStyles.scroll} href="#article-content">Scroll to read <span aria-hidden="true">↓</span></a></div></div></header>
+  )}<div className={articleStyles.shade} /><div className={articleStyles.heroInner}><Link className={articleStyles.back} href="/blog">← All blogs</Link><div className={articleStyles.heroBottom}><a className={articleStyles.scroll} href="#article-content">Scroll to read <span aria-hidden="true">↓</span></a><div className={articleStyles.meta}><span>{blog.author}</span><time dateTime={blog.published_at}>{new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(blog.published_at))}</time><span>{blog.read_time} min read</span><span className={articleStyles.heroCategory}>{blog.category}</span></div></div></div></header>
     <div id="article-content" className={articleStyles.readingLayout}>
       <aside className={articleStyles.leftSidebar} aria-label="About this article"><div className={articleStyles.infoCard}><p className={articleStyles.sideLabel}>ABOUT THIS ARTICLE</p><dl><div><dt>Author</dt><dd>{blog.author}</dd></div><div><dt>{blog.status && blog.status !== "published" ? "Created" : "Published"}</dt><dd><time dateTime={blog.published_at}>{new Intl.DateTimeFormat("en", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(blog.published_at))}</time></dd></div><div><dt>Reading time</dt><dd>{blog.read_time} min read</dd></div><div><dt>Category</dt><dd>{blog.category}</dd></div></dl></div></aside>
       <section className={articleStyles.body} aria-label="Article content"><p className={articleStyles.excerpt}>{blog.excerpt}</p><StructuredContent value={bodyContent} />
         {extensions.map((section) => <section className={articleStyles.extraSection} key={section.heading}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}{section.points && <ul>{section.points.map((point) => <li key={point}>{point}</li>)}</ul>}</section>)}
-        <footer className={articleStyles.footer}><span>Written by {blog.author}</span><Link href="/blog">Explore more blogs →</Link></footer>
+        <footer className={articleStyles.footer}><span>Written by {blog.author}</span></footer>
       </section>
-      <aside className={articleStyles.rightSidebar} aria-label="More blogs"><nav className={articleStyles.infoCard}><h2>More blogs</h2>{related.map((post) => <RelatedBlogCard key={post.id} blog={post} />)}</nav></aside>
+      <aside className={articleStyles.rightSidebar} aria-label="More blogs"><nav className={articleStyles.infoCard}><h2>More blogs</h2>{related.map((post) => <RelatedBlogCard key={post.id} blog={post} />)}<Link className={articleStyles.allBlogs} href="/blog">View more blogs →</Link></nav></aside>
     </div></article>;
 }

@@ -55,7 +55,7 @@ export default function AboutPage() {
             <p>
               From discovery to delivery, we collaborate closely with business and technical executives to provide data foundations, decision-ready analytics, useful AI, and cloud engineering as a single, responsible team.
             </p>
-            <blockquote>Our goal is to simplify the adoption, trust, and ownership of cutting-edge technology.</blockquote>
+            <blockquote><span>Our goal is to simplify the adoption, trust, and ownership of cutting-edge technology.</span></blockquote>
           </div>
 
           <figure className={styles.companyIntroVisual}>
@@ -144,7 +144,7 @@ export default function AboutPage() {
             <p className={styles.eyebrow}>Are you prepared to proceed?</p>
             <h2>Together, we can transform your data into a useful resource for your team</h2>
           </div>
-          <a href="/#contact">Get started <ArrowIcon /></a>
+          <a href="/contact-us">Get started <ArrowIcon /></a>
         </Container>
       </section>
     </>
