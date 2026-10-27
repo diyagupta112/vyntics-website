@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "motion/react";
 import type { CSSProperties, FocusEvent } from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { OptimizedImage } from "@/components/ui/optimized-image";
 import { Container } from "@/components/ui/container";
 import type { Blog } from "@/lib/blogs";
 import styles from "./blog-showcase.module.css";
@@ -175,5 +174,6 @@ function BlogCover({ src }: { src: string }) {
   const [failed, setFailed] = useState(false);
   if (failed) return null;
   // Decorative cover; the article title provides the accessible name.
-  return <OptimizedImage className={styles.coverImage} src={src} alt="" sizes="(max-width: 800px) 100vw, 800px" onError={() => setFailed(true)} />;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img className={styles.coverImage} src={src} alt="" loading="lazy" onError={() => setFailed(true)} />;
 }
