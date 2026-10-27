@@ -4,11 +4,11 @@ from datetime import datetime
 from typing import Annotated, Literal, TypeAlias
 from uuid import UUID
 
-from pydantic import AnyHttpUrl, StringConstraints, field_validator, model_validator
+from pydantic import AnyHttpUrl, Field, StringConstraints, field_validator, model_validator
 
 from app.schemas.common import RequestSchema, ResponseSchema
 from app.schemas.content import BodyContent, StoredBodyContent
-from app.schemas.related_services import RelatedService
+from app.schemas.related_services import RelatedServices, RelatedSubServices, ServiceIdentifier
 
 
 BlogStatus: TypeAlias = Literal["draft", "published", "unpublished"]
@@ -21,7 +21,8 @@ NonEmptyString: TypeAlias = Annotated[
 class BlogCreateRequest(RequestSchema):
     """Client-controlled fields for creating a Blog."""
 
-    related_service: RelatedService | None = None
+    related_services: RelatedServices = Field(default_factory=list)
+    related_sub_services: RelatedSubServices = Field(default_factory=list)
     slug: NonEmptyString
     title: NonEmptyString
     seo_title: NonEmptyString
@@ -47,7 +48,15 @@ class BlogCreateRequest(RequestSchema):
 class BlogUpdateRequest(RequestSchema):
     """Client-controlled fields that may be changed on an existing Blog."""
 
-    related_service: RelatedService | None = None
+    related_services: RelatedServices | None = None
+    related_sub_services: RelatedSubServices | None = None
+
+    @field_validator("related_services", "related_sub_services")
+    @classmethod
+    def clear_on_null(cls, value: list[str] | None) -> list[str]:
+        """An explicit null clears the targeting, matching the empty default."""
+
+        return [] if value is None else value
     slug: NonEmptyString | None = None
     title: NonEmptyString | None = None
     seo_title: NonEmptyString | None = None
@@ -87,7 +96,8 @@ class BlogListItem(ResponseSchema):
     """A lightweight published blog shown in public listings."""
 
     id: UUID
-    related_service: RelatedService | None = None
+    related_services: list[ServiceIdentifier] = Field(default_factory=list)
+    related_sub_services: list[str] = Field(default_factory=list)
     slug: str
     title: str
     author: str
@@ -109,7 +119,8 @@ class BlogDetailResponse(ResponseSchema):
     """A published blog with SEO metadata and structured content."""
 
     id: UUID
-    related_service: RelatedService | None = None
+    related_services: list[ServiceIdentifier] = Field(default_factory=list)
+    related_sub_services: list[str] = Field(default_factory=list)
     slug: str
     title: str
     seo_title: str
@@ -128,7 +139,8 @@ class BlogAdminResponse(ResponseSchema):
     """Confirmed admin response for Blog create and update operations."""
 
     id: UUID
-    related_service: RelatedService | None = None
+    related_services: list[ServiceIdentifier] = Field(default_factory=list)
+    related_sub_services: list[str] = Field(default_factory=list)
     slug: str
     title: str
     seo_title: str

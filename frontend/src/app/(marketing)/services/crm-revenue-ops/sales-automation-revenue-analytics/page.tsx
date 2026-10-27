@@ -90,7 +90,7 @@ export default async function SalesAutomationRevenueAnalyticsPage() {
           items={salesFaqs} name="sales-automation-faq" label="Sales automation questions" />
       </section>
       <DraftCardSection section={salesSections.related} />
-      <div data-reveal="sales-automation-contact"><ContactCta eyebrow="Sales automation services" title="Build a clearer sales process and revenue view" intro="Tell us where manual work, follow-up, or pipeline visibility is getting in the way. We can discuss a practical next step for your sales automation and revenue analytics." submitLabel="Discuss sales automation" sectionId="contact" /></div>
+      <div data-reveal="sales-automation-contact"><ContactCta eyebrow="Sales automation services" title="Build A Clearer Sales Process And Revenue View" intro="Tell us where manual work, follow-up, or pipeline visibility is getting in the way. We can discuss a practical next step for your sales automation and revenue analytics." submitLabel="Discuss sales automation" sectionId="contact" /></div>
     </div>
     <ScrollReveals scope={`#${contentId}`} />
   </div>;

@@ -86,7 +86,7 @@ export default async function DashboardExecutiveReportingPage() {
           items={dashboardFaqs} name="dashboard-reporting-faq" label="Dashboard development questions" />
       </section>
       <DraftCardSection section={dashboardSections.relatedServices} />
-      <div data-reveal="dashboard-reporting-contact"><ContactCta eyebrow="Dashboard development" title="Make your reporting work harder for your team" intro="Tell us about the reports your team relies on and the decisions you want them to support. We can discuss a practical next step for your dashboards and executive reporting." submitLabel="Discuss dashboard reporting" sectionId="contact" /></div>
+      <div data-reveal="dashboard-reporting-contact"><ContactCta eyebrow="Dashboard development" title="Make Your Reporting Work Harder For Your Team" intro="Tell us about the reports your team relies on and the decisions you want them to support. We can discuss a practical next step for your dashboards and executive reporting." submitLabel="Discuss dashboard reporting" sectionId="contact" /></div>
     </div>
     <ScrollReveals scope={`#${contentId}`} />
   </div>;

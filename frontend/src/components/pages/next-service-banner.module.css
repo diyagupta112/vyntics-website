@@ -3,7 +3,7 @@
 .heading h2 { margin-top:.75rem; font-size:clamp(2rem,3.5vw,3.1rem); line-height:1.08; letter-spacing:-.05em; }
 .heading > .intro { max-width:640px; margin-top:16px; color:var(--color-muted); font-size:18px; font-weight:400; line-height:1.6; text-transform:none; letter-spacing:normal; word-spacing:normal; text-align:left; }
 .grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.25rem; margin-top:40px; }
-.card { --card-height:430px; --card-image-height:250px; --card-text-height:180px; --explore-space:38.5px; --background-opacity:.78; --panel-base:#eaf0ff; --panel-veil:rgba(246,249,255,.45); position:relative; isolation:isolate; display:block; min-width:0; overflow:hidden; border-radius:1.5rem; box-shadow:0 .75rem 2rem rgb(11 11 15 / 5%); color:#0b0b0f; height:var(--card-height); }
+.card { --card-height:430px; --card-image-height:250px; --card-text-height:180px; --explore-space:38.5px; --background-opacity:.78; --panel-base:#f6f7f8; --panel-veil:rgba(255,255,255,.45); position:relative; isolation:isolate; display:block; min-width:0; overflow:hidden; border-radius:1.5rem; box-shadow:0 .75rem 2rem rgb(11 11 15 / 5%); color:#0b0b0f; height:var(--card-height); }
 /* These service photos need the allowed stronger hover opacity for contrast. */
 .cloud-foundations,.data-engineering,.analytics-bi,.ai-solutions,.crm-revenue-ops { --background-opacity:.62; }
 .photoBackdrop { position:absolute; inset:0; z-index:0; pointer-events:none; filter:blur(28px) saturate(120%); transform:scale(1.25); }

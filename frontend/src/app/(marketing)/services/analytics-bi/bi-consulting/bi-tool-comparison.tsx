@@ -7,7 +7,7 @@ export function BiToolComparison() {
   return <section className={styles.compareSection} id="bi-tool-comparison" aria-labelledby="bi-tool-comparison-title">
     <Container>
       <header className={styles.heading} data-reveal="bi-tool-comparison-heading">
-        <h2 id="bi-tool-comparison-title">Which BI tool is right for you?</h2>
+        <h2 id="bi-tool-comparison-title">Which BI Tool is Right For You?</h2>
         <p>Compare how Power BI, Tableau, and Amazon QuickSight differ, so you can see which platform may fit your existing systems, reporting needs, and team.</p>
       </header>
       <div className={styles.compareFrame} data-reveal="bi-tool-comparison-table">

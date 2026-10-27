@@ -31,6 +31,8 @@ AUTH_USER_ID = UUID("22222222-2222-4222-8222-222222222222")
 def _blog(*, status: str = "draft", published_at: datetime | None = None) -> Blog:
     return Blog(
         id=BLOG_ID,
+        related_services=[],
+        related_sub_services=[],
         slug="phase-6-blog",
         title="Phase 6 Blog",
         seo_title="Phase 6 Blog | Vyntics",

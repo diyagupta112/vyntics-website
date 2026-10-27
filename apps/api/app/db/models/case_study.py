@@ -26,9 +26,9 @@ class CaseStudy(Base):
     __tablename__ = "case_studies"
     __table_args__ = (
         CheckConstraint(
-            "related_service IN ('cloud_foundations', 'data_engineering', "
-            "'analytics_bi', 'ai_solutions', 'crm_revenue_ops', 'all')",
-            name="ck_case_studies_related_service",
+            "related_services <@ ARRAY['cloud_foundations', 'data_engineering', "
+            "'analytics_bi', 'ai_solutions', 'crm_revenue_ops']::text[]",
+            name="ck_case_studies_related_services",
         ),
         CheckConstraint(
             "status IN ('draft', 'published', 'unpublished')",
@@ -39,6 +39,8 @@ class CaseStudy(Base):
             "status",
             "published_at",
         ),
+        Index("ix_case_studies_related_services", "related_services", postgresql_using="gin"),
+        Index("ix_case_studies_related_sub_services", "related_sub_services", postgresql_using="gin"),
     )
 
     id: Mapped[UUIDValue] = mapped_column(
@@ -46,7 +48,16 @@ class CaseStudy(Base):
         primary_key=True,
         server_default=text("gen_random_uuid()"),
     )
-    related_service: Mapped[str | None] = mapped_column(Text, nullable=True)
+    related_services: Mapped[list[str]] = mapped_column(
+        ARRAY(Text),
+        nullable=False,
+        server_default=text("'{}'::text[]"),
+    )
+    related_sub_services: Mapped[list[str]] = mapped_column(
+        ARRAY(Text),
+        nullable=False,
+        server_default=text("'{}'::text[]"),
+    )
     slug: Mapped[str] = mapped_column(Text, nullable=False, unique=True)
     title: Mapped[str] = mapped_column(Text, nullable=False)
     seo_title: Mapped[str] = mapped_column(Text, nullable=False)

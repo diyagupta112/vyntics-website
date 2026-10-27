@@ -142,7 +142,8 @@ def test_admin_response_matches_exact_contract() -> None:
 
     assert set(response.model_dump()) == {
         "id",
-        "related_service",
+        "related_services",
+        "related_sub_services",
         "featured",
         "slug",
         "title",

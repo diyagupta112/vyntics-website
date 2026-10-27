@@ -7,7 +7,7 @@ export function CrmPlatformComparison() {
   return <section className={styles.compareSection} id="which-crm" aria-labelledby="which-crm-title">
     <Container>
       <header className={styles.heading} data-reveal="which-crm-heading">
-        <h2 id="which-crm-title">Which CRM is right for you?</h2>
+        <h2 id="which-crm-title">Which CRM is Right For You?</h2>
         <p>Compare how HubSpot, Zoho CRM, and Microsoft Dynamics 365 differ, so you can see which platform may fit your processes, connected systems, and team.</p>
       </header>
       <div className={styles.compareFrame} data-reveal="which-crm-table">

@@ -4,7 +4,8 @@ export type CaseStudyStatus = "draft" | "published" | "unpublished";
 
 export type CaseStudy = {
   id: string;
-  related_service?: RelatedService | null;
+  related_services: RelatedService[];
+  related_sub_services: string[];
   slug: string;
   title: string;
   seo_title: string;
@@ -23,7 +24,8 @@ export type CaseStudy = {
 };
 
 export type CaseStudyCreateRequest = {
-  related_service?: RelatedService | null;
+  related_services: RelatedService[];
+  related_sub_services: string[];
   slug: string;
   title: string;
   seo_title: string;

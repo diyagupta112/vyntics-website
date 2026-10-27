@@ -9,7 +9,8 @@ import type {
 } from "../types";
 
 export type CaseStudyFormValues = {
-  relatedService: RelatedService | "";
+  relatedServices: RelatedService[];
+  relatedSubServices: string[];
   title: string;
   slug: string;
   seoTitle: string;
@@ -28,7 +29,8 @@ export type CaseStudyFormErrors = Partial<
 >;
 
 export const emptyCaseStudyForm: CaseStudyFormValues = {
-  relatedService: "",
+  relatedServices: [],
+  relatedSubServices: [],
   title: "",
   slug: "",
   seoTitle: "",
@@ -44,7 +46,8 @@ export const emptyCaseStudyForm: CaseStudyFormValues = {
 
 export function caseStudyToForm(caseStudy: CaseStudy): CaseStudyFormValues {
   return {
-    relatedService: caseStudy.related_service ?? "",
+    relatedServices: caseStudy.related_services ?? [],
+    relatedSubServices: caseStudy.related_sub_services ?? [],
     title: caseStudy.title,
     slug: caseStudy.slug,
     seoTitle: caseStudy.seo_title,
@@ -70,7 +73,7 @@ export function validateCaseStudyForm(
   values: CaseStudyFormValues,
 ): CaseStudyFormErrors {
   const errors: CaseStudyFormErrors = {};
-  const required: Array<[Exclude<keyof CaseStudyFormValues, "isFeatured">, string]> = [
+  const required: Array<[Exclude<keyof CaseStudyFormValues, "isFeatured" | "relatedServices" | "relatedSubServices">, string]> = [
     ["title", "Title"],
     ["slug", "Slug"],
     ["seoTitle", "SEO title"],
@@ -111,7 +114,8 @@ function commonPayload(values: CaseStudyFormValues) {
     tags: parseList(values.tags),
     featured: values.isFeatured,
     content: contentObject(values.content),
-    related_service: values.relatedService || null,
+    related_services: values.relatedServices,
+    related_sub_services: values.relatedSubServices,
   };
 }
 
@@ -137,7 +141,7 @@ export function toUpdateRequest(
 }
 
 const fieldMap: Record<string, keyof CaseStudyFormValues> = {
-  related_service: "relatedService",
+  related_services: "relatedServices", related_sub_services: "relatedSubServices",
   title: "title",
   slug: "slug",
   seo_title: "seoTitle",

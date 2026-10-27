@@ -1,5 +1,5 @@
 .section {
-  --af-band:color-mix(in srgb,var(--color-primary) 7%,var(--color-background));
+  --af-band:var(--color-band);
   --af-box:#fff;
   --af-ink:#16224a;
   --af-muted:#46577a;
@@ -10,9 +10,9 @@
   --af-label:var(--color-primary);
   --af-white:var(--color-white);
   --af-panel:#fff;
-  --af-lane:#f6f9ff;
+  --af-lane:#f6f7f8;
   --af-dashed:#b9c3d9;
-  --af-before:#f3f5fa;
+  --af-before:#eff1f3;
   --af-cloud:#e6eeff;
   --af-tag:#e7ebf2;
   padding-block:clamp(4.25rem,8vw,7rem);

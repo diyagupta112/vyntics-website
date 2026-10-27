@@ -7,7 +7,7 @@ export const subServiceHeroImages: Readonly<Record<string, { src: string; alt: s
   "bi-consulting": { src: "/images/services/our-services-section/bi-consulting.png", alt: "Presenter reviewing reporting charts on a tablet beside a whiteboard." },
   "crm-implementation-integration": { src: "/images/services/our-services-section/crm-implementation.png", alt: "Colleagues reviewing a CRM sales pipeline on a laptop." },
   "sales-automation-revenue-analytics": { src: "/images/services/our-services-section/sales-automation.png", alt: "Team reviewing an automated lead follow-up workflow on a laptop." },
-  "rag-knowledge-assistants": { src: "/images/services/our-services-section/ai-service-agents.jpg", alt: "Two colleagues reviewing an AI workflow on a laptop." },
+  "rag-knowledge-assistants": { src: "/images/services/our-services-section/rag-and-knowledge%20assistnats.png", alt: "White assistant robot looking up at the camera while holding a tablet." },
   "ai-agents": { src: "/images/services/our-services-section/ai-service-agents.jpg", alt: "Team reviewing an AI agent workflow on a laptop." },
   "intelligent-automation": { src: "/images/services/our-services-section/ai-service-automation.jpg", alt: "Person reviewing a printed document while working at a laptop." },
   "data-pipelines-integration": { src: "/images/services/our-services-section/data-pipelines-integration.jpg", alt: "Data professional working at a computer in an office." },

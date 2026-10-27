@@ -79,7 +79,7 @@ section.noTopRule { border-top:0; }
 .workBridge .secondaryAction { margin-top:1.5rem; }
 .workBridge > div > .secondaryAction[href="/case-studies"],
 .context > div > .secondaryAction[href="/blog"] { display:flex; margin-inline-start:auto; }
-.nextStage { background:color-mix(in srgb,var(--color-primary) 5%,var(--color-background)); }
+.nextStage { background:var(--color-band); }
 .workBridgeInner { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.7fr); gap:4rem; align-items:end; }
 .nextStage .nextStageName { margin-top:1.5rem; font-size:clamp(2.5rem,5vw,4.5rem); font-weight:600; letter-spacing:-.06em; line-height:1.05; }
 .workBridgeInner > div:last-child > p { color:var(--color-muted); font-size:.95rem; line-height:1.7; }

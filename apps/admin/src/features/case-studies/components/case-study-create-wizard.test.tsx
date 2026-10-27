@@ -9,7 +9,7 @@ vi.mock("next/image", () => ({ default: "img" }));
 vi.mock("next/navigation", () => ({ useRouter: () => ({ push }) }));
 vi.mock("../api/case-studies", () => ({ caseStudiesApi: { create: vi.fn(), update: vi.fn(), uploadCover: vi.fn(), deleteCover: vi.fn() } }));
 
-const study: CaseStudy = { id: "study-1", slug: "platform", title: "Platform", seo_title: "Platform | Vyntics", meta_description: "Meta", client_name: "Client", excerpt: "Results", cover_image_url: null, tech_stack: [], tags: [], content: { type: "doc" }, featured: false, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
+const study: CaseStudy = { related_services: [], related_sub_services: [], id: "study-1", slug: "platform", title: "Platform", seo_title: "Platform | Vyntics", meta_description: "Meta", client_name: "Client", excerpt: "Results", cover_image_url: null, tech_stack: [], tags: [], content: { type: "doc" }, featured: false, status: "draft", published_at: null, created_at: "2026-09-28T00:00:00Z", updated_at: "2026-09-28T00:00:00Z" };
 
 function fillStudy() {
   const values: Record<string, string> = { caseStudyTitle: "Platform", caseStudySlug: "platform", caseStudyClientName: "Client", caseStudyExcerpt: "Results", caseStudySeoTitle: "Platform | Vyntics", caseStudyMetaDescription: "Meta" };

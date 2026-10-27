@@ -12,6 +12,8 @@ type ContactCtaProps = {
   submitLabel?: string;
   showEyebrowAccent?: boolean;
   primaryAction?: { href: string; label: string };
+  /** Gives the email link and the send button the raised 3D look. */
+  raised?: boolean;
 };
 
 export function ContactCta({
@@ -22,6 +24,7 @@ export function ContactCta({
   submitLabel = "Send message",
   showEyebrowAccent = true,
   primaryAction,
+  raised = false,
 }: ContactCtaProps = {}) {
   return (
     <section id={sectionId} className={styles.section} aria-labelledby={`${sectionId}-title`}>
@@ -36,7 +39,7 @@ export function ContactCta({
             </Link>
           )}
 
-          <a className={styles.emailLink} href="mailto:contact@vyntics.com">
+          <a className={`${styles.emailLink}${raised ? " button3d" : ""}`} href="mailto:contact@vyntics.com">
             <span aria-hidden="true">→</span> contact@vyntics.com
           </a>
 
@@ -48,7 +51,7 @@ export function ContactCta({
           </address>
         </div>
 
-        <ContactForm submitLabel={submitLabel} />
+        <ContactForm submitLabel={submitLabel} raised={raised} />
       </Container>
     </section>
   );

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useRef, useState } from "react";
 import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
-import { RelatedServiceControl } from "@/components/forms/related-service-control";
+import { ContentTargetingControl } from "@/components/forms/content-targeting-control";
 import { slugFromTitle } from "@/lib/content/slug";
 import { FeaturedControl } from "@/components/forms/featured-control";
 import { FormField } from "@/components/forms/form-field";
@@ -85,7 +85,7 @@ export function BlogForm({ blog, createFlow = false, onCreated, onSaved }: Props
         <FormField htmlFor="category" label="Category" required error={errors.category}><Input id="category" value={values.category} aria-invalid={Boolean(errors.category)} onChange={(e) => update("category", e.target.value)} /></FormField>
         <FormField htmlFor="readTime" label="Read time (minutes)" required error={errors.readTime}><Input id="readTime" inputMode="numeric" type="number" step="1" value={values.readTime} aria-invalid={Boolean(errors.readTime)} onChange={(e) => update("readTime", e.target.value)} /></FormField>
         <FormField htmlFor="status" label="Status" required error={errors.status} hint={isCreate || createFlow ? "Add a cover in Step 2 before publishing." : "FastAPI validates publishing requirements."}><Select id="status" value={values.status} onChange={(e) => update("status", e.target.value as BlogStatus)}><option value="draft">Draft</option>{!isCreate && !createFlow ? <option value="published">Published</option> : null}<option value="unpublished">Unpublished</option></Select></FormField>
-        <RelatedServiceControl id="blog-related-service" value={values.relatedService} onChange={(value) => update("relatedService", value)} error={errors.relatedService} />
+        <div className={styles.full}><ContentTargetingControl idPrefix="blog" services={values.relatedServices} subServices={values.relatedSubServices} onServicesChange={(value) => update("relatedServices", value)} onSubServicesChange={(value) => update("relatedSubServices", value)} servicesError={errors.relatedServices} subServicesError={errors.relatedSubServices} /></div>
         <FeaturedControl id="blog-featured" checked={values.isFeatured} onChange={(checked) => update("isFeatured", checked)} resourceName="blog" error={errors.isFeatured} />
         <div className={styles.full}><FormField htmlFor="excerpt" label="Excerpt" required error={errors.excerpt}><Textarea id="excerpt" value={values.excerpt} aria-invalid={Boolean(errors.excerpt)} onChange={(e) => update("excerpt", e.target.value)} /></FormField></div>
         <div className={styles.full}><FormField htmlFor="content" label="Content" required error={errors.content} hint="Use the toolbar to structure and format the article."><RichTextEditor id="content" invalid={Boolean(errors.content)} value={values.content} onChange={(value) => update("content", value)} /></FormField></div>

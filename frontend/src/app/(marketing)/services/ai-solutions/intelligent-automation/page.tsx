@@ -114,7 +114,7 @@ export default async function IntelligentAutomationPage() {
           items={intelligentAutomationFaqs} name="intelligent-automation-faq" label="Intelligent automation questions" />
       </section>
       <DraftCardSection section={intelligentAutomationSections.related} />
-      <div data-reveal="intelligent-automation-contact"><ContactCta eyebrow="Intelligent automation services" title="Make repetitive workflows easier to manage" intro="Tell us about the documents, approvals, or recurring process steps taking time from your team. We can discuss a practical first workflow to review." submitLabel="Discuss intelligent automation" sectionId="contact" /></div>
+      <div data-reveal="intelligent-automation-contact"><ContactCta eyebrow="Intelligent automation services" title="Make Repetitive Workflows Easier to Manage" intro="Tell us about the documents, approvals, or recurring process steps taking time from your team. We can discuss a practical first workflow to review." submitLabel="Discuss intelligent automation" sectionId="contact" /></div>
     </div>
     <ScrollReveals scope={`#${contentId}`} />
   </div>;

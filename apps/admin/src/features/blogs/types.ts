@@ -4,7 +4,8 @@ export type BlogStatus = "draft" | "published" | "unpublished";
 
 export type Blog = {
   id: string;
-  related_service?: RelatedService | null;
+  related_services: RelatedService[];
+  related_sub_services: string[];
   slug: string;
   title: string;
   seo_title: string;
@@ -23,7 +24,8 @@ export type Blog = {
 };
 
 export type BlogCreateRequest = {
-  related_service?: RelatedService | null;
+  related_services: RelatedService[];
+  related_sub_services: string[];
   slug: string;
   title: string;
   seo_title: string;

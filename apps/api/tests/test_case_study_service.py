@@ -36,6 +36,8 @@ def _case_study(
 ) -> CaseStudy:
     return CaseStudy(
         id=CASE_STUDY_ID,
+        related_services=[],
+        related_sub_services=[],
         slug="phase-7-case-study",
         title="Phase 7 Case Study",
         seo_title="Phase 7 Case Study | Vyntics",

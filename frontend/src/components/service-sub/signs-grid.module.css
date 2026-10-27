@@ -1,5 +1,5 @@
 .section {
-  background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--color-primary) 3%,transparent),transparent);
+  background:var(--color-band-faint);
 }
 .grid {
   display:grid;

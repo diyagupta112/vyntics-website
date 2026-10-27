@@ -17,7 +17,7 @@ async function LatestBlogs() {
 
 export default function HomePage() {
   return (
-    <>
+    <div data-home-page>
       <Hero />
       <ClientMarquee />
       <Capabilities linkCards />
@@ -26,7 +26,7 @@ export default function HomePage() {
       <Approach />
       <Suspense fallback={<BlogShowcase blogs={[]} loading />}><LatestBlogs /></Suspense>
       <WhyVyntics />
-      <ContactCta />
-    </>
+      <ContactCta raised />
+    </div>
   );
 }

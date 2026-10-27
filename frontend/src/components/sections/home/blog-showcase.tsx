@@ -77,10 +77,6 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
             <h2 id="blogs-title">Useful data and AI concepts</h2>
             <p>Helpful manuals for developing dependable systems outside of the demonstration</p>
           </div>
-
-          <Link className={`${styles.viewAll} siteCta`} href="/blog">
-            View all Blogs <ArrowIcon />
-          </Link>
         </header>
 
         {articles.length > 0 ? <>
@@ -148,17 +144,27 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
             ))}
           </div>
 
-          <div className={styles.arrows} aria-label="Blog carousel controls">
-            <button type="button" onClick={showPreviousArticle} aria-label="Previous article">
-              <ArrowIcon direction="left" />
-            </button>
-            <button type="button" onClick={showNextArticle} aria-label="Next article">
-              <ArrowIcon />
-            </button>
+          <div className={styles.controlsRight}>
+            <div className={styles.arrows} aria-label="Blog carousel controls">
+              <button type="button" onClick={showPreviousArticle} aria-label="Previous article">
+                <ArrowIcon direction="left" />
+              </button>
+              <button type="button" onClick={showNextArticle} aria-label="Next article">
+                <ArrowIcon />
+              </button>
+            </div>
+            <Link className={`${styles.viewAll} siteCta button3d`} href="/blog">
+              View all Blogs <ArrowIcon />
+            </Link>
           </div>
 
         </div>
         </> : <p className={styles.empty} role="status">{loading ? "Loading articles…" : unavailable ? "Articles are temporarily unavailable. Please try again later." : "No articles available yet."}</p>}
+        {articles.length === 0 && <div className={styles.viewAllRow}>
+          <Link className={`${styles.viewAll} siteCta button3d`} href="/blog">
+            View all Blogs <ArrowIcon />
+          </Link>
+        </div>}
       </Container>
     </section>
   );

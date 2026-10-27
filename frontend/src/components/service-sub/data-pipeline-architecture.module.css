@@ -1,6 +1,6 @@
 .section {
-  --architecture-band:color-mix(in srgb,var(--color-primary) 7%,var(--color-background));
-  --architecture-before:#f3f5fa;
+  --architecture-band:var(--color-band);
+  --architecture-before:#eff1f3;
   --architecture-cloud:#e6eeff;
   --architecture-box:#fff;
   --architecture-ink:#16224a;
@@ -15,7 +15,7 @@
   --architecture-label:var(--color-primary);
   --architecture-white:var(--color-white);
   --architecture-panel:#fff;
-  --architecture-lane:#f6f9ff;
+  --architecture-lane:#f6f7f8;
   padding-block:clamp(4.25rem,8vw,7rem);
   scroll-margin-top:6.5rem;
   background:var(--architecture-band);

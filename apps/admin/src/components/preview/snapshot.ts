@@ -7,7 +7,7 @@ export type Content = { [key: string]: Json };
 type Base = {
   title: string; slug: string; excerpt: string; content: Content;
   cover: string | null; status: "draft" | "published" | "unpublished";
-  related_service: RelatedService | null; published_at: string | null;
+  related_services: RelatedService[]; related_sub_services: string[]; published_at: string | null;
 };
 export type BlogPreviewSnapshot = Base & { type: "blog"; author: string; category: string; readTime: number | null; is_featured: boolean };
 export type CaseStudyPreviewSnapshot = Base & { type: "case-study"; client: string; tags: string[]; techStack: string[]; featured: boolean };
@@ -34,7 +34,7 @@ function freeze<T>(value: T): T {
 function base(values: BlogFormValues | CaseStudyFormValues, saved?: Saved): Base {
   return { title: values.title, slug: values.slug, excerpt: values.excerpt, content: content(values.content),
     cover: saved?.cover_image_url ?? null, published_at: values.status === "published" ? saved?.published_at ?? null : null,
-    status: values.status, related_service: values.relatedService || null };
+    status: values.status, related_services: values.relatedServices, related_sub_services: values.relatedSubServices };
 }
 export function blogSnapshot(values: BlogFormValues, saved?: Saved): BlogPreviewSnapshot {
   const readTime = values.readTime.trim() ? Number(values.readTime) : NaN;
@@ -50,7 +50,8 @@ export function validSnapshot(value: unknown): value is PreviewSnapshot {
   if (![value.title, value.slug, value.excerpt].every(v => typeof v === "string")) return false;
   if (!(value.cover === null || typeof value.cover === "string") || !["draft", "published", "unpublished"].includes(String(value.status))) return false;
   if (!(value.published_at === null || typeof value.published_at === "string" && Number.isFinite(Date.parse(value.published_at)))) return false;
-  if (!(value.related_service === null || relatedServiceOptions.some(o => o.value === value.related_service))) return false;
+  if (!Array.isArray(value.related_services) || !value.related_services.every(v => relatedServiceOptions.some(o => o.value === v))) return false;
+  if (!Array.isArray(value.related_sub_services) || !value.related_sub_services.every(v => typeof v === "string")) return false;
   if (!isObject(value.content) || !isJson(value.content)) return false;
   if (value.type === "blog") return typeof value.author === "string" && typeof value.category === "string" && typeof value.is_featured === "boolean" && (value.readTime === null || typeof value.readTime === "number" && Number.isFinite(value.readTime));
   return typeof value.client === "string" && typeof value.featured === "boolean" && [value.tags, value.techStack].every(v => Array.isArray(v) && v.every(s => typeof s === "string"));

@@ -1649,3 +1649,39 @@ reported CORS.
 15-client limit, also confirm no other long-lived process (other developers, scripts,
 duplicate instances) holds connections, or move `DATABASE_URL` to the Supabase
 transaction pooler (port 6543) after confirming psycopg prepared-statement settings.
+
+## Multi-service and multi-sub-service targeting - 2026-10-27
+
+**Status:** Implemented, tested on real PostgreSQL, and migration
+`20261027120000_multi_service_targeting.sql` applied to the configured database with
+`supabase db push` (dry run first; ledger not edited by hand).
+
+**Schema (`blogs` and `case_studies`):** `related_service` (nullable text, with the
+`'all'` value) is replaced by `related_services text[] NOT NULL DEFAULT '{}'` and
+`related_sub_services text[] NOT NULL DEFAULT '{}'`. No new tables or enums. A CHECK
+constraint (`ck_blogs_related_services`, `ck_case_studies_related_services`) limits
+`related_services` to `cloud_foundations`, `data_engineering`, `analytics_bi`,
+`ai_solutions`, `crm_revenue_ops`. GIN indexes cover both arrays on both tables.
+
+**API:** create and update accept `related_services` (service keys) and
+`related_sub_services` (open-ended lowercase snake_case keys, at most 100 characters,
+at most 50 per item). Values are trimmed, de-duplicated keeping first-seen order, and
+must be JSON arrays (comma-separated strings, `"all"`, unknown or malformed keys return
+422). Omitted or null means no targeting (`[]`); in PATCH, omitting preserves the stored
+value and an explicit null clears it. The legacy `related_service` field is rejected.
+Responses expose both arrays.
+
+**Public filtering:** `GET /blogs` and `GET /case-studies` accept `related_service` and
+`related_sub_service`; an item matches when the key is in its array (`@>`). Both may be
+combined (AND). Without them the published listing is unchanged. Only published items
+are returned, ordered by `published_at` descending, as before.
+
+**Data migration:** NULL becomes `{}`; a specific service becomes a one-element array;
+the retired `'all'` becomes all five service keys, which preserves how `'all'` was
+filtered (it matched every requested service). Live data before migration: 7 blogs (4
+NULL, 1 `cloud_foundations`, 2 `data_engineering`; 3 draft, 4 published) and 3 case
+studies (1 NULL, 1 `ai_solutions`, 1 `all`); all 10 rows were migrated, 1 of them from
+`'all'`. Sub-service arrays start empty.
+
+**Not changed here:** Admin Panel and public website. `packages/types/src/related-services.json`
+still lists `all`; update it together with the Admin multi-select work.

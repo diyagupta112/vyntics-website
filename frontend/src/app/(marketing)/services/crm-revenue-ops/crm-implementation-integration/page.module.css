@@ -9,7 +9,7 @@
 .platformCard h3 { margin-top: 1.5rem; color: var(--color-foreground); font-size: 1.15rem; }
 .platformCard p { margin-top: .7rem; color: var(--color-muted); line-height: 1.65; }
 .platformCard a { margin-top: auto; padding-top: 1.2rem; color: var(--color-primary); font-weight: 650; }
-.compareSection { padding-block:clamp(4.25rem,8vw,7rem); scroll-margin-top:6.5rem; background:color-mix(in srgb,var(--color-primary) 5%,var(--color-background)); }
+.compareSection { padding-block:clamp(4.25rem,8vw,7rem); scroll-margin-top:6.5rem; background:var(--color-band); }
 .compareFrame { overflow:hidden; border:1px solid var(--color-border); border-radius:1.1rem; background:color-mix(in srgb,var(--color-surface) 92%,var(--color-background)); }
 .tableWrap { overflow-x:auto; }
 .tableWrap:focus-visible { outline:2px solid var(--color-primary); outline-offset:-2px; }

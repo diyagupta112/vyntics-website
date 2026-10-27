@@ -16,7 +16,7 @@ vi.mock("../api/case-studies", () => ({
   },
 }));
 
-const caseStudy: CaseStudy = {
+const caseStudy: CaseStudy = { related_services: [], related_sub_services: [],
   id: "1",
   slug: "platform-redesign",
   title: "Platform redesign",

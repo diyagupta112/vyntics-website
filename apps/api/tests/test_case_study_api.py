@@ -31,6 +31,8 @@ def _case_study(
 ) -> CaseStudy:
     return CaseStudy(
         id=CASE_STUDY_ID,
+        related_services=[],
+        related_sub_services=[],
         slug=slug,
         title="Phase 7 Case Study",
         seo_title="Phase 7 Case Study | Vyntics",
@@ -97,7 +99,8 @@ def test_public_list_uses_exact_contract(case_study_api) -> None:
     ]
     assert set(response.json()["data"][0]) == {
         "id",
-        "related_service",
+        "related_services",
+        "related_sub_services",
         "featured",
         "slug",
         "title",
@@ -120,7 +123,8 @@ def test_public_detail_and_hidden_or_missing_behavior(case_study_api) -> None:
     assert response.status_code == 200
     assert set(response.json()) == {
         "id",
-        "related_service",
+        "related_services",
+        "related_sub_services",
         "featured",
         "slug",
         "title",
@@ -159,7 +163,8 @@ def test_admin_list_returns_all_statuses_and_exact_contract(case_study_api) -> N
     ]
     expected_fields = {
         "id",
-        "related_service",
+        "related_services",
+        "related_sub_services",
         "featured",
         "slug",
         "title",

@@ -120,7 +120,7 @@ export default async function BiConsultingPage() {
       <div data-reveal="bi-consulting-contact">
         <ContactCta
           eyebrow="BI consulting"
-          title="Build a BI environment your team can use"
+          title="Build a BI Environment Your Team Can Use"
           intro="Tell us which BI platform you use or are considering, what is not working today, and who relies on the reports. We can discuss a practical next step for selection, implementation, migration, or support."
           submitLabel="Discuss BI consulting"
           sectionId="contact"

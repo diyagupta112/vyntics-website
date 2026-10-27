@@ -33,6 +33,8 @@ def _blog(
 ) -> Blog:
     return Blog(
         id=BLOG_ID,
+        related_services=[],
+        related_sub_services=[],
         slug=slug,
         title="Phase 6 Blog",
         seo_title="Phase 6 Blog | Vyntics",
@@ -99,7 +101,8 @@ def test_get_blogs_uses_public_list_contract(blog_api) -> None:
     ]
     assert set(response.json()["data"][0]) == {
         "id",
-        "related_service",
+        "related_services",
+        "related_sub_services",
         "is_featured",
         "slug",
         "title",
@@ -148,7 +151,8 @@ def test_get_admin_blogs_returns_all_statuses_with_admin_contract(blog_api) -> N
         set(item)
         == {
             "id",
-            "related_service",
+            "related_services",
+            "related_sub_services",
             "is_featured",
             "slug",
             "title",
@@ -208,7 +212,8 @@ def test_create_blog_returns_confirmed_admin_contract(blog_api) -> None:
     assert response.status_code == 201
     assert set(response.json()) == {
         "id",
-        "related_service",
+        "related_services",
+        "related_sub_services",
         "is_featured",
         "slug",
         "title",

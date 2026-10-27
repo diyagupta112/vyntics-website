@@ -1,6 +1,6 @@
 .section {
-  --architecture-band:color-mix(in srgb,var(--color-primary) 7%,var(--color-background));
-  --architecture-before:#f3f5fa;
+  --architecture-band:var(--color-band);
+  --architecture-before:#eff1f3;
   --architecture-cloud:#e6eeff;
   --architecture-box:#fff;
   --architecture-ink:#16224a;

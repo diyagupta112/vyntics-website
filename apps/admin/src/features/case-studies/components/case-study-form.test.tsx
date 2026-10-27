@@ -11,7 +11,7 @@ vi.mock("../api/case-studies", () => ({
   caseStudiesApi: { create: vi.fn(), update: vi.fn() },
 }));
 
-const caseStudy: CaseStudy = {
+const caseStudy: CaseStudy = { related_services: [], related_sub_services: [],
   id: "1",
   slug: "platform-redesign",
   title: "Platform redesign",
@@ -35,13 +35,13 @@ describe("CaseStudyForm", () => {
   it("previews current unsaved values without any API mutation", () => {
     render(<CaseStudyForm />);
     fireEvent.change(screen.getByLabelText(/^Title/), { target: { value: "Unsaved preview title" } });
-    fireEvent.change(screen.getByLabelText("Related Service"), { target: { value: "all" } });
+    fireEvent.click(screen.getByLabelText("Cloud Foundations"));
     fireEvent.click(screen.getByRole("button", { name: "Preview" }));
     const frame = screen.getByTitle("Case Study page preview") as HTMLIFrameElement;
     const instanceId = new URL(frame.src).searchParams.get("instance");
     const post = vi.spyOn(frame.contentWindow!, "postMessage");
     fireEvent(window, new MessageEvent("message", { source: frame.contentWindow, origin: window.location.origin, data: { type: "vyntics-preview/ready", instanceId } }));
-    expect(post).toHaveBeenCalledWith(expect.objectContaining({ snapshot: expect.objectContaining({ type: "case-study", title: "Unsaved preview title", related_service: "all", featured: false }) }), window.location.origin);
+    expect(post).toHaveBeenCalledWith(expect.objectContaining({ snapshot: expect.objectContaining({ type: "case-study", title: "Unsaved preview title", related_services: ["cloud_foundations"], featured: false }) }), window.location.origin);
     expect(caseStudiesApi.create).not.toHaveBeenCalled();
     expect(caseStudiesApi.update).not.toHaveBeenCalled();
     fireEvent.click(screen.getByRole("button", { name: "Close Preview" }));
@@ -80,7 +80,7 @@ describe("CaseStudyForm", () => {
     expect(caseStudiesApi.create).not.toHaveBeenCalled();
   });
 
-  it.each([[false, ""], [true, ""], [false, "cloud_foundations"], [false, "data_engineering"], [false, "analytics_bi"], [false, "ai_solutions"], [false, "crm_revenue_ops"], [true, "all"]] as const)("creates with featured=%s and moves to edit", async (featured, target) => {
+  it.each([[false, []], [true, []], [false, ["cloud_foundations"]], [false, ["cloud_foundations", "data_engineering"]], [true, ["ai_solutions", "crm_revenue_ops", "analytics_bi"]]] as const)("creates with featured=%s and moves to edit", async (featured, target) => {
     vi.mocked(caseStudiesApi.create).mockResolvedValue(caseStudy);
     render(<CaseStudyForm />);
     const values: Record<string, string> = {
@@ -100,11 +100,12 @@ describe("CaseStudyForm", () => {
     expect(checkbox).not.toBeChecked();
     fireEvent.click(checkbox);
     if (!featured) fireEvent.click(checkbox);
-    fireEvent.change(screen.getByLabelText("Related Service"), { target: { value: target } });
+    for (const service of target) fireEvent.click(document.getElementById(`case-study-service-${service}`)!);
     fireEvent.click(screen.getByRole("button", { name: "Create Case Study" }));
     await waitFor(() => expect(caseStudiesApi.create).toHaveBeenCalled());
     expect(caseStudiesApi.create).toHaveBeenCalledWith(expect.objectContaining({ featured: featured }));
-    expect(caseStudiesApi.create).toHaveBeenCalledWith(expect.objectContaining({ related_service: target || null }));
+    expect(caseStudiesApi.create).toHaveBeenCalledWith(expect.objectContaining({ related_services: target, related_sub_services: [] }));
+    expect(vi.mocked(caseStudiesApi.create).mock.calls[0]![0]).not.toHaveProperty("related_service");
     expect(push).toHaveBeenCalledWith("/case-studies/1/edit?created=1");
   });
 
@@ -166,15 +167,6 @@ describe("CaseStudyForm", () => {
 describe("Content slug and service targeting", () => {
   beforeEach(() => vi.clearAllMocks());
 
-  it.each([null, "cloud_foundations", "data_engineering", "analytics_bi", "ai_solutions", "crm_revenue_ops", "all"] as const)("loads and preserves existing service %s during an unrelated edit", async (service) => {
-    vi.mocked(caseStudiesApi.update).mockResolvedValue({ ...caseStudy, related_service: service });
-    render(<CaseStudyForm caseStudy={{ ...caseStudy, related_service: service }} />);
-    expect(screen.getByLabelText("Related Service")).toHaveValue(service ?? "");
-    fireEvent.change(screen.getByLabelText(/^Title/), { target: { value: "Updated title" } });
-    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
-    await waitFor(() => expect(caseStudiesApi.update).toHaveBeenCalledWith(caseStudy.id, expect.objectContaining({ related_service: service, slug: caseStudy.slug })));
-  });
-
   it("generates a slug until the admin manually changes it", () => {
     render(<CaseStudyForm />);
     const title = document.getElementById("caseStudyTitle")!;
@@ -199,22 +191,61 @@ describe("Content slug and service targeting", () => {
     expect(slug).toHaveValue("changed-manually");
   });
 
-  it("defaults to no service and distinguishes All Services", () => {
+  it("defaults to no targeting and does not offer All Services", () => {
     render(<CaseStudyForm />);
-    const select = screen.getByLabelText("Related Service");
-    expect(select).toHaveValue("");
-    expect(screen.getByRole("option", { name: "No Related Service" })).toHaveValue("");
-    expect(screen.getByRole("option", { name: "All Services" })).toHaveValue("all");
-    expect(screen.getAllByRole("option").filter(option => option.closest("select") === select)).toHaveLength(7);
+    expect(screen.getAllByRole("checkbox").filter((box) => box.id.startsWith("case-study-service-"))).toHaveLength(5);
+    expect(screen.queryByLabelText("All Services")).not.toBeInTheDocument();
+    expect(screen.getByText("No sub-services selected.")).toBeInTheDocument();
   });
 
-  it.each(["cloud_foundations", "data_engineering", "analytics_bi", "ai_solutions", "crm_revenue_ops", "all", ""] as const)("loads targeting and submits changed target %s on edit", async (target) => {
-    vi.mocked(caseStudiesApi.update).mockResolvedValue({ ...caseStudy, related_service: target || null });
-    render(<CaseStudyForm caseStudy={{ ...caseStudy, related_service: "data_engineering" }} />);
-    const select = screen.getByLabelText("Related Service");
-    expect(select).toHaveValue("data_engineering");
-    fireEvent.change(select, { target: { value: target } });
+  it("hydrates existing services and sub-services, including unknown keys", () => {
+    render(<CaseStudyForm caseStudy={{ ...caseStudy, related_services: ["cloud_foundations", "data_engineering"], related_sub_services: ["cloud_cost_optimization", "legacy_custom_key"] }} />);
+    expect(screen.getByLabelText("Cloud Foundations")).toBeChecked();
+    expect(screen.getByLabelText("Data Engineering")).toBeChecked();
+    expect(screen.getByLabelText("Analytics & BI")).not.toBeChecked();
+    expect(screen.getByLabelText("Cloud Cost Optimization")).toBeChecked();
+    expect(screen.getByRole("button", { name: "Remove Legacy Custom Key" })).toBeInTheDocument();
+  });
+
+  it("shows only the selected services' sub-services and keeps selected ones", () => {
+    render(<CaseStudyForm />);
+    expect(screen.getByLabelText("AI Agents")).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("Analytics & BI"));
+    expect(screen.queryByLabelText("AI Agents")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText("BI Consulting"));
+    fireEvent.click(screen.getByLabelText("Analytics & BI"));
+    fireEvent.click(screen.getByLabelText("AI Solutions"));
+    expect(screen.getByLabelText("BI Consulting")).toBeChecked();
+  });
+
+  it("edits selections, preserves unknown sub-services, and PATCHes arrays only", async () => {
+    vi.mocked(caseStudiesApi.update).mockResolvedValue(caseStudy);
+    render(<CaseStudyForm caseStudy={{ ...caseStudy, related_services: ["data_engineering"], related_sub_services: ["legacy_custom_key"] }} />);
+    fireEvent.click(screen.getByLabelText("Cloud Foundations"));
+    fireEvent.click(screen.getByLabelText("Cloud Cost Optimization"));
+    fireEvent.click(screen.getByRole("button", { name: "Remove Data Engineering" }));
     fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
-    await waitFor(() => expect(caseStudiesApi.update).toHaveBeenCalledWith(caseStudy.id, expect.objectContaining({ related_service: target || null })));
+    await waitFor(() => expect(caseStudiesApi.update).toHaveBeenCalled());
+    const payload = vi.mocked(caseStudiesApi.update).mock.calls[0]![1];
+    expect(payload).toMatchObject({ related_services: ["cloud_foundations"], related_sub_services: ["legacy_custom_key", "cloud_cost_optimization"] });
+    expect(payload).not.toHaveProperty("related_service");
+  });
+
+  it("sends empty arrays when all selections are cleared", async () => {
+    vi.mocked(caseStudiesApi.update).mockResolvedValue(caseStudy);
+    render(<CaseStudyForm caseStudy={{ ...caseStudy, related_services: ["ai_solutions"], related_sub_services: ["ai_agents"] }} />);
+    fireEvent.click(screen.getByRole("button", { name: "Remove AI Solutions" }));
+    fireEvent.click(screen.getByRole("button", { name: "Remove AI Agents" }));
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    await waitFor(() => expect(caseStudiesApi.update).toHaveBeenCalled());
+    expect(vi.mocked(caseStudiesApi.update).mock.calls[0]![1]).toMatchObject({ related_services: [], related_sub_services: [] });
+  });
+
+  it("shows backend 422 targeting errors without resubmitting", async () => {
+    vi.mocked(caseStudiesApi.update).mockRejectedValue(new ApiError({ kind: "validation", status: 422, message: "Invalid input.", validationIssues: [{ location: ["body", "related_services", 0], message: "Unsupported service.", type: "value_error" }] }));
+    render(<CaseStudyForm caseStudy={{ ...caseStudy, related_services: ["cloud_foundations"] }} />);
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    expect(await screen.findByText("Unsupported service.")).toBeInTheDocument();
+    expect(caseStudiesApi.update).toHaveBeenCalledTimes(1);
   });
 });

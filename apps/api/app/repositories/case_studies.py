@@ -2,11 +2,11 @@
 
 from uuid import UUID
 
-from sqlalchemy import func, or_, select, text
+from sqlalchemy import func, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models.case_study import CaseStudy
-from app.schemas.related_services import ServiceIdentifier
+from app.schemas.related_services import ServiceIdentifier, SubServiceIdentifier
 
 
 class CaseStudyRepository:
@@ -15,7 +15,12 @@ class CaseStudyRepository:
     def __init__(self, session: AsyncSession) -> None:
         self._session = session
 
-    async def list_published(self, *, related_service: ServiceIdentifier | None = None) -> list[CaseStudy]:
+    async def list_published(
+        self,
+        *,
+        related_service: ServiceIdentifier | None = None,
+        related_sub_service: SubServiceIdentifier | None = None,
+    ) -> list[CaseStudy]:
         """Return published Case Studies ordered newest-first."""
 
         statement = (
@@ -24,10 +29,9 @@ class CaseStudyRepository:
             .order_by(CaseStudy.published_at.desc())
         )
         if related_service is not None:
-            statement = statement.where(or_(
-                CaseStudy.related_service == related_service,
-                CaseStudy.related_service == "all",
-            ))
+            statement = statement.where(CaseStudy.related_services.contains([related_service]))
+        if related_sub_service is not None:
+            statement = statement.where(CaseStudy.related_sub_services.contains([related_sub_service]))
         result = await self._session.scalars(statement)
         return list(result.all())
 

@@ -8,7 +8,7 @@ from pydantic import AliasChoices, Field, AnyHttpUrl, StringConstraints, field_v
 
 from app.schemas.common import RequestSchema, ResponseSchema
 from app.schemas.content import BodyContent, StoredBodyContent
-from app.schemas.related_services import RelatedService
+from app.schemas.related_services import RelatedServices, RelatedSubServices, ServiceIdentifier
 
 
 CaseStudyStatus: TypeAlias = Literal["draft", "published", "unpublished"]
@@ -21,7 +21,8 @@ NonEmptyString: TypeAlias = Annotated[
 class CaseStudyCreateRequest(RequestSchema):
     """Client-controlled fields for creating a Case Study."""
 
-    related_service: RelatedService | None = None
+    related_services: RelatedServices = Field(default_factory=list)
+    related_sub_services: RelatedSubServices = Field(default_factory=list)
     slug: NonEmptyString
     title: NonEmptyString
     seo_title: NonEmptyString
@@ -49,7 +50,15 @@ class CaseStudyCreateRequest(RequestSchema):
 class CaseStudyUpdateRequest(RequestSchema):
     """Client-controlled fields that may be changed on a Case Study."""
 
-    related_service: RelatedService | None = None
+    related_services: RelatedServices | None = None
+    related_sub_services: RelatedSubServices | None = None
+
+    @field_validator("related_services", "related_sub_services")
+    @classmethod
+    def clear_on_null(cls, value: list[str] | None) -> list[str]:
+        """An explicit null clears the targeting, matching the empty default."""
+
+        return [] if value is None else value
     slug: NonEmptyString | None = None
     title: NonEmptyString | None = None
     seo_title: NonEmptyString | None = None
@@ -89,7 +98,8 @@ class CaseStudyListItem(ResponseSchema):
     """A lightweight published case study shown in public listings."""
 
     id: UUID
-    related_service: RelatedService | None = None
+    related_services: list[ServiceIdentifier] = Field(default_factory=list)
+    related_sub_services: list[str] = Field(default_factory=list)
     slug: str
     title: str
     client_name: str
@@ -111,7 +121,8 @@ class CaseStudyDetailResponse(ResponseSchema):
     """A published case study with SEO metadata and structured content."""
 
     id: UUID
-    related_service: RelatedService | None = None
+    related_services: list[ServiceIdentifier] = Field(default_factory=list)
+    related_sub_services: list[str] = Field(default_factory=list)
     slug: str
     title: str
     seo_title: str
@@ -130,7 +141,8 @@ class CaseStudyAdminResponse(ResponseSchema):
     """Administrative Case Study response without ownership fields."""
 
     id: UUID
-    related_service: RelatedService | None = None
+    related_services: list[ServiceIdentifier] = Field(default_factory=list)
+    related_sub_services: list[str] = Field(default_factory=list)
     slug: str
     title: str
     seo_title: str

@@ -1,5 +1,5 @@
 .section {
-  --af-band:color-mix(in srgb,var(--color-primary) 7%,var(--color-background));
+  --af-band:var(--color-band);
   --af-box:#fff;
   --af-ink:#16224a;
   --af-muted:#46577a;

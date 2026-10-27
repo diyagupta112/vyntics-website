@@ -10,7 +10,7 @@ vi.mock("../api/case-studies", () => ({
   caseStudiesApi: { list: vi.fn(), delete: vi.fn() },
 }));
 
-const caseStudy: CaseStudy = {
+const caseStudy: CaseStudy = { related_services: [], related_sub_services: [],
   id: "1",
   slug: "platform-redesign",
   title: "Platform redesign",

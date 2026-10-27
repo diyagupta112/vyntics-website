@@ -93,7 +93,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       { title: "Cloud Cost Optimization", description: "Review resource usage and cloud spend after your workloads settle into their new environment.", href: costPath, linkLabel: "Explore Cloud Cost Optimization" },
       { title: "Data Warehousing & Lakehouse", description: "Plan a governed data foundation for reporting and analytics after migration.", href: "/services/data-engineering/data-warehousing-lakehouse", linkLabel: "Explore Data Warehousing & Lakehouse" },
     ] },
-    contact: { title: "Plan your next cloud move", introduction: "Tell us which applications and data you want to move, what is holding the project back, and the constraints we should understand. We can discuss a practical assessment and migration scope.", submitLabel: "Discuss your cloud migration" },
+    contact: { title: "Plan Your Next Cloud Move", introduction: "Tell us which applications and data you want to move, what is holding the project back, and the constraints we should understand. We can discuss a practical assessment and migration scope.", submitLabel: "Discuss your cloud migration" },
   },
   devops: {
     key: "devops", slug: "devops-reliability", name: "DevOps & Reliability", keyword: "DevOps consulting services",
@@ -149,7 +149,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       { title: "Cloud Architecture & Migration", description: "Review the architecture and workload move that sit underneath your delivery process.", href: migrationPath, linkLabel: "Explore Cloud Architecture & Migration" },
       { title: "Cloud Cost Optimization", description: "Connect operational decisions with resource usage and cloud spend.", href: costPath, linkLabel: "Explore Cloud Cost Optimization" },
     ] },
-    contact: { title: "Review the path from code to production", introduction: "Tell us how your team deploys changes and where releases or incidents cause repeated work. We can discuss an assessment and a focused improvement scope.", submitLabel: "Discuss your DevOps assessment" },
+    contact: { title: "Review The Path From Code To Production", introduction: "Tell us how your team deploys changes and where releases or incidents cause repeated work. We can discuss an assessment and a focused improvement scope.", submitLabel: "Discuss your DevOps assessment" },
   },
   cost: {
     key: "cost", slug: "cloud-cost-optimization", name: "Cloud Cost Optimization", keyword: "cloud cost optimization services",
@@ -210,6 +210,6 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       { title: "Cloud Architecture & Migration", description: "Review the architecture and migration choices that affect your future operating costs.", href: migrationPath, linkLabel: "Explore Cloud Architecture & Migration" },
       { title: "DevOps & Reliability", description: "Build repeatable changes and useful operating signals for your cloud environment.", href: devopsPath, linkLabel: "Explore DevOps & Reliability" },
     ] },
-    contact: { title: "Make your cloud spending easier to explain", introduction: "Tell us which cloud platforms you use and where the bill is becoming difficult to understand. We can discuss a cost audit and the information needed to scope a useful review.", submitLabel: "Discuss your cloud cost audit" },
+    contact: { title: "Make Your Cloud Spending Eeasier To Explain", introduction: "Tell us which cloud platforms you use and where the bill is becoming difficult to understand. We can discuss a cost audit and the information needed to scope a useful review.", submitLabel: "Discuss your cloud cost audit" },
   },
 };

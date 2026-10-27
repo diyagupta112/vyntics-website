@@ -20,7 +20,7 @@ from app.services.blogs import (
     BlogSlugConflictError,
     BlogValidationError,
 )
-from app.schemas.related_services import ServiceIdentifier
+from app.schemas.related_services import ServiceIdentifier, SubServiceIdentifier
 from app.storage.supabase import StorageError
 from app.storage.uploads import UploadValidationError
 
@@ -50,10 +50,16 @@ async def preview_blogs(request: Request, service: BlogServiceDependency) -> dic
 async def list_blogs(
     service: BlogServiceDependency,
     related_service: ServiceIdentifier | None = None,
+    related_sub_service: SubServiceIdentifier | None = None,
 ) -> BlogListResponse:
     """List published Blogs ordered by publication time descending."""
 
-    blogs = await service.list_published(related_service=related_service) if related_service is not None else await service.list_published()
+    filters = {
+        name: value
+        for name, value in (("related_service", related_service), ("related_sub_service", related_sub_service))
+        if value is not None
+    }
+    blogs = await service.list_published(**filters)
     return BlogListResponse(data=blogs)
 
 

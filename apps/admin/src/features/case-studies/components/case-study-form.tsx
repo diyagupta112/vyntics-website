@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useRef, useState } from "react";
 import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
-import { RelatedServiceControl } from "@/components/forms/related-service-control";
+import { ContentTargetingControl } from "@/components/forms/content-targeting-control";
 import { slugFromTitle } from "@/lib/content/slug";
 import { FeaturedControl } from "@/components/forms/featured-control";
 import { FormField } from "@/components/forms/form-field";
@@ -184,7 +184,7 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
               <option value="unpublished">Unpublished</option>
             </Select>
           </FormField>
-          <RelatedServiceControl id="case-study-related-service" value={values.relatedService} onChange={(value) => update("relatedService", value)} error={errors.relatedService} />
+          <div className={styles.full}><ContentTargetingControl idPrefix="case-study" services={values.relatedServices} subServices={values.relatedSubServices} onServicesChange={(value) => update("relatedServices", value)} onSubServicesChange={(value) => update("relatedSubServices", value)} servicesError={errors.relatedServices} subServicesError={errors.relatedSubServices} /></div>
           <FeaturedControl
             id="caseStudy-featured"
             checked={values.isFeatured}

@@ -1,8 +1,8 @@
 .section {
-  --wh-band:color-mix(in srgb,var(--color-primary) 7%,var(--color-background));
-  --wh-before:#f3f5fa;
+  --wh-band:var(--color-band);
+  --wh-before:#eff1f3;
   --wh-cloud:#e6eeff;
-  --wh-soft:#f6f9ff;
+  --wh-soft:#f6f7f8;
   --wh-box:#fff;
   --wh-ink:#16224a;
   --wh-muted:#46577a;

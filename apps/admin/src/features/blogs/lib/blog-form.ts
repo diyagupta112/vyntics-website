@@ -5,7 +5,8 @@ import { deserializeBlogContent, isBlogContentEmpty } from "@/components/forms/b
 import type { Blog, BlogCreateRequest, BlogStatus, BlogUpdateRequest } from "../types";
 
 export type BlogFormValues = {
-  relatedService: RelatedService | "";
+  relatedServices: RelatedService[];
+  relatedSubServices: string[];
   title: string;
   slug: string;
   seoTitle: string;
@@ -22,7 +23,8 @@ export type BlogFormValues = {
 export type BlogFormErrors = Partial<Record<keyof BlogFormValues, string>>;
 
 export const emptyBlogForm: BlogFormValues = {
-  relatedService: "",
+  relatedServices: [],
+  relatedSubServices: [],
   title: "",
   slug: "",
   seoTitle: "",
@@ -38,7 +40,8 @@ export const emptyBlogForm: BlogFormValues = {
 
 export function blogToForm(blog: Blog): BlogFormValues {
   return {
-    relatedService: blog.related_service ?? "",
+    relatedServices: blog.related_services ?? [],
+    relatedSubServices: blog.related_sub_services ?? [],
     title: blog.title,
     slug: blog.slug,
     seoTitle: blog.seo_title,
@@ -55,7 +58,7 @@ export function blogToForm(blog: Blog): BlogFormValues {
 
 export function validateBlogForm(values: BlogFormValues): BlogFormErrors {
   const errors: BlogFormErrors = {};
-  const required: Array<[Exclude<keyof BlogFormValues, "isFeatured">, string]> = [
+  const required: Array<[Exclude<keyof BlogFormValues, "isFeatured" | "relatedServices" | "relatedSubServices">, string]> = [
     ["title", "Title"], ["slug", "Slug"], ["seoTitle", "SEO title"],
     ["metaDescription", "Meta description"], ["author", "Author"],
     ["category", "Category"], ["excerpt", "Excerpt"], ["readTime", "Read time"],
@@ -92,7 +95,8 @@ function commonPayload(values: BlogFormValues) {
     excerpt: values.excerpt.trim(), read_time: Number(values.readTime),
     is_featured: values.isFeatured,
     content: contentObject(values.content),
-    related_service: values.relatedService || null,
+    related_services: values.relatedServices,
+    related_sub_services: values.relatedSubServices,
   };
 }
 
@@ -106,7 +110,7 @@ export function toUpdateRequest(values: BlogFormValues): BlogUpdateRequest {
 }
 
 const fieldMap: Record<string, keyof BlogFormValues> = {
-  related_service: "relatedService",
+  related_services: "relatedServices", related_sub_services: "relatedSubServices",
   title: "title", slug: "slug", seo_title: "seoTitle",
   meta_description: "metaDescription", author: "author", category: "category",
   excerpt: "excerpt", read_time: "readTime", content: "content", status: "status", is_featured: "isFeatured",
