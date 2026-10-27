@@ -14,7 +14,7 @@ export function AnalyticsWhy() {
         <div className={styles.content}>
           <header data-reveal="analytics-why-heading" data-reveal-delay="90">
             <p className={styles.eyebrow}>Why choose us</p>
-            <h2 id="analytics-why-title">Why Vyntics for <span>analytics</span></h2>
+            <h2 id="analytics-why-title">Why <span>Vyntics</span> for Analytics</h2>
             <p className={styles.introduction}>{analyticsContent.whyIntroduction}</p>
           </header>
           <ul className={styles.reasons}>

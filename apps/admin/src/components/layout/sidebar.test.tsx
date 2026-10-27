@@ -23,6 +23,7 @@ const expectedNavigation = [
   ["Careers", "/careers"],
   ["Job Applications", "/job-applications"],
   ["Our Team", "/team"],
+  ["Life at Vyntics", "/life-at-vyntics"],
   ["Contact Submissions", "/contact"],
 ] as const;
 

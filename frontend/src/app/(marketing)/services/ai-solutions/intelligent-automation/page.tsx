@@ -78,13 +78,13 @@ export default async function IntelligentAutomationPage() {
       </section>
       <div id="intelligent-automation-process" className={styles.process}>
         <PathToResilienceOrbitalTimeline
-          showStepNumbers eyebrow="How we work" title="Our process" headingId="intelligent-automation-process-title"
+          showStepNumbers eyebrow="How we work" title="Our Process" headingId="intelligent-automation-process-title"
           description="A controlled path from understanding the workflow to monitoring how it performs in operation."
           steps={intelligentAutomationProcess.map(step => ({ title: step.title, label: step.visual, description: step.description }))}
         />
       </div>
       <AutomationFlow />
-      <ServiceTools id="intelligent-automation-tools" name={intelligentAutomation.name} eyebrow="Tools & platforms" title="Tools we use"
+      <ServiceTools id="intelligent-automation-tools" name={intelligentAutomation.name} eyebrow="Tools & platforms" title="Tools We Use"
         introduction="We select document processing and workflow tools around your data, systems, review needs, and operating environment."
         technologies={intelligentAutomationTools} presentation="platforms" balancedPlatforms showTechnologyLinks note={null}
         revealPrefix="intelligent-automation-tools" />
@@ -93,24 +93,24 @@ export default async function IntelligentAutomationPage() {
         <Container>
           <header className={cloudStyles.sectionHeading} data-reveal="automation-case-study-heading">
             <p className={cloudStyles.eyebrow}>Case study</p>
-            <h2 id="automation-case-study-title">Intelligent automation case study</h2>
+            <h2 id="automation-case-study-title">Intelligent Automation Case Study</h2>
             <p className={cloudStyles.contentState}>Explore published work relevant to document processing or workflow automation.</p>
           </header>
           {studies.length ? <ServiceCaseStudyGallery studies={studies} /> : <ReferenceEmptyState text="No published intelligent automation case study is available yet. Explore other Vyntics projects in the meantime." href="/case-studies" label="View all case studies" />}
         </Container>
       </section>
-      <MigrationEngagementOptions sectionId="intelligent-automation-engagement" title="Choose the right starting point" introduction="Begin with an automation audit, test a focused pilot, or plan a broader rollout." steps={automationEngagements} />
+      <MigrationEngagementOptions sectionId="intelligent-automation-engagement" title="Choose The Right Starting Point" introduction="Begin with an automation audit, test a focused pilot, or plan a broader rollout." steps={automationEngagements} />
       <section className={cloudStyles.context} aria-labelledby="automation-insights-title" data-automation-insights>
         <Container>
           <header className={cloudStyles.sectionHeading} data-reveal="automation-insights-heading">
-            <p className={cloudStyles.eyebrow}>Related insights</p><h2 id="automation-insights-title">Intelligent automation insights</h2>
+            <p className={cloudStyles.eyebrow}>Related insights</p><h2 id="automation-insights-title">Intelligent Automation Insights</h2>
           </header>
           {insights.length ? <div className={studyStyles.otherGrid}>{insights.map(post => <RelatedBlogCard key={post.id} blog={post} variant="service" />)}</div> : <ReferenceEmptyState text="We're adding published insights about intelligent document processing and workflow automation. Browse the latest from our blog in the meantime." href="/blog" label="Visit the blog" />}
           <Link className={cloudStyles.primaryAction} href="/blog">View all insights <span aria-hidden="true">→</span></Link>
         </Container>
       </section>
       <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="intelligent-automation-faq-title" data-reveal="intelligent-automation-faq">
-        <FaqContent heading={<><h2 id="intelligent-automation-faq-title">Frequently asked questions</h2><p className={subStyles.faqIntro}>Answers about intelligent document processing and AI workflow automation.</p><p className={subStyles.faqContact}>Have a question about your workflow? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
+        <FaqContent heading={<><h2 id="intelligent-automation-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about intelligent document processing and AI workflow automation.</p><p className={subStyles.faqContact}>Have a question about your workflow? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
           items={intelligentAutomationFaqs} name="intelligent-automation-faq" label="Intelligent automation questions" />
       </section>
       <DraftCardSection section={intelligentAutomationSections.related} />

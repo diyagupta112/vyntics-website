@@ -65,7 +65,7 @@ export default function DataEngineeringPage() {
         service="data-engineering"
         headingId="data-engineering-title"
         eyebrow={"Data engineering services"}
-        title={"Build a data foundation your business can trust"}
+        title={"Build A Data Foundation Your Business Can Trust"}
         description={"We connect scattered systems, automate reliable data movement, and create governed, query-ready foundations for analytics and AI."}
         primaryAction={{ href: "/#contact", label: "Discuss your data estate" }}
         secondaryAction={{ href: "#data-services", label: "Our data services" }}
@@ -81,27 +81,27 @@ export default function DataEngineeringPage() {
 
       <section className={`${styles.section} ${styles.servicesSection}`} id="data-services" aria-labelledby="services-title">
         <Container>
-          <DataEngineeringServicesShowcase heading="Three connected capabilities, one dependable data system" />
+          <DataEngineeringServicesShowcase heading="Three Connected Capabilities, One Dependable Data System" />
         </Container>
       </section>
 
       <DataWhy />
 
-      <ServiceTools id="data-platforms" headingId="platforms-title" sectionName="Data platforms we work with" name="Data Engineering" eyebrow="Data platforms we work with"
-        title="Choose the platform around the workload" introduction="We work across the major cloud data ecosystems and keep business logic portable where that is practical."
+      <ServiceTools id="data-platforms" headingId="platforms-title" sectionName="Data platforms we work with" name="Data Engineering" eyebrow="Data Platforms We Work With"
+        title="Choose The Platform Around The Workload" introduction="We work across the major cloud data ecosystems and keep business logic portable where that is practical."
         technologies={platforms.map(platform => platform.name)} details={platforms.map(platform => ({ ...platform, displayName: platform.name === "dbt" ? "DBT" : platform.name }))} presentation="platforms" balancedPlatforms showTechnologyLinks note={null}
         sectionLink={{ href: "/technologies", label: "View all technologies" }} />
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
-          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">A clear path from assessment to dependable operations</h2><p>Five focused stages. One accountable delivery process built around usable outcomes.</p></div>
+          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How We Work</p><h2 id="process-title">A Clear Path From Assessment To Dependable Operations</h2><p>Five focused stages. One accountable delivery process built around usable outcomes.</p></div>
           <DataEngineeringProcessTimeline />
         </Container>
       </section>
 
       <section className={`${cloudStyles.workBridge} ${styles.noDivider}`} aria-labelledby="case-study-title">
         <Container>
-          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn complex data challenges into dependable, practical systems.</p></header>
+          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>CASE STUDIES</p><h2 id="case-study-title">Case Studies</h2><p className={cloudStyles.contentState}>Explore how we’ve helped businesses turn complex data challenges into dependable, practical systems.</p></header>
           <Suspense fallback={<FeaturedCaseStudySkeleton />}><PublishedServiceCaseStudies service="data_engineering" /></Suspense>
           <Link className={cloudStyles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
@@ -111,7 +111,7 @@ export default function DataEngineeringPage() {
 
       <section className={`${cloudStyles.context} ${styles.noDivider}`} aria-labelledby="insights-title">
         <Container>
-          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related insights</h2></header>
+          <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related Insights</h2></header>
           <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading data engineering insights…</p>}><DataInsights /></Suspense>
           <Link className={cloudStyles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>
@@ -133,7 +133,7 @@ export default function DataEngineeringPage() {
         />
       </section>
 
-      <ContactCta eyebrow="Data engineering consultation" title="Ready to make your data dependable?" intro="Tell us where the data is stuck, unreliable, or difficult to use. We’ll identify the practical first step and the evidence needed to scope it properly." submitLabel="Discuss your data project" />
+      <ContactCta eyebrow="Data engineering consultation" title="Ready To Make Your Data Dependable?" intro="Tell us where the data is stuck, unreliable, or difficult to use. We’ll identify the practical first step and the evidence needed to scope it properly." submitLabel="Discuss your data project" />
     </>
   );
 }

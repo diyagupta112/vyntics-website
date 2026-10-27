@@ -8,11 +8,11 @@ export const crmContent = {
   },
   hero: {
     eyebrow: "CRM and revenue operations",
-    heading: "Make your CRM work the way your team does.",
+    heading: "Make Your CRM Work The Way Your Team Does",
     introduction: "CRM & Revenue Ops should fit how your team sells and serves customers. We bring CRM implementation and integration together with sales automation, connected data, and revenue analytics for clearer reporting.",
     primaryLabel: "Talk to our CRM experts", secondaryLabel: "Our CRM services",
   },
-  problemsHeading: "CRM problems we solve",
+  problemsHeading: "CRM Problems We Solve",
   problemIntroduction: "From disconnected customer records to manual follow-up, we help teams address the CRM problems that slow everyday work.",
   problems: [
     { title: "Disconnected Records", description: "We connect CRM records with your business systems, define data ownership, and help teams use consistent customer information." },
@@ -20,7 +20,7 @@ export const crmContent = {
     { title: "Unclear Pipeline", description: "We align pipeline stages and reporting definitions so your team can review sales activity and revenue without reconciling conflicting reports." },
     { title: "Awkward CRM Workflows", description: "We configure the CRM around how people sell and support customers, with clear handoffs, usable records, and practical team training." },
   ],
-  servicesHeading: "Our CRM services",
+  servicesHeading: "Our CRM Services",
   services: [
     {
       name: "CRM Implementation & Integration", href: "/services/crm-revenue-ops/crm-implementation-integration",
@@ -39,19 +39,12 @@ export const crmContent = {
   whyIntroduction: "We shape CRM around your team, customer records, and reporting decisions.",
   whyImage: { src: "/images/services/why-choose-crm.jpg", alt: "Vyntics team collaborating around a laptop and tablet on a CRM and revenue operations project." },
   reasons: [
-    { title: "Process first", description: "CRM setup shaped around how your team sells, supports customers, and hands work over.", path: "M4 9 12 4l8 5-8 5-8-5Zm0 6 8 5 8-5M4 20l8 5 8-5" },
-    { title: "Connected customer data", description: "Connect customer records across your business systems, with clear field mappings, data checks, and ownership before launch.", path: "M4 6h6v6H4zM14 16h6v6h-6zM16 6h5v5M21 6l-9 9" },
-    { title: "Usable reporting", description: "Reporting shaped around agreed pipeline stages and revenue definitions, so teams can use a consistent view.", path: "M4 20h17M7 16v-4M12 16V8M17 16V4" },
-    { title: "Team adoption", description: "Connect the setup with practical training, documentation, and support so people can use and refine it as work changes.", path: "M20 8a8 8 0 1 0 1 8M20 3v5h-5M8 12l3 3 5-6" },
+    { title: "Process First", description: "CRM setup shaped around how your team sells, supports customers, and hands work over.", path: "M4 9 12 4l8 5-8 5-8-5Zm0 6 8 5 8-5M4 20l8 5 8-5" },
+    { title: "Connected Customer Data", description: "Connect customer records across your business systems, with clear field mappings, data checks, and ownership before launch.", path: "M4 6h6v6H4zM14 16h6v6h-6zM16 6h5v5M21 6l-9 9" },
+    { title: "Usable Reporting", description: "Reporting shaped around agreed pipeline stages and revenue definitions, so teams can use a consistent view.", path: "M4 20h17M7 16v-4M12 16V8M17 16V4" },
+    { title: "Team Adoption", description: "Connect the setup with practical training, documentation, and support so people can use and refine it as work changes.", path: "M20 8a8 8 0 1 0 1 8M20 3v5h-5M8 12l3 3 5-6" },
   ],
-  platformsHeading: "CRM systems we connect",
-  platformsIntroduction: "We plan CRM connections around your customer process, current systems, data ownership, and the reports your team needs.",
-  platforms: [
-    { name: "CRM", role: "Customer operations", description: "Customer records, pipeline stages, and team workflows shaped around your sales and support process." },
-    { name: "Business systems", role: "Connected data", description: "Connections between your CRM and other business systems, with field mappings, checks, and clear ownership." },
-    { name: "Revenue reporting", role: "Pipeline and revenue", description: "Reporting built around consistent customer records, agreed stages, and clear revenue definitions." },
-  ],
-  approachEyebrow: "Our approach", approachHeading: "How we work",
+  approachEyebrow: "Our approach", approachHeading: "How We Work",
   approachIntroduction: "Five focused stages. A connected delivery process built around your team and customer data.",
   steps: [
     { title: "Review", visual: "Process and pipeline", description: "Review your sales process, customer records, current systems, reporting needs, and team goals." },
@@ -60,8 +53,8 @@ export const crmContent = {
     { title: "Launch", visual: "Training and launch", description: "Train your team, validate workflows, and agree ownership before launch." },
     { title: "Refine", visual: "Support and refine", description: "Review feedback, support the setup, and refine automation and reports as your process changes." },
   ],
-  caseStudies: { eyebrow: "CASE STUDIES", heading: "Case studies", introduction: "Explore how connected systems, practical automation, and clearer reporting help teams manage their customer workflows.", linkLabel: "Explore all case studies" },
-  insights: { eyebrow: "RELATED INSIGHTS", heading: "Related insights", linkLabel: "View all insights" },
+  caseStudies: { eyebrow: "CASE STUDIES", heading: "Case Studies", introduction: "Explore how connected systems, practical automation, and clearer reporting help teams manage their customer workflows.", linkLabel: "Explore all case studies" },
+  insights: { eyebrow: "RELATED INSIGHTS", heading: "Related Insights", linkLabel: "View all insights" },
   faq: {
     heading: "Frequently Asked Questions",
     introduction: "Practical answers about CRM implementation, integrations, sales automation, and pipeline and revenue reporting.",
@@ -76,5 +69,5 @@ export const crmContent = {
       { question: "How do you keep CRM data and revenue reporting consistent?", answer: "We define pipeline stages, field mappings, record ownership, and reporting terms with your team. We check data as it moves between systems and validate reports against those definitions. Keeping records consistent also depends on the team's daily practices, so documentation, training, and review are part of the approach." },
     ],
   },
-  cta: { eyebrow: "CRM & REVENUE OPS", heading: "Make your CRM work the way your team does.", introduction: "From CRM setup and connected customer data to sales automation and revenue reporting, we help you shape a practical system around the way your team sells and supports customers.", submitLabel: "Talk to our CRM experts" },
+  cta: { eyebrow: "CRM & REVENUE OPS", heading: "Make Your CRM Work The Way Your Team Does", introduction: "From CRM setup and connected customer data to sales automation and revenue reporting, we help you shape a practical system around the way your team sells and supports customers.", submitLabel: "Talk to our CRM experts" },
 } as const;

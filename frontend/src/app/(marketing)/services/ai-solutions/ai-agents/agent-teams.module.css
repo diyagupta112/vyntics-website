@@ -1,6 +1,6 @@
 .layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2fr); gap:clamp(2rem,4vw,4rem); align-items:stretch; }
 @media(min-width:861px) and (min-height:760px) {
-  .track { padding-bottom:45svh; }
+  .track { padding-bottom:8svh; }
   .layout { position:sticky; top:6.5rem; }
 }
 .navWrap { min-width:0; }

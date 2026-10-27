@@ -244,7 +244,7 @@ export function AgentFlow() {
     <Container className={styles.container}>
       <header className={styles.heading} data-reveal="agent-flow-heading">
         <p className={styles.eyebrow}>How it works</p>
-        <h2 id="agents-work-title">How our agents work</h2>
+        <h2 id="agents-work-title">How Our Agents Work</h2>
         <p className={styles.intro}>Agents can plan and use tools, with human approval where a key action needs review.</p>
       </header>
       <figure className={styles.figure}>

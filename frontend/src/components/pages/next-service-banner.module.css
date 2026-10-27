@@ -5,7 +5,7 @@
 .grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.25rem; margin-top:40px; }
 .card { --card-height:430px; --card-image-height:250px; --card-text-height:180px; --explore-space:38.5px; --background-opacity:.78; --panel-base:#eaf0ff; --panel-veil:rgba(246,249,255,.45); position:relative; isolation:isolate; display:block; min-width:0; overflow:hidden; border-radius:1.5rem; box-shadow:0 .75rem 2rem rgb(11 11 15 / 5%); color:#0b0b0f; height:var(--card-height); }
 /* These service photos need the allowed stronger hover opacity for contrast. */
-.cloud-foundations,.data-engineering,.analytics-bi,.ai-solutions,.crm-revenue-ops { --background-opacity:.88; }
+.cloud-foundations,.data-engineering,.analytics-bi,.ai-solutions,.crm-revenue-ops { --background-opacity:.62; }
 .photoBackdrop { position:absolute; inset:0; z-index:0; pointer-events:none; filter:blur(28px) saturate(120%); transform:scale(1.25); }
 .backdropImage { object-fit:cover; object-position:center; }
 .imageArea { position:relative; z-index:1; width:100%; height:var(--card-image-height); overflow:hidden; }
@@ -24,7 +24,7 @@
 .arrow { display:grid; place-items:center; flex-shrink:0; width:36px; height:36px; border-radius:50%; border:1px solid #1453db; color:#1453db; }
 .arrow svg,.explore svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
 .details { margin-top:12px; flex-shrink:0; }
-.details p { margin:0; color:#303746; font-size:15px; line-height:1.5; letter-spacing:normal; word-spacing:normal; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+.details p { margin:0; min-height:4.5em; color:#303746; font-size:15px; line-height:1.5; letter-spacing:normal; word-spacing:normal; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
 .explore { position:absolute; z-index:1; bottom:20px; left:20px; right:20px; display:flex; align-items:center; gap:8px; color:#0d3894; font-size:15px; line-height:1.5; letter-spacing:normal; word-spacing:normal; font-weight:600; opacity:0; pointer-events:none; transform:translateY(8px); }
 .explore svg { flex-shrink:0; }
 .card:focus-visible { outline:3px solid var(--color-primary); outline-offset:4px; }
@@ -50,7 +50,7 @@
   .explore svg { transition:transform 300ms ease-out; }
   .card:is(:hover,:focus-visible) .explore svg { transform:translateX(4px); }
   @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
-    .card:is(:hover,:focus-visible) .background { opacity:.9; }
+    .card:is(:hover,:focus-visible) .background { opacity:.72; }
   }
 }
 @media (hover:none), (pointer:coarse) {
@@ -77,3 +77,5 @@
 @media (max-width:1000px) { .grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:600px) { .grid { grid-template-columns:1fr; }.heading > .intro { max-width:100%; font-size:16px; } }
 @media (max-width:600px) and (hover:none), (max-width:600px) and (pointer:coarse) { .card { --card-image-height:220px; } }
+/* No divider line above "What Comes Next", whichever page-level class the section receives. */
+section.noTopRule { border-top:0; }

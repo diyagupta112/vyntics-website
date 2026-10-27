@@ -257,7 +257,7 @@ export function MigrationArchitecture() {
     <Container className={styles.container}>
       <header className={styles.heading} data-reveal="migration-architecture-heading">
         <p className={styles.eyebrow}>Architecture</p>
-        <h2 id="migration-architecture-title">Sample migration architecture</h2>
+        <h2 id="migration-architecture-title">Sample Migration Architecture</h2>
         <p className={styles.intro}>A typical on-premise to cloud migration, shown as a before and after setup.</p>
       </header>
       <figure className={styles.figure}>

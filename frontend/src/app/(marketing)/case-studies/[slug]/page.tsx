@@ -8,7 +8,7 @@ import { CaseStudyStoryTimeline } from "@/components/sections/case-studies/case-
 import { CaseStudyContent } from "@/components/sections/case-studies/case-study-content";
 import { CaseStudyMedia } from "@/components/sections/case-studies/case-study-media";
 import { Container } from "@/components/ui/container";
-import { CaseStudyApiError, getCaseStudies, getCaseStudy, getCaseStudyHeroMedia, withoutHeroVideo } from "@/lib/case-studies";
+import { CaseStudyApiError, getCaseStudies, getCaseStudy, getCaseStudyHeroMedia, withoutHeroVideo, type JsonValue } from "@/lib/case-studies";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
@@ -26,6 +26,21 @@ async function loadStudy(slug: string) {
     if (error instanceof CaseStudyApiError && error.status === 404) notFound();
     throw error;
   }
+}
+
+function plainText(value: JsonValue): string {
+  if (typeof value === "string") return value;
+  if (Array.isArray(value)) return value.map(plainText).join("");
+  if (typeof value !== "object" || value === null) return "";
+  return typeof value.text === "string" ? value.text : plainText(value.content ?? "");
+}
+
+/** True when the authored story already has its own Technology heading, so the stack list is not shown twice. */
+function hasTechnologyHeading(value: JsonValue): boolean {
+  if (Array.isArray(value)) return value.some(hasTechnologyHeading);
+  if (typeof value !== "object" || value === null) return false;
+  if (value.type === "heading" && /^technolog/i.test(plainText(value).trim())) return true;
+  return Object.values(value).some(hasTechnologyHeading);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -73,7 +88,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
         <section className={styles.story} aria-labelledby="story-title">
           <Container className={styles.storyGrid}>
-            <CaseStudyStoryTimeline slug={study.slug} title={study.title} technology={study.tech_stack.length > 0 ? (
+            <CaseStudyStoryTimeline slug={study.slug} title={study.title} technology={study.tech_stack.length > 0 && !hasTechnologyHeading(bodyContent) ? (
               <div className={styles.technology} data-case-study-reveal="text">
                 <h2>Technology</h2>
                 <ul>{study.tech_stack.map((item) => <li key={item}>{item}</li>)}</ul>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import {
@@ -81,11 +82,11 @@ export default function CareersPage() {
   return (
     <>
       <section className={styles.hero} aria-labelledby="careers-title">
-        <div className={styles.heroImage} aria-hidden="true" data-reveal="careers-hero-image" />
+        <Image className={styles.heroImage} src="/images/careers/careers-team-hero.png" alt="Vyntics team collaborating around a wooden table with laptops and tablets in a bright office" fill preload sizes="100vw" />
         <div className={styles.heroOverlay} aria-hidden="true" />
         <Container className={styles.heroInner}>
           <RevealBlock className={styles.heroCopy}>
-            <h1 id="careers-title">Join a team solving problems with real impact.</h1>
+            <h1 id="careers-title">Join a team solving problems with real impact</h1>
             <p>Bring thoughtful ideas, practical skills, and a willingness to contribute as we solve problems that matter.</p>
             <CurrentOpeningsLink className={styles.primaryButton}>View Current Openings <ArrowIcon /></CurrentOpeningsLink>
           </RevealBlock>
@@ -113,7 +114,7 @@ export default function CareersPage() {
           <RevealBlock className={styles.testimonialsLayout}>
             <div className={styles.stickyHeading}>
               <div>
-                <h3>Hear from our team.</h3>
+                <h3>Hear from our team</h3>
                 <p>First-hand perspectives from the people building, learning, and growing with Vyntics.</p>
               </div>
               <div className={styles.teamThemes}>
@@ -145,7 +146,7 @@ export default function CareersPage() {
         <Container>
           <RevealBlock className={styles.contactInner}>
             <p className={styles.eyebrow}>Don&apos;t see the right role?</p>
-            <h2 id="career-contact-title">No problem. We&apos;re always looking for bright minds.</h2>
+            <h2 id="career-contact-title">No problem, We&apos;re always looking for bright minds</h2>
             <p>If you think you&apos;d be a great fit for Vyntics, we&apos;d still love to hear from you.</p>
             <a className={styles.contactEmail} href="mailto:contact@vyntics.com">contact@vyntics.com</a>
           </RevealBlock>

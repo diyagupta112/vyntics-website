@@ -4,10 +4,10 @@ import { useRef, type PointerEvent } from "react";
 import styles from "../cloud/cloud-problems.module.css";
 
 const problems = [
-  { title: "Manual data movement", description: "We replace recurring exports, copied files, and fragile handoffs with dependable automated pipelines." },
-  { title: "Conflicting reports", description: "We centralize definitions and transformation logic so teams stop getting different answers from the same metric." },
-  { title: "Slow or stale data", description: "We build observable data flows with clear freshness targets, safe retries, and recovery paths when processing fails." },
-  { title: "Unclear ownership", description: "We connect critical sources, pipelines, and metrics to accountable owners with practical governance and lineage." },
+  { title: "Manual Data Movement", description: "We replace recurring exports, copied files, and fragile handoffs with dependable automated pipelines." },
+  { title: "Conflicting Reports", description: "We centralize definitions and transformation logic so teams stop getting different answers from the same metric." },
+  { title: "Slow Or Stale Data", description: "We build observable data flows with clear freshness targets, safe retries, and recovery paths when processing fails." },
+  { title: "Unclear Ownership", description: "We connect critical sources, pipelines, and metrics to accountable owners with practical governance and lineage." },
 ] as const;
 
 const iconPaths = [
@@ -43,7 +43,7 @@ export function DataProblems() {
       onPointerMove={moveSpotlight}
       onPointerLeave={event => { delete event.currentTarget.dataset.spotlight; boundsRef.current = null; }}
     >
-      <div className={styles.topline}><svg viewBox="0 0 32 32" aria-hidden="true">{iconPaths[index]}</svg><span>{String(index + 1).padStart(2, "0")}</span></div>
+      <div className={styles.topline}><svg viewBox="0 0 32 32" aria-hidden="true">{iconPaths[index]}</svg></div>
       <h3>{problem.title}</h3>
       <p className={styles.description}>{problem.description}</p>
     </li>)}

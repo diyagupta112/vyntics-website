@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import { serviceNavigation } from "@/content/service-navigation";
 import { siteConfig } from "@/config/site";
 import styles from "./site-footer.module.css";
+import { InstagramIcon, LinkedInIcon, TwitterIcon, YouTubeIcon } from "./social-icons";
 import { FooterBackground } from "./footer-background";
 
 type FooterItem = {
@@ -36,34 +37,13 @@ const companyLinks: readonly FooterItem[] = [
   { label: "Careers", href: "/careers" },
   { label: "Technologies", href: "/technologies" },
   { label: "Recognitions", href: "/recognitions" },
+  { label: "Contact Us", href: "/contact-us" },
 ];
 
 const resourceLinks: readonly FooterItem[] = [
   { label: "Blog", href: "/blog" },
   { label: "Case Studies", href: "/case-studies" },
 ];
-
-function LinkedInIcon() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 9.5V18M6.5 6.5v.01M10.5 18v-4.8c0-2.1 1.2-3.7 3.4-3.7 2.3 0 3.6 1.5 3.6 4.2V18M10.5 9.5V18" /></svg>;
-}
-
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="4" y="4" width="16" height="16" rx="4" />
-      <circle cx="12" cy="12" r="3.5" />
-      <circle cx="17.3" cy="6.8" r=".7" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-function TwitterIcon() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 4 14 16M19 4 5 20" /></svg>;
-}
-
-function YouTubeIcon() {
-  return <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="4" /><path d="m10 9 5 3-5 3Z" /></svg>;
-}
 
 const youtubeUrl = "youtube" in siteConfig.socialLinks && typeof siteConfig.socialLinks.youtube === "string"
   ? siteConfig.socialLinks.youtube
@@ -110,7 +90,7 @@ export function SiteFooter() {
             <section className={styles.contact} aria-label="Get in touch">
               {/* Use native fragment navigation so repeated clicks always reach the contact form. */}
               {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a className={styles.conversationLink} href="/#contact">
+              <a className={styles.conversationLink} href="/contact-us">
                 <span>Start a Conversation</span>
                 <svg className={styles.conversationArrow} viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" /></svg>
               </a>

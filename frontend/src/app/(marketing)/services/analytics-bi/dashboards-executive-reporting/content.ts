@@ -9,7 +9,7 @@ export const dashboardService = {
   seoTitle: "Dashboard Development Services | Vyntics",
   seoDescription: "Vyntics builds custom KPI dashboards, real-time reporting, and automated executive reporting around the decisions your teams need to make.",
   hero: {
-    title: "Dashboard development services for clearer decisions",
+    title: "Dashboard Development Services For Clearer Decisions",
     introduction: "We help leaders and teams replace hours of manual reporting with focused dashboards and executive reporting built around the questions they need to answer.",
     outcome: "Bring KPIs, trends, and exceptions into a view your team can use.",
     cta: "Discuss your dashboards",
@@ -27,7 +27,7 @@ export const dashboardSections: {
 } = {
   signs: {
     id: "dashboard-signs",
-    title: "Signs you need better dashboards",
+    title: "Signs You Need Better Dashboards",
     introduction: "Reporting friction often shows up in how information is prepared, shared, and revisited.",
     items: [
       { title: "Preparing executive reports takes a lot of manual work each time", description: "Recurring views depend on people repeating the same spreadsheet preparation, so there is no reusable dashboard to rely on." },
@@ -38,28 +38,28 @@ export const dashboardSections: {
   },
   dashboardServices: {
     id: "dashboard-development-services",
-    title: "Our dashboard development services",
+    title: "Our Dashboard Development Services",
     introduction: "We shape custom dashboard development around agreed KPIs, data access, and the way each audience needs to use the information.",
     items: [
-      { title: "Custom KPI dashboards", description: "Bring agreed measures, trends, and exceptions together in a focused view for the people making decisions." },
-      { title: "Real-time dashboards", description: "Connect dashboard refresh behavior to the available data sources and the timing your decisions require." },
-      { title: "Embedded dashboards", description: "Add reporting views inside your own applications or portals, with access and context suited to their users." },
+      { title: "Custom KPI Dashboards", description: "Bring agreed measures, trends, and exceptions together in a focused view for the people making decisions." },
+      { title: "Real-Time Dashboards", description: "Connect dashboard refresh behavior to the available data sources and the timing your decisions require." },
+      { title: "Embedded Dashboards", description: "Add reporting views inside your own applications or portals, with access and context suited to their users." },
     ],
   },
   executiveReporting: {
     id: "executive-reporting-services",
-    title: "Our executive reporting services",
+    title: "Our Executive Reporting Services",
     introduction: "Make recurring management reporting easier to prepare and review, while keeping the underlying measures clear.",
     items: [
-      { title: "Automated weekly and monthly reports", description: "Prepare recurring reports from agreed measures and a reviewable refresh process." },
-      { title: "Board packs", description: "Organize leadership reporting around the performance context and decisions that need attention." },
-      { title: "Scheduled email reports", description: "Distribute agreed report views on a predictable schedule to the intended audience." },
-      { title: "Mobile-friendly views", description: "Present key reporting in a format that remains usable on smaller screens." },
+      { title: "Automated Weekly And Monthly Reports", description: "Prepare recurring reports from agreed measures and a reviewable refresh process." },
+      { title: "Board Packs", description: "Organize leadership reporting around the performance context and decisions that need attention." },
+      { title: "Scheduled Email Reports", description: "Distribute agreed report views on a predictable schedule to the intended audience." },
+      { title: "Mobile-Friendly Views", description: "Present key reporting in a format that remains usable on smaller screens." },
     ],
   },
   results: {
     id: "dashboard-results",
-    title: "What better reporting can improve",
+    title: "What Better Reporting Can Improve",
     introduction: "We focus on outcomes your team can review over time, without assuming a fixed saving or adoption result.",
     items: [
       { title: "Reporting hours saved", description: "Reduce repeated manual preparation by automating agreed refresh and reporting steps." },
@@ -69,7 +69,7 @@ export const dashboardSections: {
   },
   relatedServices: {
     id: "dashboard-related-services",
-    title: "Connect dashboards with trusted data and BI",
+    title: "Connect Dashboards With Trusted Data And BI",
     introduction: "Reporting depends on clear business definitions, suitable tools, and data that teams can understand and maintain.",
     items: [
       { title: "BI Consulting", description: "Choose, implement, or improve a BI environment around your models, reports, governance, and users.", href: "/services/analytics-bi/bi-consulting", linkLabel: "Explore BI Consulting" },
@@ -80,7 +80,7 @@ export const dashboardSections: {
 
 export const dashboardProcess = [
   { title: "Define KPIs", visual: "Measures and decisions", description: "Agree the audience, business definitions, owners, and decisions each dashboard or report should support." },
-  { title: "Connect data", visual: "Sources and refresh", description: "Review the available data sources, access, quality, and refresh requirements before shaping the reporting model." },
+  { title: "Connect Data", visual: "Sources and refresh", description: "Review the available data sources, access, quality, and refresh requirements before shaping the reporting model." },
   { title: "Design", visual: "Views for each audience", description: "Organize the information hierarchy, context, and interactions around how people need to review performance." },
   { title: "Build", visual: "Dashboards and reports", description: "Implement the agreed views, then check calculations, refresh behavior, and access with your team." },
   { title: "Train", visual: "Use and ownership", description: "Walk through the reports, their definitions, and the practical ownership needed to keep them useful." },

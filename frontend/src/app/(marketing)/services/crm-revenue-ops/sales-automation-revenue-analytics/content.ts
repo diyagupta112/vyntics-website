@@ -8,7 +8,7 @@ export const salesAutomationService = {
   seoTitle: "Sales Automation Services | Vyntics",
   seoDescription: "Vyntics helps sales teams automate lead routing and follow-up, improve CRM workflows, and build clearer pipeline analytics and revenue reporting.",
   hero: {
-    title: "Sales automation services for clearer pipeline and revenue",
+    title: "Sales Automation Services For Clearer Pipeline And Revenue",
     introduction: "We help sales and revenue teams reduce manual admin, strengthen follow-through, and see what is happening across their pipeline and revenue.",
     outcome: "Connect sales process automation with reporting your team can use.",
     cta: "Discuss sales automation",
@@ -26,7 +26,7 @@ export const salesSections: {
 } = {
   signs: {
     id: "sales-automation-signs",
-    title: "Signs you need sales automation",
+    title: "Signs You Need Sales Automation",
     introduction: "Manual work and unclear follow-through can make it harder to keep a consistent view of sales activity.",
     items: [
       { title: "Reps spend more time on admin than on talking to customers", description: "Logging calls, updating records and routing leads are still done by hand instead of through sales automation." },
@@ -37,31 +37,31 @@ export const salesSections: {
   },
   automation: {
     id: "sales-automation-services",
-    title: "Our sales automation services",
+    title: "Our Sales Automation Services",
     introduction: "We automate agreed sales process steps around the CRM, ownership rules, and follow-up expectations your team uses.",
     items: [
-      { title: "Lead routing", description: "Assign incoming leads using agreed ownership rules and routing conditions." },
-      { title: "Lead scoring", description: "Organize lead signals into a score that helps teams prioritize follow-up." },
-      { title: "Automated follow-ups and email sequences", description: "Coordinate approved follow-up messages and sequences around customer stage and team process." },
-      { title: "Task and deal automation", description: "Create reminders and workflow steps around agreed deal stages and handoffs." },
-      { title: "Quote and proposal workflows", description: "Structure quote and proposal steps, review points, and ownership in the sales process." },
+      { title: "Lead Routing", description: "Assign incoming leads using agreed ownership rules and routing conditions." },
+      { title: "Lead Scoring", description: "Organize lead signals into a score that helps teams prioritize follow-up." },
+      { title: "Automated Follow-Ups And Email Sequences", description: "Coordinate approved follow-up messages and sequences around customer stage and team process." },
+      { title: "Task And Deal Automation", description: "Create reminders and workflow steps around agreed deal stages and handoffs." },
+      { title: "Quote And Proposal Workflows", description: "Structure quote and proposal steps, review points, and ownership in the sales process." },
     ],
   },
   analytics: {
     id: "revenue-analytics-services",
-    title: "Our revenue analytics services",
+    title: "Our Revenue Analytics Services",
     introduction: "Use consistent pipeline and performance reporting to understand movement, outcomes, and areas that need attention.",
     items: [
-      { title: "Pipeline dashboards", description: "Review pipeline value, stage movement, deal aging, and coverage using agreed definitions." },
-      { title: "Sales forecasting", description: "Bring forecast assumptions and pipeline signals into a view that teams can review together." },
-      { title: "Win/loss analysis", description: "Organize deal outcomes and available context to help teams review patterns over time." },
-      { title: "Rep performance", description: "Review sales activity and outcomes with clear context about measures and ownership." },
-      { title: "Revenue reporting", description: "Bring commercial measures into repeatable reports for sales and leadership audiences." },
+      { title: "Pipeline Dashboards", description: "Review pipeline value, stage movement, deal aging, and coverage using agreed definitions." },
+      { title: "Sales Forecasting", description: "Bring forecast assumptions and pipeline signals into a view that teams can review together." },
+      { title: "Win/Loss Analysis", description: "Organize deal outcomes and available context to help teams review patterns over time." },
+      { title: "Rep Performance", description: "Review sales activity and outcomes with clear context about measures and ownership." },
+      { title: "Revenue Reporting", description: "Bring commercial measures into repeatable reports for sales and leadership audiences." },
     ],
   },
   results: {
     id: "sales-automation-results",
-    title: "What sales automation can improve",
+    title: "What Sales Automation Can Improve",
     introduction: "We focus on measures your team can review over time, without assuming a fixed result or target.",
     items: [
       { title: "Hours saved per rep", description: "Review how workflow automation changes the time spent on repeated administration." },
@@ -72,7 +72,7 @@ export const salesSections: {
   },
   related: {
     id: "sales-related-services",
-    title: "Connect sales operations with CRM and reporting",
+    title: "Connect Sales Operations With CRM And Reporting",
     introduction: "Sales automation and revenue analytics depend on a CRM your team can use and clear reporting across the customer journey.",
     items: [
       { title: "CRM Implementation & Integration", description: "Configure and connect customer systems around the way your teams work.", href: "/services/crm-revenue-ops/crm-implementation-integration", linkLabel: "Explore CRM Implementation & Integration" },
@@ -82,9 +82,9 @@ export const salesSections: {
 };
 
 export const salesProcess = [
-  { title: "Map the sales process", visual: "Stages and handoffs", description: "Review how leads, opportunities, follow-ups, and ownership move through the current sales process." },
+  { title: "Map The Sales Process", visual: "Stages and handoffs", description: "Review how leads, opportunities, follow-ups, and ownership move through the current sales process." },
   { title: "Automate", visual: "Agreed workflow steps", description: "Configure routing, tasks, and follow-up automation around agreed rules and team responsibilities." },
-  { title: "Build dashboards", visual: "Pipeline and revenue views", description: "Define and implement pipeline, performance, and revenue reporting with your team." },
+  { title: "Build Dashboards", visual: "Pipeline and revenue views", description: "Define and implement pipeline, performance, and revenue reporting with your team." },
   { title: "Train", visual: "Team adoption", description: "Walk users through the workflow, reporting definitions, and practical ownership." },
   { title: "Improve", visual: "Review and refine", description: "Use feedback and agreed performance measures to identify workflow and reporting changes." },
 ] as const;

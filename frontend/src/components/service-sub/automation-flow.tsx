@@ -205,7 +205,7 @@ export function AutomationFlow() {
     <Container className={styles.container}>
       <header className={styles.heading} data-reveal="sample-automation-flow-heading">
         <p className={styles.eyebrow}>Example flow</p>
-        <h2 id="sample-automation-flow-title">Sample automation flow</h2>
+        <h2 id="sample-automation-flow-title">Sample Automation Flow</h2>
         <p className={styles.intro}>Automation can prepare and route information while keeping validation and exception review visible.</p>
       </header>
       <figure className={styles.figure}>

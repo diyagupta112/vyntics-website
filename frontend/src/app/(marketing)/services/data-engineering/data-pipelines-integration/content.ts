@@ -1,40 +1,40 @@
 import type { SubSection } from "@/content/cloud-sub-services/pages";
 import type { MigrationEngagementStep } from "@/components/service-sub/migration-engagement-options.data";
 
-export const pipelineService = { key: "data-pipelines-integration", slug: "data-pipelines-integration", name: "Data Pipelines & Integration", keyword: "data pipeline services", seoTitle: "Data Pipeline Services | Vyntics", seoDescription: "Data pipeline services for ETL, ELT, real-time streaming, and data integration across apps, databases, spreadsheets, and APIs.", hero: { title: "Data pipeline services for connected, usable data", introduction: "Move data from scattered apps, databases, and spreadsheets into the destinations your teams rely on.", outcome: "Build dependable flows your team can monitor and maintain.", cta: "Discuss your data pipelines", expectedImage: "/images/services/hero/data.jpg", imageAlt: "Team working with connected data pipeline information" } } as const;
+export const pipelineService = { key: "data-pipelines-integration", slug: "data-pipelines-integration", name: "Data Pipelines & Integration", keyword: "data pipeline services", seoTitle: "Data Pipeline Services | Vyntics", seoDescription: "Data pipeline services for ETL, ELT, real-time streaming, and data integration across apps, databases, spreadsheets, and APIs.", hero: { title: "Data Pipeline Services For Connected, Usable Data", introduction: "Move data from scattered apps, databases, and spreadsheets into the destinations your teams rely on.", outcome: "Build dependable flows your team can monitor and maintain.", cta: "Discuss your data pipelines", expectedImage: "/images/services/hero/data.jpg", imageAlt: "Team working with connected data pipeline information" } } as const;
 
 export const pipelineSections: { signs: SubSection; pipelines: SubSection; integrations: SubSection; results: SubSection; related: SubSection } = {
-  signs: { id: "pipeline-signs", title: "Signs you need better data pipelines", introduction: "Pipeline problems often show up in the time it takes to prepare information and trust the result.", items: [
+  signs: { id: "pipeline-signs", title: "Signs You Need Better Data Pipelines", introduction: "Pipeline problems often show up in the time it takes to prepare information and trust the result.", items: [
     { title: "The same spreadsheet gets rebuilt by hand again and again", description: "Data is moved by hand because no automated ETL or ELT pipeline loads it into one place" },
     { title: "Reports break, or two reports show different numbers", description: "Data may reach reports late or incomplete because pipelines are not scheduled, checked or monitored" },
     { title: "Getting the full picture means opening several different tools", description: "Data stays locked inside individual apps because they are not integrated into one central destination" },
     { title: "Decisions rely on old numbers, and real-time data feels out of reach", description: "Data is refreshed in slow, manual or batch-only runs, so current information is not available when it is needed" },
   ] },
-  pipelines: { id: "data-pipeline-services", title: "Our data pipeline services", introduction: "We design pipeline patterns around your sources, destinations, data freshness, and operating ownership.", items: [
-    { title: "ETL and ELT pipelines", description: "Build repeatable flows that extract, transform, and load data into a destination your teams can use." },
-    { title: "Batch and real-time streaming", description: "Choose a refresh pattern that fits the decisions, events, volume, and latency your business needs." },
-    { title: "Pipeline orchestration and scheduling", description: "Coordinate dependencies, schedules, retries, and notifications so pipeline runs are visible and manageable." },
+  pipelines: { id: "data-pipeline-services", title: "Our Data Pipeline Services", introduction: "We design pipeline patterns around your sources, destinations, data freshness, and operating ownership.", items: [
+    { title: "ETL And ELT Pipelines", description: "Build repeatable flows that extract, transform, and load data into a destination your teams can use." },
+    { title: "Batch And Real-Time Streaming", description: "Choose a refresh pattern that fits the decisions, events, volume, and latency your business needs." },
+    { title: "Pipeline Orchestration And Scheduling", description: "Coordinate dependencies, schedules, retries, and notifications so pipeline runs are visible and manageable." },
   ] },
-  integrations: { id: "data-integration-services", title: "Our data integration services", introduction: "Connect the systems that create business information with the destination where it needs to be understood.", items: [
+  integrations: { id: "data-integration-services", title: "Our Data Integration Services", introduction: "Connect the systems that create business information with the destination where it needs to be understood.", items: [
     { title: "CRMs", description: "Bring customer, lead, and activity data into shared models for reporting and operations." },
     { title: "ERPs", description: "Connect finance, inventory, and operational records with the wider data environment." },
     { title: "Databases", description: "Move structured data from application and legacy databases through reviewable integration flows." },
     { title: "Files", description: "Replace fragile spreadsheet and file handoffs with repeatable, checked ingestion." },
-    { title: "Third-party APIs", description: "Integrate external services using documented access, rate, and error-handling requirements." },
+    { title: "Third-Party APIs", description: "Integrate external services using documented access, rate, and error-handling requirements." },
   ] },
-  results: { id: "pipeline-results", title: "What better pipelines can improve", introduction: "We review outcomes against your starting point and agreed operating requirements rather than assuming a fixed result.", items: [
+  results: { id: "pipeline-results", title: "What Better Pipelines Can Improve", introduction: "We review outcomes against your starting point and agreed operating requirements rather than assuming a fixed result.", items: [
     { title: "Data freshness", description: "Deliver information on a refresh pattern that matches the decisions your teams need to make." },
     { title: "Hours of manual work saved", description: "Reduce repeated exports, file preparation, and reconciliation across connected systems." },
     { title: "Pipeline reliability", description: "Make failures visible and recovery steps clear through monitoring, checks, and ownership." },
   ] },
-  related: { id: "pipeline-related-services", title: "Build on a dependable data foundation", introduction: "Pipelines are one part of a data environment. Explore the services that help teams trust and use what flows through it.", items: [
+  related: { id: "pipeline-related-services", title: "Build On A Dependable Data Foundation", introduction: "Pipelines are one part of a data environment. Explore the services that help teams trust and use what flows through it.", items: [
     { title: "Data Warehousing & Lakehouse", description: "Create a governed destination for reporting, analytics, and shared business definitions.", href: "/services/data-engineering/data-warehousing-lakehouse", linkLabel: "Explore Data Warehousing & Lakehouse" },
     { title: "Data Quality & Governance", description: "Improve the rules, ownership, and checks that keep data reliable and understandable.", href: "/services/data-engineering/data-quality-governance", linkLabel: "Explore Data Quality & Governance" },
   ] },
 };
 
 export const pipelineProcess = [
-  { title: "Discover sources", visual: "Systems and data", description: "Inventory sources, destinations, owners, access, formats, dependencies, and freshness requirements." },
+  { title: "Discover Sources", visual: "Systems and data", description: "Inventory sources, destinations, owners, access, formats, dependencies, and freshness requirements." },
   { title: "Design", visual: "Flow and controls", description: "Choose the pipeline pattern, transformations, checks, orchestration, and operating responsibilities." },
   { title: "Build", visual: "Working pipeline", description: "Implement the agreed connections and transformations with reviewable configuration and documentation." },
   { title: "Test", visual: "Validated data", description: "Check completeness, accuracy, failure handling, performance, and the results in the destination." },

@@ -1,4 +1,3 @@
-import { cloudPlatforms } from "@/content/service-platforms";
 import { ServicesHero } from "@/components/pages/services-hero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -56,16 +55,16 @@ export default function CloudFoundationsPage() {
         service="cloud-foundations"
         headingId="cloud-title"
         eyebrow={"Cloud consulting services"}
-        title={"Build a stronger foundation for your cloud."}
+        title={"Build A Stronger Foundation For Your Cloud"}
         description={"Build, modernize, and support cloud infrastructure that works for your business. We bring architecture and migration together with reliability, security, cost optimization, and ongoing support."}
-        primaryAction={{ href: "/#contact", label: "Talk to our cloud experts" }}
+        primaryAction={{ href: "#contact", label: "Talk to our cloud experts" }}
         secondaryAction={{ href: "#cloud-services", label: "Our cloud services" }}
         capabilities={canonicalCloudServices.map(service => ({ label: service.title, href: `/services/cloud-foundations/${service.slug}` }))}
       />
 
       <section className={problemStyles.section} aria-labelledby="cloud-problems-title" data-cloud-section="Cloud problems we solve">
         <Container>
-          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>Cloud Foundations</p><h2 id="cloud-problems-title">Cloud problems we solve</h2><p className={problemStyles.subtext}>From rising cloud costs to unreliable infrastructure, we help businesses solve the cloud challenges that slow them down.</p></header>
+          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>Cloud Foundations</p><h2 id="cloud-problems-title">Cloud Problems We Solve</h2><p className={problemStyles.subtext}>From rising cloud costs to unreliable infrastructure, we help businesses solve the cloud challenges that slow them down.</p></header>
           <CloudProblems />
         </Container>
       </section>
@@ -74,7 +73,7 @@ export default function CloudFoundationsPage() {
         <Container>
           <DataEngineeringServicesShowcase
             eyebrow="Cloud Foundations"
-            heading="Our cloud services"
+            heading="Our Cloud Services"
             headingId="cloud-services-title"
             idPrefix="cloud-service"
             label="Cloud Foundations services"
@@ -94,25 +93,29 @@ export default function CloudFoundationsPage() {
 
       <ServicePillarPlatforms
         eyebrow="Cloud Foundations"
-        heading="Cloud platforms we work with"
+        heading="Cloud Platforms We Work With"
         headingId="cloud-platforms-title"
         sectionName="Cloud platforms we work with"
         introduction="We choose the cloud platform around your workloads, existing systems, security requirements, and team skills."
-        platforms={cloudPlatforms}
+        platforms={[
+          { name: "AWS", role: "Cloud infrastructure", description: "Architecture, workload migration, and operational tooling for applications and data on AWS." },
+          { name: "Google Cloud", role: "Applications and data", description: "Cloud services for businesses building applications and data platforms on Google Cloud." },
+          { name: "Azure", role: "Microsoft cloud", description: "Cloud infrastructure services that connect Microsoft environments with secure, manageable Azure workloads." },
+        ]}
       />
 
       <ServicePillarApproach
         eyebrow="Our approach"
-        heading="How we work"
+        heading="How We Work"
         headingId="cloud-approach-title"
         sectionName="How we work"
         introduction="Five focused stages. One accountable delivery process built around usable outcomes."
         process={cloudSteps.map((step, index) => ({ ...step, visual: ["Workloads and goals", "Architecture and priorities", "Infrastructure and integrations", "Reliability and cost", "Operate and improve"][index] }))}
       />
 
-      <section className={styles.workBridge} aria-labelledby="cloud-work-title" data-cloud-section="Case studies">
+      <section className={`${styles.workBridge} ${styles.noTopRule}`} aria-labelledby="cloud-work-title" data-cloud-section="Case studies">
         <Container>
-          <header className={styles.sectionHeading}><p className={styles.eyebrow}>CASE STUDIES</p><h2 id="cloud-work-title">Case studies</h2><p className={styles.contentState}>Explore how we’ve helped businesses solve complex technology challenges and turn them into practical outcomes.</p></header>
+          <header className={styles.sectionHeading}><p className={styles.eyebrow}>CASE STUDIES</p><h2 id="cloud-work-title">Case Studies</h2><p className={styles.contentState}>Explore how we’ve helped businesses solve complex technology challenges and turn them into practical outcomes.</p></header>
           <Suspense fallback={<ReservedContent count={2} message="Loading case studies…" />}><CloudProjects /></Suspense>
           <Link className={styles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
@@ -122,7 +125,7 @@ export default function CloudFoundationsPage() {
 
       <section className={styles.context} aria-labelledby="cloud-insights-title" data-cloud-section="Related insights">
         <Container>
-          <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="cloud-insights-title">Related insights</h2></header>
+          <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="cloud-insights-title">Related Insights</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading cloud insights…" />}><CloudInsights /></Suspense>
           <Link className={styles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
         </Container>
@@ -132,7 +135,7 @@ export default function CloudFoundationsPage() {
 
       <ContactCta
         eyebrow="CLOUD FOUNDATIONS"
-        title="Build a stronger foundation for your cloud."
+        title="Build A Stronger Foundation For Your Cloud."
         intro="From architecture and migration to reliability and cost optimization, we help you build, optimize, and support cloud infrastructure that works for your business."
         submitLabel="Talk to our cloud experts"
       />

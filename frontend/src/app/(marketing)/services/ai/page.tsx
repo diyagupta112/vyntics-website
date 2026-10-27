@@ -75,7 +75,7 @@ export default function AiSolutionsPage() {
         service="ai-solutions"
         headingId="ai-solutions-title"
         eyebrow={"AI solutions"}
-        title={"AI solutions built for control and trust"}
+        title={"AI Solutions Built For Control And Trust"}
         description={"We build custom AI solutions - from LLM integrations and grounded assistants to AI agents and intelligent automation - designed around your data, systems, and workflows."}
         primaryAction={{ href: "/#contact", label: "Discuss your AI use case" }}
         secondaryAction={{ href: "#ai-services", label: "Our AI solutions" }}
@@ -84,7 +84,7 @@ export default function AiSolutionsPage() {
 
       <section className={`${problemStyles.section} ${styles.noDivider}`} aria-labelledby="problems-title">
         <Container>
-          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>AI Solutions</p><h2 id="problems-title">AI problems we solve</h2><p className={problemStyles.subtext}>From trapped knowledge to risky automation, we solve the operating problems that keep useful AI from reaching production.</p></header>
+          <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>AI Solutions</p><h2 id="problems-title">AI Problems We Solve</h2><p className={problemStyles.subtext}>From trapped knowledge to risky automation, we solve the operating problems that keep useful AI from reaching production.</p></header>
           <AiProblems />
         </Container>
       </section>
@@ -95,13 +95,13 @@ export default function AiSolutionsPage() {
 
       <AiWhy />
 
-      <ServiceTools id="ai-platforms" headingId="platforms-title" sectionName="AI platforms we work with" name="AI Solutions" eyebrow="AI platforms we work with"
-        title="Choose the stack around the risk and workload" introduction="We keep the architecture modular where practical, so one model or vendor does not become the whole system."
+      <ServiceTools id="ai-platforms" headingId="platforms-title" sectionName="AI platforms we work with" name="AI Solutions" eyebrow="AI Platforms We Work With"
+        title="Choose The Stack Around The Risk And Workload" introduction="We keep the architecture modular where practical, so one model or vendor does not become the whole system."
         technologies={platforms.map(platform => platform.name)} details={platforms.map(platform => ({ ...platform, role: platform.role.replace(/\b\w/g, letter => letter.toUpperCase()) }))} presentation="platforms" balancedPlatforms note={null} />
 
       <section className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title">
         <Container>
-          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How we work</p><h2 id="process-title">Discover. Pilot. Build. Deploy. Improve.</h2><p>Five focused stages. One accountable delivery process built around evidence and safe operation.</p></div>
+          <div className={`${styles.sectionHeading} ${styles.processHeading}`}><p className={styles.label}>How We Work</p><h2 id="process-title">Discover. Pilot. Build. Deploy. Improve.</h2><p>Five focused stages. One accountable delivery process built around evidence and safe operation.</p></div>
           <DataEngineeringProcessTimeline steps={process} />
         </Container>
       </section>
@@ -140,7 +140,7 @@ export default function AiSolutionsPage() {
         />
       </section>
 
-      <ContactCta eyebrow="AI solutions consultation" title="Ready to turn an AI use case into a working system?" intro="Tell us where knowledge, documents, decisions, or repetitive work are slowing the team down. We’ll identify the practical first step and the evidence needed to scope it properly." submitLabel="Discuss your AI project" />
+      <ContactCta eyebrow="AI solutions consultation" title="Ready To Turn An AI Use Case Into A Working System?" intro="Tell us where knowledge, documents, decisions, or repetitive work are slowing the team down. We’ll identify the practical first step and the evidence needed to scope it properly." submitLabel="Discuss your AI project" />
     </>
   );
 }

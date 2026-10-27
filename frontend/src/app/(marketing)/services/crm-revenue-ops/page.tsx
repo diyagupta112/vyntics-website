@@ -12,7 +12,7 @@ import { crmContent as content } from "./crm-revenue-ops-content";
 import { PageProblems } from "./page-problems";
 import problemStyles from "../cloud/cloud-problems.module.css";
 import { PageServicesShowcase } from "./page-services-showcase";
-import { ServicePillarPlatforms, ServicePillarApproach } from "@/components/pages/service-pillar-sections";
+import { ServicePillarApproach } from "@/components/pages/service-pillar-sections";
 import dataStyles from "../data/page.module.css";
 import { NextServiceBanner } from "@/components/pages/next-service-banner";
 import { PageWhy } from "./page-why";
@@ -58,7 +58,7 @@ export default function ServicePage() {
     <>
       <CrmHero />
 
-      <section className={problemStyles.section} aria-labelledby="crm-problems-title" data-cloud-section={content.problemsHeading}>
+      <section className={`${problemStyles.section} ${styles.noTopRule}`} aria-labelledby="crm-problems-title" data-cloud-section={content.problemsHeading}>
         <Container>
           <header className={problemStyles.intro}><p className={problemStyles.eyebrow}>{content.name}</p><h2 id="crm-problems-title">{content.problemsHeading}</h2><p className={problemStyles.subtext}>{content.problemIntroduction}</p></header>
           <PageProblems />
@@ -80,16 +80,6 @@ export default function ServicePage() {
 
       <PageWhy />
 
-      <ServicePillarPlatforms
-        eyebrow={content.name}
-        heading={content.platformsHeading}
-        headingId="crm-platforms-title"
-        sectionName={content.platformsHeading}
-        introduction={content.platformsIntroduction}
-        platforms={content.platforms}
-        showTechnologyLinks={false}
-      />
-
       <ServicePillarApproach
         eyebrow={content.approachEyebrow}
         heading={content.approachHeading}
@@ -99,7 +89,7 @@ export default function ServicePage() {
         process={content.steps}
       />
 
-      <section className={styles.workBridge} aria-labelledby="crm-work-title" data-cloud-section="Case studies">
+      <section className={`${styles.workBridge} ${styles.noTopRule}`} aria-labelledby="crm-work-title" data-cloud-section="Case studies">
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>{content.caseStudies.eyebrow}</p><h2 id="crm-work-title">{content.caseStudies.heading}</h2><p className={styles.contentState}>{content.caseStudies.introduction}</p></header>
           <Suspense fallback={<ReservedContent count={2} message="Loading case studies…" />}><PageProjects /></Suspense>
@@ -109,7 +99,7 @@ export default function ServicePage() {
 
       <NextServiceBanner id="crm-next" currentService="crm-revenue-ops" sectionClassName={styles.context} />
 
-      <section className={styles.context} aria-labelledby="crm-insights-title" data-cloud-section="Related insights">
+      <section className={`${styles.context} ${styles.noTopRule}`} aria-labelledby="crm-insights-title" data-cloud-section="Related insights">
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>{content.insights.eyebrow}</p><h2 id="crm-insights-title">{content.insights.heading}</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading related insights…" />}><PageInsights /></Suspense>

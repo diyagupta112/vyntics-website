@@ -271,7 +271,7 @@ export function CrmIntegrationArchitecture() {
     <Container className={styles.container}>
       <header className={styles.heading} data-reveal="sample-architecture-heading">
         <p className={styles.eyebrow}>Architecture</p>
-        <h2 id="sample-architecture-title">Sample integration architecture</h2>
+        <h2 id="sample-architecture-title">Sample Integration Architecture</h2>
         <p className={styles.intro}>Illustrative system relationships for a CRM connected to the tools your customer teams already use.</p>
       </header>
       <figure className={styles.figure}>

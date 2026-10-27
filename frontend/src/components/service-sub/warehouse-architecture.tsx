@@ -294,7 +294,7 @@ export function WarehouseArchitecture() {
     <Container className={styles.container}>
       <header className={styles.heading} data-reveal="sample-warehouse-heading">
         <p className={styles.eyebrow}>Architecture</p>
-        <h2 id="sample-warehouse-title">Sample warehouse architecture</h2>
+        <h2 id="sample-warehouse-title">Sample Warehouse Architecture</h2>
         <p className={styles.intro}>How data moves from your sources through a lakehouse and warehouse to dashboards and AI.</p>
       </header>
       <figure className={styles.figure}>

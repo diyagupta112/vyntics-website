@@ -34,12 +34,6 @@ class LifeAtVynticsService:
         self._audit_logs = audit_repository or AuditLogRepository(session)
         self._image_storage = image_storage
 
-    async def list_public(self) -> list[LifeAtVyntics]:
-        try:
-            return await self._resources.list_public()
-        except SQLAlchemyError as error:
-            raise LifeAtVynticsPersistenceError from error
-
     async def list_all(self) -> list[LifeAtVyntics]:
         try:
             return await self._resources.list_all()
@@ -55,15 +49,14 @@ class LifeAtVynticsService:
             raise LifeAtVynticsNotFoundError
         return resource
 
-    async def get_public_by_id(self, resource_id: UUID) -> LifeAtVyntics:
-        resource = await self.get_by_id(resource_id)
-        if not resource.is_active:
-            raise LifeAtVynticsNotFoundError
-        return resource
-
     async def create(self, request: LifeAtVynticsCreateRequest, *, actor: AuthenticatedAdmin) -> LifeAtVyntics:
-        resource = LifeAtVyntics(**request.model_dump())
         try:
+            await self._resources.lock_ordering()
+            last = await self._resources.count()
+            position = last + 1 if request.display_order is None else min(request.display_order, last + 1)
+            if position <= last:
+                await self._resources.shift(delta=1, first=position)
+            resource = LifeAtVyntics(display_order=position)
             await self._resources.add(resource)
             await self._audit_logs.add(self._audit("create", resource, self._context(resource), actor))
             await self._resources.refresh(resource)
@@ -74,33 +67,56 @@ class LifeAtVynticsService:
         return resource
 
     async def update(self, resource_id: UUID, request: LifeAtVynticsUpdateRequest, *, actor: AuthenticatedAdmin) -> LifeAtVyntics:
-        resource = await self.get_by_id(resource_id)
-        changed = []
-        for field, value in request.model_dump(exclude_unset=True).items():
-            if getattr(resource, field) != value:
-                setattr(resource, field, value)
-                changed.append(field)
-        if not changed:
-            return resource
-        context = self._context(resource)
-        context["changed_fields"] = sorted(changed)
+        await self.get_by_id(resource_id)
+        if request.display_order is None:
+            return await self.get_by_id(resource_id)
         try:
+            await self._resources.lock_ordering()
+            resource = await self._resources.get_for_update(resource_id)
+            if resource is None:
+                await self._session.rollback()
+                raise LifeAtVynticsNotFoundError
+            previous = resource.display_order
+            position = min(request.display_order, await self._resources.count())
+            if position == previous:
+                # Release the ordering lock; rollback expires the row, so reload it.
+                await self._session.rollback()
+                return await self.get_by_id(resource_id)
+            # Shift the neighbors between the old and new slot; the unique constraint is deferred.
+            if position < previous:
+                await self._resources.shift(delta=1, first=position, last=previous - 1)
+            else:
+                await self._resources.shift(delta=-1, first=previous + 1, last=position)
+            resource.display_order = position
+            context = self._context(resource)
+            context.update({"changed_fields": ["display_order"], "previous_display_order": previous})
             await self._audit_logs.add(self._audit("update", resource, context, actor))
             await self._resources.refresh(resource)
             await self._session.commit()
+        except LifeAtVynticsNotFoundError:
+            raise
         except Exception as error:
             await self._session.rollback()
             raise LifeAtVynticsPersistenceError from error
         return resource
 
     async def delete(self, resource_id: UUID, *, actor: AuthenticatedAdmin) -> None:
-        resource = await self.get_by_id(resource_id)
-        previous_url = resource.image_url
-        audit = self._audit("delete", resource, self._context(resource), actor)
+        await self.get_by_id(resource_id)
         try:
+            await self._resources.lock_ordering()
+            resource = await self._resources.get_for_update(resource_id)
+            if resource is None:
+                await self._session.rollback()
+                raise LifeAtVynticsNotFoundError
+            previous_url = resource.image_url
+            position = resource.display_order
+            audit = self._audit("delete", resource, self._context(resource), actor)
             await self._resources.delete(resource)
+            await self._resources.shift(delta=-1, first=position + 1)
             await self._audit_logs.add(audit)
             await self._session.commit()
+        except LifeAtVynticsNotFoundError:
+            raise
         except Exception as error:
             await self._session.rollback()
             raise LifeAtVynticsPersistenceError from error
@@ -169,7 +185,7 @@ class LifeAtVynticsService:
 
     @staticmethod
     def _context(resource: LifeAtVyntics) -> dict[str, object]:
-        return {"display_order": resource.display_order, "is_active": resource.is_active}
+        return {"display_order": resource.display_order}
 
     @staticmethod
     def _audit(action: str, resource: LifeAtVyntics, context: dict[str, object], actor: AuthenticatedAdmin) -> AuditLog:

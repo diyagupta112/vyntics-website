@@ -65,7 +65,7 @@ export default async function BiConsultingPage() {
         <PathToResilienceOrbitalTimeline
           showStepNumbers
           eyebrow="How we work"
-          title="Our process"
+          title="Our Process"
           headingId="bi-consulting-process-title"
           description="A clear path from understanding the current BI environment to implementation, adoption, and ongoing support."
           steps={biProcess.map(step => ({ title: step.title, label: step.visual, description: step.description }))}
@@ -78,7 +78,7 @@ export default async function BiConsultingPage() {
         <Container>
           <header className={cloudStyles.sectionHeading} data-reveal="bi-case-study-heading">
             <p className={cloudStyles.eyebrow}>Case study</p>
-            <h2 id="bi-case-study-title">BI and analytics case study</h2>
+            <h2 id="bi-case-study-title">BI And Analytics Case Study</h2>
             <p className={cloudStyles.contentState}>Explore published work relevant to business intelligence, reporting, or analytics.</p>
           </header>
           {studies.length
@@ -89,7 +89,7 @@ export default async function BiConsultingPage() {
 
       <MigrationEngagementOptions
         sectionId="bi-consulting-engagements"
-        title="Choose the right starting point"
+        title="Choose The Right Starting Point"
         introduction="Start with a BI health check, move into implementation, or discuss ongoing support for your reporting environment."
         steps={biEngagements}
       />
@@ -98,7 +98,7 @@ export default async function BiConsultingPage() {
         <Container>
           <header className={cloudStyles.sectionHeading} data-reveal="bi-insights-heading">
             <p className={cloudStyles.eyebrow}>Related insights</p>
-            <h2 id="bi-insights-title">BI platform insights</h2>
+            <h2 id="bi-insights-title">BI Platform Insights</h2>
           </header>
           {insights.length
             ? <div className={studyStyles.otherGrid}>{insights.map(post => <RelatedBlogCard key={post.id} blog={post} variant="service" />)}</div>
@@ -109,7 +109,7 @@ export default async function BiConsultingPage() {
 
       <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="bi-consulting-faq-title" data-reveal="bi-consulting-faq">
         <FaqContent
-          heading={<><h2 id="bi-consulting-faq-title">Frequently asked questions</h2><p className={subStyles.faqIntro}>Answers about BI platforms, implementation, migration, training, and ongoing support.</p><p className={subStyles.faqContact}>Have a question about your BI environment? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
+          heading={<><h2 id="bi-consulting-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about BI platforms, implementation, migration, training, and ongoing support.</p><p className={subStyles.faqContact}>Have a question about your BI environment? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
           items={biFaqs}
           name="bi-consulting-faq"
           label="BI consulting questions"

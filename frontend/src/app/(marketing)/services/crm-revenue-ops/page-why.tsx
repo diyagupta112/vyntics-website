@@ -14,7 +14,7 @@ export function PageWhy() {
         <div className={styles.content}>
           <header data-reveal="crm-why-heading" data-reveal-delay="90">
             <p className={styles.eyebrow}>{content.whyEyebrow}</p>
-            <h2 id="crm-why-title">Why Vyntics for <span>{content.shortName}</span></h2>
+            <h2 id="crm-why-title">Why <span>Vyntics</span> for {content.shortName}</h2>
             <p className={styles.introduction}>{content.whyIntroduction}</p>
           </header>
           <ul className={styles.reasons}>

@@ -2,7 +2,6 @@ import { dataPlatforms, aiPlatforms, cloudPlatforms } from "./service-platforms"
 import { platformServices } from "./platform-services";
 import { legacyServiceRoutes } from "./service-route-map";
 import { cloudSubPages } from "./cloud-sub-services/pages";
-import { crmContent } from "@/app/(marketing)/services/crm-revenue-ops/crm-revenue-ops-content";
 import { analyticsContent } from "@/app/(marketing)/services/analytics-bi/analytics-bi-content";
 import { pipelineTools } from "@/app/(marketing)/services/data-engineering/data-pipelines-integration/content";
 import { warehousePlatforms } from "@/app/(marketing)/services/data-engineering/data-warehousing-lakehouse/content";
@@ -63,7 +62,8 @@ export const technologyToolSources: readonly ToolSource[] = [
       text: page.platforms ? platformText(page.platforms.items) : undefined,
     };
   }),
-  main("CRM", "crm-revenue-ops", serviceFile("crm-revenue-ops/crm-revenue-ops-content.ts"), crmContent.platforms),
+  // The CRM pillar page no longer has a platforms section. Keep the empty source to make audit coverage explicit.
+  main("CRM", "crm-revenue-ops", serviceFile("crm-revenue-ops/crm-revenue-ops-content.ts"), []),
   sub("CRM", "crm-revenue-ops/crm-implementation-integration", "Platforms", names(crmPlatforms), platformText(crmPlatforms)),
   sub("CRM", "crm-revenue-ops/sales-automation-revenue-analytics", "Tools we use", salesTools),
   main("Analytics", "analytics-bi", serviceFile("analytics-bi/analytics-bi-content.ts"), analyticsContent.platforms),

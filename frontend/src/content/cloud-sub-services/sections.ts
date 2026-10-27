@@ -20,7 +20,7 @@ export const cloudReferenceSections = {
 } as const;
 
 export const cloudReferenceHeadings: Record<CloudSubPageKey, { caseStudies: string; insights: string }> = {
-  migration: { caseStudies: "Cloud migration case studies", insights: "Cloud migration insights" },
-  devops: { caseStudies: "DevOps case studies", insights: "DevOps insights" },
-  cost: { caseStudies: "Cloud cost optimization case studies", insights: "Cloud cost optimization insights" },
+  migration: { caseStudies: "Cloud Migration Case Studies", insights: "Cloud Migration Insights" },
+  devops: { caseStudies: "DevOps Case Studies", insights: "DevOps Insights" },
+  cost: { caseStudies: "Cloud Cost Optimization Case Studies", insights: "Cloud Cost Optimization Insights" },
 };

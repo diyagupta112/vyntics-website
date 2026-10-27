@@ -35,10 +35,17 @@
 }
 .featuredSection,.otherSection,.contactIntro { padding-block:clamp(2.5rem,4vw,3.5rem); border-top:1px solid var(--color-border); }
 .featuredSection { border-top:0; scroll-margin-top:5rem; }
+.otherSection { border-top:0; }
 .workIntro { padding-block:clamp(2.5rem,4vw,3.5rem); }
 .workIntro h2 { margin-top:.85rem; font-size:clamp(2rem,3.2vw,2.875rem); line-height:1.15; letter-spacing:-.04em; text-wrap:balance; }
 .workIntroContent { width:100%; }
 .workIntroCard { position:relative; isolation:isolate; overflow:hidden; margin-top:1.4rem; padding:clamp(1.5rem,3.5vw,3rem); border:1px solid rgb(20 83 219 / 12%); border-radius:1rem; background-color:#eef3ff; background-image:linear-gradient(rgb(255 255 255 / 45%),rgb(255 255 255 / 45%)),url("/images/diagonal-sweep-gradient.webp"); background-position:center; background-size:cover; background-repeat:no-repeat; }
+/* A glowing diagonal band of brand blue sweeps across the card corner to corner and back; the artwork stays still. */
+.workIntroCard::before { content:""; position:absolute; top:-25%; left:0; z-index:-1; width:34%; height:150%; pointer-events:none; background:linear-gradient(90deg,transparent 0%,rgb(20 83 219 / 20%) 28%,rgb(255 255 255 / 60%) 50%,rgb(20 83 219 / 20%) 72%,transparent 100%); filter:blur(14px) drop-shadow(0 0 26px rgb(20 83 219 / 45%)); transform:translate(110%,0) rotate(24deg); }
+@media(prefers-reduced-motion:no-preference) {
+  .workIntroCard::before { animation:workIntroGlide 10s ease-in-out infinite alternate; will-change:transform; }
+}
+@keyframes workIntroGlide { from { transform:translate(-130%,-28%) rotate(24deg); } to { transform:translate(330%,28%) rotate(24deg); } }
 .workIntroQuote { --scroll-reveal-opacity:.09; position:absolute; left:clamp(.5rem,2vw,1.75rem); top:-.15em; z-index:-1; color:#1453db; opacity:.09; font-family:Georgia,serif; font-size:clamp(8rem,15vw,13rem); line-height:1; pointer-events:none; user-select:none; }
 .workIntroCopy { position:relative; margin:0; padding-top:2.6em; color:#0b1832; font-size:clamp(1.125rem,1.65vw,1.4rem); font-weight:400; line-height:1.6; letter-spacing:-.012em; }
 .sectionHeading { display:flex; align-items:end; justify-content:space-between; gap:2rem; }
