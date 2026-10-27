@@ -2,9 +2,18 @@ import type { NextConfig } from "next";
 
 import { legacyServiceRoutes } from "./src/content/service-route-map";
 
+// Backend photos are served from public Supabase storage; allowing that host lets Next.js resize and compress them.
+const storageUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const storageHost = (() => {
+  try { return storageUrl ? new URL(storageUrl).hostname : undefined; } catch { return undefined; }
+})();
+
 const nextConfig: NextConfig = {
   compiler: { styledComponents: true },
-  images: { qualities: [75, 90] },
+  images: {
+    qualities: [75, 90],
+    remotePatterns: storageHost ? [{ protocol: "https", hostname: storageHost, pathname: "/storage/v1/object/public/**" }] : [],
+  },
   async redirects() {
     const redirects = [
       { source: "/services", destination: "/services/data-engineering", permanent: false },

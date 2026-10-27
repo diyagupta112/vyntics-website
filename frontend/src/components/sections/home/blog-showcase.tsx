@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 import type { CSSProperties, FocusEvent } from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import { Container } from "@/components/ui/container";
 import type { Blog } from "@/lib/blogs";
 import styles from "./blog-showcase.module.css";
@@ -153,7 +154,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
                 <ArrowIcon />
               </button>
             </div>
-            <Link className={`${styles.viewAll} siteCta button3d`} href="/blog">
+            <Link className={`${styles.viewAll} siteCta`} href="/blog">
               View all Blogs <ArrowIcon />
             </Link>
           </div>
@@ -161,7 +162,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
         </div>
         </> : <p className={styles.empty} role="status">{loading ? "Loading articles…" : unavailable ? "Articles are temporarily unavailable. Please try again later." : "No articles available yet."}</p>}
         {articles.length === 0 && <div className={styles.viewAllRow}>
-          <Link className={`${styles.viewAll} siteCta button3d`} href="/blog">
+          <Link className={`${styles.viewAll} siteCta`} href="/blog">
             View all Blogs <ArrowIcon />
           </Link>
         </div>}
@@ -174,6 +175,5 @@ function BlogCover({ src }: { src: string }) {
   const [failed, setFailed] = useState(false);
   if (failed) return null;
   // Decorative cover; the article title provides the accessible name.
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img className={styles.coverImage} src={src} alt="" loading="lazy" onError={() => setFailed(true)} />;
+  return <OptimizedImage className={styles.coverImage} src={src} alt="" sizes="(max-width: 800px) 100vw, 800px" onError={() => setFailed(true)} />;
 }

@@ -18,11 +18,7 @@
 }
 
 .badge {
-  padding: 0.48rem 0.8rem;
   color: color-mix(in srgb, var(--color-primary) 78%, var(--color-muted));
-  border: 1px solid color-mix(in srgb, var(--color-primary) 18%, var(--color-border));
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-primary) 4%, var(--color-surface));
   font-size: 0.72rem;
   font-weight: 750;
   letter-spacing: 0.17em;

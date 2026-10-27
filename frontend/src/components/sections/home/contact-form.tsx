@@ -7,7 +7,7 @@ import styles from "./contact-cta.module.css";
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
 /** The site's contact form. Used by the home page call to action, the service pages and the Contact Us page. */
-export function ContactForm({ submitLabel = "Send message", raised = false }: { submitLabel?: string; raised?: boolean }) {
+export function ContactForm({ submitLabel = "Send message" }: { submitLabel?: string }) {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [feedback, setFeedback] = useState("");
 
@@ -96,7 +96,6 @@ export function ContactForm({ submitLabel = "Send message", raised = false }: { 
           </label>
 
           <SendButton
-            className={raised ? "button3d" : undefined}
             type="submit"
             state={submitState}
             disabled={submitState === "submitting" || submitState === "success"}

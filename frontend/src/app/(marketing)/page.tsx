@@ -26,7 +26,7 @@ export default function HomePage() {
       <Approach />
       <Suspense fallback={<BlogShowcase blogs={[]} loading />}><LatestBlogs /></Suspense>
       <WhyVyntics />
-      <ContactCta raised />
+      <ContactCta />
     </div>
   );
 }

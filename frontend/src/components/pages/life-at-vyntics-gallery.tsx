@@ -1,7 +1,7 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { OptimizedImage, thumbnailUrl } from "@/components/ui/optimized-image";
 import type { LifeAtVynticsImage } from "@/lib/life-at-vyntics";
 import { clampRatio, composeBatch, shapeOf, type Block, type Placed } from "@/lib/life-at-vyntics-layout";
 import styles from "./life-at-vyntics.module.css";
@@ -12,7 +12,7 @@ const MEASURE_TIMEOUT = 8000;
 
 type Dimensions = { width: number; height: number };
 
-/** Reads an image's intrinsic size. A broken image resolves to null; one that is only slow falls back to 4:3. */
+/** Reads an image's proportions from a small optimized copy, so the full-size photo is not downloaded just to measure it. A broken image resolves to null; one that is only slow falls back to 4:3. */
 function measure(url: string): Promise<Dimensions | null> {
   return new Promise(resolve => {
     const probe = new Image();
@@ -21,7 +21,7 @@ function measure(url: string): Promise<Dimensions | null> {
     probe.onload = () => finish(probe.naturalWidth && probe.naturalHeight ? { width: probe.naturalWidth, height: probe.naturalHeight } : null);
     probe.onerror = () => finish(null);
     probe.decoding = "async";
-    probe.src = url;
+    probe.src = thumbnailUrl(url);
   });
 }
 
@@ -77,15 +77,15 @@ export function LifeAtVynticsGallery({ images }: { images: LifeAtVynticsImage[] 
 
   useEffect(() => { void loadBatch(0); }, [loadBatch]);
 
-  const tile = ({ image, number, ratio }: Placed, extra?: string) => <figure key={image.id}
+  const tile = ({ image, number, ratio }: Placed, extra?: string, sizes = "(max-width: 700px) 100vw, 640px") => <figure key={image.id}
     className={extra ? `${styles.tile} ${extra}` : styles.tile} data-shape={shapeOf(ratio)}
     style={vars({ "--r": ratio.toFixed(3), "--rm": stackRatio(ratio).toFixed(3) })}>
-    {!broken.has(image.id) && <img className={styles.image} src={image.image_url} alt={`Vyntics team moment ${number}`} loading="lazy" decoding="async"
+    {!broken.has(image.id) && <OptimizedImage className={styles.image} src={image.image_url} alt={`Vyntics team moment ${number}`} sizes={sizes}
       onError={() => setBroken(current => new Set(current).add(image.id))} />}
   </figure>;
 
   const render = (block: Block) => {
-    if (block.kind === "feature" || block.kind === "solo") return tile(block.tiles[0], block.kind === "feature" ? styles.feature : styles.solo);
+    if (block.kind === "feature" || block.kind === "solo") return tile(block.tiles[0], block.kind === "feature" ? styles.feature : styles.solo, block.kind === "feature" ? "(max-width: 1200px) 100vw, 1152px" : undefined);
     if (block.kind === "row") {
       const sum = block.tiles.reduce((total, item) => total + item.ratio, 0);
       return <div key={block.tiles[0].image.id} className={styles.row} style={vars({ "--n": block.tiles.length, "--sum": sum.toFixed(3) })}>

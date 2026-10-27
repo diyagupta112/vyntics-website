@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import { CaseStudyVideo } from "./case-study-video";
 import type { CaseStudyMedia as Media } from "@/lib/case-studies";
 import styles from "./case-study-media.module.css";
@@ -26,15 +26,14 @@ export function CaseStudyMedia({
 
   return (
     <div className={`${styles.frame} ${className}`.trim()}>
-      <img
+      <OptimizedImage
         className={styles.media}
         src={media.src}
         alt={media.alt ?? `${title} project visual`}
-        width="1280"
-        height="853"
-        loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : "auto"}
-        decoding="async"
+        width={1280}
+        height={853}
+        sizes="(max-width: 1100px) 100vw, 70vw"
+        priority={priority}
       />
     </div>
   );

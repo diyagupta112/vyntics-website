@@ -255,7 +255,7 @@ export function SiteHeader() {
           </nav>
 
           <div className={styles.actions}>
-            <Link className={`${styles.demoButton} siteCta button3d`} href="/contact-us">
+            <Link className={`${styles.demoButton} siteCta`} href="/contact-us">
               Book a demo <span aria-hidden="true">&rarr;</span>
             </Link>
             <span className={styles.themeSlot}>
@@ -305,7 +305,7 @@ export function SiteHeader() {
                     <Link className={styles.mobileDirectLink} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} href={item.href} key={item.label} onClick={() => setMobileOpen(false)}>{item.label}</Link>
                   ),
                 )}
-                <Link className={`${styles.mobileDemoButton} siteCta button3d`} href="/contact-us" onClick={() => setMobileOpen(false)}>
+                <Link className={`${styles.mobileDemoButton} siteCta`} href="/contact-us" onClick={() => setMobileOpen(false)}>
                   Book a demo <span aria-hidden="true">&rarr;</span>
                 </Link>
               </Container>

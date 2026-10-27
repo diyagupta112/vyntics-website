@@ -1,9 +1,7 @@
 "use client";
 
-/* Team photos come from API-managed remote hosts, so a native image keeps those URLs portable. */
-/* eslint-disable @next/next/no-img-element */
-
 import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import type { TeamMember, TeamMemberSummary } from "@/lib/team";
 import { isTeamMember } from "@/lib/team";
 import styles from "./team-showcase.module.css";
@@ -30,7 +28,7 @@ function Portrait({ member, tone, featured = false, modal = false }: {
   return (
     <div className={className}>
       {member.photo_url && !imageFailed ? (
-        <img className={styles.portraitImage} src={member.photo_url} alt={`${member.name}, Vyntics team member`} onError={() => setImageFailed(true)} />
+        <OptimizedImage className={styles.portraitImage} src={member.photo_url} alt={`${member.name}, Vyntics team member`} width={600} height={600} sizes="(max-width: 900px) 60vw, 480px" onError={() => setImageFailed(true)} />
       ) : (
         <span aria-label={member.name}>{getInitials(member.name)}</span>
       )}

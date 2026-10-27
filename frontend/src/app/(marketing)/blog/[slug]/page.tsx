@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { OptimizedImage } from "@/components/ui/optimized-image";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import type { Metadata } from "next";
@@ -40,9 +41,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
     return order(a) - order(b);
   }));
   return <article><header className={articleStyles.hero}>{/^(https?:\/\/|\/)/.test(blog.cover_image_url) && (
-    // Backend image hosts are dynamic.
-    // eslint-disable-next-line @next/next/no-img-element
-    <img className={articleStyles.cover} src={blog.cover_image_url} alt="" fetchPriority="high" />
+    <OptimizedImage className={articleStyles.cover} src={blog.cover_image_url} alt="" sizes="100vw" priority />
   )}<div className={articleStyles.shade} /><div className={articleStyles.heroInner}><Link className={articleStyles.back} href="/blog">← All blogs</Link><div className={articleStyles.heroBottom}><a className={articleStyles.scroll} href="#article-content">Scroll to read <span aria-hidden="true">↓</span></a><div className={articleStyles.meta}><span>{blog.author}</span><time dateTime={blog.published_at}>{new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(blog.published_at))}</time><span>{blog.read_time} min read</span><span className={articleStyles.heroCategory}>{blog.category}</span></div></div></div></header>
     <div id="article-content" className={articleStyles.readingLayout}>
       <aside className={articleStyles.leftSidebar} aria-label="About this article"><div className={articleStyles.infoCard}><p className={articleStyles.sideLabel}>ABOUT THIS ARTICLE</p><dl><div><dt>Author</dt><dd>{blog.author}</dd></div><div><dt>{blog.status && blog.status !== "published" ? "Created" : "Published"}</dt><dd><time dateTime={blog.published_at}>{new Intl.DateTimeFormat("en", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(blog.published_at))}</time></dd></div><div><dt>Reading time</dt><dd>{blog.read_time} min read</dd></div><div><dt>Category</dt><dd>{blog.category}</dd></div></dl></div></aside>
