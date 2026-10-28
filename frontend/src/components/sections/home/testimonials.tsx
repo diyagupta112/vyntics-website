@@ -1,8 +1,8 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
-import { useEffect, useState, type FocusEvent } from "react";
+import { useEffect, useRef, useState, type FocusEvent } from "react";
 import { Container } from "@/components/ui/container";
 import styles from "./testimonials.module.css";
 
@@ -40,7 +40,9 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const AUTOPLAY_INTERVAL_MS = 2000;
+// Reuse the three real reviews so cards can enter and exit beyond both edges.
+const carouselTestimonials = Array.from({ length: 3 }, () => testimonials).flat();
+const AUTOPLAY_INTERVAL_MS = 1000;
 
 function Arrow({ direction }: { direction: "left" | "right" }) {
   return (
@@ -76,24 +78,41 @@ function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
 }
 
 export function Testimonials() {
+  const carouselRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
   const isPaused = isHovered || hasFocus;
 
   useEffect(() => {
-    if (reduceMotion || isPaused) return;
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: .15 });
+    const updateVisibility = () => setPageVisible(!document.hidden);
+    observer.observe(carousel);
+    updateVisibility();
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", updateVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion || isPaused || !inView || !pageVisible) return;
 
     const autoplay = window.setInterval(() => {
-      setCurrentIndex((index) => (index + 1) % testimonials.length);
+      setCurrentIndex((index) => (index + 1) % carouselTestimonials.length);
     }, AUTOPLAY_INTERVAL_MS);
 
     return () => window.clearInterval(autoplay);
-  }, [currentIndex, isPaused, reduceMotion]);
+  }, [currentIndex, isPaused, reduceMotion, inView, pageVisible]);
 
   const move = (step: number) => {
-    setCurrentIndex((index) => (index + step + testimonials.length) % testimonials.length);
+    setCurrentIndex((index) => (index + step + carouselTestimonials.length) % carouselTestimonials.length);
   };
 
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
@@ -101,15 +120,23 @@ export function Testimonials() {
   };
 
   const getPosition = (index: number) => {
-    let distance = (index - currentIndex + testimonials.length) % testimonials.length;
-    if (distance > Math.floor(testimonials.length / 2)) distance -= testimonials.length;
-
-    if (distance === -2) return { className: styles.farLeft, distance };
-    if (distance === -1) return { className: styles.left, distance };
-    if (distance === 0) return { className: styles.active, distance };
-    if (distance === 1) return { className: styles.right, distance };
-    if (distance === 2) return { className: styles.farRight, distance };
-    return { className: styles.hidden, distance };
+    let distance = (index - currentIndex + carouselTestimonials.length) % carouselTestimonials.length;
+    if (distance > Math.floor(carouselTestimonials.length / 2)) distance -= carouselTestimonials.length;
+    const depth = Math.abs(distance);
+    const className = distance === -2 ? styles.farLeft : distance === -1 ? styles.left
+      : distance === 0 ? styles.active : distance === 1 ? styles.right : distance === 2 ? styles.farRight : styles.hidden;
+    return {
+      className,
+      distance,
+      animation: {
+        x: `${-50 + distance * 72}%`,
+        y: distance === 0 ? "-58%" : depth === 1 ? "-43%" : "-48%",
+        rotate: distance * 4,
+        scale: Math.max(.72, 1 - depth * .065),
+        opacity: depth > 2 ? 0 : depth === 2 ? .5 : depth === 1 ? .85 : 1,
+      },
+      zIndex: depth > 2 ? 0 : 5 - depth,
+    };
   };
 
   return (
@@ -122,7 +149,11 @@ export function Testimonials() {
         </div>
 
         <div
+          ref={carouselRef}
           className={styles.carousel}
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Client testimonials"
           aria-live={isPaused ? "polite" : "off"}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -130,14 +161,22 @@ export function Testimonials() {
           onBlurCapture={handleBlur}
         >
           <div className={styles.stage}>
-            {testimonials.map((testimonial, index) => {
+            {carouselTestimonials.map((testimonial, index) => {
               const position = getPosition(index);
               return (
-                <article className={`${styles.card} ${position.className}`} aria-hidden={position.distance !== 0 || undefined} key={testimonial.name}>
+                <motion.article className={`${styles.card} ${position.className}`} aria-hidden={position.distance !== 0 || undefined} key={`${testimonial.name}-${index}`}
+                  initial={false}
+                  animate={position.animation}
+                  style={{ zIndex: position.zIndex }}
+                  transition={reduceMotion ? { duration: 0 } : {
+                    type: "spring", stiffness: 220, damping: 26, mass: .8,
+                    delay: Math.min(Math.abs(position.distance), 2) * .035,
+                    opacity: { duration: .2 },
+                  }}>
                   <TestimonialMark testimonial={testimonial} />
                   <blockquote>“{testimonial.text}”</blockquote>
                   <footer>- {testimonial.name}, <span>{testimonial.role}</span></footer>
-                </article>
+                </motion.article>
               );
             })}
           </div>

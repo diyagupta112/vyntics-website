@@ -19,20 +19,6 @@ const capabilityDetails: ReadonlyArray<{
   highlights: ReadonlyArray<{ label: string; service: string }>;
 }> = [
   {
-    pillar: "ai-solutions",
-    anchor: "services-ai",
-    image: "/images/technology-ai.png",
-    imageAlt: "Humanoid service robot in a workplace",
-    imagePosition: "58% center",
-    description:
-      "AI Solutions help teams turn approved business knowledge and repeatable workflows into useful assistants, agents, and automation. We design systems around your data, permissions, and existing tools so outputs remain grounded and actions stay controlled. The result is practical AI that reduces manual work, helps people find reliable answers faster, and fits the way your organization already operates.",
-    highlights: [
-      { label: "RAG & Knowledge Assistants", service: "rag-knowledge-assistants" },
-      { label: "AI Agents", service: "ai-agents" },
-      { label: "Intelligent Automation", service: "intelligent-automation" },
-    ],
-  },
-  {
     pillar: "data-engineering",
     anchor: "services-data",
     image: "/images/technology-Data-Engineering.jpg",
@@ -44,6 +30,20 @@ const capabilityDetails: ReadonlyArray<{
       { label: "Data Pipelines & Integration", service: "data-pipelines-integration" },
       { label: "Data Warehousing & Lakehouse", service: "data-warehousing-lakehouse" },
       { label: "Data Quality & Governance", service: "data-quality-governance" },
+    ],
+  },
+  {
+    pillar: "ai-solutions",
+    anchor: "services-ai",
+    image: "/images/technology-ai.png",
+    imageAlt: "Humanoid service robot in a workplace",
+    imagePosition: "58% center",
+    description:
+      "AI Solutions help teams turn approved business knowledge and repeatable workflows into useful assistants, agents, and automation. We design systems around your data, permissions, and existing tools so outputs remain grounded and actions stay controlled. The result is practical AI that reduces manual work, helps people find reliable answers faster, and fits the way your organization already operates.",
+    highlights: [
+      { label: "RAG & Knowledge Assistants", service: "rag-knowledge-assistants" },
+      { label: "AI Agents", service: "ai-agents" },
+      { label: "Intelligent Automation", service: "intelligent-automation" },
     ],
   },
   {
@@ -92,7 +92,10 @@ const capabilityDetails: ReadonlyArray<{
 
 ];
 
-const capabilities = capabilityDetails.map((capability) => {
+const capabilities = [...capabilityDetails].sort((a, b) => {
+  const order: ServicePillarSlug[] = ["ai-solutions", "data-engineering", "cloud-foundations", "crm-revenue-ops", "analytics-bi"];
+  return order.indexOf(a.pillar) - order.indexOf(b.pillar);
+}).map((capability) => {
   const pillar = serviceSitemap.find((item) => item.slug === capability.pillar);
   if (!pillar) throw new Error(`Missing service pillar: ${capability.pillar}`);
 
@@ -147,11 +150,14 @@ export function Capabilities({
           const track = showcase.querySelector<HTMLElement>("[data-service-track]");
           const section = showcase.closest<HTMLElement>("[data-service-section]");
           if (!viewport || !track || !section) return;
+          const heading = section.querySelector<HTMLElement>("header");
+          const panels = Array.from(track.children).filter((element): element is HTMLElement => element instanceof HTMLElement);
+          if (!panels.length) return;
 
           media = gsap.matchMedia();
           media.add(
             {
-              desktop: "(min-width: 961px)",
+              desktop: "(min-width: 961px) and (min-height: 600px)",
               reduceMotion: "(prefers-reduced-motion: reduce)",
             },
             (mediaContext) => {
@@ -160,24 +166,105 @@ export function Capabilities({
               const reduceMotion = conditions.reduceMotion ?? false;
               if (!desktop || reduceMotion) return;
 
-              const horizontalDistance = () =>
-                Math.max(0, track.scrollWidth - viewport.clientWidth);
-
-              const tween = gsap.to(track, {
-                x: () => -horizontalDistance(),
+              showcase.dataset.serviceStage = "true";
+              gsap.set(track, { x: 0 });
+              const horizontalTravel = () => {
+                // Flex overflow excludes the final card's trailing outer margin.
+                const trailingMargin = parseFloat(getComputedStyle(panels[panels.length - 1]).marginRight);
+                return Math.max(0, track.scrollWidth + trailingMargin - viewport.clientWidth);
+              };
+              const headingTween = heading ? gsap.to(heading, {
+                autoAlpha: 0,
+                y: -20,
                 ease: "none",
                 scrollTrigger: {
                   trigger: section,
                   start: "top top",
-                  end: () => `+=${Math.max(horizontalDistance(), 1)}`,
-                  pin: section,
-                  scrub: 0.65,
+                  end: () => `+=${Math.max(1, heading.parentElement!.offsetHeight + parseFloat(getComputedStyle(section).paddingTop))}`,
+                  scrub: .3,
+                  invalidateOnRefresh: true,
+                },
+              }) : undefined;
+
+              const timeline = gsap.timeline({
+                defaults: { ease: "none" },
+                scrollTrigger: {
+                  trigger: showcase,
+                  start: "top top",
+                  end: () => `+=${Math.max(window.innerHeight, horizontalTravel() / viewport.clientWidth * window.innerHeight * 1.1)}`,
+                  pin: showcase,
+                  pinSpacing: true,
+                  scrub: .25,
+                  snap: {
+                    snapTo: (progress: number, trigger?: { direction: number }) => {
+                      const step = 1 / Math.max(1, panels.length - 1);
+                      const nearest = gsap.utils.snap(step, progress);
+                      // Browser scroll positions round to pixels; keep an aligned card
+                      // from snapping a whole service backward over a fractional pixel.
+                      return Math.abs(nearest - progress) < .005 ? nearest
+                        : ScrollTrigger.snapDirectional(step)(progress, trigger?.direction ?? 0);
+                    },
+                    duration: { min: .15, max: .35 },
+                    delay: .12,
+                    ease: "power1.inOut",
+                    inertia: false,
+                  },
                   anticipatePin: 1,
                   invalidateOnRefresh: true,
                 },
               });
 
-              return () => tween.scrollTrigger?.kill();
+              timeline.addLabel("service-0");
+              panels.slice(1).forEach((panel, index) => {
+                timeline.to(track, { x: () => -Math.min(horizontalTravel(), panel.offsetLeft - panels[0].offsetLeft), duration: 1 })
+                  .addLabel(`service-${index + 1}`);
+              });
+
+              const currentService = () => {
+                const step = panels.length > 1 ? panels[1].offsetLeft - panels[0].offsetLeft : 1;
+                return Math.max(0, Math.min(panels.length - 1, Math.round(-Number(gsap.getProperty(track, "x")) / step)));
+              };
+              const showService = (index: number) => {
+                const trigger = timeline.scrollTrigger;
+                if (!trigger) return;
+                const progress = timeline.labels[`service-${index}`] / timeline.duration();
+                viewport.scrollLeft = 0;
+                trigger.getTween(true)?.kill();
+                trigger.scroll(trigger.start + progress * (trigger.end - trigger.start));
+                ScrollTrigger.update();
+              };
+              const revealFocusedCard = (event: FocusEvent) => {
+                const index = panels.indexOf(event.target as HTMLElement);
+                if (index >= 0 && index !== currentService()) showService(index);
+              };
+              const navigateServices = (event: KeyboardEvent) => {
+                const direction = ["ArrowRight", "ArrowDown", "PageDown"].includes(event.key) ? 1
+                  : ["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key) ? -1 : 0;
+                if (!direction || event.repeat) return;
+                event.preventDefault();
+                const next = currentService() + direction;
+                if (next < 0 || next >= panels.length) {
+                  const trigger = timeline.scrollTrigger;
+                  if (trigger) {
+                    trigger.getTween(true)?.kill();
+                    trigger.scroll(next < 0 ? trigger.start - window.innerHeight * .5 : trigger.end + window.innerHeight * .5);
+                    ScrollTrigger.update();
+                  }
+                  return;
+                }
+                panels[next].focus({ preventScroll: true });
+                showService(next);
+              };
+              showcase.addEventListener("keydown", navigateServices);
+              showcase.addEventListener("focusin", revealFocusedCard);
+
+              return () => {
+                showcase.removeEventListener("keydown", navigateServices);
+                showcase.removeEventListener("focusin", revealFocusedCard);
+                timeline.scrollTrigger?.kill();
+                headingTween?.scrollTrigger?.kill();
+                delete showcase.dataset.serviceStage;
+              };
             },
           );
 
@@ -191,7 +278,7 @@ export function Capabilities({
       media?.revert();
       context?.revert();
     };
-  }, [linkCards]);
+  }, [linkCards, showHeading]);
 
   return (
     <section
@@ -205,7 +292,7 @@ export function Capabilities({
         {showHeading && (
           <header className={styles.headingBlock}>
             <p className={styles.eyebrow}>Services</p>
-            <h2 id="capabilities-title">From raw data to working AI</h2>
+            <h2 id="capabilities-title">From Raw Data To Working AI</h2>
             <p>From custom AI to the data foundations it runs on-end to end</p>
           </header>
         )}
@@ -213,11 +300,11 @@ export function Capabilities({
       </Container>
 
       {linkCards && (
-        <div ref={showcaseRef} className={styles.showcase} aria-label="Service details">
+        <div ref={showcaseRef} className={styles.showcase} role="region" tabIndex={0} aria-label="Service details. Scroll or use the left and right arrow keys to explore services.">
           <div className={styles.showcaseViewport} data-service-viewport>
             <div className={styles.showcaseTrack} data-service-track>
               {capabilities.map((capability) => (
-                <article id={capability.anchor} className={styles.showcasePanel} key={capability.pillar}>
+                <Link id={capability.anchor} className={styles.showcasePanel} key={capability.pillar} href={capability.href} aria-label={`Explore ${capability.title}`}>
                   <div className={styles.showcaseMedia}>
                     <Image
                       className={styles.showcaseImage}
@@ -232,27 +319,26 @@ export function Capabilities({
                     <span className={styles.showcaseImageShade} aria-hidden="true" />
                   </div>
                   <div className={styles.showcaseCopy}>
-                    <p className={styles.showcaseLabel}>Service</p>
                     <h3>
-                      <Link className={styles.showcaseTitleLink} href={capability.href}>
+                      <span className={styles.showcaseTitleLink}>
                         {capability.title}
-                      </Link>
+                      </span>
                     </h3>
                     <p className={styles.showcaseDescription}>{capability.description}</p>
                     <ul className={styles.highlightList}>
                       {capability.highlights.map((highlight) => (
                         <li key={highlight.label}>
-                          <Link className={styles.highlightLink} href={highlight.href}>
+                          <span className={styles.highlightLink}>
                             {highlight.label}
-                          </Link>
+                          </span>
                         </li>
                       ))}
                     </ul>
-                    <Link className={styles.showcaseLink} href={capability.href}>
+                    <span className={styles.showcaseLink}>
                       Explore service <span aria-hidden="true">→</span>
-                    </Link>
+                    </span>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
           </div>

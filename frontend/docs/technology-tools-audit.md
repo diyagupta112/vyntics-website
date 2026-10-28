@@ -2,7 +2,7 @@
 
 Source audit refreshed October 23, 2026 before selecting cards. Category order: AI, Data, Cloud, CRM, Analytics.
 
-Rechecked 36 service route files, all 18 canonical main/subservice routes and all 13 legacy toolkit definitions against route configuration and imported content. Eleven legacy definitions render; two redirect and are excluded. The source registry retains 95 unique named technologies. The Technology page displays **72 curated, unique, logo-backed cards**.
+Rechecked 36 service route files, all 18 canonical main/subservice routes and all 13 legacy toolkit definitions against route configuration and imported content. Eleven legacy definitions render; two redirect and are excluded. The source registry retains 95 unique named technologies. The Technology page displays **69 curated, unique, logo-backed cards**.
 
 ## Final category inventory
 
@@ -16,17 +16,17 @@ Databricks, Google BigQuery, Amazon Redshift, Azure Synapse, Azure Data Factory,
 
 ### Cloud: 16
 
-AWS, Microsoft Azure, Google Cloud, Docker, Kubernetes, Terraform, GitHub Actions, Jenkins, Amazon CloudWatch, AWS Lambda, AWS Cost Explorer, Azure Cost Management, Google Cloud Billing, Cloudflare, Datadog, OpenTelemetry.
+AWS, Google Cloud, Docker, Kubernetes, Cloudflare, Terraform, GitHub Actions, Jenkins, Amazon CloudWatch, AWS Lambda, AWS Cost Explorer, Azure Cost Management, Google Cloud Billing, Datadog, OpenTelemetry, Microsoft Azure.
 
 ### CRM: 12
 
 Salesforce, HubSpot, Microsoft Dynamics 365, Zoho CRM, MuleSoft, Power Automate, n8n, Zapier, Make, Slack, Microsoft Teams, WhatsApp.
 
-### Analytics: 12
+### Analytics: 9
 
-Power BI, Tableau, Amazon QuickSight, Microsoft Fabric, Snowflake, dbt, Excel, Power Query, Grafana, Power BI Service, Tableau Cloud, Tableau Server.
+Power BI, Tableau, Amazon QuickSight, Microsoft Fabric, Snowflake, dbt, Excel, Power Query, Grafana.
 
-Every category contains 12–16 cards, with a hard validated maximum of 16. Eight cards appear initially; Load More reveals the remainder and disappears. Switching categories resets to eight. Styling, layout, animations and service-page inventories are unchanged.
+AI, Data and Cloud contain 16 cards, CRM contains 12, and Analytics contains nine after removing repeated Power BI/Tableau deployment cards. Cloudflare is fifth in Cloud and Microsoft Azure is last. The hard maximum remains 16. Eight cards appear initially; Load More reveals the remainder and disappears. Switching categories resets to eight. Styling, layout, animations and service-page inventories are unchanged.
 
 ## Selection and primary categories
 
@@ -34,7 +34,7 @@ AI favors named model platforms, document AI, retrieval and orchestration framew
 
 CRM includes Salesforce, HubSpot, Dynamics and Zoho, plus workflow and communication integrations explicitly approved by the user: MuleSoft, Power Automate, n8n, Zapier, Make, Slack, Microsoft Teams and WhatsApp. All are named in actual service content; the communication integrations are sourced from the RAG page rather than falsely claimed as CRM-page listings.
 
-Analytics includes the Microsoft, Tableau and AWS BI products, plus Snowflake, Fabric, dbt and Grafana. Snowflake/Fabric/dbt are explicitly associated with Analytics service content; Grafana is a visualization/observability platform named by Cloud services and assigned once to Analytics. Tableau Cloud/Server and Power BI Service remain distinct deployment products using their correct official family marks. No names are repeated to fill a grid.
+Analytics includes the Microsoft, Tableau and AWS BI products, plus Snowflake, Fabric, dbt and Grafana. Snowflake/Fabric/dbt are explicitly associated with Analytics service content; Grafana is a visualization/observability platform named by Cloud services and assigned once to Analytics. Tableau Cloud, Tableau Server and Power BI Service are excluded from the showcase so each family appears once. Their source records remain intact.
 
 Selection is a reference-only configuration in technology-tools.ts. Each name must resolve to the imported audit registry, have verified artwork, and have exactly one primary category. Invalid names, duplicate identities, missing logo mappings, or out-of-range counts fail validation. No parallel product definitions or copied service inventories are introduced.
 
@@ -42,7 +42,7 @@ Selection is a reference-only configuration in technology-tools.ts. Each name mu
 
 Identity normalization merges Azure/Microsoft Azure, AWS/Amazon Web Services, BigQuery/Google BigQuery, Kafka/Apache Kafka, CloudWatch/Amazon CloudWatch, dbt tests/dbt, Dynamics 365/Microsoft Dynamics 365 and other documented aliases. AWS and Azure each appear once. Distinct AWS/Azure products remain separate.
 
-Not selected for this curated showcase (23 audited entries; retained in the source registry): SQL, Databricks Unity Catalog, Monte Carlo, Anthropic, Open-source LLMs, pgvector, SharePoint, Google Drive, Notion, Confluence, Retrieval-augmented generation (RAG), GPT, CI/CD, Prometheus, DAX, Soda, Microsoft Purview, SPICE, REST APIs, Salesforce Flow, HubSpot Workflows, Supabase, React.
+Not selected for this curated showcase (26 audited entries; retained in the source registry): SQL, Databricks Unity Catalog, Monte Carlo, Anthropic, Open-source LLMs, pgvector, SharePoint, Google Drive, Notion, Confluence, Retrieval-augmented generation (RAG), GPT, CI/CD, Prometheus, Power BI Service, DAX, Tableau Server, Tableau Cloud, Soda, Microsoft Purview, SPICE, REST APIs, Salesforce Flow, HubSpot Workflows, Supabase, React.
 
 Text-only entries, the generic SQL symbol and generic Open-source LLM illustration are excluded. No placeholder logos or new tools were added.
 
@@ -85,10 +85,10 @@ Missing logos in the curated inventory: **0**. All mapped files exist and their 
 | Collibra | collibra.svg |
 | Alation | alation.svg |
 | AWS | aws.svg |
-| Microsoft Azure | azure.svg |
 | Google Cloud | google-cloud.png |
 | Docker | docker.svg |
 | Kubernetes | kubernetes.svg |
+| Cloudflare | cloudflare.svg |
 | Terraform | terraform.svg |
 | GitHub Actions | github-actions.svg |
 | Jenkins | jenkins.svg |
@@ -97,9 +97,9 @@ Missing logos in the curated inventory: **0**. All mapped files exist and their 
 | AWS Cost Explorer | aws-cost-explorer.png (existing product override) |
 | Azure Cost Management | azure-cost-management.svg (existing product override) |
 | Google Cloud Billing | google-cloud-billing.svg (existing product override) |
-| Cloudflare | cloudflare.svg |
 | Datadog | datadog.svg |
 | OpenTelemetry | opentelemetry.svg |
+| Microsoft Azure | azure.svg |
 | Salesforce | salesforce.jpg |
 | HubSpot | hubspot.svg |
 | Microsoft Dynamics 365 | dynamics-365.svg |
@@ -121,9 +121,6 @@ Missing logos in the curated inventory: **0**. All mapped files exist and their 
 | Excel | excel.svg (existing product override) |
 | Power Query | power-query.svg (existing product override) |
 | Grafana | grafana.svg |
-| Power BI Service | power-bi.svg (existing product override) |
-| Tableau Cloud | tableau.png (existing product override) |
-| Tableau Server | tableau.png (existing product override) |
 
 Asset provenance remains in public/images/services/logos/README.md. AWS and Azure service cards use their product marks instead of generic parent-brand artwork; Google Document AI and Cloud Billing use their specific console icons. Gemini and Claude use their recognizable product marks. Family artwork is shared only by genuinely different named deployment products.
 
@@ -185,7 +182,7 @@ Asset provenance remains in public/images/services/logos/README.md. AWS and Azur
 | /services/crm-revenue-ops | src/app/(marketing)/services/crm-revenue-ops/crm-revenue-ops-content.ts: Platforms | No named products |
 | /services/crm-revenue-ops/crm-implementation-integration | src/app/(marketing)/services/crm-revenue-ops/crm-implementation-integration/content.ts: Platforms | HubSpot, Zoho CRM, Microsoft Dynamics 365 |
 | /services/crm-revenue-ops/sales-automation-revenue-analytics | src/app/(marketing)/services/crm-revenue-ops/sales-automation-revenue-analytics/content.ts: Tools we use | HubSpot, Zoho CRM, Power BI, Tableau, n8n, Zapier |
-| /services/analytics-bi | src/app/(marketing)/services/analytics-bi/analytics-bi-content.ts: Platforms | Power BI, Tableau, Amazon QuickSight, Power BI Service, AWS, DAX |
+| /services/analytics-bi | src/app/(marketing)/services/analytics-bi/analytics-bi-content.ts: Platforms | Amazon QuickSight, Power BI, Tableau, Power BI Service, AWS, DAX |
 | /services/analytics-bi/dashboards-executive-reporting | src/app/(marketing)/services/analytics-bi/dashboards-executive-reporting/content.ts: No Tools & Platforms section | No named products |
 | /services/analytics-bi/bi-consulting | src/app/(marketing)/services/analytics-bi/bi-consulting/content.ts: BI tool comparison and platform sections | Power BI, Tableau, Amazon QuickSight, Power BI Service, Tableau Server, Tableau Cloud, Excel, AWS, DAX |
 | /services/cloud/cloud-architecture-migration | src/content/platform-services.ts: InnerServiceDetail toolkit | AWS, Microsoft Azure, Google Cloud, Terraform, Kubernetes, Docker, PostgreSQL, Cloudflare |
@@ -217,6 +214,6 @@ Databricks, Snowflake, Google BigQuery, Amazon Redshift, Microsoft Fabric, dbt, 
 
 ## Verification
 
-Passed the audit script, targeted ESLint for technology-tools.ts and this script, and TypeScript tsc --noEmit --incremental false. The audit validates every canonical/active legacy source, all curated names against source evidence, category order, 12–16 limits, primary category ownership, global identity uniqueness, artwork files/signatures and eight-card pagination prefixes.
+The audit validates every canonical/active legacy source, curated names against source evidence, category order, category limits (Analytics may have nine), primary category ownership, global identity uniqueness, artwork files/signatures and eight-card pagination prefixes.
 
-Browser verification passed all 30 initial/expanded category states at 1440px desktop, 820px tablet and 390px mobile. Confirmed AI is the default, exact tab order, one image per card, 72 globally unique names, preserved pagination prefixes, eight-card resets, and removal of the final Load More button. No failed loaded images, horizontal page overflow, clipping or following-section overlap was observed. Home and ArrowRight keyboard controls passed, and no browser console errors were observed.
+Earlier browser, ESLint and TypeScript checks passed for the 72-card version. The current data-only update removes three deployment cards and reorders Cloud; those earlier results are not a new browser test of this 69-card inventory.

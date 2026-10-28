@@ -49,7 +49,7 @@ export default function TechnologiesPage() {
       <section className={styles.hero}>
         <Container className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <p className={styles.eyebrow}>Vyntics&apos;s technology</p>
+            <p className={styles.eyebrow}>Vyntics Technology</p>
             <h1><span>Production-Ready AI,</span><span>Data, And Cloud Technology</span></h1>
             <p>We employ tried-and-true AI, data engineering, analytics, and cloud technologies to create dependable systems that address actual business issues rather than just showy demonstrations.</p>
             <p>From cloud infrastructure and analytics to clever AI solutions and data platforms, we select the best technology depending on business objectives, technical environment, scalability requirements, and long-term ownership.</p>
