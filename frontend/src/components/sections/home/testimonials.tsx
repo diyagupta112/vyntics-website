@@ -4,44 +4,9 @@ import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState, type FocusEvent } from "react";
 import { Container } from "@/components/ui/container";
+import type { Testimonial } from "@/lib/testimonials";
 import styles from "./testimonials.module.css";
 
-type Testimonial = {
-  text: string;
-  name: string;
-  role: string;
-  company?: {
-    name: string;
-    logoSrc: string;
-    logoWidth: number;
-    logoHeight: number;
-    logoClass: string;
-  };
-};
-
-const testimonials: Testimonial[] = [
-  {
-    text: "Arun and the Vyntics team transformed our data workflows. They developed a seamless, automated ingestion engine that streamlined our entire reporting process while remaining timely and budget-conscious. Their technical mastery of Cloud Data Warehousing makes them an indispensable partner.",
-    name: "Mona McCormick",
-    role: "Business & Royalty Analytics, SMGQ Law",
-    company: { name: "SMGQ Law", logoSrc: "/images/clients/smgqlogo-transparent.png", logoWidth: 1549, logoHeight: 1015, logoClass: styles.smgqLogo },
-  },
-  {
-    text: "Vyntics team seamlessly transitioned our workforce to a fully remote AWS environment. Their technical precision and reliability made a complex migration feel effortless. they will be our first choice as we expand into advanced data analytics.",
-    name: "Sergio Iturbe",
-    role: "Managing Director, ITURBE PROPERTIES",
-    company: { name: "Iturbe Properties", logoSrc: "/images/clients/iturbelogo-transparent.png", logoWidth: 1774, logoHeight: 887, logoClass: styles.iturbeLogo },
-  },
-  {
-    text: "Vyntics transformed our raw data into a powerful decision-making tool. Arun’s proactive approach to understanding our requirements resulted in comprehensive dashboards that far exceeded our expectations. Their technical intensity and commitment to excellence made them a pleasure to work with. A top-tier partner for data analytics.",
-    name: "Balazs",
-    role: "Founder & CEO, Rollout IT",
-    company: { name: "Rollout IT", logoSrc: "/images/clients/rolloutitlogo-transparent.png", logoWidth: 2035, logoHeight: 773, logoClass: styles.rolloutLogo },
-  },
-];
-
-// Reuse the three real reviews so cards can enter and exit beyond both edges.
-const carouselTestimonials = Array.from({ length: 3 }, () => testimonials).flat();
 const AUTOPLAY_INTERVAL_MS = 1000;
 
 function Arrow({ direction }: { direction: "left" | "right" }) {
@@ -53,18 +18,17 @@ function Arrow({ direction }: { direction: "left" | "right" }) {
 }
 
 function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
-  const company = testimonial.company;
-
-  if (company) {
+  if (testimonial.company_logo_url) {
     return (
       <span className={styles.companyAvatar}>
         <Image
-          alt={`${company.name} logo`}
-          className={`${styles.companyLogo} ${company.logoClass}`}
-          height={company.logoHeight}
+          alt={`${testimonial.company_name ?? testimonial.author_name} logo`}
+          className={styles.companyLogo}
+          height={192}
           sizes="7rem"
-          src={company.logoSrc}
-          width={company.logoWidth}
+          src={testimonial.company_logo_url}
+          unoptimized
+          width={448}
         />
       </span>
     );
@@ -72,13 +36,16 @@ function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
 
   return (
     <span className={styles.avatar} aria-hidden="true">
-      {testimonial.name.split(" ").map((part) => part[0]).join("")}
+      {testimonial.author_name.split(" ").map((part) => part[0]).join("")}
     </span>
   );
 }
 
-export function Testimonials() {
+export function Testimonials({ testimonials }: { testimonials: readonly Testimonial[] }) {
   const carouselRef = useRef<HTMLDivElement>(null);
+  const carouselTestimonials = testimonials.length === 0
+    ? []
+    : Array.from({ length: Math.max(testimonials.length, 6) }, (_, index) => testimonials[index % testimonials.length]);
   const reduceMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -102,7 +69,7 @@ export function Testimonials() {
   }, []);
 
   useEffect(() => {
-    if (reduceMotion || isPaused || !inView || !pageVisible) return;
+    if (reduceMotion || isPaused || !inView || !pageVisible || carouselTestimonials.length === 0) return;
 
     const autoplay = window.setInterval(() => {
       setCurrentIndex((index) => (index + 1) % carouselTestimonials.length);
@@ -139,6 +106,8 @@ export function Testimonials() {
     };
   };
 
+  if (testimonials.length === 0) return null;
+
   return (
     <section id="testimonials" className={styles.section} aria-labelledby="testimonials-title">
       <Container>
@@ -164,7 +133,7 @@ export function Testimonials() {
             {carouselTestimonials.map((testimonial, index) => {
               const position = getPosition(index);
               return (
-                <motion.article className={`${styles.card} ${position.className}`} aria-hidden={position.distance !== 0 || undefined} key={`${testimonial.name}-${index}`}
+                <motion.article className={`${styles.card} ${position.className}`} aria-hidden={position.distance !== 0 || undefined} key={`${testimonial.id}-${index}`}
                   initial={false}
                   animate={position.animation}
                   style={{ zIndex: position.zIndex }}
@@ -174,8 +143,8 @@ export function Testimonials() {
                     opacity: { duration: .2 },
                   }}>
                   <TestimonialMark testimonial={testimonial} />
-                  <blockquote>“{testimonial.text}”</blockquote>
-                  <footer>- {testimonial.name}, <span>{testimonial.role}</span></footer>
+                  <blockquote>“{testimonial.quote}”</blockquote>
+                  <footer>- {testimonial.author_name}{testimonial.author_role && <>, <span>{testimonial.author_role}</span></>}</footer>
                 </motion.article>
               );
             })}

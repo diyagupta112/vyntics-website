@@ -163,8 +163,9 @@ export function StructuredContent({
   value: JsonValue;
   variant?: ContentVariant;
 }) {
+  const isRichText = isObject(value) && typeof value.type === "string";
   const content =
-    variant === "list" ? (
+    variant === "list" && !isRichText ? (
       <ul>
         {collectListItems(value).map((item, index) =>
           renderListItem(item, `item-${index}`),
