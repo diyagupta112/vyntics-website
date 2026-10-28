@@ -3,14 +3,15 @@ import { serviceSitemap } from "@/content/service-sitemap";
 import { SITE_URL, isPrivatePath } from "@/lib/site";
 import type { SitemapPage } from "@/lib/sitemap-routes";
 
-export const revalidate = 3600;
+// Cached until the protected revalidation endpoint is triggered or a redeploy.
+export const revalidate = false;
 
 type PublicItem = { slug: string; updated_at?: string; status?: string; noindex?: boolean };
 
 async function getPublishedItems(endpoint: string): Promise<PublicItem[]> {
   const base = (process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000").replace(/\/+$/, "");
   const response = await fetch(`${base}/${endpoint}`, {
-    next: { revalidate: 3600 },
+    cache: "force-cache",
     signal: AbortSignal.timeout(5000),
   });
   if (!response.ok) throw new Error(`Sitemap content unavailable: ${endpoint}`);
