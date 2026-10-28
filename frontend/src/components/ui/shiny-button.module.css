@@ -16,7 +16,7 @@
   align-items:center;
   justify-content:center;
   gap:.65rem;
-  outline-offset:4px;
+  outline-offset:0.25rem;
   border:1px solid transparent;
   color:var(--shiny-fg);
   background:linear-gradient(var(--shiny-background),var(--shiny-background)) padding-box,
@@ -32,7 +32,7 @@
 }
 .shiny.shiny::before {
   inset:auto;
-  width:calc(100% - 6px); height:calc(100% - 6px);
+  width:calc(100% - 0.375rem); height:calc(100% - 0.375rem);
   background:radial-gradient(circle at 2px 2px,var(--shiny-fg) .5px,transparent 0);
   background-size:4px 4px;
   mask-image:conic-gradient(from calc(var(--shiny-angle) + 45deg),#000,transparent 10% 90%,#000);

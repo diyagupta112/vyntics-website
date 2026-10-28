@@ -128,7 +128,7 @@
 
 .memberCard:focus-visible {
   outline: 3px solid rgb(20 83 219 / 28%);
-  outline-offset: 4px;
+  outline-offset: 0.25rem;
 }
 
 .memberCard::before {
@@ -435,7 +435,7 @@
 .closeButton:focus-visible { outline: 3px solid rgb(20 83 219 / 28%); outline-offset: 2px; }
 
 .loadingBlock { width: 100%; margin-top: 1.5rem; display: grid; gap: 0.65rem; }
-.loadingBlock span { height: 0.7rem; border-radius: 999px; background: rgb(20 83 219 / 10%); animation: shimmer 1.2s ease-in-out infinite alternate; }
+.loadingBlock span { height: 0.7rem; border-radius: 62.4375rem; background: rgb(20 83 219 / 10%); animation: shimmer 1.2s ease-in-out infinite alternate; }
 .loadingBlock span:nth-child(2) { width: 88%; }
 .loadingBlock span:nth-child(3) { width: 62%; }
 .loadingBlock p { margin-top: 0.3rem; color: rgb(11 11 15 / 54%); font-size: 0.78rem; }

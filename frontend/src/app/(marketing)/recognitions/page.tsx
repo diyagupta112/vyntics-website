@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 import { FaqContent } from "@/components/pages/faq-content";
 import Image from "next/image";
 import { Container } from "@/components/ui/container";
-import { recognitionFaqs, recognitionBenefits } from "@/content/recognitions";
+import { recognitionBenefits } from "@/content/recognitions";
+import { getFaqs, type Faq } from "@/lib/faqs";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { FeaturedWork } from "@/components/sections/home/featured-work";
 import { getCaseStudies } from "@/lib/case-studies";
@@ -29,7 +30,8 @@ export const metadata: Metadata = {
   twitter: { card: shareImage ? "summary_large_image" : "summary", title, description, ...(shareImage ? { images: [shareImage] } : {}) },
 };
 
-const structuredData = {
+function structuredDataFor(faqs: readonly Faq[]) {
+  return {
   "@context": "https://schema.org",
   "@graph": [
     { "@type": "Organization", "@id": "https://vyntics.com/#organization", name: "Vyntics", url: "https://vyntics.com" },
@@ -38,9 +40,10 @@ const structuredData = {
       { "@type": "ListItem", position: 1, name: "Home", item: "https://vyntics.com" },
       { "@type": "ListItem", position: 2, name: "Recognitions", item: url },
     ] },
-    { "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: recognitionFaqs.filter(faq => faq.schemaReady).map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) },
+    ...(faqs.length ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: faqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) }] : []),
   ],
-};
+  };
+}
 
 function FeatureIcon({ index }: { index: number }) {
   const paths = [
@@ -76,7 +79,9 @@ async function ProductionWork() {
   return <FeaturedWork studies={studies} heading="Work We Deliver in Production" description={productionDescription} revealHeading unavailable={unavailable} />;
 }
 
-export default function RecognitionsPage() {
+export default async function RecognitionsPage() {
+  const faqs = await getFaqs("recognitions");
+  const structuredData = structuredDataFor(faqs);
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
     <div className={local.pageRhythm} data-reveal-scope="recognitions">
@@ -114,7 +119,7 @@ export default function RecognitionsPage() {
     <Suspense fallback={<FeaturedWork loading studies={[]} heading="Work We Deliver in Production" description={productionDescription} />}>
       <ProductionWork />
     </Suspense>
-    <section className={local.section} aria-labelledby="faq-title" data-reveal="faq">
+    {faqs.length ? <section className={local.section} aria-labelledby="faq-title" data-reveal="faq">
       <FaqContent
         heading={<>
           <h2 id="faq-title">FAQs</h2>
@@ -124,11 +129,11 @@ export default function RecognitionsPage() {
             <p className={faqSupport.contactHelp}>Reach out to us at <a className={local.faqEmail} href="mailto:contact@vyntics.com">contact@vyntics.com</a> and we’ll be happy to help.</p>
           </div>
         </>}
-        items={recognitionFaqs}
+        items={faqs}
         name="recognitions-faq"
         label="Recognition questions"
       />
-    </section>
+    </section> : null}
     <div className={local.contactSection} data-reveal="contact-cta">
       <ContactCta showEyebrowAccent={false} sectionId="strategy-call" />
     </div>

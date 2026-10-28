@@ -59,6 +59,7 @@ def test_team_member_lifecycle_against_configured_postgresql() -> None:
                 assert visibility_index == 0
 
                 service = TeamMemberService(session)
+                existing = len(await service.list_all())
                 for display_order in (30, 10, 20):
                     member = await service.create(TeamMemberCreateRequest(
                         name=f"Phase 10 {display_order} {run_id}",
@@ -66,7 +67,6 @@ def test_team_member_lifecycle_against_configured_postgresql() -> None:
                         bio="Temporary integration-test biography.",
                         photo_url=None,
                         linkedin_url=None,
-                        display_order=display_order,
                         member_type="team",
                     ))
                     member_ids.append(member.id)
@@ -75,7 +75,8 @@ def test_team_member_lifecycle_against_configured_postgresql() -> None:
                     member for member in await service.list_all()
                     if member.id in member_ids
                 ]
-                assert [member.display_order for member in listed] == [10, 20, 30]
+                # display_order was omitted, so each member is appended to the end in creation order.
+                assert [member.display_order for member in listed] == [existing + 1, existing + 2, existing + 3]
                 selected = await service.get_by_id(member_ids[0])
                 assert selected.photo_url is None and selected.linkedin_url is None
 

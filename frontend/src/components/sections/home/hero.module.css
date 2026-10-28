@@ -49,7 +49,7 @@
 
 .cta:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--color-primary) 45%, transparent);
-  outline-offset: 4px;
+  outline-offset: 0.25rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

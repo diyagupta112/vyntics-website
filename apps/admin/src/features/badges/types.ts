@@ -14,7 +14,7 @@ export type BadgeCreateRequest = {
   name: string;
   description: string | null;
   website_url: string | null;
-  display_order: number;
+  display_order?: number;
   is_active: boolean;
 };
 

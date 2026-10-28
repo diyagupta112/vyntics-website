@@ -6,7 +6,7 @@
 .relatedWorkflow { max-width:var(--content-width); margin:clamp(-2rem,-2vw,-1rem) auto clamp(3rem,5vw,4.5rem); padding-inline:var(--page-gutter,1.5rem); display:flex; flex-wrap:wrap; align-items:center; gap:.7rem 1.2rem; }
 .relatedWorkflow > span { color:var(--color-muted); font-size:.73rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
 .relatedWorkflow a { display:inline-flex; align-items:center; gap:.35rem; color:var(--color-primary); font-size:.84rem; font-weight:650; }
-.page a:focus-visible { outline:2px solid var(--color-primary); outline-offset:4px; }
+.page a:focus-visible { outline:2px solid var(--color-primary); outline-offset:0.25rem; }
 @media(max-width:600px) {
   .heading > p { font-size:1rem; }
   .relatedWorkflow { margin-top:-.75rem; }

@@ -11,6 +11,7 @@ from app.db.models.audit_log import AuditLog
 from app.db.models.badge import Badge
 from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.badges import BadgeRepository
+from app.services.ordering import close_gap, insertion_position, locked_update
 from app.schemas.badges import BadgeCreateRequest, BadgeUpdateRequest
 from app.storage.supabase import StorageConfigurationError, StorageError
 from app.storage.uploads import PublicImageStorage
@@ -59,11 +60,10 @@ class BadgeService:
         *,
         actor: AuthenticatedAdmin,
     ) -> Badge:
-        badge = Badge(logo_url=None, **request.model_dump(mode="json"))
+        badge = Badge(logo_url=None, **request.model_dump(mode="json", exclude={"display_order"}))
         try:
-            # New records always follow existing recognitions, even when the admin
-            # form submits its default order (0). Explicit higher positions are kept.
-            badge.display_order = max(request.display_order, await self._badges.next_display_order())
+            await self._badges.lock_ordering()
+            badge.display_order = await insertion_position(self._badges, request.display_order)
             await self._badges.add(badge)
             await self._audit_logs.add(
                 self._audit("create", badge, self._safe_context(badge), actor)
@@ -83,11 +83,21 @@ class BadgeService:
         actor: AuthenticatedAdmin,
     ) -> Badge:
         badge = await self.get_by_id(badge_id)
+        fields = request.model_dump(exclude_unset=True, mode="json")
         changed: list[str] = []
-        for field, value in request.model_dump(exclude_unset=True, mode="json").items():
-            if getattr(badge, field) != value:
-                setattr(badge, field, value)
-                changed.append(field)
+        if "display_order" in fields:
+            try:
+                badge, changed = await locked_update(self._session, self._badges, badge_id, fields)
+            except Exception as error:
+                await self._session.rollback()
+                raise BadgePersistenceError from error
+            if badge is None:
+                raise BadgeNotFoundError
+        else:
+            for field, value in fields.items():
+                if getattr(badge, field) != value:
+                    setattr(badge, field, value)
+                    changed.append(field)
         if not changed:
             return badge
         context = self._safe_context(badge)
@@ -104,16 +114,25 @@ class BadgeService:
     async def delete(self, badge_id: UUID, *, actor: AuthenticatedAdmin) -> None:
         badge = await self.get_by_id(badge_id)
         previous_url = badge.logo_url
-        audit = self._audit("delete", badge, self._safe_context(badge), actor)
         try:
+            await self._badges.lock_ordering()
+            badge = await self._badges.get_for_update(badge_id)
+            if badge is None:
+                await self._session.rollback()
+                raise BadgeNotFoundError
+            position = badge.display_order
+            audit = self._audit("delete", badge, self._safe_context(badge), actor)
             await self._badges.delete(badge)
+            await close_gap(self._badges, position)
             await self._audit_logs.add(audit)
             await self._session.commit()
+        except BadgeNotFoundError:
+            raise
         except Exception as error:
             await self._session.rollback()
             raise BadgePersistenceError from error
         if self._image_storage is not None:
-            await self._cleanup_logo(previous_url, badge.id)
+            await self._cleanup_logo(previous_url, badge_id)
 
     async def upload_logo(
         self,

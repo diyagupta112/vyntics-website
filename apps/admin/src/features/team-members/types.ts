@@ -19,7 +19,7 @@ export type TeamMemberCreateRequest = {
   bio: string;
   photo_url: null;
   linkedin_url: string | null;
-  display_order: number;
+  display_order?: number;
   member_type: TeamMemberType;
 };
 

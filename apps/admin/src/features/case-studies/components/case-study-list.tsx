@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { PageHeader } from "@/components/layout/page-header";
+import { ServiceFilter } from "@/components/forms/service-filter";
+import { serviceFilterParents, subServiceFilterChoices } from "@/lib/content/service-filter";
 import { Button } from "@/components/ui/button";
 import { caseStudiesApi } from "../api/case-studies";
 import { caseStudyErrorMessage } from "../lib/errors";
@@ -19,26 +21,23 @@ export function CaseStudyList() {
   const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
+  const [service, setService] = useState("");
+  const [subService, setSubService] = useState("");
+  const [reload, setReload] = useState(0);
   const [deleting, setDeleting] = useState<CaseStudy>();
   const [deleteBusy, setDeleteBusy] = useState(false);
   const [deleteError, setDeleteError] = useState<string>();
 
-  const load = useCallback(async () => {
+  const load = useCallback(() => {
     setLoading(true);
     setError(undefined);
-    try {
-      setCaseStudies(await caseStudiesApi.list());
-    } catch (caught) {
-      setError(caseStudyErrorMessage(caught));
-    } finally {
-      setLoading(false);
-    }
+    setReload((current) => current + 1);
   }, []);
 
   useEffect(() => {
     let active = true;
     caseStudiesApi
-      .list()
+      .list({ service, subService })
       .then((items) => {
         if (active) setCaseStudies(items);
       })
@@ -51,7 +50,7 @@ export function CaseStudyList() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [service, subService, reload]);
 
   async function confirmDelete() {
     if (!deleting || deleteBusy) return;
@@ -82,6 +81,11 @@ export function CaseStudyList() {
         }
       />
 
+      <ServiceFilter idPrefix="case-study" parentLabel="Service" childLabel="Sub-service" allParents="All Services" allChildren="All Sub-services" parents={serviceFilterParents} childOptions={subServiceFilterChoices} parent={service} child={subService} onChange={(nextService, nextSub) => {
+        if (nextService === service && nextSub === subService) return;
+        setLoading(true); setError(undefined); setService(nextService); setSubService(nextSub);
+      }} />
+
       {loading ? (
         <div aria-label="Loading Case Studies" role="status">
           <div className={styles.skeleton} />
@@ -101,8 +105,8 @@ export function CaseStudyList() {
 
       {!loading && !error && caseStudies.length === 0 ? (
         <section className={styles.empty}>
-          <h2>No Case Studies yet</h2>
-          <p>Create a draft to begin documenting client work.</p>
+          <h2>{service ? "No Case Studies match this filter" : "No Case Studies yet"}</h2>
+          <p>{service ? "Try a different service or sub-service." : "Create a draft to begin documenting client work."}</p>
           <Link className={styles.linkButton} href="/case-studies/new">
             Create your first Case Study
           </Link>

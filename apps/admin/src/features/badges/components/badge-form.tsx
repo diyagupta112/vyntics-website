@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { displayOrderHint } from "@/lib/forms/display-order";
 import { type FormEvent, useState } from "react";
 import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
 import { FormField } from "@/components/forms/form-field";
@@ -62,7 +63,7 @@ export function BadgeForm({ badge, createFlow = false, onCreated, onSaved }: Pro
       <div className={styles.sectionHeading}><h2 id="badge-information-heading">Badge details</h2><p>Manage the public label, link, order, and visibility.</p></div>
       <div className={styles.fields}>
         <FormField error={errors.name} htmlFor="badgeName" label="Name" required><Input aria-invalid={Boolean(errors.name)} id="badgeName" maxLength={200} onChange={(event) => update("name", event.target.value)} value={values.name} /></FormField>
-        <FormField error={errors.displayOrder} hint="Lower numbers appear first." htmlFor="badgeDisplayOrder" label="Display order" required><Input aria-invalid={Boolean(errors.displayOrder)} id="badgeDisplayOrder" onChange={(event) => update("displayOrder", event.target.value)} step="1" type="number" value={values.displayOrder} /></FormField>
+        <FormField error={errors.displayOrder} hint={displayOrderHint} htmlFor="badgeDisplayOrder" label="Display order"><Input min="1" aria-invalid={Boolean(errors.displayOrder)} id="badgeDisplayOrder" onChange={(event) => update("displayOrder", event.target.value)} step="1" type="number" value={values.displayOrder} /></FormField>
         <FormField error={errors.websiteUrl} htmlFor="badgeWebsiteUrl" label="Website URL"><Input aria-invalid={Boolean(errors.websiteUrl)} id="badgeWebsiteUrl" maxLength={2048} onChange={(event) => update("websiteUrl", event.target.value)} placeholder="https://example.com" type="url" value={values.websiteUrl} /></FormField>
         <FormField error={errors.isActive} htmlFor="badgeActive" label="Active" required><Select aria-invalid={Boolean(errors.isActive)} id="badgeActive" onChange={(event) => update("isActive", event.target.value)} value={values.isActive}><option value="true">Active</option><option value="false">Inactive</option></Select></FormField>
         <div className={styles.full}><FormField error={errors.description} hint="Optional. Keep it short for the badge card." htmlFor="badgeDescription" label="Description"><Textarea aria-invalid={Boolean(errors.description)} id="badgeDescription" maxLength={1000} onChange={(event) => update("description", event.target.value)} value={values.description} /></FormField></div>

@@ -1,6 +1,6 @@
 .timeline { position: relative; max-width: 62rem; margin: clamp(1.5rem, 3vw, 2.25rem) auto 0; }
 .timeline ol { display: grid; gap: 0; list-style: none; }
-.rail, .progress { position: absolute; top: 1.15rem; bottom: 1.15rem; left: 1.1rem; width: 2px; border-radius: 999px; transform-origin: top; pointer-events: none; }
+.rail, .progress { position: absolute; top: 1.15rem; bottom: 1.15rem; left: 1.1rem; width: 2px; border-radius: 62.4375rem; transform-origin: top; pointer-events: none; }
 .rail { background: color-mix(in srgb, var(--color-primary) 16%, var(--color-border)); }
 .progress { z-index: 1; background: linear-gradient(180deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 58%, #72a0ff)); }
 .timeline li { position: relative; display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: clamp(1rem, 2vw, 1.5rem); }

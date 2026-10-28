@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ApiError } from "@/lib/api/errors";
 import { blogsApi } from "../api/blogs";
@@ -82,5 +82,34 @@ describe("BlogList", () => {
     fireEvent.click(screen.getByRole("button", { name: "Delete Permanently" }));
     expect(await screen.findByText(/temporarily unavailable/)).toBeInTheDocument();
     expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+});
+
+describe("BlogList service filters", () => {
+  beforeEach(() => vi.clearAllMocks());
+  it("requests the backend with service and sub-service, never a sub-service alone, and clears an incompatible one", async () => {
+    vi.mocked(blogsApi.list).mockResolvedValue([]);
+    render(<BlogList />);
+    await waitFor(() => expect(blogsApi.list).toHaveBeenLastCalledWith({ service: "", subService: "" }));
+    expect(screen.getByLabelText("Sub-service")).toBeDisabled();
+    fireEvent.change(screen.getByLabelText("Service"), { target: { value: "ai_solutions" } });
+    await waitFor(() => expect(blogsApi.list).toHaveBeenLastCalledWith({ service: "ai_solutions", subService: "" }));
+    expect(within(screen.getByLabelText("Sub-service")).queryByRole("option", { name: "Cloud Cost Optimization" })).not.toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("Sub-service"), { target: { value: "rag_knowledge_assistants" } });
+    await waitFor(() => expect(blogsApi.list).toHaveBeenLastCalledWith({ service: "ai_solutions", subService: "rag_knowledge_assistants" }));
+    expect(await screen.findByText("No Blogs match this filter")).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("Service"), { target: { value: "data_engineering" } });
+    await waitFor(() => expect(blogsApi.list).toHaveBeenLastCalledWith({ service: "data_engineering", subService: "" }));
+    expect(screen.getByLabelText("Sub-service")).toHaveValue("");
+    fireEvent.change(screen.getByLabelText("Service"), { target: { value: "" } });
+    await waitFor(() => expect(blogsApi.list).toHaveBeenLastCalledWith({ service: "", subService: "" }));
+    expect(screen.getByLabelText("Sub-service")).toBeDisabled();
+  });
+  it("shows records returned for a membership filter and keeps the filter on an empty result", async () => {
+    vi.mocked(blogsApi.list).mockResolvedValueOnce([]).mockResolvedValueOnce([{ ...blog, related_services: ["ai_solutions", "data_engineering"] }]);
+    render(<BlogList />);
+    fireEvent.change(await screen.findByLabelText("Service"), { target: { value: "data_engineering" } });
+    expect(await screen.findByRole("heading", { name: blog.title })).toBeInTheDocument();
+    expect(screen.getByLabelText("Service")).toHaveValue("data_engineering");
   });
 });

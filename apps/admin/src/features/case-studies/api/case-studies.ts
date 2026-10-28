@@ -1,5 +1,6 @@
 import { apiClient } from "@/lib/api/client";
 
+import { serviceFilterQuery } from "@/lib/content/service-filter";
 import type {
   CaseStudy,
   CaseStudyCreateRequest,
@@ -10,8 +11,8 @@ const resourcePath = (caseStudyId: string) =>
   `/case-studies/${encodeURIComponent(caseStudyId)}`;
 
 export const caseStudiesApi = {
-  list() {
-    return apiClient.get<CaseStudy[]>("/admin/case-studies");
+  list(filter?: { service?: string; subService?: string }) {
+    return apiClient.get<CaseStudy[]>(`/admin/case-studies${serviceFilterQuery(filter?.service ?? "", filter?.subService ?? "")}`);
   },
   get(caseStudyId: string) {
     return apiClient.get<CaseStudy>(

@@ -145,7 +145,7 @@
 .submitButton:focus-visible .sendSweep { opacity: 1; animation: send-sweep 1100ms ease-in-out infinite; }
 @keyframes button-hover-bounce { 0% { transform: translateY(0); } 45% { transform: translateY(-4px); } 100% { transform: translateY(0); } }
 .submitButton:active:not(:disabled) { transform: scale(.98); }
-.submitButton:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.submitButton:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 0.25rem; }
 .submitButton[data-state="error"] { background: #b91c1c; }
 .submitContent { animation: button-content-in 240ms ease both; }
 .spinner { stroke-dasharray: 35 16; transform-origin: center; animation: button-spin 800ms linear infinite; }

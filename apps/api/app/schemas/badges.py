@@ -5,6 +5,7 @@ from typing import Annotated, TypeAlias
 from uuid import UUID
 
 from pydantic import (
+    model_validator,
     AfterValidator,
     AnyHttpUrl,
     StringConstraints,
@@ -12,6 +13,7 @@ from pydantic import (
     field_validator,
 )
 
+from app.schemas.ordering import Position, reject_explicit_null_display_order
 from app.schemas.common import RequestSchema, ResponseSchema
 
 
@@ -43,15 +45,17 @@ class BadgeCreateRequest(RequestSchema):
     name: Name
     description: Description | None = None
     website_url: WebsiteUrl | None = None
-    display_order: int
+    display_order: Position | None = None
     is_active: bool
+
+    no_null_order = model_validator(mode="after")(reject_explicit_null_display_order)
 
 
 class BadgeUpdateRequest(RequestSchema):
     name: Name | None = None
     description: Description | None = None
     website_url: WebsiteUrl | None = None
-    display_order: int | None = None
+    display_order: Position | None = None
     is_active: bool | None = None
 
     @field_validator("name", "display_order", "is_active")

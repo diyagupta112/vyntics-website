@@ -11,10 +11,10 @@
 .numbered { padding-left:4rem; }
 .stepNumber { position:absolute; top:.15rem; left:0; width:1.5rem; color:var(--color-primary); font-size:.85rem; font-weight:650; font-variant-numeric:tabular-nums; line-height:1.56; }
 .numbered .marker { left:2rem; }
-.step.numbered:not(:last-child)::before { left:calc(2rem + 5px); }
-.step:not(:last-child)::before { content:""; position:absolute; left:5px; top:14px; bottom:-7px; width:1px; background:var(--color-border); transition:background-color 180ms ease-out; }
+.step.numbered:not(:last-child)::before { left:calc(2rem + 0.3125rem); }
+.step:not(:last-child)::before { content:""; position:absolute; left:0.3125rem; top:0.875rem; bottom:-7px; width:1px; background:var(--color-border); transition:background-color 180ms ease-out; }
 .step[data-complete="true"]::before { background:var(--color-primary); }
-.marker { position:absolute; top:7px; left:0; z-index:1; width:11px; height:11px; border:1px solid var(--color-border); border-radius:50%; background:var(--color-background); transition:background-color 180ms ease-out,border-color 180ms ease-out; }
+.marker { position:absolute; top:0.4375rem; left:0; z-index:1; width:0.6875rem; height:0.6875rem; border:1px solid var(--color-border); border-radius:50%; background:var(--color-background); transition:background-color 180ms ease-out,border-color 180ms ease-out; }
 .step[data-active="true"] .marker { border-color:var(--color-primary); background:var(--color-primary); }
 .step h3 { color:var(--color-foreground); font-size:1.2rem; font-weight:650; line-height:1.3; letter-spacing:-.025em; }
 .label { margin-top:.3rem; color:var(--color-primary); font-size:.78rem; font-weight:650; line-height:1.5; }

@@ -18,16 +18,16 @@ const created = { ...lifeFixture, image_url: null, display_order: 4 };
 
 describe("Life at Vyntics create", () => {
   beforeEach(() => { vi.clearAllMocks(); vi.mocked(lifeAtVynticsApi.list).mockResolvedValue([lifeFixture, lifeFixture, lifeFixture]); });
-  it("shows only image and order, defaulting to the next position", async () => {
+  it("shows only image and a blank order, without calculating a position", () => {
     render(<LifeCreate />);
-    await waitFor(() => expect(screen.getByLabelText(/^Display order/)).toHaveValue(4));
+    expect(screen.getByLabelText(/^Display order/)).toHaveValue(null);
+    expect(lifeAtVynticsApi.list).not.toHaveBeenCalled();
     expect(screen.queryByLabelText(/Title|Description|Active/)).toBeNull();
   });
   it("creates with the order, then uploads using the returned id", async () => {
     vi.mocked(lifeAtVynticsApi.create).mockResolvedValue(created);
     vi.mocked(lifeAtVynticsApi.uploadImage).mockResolvedValue(lifeFixture);
     render(<LifeCreate />);
-    await waitFor(() => expect(screen.getByLabelText(/^Display order/)).toHaveValue(4));
     fireEvent.change(screen.getByLabelText(/^Display order/), { target: { value: "1" } });
     const file = png();
     chooseImage(file);
@@ -59,7 +59,7 @@ describe("Life at Vyntics create", () => {
     vi.mocked(lifeAtVynticsApi.create).mockRejectedValue(new ApiError({ kind: "validation", message: "Invalid input.", validationIssues: [{ location: ["body", "display_order"], message: "Order is bad.", type: "value_error" }] }));
     render(<LifeCreate />);
     chooseImage(png());
-    await waitFor(() => expect(screen.getByLabelText(/^Display order/)).toHaveValue(4));
+    fireEvent.change(screen.getByLabelText(/^Display order/), { target: { value: "3" } });
     fireEvent.click(screen.getByRole("button", { name: "Add Image" }));
     expect(await screen.findByText("Order is bad.")).toBeInTheDocument();
     expect(lifeAtVynticsApi.uploadImage).not.toHaveBeenCalled();
@@ -69,13 +69,13 @@ describe("Life at Vyntics create", () => {
     vi.mocked(lifeAtVynticsApi.uploadImage).mockRejectedValueOnce(new ApiError({ kind: "validation", message: "Unsupported image content." })).mockResolvedValueOnce(lifeFixture);
     render(<LifeCreate />);
     chooseImage(png());
-    await waitFor(() => expect(screen.getByLabelText(/^Display order/)).toHaveValue(4));
     fireEvent.click(screen.getByRole("button", { name: "Add Image" }));
     expect(await screen.findByText(/created at position 4, but the image could not be uploaded/)).toBeInTheDocument();
     expect(push).not.toHaveBeenCalled();
     fireEvent.click(screen.getByRole("button", { name: "Upload Image" }));
     await waitFor(() => expect(push).toHaveBeenCalledWith("/life-at-vyntics"));
     expect(lifeAtVynticsApi.create).toHaveBeenCalledTimes(1);
+    expect(lifeAtVynticsApi.create).toHaveBeenCalledWith({});
     expect(lifeAtVynticsApi.uploadImage).toHaveBeenCalledTimes(2);
   });
 });

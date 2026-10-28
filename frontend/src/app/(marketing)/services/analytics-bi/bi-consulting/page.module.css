@@ -25,7 +25,7 @@
 .compareHelp div > p:last-child { margin-top:.75rem; color:var(--color-muted); font-size:1rem; line-height:1.7; }
 .compareCta { color:var(--color-primary); font-size:.95rem; font-weight:650; white-space:nowrap; }
 .compareCta:hover { text-decoration:underline; text-underline-offset:.25em; }
-.page a:focus-visible { outline:2px solid var(--color-primary); outline-offset:4px; }
+.page a:focus-visible { outline:2px solid var(--color-primary); outline-offset:0.25rem; }
 @media(max-width:600px) {
   .heading > p { font-size:1rem; }
   .scopeList { grid-template-columns:1fr; }

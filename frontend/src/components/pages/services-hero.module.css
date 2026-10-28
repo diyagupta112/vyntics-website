@@ -1,4 +1,4 @@
-.hero { --service-hero-height:clamp(35.38rem,43vw,44rem); overflow:hidden; background:var(--color-background); }
+.hero { --service-hero-height:clamp(35.38rem,43vw,39.673rem); overflow:hidden; background:var(--color-background); }
 .layout { height:var(--service-hero-height); display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr); gap:2rem; align-items:center; }
 .hero.flexible { position:relative; height:var(--service-hero-height); overflow:visible; }
 .layout.flexible { height:100%; min-height:0; grid-template-rows:minmax(0,1fr); }

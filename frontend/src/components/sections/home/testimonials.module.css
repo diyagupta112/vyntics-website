@@ -18,11 +18,7 @@
 }
 
 .eyebrow {
-  padding: 0.45rem 0.8rem;
   color: var(--color-primary);
-  border: 1px solid color-mix(in srgb, var(--color-primary) 25%, var(--color-border));
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--color-primary) 7%, var(--color-surface));
   font-size: 0.7rem;
   font-weight: 750;
   letter-spacing: 0.16em;

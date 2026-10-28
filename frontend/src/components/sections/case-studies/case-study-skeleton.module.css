@@ -4,7 +4,7 @@
 .featuredTitle > span { height:clamp(1.65rem,2.5vw,2.25rem); }
 .summary { margin-top:.85rem; }
 .chips { display:flex; flex-wrap:wrap; gap:.45rem; }
-.chips > span { width:4rem; height:1.6rem; border-radius:999px; }
+.chips > span { width:4rem; height:1.6rem; border-radius:62.4375rem; }
 .controls { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-top:1.25rem; }
 .dots,.navigation { display:flex; align-items:center; gap:.55rem; }
 .dots > span { width:1.5rem; height:.35rem; }

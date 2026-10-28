@@ -74,7 +74,7 @@
 .moreButton svg { width: 1rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .moreButton:disabled { opacity: 0.6; cursor: progress; }
 .moreButton:hover:not(:disabled) { background: color-mix(in srgb, var(--color-primary) 7%, transparent); border-color: var(--color-primary); }
-.moreButton:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.moreButton:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 0.25rem; }
 
 .skeleton { background: linear-gradient(100deg, color-mix(in srgb, var(--color-primary) 6%, var(--color-surface)) 30%, color-mix(in srgb, var(--color-primary) 12%, var(--color-surface)) 50%, color-mix(in srgb, var(--color-primary) 6%, var(--color-surface)) 70%) 0 0 / 220% 100%; animation: life-shimmer 1.6s ease-in-out infinite; }
 @keyframes life-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }

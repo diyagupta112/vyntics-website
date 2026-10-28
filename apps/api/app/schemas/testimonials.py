@@ -4,8 +4,9 @@ from datetime import datetime
 from typing import Annotated, TypeAlias
 from uuid import UUID
 
-from pydantic import AnyHttpUrl, StringConstraints, field_validator
+from pydantic import AnyHttpUrl, StringConstraints, field_validator, model_validator
 
+from app.schemas.ordering import Position, reject_explicit_null_display_order
 from app.schemas.common import RequestSchema, ResponseSchema
 
 NonEmptyText: TypeAlias = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
@@ -17,8 +18,10 @@ class TestimonialCreateRequest(RequestSchema):
     author_role: NonEmptyText | None = None
     company_name: NonEmptyText | None = None
     company_logo_url: AnyHttpUrl | None = None
-    display_order: int = 0
+    display_order: Position | None = None
     is_active: bool = True
+
+    no_null_order = model_validator(mode="after")(reject_explicit_null_display_order)
 
 
 class TestimonialUpdateRequest(RequestSchema):
@@ -27,7 +30,7 @@ class TestimonialUpdateRequest(RequestSchema):
     author_role: NonEmptyText | None = None
     company_name: NonEmptyText | None = None
     company_logo_url: AnyHttpUrl | None = None
-    display_order: int | None = None
+    display_order: Position | None = None
     is_active: bool | None = None
 
     @field_validator("quote", "author_name", "display_order", "is_active")

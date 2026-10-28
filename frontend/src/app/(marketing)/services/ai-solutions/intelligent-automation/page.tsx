@@ -10,7 +10,7 @@ import { AutomationFlow } from "@/components/service-sub/automation-flow";
 import { UseCaseExplorer } from "./use-case-explorer";
 import { ServiceCaseStudyGallery } from "@/components/pages/service-case-study-gallery";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
-import { FaqContent } from "@/components/pages/faq-content";
+import { ServiceFaqContent } from "@/components/pages/service-faq-content";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { ServiceTools } from "@/components/pages/service-tools";
 import { getBlogs } from "@/lib/blogs";
@@ -19,7 +19,6 @@ import {
   automationEngagements,
   automationUseCaseDetails,
   intelligentAutomation,
-  intelligentAutomationFaqs,
   intelligentAutomationProcess,
   intelligentAutomationSections,
   intelligentAutomationTools,
@@ -110,8 +109,8 @@ export default async function IntelligentAutomationPage() {
         </Container>
       </section>
       <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="intelligent-automation-faq-title" data-reveal="intelligent-automation-faq">
-        <FaqContent heading={<><h2 id="intelligent-automation-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about intelligent document processing and AI workflow automation.</p><p className={subStyles.faqContact}>Have a question about your workflow? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
-          items={intelligentAutomationFaqs} name="intelligent-automation-faq" label="Intelligent automation questions" />
+        <ServiceFaqContent page="services/ai-solutions" subPage="intelligent-automation" heading={<><h2 id="intelligent-automation-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about intelligent document processing and AI workflow automation.</p><p className={subStyles.faqContact}>Have a question about your workflow? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
+          name="intelligent-automation-faq" label="Intelligent automation questions" />
       </section>
       <DraftCardSection section={intelligentAutomationSections.related} />
       <div data-reveal="intelligent-automation-contact"><ContactCta eyebrow="Intelligent automation services" title="Make Repetitive Workflows Easier to Manage" intro="Tell us about the documents, approvals, or recurring process steps taking time from your team. We can discuss a practical first workflow to review." submitLabel="Discuss intelligent automation" sectionId="contact" /></div>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { displayOrderHint } from "@/lib/forms/display-order";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useRef, useState } from "react";
 import { FormField } from "@/components/forms/form-field";
@@ -69,7 +70,7 @@ export function TestimonialForm({ item, onCreated, onSaved }: { item?: Testimoni
         <FormField htmlFor="testimonial-authorRole" label="Author role" error={errors.authorRole}><Input id="testimonial-authorRole" value={values.authorRole} aria-invalid={Boolean(errors.authorRole)} onChange={(event) => update("authorRole", event.target.value)} /></FormField>
         <FormField htmlFor="testimonial-companyName" label="Company name" error={errors.companyName}><Input id="testimonial-companyName" value={values.companyName} aria-invalid={Boolean(errors.companyName)} onChange={(event) => update("companyName", event.target.value)} /></FormField>
 
-        <FormField htmlFor="testimonial-displayOrder" label="Display order" error={errors.displayOrder} required hint="Lower numbers appear first."><Input id="testimonial-displayOrder" value={values.displayOrder} aria-invalid={Boolean(errors.displayOrder)} onChange={(event) => update("displayOrder", event.target.value)} type="number" step="1" inputMode="numeric" /></FormField>
+        <FormField htmlFor="testimonial-displayOrder" label="Display order" error={errors.displayOrder} hint={displayOrderHint}><Input min="1" id="testimonial-displayOrder" value={values.displayOrder} aria-invalid={Boolean(errors.displayOrder)} onChange={(event) => update("displayOrder", event.target.value)} type="number" step="1" inputMode="numeric" /></FormField>
         <FormField htmlFor="testimonial-isActive" label="Active" error={errors.isActive} required hint="Inactive records remain here but are hidden from the website."><Select id="testimonial-isActive" value={values.isActive} aria-invalid={Boolean(errors.isActive)} onChange={(event) => update("isActive", event.target.value)}><option value="true">Active</option><option value="false">Inactive</option></Select></FormField>
       </div>
     </section>

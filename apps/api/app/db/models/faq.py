@@ -3,7 +3,7 @@
 from datetime import datetime
 from uuid import UUID as UUIDValue
 
-from sqlalchemy import Boolean, CheckConstraint, DateTime, FetchedValue, Index, Integer, Text, text
+from sqlalchemy import Boolean, CheckConstraint, DateTime, FetchedValue, Index, Integer, Text, UniqueConstraint, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -18,6 +18,13 @@ class FAQ(Base):
             "page ~ '^[a-z0-9]+(-[a-z0-9]+)*(/[a-z0-9]+(-[a-z0-9]+)*)*$'",
             name="ck_faqs_page_key",
         ),
+        CheckConstraint(
+            "sub_page IS NULL OR (char_length(sub_page) BETWEEN 1 AND 255 AND "
+            "sub_page ~ '^[a-z0-9]+(-[a-z0-9]+)*(/[a-z0-9]+(-[a-z0-9]+)*)*$')",
+            name="ck_faqs_sub_page_key",
+        ),
+        CheckConstraint("display_order >= 1", name="ck_faqs_display_order_positive"),
+        UniqueConstraint("page", "sub_page", "display_order", name="uq_faqs_page_sub_page_display_order", deferrable=True, initially="DEFERRED", postgresql_nulls_not_distinct=True),
         CheckConstraint("question ~ '[^[:space:]]'", name="ck_faqs_question_not_blank"),
         CheckConstraint("answer ~ '[^[:space:]]'", name="ck_faqs_answer_not_blank"),
         Index("ix_faqs_page_active_display_order", 'page', 'is_active', 'display_order', 'created_at', 'id'),
@@ -25,9 +32,10 @@ class FAQ(Base):
 
     id: Mapped[UUIDValue] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=text("gen_random_uuid()"))
     page: Mapped[str] = mapped_column(Text, nullable=False)
+    sub_page: Mapped[str | None] = mapped_column(Text, nullable=True)
     question: Mapped[str] = mapped_column(Text, nullable=False)
     answer: Mapped[str] = mapped_column(Text, nullable=False)
-    display_order: Mapped[int] = mapped_column(Integer, nullable=False, default=0, server_default=text("0"))
+    display_order: Mapped[int] = mapped_column(Integer, nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, server_default=text("true"))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=text("now()"))
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=text("now()"), server_onupdate=FetchedValue())

@@ -10,11 +10,11 @@ import { DataPipelineArchitecture } from "@/components/service-sub/data-pipeline
 import { MigrationEngagementOptions } from "@/components/service-sub/migration-engagement-options";
 import { ServiceCaseStudyGallery } from "@/components/pages/service-case-study-gallery";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
-import { FaqContent } from "@/components/pages/faq-content";
+import { ServiceFaqContent } from "@/components/pages/service-faq-content";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { getBlogs } from "@/lib/blogs";
 import { getCaseStudies, type CaseStudyListItem } from "@/lib/case-studies";
-import { pipelineEngagements, pipelineFaqs, pipelineProcess, pipelineSections, pipelineService, pipelineToolDetails, pipelineTools } from "./content";
+import { pipelineEngagements, pipelineProcess, pipelineSections, pipelineService, pipelineToolDetails, pipelineTools } from "./content";
 import sectionStyles from "@/app/(marketing)/services/data/page.module.css";
 import cloudStyles from "@/app/(marketing)/services/cloud/page.module.css";
 import studyStyles from "@/app/(marketing)/case-studies/page.module.css";
@@ -44,7 +44,7 @@ export default async function DataPipelinesIntegrationPage() {
     <section className={cloudStyles.workBridge} aria-labelledby="pipeline-case-study-title"><Container><header className={cloudStyles.sectionHeading} data-reveal="pipeline-case-study-heading"><p className={cloudStyles.eyebrow}>Case study</p><h2 id="pipeline-case-study-title">Data Pipeline Case Study</h2><p className={cloudStyles.contentState}>Explore published work relevant to data pipelines, integration, or engineering.</p></header>{studies.length ? <ServiceCaseStudyGallery studies={studies} /> : <ReferenceEmptyState text="No published data pipeline case study is available yet. Explore other Vyntics projects in the meantime." href="/case-studies" label="View all case studies" />}</Container></section>
     <MigrationEngagementOptions sectionId="data-pipeline-engagement" title="Choose The Right Starting Point" introduction="Start with a pipeline audit, move into a scoped build, or discuss ongoing pipeline support." steps={pipelineEngagements} />
     <section className={cloudStyles.context} aria-labelledby="pipeline-insights-title"><Container><header className={cloudStyles.sectionHeading} data-reveal="pipeline-insights-heading"><p className={cloudStyles.eyebrow}>Related insights</p><h2 id="pipeline-insights-title">Data Pipeline Insights</h2></header>{insights.length ? <div className={studyStyles.otherGrid}>{insights.map(post => <RelatedBlogCard key={post.id} blog={post} variant="service" />)}</div> : <ReferenceEmptyState text="We're adding published insights about data pipelines and integration. Browse the latest from our blog in the meantime." href="/blog" label="Visit the blog" />}<Link className={cloudStyles.primaryAction} href="/blog">View all insights <span aria-hidden="true">→</span></Link></Container></section>
-    <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="pipeline-faq-title"><FaqContent heading={<><h2 id="pipeline-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about data pipeline services and integration.</p><p className={subStyles.faqContact}>Have a question about your data flows? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>} items={pipelineFaqs} name="data-pipeline-faq" label="Data pipeline questions" /></section>
+    <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="pipeline-faq-title"><ServiceFaqContent page="services/data-engineering" subPage="data-pipelines-integration" heading={<><h2 id="pipeline-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about data pipeline services and integration.</p><p className={subStyles.faqContact}>Have a question about your data flows? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>} name="data-pipeline-faq" label="Data pipeline questions" /></section>
     <DraftCardSection section={pipelineSections.related} /><div data-reveal="pipeline-contact"><ContactCta eyebrow="Data pipeline services" title="Make Your Data-Flow Work Harder" intro="Tell us where your data starts, where it needs to go, and what is getting in the way. We can discuss a practical next step." submitLabel="Discuss data pipelines" sectionId="contact" /></div>
   </div><ScrollReveals scope={`#${contentId}`} /></div>;
 }

@@ -14,8 +14,8 @@
 }
 
 .headerSpacer {
-  height: 5rem;
-  flex: 0 0 5rem;
+  height: var(--header-height);
+  flex: 0 0 var(--header-height);
 }
 
 .headerVisible {
@@ -29,7 +29,7 @@
 
 .inner {
   width: min(calc(100% - 4rem), var(--content-width-wide));
-  min-height: 5rem;
+  min-height: var(--header-height);
   margin-inline: auto;
   display: flex;
   align-items: center;
@@ -87,7 +87,7 @@
 .navItem[data-current=true] > .navLink {
   color: var(--color-primary);
   background: color-mix(in srgb, var(--color-primary) 9%, transparent);
-  border-radius: 999px;
+  border-radius: 62.4375rem;
 }
 
 .serviceRow[data-current=true],
@@ -144,7 +144,7 @@
 .hoverPill {
   position: absolute;
   inset: 0;
-  border-radius: 999px;
+  border-radius: 62.4375rem;
   background: var(--color-nav-hover);
   box-shadow: 0 3px 14px rgb(20 83 219 / 10%);
 }
@@ -256,7 +256,7 @@
   padding: 0.78rem 1.05rem;
   color: var(--color-white);
   background: var(--color-primary);
-  border-radius: 999px;
+  border-radius: 62.4375rem;
   font-size: 0.86rem;
   font-weight: 680;
   box-shadow: 0 8px 20px rgb(20 83 219 / 18%);

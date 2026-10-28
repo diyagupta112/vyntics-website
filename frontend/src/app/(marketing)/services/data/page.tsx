@@ -6,7 +6,7 @@ import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineer
 import { DataEngineeringServicesShowcase } from "@/components/pages/data-engineering-services-showcase";
 import { DataEngineeringDatabricksCredential } from "@/components/pages/data-engineering-databricks-credential";
 import { ServiceTools } from "@/components/pages/service-tools";
-import { FaqContent } from "@/components/pages/faq-content";
+import { ServiceFaqContent } from "@/components/pages/service-faq-content";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
@@ -38,14 +38,6 @@ const dataServices = [
   { number: "03", title: "Data Quality & Governance", slug: "data-quality-governance" },
 ] as const;
 
-const faqs = [
-  { question: "What do data engineering services include?", answer: "They typically cover source integration, batch and streaming pipelines, transformation, data modelling, cloud warehouses or lakehouses, quality controls, lineage, governance, monitoring, and production support. The right scope depends on the decisions and workloads the data must serve." },
-  { question: "Why does my business need data engineering?", answer: "If teams spend time exporting data, reconciling reports, waiting for refreshes, or debating which number is correct, the underlying data system is limiting the business. Data engineering creates the dependable flow, structure, and controls that reporting and AI require." },
-  { question: "How long does a data engineering project take?", answer: "A focused pipeline or assessment can take weeks; a multi-source platform or migration can take several months. A credible estimate requires the source systems, data volume, quality, security, migration risk, and operating model to be assessed first." },
-  { question: "How much do data engineering services cost?", answer: "There is no honest fixed price without scope. Cost depends on source count, data volume and velocity, platform choice, transformation complexity, security, migration, service levels, and the amount of ongoing support required." },
-  { question: "Which tools and platforms do you work with?", answer: "We work across Snowflake, Databricks, BigQuery, Amazon Redshift, Microsoft Fabric, DBT, Airflow, Kafka, Python, SQL, AWS, Azure, and Google Cloud. We select the smallest sensible stack for the workload instead of forcing one vendor everywhere." },
-  { question: "Can you work with our existing data systems?", answer: "Yes. Most engagements begin with existing databases, SaaS tools, files, APIs, reports, and partially working pipelines. We preserve useful systems, replace weak parts deliberately, and avoid a full rebuild unless the evidence justifies one." },
-] as const;
 
 function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
@@ -121,7 +113,7 @@ export default function DataEngineeringPage() {
       </section>
 
       <section className={shared.section} aria-labelledby="faq-title">
-        <FaqContent
+        <ServiceFaqContent page="services/data-engineering"
           heading={<>
             <h2 id="faq-title">Frequently Asked Questions</h2>
             <p className={faqStyles.introduction}>Practical answers about data engineering, delivery timelines, existing systems, platforms, and project scope.</p>
@@ -130,7 +122,6 @@ export default function DataEngineeringPage() {
               <p className={faqStyles.contactHelp}>Reach out to us at <a className={shared.faqEmail} href="mailto:contact@vyntics.com">contact@vyntics.com</a> and we’ll be happy to help.</p>
             </div>
           </>}
-          items={faqs}
           name="data-engineering-faq"
           label="Data engineering questions"
         />

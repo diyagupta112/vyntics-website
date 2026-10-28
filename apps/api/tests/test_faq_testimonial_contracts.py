@@ -202,6 +202,9 @@ def test_safe_database_error_responses(api):
 def test_service_crud_audits_noop_and_rollback(config):
     repo=AsyncMock(spec=config[2]);audits=AsyncMock(spec=AuditLogRepository);session=AsyncMock(spec=AsyncSession)
     existing=row(config);repo.get_by_id.return_value=existing
+    repo.count.return_value=0
+    async def locked(resource_id):return repo.get_by_id.return_value
+    repo.get_for_update.side_effect=locked
     async def add(resource):resource.id=ID
     repo.add.side_effect=add
     service=config[3](session,repository=repo,audit_repository=audits)
@@ -224,7 +227,10 @@ def test_service_crud_audits_noop_and_rollback(config):
 
 
 def test_faq_patch_page_preserves_or_changes_only_when_supplied():
-    config=CONFIGS[0];repo=AsyncMock(spec=FAQRepository);repo.get_by_id.return_value=row(config);service=FAQService(AsyncMock(spec=AsyncSession),repository=repo,audit_repository=AsyncMock(spec=AuditLogRepository))
+    config=CONFIGS[0];repo=AsyncMock(spec=FAQRepository);repo.get_by_id.return_value=row(config);repo.count.return_value=2
+    async def locked(resource_id):return repo.get_by_id.return_value
+    repo.get_for_update.side_effect=locked
+    service=FAQService(AsyncMock(spec=AsyncSession),repository=repo,audit_repository=AsyncMock(spec=AuditLogRepository))
     assert asyncio.run(service.update(ID,FAQUpdateRequest(answer='Updated answer'),actor=TEST_ADMIN)).page==PAGES[0]
     assert asyncio.run(service.update(ID,FAQUpdateRequest(page=PAGES[1]),actor=TEST_ADMIN)).page==PAGES[1]
 

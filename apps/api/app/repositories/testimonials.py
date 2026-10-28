@@ -4,9 +4,13 @@ from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models.testimonial import Testimonial
+from app.repositories.ordering import DisplayOrderRepositoryMixin
 
 
-class TestimonialRepository:
+class TestimonialRepository(DisplayOrderRepositoryMixin):
+    ordering_model = Testimonial
+    ordering_lock_key = "testimonials_display_order"
+
     def __init__(self, session: AsyncSession) -> None:
         self._session = session
 
@@ -31,3 +35,4 @@ class TestimonialRepository:
 
     async def delete(self, resource: Testimonial) -> None:
         await self._session.delete(resource)
+        await self._session.flush()

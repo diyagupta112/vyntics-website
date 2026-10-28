@@ -91,7 +91,7 @@ section.noTopRule { border-top:0; }
 .faqList summary > span:last-child { color:var(--color-primary); }
 .faqList details[open] summary > span:last-child { transform:rotate(45deg); }
 .faqList details > p { padding:0 0 1.2rem 2.4rem; color:var(--color-muted); font-size:.9rem; line-height:1.7; }
-.primaryAction:focus-visible,.secondaryAction:focus-visible,.scopeIndex a:focus-visible,.serviceDisclosure summary:focus-visible,.childOverview a:focus-visible,.processIndex button:focus-visible,.faqList summary:focus-visible { outline:3px solid var(--color-primary); outline-offset:4px; border-radius:.3rem; }
+.primaryAction:focus-visible,.secondaryAction:focus-visible,.scopeIndex a:focus-visible,.serviceDisclosure summary:focus-visible,.childOverview a:focus-visible,.processIndex button:focus-visible,.faqList summary:focus-visible { outline:3px solid var(--color-primary); outline-offset:0.25rem; border-radius:.3rem; }
 @media (prefers-reduced-motion:no-preference) { .heroCopy,.scopeIndex { animation:riseIn 650ms both; }.scopeIndex { animation-delay:90ms; }.processDetail h3 { animation:riseIn 350ms both; } }
 @media (hover:hover) { .scopeIndex a:hover { color:var(--color-primary); border-color:var(--color-primary); }.serviceDisclosure summary:hover h3,.processIndex button:hover { color:var(--color-primary); } }
 @keyframes riseIn { from { opacity:0; transform:translateY(.8rem); } to { opacity:1; transform:translateY(0); } }

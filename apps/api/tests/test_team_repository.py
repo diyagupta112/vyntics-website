@@ -55,7 +55,7 @@ def test_repository_stages_changes_without_committing() -> None:
     asyncio.run(repository.delete(member))
 
     session.add.assert_called_once_with(member)
-    assert session.flush.await_count == 2
+    assert session.flush.await_count == 3  # add, refresh and delete (delete flushes so shifts see it)
     session.refresh.assert_awaited_once_with(member)
     session.delete.assert_awaited_once_with(member)
     session.commit.assert_not_awaited()

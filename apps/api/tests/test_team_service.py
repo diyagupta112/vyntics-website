@@ -28,6 +28,12 @@ def _member() -> TeamMember:
 
 def _service(repository: TeamMemberRepository, audits: AuditLogRepository):
     session = AsyncMock(spec=AsyncSession)
+    repository.count.return_value = 0
+
+    async def _locked(resource_id):
+        return await repository.get_by_id(resource_id)
+
+    repository.get_for_update.side_effect = _locked
     return TeamMemberService(
         session, team_member_repository=repository, audit_repository=audits
     ), session

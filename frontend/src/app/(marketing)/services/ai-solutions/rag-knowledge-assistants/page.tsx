@@ -9,12 +9,12 @@ import { RagArchitecture } from "@/components/service-sub/rag-architecture";
 import { MigrationEngagementOptions } from "@/components/service-sub/migration-engagement-options";
 import { ServiceCaseStudyGallery } from "@/components/pages/service-case-study-gallery";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
-import { FaqContent } from "@/components/pages/faq-content";
+import { ServiceFaqContent } from "@/components/pages/service-faq-content";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { ServiceTools } from "@/components/pages/service-tools";
 import { getBlogs } from "@/lib/blogs";
 import { getCaseStudies, type CaseStudyListItem } from "@/lib/case-studies";
-import { ragEngagements, ragFaqs, ragProcess, ragSections, ragService, ragTools } from "./content";
+import { ragEngagements, ragProcess, ragSections, ragService, ragTools } from "./content";
 import sectionStyles from "@/app/(marketing)/services/data/page.module.css";
 import cloudStyles from "@/app/(marketing)/services/cloud/page.module.css";
 import studyStyles from "@/app/(marketing)/case-studies/page.module.css";
@@ -42,7 +42,7 @@ export default async function RagKnowledgeAssistantsPage() {
     <section className={`${cloudStyles.workBridge} ${cloudStyles.noTopRule}`} aria-labelledby="rag-case-study-title"><Container><header className={cloudStyles.sectionHeading} data-reveal="rag-case-study-heading"><p className={cloudStyles.eyebrow}>Case study</p><h2 id="rag-case-study-title">Knowledge Assistant Case Study</h2><p className={cloudStyles.contentState}>Explore published work relevant to AI assistants, RAG, or knowledge workflows.</p></header>{studies.length ? <ServiceCaseStudyGallery studies={studies} /> : <ReferenceEmptyState text="No published RAG-related case study is available yet. Explore other Vyntics projects in the meantime." href="/case-studies" label="View all case studies" />}</Container></section>
     <MigrationEngagementOptions sectionId="rag-engagement" title="Choose The Right Starting Point" introduction="Start with a focused pilot, move into a full build, or discuss ongoing support and improvement." steps={ragEngagements} />
     <section className={`${cloudStyles.context} ${cloudStyles.noTopRule}`} aria-labelledby="rag-insights-title"><Container><header className={cloudStyles.sectionHeading} data-reveal="rag-insights-heading"><p className={cloudStyles.eyebrow}>Related insights</p><h2 id="rag-insights-title">RAG And Knowledge Assistant Insights</h2></header>{insights.length ? <div className={studyStyles.otherGrid}>{insights.map(post => <RelatedBlogCard key={post.id} blog={post} variant="service" />)}</div> : <ReferenceEmptyState text="We're adding published insights about RAG and knowledge assistants. Browse the latest from our blog in the meantime." href="/blog" label="Visit the blog" />}<Link className={cloudStyles.primaryAction} href="/blog">View all insights <span aria-hidden="true">→</span></Link></Container></section>
-    <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="rag-faq-title"><FaqContent heading={<><h2 id="rag-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about AI chatbot development services and knowledge assistants.</p><p className={subStyles.faqContact}>Have a question about your AI use case? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>} items={ragFaqs} name="rag-faq" label="Knowledge assistant questions" /></section>
+    <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="rag-faq-title"><ServiceFaqContent page="services/ai-solutions" subPage="rag-knowledge-assistants" heading={<><h2 id="rag-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about AI chatbot development services and knowledge assistants.</p><p className={subStyles.faqContact}>Have a question about your AI use case? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>} name="rag-faq" label="Knowledge assistant questions" /></section>
     <DraftCardSection section={ragSections.related} /><div data-reveal="rag-contact"><ContactCta eyebrow="AI chatbot development services" title="Make your company knowledge easier to use" intro="Tell us what your teams search for, which content matters, and where an assistant could help. We can discuss a practical next step." submitLabel="Discuss your AI assistant" sectionId="contact" /></div>
   </div><ScrollReveals scope={`#${contentId}`} /></div>;
 }

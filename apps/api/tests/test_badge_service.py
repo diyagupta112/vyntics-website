@@ -45,7 +45,12 @@ def _badge(**overrides: object) -> Badge:
 def _service():
     session = AsyncMock(spec=AsyncSession)
     badges = AsyncMock(spec=BadgeRepository)
-    badges.next_display_order.return_value = 1
+    badges.count.return_value = 0
+
+    async def _locked(resource_id):
+        return await badges.get_by_id(resource_id)
+
+    badges.get_for_update.side_effect = _locked
     audits = AsyncMock(spec=AuditLogRepository)
     storage = AsyncMock(spec=PublicImageStorage)
     return (
@@ -84,7 +89,7 @@ def test_create_persists_without_logo_and_audits_safe_context() -> None:
     audit = audits.add.await_args.args[0]
     assert audit.action == "create" and audit.resource_type == "badge"
     assert audit.actor_id == TEST_ADMIN.admin_id
-    assert audit.context == {"display_order": 2, "is_active": True}
+    assert audit.context == {"display_order": 1, "is_active": True}
     assert "website" not in str(audit.context)
 
 
@@ -198,14 +203,19 @@ def test_missing_badge_and_storage_cleanup_failure_behavior() -> None:
     session.commit.assert_awaited_once_with()
 
 
-@pytest.mark.parametrize("requested, next_order, expected", [(0, 3, 3), (1, 3, 3), (2, 3, 3), (10, 3, 10)])
-def test_new_recognition_appends_after_existing_records(requested, next_order, expected) -> None:
+@pytest.mark.parametrize("requested, existing, expected", [(None, 3, 4), (1, 3, 1), (2, 3, 2), (4, 3, 4), (99, 3, 4), (1, 0, 1)])
+def test_new_recognition_appends_inserts_and_clamps(requested, existing, expected) -> None:
     service, session, badges, audits, _ = _service()
-    badges.next_display_order.return_value = next_order
-    created = asyncio.run(service.create(BadgeCreateRequest(
-        name="New recognition", display_order=requested, is_active=True,
-    ), actor=TEST_ADMIN))
+    badges.count.return_value = existing
+    body = {"name": "New recognition", "is_active": True}
+    if requested is not None:
+        body["display_order"] = requested
+    created = asyncio.run(service.create(BadgeCreateRequest(**body), actor=TEST_ADMIN))
     assert created.display_order == expected
-    badges.next_display_order.assert_awaited_once()
+    badges.lock_ordering.assert_awaited_once()
+    if expected <= existing:
+        badges.shift.assert_awaited_once_with(delta=1, first=expected)
+    else:
+        badges.shift.assert_not_awaited()
     session.commit.assert_awaited_once()
     assert audits.add.await_args.args[0].context["display_order"] == expected

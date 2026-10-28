@@ -10,5 +10,5 @@ export type Testimonial = {
   created_at: string;
   updated_at: string;
 };
-export type TestimonialCreate = Pick<Testimonial, "quote" | "author_name" | "author_role" | "company_name" | "company_logo_url" | "display_order" | "is_active">;
+export type TestimonialCreate = Pick<Testimonial, "quote" | "author_name" | "author_role" | "company_name" | "company_logo_url" | "is_active"> & { display_order?: number };
 export type TestimonialUpdate = Partial<TestimonialCreate>;

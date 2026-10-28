@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException, Response
 from app.api.dependencies.auth import AuthenticatedAdminDependency
 from app.api.dependencies.faqs import FAQServiceDependency
 from app.schemas.faqs import FAQAdminResponse, FAQCreateRequest, FAQListResponse, FAQUpdateRequest
-from app.schemas.faqs import PageKey
+from app.schemas.faqs import PageKey, SubPageKey
 from app.services.faqs import FAQNotFoundError, FAQPersistenceError
 
 router = APIRouter(prefix="/faqs", tags=["faqs"])
@@ -24,9 +24,13 @@ def _service_error() -> HTTPException:
 async def list_public_faqs(
     service: FAQServiceDependency,
     page: PageKey | None = None,
+    sub_page: SubPageKey | None = None,
 ) -> FAQListResponse:
+    if sub_page is not None and page is None:
+        raise HTTPException(status_code=422, detail="sub_page requires page.")
     try:
-        return FAQListResponse(data=await service.list_public(page=page))
+        filters = {} if sub_page is None else {"sub_page": sub_page}
+        return FAQListResponse(data=await service.list_public(page=page, **filters))
     except FAQPersistenceError:
         raise _service_error() from None
 

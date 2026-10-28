@@ -1,12 +1,13 @@
 import { apiClient } from "@/lib/api/client";
 
+import { serviceFilterQuery } from "@/lib/content/service-filter";
 import type { Blog, BlogCreateRequest, BlogUpdateRequest } from "../types";
 
 const resourcePath = (blogId: string) => `/blogs/${encodeURIComponent(blogId)}`;
 
 export const blogsApi = {
-  list() {
-    return apiClient.get<Blog[]>("/admin/blogs");
+  list(filter?: { service?: string; subService?: string }) {
+    return apiClient.get<Blog[]>(`/admin/blogs${serviceFilterQuery(filter?.service ?? "", filter?.subService ?? "")}`);
   },
   get(blogId: string) {
     return apiClient.get<Blog>(`/admin/blogs/${encodeURIComponent(blogId)}`);

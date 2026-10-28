@@ -1,0 +1,2 @@
+.filters { align-items: end; display: flex; flex-wrap: wrap; gap: var(--space-4); min-width: 0; }
+.filters > * { flex: 1 1 14rem; max-width: 20rem; min-width: 0; }

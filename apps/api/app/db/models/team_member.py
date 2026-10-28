@@ -10,6 +10,7 @@ from sqlalchemy import (
     ForeignKey,
     Integer,
     Text,
+    UniqueConstraint,
     text,
 )
 from sqlalchemy.dialects.postgresql import UUID
@@ -24,6 +25,8 @@ class TeamMember(Base):
 
     __tablename__ = "team_members"
     __table_args__ = (
+        CheckConstraint("display_order >= 1", name="ck_team_members_display_order_positive"),
+        UniqueConstraint("display_order", name="uq_team_members_display_order", deferrable=True, initially="DEFERRED"),
         CheckConstraint(
             "member_type IN ('leadership', 'team')",
             name="ck_team_members_member_type",

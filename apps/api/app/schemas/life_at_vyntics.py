@@ -7,8 +7,8 @@ from uuid import UUID
 from pydantic import Field, field_validator, model_validator
 
 from app.schemas.common import RequestSchema, ResponseSchema
+from app.schemas.ordering import Position
 
-Position: TypeAlias = Annotated[int, Field(strict=True, ge=1)]
 
 
 class LifeAtVynticsCreateRequest(RequestSchema):

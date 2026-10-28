@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { displayOrderHint } from "@/lib/forms/display-order";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
 import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
@@ -23,7 +24,7 @@ export function TeamMemberForm({ member, createFlow = false, onCreated, onSaved 
     <FormField error={errors.name} htmlFor="memberName" label="Name" required><Input aria-invalid={Boolean(errors.name)} id="memberName" onChange={(e) => update("name", e.target.value)} value={values.name}/></FormField>
     <FormField error={errors.role} htmlFor="memberRole" label="Role" required><Input aria-invalid={Boolean(errors.role)} id="memberRole" onChange={(e) => update("role", e.target.value)} value={values.role}/></FormField>
     <FormField error={errors.memberType} htmlFor="memberType" label="Member type" required><Select id="memberType" onChange={(e) => update("memberType", e.target.value as TeamMemberType)} value={values.memberType}><option value="leadership">Leadership</option><option value="team">Team</option></Select></FormField>
-    <FormField error={errors.displayOrder} hint="Lower numbers appear first." htmlFor="displayOrder" label="Display order" required><Input aria-invalid={Boolean(errors.displayOrder)} id="displayOrder" onChange={(e) => update("displayOrder", e.target.value)} type="number" value={values.displayOrder}/></FormField>
+    <FormField error={errors.displayOrder} hint={displayOrderHint} htmlFor="displayOrder" label="Display order"><Input min="1" aria-invalid={Boolean(errors.displayOrder)} id="displayOrder" onChange={(e) => update("displayOrder", e.target.value)} type="number" value={values.displayOrder}/></FormField>
     <div className={styles.full}><FormField error={errors.linkedinUrl} htmlFor="linkedinUrl" label="LinkedIn URL"><Input aria-invalid={Boolean(errors.linkedinUrl)} id="linkedinUrl" onChange={(e) => update("linkedinUrl", e.target.value)} type="url" value={values.linkedinUrl}/></FormField></div>
     <div className={styles.full}><FormField error={errors.bio} htmlFor="memberBio" label="Biography" required><Textarea aria-invalid={Boolean(errors.bio)} className={styles.bioArea} id="memberBio" onChange={(e) => update("bio", e.target.value)} value={values.bio}/></FormField></div>
   </div></section>{failure ? <div className={styles.feedback} role="alert"><strong>Changes were not saved</strong><p>{failure}</p></div> : null}{message ? <div className={styles.feedback} role="status"><strong>Saved</strong><p>{message}</p></div> : null}{createFlow ? <CreateFlowActions backHref="/team" backLabel="Cancel" busy={busy} busyLabel={isCreate ? "Creating…" : "Saving…"} primaryLabel="Next →" primaryType="submit" /> : <div className={styles.formActions}><Button disabled={busy} type="submit">{busy ? "Saving…" : isCreate ? "Create Team Member" : "Save Changes"}</Button><Link className={styles.secondaryLink} href="/team">Cancel</Link></div>}</form>;

@@ -28,6 +28,6 @@
 .compareCta { color:var(--color-primary); font-size:.95rem; font-weight:650; white-space:nowrap; }
 .compareCta:hover { text-decoration:underline; text-underline-offset:.25em; }
 .srOnly { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
-.page a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.page a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 0.25rem; }
 @media (max-width: 1000px) { .platformGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 600px) { .heading > p { font-size: 1rem; }.platformGrid { grid-template-columns: 1fr; }.platformCard { min-height: 0; }.comparison { min-width:44rem; }.comparison tbody th { width:9rem; } }

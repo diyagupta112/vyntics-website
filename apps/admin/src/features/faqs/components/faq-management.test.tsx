@@ -28,7 +28,7 @@ describe("FAQ list and page filter", () => {
     expect(screen.getByText("Active")).toBeInTheDocument(); expect(screen.getByText("Inactive")).toBeInTheDocument();
     expect(screen.getByRole("link", { name: `Edit ${faqFixture.question}` })).toHaveAttribute("href", `/faqs/${faqFixture.id}/edit`);
     expect(screen.getByRole("heading", { name: faqFixture.question }).closest("a")).toBeNull();
-    expect(faqsApi.list).toHaveBeenCalledWith(undefined, expect.any(AbortSignal));
+    expect(faqsApi.list).toHaveBeenCalledWith(undefined, expect.any(AbortSignal), undefined);
   });
   it("shows empty/error states and retry", async () => {
     vi.mocked(faqsApi.list).mockRejectedValueOnce(new ApiError({ kind: "network", message: "private" })).mockResolvedValueOnce([]);
@@ -41,10 +41,27 @@ describe("FAQ list and page filter", () => {
   it.each(faqPageOptions)("filters $label using the stable key and resets All Pages", async ({ value, label }) => {
     render(<FAQList />); await screen.findByText("No FAQs yet.");
     fireEvent.change(screen.getByLabelText("Page"), { target: { value } });
-    await waitFor(() => expect(faqsApi.list).toHaveBeenLastCalledWith(value, expect.any(AbortSignal)));
+    await waitFor(() => expect(faqsApi.list).toHaveBeenLastCalledWith(value, expect.any(AbortSignal), undefined));
     expect(await screen.findByText(`No FAQs for ${label}.`)).toBeInTheDocument();
     fireEvent.change(screen.getByLabelText("Page"), { target: { value: "" } });
-    await waitFor(() => expect(faqsApi.list).toHaveBeenLastCalledWith(undefined, expect.any(AbortSignal)));
+    await waitFor(() => expect(faqsApi.list).toHaveBeenLastCalledWith(undefined, expect.any(AbortSignal), undefined));
+  });
+  it("filters by Page then Sub-page, disables Sub-page for All Pages, and clears an incompatible Sub-page", async () => {
+    render(<FAQList />); await screen.findByText("No FAQs yet.");
+    expect(screen.getByLabelText("Sub-page")).toBeDisabled();
+    fireEvent.change(screen.getByLabelText("Page"), { target: { value: "services/ai-solutions" } });
+    await waitFor(() => expect(faqsApi.list).toHaveBeenLastCalledWith("services/ai-solutions", expect.any(AbortSignal), undefined));
+    expect(screen.getByLabelText("Sub-page")).toBeEnabled();
+    expect(within(screen.getByLabelText("Sub-page")).queryByRole("option", { name: "Cloud Cost Optimization" })).not.toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("Sub-page"), { target: { value: "rag-knowledge-assistants" } });
+    await waitFor(() => expect(faqsApi.list).toHaveBeenLastCalledWith("services/ai-solutions", expect.any(AbortSignal), "rag-knowledge-assistants"));
+    expect(await screen.findByText("No FAQs for AI Solutions / RAG & Knowledge Assistants.")).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText("Page"), { target: { value: "services/data-engineering" } });
+    await waitFor(() => expect(faqsApi.list).toHaveBeenLastCalledWith("services/data-engineering", expect.any(AbortSignal), undefined));
+    expect(screen.getByLabelText("Sub-page")).toHaveValue("");
+    fireEvent.change(screen.getByLabelText("Page"), { target: { value: "" } });
+    await waitFor(() => expect(faqsApi.list).toHaveBeenLastCalledWith(undefined, expect.any(AbortSignal), undefined));
+    expect(screen.getByLabelText("Sub-page")).toBeDisabled();
   });
   it("discards stale responses after changing the page filter", async () => {
     let finish: (items: typeof faqFixture[]) => void = () => {};
@@ -83,7 +100,7 @@ describe("FAQ create/edit", () => {
     fireEvent.change(screen.getByLabelText(/^Display order/), { target: { value: "3" } });
     fireEvent.change(screen.getByLabelText(/^Active/), { target: { value: "false" } });
     fireEvent.click(screen.getByRole("button", { name: "Create FAQ" }));
-    await waitFor(() => expect(faqsApi.create).toHaveBeenCalledWith({ page: "services/cloud-foundations", question: "New question?", answer: "New answer.", display_order: 3, is_active: false }));
+    await waitFor(() => expect(faqsApi.create).toHaveBeenCalledWith({ page: "services/cloud-foundations", sub_page: null, question: "New question?", answer: "New answer.", display_order: 3, is_active: false }));
     expect(push).toHaveBeenCalledWith(`/faqs/${faqFixture.id}/edit?created=1`);
   });
   it("loads friendly page labels on edit and submits reassignment", async () => {
@@ -107,6 +124,76 @@ describe("FAQ create/edit", () => {
     render(<FAQForm />); fillCreate(); fireEvent.click(screen.getByRole("button", { name: "Create FAQ" }));
     expect(await screen.findByText("Use a valid page key")).toBeInTheDocument();
     expect(screen.getByLabelText(/^Answer/)).toHaveValue("New answer.");
+  });
+  it("creates a main-page FAQ with sub_page null and disables Sub-page without a page", async () => {
+    vi.mocked(faqsApi.create).mockResolvedValue(faqFixture); render(<FAQForm />);
+    expect(screen.getByLabelText("Sub-page")).toBeDisabled();
+    fillCreate();
+    expect(screen.getByLabelText("Sub-page")).toHaveValue("");
+    fireEvent.click(screen.getByRole("button", { name: "Create FAQ" }));
+    await waitFor(() => expect(faqsApi.create).toHaveBeenCalledWith(expect.objectContaining({ page: "services/cloud-foundations", sub_page: null })));
+  });
+  it("offers configured sub-pages, submits the bare key, and clears it when the page changes", async () => {
+    vi.mocked(faqsApi.create).mockResolvedValue(faqFixture); render(<FAQForm />); fillCreate();
+    const sub = screen.getByLabelText("Sub-page");
+    expect(within(sub).getByRole("option", { name: "Cloud Cost Optimization" })).toHaveValue("cloud-cost-optimization");
+    expect(within(sub).queryByRole("option", { name: "AI Agents" })).not.toBeInTheDocument();
+    fireEvent.change(sub, { target: { value: "cloud-cost-optimization" } });
+    fireEvent.click(screen.getByRole("button", { name: "Create FAQ" }));
+    await waitFor(() => expect(faqsApi.create).toHaveBeenCalledWith(expect.objectContaining({ page: "services/cloud-foundations", sub_page: "cloud-cost-optimization" })));
+    fireEvent.change(screen.getByLabelText(/^Page/), { target: { value: "services/ai-solutions" } });
+    expect(screen.getByLabelText("Sub-page")).toHaveValue("");
+    expect(within(screen.getByLabelText("Sub-page")).getByRole("option", { name: "AI Agents" })).toBeInTheDocument();
+  });
+  it("disables Sub-page for a page without configured sub-pages", () => {
+    render(<FAQForm item={{ ...faqFixture, page: "company/future-page" }} />);
+    expect(screen.getByLabelText("Sub-page")).toBeDisabled();
+  });
+  it("hydrates an existing sub-page and clears it only on explicit change", async () => {
+    vi.mocked(faqsApi.update).mockResolvedValue(faqFixture);
+    render(<FAQForm item={{ ...faqFixture, sub_page: "devops-reliability" }} />);
+    expect(screen.getByLabelText("Sub-page")).toHaveValue("devops-reliability");
+    fireEvent.change(screen.getByLabelText("Sub-page"), { target: { value: "" } });
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    await waitFor(() => expect(faqsApi.update).toHaveBeenCalledWith(faqFixture.id, expect.objectContaining({ sub_page: null })));
+  });
+  it("preserves an unknown existing sub-page on save", async () => {
+    vi.mocked(faqsApi.update).mockResolvedValue(faqFixture);
+    render(<FAQForm item={{ ...faqFixture, sub_page: "some-new-page" }} />);
+    expect(screen.getByLabelText("Sub-page")).toHaveValue("some-new-page");
+    expect(screen.getByRole("option", { name: "some-new-page (existing)" })).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText(/^Question/), { target: { value: "Edited?" } });
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    await waitFor(() => expect(faqsApi.update).toHaveBeenCalledWith(faqFixture.id, expect.objectContaining({ page: "services/cloud-foundations", sub_page: "some-new-page" })));
+  });
+  it("shows the sub-page in the list", async () => {
+    vi.mocked(faqsApi.list).mockResolvedValue([{ ...faqFixture, sub_page: "cloud-cost-optimization" }]);
+    render(<FAQList />);
+    expect(await screen.findByText("Cloud Foundations / Cloud Cost Optimization")).toBeInTheDocument();
+  });
+  it("starts with a blank order, omits it on create, and rejects 0", async () => {
+    vi.mocked(faqsApi.create).mockResolvedValue(faqFixture); render(<FAQForm />); fillCreate();
+    const order = screen.getByLabelText(/^Display order/);
+    expect(order).toHaveValue(null);
+    expect(screen.getByText("Leave blank to add this item to the end.")).toBeInTheDocument();
+    fireEvent.change(order, { target: { value: "0" } });
+    fireEvent.click(screen.getByRole("button", { name: "Create FAQ" }));
+    expect(await screen.findByText("Display order must be a whole number of 1 or more.")).toBeInTheDocument();
+    expect(faqsApi.create).not.toHaveBeenCalled();
+    fireEvent.change(order, { target: { value: "" } });
+    fireEvent.click(screen.getByRole("button", { name: "Create FAQ" }));
+    await waitFor(() => expect(faqsApi.create).toHaveBeenCalledTimes(1));
+    expect(vi.mocked(faqsApi.create).mock.calls[0]![0]).not.toHaveProperty("display_order");
+  });
+  it("shows a backend display order error without retrying or changing the value", async () => {
+    vi.mocked(faqsApi.update).mockRejectedValue(new ApiError({ kind: "validation", status: 422, message: "Invalid input.", validationIssues: [{ location: ["body", "display_order"], message: "Position is not allowed.", type: "value_error" }] }));
+    render(<FAQForm item={{ ...faqFixture, display_order: 4 }} />);
+    expect(screen.getByLabelText(/^Display order/)).toHaveValue(4);
+    fireEvent.change(screen.getByLabelText(/^Display order/), { target: { value: "9" } });
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
+    expect(await screen.findByText("Position is not allowed.")).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Display order/)).toHaveValue(9);
+    expect(faqsApi.update).toHaveBeenCalledTimes(1);
   });
   it("loads Admin detail and handles missing records safely", async () => {
     vi.mocked(faqsApi.get).mockRejectedValueOnce(new ApiError({ kind: "not_found", status: 404, message: "private" })).mockResolvedValueOnce(faqFixture);

@@ -11,7 +11,7 @@
 @media(max-width:900px) { .videoFrame:has([data-preview-active="true"]) { transform:scale(1.025); } }
 @media(prefers-reduced-motion:reduce) { .videoFrame { transition:none; transform:none; } .videoFrame:has([data-preview-active="true"]) { transform:none; } }
 .projectType { pointer-events:none; }
-.card:has(a:focus-visible) { outline:3px solid var(--color-primary); outline-offset:4px; }
+.card:has(a:focus-visible) { outline:3px solid var(--color-primary); outline-offset:0.25rem; }
 .bottomControls { gap:1rem; flex-wrap:wrap; }
 .pagination { height:auto; flex-wrap:wrap; max-width:calc(100% - 11rem); align-items:center; }
 .pagination button { position:relative; margin-block:.6rem; }

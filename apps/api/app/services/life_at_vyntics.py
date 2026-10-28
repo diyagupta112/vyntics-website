@@ -12,6 +12,7 @@ from app.db.models.audit_log import AuditLog
 from app.db.models.life_at_vyntics import LifeAtVyntics
 from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.life_at_vyntics import LifeAtVynticsRepository
+from app.services.ordering import close_gap, insertion_position
 from app.schemas.life_at_vyntics import LifeAtVynticsCreateRequest, LifeAtVynticsUpdateRequest
 from app.storage.supabase import StorageConfigurationError, StorageError
 from app.storage.uploads import PublicImageStorage
@@ -52,10 +53,7 @@ class LifeAtVynticsService:
     async def create(self, request: LifeAtVynticsCreateRequest, *, actor: AuthenticatedAdmin) -> LifeAtVyntics:
         try:
             await self._resources.lock_ordering()
-            last = await self._resources.count()
-            position = last + 1 if request.display_order is None else min(request.display_order, last + 1)
-            if position <= last:
-                await self._resources.shift(delta=1, first=position)
+            position = await insertion_position(self._resources, request.display_order)
             resource = LifeAtVyntics(display_order=position)
             await self._resources.add(resource)
             await self._audit_logs.add(self._audit("create", resource, self._context(resource), actor))
@@ -112,7 +110,7 @@ class LifeAtVynticsService:
             position = resource.display_order
             audit = self._audit("delete", resource, self._context(resource), actor)
             await self._resources.delete(resource)
-            await self._resources.shift(delta=-1, first=position + 1)
+            await close_gap(self._resources, position)
             await self._audit_logs.add(audit)
             await self._session.commit()
         except LifeAtVynticsNotFoundError:

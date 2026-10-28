@@ -9,7 +9,7 @@ import { MigrationEngagementOptions } from "@/components/service-sub/migration-e
 import { BiToolComparison } from "./bi-tool-comparison";
 import { ServiceCaseStudyGallery } from "@/components/pages/service-case-study-gallery";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
-import { FaqContent } from "@/components/pages/faq-content";
+import { ServiceFaqContent } from "@/components/pages/service-faq-content";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { getBlogs } from "@/lib/blogs";
 import { getCaseStudies, type CaseStudyListItem } from "@/lib/case-studies";
@@ -17,7 +17,6 @@ import {
   biConsultingSections,
   biConsultingService,
   biEngagements,
-  biFaqs,
   biProcess,
 } from "./content";
 import sectionStyles from "@/app/(marketing)/services/data/page.module.css";
@@ -108,9 +107,8 @@ export default async function BiConsultingPage() {
       </section>
 
       <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="bi-consulting-faq-title" data-reveal="bi-consulting-faq">
-        <FaqContent
+        <ServiceFaqContent page="services/analytics-bi" subPage="bi-consulting"
           heading={<><h2 id="bi-consulting-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about BI platforms, implementation, migration, training, and ongoing support.</p><p className={subStyles.faqContact}>Have a question about your BI environment? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
-          items={biFaqs}
           name="bi-consulting-faq"
           label="BI consulting questions"
         />

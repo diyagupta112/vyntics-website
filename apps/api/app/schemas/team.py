@@ -3,8 +3,9 @@
 from typing import Annotated, Literal, TypeAlias
 from uuid import UUID
 
-from pydantic import AnyHttpUrl, StringConstraints, field_validator
+from pydantic import AnyHttpUrl, StringConstraints, field_validator, model_validator
 
+from app.schemas.ordering import Position, reject_explicit_null_display_order
 from app.schemas.common import RequestSchema, ResponseSchema
 
 
@@ -23,8 +24,10 @@ class TeamMemberCreateRequest(RequestSchema):
     bio: NonEmptyString
     photo_url: AnyHttpUrl | None = None
     linkedin_url: AnyHttpUrl | None = None
-    display_order: int
+    display_order: Position | None = None
     member_type: TeamMemberType
+
+    no_null_order = model_validator(mode="after")(reject_explicit_null_display_order)
 
 
 class TeamMemberUpdateRequest(RequestSchema):
@@ -35,7 +38,7 @@ class TeamMemberUpdateRequest(RequestSchema):
     bio: NonEmptyString | None = None
     photo_url: AnyHttpUrl | None = None
     linkedin_url: AnyHttpUrl | None = None
-    display_order: int | None = None
+    display_order: Position | None = None
     member_type: TeamMemberType | None = None
 
     @field_validator("name", "role", "bio", "display_order", "member_type")

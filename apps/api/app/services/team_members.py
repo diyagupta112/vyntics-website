@@ -11,6 +11,7 @@ from app.db.models.audit_log import AuditLog
 from app.db.models.team_member import TeamMember
 from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.team_members import TeamMemberRepository
+from app.services.ordering import close_gap, insertion_position, locked_update
 from app.schemas.team import TeamMemberCreateRequest, TeamMemberUpdateRequest
 from app.storage.supabase import StorageConfigurationError, StorageError
 from app.storage.uploads import PublicImageStorage
@@ -60,8 +61,10 @@ class TeamMemberService:
     ) -> TeamMember:
         """Create and audit a Team member in one transaction."""
 
-        team_member = TeamMember(**request.model_dump(mode="json"))
+        team_member = TeamMember(**request.model_dump(mode="json", exclude={"display_order"}))
         try:
+            await self._team_members.lock_ordering()
+            team_member.display_order = await insertion_position(self._team_members, request.display_order)
             await self._team_members.add(team_member)
             await self._audit_logs.add(
                 self._build_audit_log(
@@ -93,13 +96,22 @@ class TeamMemberService:
         previous_photo_url = team_member.photo_url
 
         changed_fields: list[str] = []
-        for field_name, value in request.model_dump(
-            exclude_unset=True,
-            mode="json",
-        ).items():
-            if getattr(team_member, field_name) != value:
-                setattr(team_member, field_name, value)
-                changed_fields.append(field_name)
+        fields = request.model_dump(exclude_unset=True, mode="json")
+        if "display_order" in fields:
+            try:
+                team_member, changed_fields = await locked_update(
+                    self._session, self._team_members, team_member_id, fields
+                )
+            except Exception:
+                await self._session.rollback()
+                raise
+            if team_member is None:
+                raise TeamMemberNotFoundError
+        else:
+            for field_name, value in fields.items():
+                if getattr(team_member, field_name) != value:
+                    setattr(team_member, field_name, value)
+                    changed_fields.append(field_name)
 
         if not changed_fields:
             return team_member
@@ -140,17 +152,26 @@ class TeamMemberService:
         if team_member is None:
             raise TeamMemberNotFoundError
 
-        audit_log = self._build_audit_log(
-            action="delete",
-            team_member=team_member,
-            context=self._safe_context(team_member),
-            actor=actor,
-        )
         previous_photo_url = team_member.photo_url
         try:
+            await self._team_members.lock_ordering()
+            team_member = await self._team_members.get_for_update(team_member_id)
+            if team_member is None:
+                await self._session.rollback()
+                raise TeamMemberNotFoundError
+            position = team_member.display_order
+            audit_log = self._build_audit_log(
+                action="delete",
+                team_member=team_member,
+                context=self._safe_context(team_member),
+                actor=actor,
+            )
             await self._team_members.delete(team_member)
+            await close_gap(self._team_members, position)
             await self._audit_logs.add(audit_log)
             await self._session.commit()
+        except TeamMemberNotFoundError:
+            raise
         except Exception:
             await self._session.rollback()
             raise

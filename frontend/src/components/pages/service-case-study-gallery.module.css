@@ -19,7 +19,7 @@
 .pagination button { width: 2rem; height: 2.75rem; display: grid; place-items: center; border: 0; background: transparent; cursor: pointer; }
 .pagination span { width: 1.5rem; height: 2px; background: var(--color-border); }
 .pagination button[aria-current] span { background: var(--color-primary); }
-.card:focus-visible, .toolbar button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.card:focus-visible, .toolbar button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 0.25rem; }
 .empty { color: var(--color-muted); line-height: 1.7; }
 @keyframes enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (hover: hover) { .card:hover img { transform: scale(1.02); } .card:hover .read span { transform: translateX(3px); } .controls button:hover { border-color: var(--color-primary); color: var(--color-primary); } }

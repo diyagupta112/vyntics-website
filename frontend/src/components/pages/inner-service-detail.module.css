@@ -59,7 +59,7 @@
 .tools h2 { max-width: 23ch; }
 .toolsIntro { max-width: 44rem; margin-top: 1rem; color: var(--color-muted); line-height: 1.7; }
 .tools ul { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .65rem; list-style: none; }
-.tools li { padding: .62rem .88rem; border: 1px solid var(--color-border); border-radius: 999px; color: var(--color-muted); background: var(--color-surface); font-size: .8rem; font-weight: 620; }
+.tools li { padding: .62rem .88rem; border: 1px solid var(--color-border); border-radius: 62.4375rem; color: var(--color-muted); background: var(--color-surface); font-size: .8rem; font-weight: 620; }
 .toolsHeading { max-width: 52rem; margin-inline: auto; text-align: center; }
 .toolsHeading h2 { max-width: none; }
 .toolsHeading .toolsIntro { margin-inline: auto; }

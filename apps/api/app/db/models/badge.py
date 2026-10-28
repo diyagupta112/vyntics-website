@@ -3,7 +3,7 @@
 from datetime import datetime
 from uuid import UUID as UUIDValue
 
-from sqlalchemy import Boolean, DateTime, FetchedValue, Index, Integer, Text, text
+from sqlalchemy import Boolean, CheckConstraint, DateTime, FetchedValue, Index, Integer, Text, UniqueConstraint, text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -15,6 +15,8 @@ class Badge(Base):
 
     __tablename__ = "badges"
     __table_args__ = (
+        CheckConstraint("display_order >= 1", name="ck_badges_display_order_positive"),
+        UniqueConstraint("display_order", name="uq_badges_display_order", deferrable=True, initially="DEFERRED"),
         Index(
             "ix_badges_active_display_order",
             "is_active",

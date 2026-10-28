@@ -71,8 +71,8 @@
 .closing .button { flex-shrink: 0; color: var(--color-primary); background: #fff; }
 .button svg, .textLink svg, .listingLink svg { width: 1rem; height: 1rem; }
 .hero svg, .section svg, .closing svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.hero a:focus-visible, .section a:focus-visible, .faq summary:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 5px; }
-.closing a:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+.hero a:focus-visible, .section a:focus-visible, .faq summary:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 0.3125rem; }
+.closing a:focus-visible { outline: 2px solid #fff; outline-offset: 0.3125rem; }
 @media (hover: hover) {
   .button:hover { background: color-mix(in srgb, var(--color-primary) 88%, #000); }
   .secondaryButton:hover { border-color: var(--color-primary); }

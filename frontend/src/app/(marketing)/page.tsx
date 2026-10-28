@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { getBlogs } from "@/lib/blogs";
+import { getTestimonials } from "@/lib/testimonials";
 import { Approach } from "@/components/sections/home/approach";
 import { BlogShowcase } from "@/components/sections/home/blog-showcase";
 import { Capabilities } from "@/components/sections/home/capabilities";
@@ -15,6 +16,10 @@ async function LatestBlogs() {
   return <BlogShowcase blogs={result.blogs.slice(0, 5)} unavailable={result.status === "error"} />;
 }
 
+async function HomeTestimonials() {
+  return <Testimonials testimonials={await getTestimonials()} />;
+}
+
 export default function HomePage() {
   return (
     <div data-home-page>
@@ -22,7 +27,7 @@ export default function HomePage() {
       <ClientMarquee />
       <Capabilities linkCards />
       <Suspense fallback={<FeaturedWork loading />}><FeaturedWork /></Suspense>
-      <Testimonials />
+      <Suspense fallback={null}><HomeTestimonials /></Suspense>
       <Approach />
       <Suspense fallback={<BlogShowcase blogs={[]} loading />}><LatestBlogs /></Suspense>
       <WhyVyntics />

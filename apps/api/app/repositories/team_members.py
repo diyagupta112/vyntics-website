@@ -6,10 +6,17 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db.models.team_member import TeamMember
+from app.repositories.ordering import DisplayOrderRepositoryMixin
 
 
-class TeamMemberRepository:
-    """Data-access operations for Team members without transaction commits."""
+class TeamMemberRepository(DisplayOrderRepositoryMixin):
+    """Data-access operations for Team members without transaction commits.
+
+    display_order is one sequence across leadership and team members.
+    """
+
+    ordering_model = TeamMember
+    ordering_lock_key = "team_members_display_order"
 
     def __init__(self, session: AsyncSession) -> None:
         self._session = session
@@ -42,3 +49,4 @@ class TeamMemberRepository:
         """Stage a hard delete for a Team member."""
 
         await self._session.delete(team_member)
+        await self._session.flush()

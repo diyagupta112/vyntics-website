@@ -11,7 +11,7 @@
 .active button { color:var(--color-foreground); font-size:clamp(1.05rem,1.4vw,1.2rem); font-weight:600; }
 .active .marker { background:var(--color-foreground); border-color:var(--color-foreground); }
 .completed .marker { border-color:var(--color-foreground); background:var(--color-foreground); }
-.timeline button:focus-visible { outline:3px solid var(--color-foreground); outline-offset:4px; border-radius:.2rem; }
+.timeline button:focus-visible { outline:3px solid var(--color-foreground); outline-offset:0.25rem; border-radius:.2rem; }
 .content { min-width:0; max-width:52rem; }
 /* The heading box stays stationary while its words receive entrance motion. */
 .content .sectionAnchor { scroll-margin-top:7rem; }

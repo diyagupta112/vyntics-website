@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { type ChangeEvent, type FormEvent, useEffect, useRef, useState } from "react";
+import { type ChangeEvent, type FormEvent, useRef, useState } from "react";
 import { FormField } from "@/components/forms/form-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,13 +25,6 @@ export function LifeCreate() {
   const [orderError, setOrderError] = useState<string>();
   const [failure, setFailure] = useState<string>();
   const [busy, setBusy] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-    // Only a starting suggestion; if the list cannot load, a blank order appends.
-    lifeAtVynticsApi.list().then((items) => { if (active) setOrder((current) => current || String(items.length + 1)); }).catch(() => undefined);
-    return () => { active = false; };
-  }, []);
 
   function choose(event: ChangeEvent<HTMLInputElement>) {
     const next = event.target.files?.[0];

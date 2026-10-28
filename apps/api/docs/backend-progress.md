@@ -1685,3 +1685,17 @@ studies (1 NULL, 1 `ai_solutions`, 1 `all`); all 10 rows were migrated, 1 of the
 
 **Not changed here:** Admin Panel and public website. `packages/types/src/related-services.json`
 still lists `all`; update it together with the Admin multi-select work.
+
+## Standard display_order behavior - 2026-10-29
+
+Badges, FAQs, Life at Vyntics, Team members and Testimonials now share one ordering contract, implemented in
+`app/repositories/ordering.py` (advisory lock, scoped count and range shifts) and `app/services/ordering.py`
+(insert, move, close-gap rules). Positions are always 1..N with no gaps or duplicates.
+
+- Create: `display_order` is optional. Omitted appends; a supplied position inserts and shifts later rows down; a position past the end is clamped to the end.
+- PATCH: a changed `display_order` shifts the rows between the old and new slot; an unchanged (or clamped-to-unchanged) position writes nothing and adds no audit entry.
+- Delete: later rows shift up.
+- Scope: one sequence per table, except FAQs, which have one sequence per (page, sub_page). Moving an FAQ to another page or sub-page closes the gap in the old scope and appends to (or inserts into) the new one.
+- Invalid values (0, negatives, decimals, booleans, strings, null) return 422.
+- Concurrency: every ordering mutation takes a per-table `pg_advisory_xact_lock`; the unique constraints are deferrable and initially deferred so a shift is valid inside one transaction.
+- Migration `20261029120000_standardize_display_order.sql` adds `display_order >= 1` checks and unique constraints (FAQs: `unique nulls not distinct (page, sub_page, display_order)`), drops the old defaults of 0, and renumbers only sequences that were not already 1..N (none were in production).

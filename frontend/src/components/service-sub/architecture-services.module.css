@@ -61,7 +61,7 @@
   font-size:.9rem;
   font-weight:650;
 }
-.cta:focus-visible { outline:2px solid var(--color-primary); outline-offset:4px; border-radius:.2rem; }
+.cta:focus-visible { outline:2px solid var(--color-primary); outline-offset:0.25rem; border-radius:.2rem; }
 @media(hover:hover) and (pointer:fine) { .card:hover { transform:translateY(-3px); border-color:color-mix(in srgb,var(--color-primary) 30%,var(--color-border)); } }
 :global(html[data-theme="dark"]) .card { --service-scrim:linear-gradient(135deg,rgba(11,11,15,.87),rgba(11,11,15,.94)); --service-copy:#e2e6ef; }
 :global(html[data-theme="dark"]) .cta { color:color-mix(in srgb,var(--color-primary) 65%,var(--color-white)); }

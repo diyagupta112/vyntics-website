@@ -30,6 +30,8 @@ export function PolicyToc({ items }: { items: readonly TocItem[] }) {
     const hash = decodeURIComponent(window.location.hash.slice(1));
     if (items.some(item => item.id === hash)) setActive(hash);
     const visible = new Set<string>();
+    // Header height (6.5rem) in pixels, so the active-section line follows the proportional page scale.
+    const headerOffset = 6.5 * parseFloat(getComputedStyle(document.documentElement).fontSize);
     // A heading becomes active once it passes below the fixed header.
     const observer = new IntersectionObserver(entries => {
       for (const entry of entries) {
@@ -39,7 +41,7 @@ export function PolicyToc({ items }: { items: readonly TocItem[] }) {
       if (!visible.size) return;
       const [top] = [...visible].sort((a, b) => document.getElementById(a)!.getBoundingClientRect().top - document.getElementById(b)!.getBoundingClientRect().top);
       setActive(top);
-    }, { rootMargin: "-104px 0px -60% 0px" });
+    }, { rootMargin: `-${headerOffset}px 0px -60% 0px` });
     headings.forEach(heading => observer.observe(heading));
     return () => observer.disconnect();
   }, [items]);

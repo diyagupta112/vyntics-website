@@ -3,8 +3,11 @@ import type { FAQ, FAQCreate, FAQUpdate } from "../types";
 
 const faqPath = (id: string) => `/faqs/${encodeURIComponent(id)}`;
 export const faqsApi = {
-  list(page?: string, signal?: AbortSignal) {
-    const query = page ? `?${new URLSearchParams({ page })}` : "";
+  list(page?: string, signal?: AbortSignal, subPage?: string) {
+    // sub_page is only meaningful within a page, so it is never sent alone.
+    const params = new URLSearchParams(page ? { page } : {});
+    if (page && subPage) params.set("sub_page", subPage);
+    const query = params.size ? `?${params}` : "";
     return apiClient.get<FAQ[]>(`/admin/faqs${query}`, { signal });
   },
   get(id: string) { return apiClient.get<FAQ>(`/admin/faqs/${encodeURIComponent(id)}`); },

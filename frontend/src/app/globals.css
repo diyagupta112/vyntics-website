@@ -37,12 +37,15 @@
      may differ, with a comment explaining why.
      --------------------------------------------------------------------------- */
 
-  /* Layout tokens */
+  /* Layout tokens. These are in rem, so they scale with the page scale set on <html> below.
+     Fluid tokens use vw only up to the 1440px reference (min(vw, value at 1440px)); above it they
+     are pure rem and follow the root scale, so spacing and type grow together. */
+  --header-height: 5rem;                              /* navbar height; the logo, nav and controls scale with it */
   --gutter: 1rem;                                     /* page side padding; grows from 1280px */
-  --content-width: clamp(72rem, 80vw, 88rem);         /* standard content: 1152px up to 1408px */
-  --content-width-wide: clamp(88rem, 90vw, 104rem);   /* intentionally wide layouts: 1408px up to 1664px */
-  --space-section: clamp(2.5rem, 4vw, 5rem);          /* vertical rhythm between sections */
-  --grid-gap: clamp(1rem, 1.6vw, 2rem);               /* standard grid and card gap */
+  --content-width: 72rem;                             /* standard content: 1152px at the 1440px design width */
+  --content-width-wide: 90rem;                        /* intentionally wide layouts: 1440px at the design width */
+  --space-section: clamp(2.5rem, min(4vw, 3.6rem), 5rem);          /* vertical rhythm between sections */
+  --grid-gap: clamp(1rem, min(1.6vw, 1.44rem), 2rem);               /* standard grid and card gap */
 
   /* Spacing scale */
   --space-1: 0.25rem;
@@ -56,17 +59,17 @@
   --space-9: 6rem;
 
   /* Typography tokens (shared headings and body copy; unique editorial text keeps its own sizes) */
-  --text-display: clamp(3rem, 5vw, 5.5rem);           /* home hero */
-  --text-h1: clamp(2.8rem, 4.5vw, 5rem);              /* primary page and service hero headings */
-  --text-h2: clamp(2rem, 3.2vw, 3.5rem);              /* section headings */
-  --text-h3: clamp(1.25rem, 1.6vw, 1.6rem);           /* sub-headings */
-  --text-body: clamp(1rem, 0.9rem + 0.25vw, 1.15rem); /* lead and hero body copy */
+  --text-display: clamp(3rem, min(5vw, 4.5rem), 5.5rem);           /* home hero */
+  --text-h1: clamp(2.8rem, min(4.5vw, 4.05rem), 5rem);              /* primary page and service hero headings */
+  --text-h2: clamp(2rem, min(3.2vw, 2.88rem), 3.5rem);              /* section headings */
+  --text-h3: clamp(1.25rem, min(1.6vw, 1.44rem), 1.6rem);           /* sub-headings */
+  --text-body: clamp(1rem, 0.9rem + min(0.25vw, 0.225rem), 1.15rem); /* lead and hero body copy */
 }
 
 /* The gutter is fluid only on desktop widths, so mobile, tablet and laptop keep their 1rem padding. */
 @media (min-width: 1280px) {
   :root {
-    --gutter: clamp(1rem, 2vw, 2rem);
+    --gutter: clamp(1rem, min(2vw, 1.8rem), 2rem);
   }
 }
 
@@ -92,6 +95,18 @@ html[data-theme="dark"] {
 
 html {
   height: 100%;
+  /* Fluid visual scale. The design reference is 90rem (1440px at the default font size), the
+     width the layout was designed at. Below it the root stays at the user's font size and the
+     normal responsive layouts apply. Above it the root grows at 0.8 of the viewport growth
+     (about 1.27x at 1920px, 1.62x at 2560px) and is capped there. Every rem dimension (text,
+     spacing, cards, icons, logo, header, containers) follows it, so the whole design scales
+     together instead of the container stretching.
+     The growth is deliberately less than 1:1. A 1:1 scale would cancel browser zoom exactly,
+     so zooming would do nothing above 1440px. At 0.8 zoom still works, and below 1440px
+     (for example 150% zoom on a 1920px screen) it has its full effect.
+     The base is a percentage so the browser's default font size setting is respected.
+     0.0089 is 0.8 x 16px / 1440px. */
+  font-size: clamp(100%, calc(100% + (100vw - 90rem) * 0.0089), 162.5%);
 }
 
 html,

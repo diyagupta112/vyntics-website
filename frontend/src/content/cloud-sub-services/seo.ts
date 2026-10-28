@@ -15,7 +15,7 @@ export function cloudSubMetadata(page: CloudSubPage): Metadata {
   };
 }
 
-export function cloudSubStructuredData(page: CloudSubPage) {
+export function cloudSubStructuredData(page: CloudSubPage, faqs: readonly { question: string; answer: string }[] = page.faqs) {
   const url = cloudSubUrl(page);
   const graph: Record<string, unknown>[] = [
     { "@type": "BreadcrumbList", itemListElement: [
@@ -26,9 +26,9 @@ export function cloudSubStructuredData(page: CloudSubPage) {
     ] },
     { "@type": "Service", "@id": `${url}#service`, name: page.name, serviceType: page.keyword, description: page.hero.introduction, url,
       provider: { "@type": "Organization", name: "Vyntics", url: "https://vyntics.com" } },
-    { "@type": "FAQPage", mainEntity: page.faqs.map(faq => ({ "@type": "Question", name: faq.question,
-      acceptedAnswer: { "@type": "Answer", text: faq.answer } })) },
   ];
+  if (faqs.length) graph.push({ "@type": "FAQPage", mainEntity: faqs.map(faq => ({ "@type": "Question", name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer } })) });
   if (page.key === "migration") graph.push({
     "@type": "HowTo", name: page.process.title, description: page.process.introduction,
     step: page.process.steps.map((step, index) => ({ "@type": "HowToStep", position: index + 1, name: step.title, text: step.description, url: `${url}#migration-process` })),

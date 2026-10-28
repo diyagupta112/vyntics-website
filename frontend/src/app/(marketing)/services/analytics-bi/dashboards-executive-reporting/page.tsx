@@ -9,11 +9,11 @@ import { DashboardsByTeam } from "./dashboards-by-team";
 import { MigrationEngagementOptions } from "@/components/service-sub/migration-engagement-options";
 import { ServiceCaseStudyGallery } from "@/components/pages/service-case-study-gallery";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
-import { FaqContent } from "@/components/pages/faq-content";
+import { ServiceFaqContent } from "@/components/pages/service-faq-content";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { getBlogs } from "@/lib/blogs";
 import { getCaseStudies, type CaseStudyListItem } from "@/lib/case-studies";
-import { dashboardEngagements, dashboardFaqs, dashboardProcess, dashboardSections, dashboardService, dashboardTeams } from "./content";
+import { dashboardEngagements, dashboardProcess, dashboardSections, dashboardService, dashboardTeams } from "./content";
 import sectionStyles from "@/app/(marketing)/services/data/page.module.css";
 import cloudStyles from "@/app/(marketing)/services/cloud/page.module.css";
 import studyStyles from "@/app/(marketing)/case-studies/page.module.css";
@@ -82,8 +82,7 @@ export default async function DashboardExecutiveReportingPage() {
         </Container>
       </section>
       <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="dashboard-reporting-faq-title" data-reveal="dashboard-reporting-faq">
-        <FaqContent heading={<><h2 id="dashboard-reporting-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about dashboard development and executive reporting.</p><p className={subStyles.faqContact}>Have a question about your reporting needs? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
-          items={dashboardFaqs} name="dashboard-reporting-faq" label="Dashboard development questions" />
+        <ServiceFaqContent page="services/analytics-bi" subPage="dashboards-executive-reporting" heading={<><h2 id="dashboard-reporting-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about dashboard development and executive reporting.</p><p className={subStyles.faqContact}>Have a question about your reporting needs? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>} name="dashboard-reporting-faq" label="Dashboard development questions" />
       </section>
       <DraftCardSection section={dashboardSections.relatedServices} />
       <div data-reveal="dashboard-reporting-contact"><ContactCta eyebrow="Dashboard development" title="Make Your Reporting Work Harder For Your Team" intro="Tell us about the reports your team relies on and the decisions you want them to support. We can discuss a practical next step for your dashboards and executive reporting." submitLabel="Discuss dashboard reporting" sectionId="contact" /></div>

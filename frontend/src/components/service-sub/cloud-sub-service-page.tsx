@@ -10,6 +10,7 @@ import { ServiceTools } from "@/components/pages/service-tools";
 import { ServiceCaseStudyGallery } from "@/components/pages/service-case-study-gallery";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
 import { FaqContent } from "@/components/pages/faq-content";
+import { getFaqs } from "@/lib/faqs";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { cloudSubPages, type CloudSubPageKey } from "@/content/cloud-sub-services/pages";
 import { getCloudReferences, resolveCloudReferenceSections } from "@/content/cloud-sub-services/references";
@@ -26,7 +27,7 @@ import { costEngagementDetails, devopsEngagementDetails } from "./migration-enga
 /** All copy and page ordering are supplied by the Cloud sub-service data. */
 export async function CloudSubServicePage({ pageKey }: { pageKey: CloudSubPageKey }) {
   const page = cloudSubPages[pageKey];
-  const references = await getCloudReferences();
+  const [references, faqs] = await Promise.all([getCloudReferences(), getFaqs("services/cloud-foundations", page.slug)]);
   const { studies, insights, studiesState, insightsState } = resolveCloudReferenceSections(references, pageKey, { strictRelevance: pageKey === "devops" || pageKey === "cost" });
   const headings = cloudReferenceHeadings[pageKey];
   const studySection = cloudReferenceSections.caseStudies;
@@ -40,7 +41,7 @@ export async function CloudSubServicePage({ pageKey }: { pageKey: CloudSubPageKe
     })
     : undefined;
   return <div className={styles.page} data-cloud-sub-page={pageKey}>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cloudSubStructuredData(page)).replace(/</g, "\\u003c") }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(cloudSubStructuredData(page, faqs)).replace(/</g, "\\u003c") }} />
     <CloudSubHero page={page} opticalAlign showOutcome={false} />
     <div id={contentId}>
       <DraftCardSection section={page.signs} variant={pageKey === "migration" || pageKey === "devops" || pageKey === "cost" ? "diagnostic" : "signs"} signalEyebrow={pageKey === "devops" ? "DevOps signals" : "Cloud signals"} />
@@ -72,10 +73,9 @@ export async function CloudSubServicePage({ pageKey }: { pageKey: CloudSubPageKe
           {insights.length ? <div className={studyStyles.otherGrid}>{insights.map(post => <RelatedBlogCard key={post.id} blog={post} variant="service" />)}</div> : <ReferenceEmptyState text={insightSection.emptyText} link={insightSection.link} />}
         </Container>
       </section>
-      <section className={`${sectionStyles.section} ${styles.section}`} aria-labelledby={`${pageKey}-faq-title`} data-reveal={`${pageKey}-faq`}>
-        <FaqContent heading={<><h2 id={`${pageKey}-faq-title`}>Frequently Asked Questions</h2><p className={styles.faqIntro}>Practical answers about {page.name.toLowerCase()}.</p><p className={styles.faqContact}>Have a question about your environment? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
-          items={page.faqs} name={`${pageKey}-faq`} label={`${page.name} questions`} />
-      </section>
+      {faqs.length ? <section className={`${sectionStyles.section} ${styles.section}`} aria-labelledby={`${pageKey}-faq-title`} data-reveal={`${pageKey}-faq`}>
+          <FaqContent heading={<><h2 id={`${pageKey}-faq-title`}>Frequently Asked Questions</h2><p className={styles.faqIntro}>Practical answers about {page.name.toLowerCase()}.</p><p className={styles.faqContact}>Have a question about your environment? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>} items={faqs} name={`${pageKey}-faq`} label={`${page.name} questions`} />
+      </section> : null}
       <DraftCardSection section={page.related} />
       <div data-reveal={`${pageKey}-contact`}><ContactCta eyebrow={page.name} title={page.contact.title} intro={page.contact.introduction} submitLabel={page.contact.submitLabel} sectionId="contact" /></div>
     </div>

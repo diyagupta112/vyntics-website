@@ -33,7 +33,7 @@
 .errorActions .primaryButton { margin-top: 0; }
 .primaryButton:focus-visible,
 .backLink:focus-visible,
-.textLink:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-primary) 30%, transparent); outline-offset: 4px; }
+.textLink:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-primary) 30%, transparent); outline-offset: 0.25rem; }
 @media (hover: hover) and (pointer: fine) {
   .primaryButton:hover svg { transform: translateX(0.2rem); }
   .backLink:hover svg,

@@ -8,13 +8,13 @@ import { DraftCardSection } from "@/components/service-sub/draft-sections";
 import { MigrationEngagementOptions } from "@/components/service-sub/migration-engagement-options";
 import { ServiceCaseStudyGallery } from "@/components/pages/service-case-study-gallery";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
-import { FaqContent } from "@/components/pages/faq-content";
+import { ServiceFaqContent } from "@/components/pages/service-faq-content";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { ServiceTools } from "@/components/pages/service-tools";
 import { AgentTeams } from "@/app/(marketing)/services/ai-solutions/ai-agents/agent-teams";
 import { getBlogs } from "@/lib/blogs";
 import { getCaseStudies, type CaseStudyListItem } from "@/lib/case-studies";
-import { aiSalesCapabilities, salesAutomationService, salesEngagements, salesFaqs, salesProcess, salesSections, salesTools } from "./content";
+import { aiSalesCapabilities, salesAutomationService, salesEngagements, salesProcess, salesSections, salesTools } from "./content";
 import sectionStyles from "@/app/(marketing)/services/data/page.module.css";
 import cloudStyles from "@/app/(marketing)/services/cloud/page.module.css";
 import studyStyles from "@/app/(marketing)/case-studies/page.module.css";
@@ -86,8 +86,7 @@ export default async function SalesAutomationRevenueAnalyticsPage() {
         </Container>
       </section>
       <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="sales-automation-faq-title" data-reveal="sales-automation-faq">
-        <FaqContent heading={<><h2 id="sales-automation-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about sales automation and revenue analytics.</p><p className={subStyles.faqContact}>Have a question about your sales process? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>}
-          items={salesFaqs} name="sales-automation-faq" label="Sales automation questions" />
+        <ServiceFaqContent page="services/crm-revenue-ops" subPage="sales-automation-revenue-analytics" heading={<><h2 id="sales-automation-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about sales automation and revenue analytics.</p><p className={subStyles.faqContact}>Have a question about your sales process? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>} name="sales-automation-faq" label="Sales automation questions" />
       </section>
       <DraftCardSection section={salesSections.related} />
       <div data-reveal="sales-automation-contact"><ContactCta eyebrow="Sales automation services" title="Build A Clearer Sales Process And Revenue View" intro="Tell us where manual work, follow-up, or pipeline visibility is getting in the way. We can discuss a practical next step for your sales automation and revenue analytics." submitLabel="Discuss sales automation" sectionId="contact" /></div>

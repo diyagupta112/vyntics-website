@@ -67,7 +67,7 @@
 .contactIntro > div { display:flex; align-items:center; justify-content:space-between; gap:2rem; }
 .contactIntro p:not(.eyebrow) { margin-top:.75rem; max-width:42rem; color:var(--color-muted); line-height:1.6; }
 .contactAction { flex-shrink:0; background:var(--color-primary); color:var(--color-white); }
-.heroAction:focus-visible,.otherCard:focus-visible,.contactAction:focus-visible { outline:3px solid var(--color-primary); outline-offset:4px; }
+.heroAction:focus-visible,.otherCard:focus-visible,.contactAction:focus-visible { outline:3px solid var(--color-primary); outline-offset:0.25rem; }
 @media(hover:hover) { .otherCard:hover { background:var(--color-surface); } .otherCard:hover img { transform:scale(1.02); } }
 @media(max-width:1000px) { .otherGrid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:720px) { .sectionHeading,.contactIntro > div { flex-direction:column; align-items:flex-start; gap:1rem; } .featuredGrid,.otherGrid { grid-template-columns:1fr; } }
@@ -92,12 +92,12 @@
 .showcaseControls { display:flex; justify-content:flex-end; align-items:center; margin-top:1rem; color:var(--color-muted); font-size:.8rem; }
 .showcaseControls > div { display:flex; gap:.5rem; }
 .showcaseControls button { width:2.75rem; height:2.75rem; border:1px solid var(--color-border); border-radius:50%; background:var(--color-surface); color:var(--color-foreground); cursor:pointer; }
-.showcaseControls button:focus-visible,.showcaseAction:focus-visible { outline:3px solid var(--color-primary); outline-offset:4px; }
+.showcaseControls button:focus-visible,.showcaseAction:focus-visible { outline:3px solid var(--color-primary); outline-offset:0.25rem; }
 @keyframes showcaseReveal { from { opacity:0; } to { opacity:1; } }
 @media(max-width:900px) { .showcaseSlide { grid-template-columns:1fr; } }
 @media(prefers-reduced-motion:reduce) { .showcaseSlide { animation:none; } }
 
-.showcaseSlide:has(.showcaseAction:focus-visible) { outline:3px solid var(--color-primary); outline-offset:4px; }
+.showcaseSlide:has(.showcaseAction:focus-visible) { outline:3px solid var(--color-primary); outline-offset:0.25rem; }
 
 .listingControls { display:flex; align-items:end; gap:1rem; margin-top:1.75rem; }
 .searchField { flex:1; min-width:0; }

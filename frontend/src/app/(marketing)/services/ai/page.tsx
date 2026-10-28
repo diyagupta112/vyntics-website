@@ -6,7 +6,7 @@ import { AiSolutionsServicesShowcase } from "@/components/pages/ai-solutions-ser
 import { DataEngineeringProcessTimeline } from "@/components/pages/data-engineering-process-timeline";
 import { DataEngineeringDatabricksCredential } from "@/components/pages/data-engineering-databricks-credential";
 import { ServiceTools } from "@/components/pages/service-tools";
-import { FaqContent } from "@/components/pages/faq-content";
+import { ServiceFaqContent } from "@/components/pages/service-faq-content";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { Container } from "@/components/ui/container";
@@ -46,16 +46,6 @@ const process = [
   { title: "Improve", visual: "Monitor and improve", description: "Track real usage, failures, quality drift, content freshness, spend, feedback, and controlled model changes." },
 ] as const;
 
-const faqs = [
-  { question: "What do AI development services include?", answer: "They can include AI consulting, grounded knowledge assistants, tool-using agents, intelligent document processing, workflow automation, generative AI features, and LLM integrations inside existing software. The right scope starts with a specific business decision or task, not a model." },
-  { question: "How do we know if our business is ready for AI?", answer: "You need a defined use case, an accountable owner, usable data or knowledge, access to the systems involved, and a measurable outcome. If those basics are missing, the honest first step is readiness work-not an AI build." },
-  { question: "How long does it take to build an AI solution?", answer: "A focused assessment or pilot can take a few weeks. A production system with integrations, permissions, evaluation, security, and operational controls takes longer. Any precise estimate before reviewing the workflow and data is guesswork." },
-  { question: "How much does AI development cost?", answer: "Cost depends on data readiness, integrations, security requirements, evaluation depth, user volume, and whether the work is a pilot or a production system. We scope those variables before proposing a budget instead of quoting a meaningless flat price." },
-  { question: "Is our data safe when using AI?", answer: "It can be, when identity, permissions, retrieval boundaries, provider data policies, encryption, logging, retention, and deployment architecture are designed correctly. Security cannot be bolted on after sensitive sources are connected." },
-  { question: "Which AI models do you work with?", answer: "We work with OpenAI and Azure OpenAI, Anthropic Claude, Google Gemini, and appropriate open-source models, plus retrieval and orchestration platforms such as Pinecone, Qdrant, LangGraph, and LangChain." },
-  { question: "How do you reduce hallucinations?", answer: "We constrain models with approved evidence, retrieval and reranking, structured outputs, validation rules, explicit refusals, citations, representative evaluation sets, and human review where an incorrect result carries material risk." },
-  { question: "How do we know whether the AI is delivering value?", answer: "We agree on operating measures before implementation: task success, answer and citation quality, manual work removed, exception rates, cycle time, latency, adoption, and cost. Model benchmarks alone do not prove business value." },
-] as const;
 
 const openAiCredential = {
   badgeName: "OpenAI Select Partner",
@@ -137,7 +127,7 @@ export default function AiSolutionsPage() {
       </section>
 
       <section className={shared.section} aria-labelledby="faq-title">
-        <FaqContent
+        <ServiceFaqContent page="services/ai-solutions"
           heading={<>
             <h2 id="faq-title">Frequently Asked Questions</h2>
             <p className={faqStyles.introduction}>Practical answers about AI use cases, delivery timelines, data security, model choices, and measurable value.</p>
@@ -146,7 +136,6 @@ export default function AiSolutionsPage() {
               <p className={faqStyles.contactHelp}>Reach out to us at <a className={shared.faqEmail} href="mailto:contact@vyntics.com">contact@vyntics.com</a> and we’ll be happy to help.</p>
             </div>
           </>}
-          items={faqs}
           name="ai-solutions-faq"
           label="AI solutions questions"
         />

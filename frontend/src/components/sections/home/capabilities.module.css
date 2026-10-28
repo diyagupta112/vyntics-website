@@ -50,7 +50,7 @@
 
 .showcaseLink:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--color-primary) 55%, #fff);
-  outline-offset: 4px;
+  outline-offset: 0.25rem;
 }
 
 .showcase {

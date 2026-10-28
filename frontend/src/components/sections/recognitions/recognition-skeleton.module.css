@@ -5,7 +5,7 @@
 .title > span { height:clamp(1.35rem,2vw,1.75rem); }
 .description { gap:.9rem; }
 .controls { display:flex; align-items:center; gap:.75rem; margin-top:1rem; }
-.control { width:44px; height:44px; border-radius:.65rem; }
+.control { width:2.75rem; height:2.75rem; border-radius:.65rem; }
 .feedCards { display:grid; gap:var(--tile-gap); }
 .feedCopy { flex:1; min-width:0; }
 @media(max-width:700px) { .cards { grid-template-columns:1fr; } .cards > :nth-child(n+2) { display:none; } }

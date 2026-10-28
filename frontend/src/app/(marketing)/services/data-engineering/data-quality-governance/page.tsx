@@ -8,12 +8,12 @@ import { DraftCardSection } from "@/components/service-sub/draft-sections";
 import { MigrationEngagementOptions } from "@/components/service-sub/migration-engagement-options";
 import { ServiceCaseStudyGallery } from "@/components/pages/service-case-study-gallery";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
-import { FaqContent } from "@/components/pages/faq-content";
+import { ServiceFaqContent } from "@/components/pages/service-faq-content";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { ServiceTools } from "@/components/pages/service-tools";
 import { getBlogs } from "@/lib/blogs";
 import { getCaseStudies, type CaseStudyListItem } from "@/lib/case-studies";
-import { qualityEngagements, qualityFaqs, qualityProcess, qualitySections, qualityService, qualityTools } from "./content";
+import { qualityEngagements, qualityProcess, qualitySections, qualityService, qualityTools } from "./content";
 import sectionStyles from "@/app/(marketing)/services/data/page.module.css";
 import cloudStyles from "@/app/(marketing)/services/cloud/page.module.css";
 import studyStyles from "@/app/(marketing)/case-studies/page.module.css";
@@ -41,7 +41,7 @@ export default async function DataQualityGovernancePage() {
     <section className={cloudStyles.workBridge} aria-labelledby="quality-case-study-title"><Container><header className={cloudStyles.sectionHeading} data-reveal="quality-case-study-heading"><p className={cloudStyles.eyebrow}>Case study</p><h2 id="quality-case-study-title">Data Quality Case Study</h2><p className={cloudStyles.contentState}>Explore published work relevant to data quality, governance, or trusted data.</p></header>{studies.length ? <ServiceCaseStudyGallery studies={studies} /> : <ReferenceEmptyState text="No published data quality case study is available yet. Explore other Vyntics projects in the meantime." href="/case-studies" label="View all case studies" />}</Container></section>
     <MigrationEngagementOptions sectionId="quality-engagement" title="Choose The Right Starting Point" introduction="Start with a data quality audit, establish governance, or discuss ongoing monitoring and support." steps={qualityEngagements} />
     <section className={cloudStyles.context} aria-labelledby="quality-insights-title"><Container><header className={cloudStyles.sectionHeading} data-reveal="quality-insights-heading"><p className={cloudStyles.eyebrow}>Related insights</p><h2 id="quality-insights-title">Data Quality And Governance Insights</h2></header>{insights.length ? <div className={studyStyles.otherGrid}>{insights.map(post => <RelatedBlogCard key={post.id} blog={post} variant="service" />)}</div> : <ReferenceEmptyState text="We're adding published insights about data quality and governance. Browse the latest from our blog in the meantime." href="/blog" label="Visit the blog" />}<Link className={cloudStyles.primaryAction} href="/blog">View all insights <span aria-hidden="true">→</span></Link></Container></section>
-    <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="quality-faq-title"><FaqContent heading={<><h2 id="quality-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about data quality services, governance, and observability.</p><p className={subStyles.faqContact}>Have a question about your data controls? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>} items={qualityFaqs} name="quality-faq" label="Data quality questions" /></section>
+    <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="quality-faq-title"><ServiceFaqContent page="services/data-engineering" subPage="data-quality-governance" heading={<><h2 id="quality-faq-title">Frequently Asked Questions</h2><p className={subStyles.faqIntro}>Answers about data quality services, governance, and observability.</p><p className={subStyles.faqContact}>Have a question about your data controls? <a href="mailto:contact@vyntics.com">Contact our team</a>.</p></>} name="quality-faq" label="Data quality questions" /></section>
     <DraftCardSection section={qualitySections.related} /><div data-reveal="quality-contact"><ContactCta eyebrow="Data quality services" title="Build Trust Into Your Data" intro="Tell us where data quality, ownership, or access is getting in the way. We can discuss a practical next step." submitLabel="Discuss data quality" sectionId="contact" /></div>
   </div><ScrollReveals scope={`#${contentId}`} /></div>;
 }

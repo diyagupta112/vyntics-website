@@ -10,6 +10,7 @@ from app.db.models.audit_log import AuditLog
 from app.db.models.testimonial import Testimonial
 from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.testimonials import TestimonialRepository
+from app.services.ordering import close_gap, insertion_position, locked_update
 from app.schemas.testimonials import TestimonialCreateRequest, TestimonialUpdateRequest
 
 from app.storage.supabase import StorageConfigurationError, StorageError
@@ -55,8 +56,10 @@ class TestimonialService:
         return resource
 
     async def create(self, request: TestimonialCreateRequest, *, actor: AuthenticatedAdmin) -> Testimonial:
-        resource = Testimonial(**request.model_dump(mode="json"))
+        resource = Testimonial(**request.model_dump(mode="json", exclude={"display_order"}))
         try:
+            await self._resources.lock_ordering()
+            resource.display_order = await insertion_position(self._resources, request.display_order)
             await self._resources.add(resource)
             await self._audit_logs.add(self._audit("create", resource, self._context(resource), actor))
             await self._resources.refresh(resource)
@@ -69,11 +72,21 @@ class TestimonialService:
     async def update(self, resource_id: UUID, request: TestimonialUpdateRequest, *, actor: AuthenticatedAdmin) -> Testimonial:
         resource = await self.get_by_id(resource_id)
         previous_url = resource.company_logo_url
+        fields = request.model_dump(exclude_unset=True, mode="json")
         changed = []
-        for field, value in request.model_dump(exclude_unset=True, mode="json").items():
-            if getattr(resource, field) != value:
-                setattr(resource, field, value)
-                changed.append(field)
+        if "display_order" in fields:
+            try:
+                resource, changed = await locked_update(self._session, self._resources, resource_id, fields)
+            except Exception as error:
+                await self._session.rollback()
+                raise TestimonialPersistenceError from error
+            if resource is None:
+                raise TestimonialNotFoundError
+        else:
+            for field, value in fields.items():
+                if getattr(resource, field) != value:
+                    setattr(resource, field, value)
+                    changed.append(field)
         if not changed:
             return resource
         context = self._context(resource)
@@ -92,11 +105,20 @@ class TestimonialService:
     async def delete(self, resource_id: UUID, *, actor: AuthenticatedAdmin) -> None:
         resource = await self.get_by_id(resource_id)
         previous_url = resource.company_logo_url
-        audit = self._audit("delete", resource, self._context(resource), actor)
         try:
+            await self._resources.lock_ordering()
+            resource = await self._resources.get_for_update(resource_id)
+            if resource is None:
+                await self._session.rollback()
+                raise TestimonialNotFoundError
+            position = resource.display_order
+            audit = self._audit("delete", resource, self._context(resource), actor)
             await self._resources.delete(resource)
+            await close_gap(self._resources, position)
             await self._audit_logs.add(audit)
             await self._session.commit()
+        except TestimonialNotFoundError:
+            raise
         except Exception as error:
             await self._session.rollback()
             raise TestimonialPersistenceError from error

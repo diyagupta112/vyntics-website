@@ -28,7 +28,7 @@
   text-wrap: pretty;
 }
 .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; }
-.actions a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 5px; }
+.actions a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 0.3125rem; }
 .visual { min-width: 0; }
 @media (max-width: 1050px) and (min-width: 761px) {
   .layout { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 1.75rem; }
@@ -51,9 +51,9 @@
 
 @media(min-width:1051px) {
   .content {
-    --eyebrow-heading-gap:20px;
-    --heading-intro-gap:24px;
-    --intro-actions-gap:32px;
+    --eyebrow-heading-gap:1.25rem;
+    --heading-intro-gap:1.5rem;
+    --intro-actions-gap:2rem;
     align-self:center;
   }
   .content h1 { margin-top:var(--eyebrow-heading-gap); font-size:clamp(2.7rem,5.076vw,4.59rem); line-height:1.1; }

@@ -44,4 +44,13 @@ describe("caseStudiesApi", () => {
     expect(options?.body).toBeInstanceOf(FormData);
     expect((options?.body as FormData).get("file")).toBe(file);
   });
+  it("sends related_service and related_sub_service only together", async () => {
+    vi.mocked(apiClient.get).mockResolvedValue([]);
+    await caseStudiesApi.list({ service: "ai_solutions", subService: "ai_agents" });
+    expect(apiClient.get).toHaveBeenLastCalledWith("/admin/case-studies?related_service=ai_solutions&related_sub_service=ai_agents");
+    await caseStudiesApi.list({ service: "ai_solutions", subService: "" });
+    expect(apiClient.get).toHaveBeenLastCalledWith("/admin/case-studies?related_service=ai_solutions");
+    await caseStudiesApi.list({ service: "", subService: "ai_agents" });
+    expect(apiClient.get).toHaveBeenLastCalledWith("/admin/case-studies");
+  });
 });
