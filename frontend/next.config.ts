@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 import { legacyServiceRoutes } from "./src/content/service-route-map";
+import { join } from "node:path";
+import { discoverSitemapPages } from "./src/lib/sitemap-routes";
 
 const nextConfig: NextConfig = {
   compiler: { styledComponents: true },
@@ -45,4 +47,15 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default async function config(): Promise<NextConfig> {
+  const redirects = await nextConfig.redirects!();
+  return {
+    ...nextConfig,
+    env: {
+      SITEMAP_PAGES: JSON.stringify(discoverSitemapPages(
+        join(process.cwd(), "src/app"),
+        redirects.map((redirect) => redirect.source),
+      )),
+    },
+  };
+}
