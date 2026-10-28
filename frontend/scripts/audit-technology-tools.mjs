@@ -57,7 +57,8 @@ assert.deepEqual(new Set(displayedNames), new Set(technologyShowcaseTools.map(to
 assert.equal(technologyShowcaseTools.length + technologyShowcaseOmissions.length, technologyTools.length);
 assert.ok(technologyShowcaseOmissions.every(item => item.reason === "not-curated"));
 for (const group of technologyToolGroups) {
-  assert.ok(group.tools.length >= 12 && group.tools.length <= 16, `${group.name} must contain 12–16 cards`);
+  const minimum = group.name === "Analytics" ? 9 : 12;
+  assert.ok(group.tools.length >= minimum && group.tools.length <= 16, `${group.name} must contain ${minimum}–16 cards`);
   assert.deepEqual(group.tools, technologyCuratedNames[group.name]);
   for (const name of group.tools) {
     assert.ok(technologyTools.some(tool => tool.name === name), `Invented tool: ${name}`);
@@ -135,11 +136,11 @@ if (process.argv.includes("--write-report")) {
     `Rechecked ${pages.length} service route files, all ${canonicalRoutes.length} canonical main/subservice routes and all 13 legacy toolkit definitions against route configuration and imported content. Eleven legacy definitions render; two redirect and are excluded. The source registry retains ${technologyTools.length} unique named technologies. The Technology page displays **${displayedNames.length} curated, unique, logo-backed cards**.`, "",
     "## Final category inventory", "",
     ...technologyToolGroups.flatMap(group => [`### ${group.name}: ${group.tools.length}`, "", group.tools.join(", ") + ".", ""]),
-    "Every category contains 12–16 cards, with a hard validated maximum of 16. Eight cards appear initially; Load More reveals the remainder and disappears. Switching categories resets to eight. Styling, layout, animations and service-page inventories are unchanged.", "",
+    "AI, Data and Cloud contain 16 cards, CRM contains 12, and Analytics contains nine after removing repeated Power BI/Tableau deployment cards. Cloudflare is fifth in Cloud and Microsoft Azure is last. The hard maximum remains 16. Eight cards appear initially; Load More reveals the remainder and disappears. Switching categories resets to eight. Styling, layout, animations and service-page inventories are unchanged.", "",
     "## Selection and primary categories", "",
     "AI favors named model platforms, document AI, retrieval and orchestration frameworks. Data favors Databricks, Google/Microsoft/AWS data products, pipelines and governance. Cloud favors AWS, Azure, Google Cloud, delivery, infrastructure, cost and observability tooling.", "",
     "CRM includes Salesforce, HubSpot, Dynamics and Zoho, plus workflow and communication integrations explicitly approved by the user: MuleSoft, Power Automate, n8n, Zapier, Make, Slack, Microsoft Teams and WhatsApp. All are named in actual service content; the communication integrations are sourced from the RAG page rather than falsely claimed as CRM-page listings.", "",
-    "Analytics includes the Microsoft, Tableau and AWS BI products, plus Snowflake, Fabric, dbt and Grafana. Snowflake/Fabric/dbt are explicitly associated with Analytics service content; Grafana is a visualization/observability platform named by Cloud services and assigned once to Analytics. Tableau Cloud/Server and Power BI Service remain distinct deployment products using their correct official family marks. No names are repeated to fill a grid.", "",
+    "Analytics includes the Microsoft, Tableau and AWS BI products, plus Snowflake, Fabric, dbt and Grafana. Snowflake/Fabric/dbt are explicitly associated with Analytics service content; Grafana is a visualization/observability platform named by Cloud services and assigned once to Analytics. Tableau Cloud, Tableau Server and Power BI Service are excluded from the showcase so each family appears once. Their source records remain intact.", "",
     "Selection is a reference-only configuration in technology-tools.ts. Each name must resolve to the imported audit registry, have verified artwork, and have exactly one primary category. Invalid names, duplicate identities, missing logo mappings, or out-of-range counts fail validation. No parallel product definitions or copied service inventories are introduced.", "",
     "## Deduplication and exclusions", "",
     "Identity normalization merges Azure/Microsoft Azure, AWS/Amazon Web Services, BigQuery/Google BigQuery, Kafka/Apache Kafka, CloudWatch/Amazon CloudWatch, dbt tests/dbt, Dynamics 365/Microsoft Dynamics 365 and other documented aliases. AWS and Azure each appear once. Distinct AWS/Azure products remain separate.", "",
@@ -167,8 +168,8 @@ if (process.argv.includes("--write-report")) {
     "- docs/technology-tools-audit.md",
     "- docs/technology-tools-preview.png (updated screenshot)", "",
     "## Verification", "",
-    "Passed the audit script, targeted ESLint for technology-tools.ts and this script, and TypeScript tsc --noEmit --incremental false. The audit validates every canonical/active legacy source, all curated names against source evidence, category order, 12–16 limits, primary category ownership, global identity uniqueness, artwork files/signatures and eight-card pagination prefixes.", "",
-    "Browser verification passed all 30 initial/expanded category states at 1440px desktop, 820px tablet and 390px mobile. Confirmed AI is the default, exact tab order, one image per card, 72 globally unique names, preserved pagination prefixes, eight-card resets, and removal of the final Load More button. No failed loaded images, horizontal page overflow, clipping or following-section overlap was observed. Home and ArrowRight keyboard controls passed, and no browser console errors were observed.", "",
+    "The audit validates every canonical/active legacy source, curated names against source evidence, category order, category limits (Analytics may have nine), primary category ownership, global identity uniqueness, artwork files/signatures and eight-card pagination prefixes.", "",
+    "Earlier browser, ESLint and TypeScript checks passed for the 72-card version. The current data-only update removes three deployment cards and reorders Cloud; those earlier results are not a new browser test of this 69-card inventory.", "",
   ];
   fs.writeFileSync(path.join(root, "docs/technology-tools-audit.md"), lines.join("\n"));
 }

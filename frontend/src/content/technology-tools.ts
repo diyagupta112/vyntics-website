@@ -202,10 +202,10 @@ export const technologyCuratedNames: Readonly<Record<TechnologyCategory, readonl
     "Python", "Great Expectations", "Collibra", "Alation",
   ],
   Cloud: [
-    "AWS", "Microsoft Azure", "Google Cloud", "Docker",
-    "Kubernetes", "Terraform", "GitHub Actions", "Jenkins",
+    "AWS", "Google Cloud", "Docker", "Kubernetes",
+    "Cloudflare", "Terraform", "GitHub Actions", "Jenkins",
     "Amazon CloudWatch", "AWS Lambda", "AWS Cost Explorer", "Azure Cost Management",
-    "Google Cloud Billing", "Cloudflare", "Datadog", "OpenTelemetry",
+    "Google Cloud Billing", "Datadog", "OpenTelemetry", "Microsoft Azure",
   ],
   CRM: [
     "Salesforce", "HubSpot", "Microsoft Dynamics 365", "Zoho CRM",
@@ -215,14 +215,16 @@ export const technologyCuratedNames: Readonly<Record<TechnologyCategory, readonl
   Analytics: [
     "Power BI", "Tableau", "Amazon QuickSight", "Microsoft Fabric",
     "Snowflake", "dbt", "Excel", "Power Query",
-    "Grafana", "Power BI Service", "Tableau Cloud", "Tableau Server",
+    "Grafana",
   ],
 };
 
 const curatedCategories = new Map<string, TechnologyCategory>();
 for (const category of technologyCategoryOrder) {
   const selected = technologyCuratedNames[category];
-  if (selected.length < 12 || selected.length > 16) throw new Error(`Invalid curated tool count for ${category}`);
+  // Analytics keeps one Power BI/Tableau card rather than padding with deployments.
+  const minimum = category === "Analytics" ? 9 : 12;
+  if (selected.length < minimum || selected.length > 16) throw new Error(`Invalid curated tool count for ${category}`);
   for (const name of selected) {
     const identity = technologyIdentity(name);
     if (curatedCategories.has(identity)) throw new Error(`Duplicate curated technology: ${name}`);

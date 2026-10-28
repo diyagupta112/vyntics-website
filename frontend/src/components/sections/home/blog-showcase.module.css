@@ -8,12 +8,15 @@
   scroll-margin-top: 5rem;
 }
 
-.section > div { width: min(calc(100% - 2 * var(--gutter)), var(--content-width-wide)); }
-.header { position: relative; display: block; text-align: center; }
-.headingBlock { max-width: 40rem; margin-inline: auto; }
+.section > div { width: min(calc(100% - 2rem), 90rem); }
+.header { position: relative; display: block; text-align: left; }
+.headingBlock { max-width: none; margin-inline: 0; }
 .eyebrow { color: var(--color-brand); font-size: 0.72rem; font-weight: 750; letter-spacing: 0.17em; text-transform: uppercase; }
-.headingBlock h2 { max-width: 15ch; margin: 0.45rem auto 0; font-size: clamp(2.5rem, 4vw, 3.6rem); line-height: 0.98; letter-spacing: -0.05em; text-wrap: balance; }
-.headingBlock > p:last-child { max-width: 40rem; margin: 0.8rem auto 0; color: var(--color-muted); font-size: clamp(1rem, 1.35vw, 1.15rem); line-height: 1.5; text-wrap: balance; }
+.headingBlock h2 { max-width: none; margin: 0.45rem 0 0; font-size: clamp(2.5rem, 4vw, 3.6rem); line-height: 0.98; letter-spacing: -0.05em; text-wrap: wrap; }
+.headingBlock > p:last-child { max-width: none; margin: 0.8rem 0 0; color: var(--color-muted); font-size: clamp(1rem, 1.35vw, 1.15rem); line-height: 1.5; text-wrap: wrap; }
+@media (min-width: 901px) {
+  .headingBlock > * { white-space: nowrap; }
+}
 .viewAllRow { margin-top: clamp(1.5rem, 3vh, 2.25rem); display: flex; justify-content: flex-end; }
 .controlsRight { display: flex; align-items: center; gap: 1rem; }
 .viewAll { display: inline-flex; align-items: center; gap: 0.65rem; padding: 0.9rem 1.15rem; border: 1px solid var(--color-border); border-radius: 0.55rem; color: var(--color-foreground); background: var(--color-surface); box-shadow: 0 0.65rem 1.8rem rgb(11 11 15 / 10%); font-size: 0.92rem; font-weight: 700; text-decoration: none; }
@@ -40,7 +43,7 @@
 
 .controls { margin-top: 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .dots { display: flex; align-items: center; gap: 0.4rem; }
-.dots button { width: 1.35rem; height: 0.2rem; padding: 0; border: 0; border-radius: 62.4375rem; background: color-mix(in srgb, var(--color-foreground) 18%, transparent); cursor: pointer; transition: width 220ms ease, background-color 220ms ease; }
+.dots button { width: 1.35rem; height: 0.2rem; padding: 0; border: 0; border-radius: 999px; background: color-mix(in srgb, var(--color-foreground) 18%, transparent); cursor: pointer; transition: width 220ms ease, background-color 220ms ease; }
 .dots button.activeDot { width: 2.6rem; background: var(--color-primary); }
 .arrows { display: flex; align-items: center; gap: 0.5rem; }
 .arrows button { width: 2.35rem; aspect-ratio: 1; display: grid; place-items: center; padding: 0; color: var(--color-foreground); border: 1px solid var(--color-border); border-radius: 50%; background: var(--color-surface); cursor: pointer; transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease; }
