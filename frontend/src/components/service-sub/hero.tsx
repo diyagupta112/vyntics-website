@@ -25,7 +25,7 @@ export function CloudSubHero({ page, opticalAlign = false, showOutcome = true, p
         <p className={heroStyles.description} data-reveal={`${id}-introduction`} data-reveal-delay="180">{page.hero.introduction}</p>
         {showOutcome && <p className={styles.outcome} data-reveal={`${id}-outcome`} data-reveal-delay="180">{page.hero.outcome}</p>}
         <div className={buttons.heroActions} style={showOutcome ? undefined : { marginTop: "var(--hero-actions-gap)" }} data-reveal={`${id}-actions`} data-reveal-delay="270">
-          <Link className={buttons.primaryAction} href="/#contact">{page.hero.cta} <span aria-hidden="true">→</span></Link>
+          <Link className={buttons.primaryAction} href="/contact-us">{page.hero.cta} <span aria-hidden="true">→</span></Link>
           <Link className={buttons.secondaryAction} href={`#${processId ?? `${page.key}-process`}`}>See our process</Link>
         </div>
       </div>

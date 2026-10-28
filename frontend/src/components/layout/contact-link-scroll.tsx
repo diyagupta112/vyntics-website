@@ -5,8 +5,8 @@ import { useEffect } from "react";
 /**
  * Smooth scrolling for in-page buttons.
  * - Links to a section on the same page ("#process", "#cloud-services", "#contact") scroll there smoothly.
- * - Contact buttons point to "/#contact". When the page has its own contact form they scroll to it
- *   instead of leaving for the home page; pages without one keep the normal link.
+ * - Contact buttons point to "/contact-us". When the page has its own contact form they scroll to it;
+ *   pages without one open the Contact Us page. The home page's form is never a target.
  * The "On this page" navigation on legal pages has its own scrolling and is left alone.
  */
 export function ContactLinkScroll() {
@@ -17,7 +17,9 @@ export function ContactLinkScroll() {
       const link = event.target.closest<HTMLAnchorElement>("a[href]");
       if (!link || link.target === "_blank" || link.closest('nav[aria-label="On this page"]')) return;
       const href = link.getAttribute("href") ?? "";
-      const id = href === "/#contact" ? "contact" : href.startsWith("#") && href.length > 1 ? decodeURIComponent(href.slice(1)) : null;
+      const onHome = window.location.pathname === "/";
+      if (href === "/contact-us" && (onHome || link.closest("header, footer"))) return;
+      const id = href === "/contact-us" ? "contact" : href.startsWith("#") && href.length > 1 ? decodeURIComponent(href.slice(1)) : null;
       if (!id) return;
       const target = document.getElementById(id);
       if (!target) return;

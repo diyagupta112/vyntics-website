@@ -48,7 +48,7 @@ export function DraftCardSection({ section, variant = "cards", signalEyebrow = "
           {numbered && <span className={signs.number} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>}
           {serviceCards && <ArchitectureServiceIcon index={index} />}
           <h3>{item.title}</h3><p>{item.description}</p>
-          {serviceCards && <Link className={architectureServices.cta} href="/#contact">Talk to our experts <span aria-hidden="true">→</span></Link>}
+          {serviceCards && <Link className={architectureServices.cta} href="/contact-us">Talk to our experts <span aria-hidden="true">→</span></Link>}
           {!serviceCards && item.href && <Link href={item.href}>{item.linkLabel ?? item.title} <span aria-hidden="true">→</span></Link>}
         </article>)}
       </div>

@@ -8,6 +8,7 @@ import { siteConfig } from "@/config/site";
 import styles from "./site-footer.module.css";
 import { InstagramIcon, LinkedInIcon, TwitterIcon, YouTubeIcon } from "./social-icons";
 import { FooterBackground } from "./footer-background";
+import { HalftoneWordmark } from "./halftone-wordmark";
 
 type FooterItem = {
   label: string;
@@ -41,7 +42,7 @@ const companyLinks: readonly FooterItem[] = [
 ];
 
 const resourceLinks: readonly FooterItem[] = [
-  { label: "Blog", href: "/blog" },
+  { label: "Blogs", href: "/blog" },
   { label: "Case Studies", href: "/case-studies" },
 ];
 
@@ -63,7 +64,7 @@ function ItemList({ items, sharedRows = false }: { items: readonly FooterItem[];
 
 function ServiceCluster({ group, column }: { group: ServiceGroup; column: number }) {
   return (
-    <section className={styles.serviceCluster} aria-label={group.label} style={{ "--service-column": column } as CSSProperties}>
+    <section className={styles.serviceCluster} aria-label={group.label} data-count={group.items.length} style={{ "--service-column": column } as CSSProperties}>
       <h3>{group.href ? <Link href={group.href}>{group.label}</Link> : group.label}</h3>
       <ItemList items={group.items} sharedRows />
     </section>
@@ -74,7 +75,7 @@ export function SiteFooter() {
   return (
     <footer id="footer" className={styles.footer}>
       <FooterBackground />
-      <span className={styles.decorativeWordmark} aria-hidden="true">VYNTICS</span>
+      <span className={styles.decorativeWordmark} aria-hidden="true"><HalftoneWordmark text="VYNTICS" /></span>
       <Container className={styles.closingContainer}>
         <div className={styles.footerMain}>
           <div className={styles.brandBlock}>
@@ -94,13 +95,13 @@ export function SiteFooter() {
                 <span>Start a Conversation</span>
                 <svg className={styles.conversationArrow} viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" /></svg>
               </a>
-              <span className={styles.email}>
+              <a className={styles.email} href="mailto:contact@vyntics.com">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 6 9 7 9-7" /></svg>
                 <span>contact@vyntics.com</span>
-              </span>
+              </a>
               <address className={styles.address}>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12Z" /><circle cx="12" cy="9" r="2.5" /></svg>
-                <span>{siteConfig.address}</span>
+                <a href={siteConfig.mapHref} target="_blank" rel="noreferrer">{siteConfig.address}</a>
               </address>
               <div className={styles.socialBlock}>
                 <p className={styles.navigationHeading}>Socials</p>

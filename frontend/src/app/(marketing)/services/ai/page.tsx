@@ -77,7 +77,7 @@ export default function AiSolutionsPage() {
         eyebrow={"AI solutions"}
         title={"AI Solutions Built For Control And Trust"}
         description={"We build custom AI solutions - from LLM integrations and grounded assistants to AI agents and intelligent automation - designed around your data, systems, and workflows."}
-        primaryAction={{ href: "/#contact", label: "Discuss your AI use case" }}
+        primaryAction={{ href: "/contact-us", label: "Discuss your AI use case" }}
         secondaryAction={{ href: "#ai-services", label: "Our AI solutions" }}
         capabilities={aiServices.map(service => ({ label: service.title, href: `/services/ai-solutions/${service.slug}` }))}
       />

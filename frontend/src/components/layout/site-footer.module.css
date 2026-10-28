@@ -169,7 +169,7 @@
   .brandBlock .brandStatement { margin-top:1rem; max-width:11rem; translate:none; }
   .brandBlock .contact { margin-top:1.5rem; gap:1.25rem; }
   .brandBlock .email,.brandBlock .address { margin-top:0; translate:none; }
-  .brandBlock .address span { max-width:11rem; }
+  .brandBlock .address span,.brandBlock .address a { max-width:11rem; }
   .brandBlock .socialLinks { margin-top:0; translate:none; }
   .decorativeWordmark { width:min(62%,52rem); bottom:3.5rem; overflow:clip; }
   .decorativeWordmark::before { text-align:right; bottom:-.18em; }
@@ -227,3 +227,41 @@
 @media(min-width:1201px) and (max-height:700px) {
   .brandBlock .contact { gap:1.25rem; }
 }
+
+/* Columns stretch to one shared height; two-link columns keep natural spacing. */
+@media(min-width:601px) {
+  .serviceList { grid-template-rows:none; row-gap:1.5rem; }
+  .serviceCluster { display:flex; flex-direction:column; gap:1rem; grid-row:auto; grid-template-rows:none; margin-bottom:0; }
+  .serviceCluster h3 { grid-column:auto; grid-row:auto; margin-bottom:0; }
+  .serviceCluster .itemList { display:flex; flex-direction:column; gap:.55rem; grid-row:auto; grid-template-rows:none; }
+  /* Three-link columns fill the shared column height and space their links evenly. */
+  .serviceCluster[data-count="3"] .itemList { flex:1; justify-content:space-between; }
+  .serviceCluster .itemList li { grid-column:auto; grid-row:auto; min-block-size:0; }
+}
+.email:is(:hover,:focus-visible) { color:color-mix(in srgb,var(--color-primary) 55%,var(--color-foreground)); }
+.address a { color:inherit; }
+.address a:is(:hover,:focus-visible) { color:color-mix(in srgb,var(--color-primary) 55%,var(--color-foreground)); }
+
+/* Left block polish: centered tagline, and the Socials heading centered over its icon row. */
+.brandIdentity { width:fit-content; }
+/* The tagline adds no width of its own, so it never extends past the logo + wordmark row; extra text wraps to more lines. */
+.brandBlock .brandStatement { width:0; min-width:100%; max-width:none; margin-inline:auto; box-sizing:border-box; padding-left:.75rem; text-align:left; text-wrap:wrap; font-size:1.1rem; }
+.socialBlock .navigationHeading { text-align:center; padding-left:.13em; }
+
+/* Desktop: the logo, wordmark and tagline are centered over the widest item below, the Start a Conversation button. */
+@media(min-width:1201px) {
+  .brandBlock { width:fit-content; }
+  .brandIdentity { align-self:stretch; }
+  /* Scale the logo and wordmark up so the row spans the Start a Conversation button's width. */
+  .brand { width:100%; justify-content:space-between; gap:1rem; font-size:1.2rem; }
+  .brand .logoBox { width:3.5rem; height:3.5rem; border-radius:.8rem; }
+  .brand .logoBox img { width:2.6rem; }
+}
+
+/* Raise the left block so the VYNTICS wordmark (centered in the 3.5rem logo box) sits level with the Services heading. */
+@media(min-width:1201px) {
+  .brandBlock { margin-top:-1.2rem; }
+}
+
+/* The wordmark is now drawn as halftone dots on a canvas, so the plain-text copy is hidden. */
+.decorativeWordmark::before { content:none; }

@@ -17,7 +17,7 @@ export function ConsultationLink({ children }: { children: ReactNode }) {
     setCircle({ x, y, diameter: radius * 2 + 2 });
   }
 
-  return <Link className={styles.consultationAction} href="/#contact" data-case-study-reveal="text" data-case-study-delay="0.08" data-interacting={hovered || focused ? "true" : undefined}
+  return <Link className={styles.consultationAction} href="/contact-us" data-case-study-reveal="text" data-case-study-delay="0.08" data-interacting={hovered || focused ? "true" : undefined}
     onPointerEnter={event => {
       if (event.pointerType !== "mouse") return;
       const rect = event.currentTarget.getBoundingClientRect();

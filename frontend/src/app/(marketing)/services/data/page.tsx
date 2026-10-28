@@ -60,7 +60,7 @@ export default function DataEngineeringPage() {
         eyebrow={"Data engineering services"}
         title={"Build A Data Foundation Your Business Can Trust"}
         description={"We connect scattered systems, automate reliable data movement, and create governed, query-ready foundations for analytics and AI."}
-        primaryAction={{ href: "/#contact", label: "Discuss your data estate" }}
+        primaryAction={{ href: "/contact-us", label: "Discuss your data estate" }}
         secondaryAction={{ href: "#data-services", label: "Our data services" }}
         capabilities={dataServices.map(service => ({ label: service.title, href: `/services/data-engineering/${service.slug}` }))}
       />

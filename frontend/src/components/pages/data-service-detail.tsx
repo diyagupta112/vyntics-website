@@ -21,7 +21,7 @@ export function DataServiceDetail({ service }: { service: DataServiceContent }) 
           <h1>{service.title}</h1>
           <p className={styles.introduction}>{service.introduction}</p>
           <div className={styles.heroActions}>
-            <Link className={styles.primaryButton} href="/#contact">Discuss your data project <ArrowIcon /></Link>
+            <Link className={styles.primaryButton} href="/contact-us">Discuss your data project <ArrowIcon /></Link>
             <a className={styles.textLink} href="#deliverables">Explore what we deliver</a>
           </div>
         </Container>
@@ -103,7 +103,7 @@ export function DataServiceDetail({ service }: { service: DataServiceContent }) 
       <section className={styles.cta}>
         <Container>
           <div><p className={styles.label}>Start with the data problem</p><h2>Tell us what needs to become more reliable.</h2></div>
-          <Link href="/#contact">Start a conversation <ArrowIcon /></Link>
+          <Link href="/contact-us">Start a conversation <ArrowIcon /></Link>
         </Container>
       </section>
     </>

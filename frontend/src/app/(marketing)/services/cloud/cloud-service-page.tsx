@@ -50,7 +50,7 @@ export function CloudServicePage({ service, serviceList = cloudServiceList }: { 
           <div className={styles.heroStatement}>
             <h2>{service.headline}</h2>
             <p>{service.summary}</p>
-            <Link href="/#contact">Discuss this service <ArrowIcon /></Link>
+            <Link href="/contact-us">Discuss this service <ArrowIcon /></Link>
           </div>
         </Container>
       </header>
@@ -125,7 +125,7 @@ export function CloudServicePage({ service, serviceList = cloudServiceList }: { 
           <div className={styles.contactCta}>
             <p>Have a {service.title.toLowerCase()} requirement?</p>
             <h2>Start with the environment you have and what needs to change.</h2>
-            <div><Link href="/#contact">Start a conversation <ArrowIcon /></Link><Link href="/case-studies">View case studies</Link></div>
+            <div><Link href="/contact-us">Start a conversation <ArrowIcon /></Link><Link href="/case-studies">View case studies</Link></div>
           </div>
         </Container>
       </section>

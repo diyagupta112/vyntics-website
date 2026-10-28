@@ -45,7 +45,7 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
             )) : service.title}
           </h1>
           <p className={styles.introduction}>{service.introduction}</p>
-          <Link className={styles.primaryButton} href="/#contact">Discuss {service.name} <ArrowIcon /></Link>
+          <Link className={styles.primaryButton} href="/contact-us">Discuss {service.name} <ArrowIcon /></Link>
           </div>
           {image && <div className={styles.heroImage}>
             <div className={styles.heroImageFrame}>

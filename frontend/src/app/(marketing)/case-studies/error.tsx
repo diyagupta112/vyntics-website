@@ -11,7 +11,7 @@ export default function CaseStudiesError({ reset }: { error: Error & { digest?: 
         <p>Case studies</p>
         <h1 id="case-studies-error-title">We couldn&apos;t load the work right now.</h1>
         <span>The project stories are temporarily unavailable. You can try again or continue to the contact section.</span>
-        <div className={styles.actions}><button type="button" onClick={reset}>Try again</button><Link href="/#contact">Contact Vyntics</Link></div>
+        <div className={styles.actions}><button type="button" onClick={reset}>Try again</button><Link href="/contact-us">Contact Vyntics</Link></div>
       </Container>
     </section>
   );

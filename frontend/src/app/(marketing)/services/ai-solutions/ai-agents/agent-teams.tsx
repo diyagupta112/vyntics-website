@@ -37,7 +37,7 @@ function TeamDetail({ team, showTitle, options }: { team: Team; showTitle: boole
   </>;
 }
 
-export function AgentTeams({ teams, titleTemplate = "AI Agents For {name}", controlLabel = "Where people stay in control", ctaLabel = "Talk to our experts", ctaHref = "/#contact", idPrefix = "agent-team", navLabel = "Teams" }: {
+export function AgentTeams({ teams, titleTemplate = "AI Agents For {name}", controlLabel = "Where people stay in control", ctaLabel = "Talk to our experts", ctaHref = "/contact-us", idPrefix = "agent-team", navLabel = "Teams" }: {
   teams: readonly Team[];
   titleTemplate?: string;
   controlLabel?: string;

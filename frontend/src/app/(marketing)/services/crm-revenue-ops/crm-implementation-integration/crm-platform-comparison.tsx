@@ -35,7 +35,7 @@ export function CrmPlatformComparison() {
           <h3>Choose the CRM that fits your process and your team.</h3>
           <p>We help you evaluate the right CRM based on your sales process, data, connected systems, and users, then implement it around how your business actually works.</p>
         </div>
-        <a className={styles.compareCta} href="/#contact">Talk to our CRM experts <span aria-hidden="true">→</span></a>
+        <a className={styles.compareCta} href="/contact-us">Talk to our CRM experts <span aria-hidden="true">→</span></a>
       </div>
     </Container>
   </section>;

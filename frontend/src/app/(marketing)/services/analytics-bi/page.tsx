@@ -62,7 +62,7 @@ export default function AnalyticsBiPage() {
         eyebrow={analyticsContent.hero.eyebrow}
         title={analyticsContent.hero.heading}
         description={analyticsContent.hero.introduction}
-        primaryAction={{ href: "/#contact", label: analyticsContent.hero.primaryLabel }}
+        primaryAction={{ href: "/contact-us", label: analyticsContent.hero.primaryLabel }}
         secondaryAction={{ href: "#analytics-services", label: "Our analytics & BI services" }}
         capabilities={analyticsContent.services.map(service => ({ label: service.name, href: service.href }))}
       />

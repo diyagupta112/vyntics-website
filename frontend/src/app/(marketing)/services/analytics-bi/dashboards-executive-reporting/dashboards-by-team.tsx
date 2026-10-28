@@ -22,7 +22,7 @@ function TeamDetail({ team, showTitle }: { team: Team; showTitle: boolean }) {
     </ul>
     <p className={styles.teamCta}>
       <span>{team.cta}</span>
-      <a href="/#contact">Talk to our experts <span aria-hidden="true">→</span></a>
+      <a href="/contact-us">Talk to our experts <span aria-hidden="true">→</span></a>
     </p>
   </>;
 }
