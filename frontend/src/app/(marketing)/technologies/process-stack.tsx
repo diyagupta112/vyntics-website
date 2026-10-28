@@ -38,7 +38,7 @@ export function ProcessStack({ steps }: ProcessStackProps) {
             scrollTrigger: {
               trigger: section,
               start: "top 80px",
-              end: () => `+=${Math.max(1, section.offsetHeight - panel.offsetHeight)}`,
+              end: () => `+=${Math.max(1, section.offsetHeight - Math.max(panel.offsetHeight, window.innerHeight - 80))}`,
               pin: panel,
               pinType: "fixed",
               pinSpacing: false,
@@ -69,6 +69,7 @@ export function ProcessStack({ steps }: ProcessStackProps) {
           <p className={styles.eyebrow}>How we utilize technology</p>
           <h2 id="process-title">Engineering Includes Selection</h2>
           <p>The newest tool isn&apos;t always the best one. After lowering risk, we create the most straightforward, reliable route to the outcome.</p>
+          <p>Each choice is weighed against your data, your team, and the cost of running it over time, so what we deliver stays simple to operate and easy to change.</p>
         </div>
 
         <div className={styles.processViewport}>

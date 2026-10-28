@@ -108,10 +108,6 @@
   transition: box-shadow 250ms ease;
 }
 
-.card:hover {
-  box-shadow: 0 42px 110px rgb(20 83 219 / 16%);
-}
-
 .cardGrid {
   height: 26rem;
   display: grid;

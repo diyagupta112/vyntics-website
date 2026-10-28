@@ -156,7 +156,7 @@ a.faqEmail:focus-visible { color: #1453DB; }
 .pageRhythm > .section,
 .pageRhythm > section[id="work"],
 .pageRhythm > .contactSection > section { padding-block: 0; }
-.pageRhythm > section[id="work"] { min-height: auto; }
+.pageRhythm > section[id="work"] { min-height: auto; overflow: visible; }
 .pageRhythm > .contactSection { padding-bottom: var(--recognitions-section-gap); }
 @media (max-width: 1024px) {
   .pageRhythm { --recognitions-section-gap: 7rem; }

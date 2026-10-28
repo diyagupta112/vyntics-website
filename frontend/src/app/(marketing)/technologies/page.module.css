@@ -1,7 +1,7 @@
 .hero,.landscape,.toolIndex,.processSection,.clientWork,.credentials{position:relative;padding-block:clamp(4.5rem,8vw,7rem)}
-.hero{padding-block:0;overflow:hidden;isolation:isolate;background:var(--color-surface)}
+.hero{padding-block:0;overflow:hidden;isolation:isolate;background:var(--color-background)}
 .hero::before{position:absolute;z-index:-2;inset:0;content:"";background:url("/images/technology-hero-office.jpg") 92% center / auto 90% no-repeat;filter:saturate(.88) contrast(.96);opacity:.78;pointer-events:none}
-.hero::after{position:absolute;z-index:-1;inset:0;content:"";background:linear-gradient(90deg,color-mix(in srgb,var(--color-surface) 96%,transparent),color-mix(in srgb,var(--color-surface) 64%,transparent) 45%,color-mix(in srgb,var(--color-surface) 14%,transparent) 80%,transparent),linear-gradient(180deg,color-mix(in srgb,var(--color-surface) 10%,transparent),transparent 62%,color-mix(in srgb,var(--color-surface) 68%,transparent));pointer-events:none}
+.hero::after{position:absolute;z-index:-1;inset:0;content:"";background:linear-gradient(90deg,color-mix(in srgb,var(--color-background) 96%,transparent),color-mix(in srgb,var(--color-background) 64%,transparent) 45%,color-mix(in srgb,var(--color-background) 14%,transparent) 80%,transparent),linear-gradient(180deg,color-mix(in srgb,var(--color-background) 10%,transparent),transparent 62%,color-mix(in srgb,var(--color-background) 68%,transparent));pointer-events:none}
 .heroGrid{min-height:calc(100svh - 5rem);padding-block:clamp(3rem,7vh,5rem);display:flex;align-items:center}
 .eyebrow{color:var(--color-brand);font-size:.69rem;font-weight:760;letter-spacing:.16em;text-transform:uppercase}
 .hero h1{max-width:24ch;margin-top:1.15rem;font-size:clamp(2rem,3.2vw,2.75rem);line-height:1.16;letter-spacing:-.04em;text-wrap:balance}
@@ -86,3 +86,12 @@
 @media(max-width:720px){.toolRows{gap:1rem}.toolRows article{padding:1.35rem}.toolDescription{font-size:.85rem}.toolRows li{font-size:.78rem;padding:.5rem .7rem}}
 @media(max-width:520px){.toolRows{grid-template-columns:1fr}.toolRows article{min-height:auto}.toolIndex .stickyHeading h2{font-size:2.1rem}}
 @media(prefers-reduced-motion:reduce){.toolRows article,.toolRows li{transition:none}}
+
+.landscape,.toolIndex{min-height:0;padding-block:var(--space-section)}
+.processSticky{height:auto;min-height:calc(100svh - 5rem);padding-block:calc(var(--space-section) * .5)}
+.featuredWrap>section{min-height:0;padding-block:0 var(--space-section)}
+.processSection .sectionHeading>p:not(.eyebrow){max-width:39rem;margin-top:1rem;color:var(--color-muted);font-size:.94rem;line-height:1.7}
+@media(min-width:721px){.processSticky{align-items:start;align-content:center}}
+.toolIndex{padding-bottom:calc(var(--space-section) * .5)}
+@media(min-width:1700px){.processViewport{height:clamp(25rem,66vh,38rem)}}
+@media(min-width:1700px){.processCard{padding:2rem}.processNumber{font-size:2rem}.processStage{font-size:.72rem}.processCard h3{margin-top:2.25rem;font-size:clamp(1.9rem,2.4vw,2.6rem)}.processCard p{max-width:42rem;margin-top:1rem;font-size:1.05rem}.processPoints{margin-top:1.75rem;padding-top:1.4rem;gap:.85rem 1.25rem}.processPoints li{padding-left:1.1rem;font-size:.92rem}.processPoints li::before{top:.55rem;width:.45rem}}
