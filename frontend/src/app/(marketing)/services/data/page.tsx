@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { dataPlatforms as platforms } from "@/content/service-platforms";
 import { ServicesHero } from "@/components/pages/services-hero";
 import type { Metadata } from "next";
@@ -27,7 +28,7 @@ import styles from "./page.module.css";
 export const metadata: Metadata = {
   title: "Data Engineering Services & Consulting",
   description: "Data engineering consulting for reliable pipelines, integration, cloud warehousing, lakehouse architecture, data quality, and governance.",
-  alternates: { canonical: "https://vyntics.com/services/data-engineering" },
+  alternates: { canonical: `${SITE_URL}/services/data-engineering` },
 };
 
 

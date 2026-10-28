@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { ScrollReveals } from "@/components/ui/scroll-reveals";
 import { RecognitionSkeleton } from "@/components/sections/recognitions/recognition-skeleton";
 import type { Metadata } from "next";
@@ -20,7 +21,7 @@ import surface from "@/components/sections/recognitions/recognition-card-surface
 
 const title = "Recognitions & Certifications | Vyntics Technology Experts";
 const description = "A certified team across data, AI, cloud, CRM and analytics. Vyntics is a ChatGPT Select Partner and Databricks Partner. Book a free call.";
-const url = "https://vyntics.com/recognitions";
+const url = `${SITE_URL}/recognitions`;
 // Set an approved badge-based image here once the actual assets are available.
 const shareImage: string | undefined = undefined;
 export const metadata: Metadata = {
@@ -34,10 +35,10 @@ function structuredDataFor(faqs: readonly Faq[]) {
   return {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "Organization", "@id": "https://vyntics.com/#organization", name: "Vyntics", url: "https://vyntics.com" },
-    { "@type": "WebPage", "@id": `${url}#webpage`, url, name: title, description, about: { "@id": "https://vyntics.com/#organization" }, breadcrumb: { "@id": `${url}#breadcrumb` } },
+    { "@type": "Organization", "@id": `${SITE_URL}/#organization`, name: "Vyntics", url: SITE_URL },
+    { "@type": "WebPage", "@id": `${url}#webpage`, url, name: title, description, about: { "@id": `${SITE_URL}/#organization` }, breadcrumb: { "@id": `${url}#breadcrumb` } },
     { "@type": "BreadcrumbList", "@id": `${url}#breadcrumb`, itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://vyntics.com" },
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
       { "@type": "ListItem", position: 2, name: "Recognitions", item: url },
     ] },
     ...(faqs.length ? [{ "@type": "FAQPage", "@id": `${url}#faq`, mainEntity: faqs.map(faq => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) }] : []),

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { ServicesHero } from "@/components/pages/services-hero";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -22,7 +23,7 @@ import studyStyles from "../../case-studies/page.module.css";
 
 const seoTitle = "Business Intelligence Services | Vyntics";
 const seoDescription = analyticsContent.seoDescription;
-const canonical = "https://vyntics.com/services/analytics-bi";
+const canonical = `${SITE_URL}/services/analytics-bi`;
 
 export const metadata: Metadata = {
   title: { absolute: seoTitle },

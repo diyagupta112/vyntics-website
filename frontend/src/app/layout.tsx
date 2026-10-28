@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import { ConsentProvider } from "@/components/consent/consent-provider";
 import { CookieConsent } from "@/components/consent/cookie-consent";
@@ -7,7 +8,7 @@ import "./globals.css";
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vyntics.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Vyntics",
     template: "%s | Vyntics",

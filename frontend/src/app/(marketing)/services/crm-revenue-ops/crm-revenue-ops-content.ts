@@ -1,10 +1,11 @@
+import { SITE_URL } from "@/lib/site";
 // Authored from Vyntics' CRM scope. Deliberately vendor-neutral, with no promised results.
 export const crmContent = {
   name: "CRM & Revenue Ops", slug: "crm-revenue-ops", shortName: "CRM",
   seo: {
     title: "CRM & Revenue Operations Services | Vyntics",
     description: "CRM implementation, integration, sales automation, and revenue analytics shaped around your team's processes, connected data, and reporting needs.",
-    canonical: "https://vyntics.com/services/crm-revenue-ops",
+    canonical: `${SITE_URL}/services/crm-revenue-ops`,
   },
   hero: {
     eyebrow: "CRM and revenue operations",

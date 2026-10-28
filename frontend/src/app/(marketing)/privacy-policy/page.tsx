@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal/legal-page";
 import { policyIntro, policySections } from "./content";
@@ -8,8 +9,8 @@ const description = "Read how Vyntics collects, uses, shares, and protects infor
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: { canonical: "https://vyntics.com/privacy-policy" },
-  openGraph: { title, description, type: "website", url: "https://vyntics.com/privacy-policy" },
+  alternates: { canonical: `${SITE_URL}/privacy-policy` },
+  openGraph: { title, description, type: "website", url: `${SITE_URL}/privacy-policy` },
 };
 
 export default function PrivacyPolicyPage() {
