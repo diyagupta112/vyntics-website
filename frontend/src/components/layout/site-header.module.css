@@ -37,6 +37,12 @@
   gap: 3rem;
 }
 
+.logoGroup {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
 .logoLink {
   width: fit-content;
   display: inline-flex;

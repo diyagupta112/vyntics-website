@@ -1,14 +1,15 @@
-import type { CSSProperties } from "react";
+import { Suspense, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CookieSettingsButton } from "@/components/consent/cookie-settings-button";
 import { Container } from "@/components/ui/container";
 import { serviceNavigation } from "@/content/service-navigation";
 import { siteConfig } from "@/config/site";
+import { getBadges, type Badge } from "@/lib/badges";
+import { FooterBadgeImage } from "./footer-badge-image";
 import styles from "./site-footer.module.css";
 import { InstagramIcon, LinkedInIcon, TwitterIcon, YouTubeIcon } from "./social-icons";
 import { FooterBackground } from "./footer-background";
-import { HalftoneWordmark } from "./halftone-wordmark";
 
 type FooterItem = {
   label: string;
@@ -50,9 +51,9 @@ const youtubeUrl = "youtube" in siteConfig.socialLinks && typeof siteConfig.soci
   ? siteConfig.socialLinks.youtube
   : undefined;
 
-function ItemList({ items, sharedRows = false }: { items: readonly FooterItem[]; sharedRows?: boolean }) {
+function ItemList({ items, sharedRows = false, className = "" }: { items: readonly FooterItem[]; sharedRows?: boolean; className?: string }) {
   return (
-    <ul className={styles.itemList}>
+    <ul className={`${styles.itemList} ${className}`.trim()}>
       {items.map((item, index) => (
         <li key={item.label} style={sharedRows ? { "--service-row": index + 2 } as CSSProperties : undefined}>
           {item.href ? <Link href={item.href}>{item.label}</Link> : <span>{item.label}</span>}
@@ -64,9 +65,78 @@ function ItemList({ items, sharedRows = false }: { items: readonly FooterItem[];
 
 function ServiceCluster({ group, column }: { group: ServiceGroup; column: number }) {
   return (
-    <section className={styles.serviceCluster} aria-label={group.label} data-count={group.items.length} style={{ "--service-column": column } as CSSProperties}>
+    <section className={styles.serviceCluster} aria-label={group.label} style={{ "--service-column": column } as CSSProperties}>
       <h3>{group.href ? <Link href={group.href}>{group.label}</Link> : group.label}</h3>
       <ItemList items={group.items} sharedRows />
+    </section>
+  );
+}
+
+function RecognitionsIntro() {
+  return (
+    <div className={styles.recognitionsIntro}>
+      <h2 className={styles.navigationHeading} id="footer-recognitions-title">Partners &amp; Recognitions</h2>
+      <p>Trusted by the platforms we build on</p>
+    </div>
+  );
+}
+
+function RecognitionsSkeleton() {
+  return (
+    <section className={styles.recognitions} aria-labelledby="footer-recognitions-title" aria-busy="true" style={{ "--badge-count": 2 } as CSSProperties}>
+      <div className={styles.recognitionsGroup}>
+      <RecognitionsIntro />
+      <span className={styles.recognitionsDivider} aria-hidden="true" />
+      <ul className={styles.recognitionsList}>
+        {[0, 1].map(index => (
+          <li key={index}>
+            <div className={styles.badgeItem}>
+              <span className={`${styles.badgeTile} ${styles.skeleton}`} />
+              <span className={`${styles.skeletonBar} ${styles.skeleton}`} />
+            </div>
+          </li>
+        ))}
+      </ul>
+      </div>
+    </section>
+  );
+}
+
+function BadgeItem({ badge }: { badge: Badge }) {
+  const content = (
+    <>
+      <span className={styles.badgeTile}>
+        <FooterBadgeImage src={badge.logo_url} alt={badge.name} title={badge.name} className={styles.badgeImage} letterClassName={styles.badgeLetter} />
+      </span>
+      <span className={styles.badgeText}>
+        <span className={styles.badgeName}>{badge.name}</span>
+      </span>
+    </>
+  );
+  return badge.website_url
+    ? <a className={styles.badgeItem} href={badge.website_url} target="_blank" rel="noopener noreferrer">{content}</a>
+    : <div className={styles.badgeItem}>{content}</div>;
+}
+
+async function Recognitions() {
+  let badges: Badge[];
+  try {
+    badges = (await getBadges()).slice().sort((a, b) => a.display_order - b.display_order);
+  } catch (error) {
+    console.error("Footer recognitions unavailable", error);
+    return null;
+  }
+  // Nothing to show: hide the whole strip, including its divider.
+  if (badges.length === 0) return null;
+  return (
+    <section className={styles.recognitions} aria-labelledby="footer-recognitions-title" style={{ "--badge-count": badges.length } as CSSProperties}>
+      <div className={styles.recognitionsGroup}>
+      <RecognitionsIntro />
+      <span className={styles.recognitionsDivider} aria-hidden="true" />
+      <ul className={styles.recognitionsList}>
+        {badges.map(badge => <li key={badge.id}><BadgeItem badge={badge} /></li>)}
+      </ul>
+      </div>
     </section>
   );
 }
@@ -75,7 +145,7 @@ export function SiteFooter() {
   return (
     <footer id="footer" className={styles.footer}>
       <FooterBackground />
-      <span className={styles.decorativeWordmark} aria-hidden="true"><HalftoneWordmark text="VYNTICS" /></span>
+      <span className={styles.decorativeWordmark} aria-hidden="true">VYNTICS</span>
       <Container className={styles.closingContainer}>
         <div className={styles.footerMain}>
           <div className={styles.brandBlock}>
@@ -86,15 +156,8 @@ export function SiteFooter() {
                 </span>
                 <span>VYNTICS</span>
               </Link>
-              <p className={styles.brandStatement}>Turning complex problems into impactful solutions.</p>
             </div>
             <section className={styles.contact} aria-label="Get in touch">
-              {/* Use native fragment navigation so repeated clicks always reach the contact form. */}
-              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-              <a className={styles.conversationLink} href="/contact-us">
-                <span>Start a Conversation</span>
-                <svg className={styles.conversationArrow} viewBox="0 0 20 20" aria-hidden="true"><path d="M3 10h13m-5-5 5 5-5 5" /></svg>
-              </a>
               <a className={styles.email} href="mailto:contact@vyntics.com">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 6 9 7 9-7" /></svg>
                 <span>contact@vyntics.com</span>
@@ -124,16 +187,18 @@ export function SiteFooter() {
             </nav>
           </div>
           <div className={styles.supportingNavigation}>
-            <nav aria-labelledby="footer-company-title">
+            <nav className={styles.companyNav} aria-labelledby="footer-company-title">
               <h2 className={styles.navigationHeading} id="footer-company-title">Company</h2>
-              <ItemList items={companyLinks} />
+              <ItemList items={companyLinks} className={styles.companyLinks} />
             </nav>
-            <nav aria-labelledby="footer-resources-title">
+            <nav className={styles.resourcesNav} aria-labelledby="footer-resources-title">
               <h2 className={styles.navigationHeading} id="footer-resources-title">Resources</h2>
               <ItemList items={resourceLinks} />
             </nav>
           </div>
         </div>
+
+        <Suspense fallback={<RecognitionsSkeleton />}><Recognitions /></Suspense>
 
         <div className={styles.utilityBar}>
           <p>&copy; {new Date().getFullYear()} {siteConfig.name}</p>

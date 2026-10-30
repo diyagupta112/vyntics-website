@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { siteConfig } from "@/config/site";
@@ -151,7 +151,7 @@ export function SiteHeaderSpacer() {
   return <div className={styles.headerSpacer} aria-hidden="true" />;
 }
 
-export function SiteHeader() {
+export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobileBadges?: ReactNode }) {
   const pathname = usePathname();
   const [active, setActive] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -232,10 +232,13 @@ export function SiteHeader() {
         className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}`}
       >
         <div className={styles.inner}>
-        <Link className={styles.logoLink} href="/" aria-label={`${siteConfig.name} home`} onClick={() => setMobileOpen(false)}>
-          <span className={styles.logoImage} aria-hidden="true" />
-          <span className={styles.wordmark}>VYNTICS</span>
-        </Link>
+        <div className={styles.logoGroup}>
+          <Link className={styles.logoLink} href="/" aria-label={`${siteConfig.name} home`} onClick={() => setMobileOpen(false)}>
+            <span className={styles.logoImage} aria-hidden="true" />
+            <span className={styles.wordmark}>VYNTICS</span>
+          </Link>
+          {badges}
+        </div>
 
         <div className={styles.rightRail}>
           <nav
@@ -305,6 +308,7 @@ export function SiteHeader() {
                     <Link className={styles.mobileDirectLink} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} href={item.href} key={item.label} onClick={() => setMobileOpen(false)}>{item.label}</Link>
                   ),
                 )}
+                {mobileBadges}
                 <Link className={`${styles.mobileDemoButton} siteCta`} href="/contact-us" onClick={() => setMobileOpen(false)}>
                   Book a demo <span aria-hidden="true">&rarr;</span>
                 </Link>

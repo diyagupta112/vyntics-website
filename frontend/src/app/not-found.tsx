@@ -3,6 +3,7 @@ import Link from "next/link";
 import { preconnect, preload } from "react-dom";
 import { OpticalHeadingAlignment } from "@/components/layout/optical-heading-alignment";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { HeaderBadges } from "@/components/layout/header-badges";
 import { SiteHeader, SiteHeaderSpacer } from "@/components/layout/site-header";
 import { SplineScene } from "@/components/ui/spline-scene";
 import styles from "./not-found.module.css";
@@ -23,7 +24,7 @@ export default function NotFound() {
   return (
     <>
       <OpticalHeadingAlignment />
-      <SiteHeader />
+      <SiteHeader badges={<HeaderBadges />} mobileBadges={<HeaderBadges variant="drawer" />} />
       <SiteHeaderSpacer />
       <main>
         <section>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState, type FormEvent, type MouseEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FormEvent, type MouseEvent, type ReactNode } from "react";
 import {
   NOTICE_PERIOD_OPTIONS,
   applyProfessionalPayload,
@@ -145,7 +145,7 @@ export function ApplicationForm({ slug, title }: Props) {
         <p className={styles.eyebrow}>Application received</p>
         <h2>Thank you for applying.</h2>
         <p>Our team will reach out to you soon if your profile meets our requirements. No further action is needed right now.</p>
-        <Link href="/careers#current-openings">View current openings</Link>
+        <Link href="/careers" onClick={() => { document.documentElement.style.overflow = ""; }}>View current openings</Link>
       </div>
     );
   }
@@ -270,6 +270,9 @@ export function ApplicationForm({ slug, title }: Props) {
 
 export function ApplicationDialog({ slug, title }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  // Leaving the page while the dialog is open skips its close event, so always release the scroll lock.
+  useEffect(() => () => { document.documentElement.style.overflow = ""; }, []);
 
   function close() {
     dialogRef.current?.close();
