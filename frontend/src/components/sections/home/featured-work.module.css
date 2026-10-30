@@ -8,6 +8,22 @@
   scroll-margin-top: 5rem;
 }
 
+.section[data-expanded="true"] {
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: 1rem;
+}
+
+.section[data-expanded="true"] .sectionHeader { margin-bottom: 0; }
+.section[data-expanded="true"] .headingBlock,
+.section[data-expanded="true"] .headingBlock h2 { max-width: none; }
+
+.section[data-expanded="true"] .cardGrid {
+  height: auto;
+  min-height: clamp(28rem, calc(100svh - var(--header-height) - 10rem), 54rem);
+  gap: clamp(1rem, 2vw, 2rem);
+  padding: clamp(1rem, 1.5vw, 1.75rem);
+}
+
 .sectionHeader {
   margin-bottom: clamp(1rem, 2vh, 1.5rem);
 }
@@ -440,6 +456,8 @@
 }
 
 @media (max-width: 900px) {
+  .section[data-expanded="true"] .cardGrid { min-height: 0; }
+  .section[data-expanded="true"] .visual { min-height: clamp(22rem, 60vw, 32rem); }
   .section {
     min-height: auto;
   }

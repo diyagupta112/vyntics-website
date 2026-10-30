@@ -11,6 +11,8 @@ import type { NavigationChild, NavigationItem } from "@/types/navigation";
 import styles from "./site-header.module.css";
 
 const MENU_CLOSE_DELAY_MS = 180;
+// Set to true to restore the navbar theme control.
+const ENABLE_THEME_TOGGLE = false;
 
 function matchesRoute(pathname: string, href: string) {
   if (!href.startsWith("/") || href.includes("#")) return false;
@@ -82,7 +84,7 @@ function ServiceSubmenu({ child, close }: { child: NavigationChild; close: () =>
         <><Link className={styles.dropdownLink} href={child.href} onClick={close}><span>{child.label}</span><small>{child.description}</small></Link><button type="button" className={styles.submenuToggle} aria-label={`Show ${child.label} services`} aria-expanded={open} aria-controls={id} onClick={() => setOpen((value) => !value)}><ChevronIcon /></button></>
       )}
     </div>
-    {open && <div id={id} className={styles.submenu}><p className={styles.submenuHeading}>{child.label} services</p>{child.children?.map((service) => <Link key={service.href} className={`${styles.dropdownLink} ${styles.innerServiceLink}`} aria-current={matchesRoute(pathname, service.href) ? "page" : undefined} href={service.href} onClick={close}><span>{service.label}</span><small>{service.description}</small><span className={styles.innerServiceArrow}><ChevronIcon /></span></Link>)}</div>}
+    {open && <div id={id} className={styles.submenu}><p className={styles.submenuHeading}>{child.label} services</p>{child.children?.map((service) => <Link key={service.href} className={`${styles.dropdownLink} ${styles.innerServiceLink}`} aria-current={matchesRoute(pathname, service.href) ? "page" : undefined} href={service.href} onClick={close}><span>{service.label}</span><small>{service.description}</small></Link>)}</div>}
   </div>;
 }
 
@@ -258,9 +260,11 @@ export function SiteHeader() {
             <Link className={`${styles.demoButton} siteCta`} href="/contact-us">
               Book a demo <span aria-hidden="true">&rarr;</span>
             </Link>
-            <span className={styles.themeSlot}>
-              <ThemeToggle />
-            </span>
+            {ENABLE_THEME_TOGGLE && (
+              <span className={styles.themeSlot}>
+                <ThemeToggle />
+              </span>
+            )}
           </div>
         </div>
 
@@ -297,7 +301,7 @@ export function SiteHeader() {
                       <summary>{item.label}<ChevronIcon /></summary>
                       <div className={styles.mobileChildren}>
                         {item.children.map((child) => (
-                          child.children ? <div className={styles.mobileServiceGroup} key={child.label}>{child.headingLink ? <Link className={styles.mobileServiceHeading} aria-current={matchesRoute(pathname, child.href) ? "page" : undefined} href={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link> : <div className={styles.mobileServiceHeading} data-current={isCurrentItem(pathname, child)}>{child.label}</div>}<div className={styles.mobileChildren}>{child.children.map((service) => <Link key={service.href} aria-current={matchesRoute(pathname, service.href) ? "page" : undefined} href={service.href} onClick={() => setMobileOpen(false)}><span>{service.label}</span><span className={styles.mobileServiceArrow}><ChevronIcon /></span></Link>)}</div></div> : <Link aria-current={matchesRoute(pathname, child.href) ? "page" : undefined} href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
+                          child.children ? <div className={styles.mobileServiceGroup} key={child.label}>{child.headingLink ? <Link className={styles.mobileServiceHeading} aria-current={matchesRoute(pathname, child.href) ? "page" : undefined} href={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link> : <div className={styles.mobileServiceHeading} data-current={isCurrentItem(pathname, child)}>{child.label}</div>}<div className={styles.mobileChildren}>{child.children.map((service) => <Link key={service.href} aria-current={matchesRoute(pathname, service.href) ? "page" : undefined} href={service.href} onClick={() => setMobileOpen(false)}><span>{service.label}</span></Link>)}</div></div> : <Link aria-current={matchesRoute(pathname, child.href) ? "page" : undefined} href={child.href} key={child.href} onClick={() => setMobileOpen(false)}>{child.label}</Link>
                         ))}
                       </div>
                     </details>

@@ -4,10 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 import { Container } from "@/components/ui/container";
+import { BadgeLogo } from "@/components/sections/recognitions/badge-logo";
 import { serviceSitemap } from "@/content/service-sitemap";
+import type { Badge } from "@/lib/badges";
 import styles from "./capabilities.module.css";
 
 type ServicePillarSlug = (typeof serviceSitemap)[number]["slug"];
+
+const serviceBadges: Partial<Record<ServicePillarSlug, ReadonlyArray<{ name: string; image?: string }>>> = {
+  "ai-solutions": [{ name: "OpenAI Select Partner" }],
+  "data-engineering": [
+    { name: "Databricks Brickbuilder Partner" },
+  ],
+};
 
 const capabilityDetails: ReadonlyArray<{
   pillar: ServicePillarSlug;
@@ -16,7 +25,7 @@ const capabilityDetails: ReadonlyArray<{
   imageAlt: string;
   imagePosition: string;
   description: string;
-  highlights: ReadonlyArray<{ label: string; service: string }>;
+  highlights: ReadonlyArray<{ label: string; service: string; description: string }>;
 }> = [
   {
     pillar: "data-engineering",
@@ -27,9 +36,9 @@ const capabilityDetails: ReadonlyArray<{
     description:
       "We design and build reliable data pipelines, integrations, warehouses, and lakehouse foundations that bring scattered information into one governed environment. Our engineers improve data quality, ownership, lineage, and access so teams can trust what they use. This creates a dependable base for reporting, operational decisions, and future AI initiatives without unnecessary platform complexity.",
     highlights: [
-      { label: "Data Pipelines & Integration", service: "data-pipelines-integration" },
-      { label: "Data Warehousing & Lakehouse", service: "data-warehousing-lakehouse" },
-      { label: "Data Quality & Governance", service: "data-quality-governance" },
+      { label: "Data Pipelines & Integration", service: "data-pipelines-integration", description: "Connect source systems and automate dependable data delivery." },
+      { label: "Data Warehousing & Lakehouse", service: "data-warehousing-lakehouse", description: "Organize reusable data models for analytics and AI." },
+      { label: "Data Quality & Governance", service: "data-quality-governance", description: "Define quality checks, ownership, and access controls." },
     ],
   },
   {
@@ -41,9 +50,9 @@ const capabilityDetails: ReadonlyArray<{
     description:
       "AI Solutions help teams turn approved business knowledge and repeatable workflows into useful assistants, agents, and automation. We design systems around your data, permissions, and existing tools so outputs remain grounded and actions stay controlled. The result is practical AI that reduces manual work, helps people find reliable answers faster, and fits the way your organization already operates.",
     highlights: [
-      { label: "RAG & Knowledge Assistants", service: "rag-knowledge-assistants" },
-      { label: "AI Agents", service: "ai-agents" },
-      { label: "Intelligent Automation", service: "intelligent-automation" },
+      { label: "RAG & Knowledge Assistants", service: "rag-knowledge-assistants", description: "Ground answers in approved documents and business knowledge." },
+      { label: "AI Agents", service: "ai-agents", description: "Coordinate tasks with clear permissions and human oversight." },
+      { label: "Intelligent Automation", service: "intelligent-automation", description: "Reduce repeatable work across existing business tools." },
     ],
   },
   {
@@ -55,9 +64,9 @@ const capabilityDetails: ReadonlyArray<{
     description:
       "Cloud Foundations provides the architecture, migration planning, delivery automation, observability, and cost controls needed to run dependable workloads. We shape the environment around security, scale, and operational ownership rather than a generic reference design. Teams gain a platform that is easier to release, monitor, recover, and optimize as products and data workloads grow.",
     highlights: [
-      { label: "Cloud Architecture & Migration", service: "cloud-architecture-migration" },
-      { label: "DevOps & Reliability", service: "devops-reliability" },
-      { label: "Cloud Cost Optimization", service: "cloud-cost-optimization" },
+      { label: "Cloud Architecture & Migration", service: "cloud-architecture-migration", description: "Plan secure environments and practical workload migrations." },
+      { label: "DevOps & Reliability", service: "devops-reliability", description: "Automate releases and make failures easier to detect." },
+      { label: "Cloud Cost Optimization", service: "cloud-cost-optimization", description: "Understand usage and identify unnecessary infrastructure spend." },
     ],
   },
   {
@@ -69,10 +78,8 @@ const capabilityDetails: ReadonlyArray<{
     description:
       "CRM & Revenue Ops connects customer data, sales processes, automation, and reporting around the way your teams actually work. We configure and integrate CRM systems, remove manual handoffs, and make pipeline activity easier to measure. Sales and service teams get cleaner records, clearer ownership, and revenue reporting they can use without fighting the system.",
     highlights: [
-      { label: "CRM Implementation", service: "crm-implementation-integration" },
-      { label: "System Integration", service: "crm-implementation-integration" },
-      { label: "Sales Automation", service: "sales-automation-revenue-analytics" },
-      { label: "Revenue Analytics", service: "sales-automation-revenue-analytics" },
+      { label: "CRM Implementation & Integration", service: "crm-implementation-integration", description: "Connect customer records, teams, and existing systems in one consistent workflow." },
+      { label: "Sales Automation & Revenue Analytics", service: "sales-automation-revenue-analytics", description: "Streamline follow-ups and track pipeline activity and revenue performance." },
     ],
   },
   {
@@ -84,9 +91,8 @@ const capabilityDetails: ReadonlyArray<{
     description:
       "Analytics & BI turns governed data into clear metrics, dashboards, and executive reporting that support real decisions. We align definitions across teams, design useful reporting layers, and select tools that match how people work. Leaders gain a consistent view of performance, while analysts spend less time reconciling conflicting numbers and more time explaining what the data means.",
     highlights: [
-      { label: "Dashboards", service: "dashboards-executive-reporting" },
-      { label: "Executive Reporting", service: "dashboards-executive-reporting" },
-      { label: "BI Consulting", service: "bi-consulting" },
+      { label: "Dashboard and Executive Reporting", service: "dashboards-executive-reporting", description: "Bring shared metrics into clear dashboards and leadership reporting." },
+      { label: "BI Consulting", service: "bi-consulting", description: "Define useful metrics and choose reporting tools around how your teams work." },
     ],
   }
 
@@ -105,6 +111,7 @@ const capabilities = [...capabilityDetails].sort((a, b) => {
 
     return {
       label: highlight.label,
+      description: highlight.description,
       href: `/services/${pillar.slug}/${service.slug}`,
     };
   });
@@ -121,12 +128,14 @@ type CapabilitiesProps = {
   showHeading?: boolean;
   linkCards?: boolean;
   sectionId?: string;
+  badges?: readonly Badge[];
 };
 
 export function Capabilities({
   showHeading = true,
   linkCards = false,
   sectionId = "services",
+  badges = [],
 }: CapabilitiesProps = {}) {
   const showcaseRef = useRef<HTMLDivElement>(null);
 
@@ -190,11 +199,11 @@ export function Capabilities({
                 defaults: { ease: "none" },
                 scrollTrigger: {
                   trigger: showcase,
-                  start: "top top",
-                  end: () => `+=${Math.max(window.innerHeight, horizontalTravel() / viewport.clientWidth * window.innerHeight * 1.1)}`,
+                  start: () => `top ${parseFloat(getComputedStyle(showcase).scrollMarginTop)}px`,
+                  end: () => `+=${Math.max(window.innerHeight, horizontalTravel() / viewport.clientWidth * window.innerHeight * .7)}`,
                   pin: showcase,
                   pinSpacing: true,
-                  scrub: .25,
+                  scrub: true,
                   snap: {
                     snapTo: (progress: number, trigger?: { direction: number }) => {
                       const step = 1 / Math.max(1, panels.length - 1);
@@ -204,8 +213,8 @@ export function Capabilities({
                       return Math.abs(nearest - progress) < .005 ? nearest
                         : ScrollTrigger.snapDirectional(step)(progress, trigger?.direction ?? 0);
                     },
-                    duration: { min: .15, max: .35 },
-                    delay: .12,
+                    duration: .5,
+                    delay: 0,
                     ease: "power1.inOut",
                     inertia: false,
                   },
@@ -234,7 +243,8 @@ export function Capabilities({
                 ScrollTrigger.update();
               };
               const revealFocusedCard = (event: FocusEvent) => {
-                const index = panels.indexOf(event.target as HTMLElement);
+                const panel = event.target instanceof Element ? event.target.closest<HTMLElement>("[data-service-card]") : null;
+                const index = panel ? panels.indexOf(panel) : -1;
                 if (index >= 0 && index !== currentService()) showService(index);
               };
               const navigateServices = (event: KeyboardEvent) => {
@@ -252,7 +262,7 @@ export function Capabilities({
                   }
                   return;
                 }
-                panels[next].focus({ preventScroll: true });
+                panels[next].querySelector<HTMLAnchorElement>("[data-service-main-link]")?.focus({ preventScroll: true });
                 showService(next);
               };
               showcase.addEventListener("keydown", navigateServices);
@@ -269,6 +279,7 @@ export function Capabilities({
           );
 
           ScrollTrigger.refresh();
+          window.dispatchEvent(new Event("vyntics:scroll-layout-ready"));
         }, showcase);
       },
     );
@@ -304,7 +315,8 @@ export function Capabilities({
           <div className={styles.showcaseViewport} data-service-viewport>
             <div className={styles.showcaseTrack} data-service-track>
               {capabilities.map((capability) => (
-                <Link id={capability.anchor} className={styles.showcasePanel} key={capability.pillar} href={capability.href} aria-label={`Explore ${capability.title}`}>
+                <article id={capability.anchor} className={styles.showcasePanel} key={capability.pillar} data-service-card>
+                  <Link className={styles.cardLink} href={capability.href} aria-label={`Explore ${capability.title}`} data-service-main-link />
                   <div className={styles.showcaseMedia}>
                     <Image
                       className={styles.showcaseImage}
@@ -319,18 +331,30 @@ export function Capabilities({
                     <span className={styles.showcaseImageShade} aria-hidden="true" />
                   </div>
                   <div className={styles.showcaseCopy}>
-                    <h3>
-                      <span className={styles.showcaseTitleLink}>
-                        {capability.title}
-                      </span>
-                    </h3>
+                    <div className={styles.showcaseHeading}>
+                      <h3>{capability.title}</h3>
+                      {serviceBadges[capability.pillar] && (
+                        <div className={styles.serviceBadges} aria-label={`${capability.title} badges`}>
+                          {serviceBadges[capability.pillar]!.map(badge => (
+                            <span className={styles.serviceBadge} key={badge.name}>
+                              <BadgeLogo
+                                src={badge.image ?? badges.find(record => record.name === badge.name)?.logo_url ?? null}
+                                name={badge.name}
+                                className={styles.serviceBadgeLogo}
+                              />
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                     <p className={styles.showcaseDescription}>{capability.description}</p>
                     <ul className={styles.highlightList}>
                       {capability.highlights.map((highlight) => (
                         <li key={highlight.label}>
-                          <span className={styles.highlightLink}>
-                            {highlight.label}
-                          </span>
+                          <Link className={styles.highlightLink} href={highlight.href}>
+                            <span className={styles.highlightTitle}>{highlight.label}</span>
+                            <span className={styles.highlightDescription}>{highlight.description}</span>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -338,7 +362,7 @@ export function Capabilities({
                       Explore service <span aria-hidden="true">→</span>
                     </span>
                   </div>
-                </Link>
+                </article>
               ))}
             </div>
           </div>

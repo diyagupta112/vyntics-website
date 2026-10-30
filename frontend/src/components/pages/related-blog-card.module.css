@@ -1,4 +1,4 @@
-.card { display: grid; grid-template-columns: 32% minmax(0, 1fr); overflow: hidden; border: 1px solid var(--color-border); border-radius: .7rem; margin-top: 1rem; background: var(--color-surface); transition: border-color 180ms ease, box-shadow 180ms ease; }
+.card { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr 1fr; overflow: hidden; border: 1px solid var(--color-border); border-radius: .7rem; margin-top: 1rem; background: var(--color-surface); transition: border-color 180ms ease, box-shadow 180ms ease; }
 .image { position: relative; width: 100%; min-height: 9rem; overflow: hidden; background: linear-gradient(135deg, #eaf1ff, #d7e5ff); }
 .image img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 250ms ease; }
 .image > span { position: absolute; inset: 0; display: grid; place-items: center; color: #1453db; letter-spacing: .15em; font-size: .7rem; }
