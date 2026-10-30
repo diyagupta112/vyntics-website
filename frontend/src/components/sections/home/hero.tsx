@@ -7,7 +7,7 @@ export function Hero() {
     <Container as="section" className={styles.hero}>
       <p className={styles.eyebrow}>Custom AI, analytics, and data engineering</p>
       <h1>
-        AI and data created by professionals you can actually speak with.
+        AI and data created by professionals you can actually speak with
       </h1>
       <p className={styles.intro}>
         No handoffs, no account managers. Your project is built by the engineers who

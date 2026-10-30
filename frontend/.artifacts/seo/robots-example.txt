@@ -1,0 +1,16 @@
+User-Agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api
+Disallow: /auth
+Disallow: /login
+Disallow: /logout
+Disallow: /signup
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /account
+Disallow: /dashboard
+Disallow: /private
+
+Sitemap: https://example.com/sitemap.xml
