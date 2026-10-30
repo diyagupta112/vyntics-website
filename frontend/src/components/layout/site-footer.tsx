@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/container";
 import { serviceNavigation } from "@/content/service-navigation";
 import { siteConfig } from "@/config/site";
 import { getBadges, type Badge } from "@/lib/badges";
+import { ServiceDividers } from "./service-dividers";
 import { FooterBadgeImage } from "./footer-badge-image";
 import styles from "./site-footer.module.css";
 import { InstagramIcon, LinkedInIcon, TwitterIcon, YouTubeIcon } from "./social-icons";
@@ -51,12 +52,20 @@ const youtubeUrl = "youtube" in siteConfig.socialLinks && typeof siteConfig.soci
   ? siteConfig.socialLinks.youtube
   : undefined;
 
+// Service links centered in their row instead of top-aligned.
+const verticallyCenteredLabels = new Set(["AI Agents", "DevOps & Reliability"]);
+
+// Footer labels that always break onto two lines.
+function itemLabel(label: string) {
+  return label === "Intelligent Automation" ? <>Intelligent<br />Automation</> : label;
+}
+
 function ItemList({ items, sharedRows = false, className = "" }: { items: readonly FooterItem[]; sharedRows?: boolean; className?: string }) {
   return (
     <ul className={`${styles.itemList} ${className}`.trim()}>
       {items.map((item, index) => (
-        <li key={item.label} style={sharedRows ? { "--service-row": index + 2 } as CSSProperties : undefined}>
-          {item.href ? <Link href={item.href}>{item.label}</Link> : <span>{item.label}</span>}
+        <li key={item.label} className={sharedRows && verticallyCenteredLabels.has(item.label) ? styles.centeredItem : undefined} style={sharedRows ? { "--service-row": index + 2 } as CSSProperties : undefined}>
+          {item.href ? <Link href={item.href}>{itemLabel(item.label)}</Link> : <span>{itemLabel(item.label)}</span>}
         </li>
       ))}
     </ul>
@@ -76,7 +85,7 @@ function RecognitionsIntro() {
   return (
     <div className={styles.recognitionsIntro}>
       <h2 className={styles.navigationHeading} id="footer-recognitions-title">Partners &amp; Recognitions</h2>
-      <p>Trusted by the platforms we build on</p>
+      <p>Trusted by the platforms and partners we build on and work with</p>
     </div>
   );
 }
@@ -105,7 +114,7 @@ function RecognitionsSkeleton() {
 function BadgeItem({ badge }: { badge: Badge }) {
   const content = (
     <>
-      <span className={styles.badgeTile}>
+      <span className={`${styles.badgeTile}${/openai/i.test(badge.name) ? ` ${styles.badgeTileLarge}` : ""}`}>
         <FooterBadgeImage src={badge.logo_url} alt={badge.name} title={badge.name} className={styles.badgeImage} letterClassName={styles.badgeLetter} />
       </span>
       <span className={styles.badgeText}>
@@ -145,7 +154,6 @@ export function SiteFooter() {
   return (
     <footer id="footer" className={styles.footer}>
       <FooterBackground />
-      <span className={styles.decorativeWordmark} aria-hidden="true">VYNTICS</span>
       <Container className={styles.closingContainer}>
         <div className={styles.footerMain}>
           <div className={styles.brandBlock}>
@@ -166,27 +174,23 @@ export function SiteFooter() {
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12Z" /><circle cx="12" cy="9" r="2.5" /></svg>
                 <a href={siteConfig.mapHref} target="_blank" rel="noreferrer">{siteConfig.address}</a>
               </address>
-              <div className={styles.socialBlock}>
-                <p className={styles.navigationHeading}>Socials</p>
-                <div className={styles.socialLinks} role="group" aria-label="Vyntics social media">
-                  <a href={siteConfig.socialLinks.linkedin} target="_blank" rel="noreferrer" aria-label="Vyntics on LinkedIn"><LinkedInIcon /></a>
-                  <a href={siteConfig.socialLinks.instagram} target="_blank" rel="noreferrer" aria-label="Vyntics on Instagram"><InstagramIcon /></a>
-                  <a href={siteConfig.socialLinks.twitter} target="_blank" rel="noreferrer" aria-label="Vyntics on X, formerly Twitter"><TwitterIcon /></a>
-                  {youtubeUrl ? <a href={youtubeUrl} target="_blank" rel="noreferrer" aria-label="Vyntics on YouTube"><YouTubeIcon /></a> : <span className={styles.socialPlaceholder} role="img" aria-label="Vyntics on YouTube - link coming soon" title="YouTube link coming soon"><YouTubeIcon /></span>}
-                </div>
-              </div>
             </section>
           </div>
 
           <div className={styles.navigationZone}>
-            <nav className={styles.services} aria-labelledby="footer-services-title">
-              <h2 className={styles.navigationHeading} id="footer-services-title">Services</h2>
+            <nav className={styles.services} aria-label="Services">
               <div className={styles.serviceList} style={serviceGridStyle}>
                 {serviceGroups.map((group, index) => <ServiceCluster group={group} column={index + 1} key={group.label} />)}
+                <ServiceDividers count={serviceGroups.length - 1} className={styles.serviceDivider} />
               </div>
             </nav>
           </div>
-          <div className={styles.supportingNavigation}>
+        </div>
+
+        <Suspense fallback={<RecognitionsSkeleton />}><Recognitions /></Suspense>
+
+        <div className={styles.linksRow}>
+          <div className={styles.linksNav}>
             <nav className={styles.companyNav} aria-labelledby="footer-company-title">
               <h2 className={styles.navigationHeading} id="footer-company-title">Company</h2>
               <ItemList items={companyLinks} className={styles.companyLinks} />
@@ -196,9 +200,16 @@ export function SiteFooter() {
               <ItemList items={resourceLinks} />
             </nav>
           </div>
+          <div className={styles.socialBlock}>
+            <p className={styles.navigationHeading}>Socials</p>
+            <div className={styles.socialLinks} role="group" aria-label="Vyntics social media">
+              <a href={siteConfig.socialLinks.linkedin} target="_blank" rel="noreferrer" aria-label="Vyntics on LinkedIn"><LinkedInIcon /></a>
+              <a href={siteConfig.socialLinks.instagram} target="_blank" rel="noreferrer" aria-label="Vyntics on Instagram"><InstagramIcon /></a>
+              <a href={siteConfig.socialLinks.twitter} target="_blank" rel="noreferrer" aria-label="Vyntics on X, formerly Twitter"><TwitterIcon /></a>
+              {youtubeUrl ? <a href={youtubeUrl} target="_blank" rel="noreferrer" aria-label="Vyntics on YouTube"><YouTubeIcon /></a> : <span className={styles.socialPlaceholder} role="img" aria-label="Vyntics on YouTube - link coming soon" title="YouTube link coming soon"><YouTubeIcon /></span>}
+            </div>
+          </div>
         </div>
-
-        <Suspense fallback={<RecognitionsSkeleton />}><Recognitions /></Suspense>
 
         <div className={styles.utilityBar}>
           <p>&copy; {new Date().getFullYear()} {siteConfig.name}</p>

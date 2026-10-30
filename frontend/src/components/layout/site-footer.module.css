@@ -158,7 +158,7 @@
    The semantic section/list wrappers stay in the DOM without independent boxes. */
 @media(min-width:1001px) {
   .serviceList {
-    grid-template-rows:auto repeat(calc(var(--service-track-count) - 1),minmax(2lh,auto));
+    grid-template-rows:auto repeat(calc(var(--service-track-count) - 1),auto);
     row-gap:.55rem;
   }
   .serviceCluster,.serviceCluster .itemList { display:contents; }
@@ -193,18 +193,18 @@
 }
 
 /* Recognitions strip: compact equal columns, title first, one centered badge per remaining column. */
-.recognitions { display:grid; grid-template-columns:repeat(calc(var(--badge-count, 2) + 1), 1fr); align-items:center; width:100%; padding-block:2.5rem; border-top:1px solid rgb(255 255 255 / 10%); }
+.recognitions { display:grid; grid-template-columns:repeat(calc(var(--badge-count, 2) + 1), 1fr); align-items:center; width:100%; padding-block:1.25rem; border-top:1px solid rgb(255 255 255 / 10%); }
 .recognitionsGroup, .recognitionsList { display:contents; }
 .recognitionsDivider { display:none; }
 .recognitionsList { list-style:none; }
-.recognitionsList li { position:relative; min-width:0; display:flex; justify-content:center; }
+.recognitionsList li { position:relative; min-width:0; display:flex; justify-content:flex-start; padding-left:3rem; }
 .recognitionsList li::before { content:""; position:absolute; left:0; top:50%; width:1px; height:4rem; translate:0 -50%; background:rgb(255 255 255 / 12%); }
 .recognitionsIntro { text-align:left; }
-.recognitionsIntro .navigationHeading { color:inherit; }
+.recognitionsIntro .navigationHeading { margin-bottom:1rem; color:var(--color-foreground); font-size:.85rem; font-weight:650; line-height:1.45; letter-spacing:normal; text-transform:none; }
 .badgeItem { display:flex; align-items:center; gap:1rem; min-width:0; }
-.badgeTile { flex:none; display:grid; place-items:center; width:3.5rem; height:3.5rem; padding:.375rem; box-sizing:border-box; border-radius:.75rem; background:#fff; box-shadow:0 2px 8px rgb(0 0 0 / 20%); transition:transform 200ms ease; }
+.badgeTile { flex:none; display:grid; place-items:center; width:3.5rem; height:3.5rem; padding:0; box-sizing:border-box; border-radius:.75rem; background:transparent; box-shadow:none; transition:transform 200ms ease; }
 .badgeImage { width:100%; height:100%; object-fit:contain; }
-.badgeLetter { color:#0f172a; font-size:1.25rem; font-weight:600; }
+.badgeLetter { color:#fff; font-size:1.25rem; font-weight:600; }
 .badgeText { display:grid; gap:.25rem; min-width:0; }
 .badgeItem .badgeName { color:#fff; font-weight:600; white-space:nowrap; transition:color 200ms ease; }
 .badgeSubtitle { color:rgb(255 255 255 / 55%); font-size:.8125rem; font-weight:400; line-height:1.4; white-space:nowrap; }
@@ -218,10 +218,11 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
   .recognitions { grid-template-columns:repeat(var(--badge-count, 2), 1fr); row-gap:1.5rem; }
   .recognitionsIntro { grid-column:1 / -1; }
   .recognitionsList li:first-child::before { display:none; }
+  .recognitionsList li:first-child { padding-left:0; }
 }
 @media(max-width:767px) {
   .recognitions { grid-template-columns:minmax(0,1fr); row-gap:1.25rem; }
-  .recognitionsList li { justify-content:flex-start; }
+  .recognitionsList li { padding-left:0; }
   .recognitionsList li::before { display:none; }
   .badgeTile { width:3rem; height:3rem; }
 }
@@ -240,3 +241,56 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
   .companyNav { grid-column:1 / 3; }
   .resourcesNav { grid-column:3; }
 }
+
+
+@media(min-width:1201px) { .recognitionsIntro .navigationHeading { font-size:.9375rem; font-weight:700; } }
+
+
+/* More breathing room at the left and right edges of the footer. */
+.footer .closingContainer { width:min(100% - 2 * clamp(1.5rem,5vw,6rem), var(--content-width)); }
+
+/* Company and Resources on the left, Socials in the right corner, below the Partners & Recognitions strip. */
+.linksRow { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:2rem 3rem; padding-block:2.5rem; border-top:1px solid rgb(255 255 255 / 10%); }
+.linksNav { display:flex; flex-wrap:wrap; align-items:flex-start; gap:2rem 6rem; }
+.linksNav .companyLinks { grid-template-columns:repeat(3,max-content); grid-template-rows:repeat(2,auto); grid-auto-flow:column; column-gap:3rem; row-gap:.55rem; }
+.linksRow .socialBlock { justify-items:end; text-align:right; margin-left:auto; }
+@media(max-width:600px) { .linksRow .socialBlock { justify-items:start; text-align:left; margin-left:0; } }
+
+/* Vertical separator centered in the gap between Company and Resources. */
+@media(min-width:1001px) {
+  .linksNav .resourcesNav { position:relative; }
+  .linksNav .resourcesNav::before { content:""; position:absolute; left:-3rem; top:0; bottom:0; width:1px; background:rgb(255 255 255 / 12%); }
+}
+
+/* Larger social icons. */
+.footer .socialLinks { gap:.75rem; }
+.footer .socialLinks a,.footer .socialLinks .socialPlaceholder { width:3rem; height:3rem; }
+.footer .socialLinks svg { width:1.35rem; }
+
+/* Center the service headings on the VYNTICS wordmark: half the 3rem logo box minus half a heading line. */
+@media(min-width:1201px) {
+  .services .serviceList { margin-top:.82rem; }
+}
+
+.badgeTile.badgeTileLarge { width:5.5rem; height:5.5rem; }
+@media(max-width:767px) { .badgeTile.badgeTileLarge { width:4.5rem; height:4.5rem; } }
+
+/* Vertical separators: columns keep their equal widths; each line sits midway between the end of the longest
+   label in the column on its left and the start of the next column; ServiceDividers measures and overrides the left offset. */
+.serviceList { position:relative; }
+.serviceDivider { display:none; }
+@media(min-width:1001px) {
+  .serviceDivider {
+    display:block;
+    position:absolute;
+    top:0;
+    left:calc(var(--divider-k) * (100% + 1.5rem) / 5 - .75rem);
+    width:1px;
+    height:75%;
+    font-size:.85rem;
+    background:rgb(255 255 255 / 12%);
+  }
+}
+@media(min-width:1201px) { .serviceDivider { font-size:.9375rem; } }
+
+.serviceCluster .itemList .centeredItem { align-self:center; }

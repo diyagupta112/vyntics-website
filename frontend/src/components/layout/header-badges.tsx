@@ -7,9 +7,10 @@ const MAX_HEADER_BADGES = 3;
 
 function BadgeTile({ badge }: { badge: Badge }) {
   const tile = <FooterBadgeImage src={badge.logo_url} alt={badge.name} title={badge.name} className={styles.image} letterClassName={styles.letter} />;
+  const size = /openai/i.test(badge.name) ? ` ${styles.large}` : "";
   return badge.website_url
-    ? <a className={`${styles.tile} ${styles.link}`} href={badge.website_url} target="_blank" rel="noopener noreferrer" title={badge.name}>{tile}</a>
-    : <span className={styles.tile} title={badge.name}>{tile}</span>;
+    ? <a className={`${styles.tile} ${styles.link}${size}`} href={badge.website_url} target="_blank" rel="noopener noreferrer" title={badge.name}>{tile}</a>
+    : <span className={`${styles.tile}${size}`} title={badge.name}>{tile}</span>;
 }
 
 async function BadgeRow({ variant }: { variant: "bar" | "drawer" }) {

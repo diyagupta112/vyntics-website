@@ -1,18 +1,19 @@
 .bar { display: flex; align-items: center; }
 .divider { flex: none; width: 1px; height: 2rem; margin-inline: 1.5rem; background: rgb(15 23 42 / 12%); }
 :global(html[data-theme="dark"]) .divider { background: rgb(255 255 255 / 12%); }
-.row { display: flex; align-items: center; gap: .75rem; }
-.tile { flex: none; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: .25rem; box-sizing: border-box; border: 1px solid rgb(15 23 42 / 8%); border-radius: .625rem; background: #fff; transition: transform 200ms ease, box-shadow 200ms ease, width 200ms ease, height 200ms ease; }
-:global(html[data-theme="dark"]) .tile { border-color: rgb(255 255 255 / 12%); }
-.image { width: 100%; height: 100%; object-fit: contain; }
-.letter { color: #0f172a; font-size: .95rem; font-weight: 600; }
+.row { display: flex; align-items: center; gap: 1.25rem; }
+.tile { flex: none; display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0; box-sizing: border-box; border: 0; border-radius: .625rem; background: transparent; transition: transform 200ms ease, box-shadow 200ms ease, width 200ms ease, height 200ms ease; }
+.bar .tile.large { width: 4.25rem; height: 4.25rem; }
+.image { width: 100%; height: 100%; object-fit: contain; object-position: center; }
+.letter { color: var(--color-foreground); font-size: .95rem; font-weight: 600; }
 .link:hover, .link:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 12px rgb(0 0 0 / 12%); }
-.skeleton { background: rgb(15 23 42 / 8%); border-color: transparent; animation: headerBadgePulse 1.4s ease-in-out infinite; }
+.skeleton { background: rgb(15 23 42 / 8%); animation: headerBadgePulse 1.4s ease-in-out infinite; }
 :global(html[data-theme="dark"]) .skeleton { background: rgb(255 255 255 / 8%); }
 @keyframes headerBadgePulse { 50% { opacity: .5; } }
 .drawer { display: block; margin-top: 1rem; }
 @media (max-width: 1279px) {
-  .bar .tile { width: 2.25rem; height: 2.25rem; }
+  .bar .tile { width: 2.5rem; height: 2.5rem; }
+  .bar .tile.large { width: 3.5rem; height: 3.5rem; }
   .divider { margin-inline: 1rem; }
 }
 @media (max-width: 1023px) { .bar { display: none; } }
