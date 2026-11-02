@@ -7,8 +7,8 @@
 .hero h1{max-width:24ch;margin-top:1.15rem;font-size:clamp(2rem,3.2vw,2.75rem);line-height:1.16;letter-spacing:-.04em;text-wrap:balance}
 .hero h1 span{display:block}
 .heroCopy{position:relative;isolation:isolate;width:min(100%,38rem);padding:clamp(1.6rem,3.5vw,3rem);overflow:hidden;border:1px solid color-mix(in srgb,var(--color-foreground) 22%,transparent);border-radius:1rem;background:color-mix(in srgb,var(--color-surface) 76%,transparent);backdrop-filter:blur(.5rem)}
-.heroCopy::before{position:absolute;z-index:-2;inset:-18%;content:"";background:url("/images/technology-hero-card-gradient.png") left bottom / 125% 125% no-repeat;opacity:.58;transform:translate3d(-3%,4%,0) scale(1.08);pointer-events:none}
-.heroCopy::after{position:absolute;z-index:-1;inset:0;content:"";background:linear-gradient(115deg,color-mix(in srgb,var(--color-surface) 32%,transparent),color-mix(in srgb,var(--color-surface) 82%,transparent) 78%);pointer-events:none}
+.heroCopy::before{position:absolute;z-index:-2;inset:-18%;content:"";background:radial-gradient(ellipse at 12% 88%,color-mix(in srgb,var(--color-primary) 65%,transparent),transparent 68%),radial-gradient(ellipse at 88% 12%,color-mix(in srgb,var(--color-brand) 38%,transparent),transparent 64%);opacity:.8;transform:translate3d(-3%,4%,0) scale(1.08);pointer-events:none}
+.heroCopy::after{position:absolute;z-index:-1;inset:0;content:"";background:linear-gradient(115deg,color-mix(in srgb,var(--color-surface) 18%,transparent),color-mix(in srgb,var(--color-surface) 66%,transparent) 78%);pointer-events:none}
 .heroCopy>p:not(.eyebrow){max-width:33rem;margin-top:1.15rem;color:var(--color-muted);font-size:1rem;line-height:1.75}.heroCopy>p:nth-of-type(2){margin-top:1.5rem}
 .landscape,.processSection,.credentials{border-top:0}
 .landscape{min-height:calc(100svh - 5rem);padding-block:clamp(1.25rem,2.5vh,2rem);display:flex;align-items:center;border-bottom:0;overflow:hidden}.landscape>div{width:100%}.landscape .sectionHeading{max-width:46rem;margin-inline:auto;text-align:center}.landscape .sectionHeading h2{font-size:clamp(1.9rem,2.7vw,2.85rem)}.landscape .sectionHeading>p:last-child{margin-inline:auto}

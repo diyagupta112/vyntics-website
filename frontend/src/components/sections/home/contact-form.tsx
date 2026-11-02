@@ -5,6 +5,8 @@ import SendButton from "@/components/ui/send-button";
 import styles from "./contact-cta.module.css";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
+const SENT_STATE_DURATION_MS = 5 * 1000;
+const SEND_ANIMATION_DURATION_MS = 450;
 
 /** The site's contact form. Used by the home page call to action, the service pages and the Contact Us page. */
 export function ContactForm({ submitLabel = "Send message" }: { submitLabel?: string }) {
@@ -16,12 +18,13 @@ export function ContactForm({ submitLabel = "Send message" }: { submitLabel?: st
     const timer = window.setTimeout(() => {
       setSubmitState("idle");
       setFeedback("");
-    }, 7000);
+    }, SENT_STATE_DURATION_MS);
     return () => window.clearTimeout(timer);
   }, [submitState]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitState === "submitting" || submitState === "success") return;
     setSubmitState("submitting");
     setFeedback("");
 
@@ -43,7 +46,7 @@ export function ContactForm({ submitLabel = "Send message" }: { submitLabel?: st
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-      }), new Promise<void>((resolve) => window.setTimeout(resolve, 700))]);
+      }), new Promise<void>((resolve) => window.setTimeout(resolve, SEND_ANIMATION_DURATION_MS))]);
 
       if (!response.ok) throw new Error(`Contact request failed with status ${response.status}`);
 
@@ -61,7 +64,7 @@ export function ContactForm({ submitLabel = "Send message" }: { submitLabel?: st
           className={styles.form}
           onSubmit={handleSubmit}
           onInput={() => {
-            if (submitState === "success" || submitState === "error") {
+            if (submitState === "error") {
               setSubmitState("idle");
               setFeedback("");
             }

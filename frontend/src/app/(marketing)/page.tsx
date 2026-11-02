@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { getBlogs } from "@/lib/blogs";
+import { getBadges } from "@/lib/badges";
 import { getTestimonials } from "@/lib/testimonials";
 import { Approach } from "@/components/sections/home/approach";
 import { BlogShowcase } from "@/components/sections/home/blog-showcase";
@@ -20,13 +21,18 @@ async function HomeTestimonials() {
   return <Testimonials testimonials={await getTestimonials()} />;
 }
 
+async function HomeServices() {
+  const badges = await getBadges().catch(() => []);
+  return <Capabilities linkCards badges={badges} />;
+}
+
 export default function HomePage() {
   return (
     <div data-home-page>
       <Hero />
       <ClientMarquee />
-      <Capabilities linkCards />
-      <Suspense fallback={<FeaturedWork loading />}><FeaturedWork /></Suspense>
+      <Suspense fallback={<Capabilities linkCards />}><HomeServices /></Suspense>
+      <Suspense fallback={<FeaturedWork loading eyebrow="" description="" expanded />}><FeaturedWork eyebrow="" description="" expanded /></Suspense>
       <Suspense fallback={null}><HomeTestimonials /></Suspense>
       <Approach />
       <Suspense fallback={<BlogShowcase blogs={[]} loading />}><LatestBlogs /></Suspense>

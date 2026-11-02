@@ -154,15 +154,24 @@ function TeamMemberDialog({ summary, onDismiss }: { summary: TeamMemberSummary; 
 
 export function TeamStage({ featured, supporting }: { featured: TeamMember; supporting: TeamMemberSummary[] }) {
   const [selected, setSelected] = useState<TeamMemberSummary | null>(null);
-  const leftMembers = supporting.slice(0, 2);
-  const rightMembers = supporting.slice(2, 4);
-  const remainingMembers = supporting.slice(4);
+  const findMember = (firstName: string) => supporting.find((member) => member.name.trim().split(/\s+/)[0].toLowerCase() === firstName);
+  const leftMembers = [findMember("vibhu"), findMember("akash"), findMember("nishant")];
+  const ved = findMember("ved");
+  const shipra = findMember("shipra");
+  const vipul = findMember("vipul");
+  const diya = findMember("diya");
+  const placedIds = new Set([...leftMembers, shipra, ved, vipul, diya].filter((member) => member !== undefined).map((member) => member.id));
+  const additionalMembers = supporting.filter((member) => !placedIds.has(member.id));
+  const rightMembers = [shipra, ved, vipul];
+  const remainingMembers = [...(diya ? [diya] : []), ...additionalMembers];
 
   return (
     <>
       <div className={styles.teamStage}>
         <div className={styles.sideColumn}>
-          {leftMembers.map((member, index) => <MemberCard member={member} index={index} key={member.id} onOpen={setSelected} />)}
+          {leftMembers.map((member, index) => member
+            ? <MemberCard member={member} index={index} key={member.id} onOpen={setSelected} />
+            : <div className={styles.emptySlot} key={`left-slot-${index}`} aria-hidden="true" />)}
         </div>
         <div className={styles.centerColumn}>
           <article className={styles.founderCard}>
@@ -175,7 +184,9 @@ export function TeamStage({ featured, supporting }: { featured: TeamMember; supp
           {remainingMembers.map((member, index) => <MemberCard member={member} index={index + 4} compact key={member.id} onOpen={setSelected} />)}
         </div>
         <div className={styles.sideColumn}>
-          {rightMembers.map((member, index) => <MemberCard member={member} index={index + 2} key={member.id} onOpen={setSelected} />)}
+          {rightMembers.map((member, index) => member
+            ? <MemberCard member={member} index={index + 2} key={member.id} onOpen={setSelected} />
+            : <div className={styles.emptySlot} key={`right-slot-${index}`} aria-hidden="true" />)}
         </div>
       </div>
       {selected ? <TeamMemberDialog summary={selected} onDismiss={() => setSelected(null)} /> : null}
