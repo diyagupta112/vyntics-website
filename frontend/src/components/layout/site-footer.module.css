@@ -307,7 +307,7 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
   .linksRow { position:relative; }
   .linksRow::before { content:""; position:absolute; left:calc(100% / 3); top:2.5rem; bottom:2.5rem; width:1px; background:rgb(255 255 255 / 12%); }
   .linksNav .companyLinks { grid-template-columns:repeat(3,max-content); grid-template-rows:repeat(2,auto); column-gap:2rem; }
-  .linksRow .socialBlock { grid-column:2; grid-row:1; justify-self:end; position:relative; z-index:1; }
+  .linksRow .socialBlock { grid-column:2; grid-row:1; justify-self:end; position:relative; z-index:1; margin-right:120px; }
 }
 
 /* Center each badge and its text between its own separator and the next one. */
@@ -335,6 +335,7 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
 /* Move only the copyright / legal bar lower, into the container's bottom padding. */
 @media(min-width:1201px) {
   .utilityBar { translate:0 1rem; }
+  .utilityBar .legalLinks { margin-right:120px; }
 }
 
 /* Center Company / Resources / Socials between the line above and the (shifted) legal bar's line below. */
