@@ -1,5 +1,6 @@
 import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { ConsentProvider } from "@/components/consent/consent-provider";
 import { CookieConsent } from "@/components/consent/cookie-consent";
 import { StyledComponentsRegistry } from "@/components/ui/styled-components-registry";
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ConsentProvider>
           <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           <CookieConsent />
+          <ChatWidget />
         </ConsentProvider>
       </body>
     </html>
