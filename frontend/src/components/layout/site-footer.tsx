@@ -212,7 +212,7 @@ export function SiteFooter() {
         </div>
 
         <div className={styles.utilityBar}>
-          <p>&copy; {new Date().getFullYear()} {siteConfig.name}</p>
+          <p>&copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
           <div className={styles.legalLinks}>
             <Link href="/privacy-policy">Privacy Policy</Link>
             <Link href="/terms-and-conditions">Terms &amp; Conditions</Link>
