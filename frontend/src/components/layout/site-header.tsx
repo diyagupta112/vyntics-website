@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { siteConfig } from "@/config/site";
@@ -153,7 +153,7 @@ export function SiteHeaderSpacer() {
   return <div className={styles.headerSpacer} aria-hidden="true" />;
 }
 
-export function SiteHeader() {
+export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobileBadges?: ReactNode } = {}) {
   const pathname = usePathname();
   const [active, setActive] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -263,6 +263,8 @@ export function SiteHeader() {
             </ul>
           </nav>
 
+          {badges}
+
           <div className={styles.actions}>
             <Link className={`${styles.demoButton} siteCta`} href="/contact-us">
               Book a demo <span aria-hidden="true">&rarr;</span>
@@ -319,6 +321,7 @@ export function SiteHeader() {
                 <Link className={`${styles.mobileDemoButton} siteCta`} href="/contact-us" onClick={() => setMobileOpen(false)}>
                   Book a demo <span aria-hidden="true">&rarr;</span>
                 </Link>
+                {mobileBadges}
               </Container>
             </motion.nav>
           )}

@@ -114,13 +114,13 @@ export function ScrollRestoration() {
       save();
       stop();
       const next = newKey();
-      originalPush.call(this, withEntry(state, next), unused, url);
+      originalPush.call(history, withEntry(state, next), unused, url);
       entry = next;
       lastPosition = undefined;
     };
     const replace: History["replaceState"] = function (state, unused, url) {
       const key = history.state?.[ENTRY_KEY] ?? entry;
-      originalReplace.call(this, withEntry(state, key), unused, url);
+      originalReplace.call(history, withEntry(state, key), unused, url);
     };
     const onPop = (event: PopStateEvent) => {
       save();

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState, type FocusEvent } from "react";
 import { Container } from "@/components/ui/container";
+import type { Testimonial as ApiTestimonial } from "@/lib/testimonials";
 import styles from "./testimonials.module.css";
 
 type Testimonial = {
@@ -18,7 +19,7 @@ type Testimonial = {
   };
 };
 
-const testimonials: Testimonial[] = [
+const defaultTestimonials: Testimonial[] = [
   {
     text: "Arun and the Vyntics team transformed our data workflows. They developed a seamless, automated ingestion engine that streamlined our entire reporting process while remaining timely and budget-conscious. Their technical mastery of Cloud Data Warehousing makes them an indispensable partner.",
     name: "Mona McCormick",
@@ -39,8 +40,6 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-// Repeat the existing reviews so each half fills even a wide viewport.
-const marqueeTestimonials = [...testimonials, ...testimonials];
 
 function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
   const company = testimonial.company;
@@ -67,7 +66,12 @@ function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
   );
 }
 
-export function Testimonials() {
+export function Testimonials({ testimonials: apiTestimonials }: { testimonials?: ApiTestimonial[] }) {
+  const testimonials = apiTestimonials?.length
+    ? apiTestimonials.slice().sort((a, b) => a.display_order - b.display_order).map((item): Testimonial => ({ text: item.quote, name: item.author_name, role: [item.author_role, item.company_name].filter(Boolean).join(", ") }))
+    : defaultTestimonials;
+  // Repeat the reviews so each half fills even a wide viewport.
+  const marqueeTestimonials = [...testimonials, ...testimonials];
   const marqueeRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
