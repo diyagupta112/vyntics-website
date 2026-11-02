@@ -11,6 +11,7 @@ import { FeaturedWork } from "@/components/sections/home/featured-work";
 import { Hero } from "@/components/sections/home/hero";
 import { Testimonials } from "@/components/sections/home/testimonials";
 import { WhyVyntics } from "@/components/sections/home/why-vyntics";
+import { LifeAtVynticsPreview } from "@/components/sections/home/life-at-vyntics-preview";
 
 async function LatestBlogs() {
   const result = await getBlogs();
@@ -37,6 +38,7 @@ export default function HomePage() {
       <Approach />
       <Suspense fallback={<BlogShowcase blogs={[]} loading />}><LatestBlogs /></Suspense>
       <WhyVyntics />
+      <Suspense fallback={null}><LifeAtVynticsPreview /></Suspense>
       <ContactCta />
     </div>
   );
