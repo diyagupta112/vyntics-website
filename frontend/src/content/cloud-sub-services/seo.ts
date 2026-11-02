@@ -1,8 +1,9 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import type { CloudSubPage } from "./pages";
 import { resolveSubHeroImage } from "./assets";
 
-export const cloudSubUrl = (page: CloudSubPage) => `https://vyntics.com/services/cloud-foundations/${page.slug}`;
+export const cloudSubUrl = (page: CloudSubPage) => `${SITE_URL}/services/cloud-foundations/${page.slug}`;
 
 export function cloudSubMetadata(page: CloudSubPage): Metadata {
   const url = cloudSubUrl(page);
@@ -19,13 +20,13 @@ export function cloudSubStructuredData(page: CloudSubPage, faqs: readonly { ques
   const url = cloudSubUrl(page);
   const graph: Record<string, unknown>[] = [
     { "@type": "BreadcrumbList", itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://vyntics.com/" },
-      { "@type": "ListItem", position: 2, name: "Services", item: "https://vyntics.com/#services" },
-      { "@type": "ListItem", position: 3, name: "Cloud Foundations", item: "https://vyntics.com/services/cloud-foundations" },
+      { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+      { "@type": "ListItem", position: 2, name: "Services", item: `${SITE_URL}/#services` },
+      { "@type": "ListItem", position: 3, name: "Cloud Foundations", item: `${SITE_URL}/services/cloud-foundations` },
       { "@type": "ListItem", position: 4, name: page.name, item: url },
     ] },
     { "@type": "Service", "@id": `${url}#service`, name: page.name, serviceType: page.keyword, description: page.hero.introduction, url,
-      provider: { "@type": "Organization", name: "Vyntics", url: "https://vyntics.com" } },
+      provider: { "@type": "Organization", name: "Vyntics", url: SITE_URL } },
   ];
   if (faqs.length) graph.push({ "@type": "FAQPage", mainEntity: faqs.map(faq => ({ "@type": "Question", name: faq.question,
     acceptedAnswer: { "@type": "Answer", text: faq.answer } })) });

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import { Suspense } from "react";
 import { CaseStudySectionsSkeleton } from "./case-studies-skeleton";
 import { CaseStudiesHero, CaseStudiesIntro } from "./case-studies-static";
@@ -14,7 +15,7 @@ import styles from "./page.module.css";
 export const dynamic = "force-dynamic";
 const pageTitle = "Case Studies: Data, AI & Cloud Projects | Vyntics";
 const pageDescription = "Explore Vyntics case studies: real data, AI, cloud and analytics projects built into production-grade systems. See the problems we solved and how.";
-const pageUrl = "https://vyntics.com/case-studies";
+const pageUrl = `${SITE_URL}/case-studies`;
 export const metadata: Metadata = {
   title: { absolute: pageTitle }, description: pageDescription,
   alternates: { canonical: pageUrl },
@@ -33,7 +34,7 @@ async function CaseStudySections() {
         "@context": "https://schema.org",
         "@graph": [
           { "@type": "BreadcrumbList", itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: "https://vyntics.com" },
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
             { "@type": "ListItem", position: 2, name: "Case Studies", item: pageUrl },
           ] },
           { "@type": "CollectionPage", name: "Case Studies", description: pageDescription, url: pageUrl,

@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { InnerServiceDetail } from "@/components/pages/inner-service-detail";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   return service ? {
     title: service.name,
     description: service.metadataDescription,
-    alternates: { canonical: `https://vyntics.com/services/data-engineering/${service.slug}` },
+    alternates: { canonical: `${SITE_URL}/services/data-engineering/${service.slug}` },
   } : {};
 }
 

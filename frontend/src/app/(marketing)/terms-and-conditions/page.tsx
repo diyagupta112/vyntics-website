@@ -1,3 +1,4 @@
+import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/legal/legal-page";
 import { termsSections } from "./content";
@@ -8,8 +9,8 @@ const description = "Read the Terms & Conditions governing the use of the Vyntic
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: { canonical: "https://vyntics.com/terms-and-conditions" },
-  openGraph: { title, description, type: "website", url: "https://vyntics.com/terms-and-conditions" },
+  alternates: { canonical: `${SITE_URL}/terms-and-conditions` },
+  openGraph: { title, description, type: "website", url: `${SITE_URL}/terms-and-conditions` },
 };
 
 export default function TermsAndConditionsPage() {
