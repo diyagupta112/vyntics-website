@@ -198,8 +198,14 @@ export function SiteHeader() {
     const updateHeader = () => {
       const currentScrollY = Math.max(window.scrollY, 0);
       const scrollDelta = currentScrollY - lastScrollY.current;
+      const services = pathname === "/"
+        ? document.querySelector<HTMLElement>("[data-home-page] [data-service-section]")
+        : null;
+      const servicesBounds = services?.getBoundingClientRect();
+      const headerHeight = document.querySelector<HTMLElement>(`.${styles.header}`)?.offsetHeight ?? 80;
+      const inServices = Boolean(servicesBounds && servicesBounds.top <= headerHeight && servicesBounds.bottom > headerHeight);
 
-      if (mobileOpen || currentScrollY <= 16) {
+      if (mobileOpen || inServices || currentScrollY <= 16) {
         setHeaderVisible(true);
       } else if (scrollDelta >= 6) {
         setHeaderVisible(false);
@@ -222,12 +228,13 @@ export function SiteHeader() {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    updateHeader();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
     };
-  }, [mobileOpen]);
+  }, [mobileOpen, pathname]);
 
   return (
       <header
