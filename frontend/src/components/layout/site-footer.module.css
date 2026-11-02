@@ -64,6 +64,7 @@
   .closingContainer {
     box-sizing:border-box;
     min-height:calc(100svh - 1px);
+    padding-bottom:clamp(1.5rem,4svh,3rem);
     display:flex;
     flex-direction:column;
   }
@@ -72,7 +73,7 @@
     align-items:start;
     grid-template-rows:auto auto minmax(0,1fr);
     row-gap:2rem;
-    padding-block:clamp(6rem,10svh,8rem) 0;
+    padding-block:calc(clamp(4.5rem,8svh,6.25rem) + 10px) 0;
   }
   .brandBlock {
     display:flex;
@@ -294,3 +295,50 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
 @media(min-width:1201px) { .serviceDivider { font-size:.9375rem; } }
 
 .serviceCluster .itemList .centeredItem { align-self:center; }
+
+/* Resources lines up with the Data Engineering service column: the links row reuses the footer's two tracks,
+   and Resources is offset by the first service column width (20% of the zone) plus the share of the 1.5rem gaps. */
+@media(min-width:1201px) {
+  .linksRow { display:grid; grid-template-columns:var(--footer-brand-col) minmax(0,3.2fr); column-gap:var(--footer-main-gap); }
+  .linksNav { display:contents; }
+  .companyNav { grid-column:1 / 3; grid-row:1; justify-self:start; }
+  .resourcesNav { grid-column:2; grid-row:1; justify-self:start; margin-left:calc(20% + .3rem); }
+  .linksNav .resourcesNav::before { content:none; }
+  .linksRow { position:relative; }
+  .linksRow::before { content:""; position:absolute; left:calc(100% / 3); top:2.5rem; bottom:2.5rem; width:1px; background:rgb(255 255 255 / 12%); }
+  .linksNav .companyLinks { grid-template-columns:repeat(3,max-content); grid-template-rows:repeat(2,auto); column-gap:2rem; }
+  .linksRow .socialBlock { grid-column:2; grid-row:1; justify-self:end; position:relative; z-index:1; }
+}
+
+/* Center each badge and its text between its own separator and the next one. */
+@media(min-width:1200px) {
+  .recognitionsList li { justify-content:center; padding-left:0; }
+}
+
+/* Nudge only the Partners & Recognitions strip up; the sections below keep their position. */
+@media(min-width:1201px) {
+  .recognitions { margin-top:-1.25rem; }
+}
+
+/* OpenAI badge in the footer: crop the artwork to the logo mark so the "OpenAI Select Partner" text on the image is not shown
+   (the name is already written next to it). The window covers the mark in a 1125 x 530 badge image. */
+.badgeTile.badgeTileLogoOnly { position:relative; overflow:hidden; }
+.badgeTileLogoOnly .badgeImageLogoOnly { position:absolute; width:306.8%; height:144.5%; max-width:none; left:-16.8%; top:-22.3%; object-fit:fill; }
+.badgeTile.badgeTileLarge.badgeTileLogoOnly { width:2.7253rem; height:2.7253rem; }
+@media(max-width:767px) { .badgeTile.badgeTileLarge.badgeTileLogoOnly { width:2.295rem; height:2.295rem; } }
+.badgeTile.badgeTileLogoOnly { background:#fff; border-radius:.75rem; box-shadow:0 0 0 .34rem #fff; }
+.badgeTile.badgeTileLogoOnly { translate:-.6rem 0; }
+.badgeTile:not(.badgeTileLogoOnly) { background:#fff; border-radius:.75rem; box-shadow:0 0 0 .34rem #fff; }
+.badgeTile:not(.badgeTileLogoOnly) { width:2.7253rem; height:2.7253rem; }
+@media(max-width:767px) { .badgeTile:not(.badgeTileLogoOnly) { width:2.295rem; height:2.295rem; } }
+
+/* Move only the copyright / legal bar lower, into the container's bottom padding. */
+@media(min-width:1201px) {
+  .utilityBar { translate:0 1rem; }
+}
+
+/* Center Company / Resources / Socials between the line above and the (shifted) legal bar's line below. */
+@media(min-width:1201px) {
+  .linksRow { padding-block:3rem 2rem; }
+  .linksRow::before { top:3rem; bottom:2rem; }
+}

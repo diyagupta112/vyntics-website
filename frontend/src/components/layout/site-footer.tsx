@@ -114,8 +114,8 @@ function RecognitionsSkeleton() {
 function BadgeItem({ badge }: { badge: Badge }) {
   const content = (
     <>
-      <span className={`${styles.badgeTile}${/openai/i.test(badge.name) ? ` ${styles.badgeTileLarge}` : ""}`}>
-        <FooterBadgeImage src={badge.logo_url} alt={badge.name} title={badge.name} className={styles.badgeImage} letterClassName={styles.badgeLetter} />
+      <span className={`${styles.badgeTile}${/openai/i.test(badge.name) ? ` ${styles.badgeTileLarge} ${styles.badgeTileLogoOnly}` : ""}`}>
+        <FooterBadgeImage src={badge.logo_url} alt={badge.name} title={badge.name} className={`${styles.badgeImage}${/openai/i.test(badge.name) ? ` ${styles.badgeImageLogoOnly}` : ""}`} letterClassName={styles.badgeLetter} />
       </span>
       <span className={styles.badgeText}>
         <span className={styles.badgeName}>{badge.name}</span>
