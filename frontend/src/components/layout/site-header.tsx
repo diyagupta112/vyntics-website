@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { siteConfig } from "@/config/site";
@@ -153,7 +153,7 @@ export function SiteHeaderSpacer() {
   return <div className={styles.headerSpacer} aria-hidden="true" />;
 }
 
-export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobileBadges?: ReactNode }) {
+export function SiteHeader() {
   const pathname = usePathname();
   const [active, setActive] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -198,8 +198,14 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
     const updateHeader = () => {
       const currentScrollY = Math.max(window.scrollY, 0);
       const scrollDelta = currentScrollY - lastScrollY.current;
+      const services = pathname === "/"
+        ? document.querySelector<HTMLElement>("[data-home-page] [data-service-section]")
+        : null;
+      const servicesBounds = services?.getBoundingClientRect();
+      const headerHeight = document.querySelector<HTMLElement>(`.${styles.header}`)?.offsetHeight ?? 80;
+      const inServices = Boolean(servicesBounds && servicesBounds.top <= headerHeight && servicesBounds.bottom > headerHeight);
 
-      if (mobileOpen || currentScrollY <= 16) {
+      if (mobileOpen || inServices || currentScrollY <= 16) {
         setHeaderVisible(true);
       } else if (scrollDelta >= 6) {
         setHeaderVisible(false);
@@ -222,25 +228,23 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    updateHeader();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
     };
-  }, [mobileOpen]);
+  }, [mobileOpen, pathname]);
 
   return (
       <header
         className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}`}
       >
         <div className={styles.inner}>
-        <div className={styles.logoGroup}>
-          <Link className={styles.logoLink} href="/" aria-label={`${siteConfig.name} home`} onClick={() => setMobileOpen(false)}>
-            <span className={styles.logoImage} aria-hidden="true" />
-            <span className={styles.wordmark}>VYNTICS</span>
-          </Link>
-          {badges}
-        </div>
+        <Link className={styles.logoLink} href="/" aria-label={`${siteConfig.name} home`} onClick={() => setMobileOpen(false)}>
+          <span className={styles.logoImage} aria-hidden="true" />
+          <span className={styles.wordmark}>VYNTICS</span>
+        </Link>
 
         <div className={styles.rightRail}>
           <nav
@@ -312,7 +316,6 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
                     <Link className={styles.mobileDirectLink} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} href={item.href} key={item.label} onClick={() => setMobileOpen(false)}>{item.label}</Link>
                   ),
                 )}
-                {mobileBadges}
                 <Link className={`${styles.mobileDemoButton} siteCta`} href="/contact-us" onClick={() => setMobileOpen(false)}>
                   Book a demo <span aria-hidden="true">&rarr;</span>
                 </Link>

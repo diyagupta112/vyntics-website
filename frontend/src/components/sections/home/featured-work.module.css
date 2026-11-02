@@ -13,7 +13,11 @@
   padding-block: 1rem;
 }
 
-.section[data-expanded="true"] .sectionHeader { margin-bottom: 0; }
+.section[data-expanded="true"] .sectionHeader {
+  margin-bottom: 0;
+  padding-inline: clamp(1rem, 3vw, 3rem);
+  padding-left: clamp(1.5rem, 6vw, 6rem);
+}
 .section[data-expanded="true"] .headingBlock,
 .section[data-expanded="true"] .headingBlock h2 { max-width: none; }
 
@@ -122,6 +126,10 @@
   background: var(--color-surface);
   box-shadow: 0 35px 90px rgb(11 11 15 / 11%);
   transition: box-shadow 250ms ease;
+}
+
+.card:hover {
+  box-shadow: 0 42px 110px rgb(20 83 219 / 16%);
 }
 
 .cardGrid {
