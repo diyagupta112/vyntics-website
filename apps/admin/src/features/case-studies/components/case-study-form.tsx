@@ -9,6 +9,7 @@ import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow
 import { ContentTargetingControl } from "@/components/forms/content-targeting-control";
 import { slugFromTitle } from "@/lib/content/slug";
 import { FeaturedControl } from "@/components/forms/featured-control";
+import { ContentGuide } from "@/features/content-guidelines/components/content-guide";
 import { FormField } from "@/components/forms/form-field";
 import { RichTextEditor } from "@/components/forms/rich-text-editor";
 import { Button } from "@/components/ui/button";
@@ -316,6 +317,7 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
           <h2 id="case-study-content-heading">Main content</h2>
           <p>Use the toolbar to structure and format the case study.</p>
         </div>
+        <ContentGuide type="caseStudy" />
         <FormField
           error={errors.content}
           htmlFor="caseStudyContent"
@@ -324,6 +326,7 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
         >
           <RichTextEditor
             editorLabel="Case Study content editor"
+            imageUpload={caseStudy ? (file) => caseStudiesApi.uploadContentImage(caseStudy.id, file) : null}
             id="caseStudyContent"
             invalid={Boolean(errors.content)}
             onChange={(value) => update("content", value)}

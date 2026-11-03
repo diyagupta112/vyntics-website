@@ -2,6 +2,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import { useState } from "react";
+import { coverImgProps, isOptimizableCover } from "@/lib/cover-image";
+
+const COVER_SIZES = "(max-width: 720px) 100vw, 640px";
 
 export function CaseStudyCover({ src, title, className, optimized = false }: { src: string; title: string; className?: string; optimized?: boolean }) {
   const [failedSource, setFailedSource] = useState<string>();
@@ -10,6 +13,6 @@ export function CaseStudyCover({ src, title, className, optimized = false }: { s
       <span style={{ fontSize: ".8rem" }}>Project preview unavailable</span>
     </div>
   );
-  if (optimized) return <Image unoptimized className={className} src={src} alt={`${title} project cover`} width={960} height={540} onError={() => setFailedSource(src)} />;
-  return <img className={className} src={src} alt={`${title} project cover`} width="960" height="540" onError={() => setFailedSource(src)} />;
+  if (optimized) return <Image unoptimized={!isOptimizableCover(src)} className={className} src={src} alt={`${title} project cover`} width={960} height={540} sizes={COVER_SIZES} onError={() => setFailedSource(src)} />;
+  return <img className={className} {...coverImgProps(src, COVER_SIZES)} alt={`${title} project cover`} width="960" height="540" onError={() => setFailedSource(src)} />;
 }

@@ -45,6 +45,8 @@ export function CaseStudyVideo({ media, title, fallbackSrc, className, controls 
   const inViewport = useRef(false);
   const manuallyPaused = useRef(false);
   const [inView, setInView] = useState(false);
+  // The YouTube API script and iframe are heavy; interactive previews wait until they are near the viewport.
+  const [near, setNear] = useState(!interactivePreview);
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
   const [fullscreen, setFullscreen] = useState(false);
@@ -95,7 +97,19 @@ export function CaseStudyVideo({ media, title, fallbackSrc, className, controls 
     return () => document.removeEventListener("fullscreenchange", update);
   }, [interactivePreview]);
   useEffect(() => {
-    if (media.provider !== "youtube" || failed) return;
+    if (!interactivePreview || near || media.provider !== "youtube") return;
+    const element = preview.current;
+    if (!element) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return;
+      setNear(true);
+      observer.disconnect();
+    }, { rootMargin: "600px" });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [interactivePreview, near, media.provider]);
+  useEffect(() => {
+    if (media.provider !== "youtube" || failed || !near) return;
     const playerContainer = container.current;
     let cancelled = false;
     let player: Player | undefined;
@@ -127,7 +141,7 @@ export function CaseStudyVideo({ media, title, fallbackSrc, className, controls 
       playerRef.current = null;
       player?.destroy();
     };
-  }, [media.provider, media.videoId, reducedMotion, failed, controls, interactivePreview]);
+  }, [media.provider, media.videoId, reducedMotion, failed, near, controls, interactivePreview]);
   useEffect(() => {
     const video = nativeVideo.current;
     if (reducedMotion) video?.pause();

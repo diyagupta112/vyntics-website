@@ -34,4 +34,11 @@ describe("blogsApi", () => {
     await blogsApi.list({ service: "", subService: "ai_agents" });
     expect(apiClient.get).toHaveBeenLastCalledWith("/admin/blogs");
   });
+  it("uploads body images as multipart field file to content-images", async () => {
+    const file = new File(["image"], "a.png", { type: "image/png" });
+    await blogsApi.uploadContentImage("blog-1", file);
+    const call = vi.mocked(apiClient.put).mock.calls.at(-1)!;
+    expect(call[0]).toBe("/blogs/blog-1/content-images");
+    expect((call[1]?.body as FormData).get("file")).toBe(file);
+  });
 });

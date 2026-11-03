@@ -1,4 +1,4 @@
-.loading { padding-block: clamp(3rem, 6vw, 5rem); }
+.loading { padding-block: clamp(3rem, 6vw, 5rem); min-height: 100svh; }
 .loading > div { display: grid; gap: 1rem; }
 .eyebrowSkeleton, .titleSkeleton, .copySkeleton, .mediaSkeleton { display: block; overflow: hidden; border-radius: 0.5rem; background: color-mix(in srgb, var(--color-primary) 8%, var(--color-border)); }
 .eyebrowSkeleton { width: 7rem; height: 0.75rem; }

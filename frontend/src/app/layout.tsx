@@ -1,9 +1,8 @@
 import { SITE_URL } from "@/lib/site";
 import type { Metadata } from "next";
-import { ChatWidget } from "@/components/chat/chat-widget";
+import { DeferredChatWidget } from "@/components/chat/deferred-chat-widget";
 import { ConsentProvider } from "@/components/consent/consent-provider";
 import { CookieConsent } from "@/components/consent/cookie-consent";
-import { StyledComponentsRegistry } from "@/components/ui/styled-components-registry";
 import { ScrollRestoration } from "@/components/layout/scroll-restoration";
 import { ServiceWorkerRegister } from "@/components/layout/service-worker-register";
 import "@fontsource-variable/dm-sans";
@@ -29,9 +28,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ScrollRestoration />
         <ServiceWorkerRegister />
         <ConsentProvider>
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          {children}
           <CookieConsent />
-          <ChatWidget />
+          <DeferredChatWidget />
         </ConsentProvider>
       </body>
     </html>
