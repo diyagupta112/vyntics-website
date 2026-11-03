@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type FocusEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/ui/container";
 import type { Testimonial as ApiTestimonial } from "@/lib/testimonials";
 import styles from "./testimonials.module.css";
@@ -73,8 +73,6 @@ export function Testimonials({ testimonials: apiTestimonials }: { testimonials?:
   // Repeat the reviews so each half fills even a wide viewport.
   const marqueeTestimonials = [...testimonials, ...testimonials];
   const marqueeRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [hasFocus, setHasFocus] = useState(false);
   const [inView, setInView] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
 
@@ -92,10 +90,6 @@ export function Testimonials({ testimonials: apiTestimonials }: { testimonials?:
     };
   }, []);
 
-  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
-    if (!event.currentTarget.contains(event.relatedTarget)) setHasFocus(false);
-  };
-
   return (
     <section id="testimonials" className={styles.section} aria-labelledby="testimonials-title">
       <Container>
@@ -110,12 +104,7 @@ export function Testimonials({ testimonials: apiTestimonials }: { testimonials?:
           className={styles.marquee}
           role="region"
           aria-label="Client testimonials"
-          tabIndex={0}
-          data-running={inView && pageVisible && !isHovered && !hasFocus}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onFocusCapture={() => setHasFocus(true)}
-          onBlurCapture={handleBlur}
+          data-running={inView && pageVisible}
         >
           <div className={styles.viewport}>
             <div className={styles.track}>

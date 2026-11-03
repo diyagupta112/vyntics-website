@@ -327,7 +327,7 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
 .badgeTile.badgeTileLarge.badgeTileLogoOnly { width:2.7253rem; height:2.7253rem; }
 @media(max-width:767px) { .badgeTile.badgeTileLarge.badgeTileLogoOnly { width:2.295rem; height:2.295rem; } }
 .badgeTile.badgeTileLogoOnly { background:#fff; border-radius:.75rem; box-shadow:0 0 0 .34rem #fff; }
-.badgeTile.badgeTileLogoOnly { translate:-.6rem 0; }
+.badgeTile.badgeTileLogoOnly { translate:none; }
 .badgeTile:not(.badgeTileLogoOnly) { background:#fff; border-radius:.75rem; box-shadow:0 0 0 .34rem #fff; }
 .badgeTile:not(.badgeTileLogoOnly) { width:2.7253rem; height:2.7253rem; }
 @media(max-width:767px) { .badgeTile:not(.badgeTileLogoOnly) { width:2.295rem; height:2.295rem; } }
@@ -339,6 +339,14 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
 }
 
 /* Center Company / Resources / Socials between the line above and the (shifted) legal bar's line below. */
+@media (max-width: 767px) {
+  .linksNav { width: 100%; gap: 2rem; }
+  .linksNav .companyLinks { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-flow: row; column-gap: 1.25rem; }
+  .companyNav { width: 100%; }
+  .email, .address { overflow-wrap: anywhere; }
+  .socialLinks { flex-wrap: wrap; }
+}
+
 @media(min-width:1201px) {
   .linksRow { padding-block:3rem 2rem; }
   .linksRow::before { top:3rem; bottom:2rem; }

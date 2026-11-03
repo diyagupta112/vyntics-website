@@ -38,8 +38,7 @@
   line-height: 1.5;
 }
 
-.marquee { margin-top: var(--space-heading-gap); }
-.marquee:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 6px; }
+.marquee { margin-top: clamp(2rem, 4vh, 3rem); }
 .viewport {
   overflow: hidden;
   padding-block: 1rem 1.5rem;
@@ -54,8 +53,7 @@
 }
 
 .marquee[data-running="true"] .track { animation-play-state: running; }
-.marquee:hover .track,
-.marquee:focus-within .track { animation-play-state: paused; }
+.marquee[data-running="true"]:has(.card:hover) .track { animation-play-state: paused; }
 
 .group {
   display: flex;

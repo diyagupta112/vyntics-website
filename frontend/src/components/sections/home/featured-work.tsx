@@ -31,7 +31,7 @@ export async function FeaturedWork({ studies, heading = "Give your business an e
   }
   return (
     <section id="work" className={styles.section} data-expanded={expanded || undefined} aria-labelledby="featured-work-title">
-      <Container wide={expanded}>
+      <Container>
         <div className={styles.sectionHeader} data-reveal={revealHeading ? "production-heading" : undefined}><div className={styles.headingBlock}>
           {eyebrow && <p className={styles.eyebrow}>{eyebrow}</p>}
           <h2 id="featured-work-title">{heading}</h2>{description && <p>{description}</p>}

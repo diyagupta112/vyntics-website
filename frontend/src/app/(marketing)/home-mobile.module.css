@@ -1,0 +1,218 @@
+/* Home-only mobile configuration. This is the only new breakpoint: it matches
+   breakpoints.md - 1 in lib/breakpoints.ts. Nothing here applies at 768px+.
+   Use fluid values and intrinsic grids instead of more phone-size breakpoints. */
+@media (max-width: 767px) {
+  .page,
+  :global(body):has(.page) {
+    --home-mobile-gutter: 1rem;
+    --home-mobile-section-space: 3.25rem;
+    --home-mobile-gap: 1rem;
+    --home-mobile-card-padding: clamp(1.25rem, 4vw, 1.5rem);
+    --home-mobile-card-min: 14rem;
+    --home-mobile-hero-size: clamp(2.45rem, 12vw, 3.25rem);
+    --home-mobile-service-media-height: clamp(18rem, 55vw, 26rem);
+    --home-mobile-blog-height: 24rem;
+    --home-mobile-tap-target: 2.75rem;
+    --home-mobile-chat-size: 4rem;
+    --home-mobile-footer-badge-columns: 2;
+  }
+  .page {
+    --gutter: var(--home-mobile-gutter);
+    min-width: 0;
+  }
+
+  .page :where(section, article, form, fieldset, label) { min-width: 0; }
+  .page :where(h1, h2, h3, p, li, address) { overflow-wrap: anywhere; }
+  .page :where(img, video, iframe) { max-width: 100%; }
+  .page[data-home-page] > section:not([data-home-hero]) {
+    padding-block: var(--home-mobile-section-space);
+  }
+
+  .page [data-home-hero] {
+    min-height: calc(100svh - var(--header-height));
+    gap: var(--home-mobile-gap);
+  }
+  .page [data-home-hero] h1 {
+    max-width: 100%;
+    font-size: var(--home-mobile-hero-size);
+    line-height: 1;
+  }
+  .page [data-home-hero] a {
+    max-width: 100%;
+    min-height: var(--home-mobile-tap-target);
+    white-space: normal;
+  }
+  .page :global(.siteCta) {
+    margin-inline: auto;
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Extend the existing stacked service cards through the full mobile range. */
+  .page [data-service-track] {
+    width: calc(100% - 2 * var(--home-mobile-gutter));
+    gap: calc(var(--home-mobile-gap) * 1.5);
+  }
+  .page [data-service-card] {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .page [data-home-service-media] {
+    height: var(--home-mobile-service-media-height);
+    min-height: 0;
+  }
+  .page [data-home-service-copy] {
+    min-width: 0;
+    min-height: 0;
+    position: static;
+    padding: calc(var(--home-mobile-card-padding) + .5rem) var(--home-mobile-card-padding);
+  }
+  /* Keep badges below the title in normal flow, separate from the photograph. */
+  .page [data-home-service-copy] > div:has(> [data-home-service-badges]) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .page [data-home-service-badges] {
+    position: static;
+    inset: auto;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: center;
+    max-width: 100%;
+  }
+  .page [data-home-service-badges] > span {
+    flex: 0 1 auto;
+    max-width: 100%;
+  }
+  .page [data-home-service-copy] > span:last-child {
+    align-self: center;
+    text-align: center;
+  }
+  .page [data-home-service-highlights] {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--home-mobile-card-min)), 1fr));
+    gap: var(--home-mobile-gap);
+  }
+
+  /* Contain slide entry motion in its own viewport, without hiding page overflow. */
+  .page :global(#work) div:has(> [aria-roledescription="slide"]) {
+    min-width: 0;
+    overflow: clip;
+    overflow-clip-margin: .25rem;
+  }
+  .page :global(#work) [aria-roledescription="slide"] { min-width: 0; }
+  .page :global(#work) div:has(> [aria-label="Choose a featured case study"]) {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--home-mobile-gap);
+  }
+  .page :global(#work) [aria-label="Featured case study carousel controls"] {
+    position: static;
+    margin-inline: 0;
+    justify-content: center;
+  }
+  .page :global(#work) a[href^="/case-studies/"] {
+    align-self: center;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  /* Keep the existing single active blog card and its controls up to 767px. */
+  .page [data-home-blog-cards] { height: var(--home-mobile-blog-height); }
+  .page [data-home-blog-active="false"] { display: none; }
+  .page [data-home-blog-active="true"] { flex: 1 1 100%; min-width: 0; }
+  .page [data-home-blog-actions] {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-inline: 0;
+    gap: var(--home-mobile-gap);
+  }
+  .page [data-home-blog-actions] > :global(.siteCta) { margin-inline: 0; }
+  .page :global(#blogs) div:has(> [aria-label="Choose an article"]),
+  .page :global(#blogs) [aria-label="Choose an article"] {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .page :global(#blogs) [aria-label="Blog carousel controls"] button {
+    width: var(--home-mobile-tap-target);
+    min-height: var(--home-mobile-tap-target);
+  }
+
+  /* Keep native mobile form focus from zooming the page. */
+  .page :global(#contact) :is(input, textarea, select) {
+    min-width: 0;
+    max-width: 100%;
+    font-size: max(1rem, 16px);
+  }
+  .page :global(#contact) :is(button, a) { overflow-wrap: anywhere; }
+
+  /* Mobile reading order: introduction, form, contact button, then address. */
+  .page :global(#contact) > div { gap: var(--home-mobile-gap); }
+  .page :global(#contact) > div > div:first-child { display: contents; }
+  .page :global(#contact) > div > div:first-child > :is(h2, p) { margin-top: 0; }
+  .page :global(#contact) form { order: 1; }
+  .page :global(#contact) > div > div:first-child > a {
+    order: 2;
+    margin-top: 0;
+    margin-inline: auto;
+    justify-self: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .page :global(#contact) address {
+    order: 3;
+    margin-top: 0;
+    justify-self: center;
+    max-width: 100%;
+    text-align: center;
+  }
+  .page :global(#contact) address a { justify-content: center; }
+
+  /* Footer badges share the same centered treatment on mobile Home. */
+  :global(body):has(.page) :global(#footer) [aria-labelledby="footer-recognitions-title"] {
+    grid-template-columns: repeat(var(--home-mobile-footer-badge-columns), minmax(0, 1fr));
+    column-gap: var(--home-mobile-gap);
+    align-items: start;
+  }
+  :global(body):has(.page) :global(#footer) [aria-labelledby="footer-recognitions-title"] :is(h2, p) {
+    text-align: center;
+  }
+  :global(body):has(.page) :global(#footer) [aria-labelledby="footer-recognitions-title"] li {
+    justify-content: center;
+    align-self: stretch;
+  }
+  :global(body):has(.page) :global(#footer) [aria-labelledby="footer-recognitions-title"] li > :is(a, div) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    align-content: start;
+    width: 100%;
+    gap: var(--home-mobile-gap);
+    text-align: center;
+  }
+  :global(body):has(.page) :global(#footer) [aria-labelledby="footer-recognitions-title"] li > :is(a, div) > span:last-child {
+    min-height: 2.9em;
+    align-content: start;
+  }
+  :global(body):has(.page) :global(#footer) [aria-labelledby="footer-recognitions-title"] li span {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Shared widgets sit outside <main>. Scope these fixes to mobile Home too. */
+  :global(body):has(.page) [aria-labelledby="cookie-consent-title"] {
+    z-index: 2002;
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  :global(body):has(.page) button[aria-controls="vyntics-chat-panel"] {
+    width: var(--home-mobile-chat-size, 4rem);
+    height: calc(var(--home-mobile-chat-size, 4rem) * 1.125);
+  }
+  :global(body):has(.page) button[aria-controls="vyntics-chat-panel"] svg {
+    width: 100%;
+    height: 100%;
+  }
+}

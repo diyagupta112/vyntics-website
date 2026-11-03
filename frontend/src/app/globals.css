@@ -68,6 +68,10 @@
 }
 
 /* The gutter is fluid only on desktop widths, so mobile, tablet and laptop keep their 1rem padding. */
+@media (max-width: 1279px) {
+  :root { --header-height: 4.5rem; }
+}
+
 @media (min-width: 1280px) {
   :root {
     --gutter: clamp(1rem, min(2vw, 1.8rem), 2rem);

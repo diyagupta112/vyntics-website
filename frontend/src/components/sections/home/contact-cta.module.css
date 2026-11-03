@@ -11,7 +11,7 @@
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(30rem, 1.1fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   align-items: center;
   gap: clamp(3rem, 7vw, 6.5rem);
 }
@@ -83,8 +83,8 @@
   backdrop-filter: blur(18px);
 }
 
-.twoColumns { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.form label { display: grid; gap: 0.45rem; }
+.twoColumns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.form label { display: grid; min-width: 0; gap: 0.45rem; }
 .form label > span { color: var(--color-foreground); font-size: 0.78rem; font-weight: 680; }
 .form small { margin-left: 0.3rem; color: var(--color-muted); font-size: 0.68rem; font-weight: 500; }
 
@@ -246,7 +246,14 @@
   .content { max-width: 42rem; }
 }
 
+@media (max-width: 1023px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .content { max-width: 42rem; }
+}
+
 @media (max-width: 560px) {
+  .form input, .form textarea { font-size: 1rem; }
+  .contactDetails { overflow-wrap: anywhere; }
   .section { padding-block: 3.5rem; }
   .twoColumns { grid-template-columns: 1fr; }
   .content h2 { font-size: clamp(2.35rem, 12vw, 3.25rem); }

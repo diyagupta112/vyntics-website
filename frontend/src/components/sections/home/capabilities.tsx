@@ -317,7 +317,7 @@ export function Capabilities({
               {capabilities.map((capability) => (
                 <article id={capability.anchor} className={styles.showcasePanel} key={capability.pillar} data-service-card>
                   <Link className={styles.cardLink} href={capability.href} aria-label={`Explore ${capability.title}`} data-service-main-link />
-                  <div className={styles.showcaseMedia}>
+                  <div className={styles.showcaseMedia} data-home-service-media>
                     <Image
                       className={styles.showcaseImage}
                       src={capability.image}
@@ -330,11 +330,11 @@ export function Capabilities({
                     />
                     <span className={styles.showcaseImageShade} aria-hidden="true" />
                   </div>
-                  <div className={styles.showcaseCopy}>
+                  <div className={styles.showcaseCopy} data-home-service-copy>
                     <div className={styles.showcaseHeading}>
                       <h3>{capability.title}</h3>
                       {serviceBadges[capability.pillar] && (
-                        <div className={styles.serviceBadges} aria-label={`${capability.title} badges`}>
+                        <div className={styles.serviceBadges} data-home-service-badges aria-label={`${capability.title} badges`}>
                           {serviceBadges[capability.pillar]!.map(badge => (
                             <span className={styles.serviceBadge} key={badge.name}>
                               <BadgeLogo
@@ -348,7 +348,7 @@ export function Capabilities({
                       )}
                     </div>
                     <p className={styles.showcaseDescription}>{capability.description}</p>
-                    <ul className={styles.highlightList}>
+                    <ul className={styles.highlightList} data-home-service-highlights>
                       {capability.highlights.map((highlight) => (
                         <li key={highlight.label}>
                           <Link className={styles.highlightLink} href={highlight.href}>
