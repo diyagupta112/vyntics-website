@@ -1,11 +1,11 @@
 .hero {
   position: relative;
   overflow: hidden;
+  /* Runs up under the fixed navbar so the navbar can be transparent over it. */
+  margin-top: calc(var(--header-height) * -1);
   color: #ffffff;
   background:
     radial-gradient(60rem 28rem at 50% 0%, rgb(20 83 219 / 26%), transparent 70%),
-    linear-gradient(rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 / 4rem 4rem,
-    linear-gradient(90deg, rgb(255 255 255 / 3.5%) 1px, transparent 1px) 0 0 / 4rem 4rem,
     #07070a;
 }
 
@@ -24,7 +24,7 @@
   display: grid;
   justify-items: center;
   gap: clamp(1rem, 2vh, 1.4rem);
-  padding-block: clamp(3rem, 8vh, 5rem) clamp(3rem, 6vh, 4.5rem);
+  padding-block: calc(var(--header-height) + clamp(3rem, 8vh, 5rem)) clamp(3rem, 6vh, 4.5rem);
   text-align: center;
 }
 
@@ -121,6 +121,7 @@
 
 .frame {
   position: relative;
+  container-type: inline-size;
   overflow: hidden;
   border: 1px solid rgb(255 255 255 / 16%);
   border-radius: 1rem;
@@ -152,11 +153,190 @@
   border-left: 1px solid rgb(255 255 255 / 16%);
 }
 
+.proof a {
+  color: inherit;
+  transition: color 180ms ease;
+}
+
+.proof a:hover {
+  color: #ffffff;
+}
+
+.proof a:focus-visible {
+  outline: 3px solid rgb(168 194 255 / 70%);
+  outline-offset: 0.2rem;
+}
+
 .video {
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+}
+
+.context {
+  max-width: 40rem;
+  display: grid;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.contextTag {
+  color: #a8c2ff;
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.contextText {
+  color: rgb(255 255 255 / 66%);
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+/* Animated preview that plays inside the frame before the video starts. */
+.introLayer {
+  position: absolute;
+  inset: 0;
+  background: #0b0b10;
+  transition: opacity 600ms ease, visibility 0s linear 600ms;
+}
+
+.introLayer[data-done="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Title sequence: letterbox bars, a slow light, and three push-in scenes. */
+.cine {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: clamp(0.7rem, 1.7cqw, 1.1rem);
+  text-align: center;
+}
+
+.cine[data-run="false"] * {
+  animation-play-state: paused;
+}
+
+.cineLight {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(40% 45% at 50% 50%, rgb(20 83 219 / 38%), transparent 70%);
+  animation: cineLight 6s ease-in-out infinite alternate;
+}
+
+.cineBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 9%;
+  background: #000000;
+  animation: cineBar 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.cineBarTop {
+  top: 0;
+  transform-origin: 50% 0;
+}
+
+.cineBarBottom {
+  bottom: 0;
+  transform-origin: 50% 100%;
+}
+
+.cineScene {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1.1em;
+  padding: 0 6%;
+  animation: cineScene ease-in-out both;
+}
+
+.cineKicker {
+  font-size: 1.5em;
+  font-weight: 300;
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  color: rgb(255 255 255 / 80%);
+}
+
+.cineMark {
+  width: 3.4em;
+  aspect-ratio: 1442 / 1091;
+  background: #ffffff;
+  -webkit-mask: url("/images/vyntics-mark-transparent.png") center / contain no-repeat;
+  mask: url("/images/vyntics-mark-transparent.png") center / contain no-repeat;
+}
+
+.cineTitle {
+  font-size: 3.6em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.cineSub {
+  max-width: 28em;
+  color: rgb(255 255 255 / 62%);
+  font-size: 1.15em;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+
+@keyframes cineScene {
+  0% { opacity: 0; transform: scale(0.92); filter: blur(8px); }
+  22% { opacity: 1; filter: blur(0); }
+  78% { opacity: 1; filter: blur(0); }
+  100% { opacity: 0; transform: scale(1.1); filter: blur(6px); }
+}
+
+@keyframes cineBar {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes cineLight {
+  from { transform: scale(0.9); opacity: 0.7; }
+  to { transform: scale(1.15); opacity: 1; }
+}
+
+.skip {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.75rem;
+  padding: 0.25rem 0.8rem;
+  color: rgb(255 255 255 / 70%);
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.skip:hover {
+  color: #ffffff;
+  border-color: rgb(255 255 255 / 40%);
+}
+
+.caption {
+  max-width: 36rem;
+  color: rgb(255 255 255 / 56%);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.skip:focus-visible {
+  outline: 3px solid rgb(168 194 255 / 70%);
+  outline-offset: 0.2rem;
 }
 
 .sound {
@@ -237,7 +417,7 @@
 @media (max-width: 640px) {
   .inner {
     gap: 1rem;
-    padding-block: 2.25rem 2.5rem;
+    padding-block: calc(var(--header-height) + 2.25rem) 2.5rem;
   }
 
   .eyebrow {
@@ -257,6 +437,10 @@
   .frame {
     border-radius: 0.6rem;
     transform: translateY(calc((1 - var(--p)) * 3rem)) rotateX(calc((1 - var(--p)) * 12deg)) scale(calc(0.94 + var(--p) * 0.06));
+  }
+
+  .introDemo {
+    display: none;
   }
 
   .proof {

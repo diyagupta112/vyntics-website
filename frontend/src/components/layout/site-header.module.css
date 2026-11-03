@@ -28,6 +28,13 @@
   box-shadow: none;
 }
 
+/* At the very top of the home page the navbar is see-through over the hero. */
+.headerClear {
+  --color-header: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+
 .headerSpacer {
   height: var(--header-height);
   flex: 0 0 var(--header-height);

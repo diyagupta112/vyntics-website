@@ -160,6 +160,7 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
   const [headerVisible, setHeaderVisible] = useState(true);
   // The home hero is dark, so the header is dark while it sits over the hero.
   const [overHero, setOverHero] = useState(pathname === "/");
+  const [atTop, setAtTop] = useState(true);
   const lastScrollY = useRef(0);
   const menuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -210,6 +211,7 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
         ? document.querySelector<HTMLElement>("[data-home-hero]")?.getBoundingClientRect()
         : null;
       setOverHero(Boolean(heroBounds && heroBounds.bottom > headerHeight));
+      setAtTop(currentScrollY <= 16);
 
       if (mobileOpen || inServices || currentScrollY <= 16) {
         setHeaderVisible(true);
@@ -244,7 +246,7 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
 
   return (
       <header
-        className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}${overHero ? ` ${styles.headerDark}` : ""}`}
+        className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}${overHero ? ` ${styles.headerDark}` : ""}${overHero && atTop && !mobileOpen ? ` ${styles.headerClear}` : ""}`}
       >
         <div className={styles.inner}>
         <Link className={styles.logoLink} href="/" aria-label={`${siteConfig.name} home`} onClick={() => setMobileOpen(false)}>

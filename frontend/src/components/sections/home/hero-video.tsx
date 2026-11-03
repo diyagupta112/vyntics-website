@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { HeroIntro } from "./hero-intro";
 import styles from "./hero.module.css";
 
 const POSTER = "/chatbot-product-poster.jpg";
@@ -20,6 +21,11 @@ export function HeroVideo() {
   const dialog = useRef<HTMLDialogElement>(null);
   const full = useRef<HTMLVideoElement>(null);
   const inView = useRef(false);
+  const phaseRef = useRef<"intro" | "video">("intro");
+  const [phase, setPhase] = useState<"intro" | "video">("intro");
+  const [watching, setWatching] = useState(false);
+
+  const finishIntro = useCallback(() => setPhase("video"), []);
 
   useEffect(() => {
     const element = stage.current;
@@ -28,7 +34,7 @@ export function HeroVideo() {
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       element.style.setProperty("--p", "1");
-      video.pause();
+      setPhase("video");
       return;
     }
 
@@ -44,10 +50,11 @@ export function HeroVideo() {
       if (!frame) frame = window.requestAnimationFrame(update);
     };
     // Play only while at least half of the video is on screen; pause as it scrolls away and resume
-    // when it returns. The sound dialog also holds it paused.
+    // when it returns. The intro and the sound dialog also hold it paused.
     const observer = new IntersectionObserver(([entry]) => {
       inView.current = entry.isIntersecting;
-      if (inView.current && !dialog.current?.open) void video.play().catch(() => {});
+      setWatching(entry.isIntersecting);
+      if (inView.current && phaseRef.current === "video" && !dialog.current?.open) void video.play().catch(() => {});
       else video.pause();
     }, { threshold: 0.5 });
 
@@ -64,6 +71,12 @@ export function HeroVideo() {
     };
   }, []);
 
+  // When the intro hands over, start the video if it is on screen.
+  useEffect(() => {
+    phaseRef.current = phase;
+    if (phase === "video" && inView.current && !dialog.current?.open) void loop.current?.play().catch(() => {});
+  }, [phase]);
+
   const open = () => {
     loop.current?.pause();
     dialog.current?.showModal();
@@ -75,28 +88,45 @@ export function HeroVideo() {
 
   const close = () => {
     full.current?.pause();
-    if (inView.current) void loop.current?.play().catch(() => {});
+    if (inView.current && phaseRef.current === "video") void loop.current?.play().catch(() => {});
   };
 
   return (
     <div className={styles.videoWrap}>
+      <div className={styles.context}>
+        <p className={styles.contextText}>
+          Vyntics delivers custom AI, data engineering, analytics, cloud, and CRM solutions that help businesses turn
+          complex problems into impactful outcomes.
+        </p>
+      </div>
+
       <div className={styles.stage} ref={stage} data-hero-stage>
         <div className={styles.frame}>
           <video
             ref={loop}
             className={styles.video}
             poster={POSTER}
-            autoPlay
             muted
             loop
             playsInline
             preload="metadata"
-            aria-label="Walkthrough of how the Vyntics AI assistant answers a question"
+            aria-label="Walkthrough of how the Vyntics compliance chatbot answers a question"
           >
             <Sources />
           </video>
+
+          <div className={styles.introLayer} data-done={phase === "video"}>
+            <HeroIntro run={watching && phase === "intro"} onDone={finishIntro} />
+            <button className={styles.skip} type="button" onClick={finishIntro}>
+              Skip intro
+            </button>
+          </div>
         </div>
       </div>
+
+      <p className={styles.caption}>
+        Example of our work: a compliance chatbot that answers from your own documents and cites the source.
+      </p>
 
       <button className={styles.sound} type="button" onClick={open}>
         <svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14"><path d="M4 2.5v11l9-5.5z" fill="currentColor" /></svg>

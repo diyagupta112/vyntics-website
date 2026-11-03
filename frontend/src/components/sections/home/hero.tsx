@@ -1,14 +1,10 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
+import { serviceNavigation } from "@/content/service-navigation";
 import { HeroSmoke } from "./hero-smoke";
 import { HeroVideo } from "./hero-video";
 import styles from "./hero.module.css";
 
-const PROOF = [
-  "Scoped and built by the same engineers",
-  "Every chatbot answer cites its source",
-  "More than 20,000 documents covered",
-];
 
 export function Hero() {
   return (
@@ -23,11 +19,15 @@ export function Hero() {
           Book a strategy call
         </Link>
         <HeroVideo />
-        <ul className={styles.proof}>
-          {PROOF.map((fact) => (
-            <li key={fact}>{fact}</li>
-          ))}
-        </ul>
+        <nav aria-label="Our services">
+          <ul className={styles.proof}>
+            {serviceNavigation.map((service) => (
+              <li key={service.href}>
+                <Link href={service.href}>{service.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </Container>
     </section>
   );

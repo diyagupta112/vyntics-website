@@ -73,21 +73,22 @@ const FRAGMENT = /* glsl */ `
     float warp = fbm(vec2(px * 1.6, d * 0.9 - t * 0.12));
     float n = fbm(vec2(px * 4.2 + warp * 1.2, d * 1.1 - t * 0.3));
     float fine = noise(vec2(px * 11.0, d * 2.0 - t * 0.55));
-    float dens = smoothstep(0.3, 0.82, n * 0.78 + fine * 0.3);
+    float dens = smoothstep(0.2, 0.68, n * 0.78 + fine * 0.3);
 
-    // Light behind the headline, a little stronger as it closes in on the video.
-    float level = mix(0.26, 0.8, smoothstep(0.3 * uTop, uTop, d));
+    // Light behind the headline, stronger as it closes in on the video.
+    float level = mix(0.45, 1.0, smoothstep(0.3 * uTop, uTop, d));
     float landing = 1.0 - smoothstep(uTop, uTop + 0.07, d);
     float a = inside * dens * level * landing;
 
     // A soft glow where the fog meets the top edge of the frame.
-    float edge = exp(-pow((d - uTop) / 0.025, 2.0)) * (1.0 - smoothstep(uHalf * 0.85, uHalf * 1.05, ax));
-    a += edge * 0.32 * (0.5 + dens);
+    float g = (d - uTop) / 0.025;
+    float edge = exp(-g * g) * (1.0 - smoothstep(uHalf * 0.85, uHalf * 1.05, ax));
+    a += edge * 0.4 * (0.5 + dens);
 
-    a *= mix(1.0, 0.3, uProgress);
-    a = clamp(a, 0.0, 0.8);
+    a *= mix(1.0, 0.35, uProgress);
+    a = clamp(a, 0.0, 0.9);
 
-    vec3 shade = mix(vec3(0.05, 0.16, 0.58), vec3(0.78, 0.87, 1.0), smoothstep(0.45, 1.0, dens * level + edge));
+    vec3 shade = mix(vec3(0.09, 0.26, 0.8), vec3(0.8, 0.89, 1.0), smoothstep(0.35, 0.95, dens * level + edge));
     gl_FragColor = vec4(shade * a, a);
   }
 `;
