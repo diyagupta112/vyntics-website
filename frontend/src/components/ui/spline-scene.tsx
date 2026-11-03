@@ -1,5 +1,6 @@
 "use client";
 
+import { preconnect, preload } from "react-dom";
 import { Component, Suspense, lazy, useEffect, useRef, useState, type ReactNode } from "react";
 import styles from "./spline-scene.module.css";
 
@@ -28,6 +29,9 @@ export function SplineScene({
   className?: string;
   children?: ReactNode;
 }) {
+  // Rendered only when this component mounts, so other pages never fetch the scene.
+  preconnect(new URL(scene).origin);
+  preload(scene, { as: "fetch", crossOrigin: "anonymous" });
   const frameRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
 

@@ -4,9 +4,17 @@ import { legacyServiceRoutes } from "./src/content/service-route-map";
 import { join } from "node:path";
 import { discoverSitemapPages } from "./src/lib/sitemap-routes";
 
+// Cover images are uploaded to Supabase storage; let the image optimizer resize them instead of shipping the originals.
+const storageHostname = (() => {
+  try { return new URL(process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").hostname; } catch { return ""; }
+})();
+
 const nextConfig: NextConfig = {
   compiler: { styledComponents: true },
-  images: { qualities: [75, 90] },
+  images: {
+    qualities: [75, 90],
+    remotePatterns: storageHostname ? [{ protocol: "https", hostname: storageHostname, pathname: "/storage/v1/object/public/**" }] : [],
+  },
   async redirects() {
     const redirects = [
       { source: "/services", destination: "/services/data-engineering", permanent: false },

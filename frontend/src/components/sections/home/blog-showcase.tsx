@@ -2,11 +2,12 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import type { CSSProperties, FocusEvent } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import type { Blog } from "@/lib/blogs";
 import styles from "./blog-showcase.module.css";
+import { coverImgProps } from "@/lib/cover-image";
 
 const AUTOPLAY_INTERVAL_MS = 3500;
 
@@ -31,6 +32,9 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  // Autoplay only matters while the section is on screen; offscreen it just re-renders and animates layout.
+  const [inView, setInView] = useState(false);
   const queuedIndex = articleOrder[0] ?? 0;
   const activeIndex = hoveredIndex ?? queuedIndex;
   const isPaused = isHovered || hasFocus;
@@ -52,14 +56,25 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
   };
 
   useEffect(() => {
-    if (reduceMotion || isPaused || blogs.length < 2) return;
+    const section = sectionRef.current;
+    if (!section || typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => setInView(entries[entries.length - 1]?.isIntersecting ?? false));
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion || isPaused || !inView || blogs.length < 2) return;
 
     const autoplay = window.setInterval(() => {
       setArticleOrder((currentOrder) => [...currentOrder.slice(1), currentOrder[0] ?? 0]);
     }, AUTOPLAY_INTERVAL_MS);
 
     return () => window.clearInterval(autoplay);
-  }, [isPaused, reduceMotion, blogs.length]);
+  }, [isPaused, reduceMotion, inView, blogs.length]);
 
   const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget)) {
@@ -69,7 +84,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
   };
 
   return (
-    <section id="blogs" className={styles.section} aria-labelledby="blogs-title">
+    <section ref={sectionRef} id="blogs" className={styles.section} aria-labelledby="blogs-title">
       <Container>
         <header className={styles.header}>
           <div className={styles.headingBlock}>
@@ -175,5 +190,5 @@ function BlogCover({ src }: { src: string }) {
   if (failed) return null;
   // Decorative cover; the article title provides the accessible name.
   // eslint-disable-next-line @next/next/no-img-element
-  return <img className={styles.coverImage} src={src} alt="" loading="lazy" onError={() => setFailed(true)} />;
+  return <img className={styles.coverImage} {...coverImgProps(src, "(max-width: 720px) 100vw, 480px")} alt="" loading="lazy" onError={() => setFailed(true)} />;
 }

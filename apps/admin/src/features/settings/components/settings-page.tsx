@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { PageHeader } from "@/components/layout/page-header";
@@ -52,6 +53,17 @@ export function SettingsPage() {
         title="Settings"
         description="Manage your admin account and review your access details."
       />
+
+      <SettingsCard
+        description="How to write and structure Blogs and Case Studies."
+        id="content-guidelines-settings-heading"
+        title="Content Guidelines"
+      >
+        <div className={styles.accountAction}>
+          <p>New to the content editor? Read how headings, images, videos and search fields should be used.</p>
+          <Link className={styles.guidelinesLink} href="/settings/content-guidelines">Open Content Guidelines</Link>
+        </div>
+      </SettingsCard>
 
       {loading ? (
         <div aria-label="Loading account settings" className={styles.loadingGrid} role="status">

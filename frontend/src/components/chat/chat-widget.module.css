@@ -98,7 +98,8 @@
 }
 
 .wave {
-  animation: wave 1.2s ease-in-out infinite;
+  /* Four waves, then rest: an endless SVG transform animation re-lays-out the page every frame. */
+  animation: wave 1.2s ease-in-out 4;
 }
 
 .panel {

@@ -1,4 +1,5 @@
 .section {
+  --section-extra: 1.25rem;
   --process-background: #f6f7f8;
   --process-card: var(--color-surface);
   --process-ink: var(--color-foreground);
@@ -53,7 +54,7 @@
   position: relative;
   width: min(100%, 78rem);
   height: clamp(30rem, 58vh, 34rem);
-  margin: clamp(1.75rem, 3.5vh, 3rem) auto 0;
+  margin: var(--space-heading-gap) auto 0;
 }
 
 .flowMap {

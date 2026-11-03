@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { type FormEvent, useRef, useState } from "react";
 import { CreateFlowActions } from "@/components/create-flow/two-step-create-flow";
 import { ContentTargetingControl } from "@/components/forms/content-targeting-control";
+import { ContentGuide } from "@/features/content-guidelines/components/content-guide";
 import { slugFromTitle } from "@/lib/content/slug";
 import { FeaturedControl } from "@/components/forms/featured-control";
 import { FormField } from "@/components/forms/form-field";
@@ -88,7 +89,8 @@ export function BlogForm({ blog, createFlow = false, onCreated, onSaved }: Props
         <div className={styles.full}><ContentTargetingControl idPrefix="blog" services={values.relatedServices} subServices={values.relatedSubServices} onServicesChange={(value) => update("relatedServices", value)} onSubServicesChange={(value) => update("relatedSubServices", value)} servicesError={errors.relatedServices} subServicesError={errors.relatedSubServices} /></div>
         <FeaturedControl id="blog-featured" checked={values.isFeatured} onChange={(checked) => update("isFeatured", checked)} resourceName="blog" error={errors.isFeatured} />
         <div className={styles.full}><FormField htmlFor="excerpt" label="Excerpt" required error={errors.excerpt}><Textarea id="excerpt" value={values.excerpt} aria-invalid={Boolean(errors.excerpt)} onChange={(e) => update("excerpt", e.target.value)} /></FormField></div>
-        <div className={styles.full}><FormField htmlFor="content" label="Content" required error={errors.content} hint="Use the toolbar to structure and format the article."><RichTextEditor id="content" invalid={Boolean(errors.content)} value={values.content} onChange={(value) => update("content", value)} /></FormField></div>
+        <div className={styles.full}><ContentGuide type="blog" /></div>
+        <div className={styles.full}><FormField htmlFor="content" label="Content" required error={errors.content} hint="Use the toolbar to structure and format the article."><RichTextEditor imageUpload={blog ? (file) => blogsApi.uploadContentImage(blog.id, file) : null} id="content" invalid={Boolean(errors.content)} value={values.content} onChange={(value) => update("content", value)} /></FormField></div>
       </div>
     </section>
     <section className={styles.section} aria-labelledby="blog-seo-heading">

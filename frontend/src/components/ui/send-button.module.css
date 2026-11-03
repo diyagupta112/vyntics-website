@@ -1,0 +1,42 @@
+.wrapper {
+  width: 100%;
+}
+
+.wrapper.wrapper button {
+  position: relative;
+  width: 100%; min-height: 3.55rem; padding: .75rem 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+  border: 0; border-radius: 1rem; overflow: hidden;
+  background: var(--color-primary); color: white; font-size: 1rem;
+  font-weight: 650; cursor: pointer; transition: transform 200ms, box-shadow 200ms;
+}
+.iconOuter, .iconInner { display: flex; align-items: center; }
+.iconOuter { transition: opacity 180ms ease; }
+.wrapper svg { transition: transform 300ms; transform-origin: center; }
+.wrapper button > span { margin-left: .5rem; transition: transform 180ms ease, opacity 180ms ease; }
+.flightPlane { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; pointer-events: none; transition: opacity 180ms ease; }
+.flightPlane svg { width: 1.75rem; height: 1.75rem; transform: rotate(45deg); }
+.wrapper button:not(:disabled):is(:hover, :focus-visible) .iconOuter,
+.wrapper button:not(:disabled):is(:hover, :focus-visible) > span { opacity: 0; }
+.wrapper button:not(:disabled):is(:hover, :focus-visible) > span { transform: translateX(1rem); }
+.wrapper button:not(:disabled):is(:hover, :focus-visible) .flightPlane { opacity: 1; }
+.wrapper button:not(:disabled):is(:hover, :focus-visible) .flightPlane svg { animation: airplane-ready 800ms ease-in-out infinite alternate; }
+.wrapper.wrapper button:active:not(:disabled) { transform: scale(.95); }
+.wrapper.wrapper button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+.wrapper.wrapper button:disabled { opacity: 1; cursor: wait; }
+.wrapper.wrapper button[data-state="success"] { background: #16803c; cursor: default; }
+.wrapper.wrapper button[data-state="error"] { background: #b91c1c; }
+.wrapper button[data-state="submitting"] .iconOuter { display: none; }
+.wrapper button[data-state="submitting"] .flightPlane { animation: send-away 450ms cubic-bezier(.4,0,1,1) both; }
+.wrapper button[data-state="submitting"] > span { margin-left: 0; animation: sending-label 450ms ease both; }
+.wrapper button[data-state="success"] > span { animation: sent-label 300ms ease both; }
+@keyframes airplane-ready { from { transform: translateY(1px) rotate(45deg); } to { transform: translateY(-3px) rotate(45deg) scale(1.06); } }
+@keyframes send-away { 0% { transform: translateX(0); opacity: 1; } 70% { opacity: 1; } 100% { transform: translateX(100%); opacity: 0; } }
+@keyframes sending-label { 0%,85% { opacity: 0; transform: none; } 100% { opacity: 1; transform: none; } }
+@keyframes sent-label { from { opacity: 0; transform: translateY(.4rem); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .wrapper *, .wrapper svg, .wrapper span { animation: none !important; transition: none !important; }
+  .flightPlane { display: none; }
+  .wrapper button:not(:disabled):is(:hover, :focus-visible) .iconOuter,
+  .wrapper button:not(:disabled):is(:hover, :focus-visible) > span { transform: none; opacity: 1; }
+}

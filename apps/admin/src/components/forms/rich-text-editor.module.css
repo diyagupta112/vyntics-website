@@ -104,3 +104,7 @@
 .videoDialog label { font-size: var(--font-size-sm); font-weight: 600; }
 .videoDialog .videoActions { justify-content: flex-end; }
 .videoHint { color: var(--color-gray-500); font-size: var(--font-size-sm); }
+.imageBlock { border: 1px solid var(--color-gray-200); border-radius: var(--radius-control); margin: var(--space-4) 0; max-width: 100%; overflow: hidden; }
+.imageBlock[data-selected] { outline: var(--focus-ring); }
+.imageBody { display: block; height: auto; max-width: 100%; width: 100%; }
+.imageHint { background: var(--color-gray-50); border-bottom: 1px solid var(--color-gray-200); color: var(--color-gray-700); font-size: var(--font-size-sm); margin: 0; padding: var(--space-2) var(--space-3); }

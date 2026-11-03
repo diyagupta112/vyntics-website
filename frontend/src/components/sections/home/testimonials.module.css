@@ -38,7 +38,7 @@
   line-height: 1.5;
 }
 
-.marquee { margin-top: clamp(2rem, 4vh, 3rem); }
+.marquee { margin-top: var(--space-heading-gap); }
 .marquee:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 6px; }
 .viewport {
   overflow: hidden;

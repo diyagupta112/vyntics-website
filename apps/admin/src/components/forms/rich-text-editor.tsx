@@ -12,6 +12,9 @@ import {
 } from "./blog-content";
 import { YouTubeVideoNode } from "./youtube-video-node";
 import { VideoUrlDialog } from "./video-url-dialog";
+import { ContentImageNode } from "./image-node";
+import { ImageDialog } from "./image-dialog";
+import type { ContentImageUploader } from "./content-image";
 import styles from "./rich-text-editor.module.css";
 
 type Props = {
@@ -21,9 +24,11 @@ type Props = {
   value: string;
   onChange: (value: string) => void;
   invalid?: boolean;
+  /** Uploads a body image. Omit to hide the Image action; pass null to show it disabled until the resource exists. */
+  imageUpload?: ContentImageUploader | null;
 };
 
-export function createBlogEditorExtensions(onVideoEdit?: () => void) { return [
+export function createBlogEditorExtensions(onVideoEdit?: () => void, onImageEdit?: () => void) { return [
   StarterKit.configure({
     blockquote: false,
     code: false,
@@ -35,6 +40,7 @@ export function createBlogEditorExtensions(onVideoEdit?: () => void) { return [
     underline: false,
   }),
   YouTubeVideoNode.configure({ onEdit: onVideoEdit }),
+  ContentImageNode.configure({ onEdit: onImageEdit }),
 ]; }
 
 type ToolbarButtonProps = {
@@ -42,16 +48,20 @@ type ToolbarButtonProps = {
   pressed?: boolean;
   disabled?: boolean;
   onRun: () => void;
+  describedBy?: string;
+  title?: string;
   children: React.ReactNode;
 };
 
-function ToolbarButton({ label, pressed, disabled, onRun, children }: ToolbarButtonProps) {
+function ToolbarButton({ label, pressed, disabled, onRun, describedBy, title, children }: ToolbarButtonProps) {
   return (
     <button
+      aria-describedby={describedBy}
       aria-label={label}
       aria-pressed={pressed}
       className={pressed ? styles.active : undefined}
       disabled={disabled}
+      title={title}
       onClick={onRun}
       onMouseDown={(event) => event.preventDefault()}
       type="button"
@@ -61,8 +71,9 @@ function ToolbarButton({ label, pressed, disabled, onRun, children }: ToolbarBut
   );
 }
 
-export function RichTextEditor({ editorLabel = "Blog content editor", id, resourceName = "Blog", value, onChange, invalid = false }: Props) {
+export function RichTextEditor({ editorLabel = "Blog content editor", id, resourceName = "Blog", value, onChange, invalid = false, imageUpload }: Props) {
   const [videoOpen, setVideoOpen] = useState(false);
+  const [imageOpen, setImageOpen] = useState(false);
   const initial = useMemo(() => {
     try {
       return { content: deserializeBlogContent(value), error: undefined };
@@ -74,7 +85,7 @@ export function RichTextEditor({ editorLabel = "Blog content editor", id, resour
     }
   }, [resourceName, value]);
 
-  const editorExtensions = useMemo(() => createBlogEditorExtensions(() => setVideoOpen(true)), []);
+  const editorExtensions = useMemo(() => createBlogEditorExtensions(() => setVideoOpen(true), () => setImageOpen(true)), []);
   const editor = useEditor({
     extensions: editorExtensions,
     content: initial.content,
@@ -106,10 +117,13 @@ export function RichTextEditor({ editorLabel = "Blog content editor", id, resour
       h3: currentEditor?.isActive("heading", { level: 3 }) ?? false,
       bulletList: currentEditor?.isActive("bulletList") ?? false,
       orderedList: currentEditor?.isActive("orderedList") ?? false,
+      image: currentEditor?.isActive("image") ?? false,
       canUndo: currentEditor?.can().chain().undo().run() ?? false,
       canRedo: currentEditor?.can().chain().redo().run() ?? false,
     }),
   });
+
+  const imageHint = `Body images are available after the ${resourceName} is created. Choose Next to create it, then go Back to add images.`;
 
   function editLink() {
     if (!editor) return;
@@ -147,6 +161,7 @@ export function RichTextEditor({ editorLabel = "Blog content editor", id, resour
         <div className={styles.group}>
           <ToolbarButton label="Bold" onRun={() => editor.chain().focus().toggleBold().run()} pressed={state?.bold}><strong>B</strong></ToolbarButton>
           <ToolbarButton label="Italic" onRun={() => editor.chain().focus().toggleItalic().run()} pressed={state?.italic}><em>I</em></ToolbarButton>
+          {imageUpload !== undefined ? <ToolbarButton describedBy={imageUpload === null ? `${id}-image-hint` : undefined} disabled={imageUpload === null && !state?.image} label="Image" onRun={() => setImageOpen(true)} title={imageUpload === null ? imageHint : undefined}>Image</ToolbarButton> : null}
           <ToolbarButton label="Video" onRun={() => setVideoOpen(true)}>Video</ToolbarButton>
           <ToolbarButton label="Edit link" onRun={editLink} pressed={state?.link}>Link</ToolbarButton>
         </div>
@@ -159,7 +174,9 @@ export function RichTextEditor({ editorLabel = "Blog content editor", id, resour
           <ToolbarButton disabled={!state?.canRedo} label="Redo" onRun={() => editor.chain().focus().redo().run()}>Redo</ToolbarButton>
         </div>
       </div>
+      {imageUpload === null ? <p className={styles.imageHint} id={`${id}-image-hint`}>{imageHint}</p> : null}
       <EditorContent className={styles.content} editor={editor} />
+      {imageOpen ? <ImageDialog editor={editor} onClose={() => setImageOpen(false)} upload={imageUpload ?? null} /> : null}
       {videoOpen ? <VideoUrlDialog editor={editor} onClose={() => setVideoOpen(false)} /> : null}
     </div>
   );

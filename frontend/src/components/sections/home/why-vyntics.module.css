@@ -42,7 +42,7 @@
 }
 
 .grid {
-  margin-top: clamp(1.75rem, 3.5vh, 2.75rem);
+  margin-top: var(--space-heading-gap);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
