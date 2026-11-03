@@ -12,8 +12,8 @@ const navigation: NavigationItem[] = [
     label: "Resources",
     href: "/case-studies",
     children: [
-      { label: "Case studies", href: "/case-studies", description: "See how we solve practical business challenges." },
       { label: "Blogs", href: "/blog", description: "Ideas, technical guides, and perspectives from our experts." },
+      { label: "Case studies", href: "/case-studies", description: "See how we solve practical business challenges." },
     ],
   },
   { label: "Technologies", href: "/technologies" },

@@ -4,7 +4,7 @@ import styles from "./hero.module.css";
 
 export function Hero() {
   return (
-    <Container as="section" className={styles.hero}>
+    <Container as="section" className={styles.hero} data-home-hero>
       <p className={styles.eyebrow}>Custom AI, analytics, and data engineering</p>
       <h1>
         AI and data created by professionals you can actually speak with.

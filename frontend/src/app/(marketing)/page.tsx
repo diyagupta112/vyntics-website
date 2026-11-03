@@ -13,6 +13,7 @@ import { Hero } from "@/components/sections/home/hero";
 import { Testimonials } from "@/components/sections/home/testimonials";
 import { WhyVyntics } from "@/components/sections/home/why-vyntics";
 import { LifeAtVynticsPreview } from "@/components/sections/home/life-at-vyntics-preview";
+import mobileStyles from "./home-mobile.module.css";
 
 export const metadata: Metadata = {
   // absolute skips the root "%s | Vyntics" template, which would append the brand twice.
@@ -36,11 +37,11 @@ async function HomeServices() {
 
 export default function HomePage() {
   return (
-    <div data-home-page>
+    <div data-home-page className={mobileStyles.page}>
       <Hero />
       <ClientMarquee />
       <Suspense fallback={<Capabilities linkCards />}><HomeServices /></Suspense>
-      <Suspense fallback={<FeaturedWork loading eyebrow="" description="" expanded />}><FeaturedWork eyebrow="" description="" expanded /></Suspense>
+      <Suspense fallback={<FeaturedWork loading eyebrow="Case studies" description="We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice" expanded />}><FeaturedWork eyebrow="Case studies" description="We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice" expanded /></Suspense>
       <Suspense fallback={null}><HomeTestimonials /></Suspense>
       <Approach />
       <Suspense fallback={<BlogShowcase blogs={[]} loading />}><LatestBlogs /></Suspense>

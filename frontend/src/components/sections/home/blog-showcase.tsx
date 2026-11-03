@@ -82,6 +82,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
         {articles.length > 0 ? <>
         <div
           className={styles.expandingCards}
+          data-home-blog-cards
           aria-label="Latest Vyntics articles"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => {
@@ -99,6 +100,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
               <motion.article
                 layout={!reduceMotion}
                 className={`${styles.card} ${isActive ? styles.activeCard : ""}`}
+                data-home-blog-active={isActive}
                 key={article.href}
                 transition={{ layout: { duration: reduceMotion ? 0 : 0.55, ease: [0.22, 1, 0.36, 1] } }}
                 style={
@@ -144,7 +146,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
             ))}
           </div>
 
-          <div className={styles.controlsRight}>
+          <div className={styles.controlsRight} data-home-blog-actions>
             <div className={styles.arrows} aria-label="Blog carousel controls">
               <button type="button" onClick={showPreviousArticle} aria-label="Previous article">
                 <ArrowIcon direction="left" />
