@@ -19,13 +19,15 @@
   --color-muted: rgb(255 255 255 / 62%);
   --color-border: rgb(255 255 255 / 12%);
   --color-surface: #15151b;
-  --color-header: #07070a;
+  --color-header: rgb(7 7 10 / 70%);
   --color-nav-text: rgb(255 255 255 / 72%);
   --color-nav-hover: var(--color-primary);
   --color-nav-hover-text: #ffffff;
   --color-dropdown-hover: rgb(20 83 219 / 22%);
   --color-control: rgb(37 99 235 / 18%);
   box-shadow: none;
+  /* Soft blur and a thin divider once the page has scrolled under the bar. */
+  backdrop-filter: blur(20px) saturate(140%);
 }
 
 /* At the very top of the home page the navbar is see-through over the hero. */

@@ -6,6 +6,9 @@ import styles from "./hero.module.css";
 
 const POSTER = "/chatbot-product-poster.jpg";
 
+// Matches the staggered entrance in hero.module.css (headline, intro line, button, then the frame).
+const ENTRANCE_MS = 1100;
+
 function Sources() {
   return (
     <>
@@ -51,9 +54,15 @@ export function HeroVideo() {
     };
     // Play only while at least half of the video is on screen; pause as it scrolls away and resume
     // when it returns. The intro and the sound dialog also hold it paused.
+    // The intro waits for the load sequence (headline, button, frame) to finish before it starts.
+    let entranceDone = false;
+    const entranceTimer = window.setTimeout(() => {
+      entranceDone = true;
+      if (inView.current) setWatching(true);
+    }, ENTRANCE_MS);
     const observer = new IntersectionObserver(([entry]) => {
       inView.current = entry.isIntersecting;
-      setWatching(entry.isIntersecting);
+      setWatching(entry.isIntersecting && entranceDone);
       if (inView.current && phaseRef.current === "video" && !dialog.current?.open) void video.play().catch(() => {});
       else video.pause();
     }, { threshold: 0.5 });
@@ -64,6 +73,7 @@ export function HeroVideo() {
     window.addEventListener("resize", onScroll);
 
     return () => {
+      window.clearTimeout(entranceTimer);
       observer.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
@@ -93,14 +103,7 @@ export function HeroVideo() {
 
   return (
     <div className={styles.videoWrap}>
-      <div className={styles.context}>
-        <p className={styles.contextText}>
-          Vyntics delivers custom AI, data engineering, analytics, cloud, and CRM solutions that help businesses turn
-          complex problems into impactful outcomes.
-        </p>
-      </div>
-
-      <div className={styles.stage} ref={stage} data-hero-stage>
+      <div className={styles.stage} ref={stage} data-hero-stage data-phase={phase}>
         <div className={styles.frame}>
           <video
             ref={loop}
@@ -124,14 +127,15 @@ export function HeroVideo() {
         </div>
       </div>
 
-      <p className={styles.caption}>
-        Example of our work: a compliance chatbot that answers from your own documents and cites the source.
-      </p>
-
       <button className={styles.sound} type="button" onClick={open}>
         <svg aria-hidden="true" viewBox="0 0 16 16" width="14" height="14"><path d="M4 2.5v11l9-5.5z" fill="currentColor" /></svg>
         Play with sound
       </button>
+
+      <p className={styles.caption}>
+        Example of our work: a compliance chatbot that answers from your own documents and cites the source. Vyntics
+        delivers custom AI, data engineering, analytics, cloud, and CRM solutions.
+      </p>
 
       <dialog
         ref={dialog}

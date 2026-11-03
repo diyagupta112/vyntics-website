@@ -27,6 +27,7 @@ const FRAGMENT = /* glsl */ `
   uniform float uAspect;
   uniform float uTop;
   uniform float uHalf;
+  uniform float uCalm;
   varying vec2 vUv;
 
   float hash(vec2 p) {
@@ -85,7 +86,9 @@ const FRAGMENT = /* glsl */ `
     float edge = exp(-g * g) * (1.0 - smoothstep(uHalf * 0.85, uHalf * 1.05, ax));
     a += edge * 0.4 * (0.5 + dens);
 
+    // Thins as the frame settles, and again while the video plays.
     a *= mix(1.0, 0.35, uProgress);
+    a *= mix(1.0, 0.45, uCalm);
     a = clamp(a, 0.0, 0.9);
 
     vec3 shade = mix(vec3(0.09, 0.26, 0.8), vec3(0.8, 0.89, 1.0), smoothstep(0.35, 0.95, dens * level + edge));
@@ -127,6 +130,7 @@ export function HeroSmoke() {
         uAspect: { value: 1 },
         uTop: { value: 0.5 },
         uHalf: { value: 0.7 },
+        uCalm: { value: 0 },
       },
     });
     const mesh = new Mesh(gl, { geometry: new Triangle(gl), program });
@@ -153,19 +157,30 @@ export function HeroSmoke() {
 
     let frame = 0;
     let visible = false;
-    const start = performance.now();
+    // The fog slows and dims once the intro hands over to the video, so it does not compete with it.
+    let calm = 0;
+    let clock = 0;
+    let last = performance.now();
 
     const render = (now: number) => {
       frame = window.requestAnimationFrame(render);
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
       const progress = Number(stage.style.getPropertyValue("--p")) || 0;
-      program.uniforms.uTime.value = (now - start) / 1000;
+      calm += ((stage.dataset.phase === "video" ? 1 : 0) - calm) * Math.min(1, dt * 1.5);
+      clock += dt * (1 - 0.7 * calm);
+      program.uniforms.uTime.value = clock;
+      program.uniforms.uCalm.value = calm;
       program.uniforms.uProgress.value = progress;
       program.uniforms.uTop.value = (baseTop + (1 - progress) * risePx) / heroHeight;
       program.uniforms.uHalf.value = (stageWidth * (SCALE_MIN + (1 - SCALE_MIN) * progress)) / heroWidth;
       renderer.render({ scene: mesh });
     };
     const run = () => {
-      if (!frame && visible && !document.hidden) frame = window.requestAnimationFrame(render);
+      if (!frame && visible && !document.hidden) {
+        last = performance.now();
+        frame = window.requestAnimationFrame(render);
+      }
     };
     const stop = () => {
       if (frame) window.cancelAnimationFrame(frame);
@@ -184,6 +199,8 @@ export function HeroSmoke() {
     observer.observe(element);
     resizeObserver.observe(hero);
     resizeObserver.observe(stage);
+    // The frame slides in on load; measure again once it has settled in place.
+    stage.addEventListener("animationend", resize);
     document.addEventListener("visibilitychange", onVisibility);
     element.dataset.live = "true";
 
@@ -191,6 +208,7 @@ export function HeroSmoke() {
       stop();
       observer.disconnect();
       resizeObserver.disconnect();
+      stage.removeEventListener("animationend", resize);
       document.removeEventListener("visibilitychange", onVisibility);
       delete element.dataset.live;
       gl.getExtension("WEBGL_lose_context")?.loseContext();
