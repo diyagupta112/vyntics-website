@@ -72,23 +72,11 @@
   outline-offset: 0.25rem;
 }
 
-/* Keep the copy above the smoke that falls toward the video. */
-.eyebrow,
-.hero h1,
-.intro,
-.cta {
-  position: relative;
-  z-index: 3;
-}
-
+/* Fog behind the whole hero; hero-smoke.tsx fits it to the video frame. */
 .smoke {
   position: absolute;
-  /* Sized against the video stage; hero-smoke.tsx mirrors these numbers (130% wide, 140% tall). */
-  top: -30%;
-  left: -15%;
-  z-index: 2;
-  width: 130%;
-  height: 140%;
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -101,8 +89,7 @@
 /* Static fog for phones, reduced motion and browsers without WebGL. */
 .smoke:not([data-live]) {
   background:
-    radial-gradient(ellipse 4% 8% at 50% 14%, rgb(150 185 255 / 30%), transparent 75%),
-    radial-gradient(ellipse 30% 22% at 50% 30%, rgb(80 130 255 / 22%), transparent 72%);
+    radial-gradient(ellipse 55% 70% at 50% 0%, rgb(80 130 255 / 22%), transparent 72%);
 }
 
 .videoWrap {
@@ -140,8 +127,29 @@
   background: #000000;
   box-shadow: 0 40px 90px rgb(0 0 0 / 60%), 0 0 0 1px rgb(255 255 255 / 4%), inset 0 1px 0 rgb(168 194 255 / 40%);
   transform-origin: 50% 0;
-  transform: rotateX(calc((1 - var(--p)) * 22deg)) scale(calc(0.88 + var(--p) * 0.12));
+  /* The frame rises, straightens and grows as it scrolls in; hero-smoke.tsx follows the same values. */
+  transform: translateY(calc((1 - var(--p)) * 3rem)) rotateX(calc((1 - var(--p)) * 22deg)) scale(calc(0.88 + var(--p) * 0.12));
   will-change: transform;
+}
+
+.proof {
+  max-width: 68rem;
+  margin: clamp(0.5rem, 2vh, 1.25rem) 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  color: rgb(255 255 255 / 62%);
+  font-size: 0.95rem;
+}
+
+.proof li {
+  padding: 0.15rem 1.5rem;
+}
+
+.proof li + li {
+  border-left: 1px solid rgb(255 255 255 / 16%);
 }
 
 .video {
@@ -248,6 +256,20 @@
 
   .frame {
     border-radius: 0.6rem;
-    transform: rotateX(calc((1 - var(--p)) * 12deg)) scale(calc(0.94 + var(--p) * 0.06));
+    transform: translateY(calc((1 - var(--p)) * 3rem)) rotateX(calc((1 - var(--p)) * 12deg)) scale(calc(0.94 + var(--p) * 0.06));
+  }
+
+  .proof {
+    display: grid;
+    gap: 0.4rem;
+    text-align: center;
+  }
+
+  .proof li {
+    padding: 0;
+  }
+
+  .proof li + li {
+    border-left: 0;
   }
 }

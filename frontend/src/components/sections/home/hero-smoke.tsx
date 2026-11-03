@@ -1,17 +1,11 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useRef } from "react";
 import { Mesh, Program, Renderer, Triangle } from "ogl";
 import styles from "./hero.module.css";
 
-// The canvas is laid out against the video stage in CSS: it spans 130% of the stage width and
-// 140% of its height, starting 30% of the height above it. These constants mirror that layout so
-// the shader can line the smoke up with the frame.
-const CANVAS_WIDTH = 1.3;
-const CANVAS_HEIGHT = 1.4;
-const EDGE = 0.3 / CANVAS_HEIGHT;
-const FRAME_SPAN = 1 / CANVAS_HEIGHT;
-// The frame scales from 0.88 to 1 as it levels out (see .frame in the stylesheet).
+// Matches the translateY the frame starts with and loses as it levels out (see .frame in the stylesheet).
+const RISE_REM = 3;
 const SCALE_MIN = 0.88;
 
 const VERTEX = /* glsl */ `
@@ -24,19 +18,16 @@ const VERTEX = /* glsl */ `
   }
 `;
 
-// A thin stem falls from the top centre and opens into a dome whose rim lands on the frame's top
-// corners, then a curtain of vertical smoke pours down over the face of the video.
+// Fog that hangs from the top of the hero, falls behind the headline in soft vertical streaks, and
+// narrows to the width of the video frame where it lands on the frame's top edge.
 const FRAGMENT = /* glsl */ `
   precision mediump float;
   uniform float uTime;
   uniform float uProgress;
   uniform float uAspect;
-  uniform float uEdge;
-  uniform float uSpan;
+  uniform float uTop;
   uniform float uHalf;
   varying vec2 vUv;
-
-  const float APEX = 0.15;
 
   float hash(vec2 p) {
     p = fract(p * vec2(123.34, 456.21));
@@ -66,75 +57,55 @@ const FRAGMENT = /* glsl */ `
     return v;
   }
 
-  // One rim strand: a band around a curve running from the apex to the frame's top corner.
-  float rim(float ax, float d, float drop, float phase, float t) {
-    float u = clamp(ax / uHalf, 0.0, 1.0);
-    float curve = APEX + (uEdge - APEX + drop) * pow(u, 1.5) + 0.006 * sin(ax * 10.0 - t * 1.2 + phase);
-    float slope = 1.5 * (uEdge - APEX + drop) * pow(u, 0.5) / uHalf / (uAspect * 0.5);
-    float perp = (d - curve) / sqrt(1.0 + slope * slope);
-    float w = mix(0.012, 0.03, u);
-    return exp(-pow(perp / w, 2.0)) * (1.0 - smoothstep(0.0, 0.02, ax - uHalf));
-  }
-
-  // A thin drip hanging past the corner of the frame.
-  float drip(float ax, float d, float offset, float length) {
-    float x = ax - uHalf * (1.0 + offset);
-    float run = smoothstep(uEdge - 0.01, uEdge + 0.02, d) * (1.0 - smoothstep(uEdge + length * 0.5, uEdge + length, d));
-    return exp(-pow(x * uAspect * 0.5 / 0.008, 2.0)) * run;
-  }
-
   void main() {
     float d = 1.0 - vUv.y;
     float x = (vUv.x - 0.5) * 2.0;
     float ax = abs(x);
     float t = uTime;
+    float px = x * uAspect * 0.5;
 
-    vec2 p = vec2((vUv.x - 0.5) * uAspect, d) * 2.2;
-    float warp = fbm(p + vec2(0.0, -t * 0.22));
-    float dens = fbm(p * 1.4 + warp * 1.6 + vec2(0.0, -t * 0.3));
-    float dd = d + (warp - 0.5) * 0.03;
+    // Funnel: the full width at the top of the page, narrowing to the frame at its top edge.
+    float k = clamp(d / max(uTop, 0.001), 0.0, 1.0);
+    float hw = mix(1.0, uHalf, pow(k, 0.85));
+    float inside = 1.0 - smoothstep(hw * 0.5, hw * 1.08, ax);
 
-    float rims = rim(ax, dd, 0.0, 0.0, t) * 0.9
-               + rim(ax, dd, 0.035, 2.1, t) * 0.7
-               + rim(ax, dd, 0.07, 4.2, t) * 0.5;
-    float drips = drip(ax, d, 0.025, 0.2 * uSpan) + drip(ax, d, 0.07, 0.34 * uSpan) * 0.8;
+    // Streaks stretched along the fall direction, bent by a slow warp.
+    float warp = fbm(vec2(px * 1.6, d * 0.9 - t * 0.12));
+    float n = fbm(vec2(px * 4.2 + warp * 1.2, d * 1.1 - t * 0.3));
+    float fine = noise(vec2(px * 11.0, d * 2.0 - t * 0.55));
+    float dens = smoothstep(0.3, 0.82, n * 0.78 + fine * 0.3);
 
-    // Curtain: opens from the stem to the frame's width at its top edge, then pours down the face.
-    float reach = mix(0.035, uHalf * 0.98, smoothstep(APEX, uEdge, d));
-    float inside = 1.0 - smoothstep(reach * 0.7, reach * 1.05, ax);
-    float fall = smoothstep(APEX, APEX + 0.06, d) * (1.0 - smoothstep(uEdge + uSpan * 0.18, uEdge + uSpan * 0.55, d));
-    float streak = fbm(vec2(x * uAspect * 2.6, d * 0.8 - t * 0.5)) * 0.7 + noise(vec2(x * uAspect * 7.0, d * 1.4 - t * 0.9)) * 0.5;
-    float curtain = inside * fall * smoothstep(0.32, 0.85, streak) * 0.75;
-    curtain *= 1.0 + 0.7 * exp(-pow((d - uEdge) / 0.035, 2.0));
+    // Light behind the headline, a little stronger as it closes in on the video.
+    float level = mix(0.26, 0.8, smoothstep(0.3 * uTop, uTop, d));
+    float landing = 1.0 - smoothstep(uTop, uTop + 0.07, d);
+    float a = inside * dens * level * landing;
 
-    // The stem, brightest where it opens.
-    float stem = exp(-pow(x * uAspect * 0.5 / (0.012 + 0.02 * smoothstep(0.06, APEX, d)), 2.0));
-    stem *= smoothstep(0.07, 0.11, d) * (1.0 - smoothstep(APEX, APEX + 0.05, d));
-    float apexGlow = exp(-pow(length(vec2(x * uAspect * 0.5, d - APEX)) / 0.045, 2.0));
+    // A soft glow where the fog meets the top edge of the frame.
+    float edge = exp(-pow((d - uTop) / 0.025, 2.0)) * (1.0 - smoothstep(uHalf * 0.85, uHalf * 1.05, ax));
+    a += edge * 0.32 * (0.5 + dens);
 
-    float shape = rims + drips + curtain + stem + apexGlow * 0.5;
-    float a = shape * mix(0.4, 1.0, smoothstep(0.25, 0.75, dens));
-    a *= 1.0 - smoothstep(0.93, 1.0, ax);
-    a *= mix(1.0, 0.55, uProgress);
-    a = clamp(a, 0.0, 0.85);
+    a *= mix(1.0, 0.3, uProgress);
+    a = clamp(a, 0.0, 0.8);
 
-    vec3 shade = mix(vec3(0.06, 0.18, 0.62), vec3(0.82, 0.9, 1.0), smoothstep(0.4, 1.0, dens * (0.6 + shape * 0.5)));
+    vec3 shade = mix(vec3(0.05, 0.16, 0.58), vec3(0.78, 0.87, 1.0), smoothstep(0.45, 1.0, dens * level + edge));
     gl_FragColor = vec4(shade * a, a);
   }
 `;
 
-export function HeroSmoke({ stage }: { stage: RefObject<HTMLDivElement | null> }) {
+export function HeroSmoke() {
   const host = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const element = host.current;
-    if (!element) return;
+    const hero = element?.parentElement;
+    const stage = hero?.querySelector<HTMLElement>("[data-hero-stage]");
+    if (!element || !hero || !stage) return;
     // Phones and reduced-motion users keep the static fog from the stylesheet.
     if (window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 640px)").matches) return;
 
     let renderer: Renderer;
     try {
-      renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: false, dpr: 0.6, webgl: 1 });
+      renderer = new Renderer({ alpha: true, premultipliedAlpha: true, antialias: false, dpr: 0.5, webgl: 1 });
     } catch {
       return;
     }
@@ -153,18 +124,30 @@ export function HeroSmoke({ stage }: { stage: RefObject<HTMLDivElement | null> }
         uTime: { value: 0 },
         uProgress: { value: 0 },
         uAspect: { value: 1 },
-        uEdge: { value: EDGE },
-        uSpan: { value: FRAME_SPAN },
-        uHalf: { value: SCALE_MIN / CANVAS_WIDTH },
+        uTop: { value: 0.5 },
+        uHalf: { value: 0.7 },
       },
     });
     const mesh = new Mesh(gl, { geometry: new Triangle(gl), program });
 
+    // Layout of the frame inside the hero, measured on resize; the rise and scale are applied per frame.
+    let baseTop = 0;
+    let heroWidth = 1;
+    let heroHeight = 1;
+    let stageWidth = 1;
+    let risePx = 0;
+
     const resize = () => {
-      const { width, height } = element.getBoundingClientRect();
-      if (!width || !height) return;
-      renderer.setSize(width, height);
-      program.uniforms.uAspect.value = width / height;
+      const heroRect = hero.getBoundingClientRect();
+      const stageRect = stage.getBoundingClientRect();
+      if (!heroRect.width || !heroRect.height) return;
+      heroWidth = heroRect.width;
+      heroHeight = heroRect.height;
+      stageWidth = stageRect.width;
+      baseTop = stageRect.top - heroRect.top;
+      risePx = RISE_REM * parseFloat(getComputedStyle(document.documentElement).fontSize);
+      renderer.setSize(heroWidth, heroHeight);
+      program.uniforms.uAspect.value = heroWidth / heroHeight;
     };
 
     let frame = 0;
@@ -173,11 +156,11 @@ export function HeroSmoke({ stage }: { stage: RefObject<HTMLDivElement | null> }
 
     const render = (now: number) => {
       frame = window.requestAnimationFrame(render);
-      const progress = Number(stage.current?.style.getPropertyValue("--p")) || 0;
+      const progress = Number(stage.style.getPropertyValue("--p")) || 0;
       program.uniforms.uTime.value = (now - start) / 1000;
       program.uniforms.uProgress.value = progress;
-      // Follow the frame as it scales up while it levels out.
-      program.uniforms.uHalf.value = (SCALE_MIN + (1 - SCALE_MIN) * progress) / CANVAS_WIDTH;
+      program.uniforms.uTop.value = (baseTop + (1 - progress) * risePx) / heroHeight;
+      program.uniforms.uHalf.value = (stageWidth * (SCALE_MIN + (1 - SCALE_MIN) * progress)) / heroWidth;
       renderer.render({ scene: mesh });
     };
     const run = () => {
@@ -198,7 +181,8 @@ export function HeroSmoke({ stage }: { stage: RefObject<HTMLDivElement | null> }
 
     resize();
     observer.observe(element);
-    resizeObserver.observe(element);
+    resizeObserver.observe(hero);
+    resizeObserver.observe(stage);
     document.addEventListener("visibilitychange", onVisibility);
     element.dataset.live = "true";
 
@@ -211,7 +195,7 @@ export function HeroSmoke({ stage }: { stage: RefObject<HTMLDivElement | null> }
       gl.getExtension("WEBGL_lose_context")?.loseContext();
       gl.canvas.remove();
     };
-  }, [stage]);
+  }, []);
 
   return <div className={styles.smoke} ref={host} aria-hidden="true" />;
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { HeroSmoke } from "./hero-smoke";
 import styles from "./hero.module.css";
 
 const POSTER = "/chatbot-product-poster.jpg";
@@ -81,7 +80,7 @@ export function HeroVideo() {
 
   return (
     <div className={styles.videoWrap}>
-      <div className={styles.stage} ref={stage}>
+      <div className={styles.stage} ref={stage} data-hero-stage>
         <div className={styles.frame}>
           <video
             ref={loop}
@@ -97,7 +96,6 @@ export function HeroVideo() {
             <Sources />
           </video>
         </div>
-        <HeroSmoke stage={stage} />
       </div>
 
       <button className={styles.sound} type="button" onClick={open}>
