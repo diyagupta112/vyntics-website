@@ -5,6 +5,7 @@ import { ConsentProvider } from "@/components/consent/consent-provider";
 import { CookieConsent } from "@/components/consent/cookie-consent";
 import { StyledComponentsRegistry } from "@/components/ui/styled-components-registry";
 import { ScrollRestoration } from "@/components/layout/scroll-restoration";
+import { ServiceWorkerRegister } from "@/components/layout/service-worker-register";
 import "@fontsource-variable/dm-sans";
 import "./globals.css";
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         <ScrollRestoration />
+        <ServiceWorkerRegister />
         <ConsentProvider>
           <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           <CookieConsent />

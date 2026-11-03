@@ -54,7 +54,7 @@ export function TestimonialForm({ item, onCreated, onSaved }: { item?: Testimoni
       setValues(testimonialToForm(saved));
       if (created) {
         if (onCreated) onCreated(saved);
-        else router.push(`/testimonials/${encodeURIComponent(saved.id)}/edit?created=1`);
+        else router.push("/testimonials");
       } else { setMessage("Testimonial changes saved."); onSaved?.(saved); }
     } catch (caught) {
       if (isApiError(caught) && caught.kind === "validation") setErrors(contentFieldErrors(caught, testimonialFieldMap));

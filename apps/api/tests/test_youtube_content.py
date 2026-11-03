@@ -31,7 +31,7 @@ EXISTING = {
         {"type": "bulletList", "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Bullet"}]}]}]},
         {"type": "orderedList", "attrs": {"start": 3}, "content": [{"type": "listItem", "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Numbered"}]}]}]},
         {"type": "hardBreak"}, {"type": "blockquote", "content": []},
-        {"type": "image", "attrs": {"src": "https://example.com/image.png", "alt": "Existing image"}},
+        {"type": "codeBlock", "attrs": {"language": "python"}, "content": [{"type": "text", "text": "print(1)"}]},
         {"type": "customLegacyBlock", "attrs": {"custom": [None, 1, False]}, "text": "Keep unchanged"},
     ], "legacy_metadata": {"flag": True, "count": 5, "nothing": None},
 }

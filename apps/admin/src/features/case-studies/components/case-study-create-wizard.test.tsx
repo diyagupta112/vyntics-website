@@ -41,6 +41,6 @@ describe("CaseStudyCreateWizard", () => {
     fireEvent.change(screen.getByLabelText("Choose Case Study cover image"), { target: { files: [file] } });
     await waitFor(() => expect(caseStudiesApi.uploadCover).toHaveBeenCalledWith("study-1", file));
     fireEvent.click(screen.getByRole("button", { name: "Save & Finish" }));
-    expect(push).toHaveBeenCalledWith("/case-studies/study-1/edit?created=1");
+    expect(push).toHaveBeenCalledWith("/case-studies");
   });
 });

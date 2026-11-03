@@ -62,7 +62,7 @@ export function BlogForm({ blog, createFlow = false, onCreated, onSaved }: Props
         : await blogsApi.create(toCreateRequest(values));
       if (isCreate) {
         if (onCreated) onCreated(saved);
-        else router.push(`/blogs/${saved.id}/edit?created=1`);
+        else router.push("/blogs");
       }
       else {
         setValues(blogToForm(saved));

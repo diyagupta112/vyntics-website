@@ -3,7 +3,10 @@
 import { Component, Suspense, lazy, useEffect, useRef, useState, type ReactNode } from "react";
 import styles from "./spline-scene.module.css";
 
-const Spline = lazy(() => import("@splinetool/react-spline"));
+// Begin downloading the Spline runtime as soon as this module loads in the browser, instead of waiting for the
+// first render to reach the lazy boundary.
+const splineRuntime = typeof window !== "undefined" ? import("@splinetool/react-spline") : null;
+const Spline = lazy(() => splineRuntime ?? import("@splinetool/react-spline"));
 
 class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false };

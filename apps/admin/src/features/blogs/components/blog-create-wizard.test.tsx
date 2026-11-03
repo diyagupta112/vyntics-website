@@ -45,7 +45,7 @@ describe("BlogCreateWizard", () => {
     fireEvent.change(screen.getByLabelText("Choose Blog cover image"), { target: { files: [file] } });
     await waitFor(() => expect(blogsApi.uploadCover).toHaveBeenCalledWith("blog-1", file));
     fireEvent.click(screen.getByRole("button", { name: "Save & Finish" }));
-    expect(push).toHaveBeenCalledWith("/blogs/blog-1/edit?created=1");
+    expect(push).toHaveBeenCalledWith("/blogs");
   });
 
   it("stays on the image step when upload fails", async () => {

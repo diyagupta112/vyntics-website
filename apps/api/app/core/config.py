@@ -5,7 +5,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import AliasChoices, AnyHttpUrl, Field, SecretStr
+from pydantic import AliasChoices, AnyHttpUrl, Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_ROOT = Path(__file__).resolve().parents[2]
@@ -114,6 +114,10 @@ class Settings(BaseSettings):
         default="case-study-covers",
         validation_alias="STORAGE_CASE_STUDY_COVERS_BUCKET",
     )
+    content_images_bucket: str = Field(
+        default="content-images",
+        validation_alias="STORAGE_CONTENT_IMAGES_BUCKET",
+    )
     team_photos_bucket: str = Field(
         default="team-photos",
         validation_alias="STORAGE_TEAM_PHOTOS_BUCKET",
@@ -139,6 +143,11 @@ class Settings(BaseSettings):
         gt=0,
         validation_alias="STORAGE_IMAGE_MAX_BYTES",
     )
+    content_image_max_bytes: int = Field(
+        default=10 * 1024 * 1024,
+        gt=0,
+        validation_alias="STORAGE_CONTENT_IMAGE_MAX_BYTES",
+    )
     resume_signed_url_ttl_seconds: int = Field(
         default=300,
         gt=0,
@@ -159,6 +168,13 @@ class Settings(BaseSettings):
         default=None,
         validation_alias="SENTRY_DSN",
     )
+
+    @model_validator(mode="after")
+    def keep_content_images_out_of_cover_buckets(self) -> "Settings":
+        """Inline body images must never share a bucket with cover images."""
+        if self.content_images_bucket in {self.blog_covers_bucket, self.case_study_covers_bucket}:
+            raise ValueError("STORAGE_CONTENT_IMAGES_BUCKET must differ from the cover buckets")
+        return self
 
 
 @lru_cache

@@ -77,7 +77,7 @@ describe("BlogForm", () => {
     expect(blogsApi.create).toHaveBeenCalledWith(expect.objectContaining({ is_featured: featured }));
     expect(blogsApi.create).toHaveBeenCalledWith(expect.objectContaining({ related_services: target, related_sub_services: [] }));
     expect(vi.mocked(blogsApi.create).mock.calls[0]![0]).not.toHaveProperty("related_service");
-    expect(push).toHaveBeenCalledWith("/blogs/1/edit?created=1");
+    expect(push).toHaveBeenCalledWith("/blogs");
   });
   it.each([
     ["validation", "Backend says invalid"], ["permission", "permission"], ["service_unavailable", "temporarily unavailable"], ["network", "could not be reached"],

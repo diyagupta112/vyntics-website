@@ -60,7 +60,7 @@ describe("BadgeCreateWizard", () => {
     vi.mocked(badgesApi.create).mockResolvedValue({ ...badgeFixture, logo_url: null });
     render(<BadgeCreateWizard />); fillDetails(); fireEvent.click(screen.getByRole("button", { name: "Next →" }));
     fireEvent.click(await screen.findByRole("button", { name: "Save & Finish" }));
-    expect(push).toHaveBeenCalledWith(`/badges/${badgeFixture.id}/edit?created=1`);
+    expect(push).toHaveBeenCalledWith("/badges");
     expect(badgesApi.uploadLogo).not.toHaveBeenCalled();
   });
 });

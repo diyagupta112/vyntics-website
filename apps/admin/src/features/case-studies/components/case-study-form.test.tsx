@@ -106,7 +106,7 @@ describe("CaseStudyForm", () => {
     expect(caseStudiesApi.create).toHaveBeenCalledWith(expect.objectContaining({ featured: featured }));
     expect(caseStudiesApi.create).toHaveBeenCalledWith(expect.objectContaining({ related_services: target, related_sub_services: [] }));
     expect(vi.mocked(caseStudiesApi.create).mock.calls[0]![0]).not.toHaveProperty("related_service");
-    expect(push).toHaveBeenCalledWith("/case-studies/1/edit?created=1");
+    expect(push).toHaveBeenCalledWith("/case-studies");
   });
 
   it("populates fields and saves status changes", async () => {

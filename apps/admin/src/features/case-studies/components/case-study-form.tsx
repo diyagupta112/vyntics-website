@@ -85,7 +85,7 @@ export function CaseStudyForm({ caseStudy, createFlow = false, onCreated, onSave
 
       if (isCreate) {
         if (onCreated) onCreated(saved);
-        else router.push(`/case-studies/${saved.id}/edit?created=1`);
+        else router.push("/case-studies");
       } else {
         setValues(caseStudyToForm(saved));
         setMessage("Case Study changes saved.");

@@ -101,7 +101,7 @@ export function CareerForm({ career, onSaved }: Props) {
         : await careersApi.create(toCreateRequest(values));
 
       if (isCreate) {
-        router.push(`/careers/${encodeURIComponent(saved.slug)}/edit?created=1`);
+        router.push("/careers");
       } else {
         setValues(careerToForm(saved));
         setMessage("Career changes saved.");

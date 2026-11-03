@@ -21,7 +21,7 @@ export function TeamMemberCreateWizard() {
   return <TwoStepCreateFlow currentStep={step} steps={steps}>
     {step === 1 ? <TeamMemberForm member={member} createFlow onCreated={advance} onSaved={advance} /> : member ? <>
       <PhotoControl member={member} onBusyChange={setImageBusy} onChanged={setMember} />
-      <CreateFlowActions backLabel="← Back" busy={imageBusy} busyLabel="Uploading…" onBack={() => setStep(1)} onPrimary={() => router.push(`/team/${member.id}/edit?created=1`)} primaryLabel="Save & Finish" />
+      <CreateFlowActions backLabel="← Back" busy={imageBusy} busyLabel="Uploading…" onBack={() => setStep(1)} onPrimary={() => router.push("/team")} primaryLabel="Save & Finish" />
     </> : null}
   </TwoStepCreateFlow>;
 }

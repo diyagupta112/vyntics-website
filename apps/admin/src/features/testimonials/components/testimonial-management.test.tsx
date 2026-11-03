@@ -46,7 +46,7 @@ describe("Testimonial management", () => {
     fireEvent.change(screen.getByLabelText(/^Display order/), { target: { value: "4" } }); fireEvent.change(screen.getByLabelText(/^Active/), { target: { value: "false" } });
     fireEvent.click(screen.getByRole("button", { name: "Create Testimonial" }));
     await waitFor(() => expect(testimonialsApi.create).toHaveBeenCalledWith({ quote: "Quote", author_name: "Name", author_role: null, company_name: null, company_logo_url: null, display_order: 4, is_active: false }));
-    expect(push).toHaveBeenCalledWith(`/testimonials/${testimonialFixture.id}/edit?created=1`);
+    expect(push).toHaveBeenCalledWith("/testimonials");
   });
   it("loads and updates all existing optional values", async () => {
     vi.mocked(testimonialsApi.update).mockResolvedValue({ ...testimonialFixture, quote: "Changed quote" }); render(<TestimonialForm item={testimonialFixture} />);

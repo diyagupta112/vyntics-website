@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getBlogs } from "@/lib/blogs";
 import { getBadges } from "@/lib/badges";
@@ -12,6 +13,12 @@ import { Hero } from "@/components/sections/home/hero";
 import { Testimonials } from "@/components/sections/home/testimonials";
 import { WhyVyntics } from "@/components/sections/home/why-vyntics";
 import { LifeAtVynticsPreview } from "@/components/sections/home/life-at-vyntics-preview";
+
+export const metadata: Metadata = {
+  // absolute skips the root "%s | Vyntics" template, which would append the brand twice.
+  title: { absolute: "Vyntics | Custom AI, Data & Cloud Solutions" },
+  description: "Vyntics delivers custom AI, data engineering, analytics, cloud, and CRM solutions that help businesses turn complex problems into impactful outcomes.",
+};
 
 async function LatestBlogs() {
   const result = await getBlogs();

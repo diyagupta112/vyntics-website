@@ -21,6 +21,7 @@ from app.services.blogs import (
     BlogValidationError,
 )
 from app.schemas.related_services import ServiceIdentifier, SubServiceIdentifier
+from app.schemas.content import ContentImageUploadResponse
 from app.storage.supabase import StorageError
 from app.storage.uploads import UploadValidationError
 
@@ -168,6 +169,28 @@ async def upload_blog_cover(
 
     try:
         return await service.upload_cover(blog_id, file, actor=admin)
+    except BlogNotFoundError:
+        raise HTTPException(status_code=404, detail="Blog not found.") from None
+    except UploadValidationError as error:
+        raise HTTPException(status_code=422, detail=str(error)) from None
+    except StorageError:
+        raise HTTPException(
+            status_code=503,
+            detail="Image storage is temporarily unavailable.",
+        ) from None
+
+
+@router.put("/{blog_id}/content-images", response_model=ContentImageUploadResponse)
+async def upload_blog_content_image(
+    blog_id: UUID,
+    file: Annotated[UploadFile, File()],
+    admin: AuthenticatedAdminDependency,
+    service: BlogServiceDependency,
+) -> object:
+    """Upload a body image for this Blog; reference it from an image node in content."""
+
+    try:
+        return await service.upload_content_image(blog_id, file, actor=admin)
     except BlogNotFoundError:
         raise HTTPException(status_code=404, detail="Blog not found.") from None
     except UploadValidationError as error:

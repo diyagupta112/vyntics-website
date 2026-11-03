@@ -77,9 +77,7 @@ describe("CareerForm", () => {
 
     await waitFor(() => expect(careersApi.create).toHaveBeenCalledTimes(1));
     expect(careersApi.create).toHaveBeenCalledWith(expect.objectContaining({ responsibilities: { type: "doc", content: [] }, requirements: { type: "doc", content: [] }, nice_to_have: { type: "doc", content: [] }, benefits: { type: "doc", content: [] } }));
-    expect(push).toHaveBeenCalledWith(
-      "/careers/senior-engineer/edit?created=1",
-    );
+    expect(push).toHaveBeenCalledWith("/careers");
   });
 
   it("saves changes and follows a changed slug", async () => {

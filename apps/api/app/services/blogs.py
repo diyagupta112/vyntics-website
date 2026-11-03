@@ -16,6 +16,14 @@ from app.repositories.audit_logs import AuditLogRepository
 from app.repositories.blogs import BlogRepository
 from app.schemas.blogs import BlogCreateRequest, BlogUpdateRequest
 from app.schemas.related_services import ServiceIdentifier, SubServiceIdentifier
+from app.services.content_images import (
+    ContentImageError,
+    cleanup_all_images,
+    cleanup_removed_images,
+    has_content_images,
+    validate_content_images,
+)
+from app.schemas.content import ContentImageUploadResponse
 from app.storage.supabase import StorageConfigurationError, StorageError
 from app.storage.uploads import PublicImageStorage
 
@@ -46,12 +54,14 @@ class BlogService:
         audit_repository: AuditLogRepository | None = None,
         clock: Callable[[], datetime] | None = None,
         image_storage: PublicImageStorage | None = None,
+        content_image_storage: PublicImageStorage | None = None,
     ) -> None:
         self._session = session
         self._blogs = blog_repository or BlogRepository(session)
         self._audit_logs = audit_repository or AuditLogRepository(session)
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._image_storage = image_storage
+        self._content_image_storage = content_image_storage
 
     async def list_published(
         self,
@@ -100,6 +110,11 @@ class BlogService:
         if await self._blogs.slug_exists(request.slug):
             raise BlogSlugConflictError
 
+        if has_content_images(request.content):
+            raise BlogValidationError(
+                "Content images can only be added after creation: upload them to the Blog, then update its content"
+            )
+
         values = request.model_dump(mode="json")
         published_at = self._clock() if request.status == "published" else None
         blog = Blog(**values, published_at=published_at)
@@ -144,8 +159,14 @@ class BlogService:
         if blog is None:
             raise BlogNotFoundError
         previous_cover_url = blog.cover_image_url
+        previous_content = blog.content
 
         updates = request.model_dump(exclude_unset=True, mode="json")
+        if "content" in updates:
+            try:
+                validate_content_images(self._content_image_storage, updates["content"], blog.id)
+            except ContentImageError as error:
+                raise BlogValidationError(str(error)) from None
         next_slug = updates.get("slug", blog.slug)
         if next_slug != blog.slug and await self._blogs.slug_exists(
             next_slug,
@@ -215,6 +236,10 @@ class BlogService:
                 previous_cover_url,
                 blog.id,
             )
+        if "content" in changed_fields:
+            await cleanup_removed_images(
+                self._content_image_storage, previous_content, blog.content, blog.id, resource_type="blog"
+            )
         return blog
 
     async def delete(
@@ -251,6 +276,7 @@ class BlogService:
                 previous_cover_url,
                 blog.id,
             )
+        await cleanup_all_images(self._content_image_storage, blog.id, resource_type="blog")
 
     async def upload_cover(
         self,
@@ -293,6 +319,48 @@ class BlogService:
             raise
         await self._cleanup_previous_cover(storage, previous_url, blog.id)
         return blog
+
+    async def upload_content_image(
+        self,
+        blog_id: UUID,
+        upload: UploadFile,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> ContentImageUploadResponse:
+        """Store a body image for use in this Blog's content; it is not referenced until content is updated."""
+
+        blog = await self.get_by_id(blog_id)
+        if self._content_image_storage is None:
+            raise StorageConfigurationError("Storage is not configured.")
+        storage = self._content_image_storage
+        stored = await storage.upload(blog.id, upload)
+        try:
+            await self._audit_logs.add(
+                self._build_audit_log(
+                    action="update",
+                    blog=blog,
+                    context={
+                        "slug": blog.slug,
+                        "status": blog.status,
+                        "content_image_operation": "upload",
+                    },
+                    actor=actor,
+                )
+            )
+            await self._session.commit()
+        except Exception:
+            await self._session.rollback()
+            try:
+                await storage.delete_path(stored.object_path)
+            except StorageError:
+                logger.warning(
+                    "Could not remove an unreferenced Blog content image after rollback.",
+                    extra={"resource_type": "blog", "resource_id": str(blog.id)},
+                )
+            raise
+        return ContentImageUploadResponse(
+            url=stored.public_url, content_type=stored.content_type, size_bytes=stored.size_bytes
+        )
 
     async def delete_cover(
         self,

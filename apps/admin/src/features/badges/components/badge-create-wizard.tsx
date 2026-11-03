@@ -21,7 +21,7 @@ export function BadgeCreateWizard() {
   return <TwoStepCreateFlow currentStep={step} steps={steps}>
     {step === 1 ? <BadgeForm badge={badge} createFlow onCreated={advance} onSaved={advance} /> : badge ? <>
       <LogoControl badge={badge} onBusyChange={setLogoBusy} onChanged={setBadge} />
-      <CreateFlowActions backLabel="← Back" busy={logoBusy} busyLabel="Uploading…" onBack={() => setStep(1)} onPrimary={() => router.push(`/badges/${badge.id}/edit?created=1`)} primaryLabel="Save & Finish" />
+      <CreateFlowActions backLabel="← Back" busy={logoBusy} busyLabel="Uploading…" onBack={() => setStep(1)} onPrimary={() => router.push("/badges")} primaryLabel="Save & Finish" />
     </> : null}
   </TwoStepCreateFlow>;
 }

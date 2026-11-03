@@ -101,7 +101,7 @@ describe("FAQ create/edit", () => {
     fireEvent.change(screen.getByLabelText(/^Active/), { target: { value: "false" } });
     fireEvent.click(screen.getByRole("button", { name: "Create FAQ" }));
     await waitFor(() => expect(faqsApi.create).toHaveBeenCalledWith({ page: "services/cloud-foundations", sub_page: null, question: "New question?", answer: "New answer.", display_order: 3, is_active: false }));
-    expect(push).toHaveBeenCalledWith(`/faqs/${faqFixture.id}/edit?created=1`);
+    expect(push).toHaveBeenCalledWith("/faqs");
   });
   it("loads friendly page labels on edit and submits reassignment", async () => {
     vi.mocked(faqsApi.update).mockResolvedValue({ ...faqFixture, page: "services/ai-solutions" }); render(<FAQForm item={faqFixture} />);

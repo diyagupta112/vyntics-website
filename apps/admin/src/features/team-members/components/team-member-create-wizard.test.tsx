@@ -39,6 +39,6 @@ describe("TeamMemberCreateWizard", () => {
     fireEvent.change(screen.getByLabelText("Choose Team Member photo"), { target: { files: [file] } });
     await waitFor(() => expect(teamMembersApi.uploadPhoto).toHaveBeenCalledWith("member-1", file));
     fireEvent.click(screen.getByRole("button", { name: "Save & Finish" }));
-    expect(push).toHaveBeenCalledWith("/team/member-1/edit?created=1");
+    expect(push).toHaveBeenCalledWith("/team");
   });
 });

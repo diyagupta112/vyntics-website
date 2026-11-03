@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from hashlib import sha256
 from pathlib import Path
@@ -45,6 +46,8 @@ class FileTypeRule:
 class StoredPublicObject:
     public_url: str
     object_path: str
+    content_type: str = ""
+    size_bytes: int = 0
 
 
 class PublicImageStorage(Protocol):
@@ -56,6 +59,15 @@ class PublicImageStorage(Protocol):
 
     async def delete_managed_url(self, value: str, resource_id: UUID) -> bool:
         """Delete only an exact URL managed by this bucket."""
+
+    def managed_object_path(self, value: str, resource_id: UUID) -> str | None:
+        """Return the object path when value is an exact managed URL owned by resource_id."""
+
+    async def delete_all(self, resource_id: UUID) -> int:
+        """Delete every object stored under a resource's folder; return how many."""
+
+
+_OBJECT_PATH = re.compile(r"^[0-9a-f-]{36}/[0-9a-f]{64}\.(?:jpg|png|webp)$")
 
 
 def _jpeg(content: bytes) -> bool:
@@ -151,6 +163,8 @@ class SupabasePublicImageStorage:
         return StoredPublicObject(
             public_url=self._gateway.public_url(self._bucket, object_path),
             object_path=object_path,
+            content_type=prepared.content_type,
+            size_bytes=len(prepared.content),
         )
 
     async def delete_path(self, object_path: str) -> None:
@@ -162,3 +176,15 @@ class SupabasePublicImageStorage:
             return False
         await self.delete_path(object_path)
         return True
+
+    def managed_object_path(self, value: str, resource_id: UUID) -> str | None:
+        object_path = self._gateway.managed_public_object_path(self._bucket, value)
+        if object_path is None or _OBJECT_PATH.fullmatch(object_path) is None:
+            return None
+        return object_path if object_path.startswith(f"{resource_id}/") else None
+
+    async def delete_all(self, resource_id: UUID) -> int:
+        paths = await self._gateway.list_objects(self._bucket, f"{resource_id}/")
+        for object_path in paths:
+            await self.delete_path(object_path)
+        return len(paths)

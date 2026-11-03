@@ -43,7 +43,7 @@ export function FAQForm({ item, onCreated, onSaved }: { item?: FAQ; onCreated?: 
       setValues(faqToForm(saved));
       if (!item) {
         if (onCreated) onCreated(saved);
-        else router.push(`/faqs/${encodeURIComponent(saved.id)}/edit?created=1`);
+        else router.push("/faqs");
       } else { setMessage("FAQ changes saved."); onSaved?.(saved); }
     } catch (caught) {
       if (isApiError(caught) && caught.kind === "validation") setErrors(contentFieldErrors(caught, faqFieldMap));

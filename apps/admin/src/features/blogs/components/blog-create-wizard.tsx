@@ -25,7 +25,7 @@ export function BlogCreateWizard() {
     {step === 1 ? <BlogForm blog={blog} createFlow onCreated={advance} onSaved={advance} /> : blog ? <>
       <CoverImageControl blog={blog} onBusyChange={setImageBusy} onChanged={setBlog} />
       <div><PreviewAction build={() => blogSnapshot(blogToForm(blog), blog)} /></div>
-      <CreateFlowActions backLabel="← Back" busy={imageBusy} busyLabel="Uploading…" onBack={() => setStep(1)} onPrimary={() => router.push(`/blogs/${blog.id}/edit?created=1`)} primaryLabel="Save & Finish" />
+      <CreateFlowActions backLabel="← Back" busy={imageBusy} busyLabel="Uploading…" onBack={() => setStep(1)} onPrimary={() => router.push("/blogs")} primaryLabel="Save & Finish" />
     </> : null}
   </TwoStepCreateFlow>;
 }

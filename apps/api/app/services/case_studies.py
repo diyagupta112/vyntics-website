@@ -19,6 +19,14 @@ from app.schemas.case_studies import (
     CaseStudyUpdateRequest,
 )
 from app.schemas.related_services import ServiceIdentifier, SubServiceIdentifier
+from app.services.content_images import (
+    ContentImageError,
+    cleanup_all_images,
+    cleanup_removed_images,
+    has_content_images,
+    validate_content_images,
+)
+from app.schemas.content import ContentImageUploadResponse
 from app.storage.supabase import StorageConfigurationError, StorageError
 from app.storage.uploads import PublicImageStorage
 
@@ -49,12 +57,14 @@ class CaseStudyService:
         audit_repository: AuditLogRepository | None = None,
         clock: Callable[[], datetime] | None = None,
         image_storage: PublicImageStorage | None = None,
+        content_image_storage: PublicImageStorage | None = None,
     ) -> None:
         self._session = session
         self._case_studies = case_study_repository or CaseStudyRepository(session)
         self._audit_logs = audit_repository or AuditLogRepository(session)
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._image_storage = image_storage
+        self._content_image_storage = content_image_storage
 
     async def list_published(
         self,
@@ -103,6 +113,11 @@ class CaseStudyService:
         if await self._case_studies.slug_exists(request.slug):
             raise CaseStudySlugConflictError
 
+        if has_content_images(request.content):
+            raise CaseStudyValidationError(
+                "Content images can only be added after creation: upload them to the Case Study, then update its content"
+            )
+
         values = request.model_dump(mode="json")
         published_at = self._clock() if request.status == "published" else None
         case_study = CaseStudy(**values, published_at=published_at)
@@ -149,8 +164,14 @@ class CaseStudyService:
         if case_study is None:
             raise CaseStudyNotFoundError
         previous_cover_url = case_study.cover_image_url
+        previous_content = case_study.content
 
         updates = request.model_dump(exclude_unset=True, mode="json")
+        if "content" in updates:
+            try:
+                validate_content_images(self._content_image_storage, updates["content"], case_study.id)
+            except ContentImageError as error:
+                raise CaseStudyValidationError(str(error)) from None
         next_slug = updates.get("slug", case_study.slug)
         if next_slug != case_study.slug and await self._case_studies.slug_exists(
             next_slug,
@@ -224,6 +245,10 @@ class CaseStudyService:
                 previous_cover_url,
                 case_study.id,
             )
+        if "content" in changed_fields:
+            await cleanup_removed_images(
+                self._content_image_storage, previous_content, case_study.content, case_study.id, resource_type="case_study"
+            )
         return case_study
 
     async def delete(
@@ -260,6 +285,7 @@ class CaseStudyService:
                 previous_cover_url,
                 case_study.id,
             )
+        await cleanup_all_images(self._content_image_storage, case_study.id, resource_type="case_study")
 
     async def upload_cover(
         self,
@@ -302,6 +328,48 @@ class CaseStudyService:
             raise
         await self._cleanup_previous_cover(storage, previous_url, case_study.id)
         return case_study
+
+    async def upload_content_image(
+        self,
+        case_study_id: UUID,
+        upload: UploadFile,
+        *,
+        actor: AuthenticatedAdmin | None = None,
+    ) -> ContentImageUploadResponse:
+        """Store a body image for use in this Case Study's content; it is not referenced until content is updated."""
+
+        case_study = await self.get_by_id(case_study_id)
+        if self._content_image_storage is None:
+            raise StorageConfigurationError("Storage is not configured.")
+        storage = self._content_image_storage
+        stored = await storage.upload(case_study.id, upload)
+        try:
+            await self._audit_logs.add(
+                self._build_audit_log(
+                    action="update",
+                    case_study=case_study,
+                    context={
+                        "slug": case_study.slug,
+                        "status": case_study.status,
+                        "content_image_operation": "upload",
+                    },
+                    actor=actor,
+                )
+            )
+            await self._session.commit()
+        except Exception:
+            await self._session.rollback()
+            try:
+                await storage.delete_path(stored.object_path)
+            except StorageError:
+                logger.warning(
+                    "Could not remove an unreferenced Case Study content image after rollback.",
+                    extra={"resource_type": "case_study", "resource_id": str(case_study.id)},
+                )
+            raise
+        return ContentImageUploadResponse(
+            url=stored.public_url, content_type=stored.content_type, size_bytes=stored.size_bytes
+        )
 
     async def delete_cover(
         self,

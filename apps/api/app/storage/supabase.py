@@ -66,6 +66,21 @@ class SupabaseStorageGateway:
             json={"prefixes": [object_path]},
         )
 
+    async def list_objects(self, bucket: str, prefix: str) -> list[str]:
+        """List object paths directly under a trusted folder prefix (at most 1000)."""
+
+        response = await self._request(
+            "POST",
+            f"{self._base_url}/object/list/{quote(bucket, safe='')}",
+            headers=self._headers,
+            json={"prefix": prefix, "limit": 1000, "offset": 0},
+        )
+        try:
+            names = [item["name"] for item in response.json()]
+        except (KeyError, TypeError, ValueError) as error:
+            raise StorageError("Storage listing could not be read.") from error
+        return [f"{prefix}{name}" for name in names if isinstance(name, str) and name]
+
     def public_url(self, bucket: str, object_path: str) -> str:
         """Return the canonical public URL for an already-public bucket."""
 
