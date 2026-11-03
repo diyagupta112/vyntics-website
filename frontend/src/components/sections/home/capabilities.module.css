@@ -1,4 +1,5 @@
 .section {
+  --section-extra: 1.25rem;
   padding-block: clamp(2.5rem, 5vw, 4.5rem) 0;
   background: transparent;
   scroll-margin-top: 5rem;

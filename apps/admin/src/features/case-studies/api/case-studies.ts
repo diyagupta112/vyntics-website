@@ -1,6 +1,7 @@
 import { apiClient } from "@/lib/api/client";
 
 import { serviceFilterQuery } from "@/lib/content/service-filter";
+import type { ContentImageUpload } from "@/components/forms/content-image";
 import type {
   CaseStudy,
   CaseStudyCreateRequest,
@@ -35,6 +36,14 @@ export const caseStudiesApi = {
     body.set("file", file);
     return apiClient.put<CaseStudy>(
       `${resourcePath(caseStudyId)}/cover-image`,
+      { body },
+    );
+  },
+  uploadContentImage(caseStudyId: string, file: File) {
+    const body = new FormData();
+    body.set("file", file);
+    return apiClient.put<ContentImageUpload>(
+      `${resourcePath(caseStudyId)}/content-images`,
       { body },
     );
   },

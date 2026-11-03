@@ -45,6 +45,7 @@
   --content-width: 72rem;                             /* standard content: 1152px at the 1440px design width */
   --content-width-wide: 90rem;                        /* intentionally wide layouts: 1440px at the design width */
   --space-section: clamp(2.5rem, min(4vw, 3.6rem), 5rem);          /* vertical rhythm between sections */
+  --space-heading-gap: clamp(2.5rem, min(4vw, 3.6rem), 3.75rem);      /* gap between a section heading block and its content */
   --grid-gap: clamp(1rem, min(1.6vw, 1.44rem), 2rem);               /* standard grid and card gap */
 
   /* Spacing scale */
@@ -193,7 +194,50 @@ svg {
 
 [data-home-page] section:not([class*="hero"]):not(section section) {
   min-height: 0;
-  padding-block: clamp(3.25rem, 5.5vw, 5rem);
+  padding-block: calc(var(--space-section) + var(--section-extra, 0rem));
   border-top: 0;
   border-bottom: 0;
+}
+
+/* Global button system. Every filled button and button-style link shares one look and one simple hover
+   (a darker blue). Size and padding stay with each component. The animated form submit buttons
+   (SendButton and ShinyButton) are intentionally excluded and keep their own animation. */
+:is(
+  a.siteCta,
+  a[class*="primaryButton"],
+  a[class*="secondaryButton"],
+  a[class*="primaryAction"],
+  a[class*="demoButton"],
+  a[class*="DemoButton"],
+  a[class*="moreButton"]
+) {
+  color: #fff;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 0.6rem;
+  box-shadow: none;
+  font-weight: 650;
+  text-decoration: none;
+  transform: none;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+:is(
+  a.siteCta,
+  a[class*="primaryButton"],
+  a[class*="secondaryButton"],
+  a[class*="primaryAction"],
+  a[class*="demoButton"],
+  a[class*="DemoButton"],
+  a[class*="moreButton"]
+):is(:hover, :focus-visible) {
+  color: #fff;
+  background: color-mix(in srgb, var(--color-primary) 86%, #000);
+  border-color: color-mix(in srgb, var(--color-primary) 86%, #000);
+  box-shadow: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(a.siteCta, a[class*="primaryButton"], a[class*="secondaryButton"], a[class*="primaryAction"], a[class*="demoButton"], a[class*="DemoButton"], a[class*="moreButton"]) { transition: none; }
 }

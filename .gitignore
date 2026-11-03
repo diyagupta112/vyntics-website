@@ -69,3 +69,8 @@ pnpm-lock.yaml.tmp
 frontend/.qa-tmp/
 frontend/.qa/
 frontend/PERFORMANCE-AUDIT.md
+
+node_modules/
+./node_modules/
+./node_modules
+frontend/node_modules/

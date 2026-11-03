@@ -1,6 +1,7 @@
 import { apiClient } from "@/lib/api/client";
 
 import { serviceFilterQuery } from "@/lib/content/service-filter";
+import type { ContentImageUpload } from "@/components/forms/content-image";
 import type { Blog, BlogCreateRequest, BlogUpdateRequest } from "../types";
 
 const resourcePath = (blogId: string) => `/blogs/${encodeURIComponent(blogId)}`;
@@ -25,6 +26,11 @@ export const blogsApi = {
     const body = new FormData();
     body.set("file", file);
     return apiClient.put<Blog>(`${resourcePath(blogId)}/cover-image`, { body });
+  },
+  uploadContentImage(blogId: string, file: File) {
+    const body = new FormData();
+    body.set("file", file);
+    return apiClient.put<ContentImageUpload>(`${resourcePath(blogId)}/content-images`, { body });
   },
   deleteCover(blogId: string) {
     return apiClient.delete(`${resourcePath(blogId)}/cover-image`);

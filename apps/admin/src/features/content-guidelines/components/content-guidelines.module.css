@@ -1,0 +1,54 @@
+.page,
+.card,
+.cardHeading,
+.block {
+  display: grid;
+}
+
+.page { gap: var(--space-6); }
+
+.card { align-content: start; gap: var(--space-5); min-width: 0; }
+.cardHeading { gap: var(--space-1); }
+.cardHeading h2 { font-size: var(--font-size-section-title); }
+.cardHeading p,
+.lead { color: var(--color-gray-500); max-width: 48rem; }
+
+.block { gap: var(--space-2); max-width: 48rem; }
+.block h3 { font-size: var(--font-size-card-title); scroll-margin-top: var(--space-6); }
+.block p { color: var(--color-gray-500); font-size: var(--font-size-sm); }
+
+.block > ul,
+.list,
+.guide ul:not(.hierarchy) {
+  display: grid;
+  gap: var(--space-2);
+  list-style: disc;
+  max-width: 48rem;
+  padding-left: var(--space-5);
+}
+
+.contents ul { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-4); list-style: none; padding: 0; }
+.contents a,
+.guideLink { font-size: var(--font-size-sm); font-weight: 600; text-decoration: underline; text-underline-offset: 0.2em; }
+.contents a:focus-visible,
+.guideLink:focus-visible,
+.linkButton:focus-visible,
+.guide summary:focus-visible { outline: var(--focus-ring); outline-offset: var(--focus-offset); }
+
+.linkButton { align-items: center; border: 1px solid var(--color-gray-300); border-radius: var(--radius-control); display: inline-flex; font-size: var(--font-size-sm); font-weight: 600; min-height: 2.75rem; padding: var(--space-3) var(--space-4); text-decoration: none; }
+.linkButton:hover { background: var(--color-gray-50); }
+
+.hierarchy { border: 1px solid var(--color-gray-200); border-radius: var(--radius-control); display: grid; gap: var(--space-2); list-style: none; padding: var(--space-3) var(--space-4); }
+.hierarchy li { align-items: baseline; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.depth1 { margin-left: var(--space-5); }
+.depth2 { margin-left: calc(var(--space-5) * 2); }
+.tag { background: var(--color-gray-100); border: 1px solid var(--color-gray-300); border-radius: var(--radius-control); font-size: var(--font-size-xs); font-weight: 600; min-width: 4.5rem; padding: 0 var(--space-2); text-align: center; }
+
+.guide { background: var(--color-red-50); border: 1px solid var(--color-red-700); border-left: 6px solid var(--color-red-700); border-radius: var(--radius-card); display: grid; font-size: var(--font-size-sm); gap: var(--space-3); padding: var(--space-3) var(--space-4); }
+.guide summary { color: var(--color-red-800); cursor: pointer; font-weight: 700; }
+.guide[open] summary { margin-bottom: var(--space-2); }
+.guide .hierarchy { background: var(--color-white); }
+.guideLink { color: var(--color-red-700); justify-self: start; }
+.guide .tag { background: var(--color-red-700); border-color: var(--color-red-700); color: var(--color-white); }
+
+.srOnly { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; white-space: nowrap; width: 1px; }

@@ -6,32 +6,34 @@
 <meta name="robots" content="noindex">
 <title>Offline | Vyntics</title>
 <style>
-:root{--ink:#0b0b0f;--primary:#1453db;--accent:#2563eb;--page:#f6f7f8;--muted:rgb(11 11 15 / 62%);--border:rgb(11 11 15 / 10%)}
+:root{--ink:#0b0b0f;--primary:#1453db;--accent:#2563eb;--page:#f6f7f8;--surface:#fff;--muted:rgb(11 11 15 / 62%);--border:rgb(11 11 15 / 10%)}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;min-height:100svh;display:grid;place-items:center;padding:2rem 1rem;background:var(--page);color:var(--ink);font-family:"DM Sans Variable","DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
-main{width:100%;max-width:34rem;text-align:center}
-.brand{display:inline-flex;align-items:center;gap:.75rem;margin-bottom:clamp(2rem,6svh,3.5rem)}
-.mark{width:3.25rem;aspect-ratio:1442/1091;background:var(--ink);-webkit-mask:url("/images/vyntics-mark-transparent.png") center/contain no-repeat;mask:url("/images/vyntics-mark-transparent.png") center/contain no-repeat}
-.word{font-size:.95rem;font-weight:760;letter-spacing:.16em}
-.eyebrow{margin:0 0 .75rem;color:var(--primary);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
-h1{margin:0;font-size:clamp(1.75rem,5vw,2.5rem);line-height:1.15;font-weight:700;letter-spacing:-.01em}
-p.text{margin:1rem auto 0;max-width:28rem;color:var(--muted);font-size:1rem}
-.actions{margin-top:2rem}
-button{font:inherit;font-weight:600;cursor:pointer;border:1px solid var(--primary);background:var(--primary);color:#fff;border-radius:62.4375rem;padding:.8rem 1.75rem;transition:background-color 200ms ease,border-color 200ms ease}
+body{margin:0;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1rem;background:var(--page);color:var(--ink);font-family:"DM Sans Variable","DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;text-align:center}
+.brand{display:flex;align-items:center;justify-content:center;gap:.75rem;margin:0 0 2rem}
+.mark{display:block;width:3.25rem;aspect-ratio:1442/1091;flex:none;background:var(--ink);-webkit-mask:url("/images/vyntics-mark-transparent.png") center/contain no-repeat;mask:url("/images/vyntics-mark-transparent.png") center/contain no-repeat}
+.word{font-size:.95rem;font-weight:760;letter-spacing:.16em;line-height:1}
+.card{width:100%;max-width:30rem;display:flex;flex-direction:column;align-items:center;padding:clamp(2rem,6vw,3rem) clamp(1.25rem,5vw,2.5rem);background:var(--surface);border:1px solid var(--border);border-radius:1.25rem;box-shadow:0 1rem 2.5rem rgb(11 11 15 / 6%)}
+.icon{display:grid;place-items:center;width:3.5rem;height:3.5rem;margin-bottom:1.25rem;border-radius:50%;background:rgb(20 83 219 / 8%);color:var(--primary)}
+.icon svg{width:1.6rem;height:1.6rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.eyebrow{margin:0 0 .75rem;color:var(--primary);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+h1{margin:0;font-size:clamp(1.6rem,5vw,2.1rem);line-height:1.15;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+.text{margin:1rem 0 0;max-width:24rem;color:var(--muted);font-size:1rem;text-wrap:balance}
+button{margin-top:1.75rem;font:inherit;font-weight:600;cursor:pointer;border:1px solid var(--primary);background:var(--primary);color:#fff;border-radius:62.4375rem;padding:.8rem 2rem;transition:background-color 200ms ease,border-color 200ms ease}
 button:hover{background:var(--accent);border-color:var(--accent)}
 button:focus-visible{outline:2px solid var(--primary);outline-offset:.25rem}
-.status{min-height:1.5rem;margin:1.25rem 0 0;color:var(--muted);font-size:.9rem}
+.status{min-height:1.4rem;margin:1.25rem 0 0;color:var(--muted);font-size:.875rem}
 .status[data-online="true"]{color:var(--primary)}
 </style>
 </head>
 <body>
-<main>
-  <div class="brand"><span class="mark" aria-hidden="true"></span><span class="word">VYNTICS</span></div>
+<div class="brand"><span class="mark" aria-hidden="true"></span><span class="word">VYNTICS</span></div>
+<main class="card">
+  <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16.1a5 5 0 0 1 7 0"/><path d="M12 20h.01"/><path d="M3 3l18 18"/></svg></div>
   <p class="eyebrow">You&rsquo;re offline</p>
   <h1>Looks like you&rsquo;re offline.</h1>
   <p class="text">Check your internet connection and try again. We&rsquo;ll be here when you&rsquo;re back online.</p>
-  <div class="actions"><button type="button" id="retry">Try Again</button></div>
+  <button type="button" id="retry">Try Again</button>
   <p class="status" id="status" role="status" aria-live="polite"></p>
 </main>
 <script>

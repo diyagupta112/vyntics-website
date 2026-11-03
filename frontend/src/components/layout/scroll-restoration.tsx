@@ -26,7 +26,7 @@ export function ScrollRestoration() {
     const newKey = () => crypto.randomUUID();
     let entry: string = history.state?.[ENTRY_KEY] ?? newKey();
     let lastPosition: Position | undefined;
-    let captureFrame = 0;
+    let anchorTimer = 0;
     let restoreFrame = 0;
     let restoreTimer = 0;
     let pending: { position: Position; url: string } | undefined;
@@ -50,9 +50,11 @@ export function ScrollRestoration() {
         if (Number.isFinite(value.x) && Number.isFinite(value.y)) return value;
       } catch { /* Storage is optional; in-memory restoration still works. */ }
     };
+    // Full measurement: position plus section anchor. This reads layout, so it must stay out of the
+    // scroll hot path; it runs when scrolling settles and before clicks and page hide.
     const capture = () => {
-      cancelAnimationFrame(captureFrame);
-      captureFrame = 0;
+      clearTimeout(anchorTimer);
+      anchorTimer = 0;
       if (pending) return;
       const position: Position = { x: window.scrollX, y: window.scrollY };
       const headerHeight = document.querySelector("body > header")?.getBoundingClientRect().height ?? 0;
@@ -113,6 +115,7 @@ export function ScrollRestoration() {
     const push: History["pushState"] = function (state, unused, url) {
       save();
       stop();
+      clearTimeout(anchorTimer);
       const next = newKey();
       originalPush.call(history, withEntry(state, next), unused, url);
       entry = next;
@@ -125,14 +128,20 @@ export function ScrollRestoration() {
     const onPop = (event: PopStateEvent) => {
       save();
       stop();
+      clearTimeout(anchorTimer);
       entry = event.state?.[ENTRY_KEY] ?? newKey();
       if (!event.state?.[ENTRY_KEY]) originalReplace.call(history, withEntry(event.state, entry), "");
       const position = read(entry);
       lastPosition = position;
       if (position) restore(position);
     };
+    // While scrolling, only record the position; no DOM queries, computed styles or rect reads.
+    const SETTLE_MS = 150;
     const onScroll = () => {
-      if (!pending && !captureFrame) captureFrame = requestAnimationFrame(capture);
+      if (pending) return;
+      lastPosition = { x: window.scrollX, y: window.scrollY };
+      clearTimeout(anchorTimer);
+      anchorTimer = window.setTimeout(capture, SETTLE_MS);
     };
     const onClick = () => { capture(); save(); };
     const onPageHide = () => { capture(); save(); };
@@ -168,7 +177,7 @@ export function ScrollRestoration() {
     return () => {
       save();
       stop();
-      cancelAnimationFrame(captureFrame);
+      clearTimeout(anchorTimer);
       resume.current = () => {};
       if (history.pushState === push) history.pushState = originalPush;
       if (history.replaceState === replace) history.replaceState = originalReplace;

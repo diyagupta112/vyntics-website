@@ -13,13 +13,19 @@ export type YouTubeVideoBlock = BlogContentNode & {
   attrs: { provider: "youtube"; video_id: string };
 };
 
+/** Body image block; the backend accepts exactly these attributes and no presentation properties. */
+export type ContentImageBlock = BlogContentNode & {
+  type: "image";
+  attrs: { url: string; alt: string };
+};
+
 export const EMPTY_BLOG_DOCUMENT: BlogContentNode = {
   type: "doc",
   content: [{ type: "paragraph" }],
 };
 
 const supportedNodes = new Set([
-  "doc", "paragraph", "heading", "text", "bulletList", "orderedList", "listItem", "hardBreak", "video",
+  "doc", "paragraph", "heading", "text", "bulletList", "orderedList", "listItem", "hardBreak", "video", "image",
 ]);
 const supportedMarks = new Set(["bold", "italic", "link"]);
 
@@ -49,6 +55,21 @@ function normalizeNode(value: unknown, path = "content"): BlogContentNode {
       : video.video_id;
     if (typeof id !== "string" || !YOUTUBE_VIDEO_ID.test(id)) throw new Error(path + " contains an invalid YouTube video ID.");
     const block: YouTubeVideoBlock = { type: "video", attrs: { provider: "youtube", video_id: id } };
+    return block;
+  }
+
+  if (source.type === "image") {
+    const attrs = source.attrs;
+    if (Object.keys(source).some((key) => !["type", "attrs"].includes(key)) ||
+        !attrs || typeof attrs !== "object" || Array.isArray(attrs)) {
+      throw new Error(path + " must be an image leaf node with type and attrs only.");
+    }
+    const image = attrs as Record<string, unknown>;
+    if (Object.keys(image).some((key) => !["url", "alt"].includes(key)) ||
+        typeof image.url !== "string" || !image.url || typeof image.alt !== "string") {
+      throw new Error(path + " must contain an image url and alt text only.");
+    }
+    const block: ContentImageBlock = { type: "image", attrs: { url: image.url, alt: image.alt } };
     return block;
   }
 
@@ -99,7 +120,7 @@ export function serializeBlogContent(document: BlogContentNode): string {
 }
 
 export function isBlogContentEmpty(document: BlogContentNode): boolean {
-  if (document.type === "video") return false;
+  if (document.type === "video" || document.type === "image") return false;
   if (document.type === "text") return !document.text?.trim();
   return !document.content?.some((node) => !isBlogContentEmpty(node));
 }

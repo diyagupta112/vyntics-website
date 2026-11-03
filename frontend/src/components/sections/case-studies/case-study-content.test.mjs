@@ -37,3 +37,34 @@ test("does not infer section titles or reorder object content", () => {
 test("empty content creates no invented sections or metrics", () => {
   assert.equal(render({}), '<div class="prose"></div>');
 });
+
+const imageBlock = (url, alt) => ({ type: "image", attrs: { url, alt } });
+const paragraph = text => ({ type: "paragraph", content: [{ type: "text", text }] });
+
+test("renders body images in place with the author's alt text", () => {
+  const html = render({ type: "doc", content: [
+    paragraph("Before"),
+    imageBlock("https://cdn.test/storage/v1/object/public/content-images/a/one.png", "Architecture diagram"),
+    paragraph("Between"),
+    imageBlock("https://cdn.test/storage/v1/object/public/content-images/a/two.png", "Deployment workflow"),
+    paragraph("After"),
+  ] });
+  assert.match(html, /<img src="https:\/\/cdn\.test\/[^"]*one\.png" alt="Architecture diagram"/);
+  assert.match(html, /<img src="https:\/\/cdn\.test\/[^"]*two\.png" alt="Deployment workflow"/);
+  const order = ["Before", "one.png", "Between", "two.png", "After"].map(part => html.indexOf(part));
+  assert.deepEqual(order, [...order].sort((a, b) => a - b));
+  assert.ok(order.every(index => index >= 0));
+});
+
+test("malformed body images render nothing and do not break surrounding content", () => {
+  const html = render({ type: "doc", content: [
+    paragraph("Kept"),
+    { type: "image" },
+    { type: "image", attrs: { alt: "no url" } },
+    imageBlock("javascript:alert(1)", "unsafe"),
+    paragraph("Also kept"),
+  ] });
+  assert.doesNotMatch(html, /<img|javascript:|unsafe|no url/);
+  assert.match(html, /Kept/);
+  assert.match(html, /Also kept/);
+});
