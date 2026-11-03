@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { Blog } from "@/lib/blogs";
 import styles from "./related-blog-card.module.css";
 import studyStyles from "@/app/(marketing)/case-studies/page.module.css";
+import { coverImgProps } from "@/lib/cover-image";
 
 export function RelatedBlogCard({ blog, variant = "sidebar" }: { blog: Blog; variant?: "sidebar" | "service" }) {
   const [failed, setFailed] = useState(false);
@@ -14,7 +15,7 @@ export function RelatedBlogCard({ blog, variant = "sidebar" }: { blog: Blog; var
       <div className={studyStyles.otherMedia}>
         {hasImage ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={blog.cover_image_url} alt={`${blog.title} article cover`} width="960" height="540" loading="lazy" onError={() => setFailed(true)} />
+          <img {...coverImgProps(blog.cover_image_url, "(max-width: 720px) 100vw, 400px")} alt={`${blog.title} article cover`} width="960" height="540" loading="lazy" onError={() => setFailed(true)} />
         ) : <div role="img" aria-label={`${blog.title} - cover unavailable`} style={{ width: "100%", height: "100%", display: "grid", placeItems: "center", color: "var(--color-muted)", fontSize: ".8rem" }}>Article preview unavailable</div>}
       </div>
       <div className={studyStyles.otherCopy}>
@@ -29,7 +30,7 @@ export function RelatedBlogCard({ blog, variant = "sidebar" }: { blog: Blog; var
     <div className={styles.image}>{hasImage ? (
       // Cover hosts are supplied by the backend.
       // eslint-disable-next-line @next/next/no-img-element
-      <img src={blog.cover_image_url} alt={`${blog.title} article cover`} loading="lazy" onError={() => setFailed(true)} />
+      <img {...coverImgProps(blog.cover_image_url, "(max-width: 720px) 100vw, 320px")} alt={`${blog.title} article cover`} loading="lazy" onError={() => setFailed(true)} />
     ) : <span>VYNTICS</span>}</div>
     <div className={styles.copy}><span className={styles.category}>{blog.category}</span><strong>{blog.title}</strong><p className={styles.excerpt}>{blog.excerpt}</p><span className={styles.read}>{blog.read_time} min read <span aria-hidden="true">↗</span></span></div>
   </Link>;

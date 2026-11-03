@@ -8,6 +8,8 @@ import {
   serializeBlogContent,
   type BlogContentNode,
 } from "./blog-content";
+import { ApiError } from "@/lib/api/errors";
+import { validateAltText, validateContentImageFile } from "./content-image";
 import { createBlogEditorExtensions, RichTextEditor } from "./rich-text-editor";
 
 // jsdom has no layout geometry for text ranges; ProseMirror reads it when
@@ -156,7 +158,7 @@ describe("Blog rich-text document model", () => {
       content: [{ type: "paragraph", content: [{ type: "text", text: "Text", marks: [{ type: "strong" }, { type: "em" }] }] }],
     }));
     expect(legacy.content?.[0]?.content?.[0]?.marks).toEqual([{ type: "bold" }, { type: "italic" }]);
-    expect(() => deserializeBlogContent({ type: "doc", content: [{ type: "image" }] })).toThrow(/unsupported content type/i);
+    expect(() => deserializeBlogContent({ type: "doc", content: [{ type: "table" }] })).toThrow(/unsupported content type/i);
     expect(isBlogContentEmpty(deserializeBlogContent({ type: "doc", content: [] }))).toBe(true);
     expect(isBlogContentEmpty(legacy)).toBe(false);
   });
@@ -170,7 +172,7 @@ describe("Blog rich-text document model", () => {
   });
 
   it("blocks editing instead of discarding unsupported legacy nodes", () => {
-    render(<RichTextEditor id="content" onChange={vi.fn()} value={JSON.stringify({ type: "doc", content: [{ type: "image" }] })} />);
+    render(<RichTextEditor id="content" onChange={vi.fn()} value={JSON.stringify({ type: "doc", content: [{ type: "table" }] })} />);
     expect(screen.getByRole("alert")).toHaveTextContent(/cannot be edited safely/i);
     expect(screen.queryByRole("textbox", { name: "Blog content editor" })).not.toBeInTheDocument();
   });
@@ -281,5 +283,175 @@ describe("YouTube editor blocks", () => {
     await waitFor(() => expect(onChange).toHaveBeenCalled());
     expect(JSON.parse(onChange.mock.lastCall![0]).content).toContainEqual(video);
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+});
+
+describe("Body image blocks", () => {
+  const image = { type: "image", attrs: { url: "https://cdn.example.com/a.png", alt: "AWS architecture diagram" } };
+  const image2 = { type: "image", attrs: { url: "https://cdn.example.com/b.webp", alt: "Second" } };
+  const video = { type: "video", attrs: { provider: "youtube", video_id: "dQw4w9WgXcQ" } };
+  const before = { type: "paragraph", content: [{ type: "text", text: "Before" }] };
+  const after = { type: "paragraph", content: [{ type: "text", text: "After" }] };
+  const ok = new File(["png"], "a.png", { type: "image/png" });
+  const uploaded = { url: "https://cdn.example.com/new.png", content_type: "image/png", size_bytes: 3 };
+
+  function open(upload: ((file: File) => Promise<typeof uploaded>) | null | undefined, onChange = vi.fn()) {
+    render(<RichTextEditor id="content" imageUpload={upload} onChange={onChange} value={JSON.stringify({ type: "doc", content: [before, after] })} />);
+    return onChange;
+  }
+  async function fill(file: File | undefined, alt: string) {
+    fireEvent.click(await screen.findByRole("button", { name: "Image" }));
+    const dialog = screen.getByRole("dialog", { name: "Add Image" });
+    if (file) fireEvent.change(within(dialog).getByLabelText("Image"), { target: { files: [file] } });
+    fireEvent.change(within(dialog).getByLabelText("Alt text"), { target: { value: alt } });
+    return dialog;
+  }
+
+  it("keeps exactly type and attrs {url, alt}, and rejects extra or presentation properties", () => {
+    expect(JSON.parse(serializeBlogContent({ type: "doc", content: [image] } as BlogContentNode)).content[0]).toEqual(image);
+    for (const bad of [
+      { type: "image", attrs: { src: "x", alt: "a" } },
+      { type: "image", attrs: { url: "x", alt: "a", width: 100 } },
+      { type: "image", attrs: { url: "x" } },
+      { type: "image", attrs: { url: "x", alt: "a" }, content: [] },
+    ]) expect(() => deserializeBlogContent({ type: "doc", content: [bad] })).toThrow();
+    expect(isBlogContentEmpty({ type: "doc", content: [image] } as BlogContentNode)).toBe(false);
+  });
+
+  it("inserts, undoes, removes, and mixes several images with video at the cursor", () => {
+    const editor = createEditor({ type: "doc", content: [before, after] });
+    editor.commands.setTextSelection(8);
+    editor.commands.insertContent(image);
+    expect(editor.getJSON().content).toEqual([before, image, after]);
+    editor.commands.focus("end");
+    editor.commands.insertContent(video);
+    editor.commands.focus("end");
+    editor.commands.insertContent(image2);
+    expect(editor.getJSON().content?.filter((node) => node.type === "image")).toEqual([image, image2]);
+    expect(editor.getJSON().content?.some((node) => node.type === "video")).toBe(true);
+    editor.destroy();
+  });
+
+  it("supports undo, redo, and deletion of an inserted image", () => {
+    const editor = createEditor({ type: "doc", content: [before, after] });
+    editor.commands.setTextSelection(8);
+    editor.commands.insertContent(image);
+    editor.commands.undo();
+    expect(editor.getJSON().content).toEqual([before, after]);
+    editor.commands.redo();
+    expect(editor.getJSON().content).toEqual([before, image, after]);
+    editor.commands.setNodeSelection(8);
+    editor.commands.deleteSelection();
+    expect(editor.getJSON().content).toEqual([before, after]);
+    editor.destroy();
+  });
+
+  it("loads an existing image, preserves url and alt through an unrelated edit, and renders it", async () => {
+    const onChange = vi.fn();
+    render(<RichTextEditor id="content" onChange={onChange} value={JSON.stringify({ type: "doc", content: [before, image] })} />);
+    const img = await screen.findByRole("img", { name: "AWS architecture diagram" });
+    expect(img).toHaveAttribute("src", image.attrs.url);
+    expect(screen.queryByText(image.attrs.url)).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Remove image" }));
+    await waitFor(() => expect(JSON.parse(onChange.mock.lastCall![0]).content).toEqual([before]));
+  });
+
+  it("edits only the alt text of an existing image", async () => {
+    const onChange = vi.fn();
+    render(<RichTextEditor id="content" imageUpload={vi.fn()} onChange={onChange} value={JSON.stringify({ type: "doc", content: [before, image] })} />);
+    fireEvent.click(await screen.findByRole("button", { name: "Edit alt text" }));
+    const dialog = screen.getByRole("dialog", { name: "Edit Image Alt Text" });
+    expect(within(dialog).queryByLabelText("Image")).not.toBeInTheDocument();
+    fireEvent.change(within(dialog).getByLabelText("Alt text"), { target: { value: " Updated description " } });
+    fireEvent.click(within(dialog).getByRole("button", { name: "Save Alt Text" }));
+    await waitFor(() => expect(onChange).toHaveBeenCalled());
+    expect(JSON.parse(onChange.mock.lastCall![0]).content[1]).toEqual({ type: "image", attrs: { url: image.attrs.url, alt: "Updated description" } });
+  });
+
+  it("is hidden without an uploader and disabled until the resource exists", async () => {
+    open(undefined);
+    await screen.findByRole("button", { name: "Bold" });
+    expect(screen.queryByRole("button", { name: "Image" })).not.toBeInTheDocument();
+  });
+  it("is disabled before the resource has an ID", async () => {
+    open(null);
+    const button = await screen.findByRole("button", { name: "Image" });
+    expect(button).toBeDisabled();
+    const hint = screen.getByText(/Body images are available after the Blog is created/);
+    expect(button).toHaveAttribute("aria-describedby", hint.id);
+    expect(button).toHaveAttribute("title", hint.textContent!);
+  });
+  it("is enabled when an uploader is provided", async () => {
+    open(vi.fn());
+    expect(await screen.findByRole("button", { name: "Image" })).toBeEnabled();
+    expect(screen.queryByText(/Body images are available after/)).not.toBeInTheDocument();
+  });
+
+  it("uploads once, then inserts the exact block", async () => {
+    const upload = vi.fn().mockResolvedValue(uploaded);
+    const onChange = open(upload);
+    const dialog = await fill(ok, "  A diagram  ");
+    fireEvent.click(within(dialog).getByRole("button", { name: "Insert Image" }));
+    await waitFor(() => expect(upload).toHaveBeenCalledTimes(1));
+    expect(upload).toHaveBeenCalledWith(ok);
+    await waitFor(() => expect(onChange).toHaveBeenCalled());
+    expect(JSON.parse(onChange.mock.lastCall![0]).content).toContainEqual({ type: "image", attrs: { url: uploaded.url, alt: "A diagram" } });
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
+  it("does not insert anything when the upload fails, shows the backend message, and allows retry", async () => {
+    const upload = vi.fn().mockRejectedValueOnce(new ApiError({ kind: "validation", status: 422, message: "Unsupported image content." })).mockResolvedValueOnce(uploaded);
+    const onChange = open(upload);
+    const dialog = await fill(ok, "A diagram");
+    fireEvent.click(within(dialog).getByRole("button", { name: "Insert Image" }));
+    expect(await within(dialog).findByText("Unsupported image content.")).toBeInTheDocument();
+    expect(onChange).not.toHaveBeenCalled();
+    fireEvent.click(within(dialog).getByRole("button", { name: "Insert Image" }));
+    await waitFor(() => expect(upload).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(onChange).toHaveBeenCalled());
+  });
+
+  it("blocks duplicate submissions while uploading", async () => {
+    let finish: (value: typeof uploaded) => void = () => undefined;
+    const upload = vi.fn(() => new Promise<typeof uploaded>((resolve) => { finish = resolve; }));
+    open(upload);
+    const dialog = await fill(ok, "A diagram");
+    fireEvent.click(within(dialog).getByRole("button", { name: "Insert Image" }));
+    fireEvent.submit(dialog);
+    expect(await within(dialog).findByText("Uploading image…")).toBeInTheDocument();
+    expect(upload).toHaveBeenCalledTimes(1);
+    finish(uploaded);
+    await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+  });
+
+  it.each([
+    ["JPEG", new File(["x"], "a.jpg", { type: "image/jpeg" })],
+    ["PNG", new File(["x"], "a.png", { type: "image/png" })],
+    ["WebP", new File(["x"], "a.webp", { type: "image/webp" })],
+  ])("accepts %s", (_name, file) => expect(validateContentImageFile(file)).toBeUndefined());
+
+  it.each([
+    ["GIF", new File(["x"], "a.gif", { type: "image/gif" })],
+    ["SVG", new File(["x"], "a.svg", { type: "image/svg+xml" })],
+    ["PDF", new File(["x"], "a.pdf", { type: "application/pdf" })],
+    ["empty", new File([], "a.png", { type: "image/png" })],
+    ["oversized", new File([new Uint8Array(10 * 1024 * 1024 + 1)], "a.png", { type: "image/png" })],
+  ])("rejects %s without uploading", async (_name, file) => {
+    const upload = vi.fn();
+    open(upload);
+    const dialog = await fill(file, "Alt");
+    fireEvent.click(within(dialog).getByRole("button", { name: "Insert Image" }));
+    expect(await within(dialog).findByRole("alert")).toBeInTheDocument();
+    expect(upload).not.toHaveBeenCalled();
+  });
+
+  it.each([["", "Alt text is required."], ["   ", "Alt text is required."], ["a".repeat(301), "Alt text must be 300 characters or fewer."]])("validates alt text %#", async (alt, message) => {
+    const upload = vi.fn();
+    open(upload);
+    const dialog = await fill(ok, alt);
+    fireEvent.click(within(dialog).getByRole("button", { name: "Insert Image" }));
+    expect(await within(dialog).findByText(message)).toBeInTheDocument();
+    expect(upload).not.toHaveBeenCalled();
+    expect(validateAltText("a".repeat(300))).toBeUndefined();
   });
 });

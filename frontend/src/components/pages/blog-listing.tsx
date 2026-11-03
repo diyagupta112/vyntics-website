@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { Blog } from "@/lib/blogs";
 import { explorationServices } from "@/content/service-exploration";
 import styles from "./blog-listing.module.css";
+import { coverImgProps } from "@/lib/cover-image";
 
 const AUTOPLAY_INTERVAL_MS = 4000;
 
@@ -16,7 +17,7 @@ function Cover({ blog }: { blog: Blog }) {
   return <div className={styles.cover}>{/^(https?:\/\/|\/)/.test(blog.cover_image_url) && !failed ? (
     // Backend cover hosts are dynamic.
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={blog.cover_image_url} alt={blog.title} loading="lazy" onError={() => setFailed(true)} />
+    <img {...coverImgProps(blog.cover_image_url, "(max-width: 720px) 100vw, 400px")} alt={blog.title} loading="lazy" onError={() => setFailed(true)} />
   ) : <span>VYNTICS · INSIGHTS</span>}</div>;
 }
 function Meta({ blog }: { blog: Blog }) {

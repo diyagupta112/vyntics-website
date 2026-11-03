@@ -197,6 +197,32 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
   useEffect(() => {
     lastScrollY.current = window.scrollY;
     let animationFrame: number | null = null;
+    let resizeFrame: number | null = null;
+    const isHome = pathname === "/";
+    let services: HTMLElement | null = null;
+    let servicesObserver: IntersectionObserver | undefined;
+    // True while the line at the header's bottom edge crosses the services section. It is kept up to
+    // date by the observer, so the scroll frame below needs no layout reads.
+    let inServices = false;
+
+    const watchServices = () => {
+      servicesObserver?.disconnect();
+      servicesObserver = undefined;
+      inServices = false;
+      services = isHome ? document.querySelector<HTMLElement>("[data-home-page] [data-service-section]") : null;
+      if (!services || typeof IntersectionObserver === "undefined") return;
+      // Layout is read only here (setup, resize, or when the section element is replaced).
+      const headerHeight = document.querySelector<HTMLElement>(`.${styles.header}`)?.offsetHeight ?? 80;
+      const below = Math.max(0, window.innerHeight - headerHeight - 1);
+      // A 1px-tall root band at the header's bottom edge: the section intersects it exactly while it crosses that line.
+      servicesObserver = new IntersectionObserver((entries) => {
+        const next = entries[entries.length - 1]?.isIntersecting ?? false;
+        if (next === inServices) return;
+        inServices = next;
+        handleScroll();
+      }, { rootMargin: `-${headerHeight}px 0px -${below}px 0px` });
+      servicesObserver.observe(services);
+    };
 
     const updateHeader = () => {
       const currentScrollY = Math.max(window.scrollY, 0);
@@ -235,12 +261,26 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
       }
     };
 
+    const handleResize = () => {
+      if (resizeFrame !== null) return;
+      resizeFrame = window.requestAnimationFrame(() => {
+        resizeFrame = null;
+        watchServices();
+        handleScroll();
+      });
+    };
+
+    watchServices();
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
     updateHeader();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      servicesObserver?.disconnect();
       if (animationFrame !== null) window.cancelAnimationFrame(animationFrame);
+      if (resizeFrame !== null) window.cancelAnimationFrame(resizeFrame);
     };
   }, [mobileOpen, pathname]);
 

@@ -1,6 +1,6 @@
 // Offline fallback only. Caches the offline page and serves it when a page navigation fails because the network is unreachable.
 // Everything else (API calls, _next assets, images, video, auth, non-GET) goes straight to the network untouched.
-const CACHE = "vyntics-offline-v1";
+const CACHE = "vyntics-offline-v2";
 const PRECACHE = ["/offline.html", "/images/vyntics-mark-transparent.png"];
 
 self.addEventListener("install", (event) => {

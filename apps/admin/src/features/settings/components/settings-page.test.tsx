@@ -50,6 +50,12 @@ describe("SettingsPage", () => {
     expect(screen.queryByText("internal-auth-id")).not.toBeInTheDocument();
   });
 
+  it("links to the Content Guidelines page", () => {
+    render(<SettingsPage />);
+    expect(screen.getByRole("region", { name: "Content Guidelines" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Open Content Guidelines" })).toHaveAttribute("href", "/settings/content-guidelines");
+  });
+
   it("renders the backend-provided inactive normal-admin state", () => {
     vi.mocked(useCurrentAdmin).mockReturnValue({
       admin: { ...admin, role: "admin", is_active: false },
