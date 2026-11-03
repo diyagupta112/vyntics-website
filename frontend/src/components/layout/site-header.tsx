@@ -158,6 +158,9 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
   const [active, setActive] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
+  // The home hero is dark, so the header is dark while it sits over the hero.
+  const [overHero, setOverHero] = useState(pathname === "/");
+  const [atTop, setAtTop] = useState(true);
   const lastScrollY = useRef(0);
   const menuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -224,8 +227,17 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
     const updateHeader = () => {
       const currentScrollY = Math.max(window.scrollY, 0);
       const scrollDelta = currentScrollY - lastScrollY.current;
-      // Streaming can replace the section element; re-attach only when the cached one is gone.
-      if (isHome && !services?.isConnected) watchServices();
+      const services = pathname === "/"
+        ? document.querySelector<HTMLElement>("[data-home-page] [data-service-section]")
+        : null;
+      const servicesBounds = services?.getBoundingClientRect();
+      const headerHeight = document.querySelector<HTMLElement>(`.${styles.header}`)?.offsetHeight ?? 80;
+      const inServices = Boolean(servicesBounds && servicesBounds.top <= headerHeight && servicesBounds.bottom > headerHeight);
+      const heroBounds = pathname === "/"
+        ? document.querySelector<HTMLElement>("[data-home-hero]")?.getBoundingClientRect()
+        : null;
+      setOverHero(Boolean(heroBounds && heroBounds.bottom > headerHeight));
+      setAtTop(currentScrollY <= 16);
 
       if (mobileOpen || inServices || currentScrollY <= 16) {
         setHeaderVisible(true);
@@ -274,7 +286,7 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
 
   return (
       <header
-        className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}`}
+        className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}${overHero ? ` ${styles.headerDark}` : ""}${overHero && atTop && !mobileOpen ? ` ${styles.headerClear}` : ""}`}
       >
         <div className={styles.inner}>
         <Link className={styles.logoLink} href="/" aria-label={`${siteConfig.name} home`} onClick={() => setMobileOpen(false)}>
