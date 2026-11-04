@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { aiServices, type AiServiceContent } from "@/content/ai-services";
 import styles from "./ai-service-detail.module.css";
 import { ServiceTools } from "./service-tools";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
@@ -21,7 +22,7 @@ export function AiServiceDetail({ service }: { service: AiServiceContent }) {
           <h1>{service.title}</h1>
           <p className={styles.introduction}>{service.introduction}</p>
           <div className={styles.heroActions}>
-            <Link className={styles.primaryButton} href="/contact-us">Discuss your use case <ArrowIcon /></Link>
+            <ArrowFillButton className={styles.primaryButton} href="/contact-us">Discuss your use case</ArrowFillButton>
             <a className={styles.textLink} href="#deliverables">Explore what we deliver</a>
           </div>
         </Container>
@@ -103,7 +104,7 @@ export function AiServiceDetail({ service }: { service: AiServiceContent }) {
       <section className={styles.cta}>
         <Container>
           <div><p className={styles.label}>Start with the problem</p><h2>Tell us what needs to work better.</h2></div>
-          <Link href="/contact-us">Start a conversation <ArrowIcon /></Link>
+          <ArrowFillButton href="/contact-us">Start a conversation</ArrowFillButton>
         </Container>
       </section>
     </>

@@ -7,6 +7,7 @@ import { servicesHeroVisuals } from "@/content/services-hero-visuals";
 import type { ServicePillar } from "@/content/service-exploration";
 import buttons from "@/app/(marketing)/services/cloud/page.module.css";
 import styles from "./services-hero.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 type Action = { href: string; label: string };
 type HeroProps = {
@@ -31,7 +32,7 @@ export function ServicesHero({ service, headingId, eyebrow, title, description, 
         <h1 id={headingId} data-reveal={`${id}-title`} data-reveal-delay="90">{titleLines ? titleLines.map((line, index) => <span key={line}>{index > 0 && " "}{line}</span>) : title}</h1>
         <p className={styles.description} data-reveal={`${id}-description`} data-reveal-delay="180">{description}</p>
         <div className={buttons.heroActions} data-reveal={`${id}-actions`} data-reveal-delay="270">
-          <Link className={buttons.primaryAction} href={primaryAction.href}>{primaryAction.label} <Arrow /></Link>
+          <ArrowFillButton className={buttons.primaryAction} href={primaryAction.href}>{primaryAction.label}</ArrowFillButton>
           {secondaryAction && <Link className={buttons.secondaryAction} href={secondaryAction.href}>{secondaryAction.label}</Link>}
         </div>
       </div>

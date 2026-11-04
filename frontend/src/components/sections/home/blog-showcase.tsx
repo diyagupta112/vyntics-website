@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container";
 import type { Blog } from "@/lib/blogs";
 import styles from "./blog-showcase.module.css";
 import { coverImgProps } from "@/lib/cover-image";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 const AUTOPLAY_INTERVAL_MS = 3500;
 
@@ -170,17 +171,13 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
                 <ArrowIcon />
               </button>
             </div>
-            <Link className={`${styles.viewAll} siteCta`} href="/blog">
-              View all Blogs <ArrowIcon />
-            </Link>
+            <ArrowFillButton compact className={styles.viewAll} href="/blog">View all Blogs</ArrowFillButton>
           </div>
 
         </div>
         </> : <p className={styles.empty} role="status">{loading ? "Loading articles…" : unavailable ? "Articles are temporarily unavailable. Please try again later." : "No articles available yet."}</p>}
         {articles.length === 0 && <div className={styles.viewAllRow}>
-          <Link className={`${styles.viewAll} siteCta`} href="/blog">
-            View all Blogs <ArrowIcon />
-          </Link>
+          <ArrowFillButton compact className={styles.viewAll} href="/blog">View all Blogs</ArrowFillButton>
         </div>}
       </Container>
     </section>

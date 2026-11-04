@@ -15,6 +15,7 @@ import { OpeningsSkeleton } from "@/components/sections/careers/openings-skeleto
 import { ScrollReveals } from "@/components/ui/scroll-reveals";
 import { getCareers } from "@/lib/careers";
 import styles from "./page.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -148,7 +149,7 @@ export default function CareersPage() {
             <p className={styles.eyebrow}>Don&apos;t see the right role?</p>
             <h2 id="career-contact-title">No problem, We&apos;re always looking for bright minds</h2>
             <p>If you think you&apos;d be a great fit for Vyntics, we&apos;d still love to hear from you.</p>
-            <a className={styles.contactEmail} href="mailto:contact@vyntics.com">contact@vyntics.com</a>
+            <ArrowFillButton className={styles.contactEmail} href="mailto:contact@vyntics.com" native>contact@vyntics.com</ArrowFillButton>
           </RevealBlock>
         </Container>
       </section>

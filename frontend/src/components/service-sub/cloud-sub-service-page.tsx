@@ -23,6 +23,7 @@ import cloudStyles from "@/app/(marketing)/services/cloud/page.module.css";
 import studyStyles from "@/app/(marketing)/case-studies/page.module.css";
 import styles from "./service-sub.module.css";
 import { costEngagementDetails, devopsEngagementDetails } from "./migration-engagement-options.data";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 /** All copy and page ordering are supplied by the Cloud sub-service data. */
 export async function CloudSubServicePage({ pageKey }: { pageKey: CloudSubPageKey }) {
@@ -86,6 +87,6 @@ export async function CloudSubServicePage({ pageKey }: { pageKey: CloudSubPageKe
 function ReferenceEmptyState({ text, link }: { text: string; link: { href: string; label: string } }) {
   return <div className={styles.referenceEmpty}>
     <p>{text}</p>
-    <Link className={cloudStyles.primaryAction} href={link.href}>{link.label} <span aria-hidden="true">→</span></Link>
+    <ArrowFillButton className={cloudStyles.primaryAction} href={link.href}>{link.label}</ArrowFillButton>
   </div>;
 }

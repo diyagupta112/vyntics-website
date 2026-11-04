@@ -20,6 +20,7 @@ import { AnalyticsWhy } from "./analytics-why";
 import { AnalyticsFaq } from "./analytics-faq";
 import styles from "../cloud/page.module.css";
 import studyStyles from "../../case-studies/page.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 const seoTitle = "Business Intelligence Services | Vyntics";
 const seoDescription = analyticsContent.seoDescription;
@@ -124,7 +125,7 @@ export default function AnalyticsBiPage() {
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="analytics-insights-title">Related Insights</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading related insights…" />}><AnalyticsInsights /></Suspense>
-          <Link className={styles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
+          <ArrowFillButton compact alignEnd className={styles.secondaryAction} href="/blog">View all insights</ArrowFillButton>
         </Container>
       </section>
 

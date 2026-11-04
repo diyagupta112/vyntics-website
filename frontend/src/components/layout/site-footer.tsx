@@ -132,7 +132,7 @@ async function Recognitions() {
   try {
     badges = (await getBadges()).slice().sort((a, b) => a.display_order - b.display_order);
   } catch (error) {
-    console.error("Footer recognitions unavailable", error);
+    console.warn("Footer recognitions unavailable", error);
     return null;
   }
   // Nothing to show: hide the whole strip, including its divider.

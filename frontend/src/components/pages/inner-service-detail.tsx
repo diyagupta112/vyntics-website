@@ -9,6 +9,7 @@ import { Container } from "@/components/ui/container";
 import styles from "./inner-service-detail.module.css";
 import { ServiceTools } from "./service-tools";
 import { ServiceApproach } from "./service-approach";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 export type InnerServiceDetailContent = {
   slug: string;
@@ -45,7 +46,7 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
             )) : service.title}
           </h1>
           <p className={styles.introduction}>{service.introduction}</p>
-          <Link className={styles.primaryButton} href="/contact-us">Discuss {service.name} <ArrowIcon /></Link>
+          <ArrowFillButton className={styles.primaryButton} href="/contact-us">Discuss {service.name}</ArrowFillButton>
           </div>
           {image && <div className={styles.heroImage}>
             <div className={styles.heroImageFrame}>
