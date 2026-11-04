@@ -13,6 +13,7 @@ import {
   type FieldErrors,
 } from "./application-contract";
 import styles from "./application-form.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 type Props = { slug: string; title: string };
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -31,7 +32,7 @@ export function ApplyButton({ children, className }: { children: ReactNode; clas
     requestAnimationFrame(() => dialog.querySelector<HTMLInputElement>("input")?.focus());
   }
 
-  return <button className={className} type="button" onClick={open}>{children}</button>;
+  return <ArrowFillButton className={className} onClick={open}>{children}</ArrowFillButton>;
 }
 
 function validate(form: HTMLFormElement): FieldErrors {

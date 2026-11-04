@@ -4,6 +4,7 @@ import { Container } from "@/components/ui/container";
 import { cloudServiceList } from "./cloud-services";
 import type { CanonicalCloudService } from "./canonical-cloud-services";
 import styles from "./cloud-service-page.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 function cloudHref(slug: string) {
   const legacy = `/services/cloud/${slug}`;
@@ -50,7 +51,7 @@ export function CloudServicePage({ service, serviceList = cloudServiceList }: { 
           <div className={styles.heroStatement}>
             <h2>{service.headline}</h2>
             <p>{service.summary}</p>
-            <Link href="/contact-us">Discuss this service <ArrowIcon /></Link>
+            <ArrowFillButton href="/contact-us">Discuss this service</ArrowFillButton>
           </div>
         </Container>
       </header>

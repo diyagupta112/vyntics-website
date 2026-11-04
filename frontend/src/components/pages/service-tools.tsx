@@ -4,6 +4,7 @@ import styles from "./service-tools.module.css";
 import editorial from "@/components/service-sub/editorial-tool-grid.module.css";
 import sectionStyles from "@/app/(marketing)/services/data/page.module.css";
 import { TechnologyLogo } from "@/components/service-sub/technology-logo";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 type ToolDetail = { id?: string; name: string; displayName?: string; role?: string; description?: string; features?: readonly string[] };
 
@@ -97,7 +98,7 @@ export function ServiceTools({ name, technologies, introduction, details, eyebro
             );
           })}
         </div>
-        {technologySectionLink && <Link className={editorial.sectionLink} href={technologySectionLink.href}>{technologySectionLink.label} <span aria-hidden="true">→</span></Link>}
+        {technologySectionLink && <ArrowFillButton compact alignEnd className={editorial.sectionLink} href={technologySectionLink.href}>{technologySectionLink.label}</ArrowFillButton>}
         {supportingNote && <p className={isEditorial ? editorial.note : styles.note}>{supportingNote}</p>}
       </Container>
     </section>

@@ -6,6 +6,7 @@ import { HeaderBadges } from "@/components/layout/header-badges";
 import { SiteHeader, SiteHeaderSpacer } from "@/components/layout/site-header";
 import { SplineScene } from "@/components/ui/spline-scene";
 import styles from "./not-found.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 const NOT_FOUND_SCENE = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
@@ -31,9 +32,7 @@ export default function NotFound() {
                 The page you&apos;re looking for may have moved, been removed, or never existed.
               </p>
               <div className={styles.actions}>
-                <Link className={styles.primary} href="/">
-                  Back to Home
-                </Link>
+                <ArrowFillButton className={styles.primary} href="/">Back to Home</ArrowFillButton>
                 <Link className={styles.secondary} href="/services/data">
                   Explore Data Solutions
                 </Link>

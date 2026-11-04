@@ -23,6 +23,7 @@ import faqStyles from "../cloud/cloud-faq.module.css";
 import shared from "../../recognitions/page.module.css";
 import studyStyles from "../../case-studies/page.module.css";
 import styles from "../data/page.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 export const metadata: Metadata = {
   title: "AI Development Services",
@@ -122,7 +123,7 @@ export default function AiSolutionsPage() {
         <Container>
           <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related Insights</h2></header>
           <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading AI insights…</p>}><AiInsights /></Suspense>
-          <Link className={cloudStyles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
+          <ArrowFillButton compact alignEnd className={cloudStyles.secondaryAction} href="/blog">View all insights</ArrowFillButton>
         </Container>
       </section>
 

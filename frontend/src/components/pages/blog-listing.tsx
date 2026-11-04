@@ -30,7 +30,7 @@ export function BlogListing({ blogs, unavailable }: { blogs: Blog[]; unavailable
   const [focused, setFocused] = useState(false);
   const [touching, setTouching] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const slides = [...blogs].sort((a, b) => Number(b.status === "published") - Number(a.status === "published"));
+  const slides = blogs.filter((blog) => blog.is_featured === true);
   const goToSlide = useCallback((index: number) => {
     const viewport = carouselRef.current;
     if (!viewport || !slides.length) return;

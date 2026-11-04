@@ -1,8 +1,7 @@
-import Link from "next/link";
 import { ContactForm } from "./contact-form";
 import { Container } from "@/components/ui/container";
-import { siteConfig } from "@/config/site";
 import styles from "./contact-cta.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 type ContactCtaProps = {
   eyebrow?: string;
@@ -31,21 +30,10 @@ export function ContactCta({
           <h2 id={`${sectionId}-title`}>{title}</h2>
           <p className={styles.intro}>{intro}</p>
           {primaryAction && (
-            <Link className={`${styles.emailLink} siteCta`} href={primaryAction.href}>
-              {primaryAction.label}
-            </Link>
+            <ArrowFillButton className={styles.emailLink} href={primaryAction.href}>{primaryAction.label}</ArrowFillButton>
           )}
 
-          <a className={styles.emailLink} href="mailto:contact@vyntics.com">
-            <span aria-hidden="true">→</span> contact@vyntics.com
-          </a>
-
-          <address className={styles.contactDetails}>
-            <a href={siteConfig.mapHref} target="_blank" rel="noreferrer" aria-label={`Open ${siteConfig.address} in Google Maps`}>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z" /><circle cx="12" cy="10" r="2" /></svg>
-              {siteConfig.address}
-            </a>
-          </address>
+          <ArrowFillButton className={styles.emailLink} href="mailto:contact@vyntics.com" native>contact@vyntics.com</ArrowFillButton>
         </div>
 
         <ContactForm submitLabel={submitLabel} />

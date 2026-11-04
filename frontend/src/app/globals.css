@@ -204,22 +204,22 @@ svg {
 }
 
 /* Global button system. Every filled button and button-style link shares one look and one hover
-   (a darker blue). Size and padding stay with each component. The animated form submit buttons
+   (a darker blue with a slight lift and soft shadow). Size and padding stay with each component. The animated form submit buttons
    (SendButton and ShinyButton) are intentionally excluded and keep their own animation. */
 :is(
-  a.siteCta,
-  a[class*="primaryButton"],
-  a[class*="secondaryButton"],
-  a[class*="primaryAction"],
-  a[class*="demoButton"],
-  a[class*="DemoButton"],
-  a[class*="moreButton"],
-  button[class*="moreButton"],
-  a[class*="contactEmail"],
-  a[class*="heroAction"],
-  a[class*="contactAction"],
-  a[class*="heroPrimary"],
-  a[class*="compareAction"]
+  a.siteCta:not([data-arrow-fill]),
+  a[class*="primaryButton"]:not([data-arrow-fill]),
+  a[class*="secondaryButton"]:not([data-arrow-fill]),
+  a[class*="primaryAction"]:not([data-arrow-fill]),
+  a[class*="demoButton"]:not([data-arrow-fill]),
+  a[class*="DemoButton"]:not([data-arrow-fill]),
+  a[class*="moreButton"]:not([data-arrow-fill]),
+  button[class*="moreButton"]:not([data-arrow-fill]),
+  a[class*="contactEmail"]:not([data-arrow-fill]),
+  a[class*="heroAction"]:not([data-arrow-fill]),
+  a[class*="contactAction"]:not([data-arrow-fill]),
+  a[class*="heroPrimary"]:not([data-arrow-fill]),
+  a[class*="compareAction"]:not([data-arrow-fill])
 ) {
   color: #fff;
   background: var(--color-primary);
@@ -229,39 +229,39 @@ svg {
   font-weight: 650;
   text-decoration: none;
   transform: none;
-  transition: background-color 180ms ease, border-color 180ms ease;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
 :is(
-  a.siteCta,
-  a[class*="primaryButton"],
-  a[class*="secondaryButton"],
-  a[class*="primaryAction"],
-  a[class*="demoButton"],
-  a[class*="DemoButton"],
-  a[class*="moreButton"],
-  button[class*="moreButton"],
-  a[class*="contactEmail"],
-  a[class*="heroAction"],
-  a[class*="contactAction"],
-  a[class*="heroPrimary"],
-  a[class*="compareAction"]
+  a.siteCta:not([data-arrow-fill]),
+  a[class*="primaryButton"]:not([data-arrow-fill]),
+  a[class*="secondaryButton"]:not([data-arrow-fill]),
+  a[class*="primaryAction"]:not([data-arrow-fill]),
+  a[class*="demoButton"]:not([data-arrow-fill]),
+  a[class*="DemoButton"]:not([data-arrow-fill]),
+  a[class*="moreButton"]:not([data-arrow-fill]),
+  button[class*="moreButton"]:not([data-arrow-fill]),
+  a[class*="contactEmail"]:not([data-arrow-fill]),
+  a[class*="heroAction"]:not([data-arrow-fill]),
+  a[class*="contactAction"]:not([data-arrow-fill]),
+  a[class*="heroPrimary"]:not([data-arrow-fill]),
+  a[class*="compareAction"]:not([data-arrow-fill])
 ):is(:hover, :focus-visible) {
   color: #fff;
   background: color-mix(in srgb, var(--color-primary) 86%, #000);
   border-color: color-mix(in srgb, var(--color-primary) 86%, #000);
-  box-shadow: none;
-  transform: none;
+  box-shadow: 0 0.5rem 1.1rem color-mix(in srgb, var(--color-primary) 30%, transparent);
+  transform: translateY(-1px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :is(a.siteCta, a[class*="primaryButton"], a[class*="secondaryButton"], a[class*="primaryAction"], a[class*="demoButton"], a[class*="DemoButton"], a[class*="moreButton"], button[class*="moreButton"], a[class*="contactEmail"], a[class*="heroAction"], a[class*="contactAction"], a[class*="heroPrimary"]) { transition: none; }
+  :is(a.siteCta:not([data-arrow-fill]), a[class*="primaryButton"]:not([data-arrow-fill]), a[class*="secondaryButton"]:not([data-arrow-fill]), a[class*="primaryAction"]:not([data-arrow-fill]), a[class*="demoButton"]:not([data-arrow-fill]), a[class*="DemoButton"]:not([data-arrow-fill]), a[class*="moreButton"]:not([data-arrow-fill]), button[class*="moreButton"]:not([data-arrow-fill]), a[class*="contactEmail"]:not([data-arrow-fill]), a[class*="heroAction"]:not([data-arrow-fill]), a[class*="contactAction"]:not([data-arrow-fill]), a[class*="heroPrimary"]:not([data-arrow-fill])) { transition: none; }
 }
 
-a[class*="heroAction"]::before { display: none; }
+a[class*="heroAction"]:not([data-arrow-fill])::before { display: none; }
 
 /* Buttons that sit inside a section wrapper and are styled by descendant selectors. */
-:is(section[class*="cta"] a:not([class*="textLink"]), [class*="heroStatement"] a) {
+:is(section[class*="cta"] a:not([class*="textLink"]):not([data-arrow-fill]), [class*="heroStatement"] a:not([data-arrow-fill])) {
   color: #fff;
   background: var(--color-primary);
   border: 1px solid var(--color-primary);
@@ -269,13 +269,13 @@ a[class*="heroAction"]::before { display: none; }
   box-shadow: none;
   font-weight: 650;
   transform: none;
-  transition: background-color 180ms ease, border-color 180ms ease;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
-:is(section[class*="cta"] a:not([class*="textLink"]), [class*="heroStatement"] a):is(:hover, :focus-visible) {
+:is(section[class*="cta"] a:not([class*="textLink"]):not([data-arrow-fill]), [class*="heroStatement"] a:not([data-arrow-fill])):is(:hover, :focus-visible) {
   color: #fff;
   background: color-mix(in srgb, var(--color-primary) 86%, #000);
   border-color: color-mix(in srgb, var(--color-primary) 86%, #000);
-  box-shadow: none;
-  transform: none;
+  box-shadow: 0 0.5rem 1.1rem color-mix(in srgb, var(--color-primary) 30%, transparent);
+  transform: translateY(-1px);
 }

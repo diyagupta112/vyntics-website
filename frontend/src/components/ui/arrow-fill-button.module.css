@@ -1,0 +1,109 @@
+.button.button.button {
+  --circle: 2.1rem;
+  --right: 0.45rem;
+  --inset-y: calc((100% - var(--circle)) / 2);
+  --pad-left: 1.4rem;
+  --pad-right: calc(var(--circle) + var(--right) + 0.9rem);
+  --ease: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 3rem;
+  padding: 0 var(--pad-right) 0 var(--pad-left);
+  overflow: hidden;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid var(--color-primary);
+  border-radius: 62.4375rem;
+  background: var(--color-primary);
+  box-shadow: none;
+  transform: none;
+  cursor: pointer;
+}
+
+.button.button.button:is(:hover, :focus-visible) { color: #fff; border-color: var(--color-primary); background: var(--color-primary); box-shadow: none; transform: none; }
+
+.label { position: relative; z-index: 1; }
+
+.fill {
+  position: absolute;
+  z-index: 2;
+  inset: var(--inset-y) var(--right) var(--inset-y) calc(100% - var(--right) - var(--circle));
+  border-radius: 62.4375rem;
+  background: #fff;
+  transition: inset 450ms var(--ease);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--pad-right) 0 var(--pad-left);
+  color: var(--color-primary);
+  clip-path: inset(var(--inset-y) var(--right) var(--inset-y) calc(100% - var(--right) - var(--circle)));
+  transition: clip-path 450ms var(--ease);
+  pointer-events: none;
+}
+
+.circle {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  right: var(--right);
+  width: var(--circle);
+  height: var(--circle);
+  overflow: hidden;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--color-primary);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.iconSlot {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transition: transform 450ms var(--ease);
+}
+
+.icon { width: 1rem; height: 1rem; }
+.enter { transform: translateX(-170%) scale(0); }
+.exit { transform: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .button.button.button:hover .fill { inset: 0; }
+  .button.button.button:hover .overlay { clip-path: inset(0); }
+  .button.button.button:hover .enter { transform: none; }
+  .button.button.button:hover .exit { transform: translateX(70%) scale(0); }
+}
+
+.button.button.button:focus-visible .fill { inset: 0; }
+.button.button.button:focus-visible .overlay { clip-path: inset(0); }
+.button.button.button:focus-visible .enter { transform: none; }
+.button.button.button:focus-visible .exit { transform: translateX(70%) scale(0); }
+.button.button.button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 0.25rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fill, .overlay, .iconSlot { transition: none; }
+}
+
+/* Smaller version for secondary links such as "View all ...". */
+.button.button.button.compact {
+  --circle: 1.65rem;
+  --right: 0.35rem;
+  --pad-left: 1.05rem;
+  min-height: 2.5rem;
+  font-size: 0.8rem;
+}
+
+/* Puts the button on the right edge of its section. */
+.end { display: flex; justify-content: flex-end; }

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "@/components/ui/container";
 import { CaseStudyScrollReveal } from "./scroll-reveal";
 import styles from "./page.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 function ArrowIcon() { return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>; }
 export function CaseStudiesHero() { return (
       <section className={styles.hero} aria-labelledby="case-studies-title">
@@ -13,7 +14,7 @@ export function CaseStudiesHero() { return (
           <p className={styles.eyebrow}>Case studies</p>
           <h1 id="case-studies-title">Real Challenges Turned into Production-Grade Systems</h1>
           <p className={styles.heroLead}>A look inside the custom software, data platforms, AI and cloud infrastructure we engineer to solve critical business problems.</p>
-          <a className={styles.heroAction} href="#featured-case-studies"><span>View case studies</span> <ArrowIcon /></a>
+          <ArrowFillButton className={styles.heroAction} href="#featured-case-studies" native>View case studies</ArrowFillButton>
         </Container>
       </section>
 ); }

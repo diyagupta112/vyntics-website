@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { getLifeAtVyntics } from "@/lib/life-at-vyntics";
 import galleryStyles from "@/components/pages/life-at-vyntics.module.css";
 import styles from "./life-at-vyntics-preview.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 export async function LifeAtVynticsPreview() {
   const galleryImages = await getLifeAtVyntics();
@@ -46,9 +46,7 @@ export async function LifeAtVynticsPreview() {
           ))}
         </div>
         <div className={galleryStyles.more}>
-          <Link className={`${galleryStyles.moreButton} siteCta`} href="/about#life-at-vyntics">
-            Explore Life at Vyntics <span aria-hidden="true">→</span>
-          </Link>
+          <ArrowFillButton className={galleryStyles.moreButton} href="/about#life-at-vyntics">Explore Life at Vyntics</ArrowFillButton>
         </div>
       </Container>
     </section>

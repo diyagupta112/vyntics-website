@@ -20,6 +20,7 @@ import { CloudWhy } from "./cloud-why";
 import { CloudFaq } from "./cloud-faq";
 import styles from "./page.module.css";
 import studyStyles from "../../case-studies/page.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 export const metadata: Metadata = {
   title: "Cloud Consulting Services",
@@ -127,7 +128,7 @@ export default function CloudFoundationsPage() {
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="cloud-insights-title">Related Insights</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading cloud insights…" />}><CloudInsights /></Suspense>
-          <Link className={styles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
+          <ArrowFillButton compact alignEnd className={styles.secondaryAction} href="/blog">View all insights</ArrowFillButton>
         </Container>
       </section>
 

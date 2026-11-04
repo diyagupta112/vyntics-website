@@ -19,6 +19,7 @@ import cloudStyles from "@/app/(marketing)/services/cloud/page.module.css";
 import studyStyles from "@/app/(marketing)/case-studies/page.module.css";
 import styles from "./page.module.css";
 import subStyles from "@/components/service-sub/service-sub.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 export const metadata: Metadata = {
   title: dashboardService.seoTitle,
@@ -78,7 +79,7 @@ export default async function DashboardExecutiveReportingPage() {
             <p className={cloudStyles.eyebrow}>Related insights</p><h2 id="dashboard-insights-title">Dashboard And Reporting Insights</h2>
           </header>
           {insights.length ? <div className={studyStyles.otherGrid}>{insights.map(post => <RelatedBlogCard key={post.id} blog={post} variant="service" />)}</div> : <ReferenceEmptyState text="We're adding published insights about dashboards and reporting. Browse the latest from our blog in the meantime." href="/blog" label="Visit the blog" />}
-          <Link className={cloudStyles.primaryAction} href="/blog">View all insights <span aria-hidden="true">→</span></Link>
+          <ArrowFillButton compact alignEnd className={cloudStyles.primaryAction} href="/blog">View all insights</ArrowFillButton>
         </Container>
       </section>
       <section className={`${sectionStyles.section} ${subStyles.section}`} aria-labelledby="dashboard-reporting-faq-title" data-reveal="dashboard-reporting-faq">
@@ -92,5 +93,5 @@ export default async function DashboardExecutiveReportingPage() {
 }
 
 function ReferenceEmptyState({ text, href, label }: { text: string; href: string; label: string }) {
-  return <div className={subStyles.referenceEmpty}><p>{text}</p><Link className={cloudStyles.primaryAction} href={href}>{label} <span aria-hidden="true">→</span></Link></div>;
+  return <div className={subStyles.referenceEmpty}><p>{text}</p><ArrowFillButton compact className={cloudStyles.primaryAction} href={href}>{label}</ArrowFillButton></div>;
 }

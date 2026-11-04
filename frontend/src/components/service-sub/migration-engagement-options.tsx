@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEv
 import { Container } from "@/components/ui/container";
 import { migrationEngagementSteps, type MigrationEngagementIcon, type MigrationEngagementStep } from "./migration-engagement-options.data";
 import styles from "./migration-engagement-options.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 function StepIcon({ icon }: { icon: MigrationEngagementIcon }) {
   if (icon === "assess") return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h6M9 3h6v4H9zM7 5H5v16h14v-7" /><circle cx="15.5" cy="10.5" r="3.5" /><path d="m18 13 3 3" /></svg>;
@@ -163,7 +164,7 @@ export function MigrationEngagementOptions({
         })}
       </div>
       <span className={styles.connector} aria-hidden="true" />
-      <div className={styles.action}><Link href="/contact-us" className={styles.cta}>Talk to our experts <ArrowIcon /></Link></div>
+      <div className={styles.action}><ArrowFillButton href="/contact-us" className={styles.cta}>Talk to our experts</ArrowFillButton></div>
       </div>
     </Container>
   </section>;

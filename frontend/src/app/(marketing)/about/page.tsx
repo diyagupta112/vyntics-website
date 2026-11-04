@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container";
 import styles from "./page.module.css";
 import { TechnologyOrb } from "./technology-orb";
 import { ValueCards } from "./value-cards";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 export const metadata: Metadata = {
   title: "About Vyntics | Data Engineering & AI Consulting",
@@ -34,7 +35,7 @@ export default function AboutPage() {
               We are Vyntics, a group of engineers and strategists that assist businesses in transforming complicated data into reliable choices, practical automation, and long-lasting systems.
             </p>
             <div className={styles.heroActions}>
-              <Link className={styles.primaryButton} href="/contact-us">Start a conversation <ArrowIcon /></Link>
+              <ArrowFillButton className={styles.primaryButton} href="/contact-us">Start a conversation</ArrowFillButton>
             </div>
           </div>
 
@@ -144,7 +145,7 @@ export default function AboutPage() {
             <p className={styles.eyebrow}>Are you prepared to proceed?</p>
             <h2>Together, we can transform your data into a useful resource for your team</h2>
           </div>
-          <a href="/contact-us">Get started <ArrowIcon /></a>
+          <ArrowFillButton href="/contact-us" native>Get started</ArrowFillButton>
         </Container>
       </section>
     </>

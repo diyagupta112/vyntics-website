@@ -495,3 +495,12 @@
     transition: none;
   }
 }
+
+/* Keep the navbar "Book a demo" arrow-fill button compact. */
+.actions a.demoButton.demoButton {
+  --circle: 1.65rem;
+  --right: 0.35rem;
+  --pad-left: 1.05rem;
+  min-height: 2.5rem;
+  font-size: 0.8rem;
+}

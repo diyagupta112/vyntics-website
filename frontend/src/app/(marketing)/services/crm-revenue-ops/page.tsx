@@ -19,6 +19,7 @@ import { PageWhy } from "./page-why";
 import { PageFaq } from "./page-faq";
 import styles from "../cloud/page.module.css";
 import studyStyles from "../../case-studies/page.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 const seoTitle = content.seo.title;
 const seoDescription = content.seo.description;
@@ -103,7 +104,7 @@ export default function ServicePage() {
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>{content.insights.eyebrow}</p><h2 id="crm-insights-title">{content.insights.heading}</h2></header>
           <Suspense fallback={<ReservedContent count={3} message="Loading related insights…" />}><PageInsights /></Suspense>
-          <Link className={styles.secondaryAction} href="/blog">{content.insights.linkLabel} <ArrowIcon /></Link>
+          <ArrowFillButton compact alignEnd className={styles.secondaryAction} href="/blog">{content.insights.linkLabel}</ArrowFillButton>
         </Container>
       </section>
 

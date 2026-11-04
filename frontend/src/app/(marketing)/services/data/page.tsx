@@ -24,6 +24,7 @@ import faqStyles from "../cloud/cloud-faq.module.css";
 import shared from "../../recognitions/page.module.css";
 import studyStyles from "../../case-studies/page.module.css";
 import styles from "./page.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 export const metadata: Metadata = {
   title: "Data Engineering Services & Consulting",
@@ -109,7 +110,7 @@ export default function DataEngineeringPage() {
         <Container>
           <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related Insights</h2></header>
           <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading data engineering insights…</p>}><DataInsights /></Suspense>
-          <Link className={cloudStyles.secondaryAction} href="/blog">View all insights <ArrowIcon /></Link>
+          <ArrowFillButton compact alignEnd className={cloudStyles.secondaryAction} href="/blog">View all insights</ArrowFillButton>
         </Container>
       </section>
 

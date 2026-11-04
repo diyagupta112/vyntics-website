@@ -9,6 +9,7 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { siteConfig } from "@/config/site";
 import type { NavigationChild, NavigationItem } from "@/types/navigation";
 import styles from "./site-header.module.css";
+import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 const MENU_CLOSE_DELAY_MS = 180;
 // Set to true to restore the navbar theme control.
@@ -314,9 +315,7 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
           {badges}
 
           <div className={styles.actions}>
-            <Link className={`${styles.demoButton} siteCta`} href="/contact-us">
-              Book a demo <span aria-hidden="true">&rarr;</span>
-            </Link>
+            <ArrowFillButton className={styles.demoButton} href="/contact-us">Book a demo</ArrowFillButton>
             {ENABLE_THEME_TOGGLE && (
               <span className={styles.themeSlot}>
                 <ThemeToggle />
@@ -366,9 +365,7 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
                     <Link className={styles.mobileDirectLink} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} href={item.href} key={item.label} onClick={() => setMobileOpen(false)}>{item.label}</Link>
                   ),
                 )}
-                <Link className={`${styles.mobileDemoButton} siteCta`} href="/contact-us" onClick={() => setMobileOpen(false)}>
-                  Book a demo <span aria-hidden="true">&rarr;</span>
-                </Link>
+                <ArrowFillButton className={styles.mobileDemoButton} href="/contact-us" onClick={() => setMobileOpen(false)}>Book a demo</ArrowFillButton>
                 {mobileBadges}
               </Container>
             </motion.nav>

@@ -17,7 +17,7 @@
 .message > div > span { max-width: 40rem; margin-top: 1.25rem; display: block; color: var(--color-muted); line-height: 1.7; }
 .actions { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: 0.7rem; }
 .actions button, .actions a { min-height: 3rem; padding-inline: 1rem; display: inline-flex; align-items: center; border: 1px solid var(--color-border); border-radius: 0.65rem; background: var(--color-surface); color: var(--color-foreground); font-weight: 700; cursor: pointer; }
-.actions button { border-color: var(--color-primary); border-radius: 0.6rem; background: var(--color-primary); color: #fff; font-weight: 650; cursor: pointer; transition: background-color 180ms ease, border-color 180ms ease; }
-.actions button:hover { border-color: color-mix(in srgb, var(--color-primary) 86%, #000); background: color-mix(in srgb, var(--color-primary) 86%, #000); }
+.actions button { border-color: var(--color-primary); border-radius: 0.6rem; background: var(--color-primary); color: #fff; font-weight: 650; cursor: pointer; transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease; }
+.actions button:hover { border-color: color-mix(in srgb, var(--color-primary) 86%, #000); background: color-mix(in srgb, var(--color-primary) 86%, #000); transform: translateY(-1px); box-shadow: 0 0.5rem 1.1rem color-mix(in srgb, var(--color-primary) 30%, transparent); }
 .actions button:focus-visible, .actions a:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-primary) 42%, transparent); outline-offset: 3px; }
 @keyframes shimmer { to { background-position: -220% 0; } }
