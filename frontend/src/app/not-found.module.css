@@ -69,8 +69,7 @@
 
 .primary:hover,
 .secondary:hover {
-  background: color-mix(in srgb, var(--color-primary) 86%, #000);
-  border-color: color-mix(in srgb, var(--color-primary) 86%, #000);
+  background: color-mix(in srgb, var(--color-primary) 86%, #000); border-color: color-mix(in srgb, var(--color-primary) 86%, #000);
 }
 
 .primary:focus-visible,

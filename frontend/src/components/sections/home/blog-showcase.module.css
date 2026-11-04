@@ -47,8 +47,6 @@
 
 @media (hover: hover) and (pointer: fine) {
   .activeCard:hover .artwork { transform: scale(1.035); }
-  .viewAll { transition: gap 180ms ease, transform 180ms ease; }
-  .viewAll:hover { gap: 0.9rem; }
   .arrows button:hover { color: #ffffff; border-color: var(--color-primary); background: var(--color-primary); }
 }
 

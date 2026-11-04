@@ -203,7 +203,7 @@ svg {
   border-bottom: 0;
 }
 
-/* Global button system. Every filled button and button-style link shares one look and one simple hover
+/* Global button system. Every filled button and button-style link shares one look and one hover
    (a darker blue). Size and padding stay with each component. The animated form submit buttons
    (SendButton and ShinyButton) are intentionally excluded and keep their own animation. */
 :is(
@@ -213,7 +213,13 @@ svg {
   a[class*="primaryAction"],
   a[class*="demoButton"],
   a[class*="DemoButton"],
-  a[class*="moreButton"]
+  a[class*="moreButton"],
+  button[class*="moreButton"],
+  a[class*="contactEmail"],
+  a[class*="heroAction"],
+  a[class*="contactAction"],
+  a[class*="heroPrimary"],
+  a[class*="compareAction"]
 ) {
   color: #fff;
   background: var(--color-primary);
@@ -233,7 +239,13 @@ svg {
   a[class*="primaryAction"],
   a[class*="demoButton"],
   a[class*="DemoButton"],
-  a[class*="moreButton"]
+  a[class*="moreButton"],
+  button[class*="moreButton"],
+  a[class*="contactEmail"],
+  a[class*="heroAction"],
+  a[class*="contactAction"],
+  a[class*="heroPrimary"],
+  a[class*="compareAction"]
 ):is(:hover, :focus-visible) {
   color: #fff;
   background: color-mix(in srgb, var(--color-primary) 86%, #000);
@@ -243,5 +255,27 @@ svg {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :is(a.siteCta, a[class*="primaryButton"], a[class*="secondaryButton"], a[class*="primaryAction"], a[class*="demoButton"], a[class*="DemoButton"], a[class*="moreButton"]) { transition: none; }
+  :is(a.siteCta, a[class*="primaryButton"], a[class*="secondaryButton"], a[class*="primaryAction"], a[class*="demoButton"], a[class*="DemoButton"], a[class*="moreButton"], button[class*="moreButton"], a[class*="contactEmail"], a[class*="heroAction"], a[class*="contactAction"], a[class*="heroPrimary"]) { transition: none; }
+}
+
+a[class*="heroAction"]::before { display: none; }
+
+/* Buttons that sit inside a section wrapper and are styled by descendant selectors. */
+:is(section[class*="cta"] a:not([class*="textLink"]), [class*="heroStatement"] a) {
+  color: #fff;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 0.6rem;
+  box-shadow: none;
+  font-weight: 650;
+  transform: none;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+:is(section[class*="cta"] a:not([class*="textLink"]), [class*="heroStatement"] a):is(:hover, :focus-visible) {
+  color: #fff;
+  background: color-mix(in srgb, var(--color-primary) 86%, #000);
+  border-color: color-mix(in srgb, var(--color-primary) 86%, #000);
+  box-shadow: none;
+  transform: none;
 }

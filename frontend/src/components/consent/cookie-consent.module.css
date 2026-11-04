@@ -55,8 +55,8 @@
 }
 
 .accept:hover {
-  border-color: var(--color-accent);
-  background: var(--color-accent);
+  border-color: color-mix(in srgb, var(--color-primary) 86%, #000);
+  background: color-mix(in srgb, var(--color-primary) 86%, #000);
 }
 
 .reject {
