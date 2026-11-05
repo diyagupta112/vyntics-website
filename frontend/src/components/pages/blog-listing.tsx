@@ -12,12 +12,12 @@ function categoryLabel(value: string) {
   return value.replace(/\b[a-z][a-z0-9]*\b/gi, (word) => /^(ai|bi|crm|api|sql)$/i.test(word) ? word.toUpperCase() : word[0].toUpperCase() + word.slice(1));
 }
 
-function Cover({ blog }: { blog: Blog }) {
+function Cover({ blog, sizes = "(max-width: 720px) 100vw, 400px" }: { blog: Blog; sizes?: string }) {
   const [failed, setFailed] = useState(false);
   return <div className={styles.cover}>{/^(https?:\/\/|\/)/.test(blog.cover_image_url) && !failed ? (
     // Backend cover hosts are dynamic.
     // eslint-disable-next-line @next/next/no-img-element
-    <img {...coverImgProps(blog.cover_image_url, "(max-width: 720px) 100vw, 400px")} alt={blog.title} loading="lazy" onError={() => setFailed(true)} />
+    <img {...coverImgProps(blog.cover_image_url, sizes)} alt={blog.title} loading="lazy" onError={() => setFailed(true)} />
   ) : <span>VYNTICS · INSIGHTS</span>}</div>;
 }
 function Meta({ blog }: { blog: Blog }) {
@@ -56,7 +56,7 @@ export function BlogListing({ blogs, unavailable }: { blogs: Blog[]; unavailable
   return <div className={`${styles.page} ${styles.fullScreenPage}`}>
     {slides.length > 0 && <section className={styles.carousel} aria-label="Featured blogs" aria-roledescription="carousel" onFocus={() => setFocused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }} onTouchStart={() => setTouching(true)} onTouchEnd={() => setTouching(false)} onTouchCancel={() => setTouching(false)}>
       <div className={styles.carouselViewport} ref={carouselRef} tabIndex={0} aria-label="Blog slides. Swipe or use the dots to browse." onScroll={(event) => { const viewport = event.currentTarget; setActiveSlide(Math.round(viewport.scrollLeft / viewport.clientWidth)); }} onKeyDown={(event) => { if (event.target !== event.currentTarget) return; if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); goToSlide(activeSlide + (event.key === "ArrowRight" ? 1 : -1)); } }}>
-        {slides.map((post, index) => <article key={post.id} aria-roledescription="slide" aria-label={`${index + 1} of ${slides.length}: ${post.title}`} className={styles.featured}><Link className={styles.featureImage} href={`/blog/${encodeURIComponent(post.slug)}`} aria-label={`Read ${post.title}`}><Cover blog={post} /></Link><div className={styles.featureCopy}><h2 className={styles.featureTitle}><Link href={`/blog/${encodeURIComponent(post.slug)}`}>{post.title}</Link></h2><Link className={styles.read} href={`/blog/${encodeURIComponent(post.slug)}`}>Read the story ↗</Link><Meta blog={post} /></div></article>)}
+        {slides.map((post, index) => <article key={post.id} aria-roledescription="slide" aria-label={`${index + 1} of ${slides.length}: ${post.title}`} className={styles.featured}><Link className={styles.featureImage} href={`/blog/${encodeURIComponent(post.slug)}`} aria-label={`Read ${post.title}`}><Cover blog={post} sizes="(max-width: 900px) 100vw, 1200px" /></Link><div className={styles.featureCopy}><h2 className={styles.featureTitle}><Link href={`/blog/${encodeURIComponent(post.slug)}`}>{post.title}</Link></h2><Link className={styles.read} href={`/blog/${encodeURIComponent(post.slug)}`}>Read the story ↗</Link><Meta blog={post} /></div></article>)}
       </div>
       {slides.length > 1 && <div className={styles.carouselControls}><div className={styles.carouselDots}>{slides.map((post, index) => <button type="button" key={post.id} className={styles.carouselDot} aria-label={`Show blog ${index + 1}: ${post.title}`} aria-current={activeSlide === index ? "true" : undefined} onClick={() => goToSlide(index)} />)}</div></div>}
     </section>}

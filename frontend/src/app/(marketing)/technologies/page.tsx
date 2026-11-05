@@ -99,7 +99,7 @@ export default function TechnologiesPage() {
       <ProcessStack steps={process} />
 
       <div className={styles.featuredWrap}>
-        <Suspense fallback={<FeaturedWork loading heading="Give Your Business An Edge With AI" />}><FeaturedWork heading="Give Your Business An Edge With AI" /></Suspense>
+        <Suspense fallback={<FeaturedWork loading heading="Solutions That Drive Business Forward" />}><FeaturedWork heading="Solutions That Drive Business Forward" /></Suspense>
       </div>
 
     </>

@@ -303,8 +303,7 @@ export function Capabilities({
         {showHeading && (
           <header className={styles.headingBlock}>
             <p className={styles.eyebrow}>Services</p>
-            <h2 id="capabilities-title">From Raw Data To Working AI</h2>
-            <p>From custom AI to the data foundations it runs on-end to end</p>
+            <h2 id="capabilities-title">Technology Services for Your Business</h2>
           </header>
         )}
 

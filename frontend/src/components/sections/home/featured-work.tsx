@@ -17,7 +17,7 @@ type FeaturedWorkProps = {
   children?: ReactNode;
 };
 
-export async function FeaturedWork({ studies, heading = "Give your business an edge with AI", eyebrow = "Featured work · Built for production", description = "We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice.", expanded = false, unavailable = false, loading = false, revealHeading = false, children }: FeaturedWorkProps = {}) {
+export async function FeaturedWork({ studies, heading = "Solutions That Drive Business Forward", eyebrow = "Featured work · Built for production", description = "We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice.", expanded = false, unavailable = false, loading = false, revealHeading = false, children }: FeaturedWorkProps = {}) {
   let showcased: (CaseStudyListItem & { media: CaseStudyMedia })[] = [];
   if (!loading && !unavailable) {
     try {
