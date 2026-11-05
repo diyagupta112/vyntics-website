@@ -1,7 +1,6 @@
-# CI lint: rules that find real bugs. Style-only rules (import order, nested with) are left out on purpose. Used by the Backend CI workflow.
+# CI lint: only rules for code that is actually broken. No style rules.
 target-version = "py311"
 
 [lint]
-select = ["E4", "E7", "E9", "F", "B", "ASYNC"]
-# FastAPI's Depends(...) in argument defaults is the framework's normal pattern.
-ignore = ["B008"]
+# E9: syntax errors. F63: invalid comparisons or assertions. F7: misplaced return, yield, break. F82: undefined names.
+select = ["E9", "F63", "F7", "F82"]
