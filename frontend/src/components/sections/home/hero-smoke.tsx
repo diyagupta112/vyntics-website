@@ -7,6 +7,9 @@ import styles from "./hero.module.css";
 // Matches the translateY the frame starts with and loses as it levels out (see .frame in the stylesheet).
 const RISE_REM = 3;
 const SCALE_MIN = 0.88;
+// Entrance timing of the fog, in step with the staggered load in hero.module.css.
+const FOG_DELAY_MS = 700;
+const FOG_GROW_MS = 3200;
 
 const VERTEX = /* glsl */ `
   attribute vec2 position;
@@ -28,6 +31,7 @@ const FRAGMENT = /* glsl */ `
   uniform float uTop;
   uniform float uHalf;
   uniform float uCalm;
+  uniform float uReveal;
   varying vec2 vUv;
 
   float hash(vec2 p) {
@@ -86,6 +90,10 @@ const FRAGMENT = /* glsl */ `
     float edge = exp(-g * g) * (1.0 - smoothstep(uHalf * 0.85, uHalf * 1.05, ax));
     a += edge * 0.4 * (0.5 + dens);
 
+    // Entrance: the fog fades up and its leading edge travels down from the top of the page.
+    float front = uReveal * (uTop + 0.4);
+    a *= (1.0 - smoothstep(front - 0.22, front, d)) * smoothstep(0.0, 0.3, uReveal);
+
     // Thins as the frame settles, and again while the video plays.
     a *= mix(1.0, 0.35, uProgress);
     a *= mix(1.0, 0.45, uCalm);
@@ -131,6 +139,7 @@ export function HeroSmoke() {
         uTop: { value: 0.5 },
         uHalf: { value: 0.7 },
         uCalm: { value: 0 },
+        uReveal: { value: 0 },
       },
     });
     const mesh = new Mesh(gl, { geometry: new Triangle(gl), program });
@@ -161,6 +170,8 @@ export function HeroSmoke() {
     let calm = 0;
     let clock = 0;
     let last = performance.now();
+    // The fog starts after the headline and frame have begun to rise, then grows in from the top.
+    const born = performance.now();
 
     const render = (now: number) => {
       frame = window.requestAnimationFrame(render);
@@ -171,6 +182,8 @@ export function HeroSmoke() {
       clock += dt * (1 - 0.7 * calm);
       program.uniforms.uTime.value = clock;
       program.uniforms.uCalm.value = calm;
+      const reveal = Math.min(1, Math.max(0, (now - born - FOG_DELAY_MS) / FOG_GROW_MS));
+      program.uniforms.uReveal.value = 1 - Math.pow(1 - reveal, 3);
       program.uniforms.uProgress.value = progress;
       program.uniforms.uTop.value = (baseTop + (1 - progress) * risePx) / heroHeight;
       program.uniforms.uHalf.value = (stageWidth * (SCALE_MIN + (1 - SCALE_MIN) * progress)) / heroWidth;
