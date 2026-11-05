@@ -1,4 +1,4 @@
-# CI lint: rules that find real bugs. Style-only rules (import order, nested with) are left out on purpose.
+# CI lint: rules that find real bugs. Style-only rules (import order, nested with) are left out on purpose. Used by the Backend CI workflow.
 target-version = "py311"
 
 [lint]
