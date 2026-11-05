@@ -1,0 +1,7 @@
+# CI lint: rules that find real bugs. Style-only rules (import order, nested with) are left out on purpose.
+target-version = "py311"
+
+[lint]
+select = ["E4", "E7", "E9", "F", "B", "ASYNC"]
+# FastAPI's Depends(...) in argument defaults is the framework's normal pattern.
+ignore = ["B008"]
