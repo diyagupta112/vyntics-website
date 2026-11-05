@@ -1,6 +1,8 @@
-# dependencies
+# dependencies (any folder depth)
 node_modules/
 .pnpm-store/
+.yarn/
+bower_components/
 
 # builds
 .next/
@@ -11,11 +13,18 @@ build/
 coverage/
 out/
 storybook-static/
+.vercel/
+.netlify/
 
-# environment
+# environment and secrets
 .env
 .env.*
 !.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
 
 # local config
 *.local
@@ -28,49 +37,74 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# OS/editor
+# OS and editor
 .DS_Store
 .AppleDouble
 .LSOverride
+Thumbs.db
 .idea/
 .vscode/
 *.swp
 *.swo
+*~
 
 # Supabase
 .branches/
 .temp/
 .supabase/
 
-# hosting
-.vercel/
-.netlify/
-
 # caches
 .turbo/
 .eslintcache
 .cache/
 .parcel-cache/
+.mypy_cache/
+.ruff_cache/
 
 # TypeScript
 *.tsbuildinfo
 
-# test artifacts
+# test artifacts and reports
 playwright-report/
 test-results/
 cypress/screenshots/
 cypress/videos/
+junit.xml
+coverage.xml
+.coverage
+htmlcov/
+.pytest_cache/
+pytest-cache-files-*/
 
 # package manager
 .npmrc
 pnpm-lock.yaml.tmp
 
-# Local QA / performance artifacts
-frontend/.qa-tmp/
-frontend/.qa/
-frontend/PERFORMANCE-AUDIT.md
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
 
-node_modules/
-./node_modules/
-./node_modules
-frontend/node_modules/
+# Local QA, browser profiles and performance artifacts (any folder depth)
+.qa/
+.qa-*/
+.qa*/
+**/.qa/
+**/.qa-tmp/
+*-chrome/
+.artifacts/
+.previews/
+.hero-backup*/
+PERFORMANCE-AUDIT.md
+
+# scratch and leftover files
+/tmp/
+*.bak
+*.orig
+*.rej
+*.tmp
+
+# Claude Code local settings
+.claude/settings.local.json

@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
+!.env.*.example
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -9,3 +10,16 @@ __pycache__/
 pytest-cache-files-*/
 .coverage
 htmlcov/
+venv/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+junit.xml
+coverage.xml
+*.log
+*.pem
+*.key
+.DS_Store
+.idea/
+.vscode/

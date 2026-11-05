@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +40,27 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# caches and logs
+.turbo/
+.cache/
+.eslintcache
+*.log
+
+# local QA, browser profiles, backups and scratch output
+.qa/
+.qa-*/
+.qa*/
+*-chrome/
+.artifacts/
+.previews/
+.hero-backup*/
+PERFORMANCE-AUDIT.md
+
+# secrets and editor files
+*.key
+*.p12
+*.pfx
+.idea/
+.vscode/
+Thumbs.db

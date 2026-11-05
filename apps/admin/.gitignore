@@ -1,0 +1,34 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# next.js and builds
+.next/
+out/
+build/
+dist/
+next-env.d.ts
+*.tsbuildinfo
+
+# testing and caches
+coverage/
+.turbo/
+.cache/
+.eslintcache
+
+# env files and secrets
+.env*
+!.env.example
+*.pem
+*.key
+
+# logs and editor files
+*.log
+npm-debug.log*
+yarn-debug.log*
+.pnpm-debug.log*
+.DS_Store
+.idea/
+.vscode/
+Thumbs.db

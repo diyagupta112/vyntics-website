@@ -1,0 +1,4 @@
+# Browser profile files from local QA runs (frontend/.qa) contain random IDs that look like keys. They are not secrets.
+[allowlist]
+description = "QA browser profile data"
+paths = ['''frontend/\.qa/''']
