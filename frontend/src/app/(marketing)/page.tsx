@@ -10,6 +10,7 @@ import { ClientMarquee } from "@/components/sections/home/client-marquee";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { FeaturedWork } from "@/components/sections/home/featured-work";
 import { Hero } from "@/components/sections/home/hero";
+import { HomeRecognitions, HomeRecognitionsSkeleton } from "@/components/sections/home/home-recognitions";
 import { Testimonials } from "@/components/sections/home/testimonials";
 import { WhyVyntics } from "@/components/sections/home/why-vyntics";
 import { LifeAtVynticsPreview } from "@/components/sections/home/life-at-vyntics-preview";
@@ -40,6 +41,7 @@ export default function HomePage() {
   return (
     <div data-home-page className={mobileStyles.page}>
       <Hero />
+      <Suspense fallback={<HomeRecognitionsSkeleton />}><HomeRecognitions /></Suspense>
       <ClientMarquee />
       <SeeItWorking />
       <Suspense fallback={<Capabilities linkCards />}><HomeServices /></Suspense>
