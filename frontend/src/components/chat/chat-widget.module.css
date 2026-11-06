@@ -427,6 +427,13 @@
   }
 }
 
+/* Keep the launcher above the cookie bar while it is showing. */
+@media (max-width: 640px) {
+  :global(body):has([data-cookie-toast]) .launcherWrap {
+    bottom: 11rem;
+  }
+}
+
 @media (max-width: 767px) {
   .panel {
     inset: 0;

@@ -1,80 +1,237 @@
 .hero {
   position: relative;
-  overflow: hidden;
-  /* Runs up under the fixed navbar so the navbar can be transparent over it. */
+  /* Runs up under the fixed navbar; .inner pads back down to clear it. */
   margin-top: calc(var(--header-height) * -1);
-  color: #ffffff;
-  background:
-    radial-gradient(60rem 28rem at 50% 0%, rgb(20 83 219 / 26%), transparent 70%),
-    #07070a;
+  color: var(--color-foreground);
+  /* Warm paper tone in light mode; dark mode keeps the page background. */
+  background: #f0f0eb;
+  isolation: isolate;
 }
 
-.hero::after {
+:global(html[data-theme="dark"]) .hero {
+  background: var(--color-background);
+}
+
+/* Faint dot grid, like document paper, fading out toward the bottom of the hero. */
+.hero::before {
   content: "";
   position: absolute;
-  inset: auto 0 0;
-  height: 8rem;
+  inset: 0;
+  z-index: -1;
   pointer-events: none;
-  background: linear-gradient(transparent, #07070a);
+  background-image: radial-gradient(color-mix(in srgb, var(--color-foreground) 16%, transparent) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, transparent 100%);
 }
 
+/* Two columns: the pitch on the left, a cited answer on the right. */
 .inner {
-  position: relative;
-  z-index: 1;
   display: grid;
-  justify-items: center;
-  gap: clamp(1rem, 2vh, 1.35rem);
-  padding-block: calc(var(--header-height) + clamp(2.5rem, 7vh, 4.5rem)) clamp(3rem, 6vh, 4.5rem);
-  text-align: center;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  padding-block: calc(var(--header-height) + clamp(2rem, 7vh, 4.5rem)) clamp(2.5rem, 7vh, 4.5rem);
+}
+
+.copy {
+  display: grid;
+  justify-items: start;
+  gap: clamp(1rem, 2.4vh, 1.5rem);
 }
 
 .eyebrow {
-  color: #a8c2ff;
-  font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  color: var(--color-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
 }
 
 .hero h1 {
-  max-width: 26ch;
-  font-size: var(--text-display);
+  font-size: clamp(2.75rem, min(5vw, 4.25rem), 5rem);
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
   text-wrap: balance;
+}
+
+.accent {
+  color: var(--color-primary);
 }
 
 .intro {
-  max-width: 36rem;
-  color: rgb(255 255 255 / 72%);
-  font-size: clamp(1.05rem, 1.35vw, 1.2rem);
+  max-width: 34rem;
+  color: var(--color-muted);
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
   line-height: 1.55;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
-/* Staggered entrance: headline, intro line, button, then the video frame and the lines below it. */
-.hero h1,
-.intro,
-.cta,
-.stage,
-.caption,
-.proof {
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+}
+
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0;
+  color: var(--color-foreground);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.secondary:hover {
+  color: var(--color-primary);
+}
+
+.secondary:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-primary) 60%, transparent);
+  outline-offset: 0.25rem;
+}
+
+/* Cited answer card: question, answer with a citation chip, and the highlighted source clause. */
+.answer {
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: clamp(1.1rem, 2vw, 1.5rem);
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-surface);
+  box-shadow: 0 24px 60px -32px color-mix(in srgb, var(--color-primary) 45%, transparent);
+  font-size: 0.95rem;
+}
+
+.answerTag {
+  position: absolute;
+  top: -0.7rem;
+  left: 1.25rem;
+  padding: 0.15rem 0.6rem;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+}
+
+.question {
+  justify-self: end;
+  max-width: 85%;
+  padding: 0.65rem 0.9rem;
+  color: #ffffff;
+  border-radius: 0.8rem 0.8rem 0.2rem 0.8rem;
+  background: var(--color-primary);
+}
+
+.reply {
+  line-height: 1.55;
+}
+
+.cite {
+  display: inline-block;
+  padding: 0.05rem 0.45rem;
+  color: var(--color-primary);
+  font-size: 0.78rem;
+  font-weight: 650;
+  border-radius: 0.3rem;
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+  white-space: nowrap;
+}
+
+.source {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-radius: 0.6rem;
+}
+
+.source b {
+  margin-right: 0.4rem;
+  font-weight: 650;
+}
+
+.sourceName {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Cited sources: a brand-blue bar sweeps in behind each one. */
+.clause {
+  padding: 0.35rem 0.6rem;
+  color: var(--color-foreground);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0 0.3rem 0.3rem 0;
+  background: linear-gradient(color-mix(in srgb, var(--color-primary) 12%, transparent), color-mix(in srgb, var(--color-primary) 12%, transparent)) no-repeat left / 0% 100%;
+  animation: clauseMark 700ms 1300ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.clause + .clause {
+  animation-delay: 1500ms;
+}
+
+.clause b {
+  color: var(--color-primary);
+}
+
+.grounded {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+}
+
+/* Entrance: copy first, then the answer card builds up and the source clause gets highlighted. */
+.copy > *,
+.question,
+.reply,
+.source,
+.grounded {
   animation: heroRise 750ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
-.intro { animation-delay: 120ms; }
-.cta { animation-delay: 240ms; }
-.stage { animation-delay: 420ms; animation-duration: 900ms; }
-.caption { animation-delay: 800ms; }
-.proof { animation-delay: 900ms; }
+.copy > :nth-child(2) { animation-delay: 60ms; }
+.copy > :nth-child(3) { animation-delay: 140ms; }
+.copy > :nth-child(4) { animation-delay: 220ms; }
+.copy > :nth-child(5) { animation-delay: 300ms; }
+.question { animation-delay: 400ms; }
+.reply { animation-delay: 750ms; }
+.source { animation-delay: 1000ms; }
+.grounded { animation-delay: 1500ms; }
 
 @keyframes heroRise {
   from { opacity: 0; transform: translateY(18px); }
 }
 
+@keyframes clauseMark {
+  to { background-size: 100% 100%; }
+}
+
 .cta {
-  margin-top: 0.4rem;
   padding: 0.85rem 1.7rem;
   color: #ffffff;
   background: var(--color-primary);
@@ -94,31 +251,9 @@
   outline-offset: 0.25rem;
 }
 
-/* Fog behind the whole hero; hero-smoke.tsx fits it to the video frame. */
-.smoke {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.smoke canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* Static fog for phones, reduced motion and browsers without WebGL. */
-.smoke:not([data-live]) {
-  background:
-    radial-gradient(ellipse 55% 70% at 50% 0%, rgb(80 130 255 / 22%), transparent 72%);
-}
-
 .videoWrap {
   position: relative;
-  z-index: 1;
   width: min(100%, 68rem);
-  margin-top: clamp(2rem, 5vh, 3.5rem);
   display: grid;
   justify-items: center;
   gap: 1.25rem;
@@ -128,65 +263,16 @@
   --p: 0;
   position: relative;
   width: 100%;
-  perspective: 1600px;
-}
-
-.stage::before {
-  content: "";
-  position: absolute;
-  inset: 8% 6% -6%;
-  border-radius: 50%;
-  background: rgb(20 83 219 / 45%);
-  filter: blur(80px);
-  opacity: calc(0.25 + var(--p) * 0.45);
 }
 
 .frame {
   position: relative;
   container-type: inline-size;
   overflow: hidden;
-  border: 1px solid rgb(255 255 255 / 16%);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
   background: #000000;
-  box-shadow: 0 40px 90px rgb(0 0 0 / 60%), 0 0 0 1px rgb(255 255 255 / 4%), inset 0 1px 0 rgb(168 194 255 / 40%);
-  transform-origin: 50% 0;
-  /* The frame rises, straightens and grows as it scrolls in; hero-smoke.tsx follows the same values. */
-  transform: translateY(calc((1 - var(--p)) * 3rem)) rotateX(calc((1 - var(--p)) * 22deg)) scale(calc(0.88 + var(--p) * 0.12));
-  will-change: transform;
-}
-
-.proof {
-  max-width: 68rem;
-  margin: clamp(0.5rem, 2vh, 1.25rem) 0 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  list-style: none;
-  color: rgb(255 255 255 / 62%);
-  font-size: 0.95rem;
-}
-
-.proof li {
-  padding: 0.15rem 1.5rem;
-}
-
-.proof li + li {
-  border-left: 1px solid rgb(255 255 255 / 16%);
-}
-
-.proof a {
-  color: inherit;
-  transition: color 180ms ease;
-}
-
-.proof a:hover {
-  color: #ffffff;
-}
-
-.proof a:focus-visible {
-  outline: 3px solid rgb(168 194 255 / 70%);
-  outline-offset: 0.2rem;
+  box-shadow: 0 24px 60px rgb(11 11 15 / 18%);
 }
 
 .video {
@@ -313,7 +399,10 @@
   position: absolute;
   left: 1rem;
   bottom: 0.75rem;
-  padding: 0.25rem 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 1rem;
   color: rgb(255 255 255 / 70%);
   border: 1px solid rgb(255 255 255 / 18%);
   border-radius: 999px;
@@ -330,7 +419,7 @@
 
 .caption {
   max-width: 38rem;
-  color: rgb(255 255 255 / 52%);
+  color: var(--color-muted);
   font-size: 0.85rem;
   line-height: 1.55;
   text-align: center;
@@ -346,24 +435,28 @@
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+  min-height: 2.75rem;
   padding: 0.7rem 1.3rem;
-  color: #ffffff;
-  border: 1px solid rgb(255 255 255 / 22%);
+  color: var(--color-foreground);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
-  background: rgb(255 255 255 / 8%);
+  background: var(--color-surface);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: background-color 180ms ease, border-color 180ms ease;
+  transition: border-color 180ms ease, color 180ms ease;
 }
 
 .sound:hover {
-  background: rgb(255 255 255 / 16%);
-  border-color: rgb(255 255 255 / 40%);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
-.sound:focus-visible,
+.sound:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-primary) 60%, transparent);
+  outline-offset: 0.25rem;
+}
+
 .dialogClose:focus-visible {
   outline: 3px solid rgb(168 194 255 / 70%);
   outline-offset: 0.25rem;
@@ -409,29 +502,37 @@
   cursor: pointer;
 }
 
+
 @media (prefers-reduced-motion: reduce) {
-  .hero h1,
-  .intro,
-  .stage,
-  .caption,
-  .proof { animation: none; }
+  .copy > *,
+  .question,
+  .reply,
+  .source,
+  .grounded { animation: none; }
+
+  .clause { animation: none; background-size: 100% 100%; }
 
   .cta,
   .cta:hover,
   .sound { transition: none; transform: none; animation: none; }
+}
 
-  .frame { transform: none; will-change: auto; }
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .answer {
+    max-width: 36rem;
+  }
 }
 
 @media (max-width: 640px) {
   .inner {
-    gap: 1rem;
+    gap: 2.25rem;
     padding-block: calc(var(--header-height) + 2.25rem) 2.5rem;
   }
 
-  .eyebrow {
-    font-size: 0.76rem;
-  }
 
   .hero h1 {
     font-size: clamp(2.45rem, 12vw, 3.25rem);
@@ -440,29 +541,13 @@
 
   .intro {
     font-size: 1rem;
-    line-height: 1.55;
   }
 
   .frame {
     border-radius: 0.6rem;
-    transform: translateY(calc((1 - var(--p)) * 3rem)) rotateX(calc((1 - var(--p)) * 12deg)) scale(calc(0.94 + var(--p) * 0.06));
   }
 
   .introDemo {
     display: none;
-  }
-
-  .proof {
-    display: grid;
-    gap: 0.4rem;
-    text-align: center;
-  }
-
-  .proof li {
-    padding: 0;
-  }
-
-  .proof li + li {
-    border-left: 0;
   }
 }
