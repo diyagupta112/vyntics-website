@@ -113,4 +113,6 @@ jobs:
         with:
           fetch-depth: 0
       - name: Scan the repo history for secrets (gitleaks)
-        run: docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.18.4 detect --source /repo --redact --no-banner
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.18.4/gitleaks_8.18.4_linux_x64.tar.gz | tar -xz gitleaks
+          ./gitleaks detect --source . --redact --no-banner --verbose
