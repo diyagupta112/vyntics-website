@@ -1,0 +1,15 @@
+/* Home-only heading: centered on one line, like the other home section headings. */
+.heading {
+  max-width: none;
+  text-align: center;
+}
+
+.heading h2 {
+  text-wrap: nowrap;
+}
+
+@media (max-width: 640px) {
+  .heading h2 {
+    text-wrap: balance;
+  }
+}

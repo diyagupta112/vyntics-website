@@ -41,8 +41,8 @@ export default function HomePage() {
   return (
     <div data-home-page className={mobileStyles.page}>
       <Hero />
-      <Suspense fallback={<HomeRecognitionsSkeleton />}><HomeRecognitions /></Suspense>
       <ClientMarquee />
+      <Suspense fallback={<HomeRecognitionsSkeleton />}><HomeRecognitions /></Suspense>
       <SeeItWorking />
       <Suspense fallback={<Capabilities linkCards />}><HomeServices /></Suspense>
       <Suspense fallback={<FeaturedWork loading eyebrow="Case studies" description="We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice" expanded />}><FeaturedWork eyebrow="Case studies" description="We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice" expanded /></Suspense>
