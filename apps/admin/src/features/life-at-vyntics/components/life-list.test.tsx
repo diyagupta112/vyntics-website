@@ -6,7 +6,7 @@ import { lifeFixture } from "../test-fixtures";
 import { LifeList } from "./life-list";
 
 vi.mock("next/image", () => ({ default: "img" }));
-vi.mock("../api/life-at-vyntics", () => ({ lifeAtVynticsApi: { list: vi.fn(), delete: vi.fn() } }));
+vi.mock("../api/life-at-vyntics", () => ({ lifeAtVynticsApi: { list: vi.fn(), delete: vi.fn(), update: vi.fn() } }));
 
 const second = { ...lifeFixture, id: "life-2", image_url: null, display_order: 3 };
 
@@ -63,5 +63,45 @@ describe("LifeList", () => {
     fireEvent.click(screen.getByRole("button", { name: "Delete Permanently" }));
     expect(await screen.findByText(/temporarily unavailable/i)).toBeInTheDocument();
     expect(screen.getByRole("dialog")).toBeInTheDocument();
+  });
+  describe("drag to reorder", () => {
+    const dataTransfer = { effectAllowed: "", setData: vi.fn() };
+    const cards = () => screen.getAllByRole("article");
+    it("sends one PATCH with the target position, then reloads", async () => {
+      vi.mocked(lifeAtVynticsApi.list).mockResolvedValueOnce([lifeFixture, second]).mockResolvedValueOnce([{ ...second, display_order: 2 }, { ...lifeFixture, display_order: 3 }]);
+      vi.mocked(lifeAtVynticsApi.update).mockResolvedValue(lifeFixture);
+      render(<LifeList />);
+      await screen.findByText("Position 2");
+      fireEvent.dragStart(cards()[0], { dataTransfer });
+      fireEvent.dragOver(cards()[1]);
+      fireEvent.drop(cards()[1]);
+      await waitFor(() => expect(lifeAtVynticsApi.update).toHaveBeenCalledWith("life-1", { display_order: 3 }));
+      expect(lifeAtVynticsApi.update).toHaveBeenCalledTimes(1);
+      await waitFor(() => expect(lifeAtVynticsApi.list).toHaveBeenCalledTimes(2));
+    });
+    it("does nothing when dropped on itself", async () => {
+      vi.mocked(lifeAtVynticsApi.list).mockResolvedValue([lifeFixture, second]);
+      render(<LifeList />);
+      await screen.findByText("Position 2");
+      fireEvent.dragStart(cards()[0], { dataTransfer });
+      fireEvent.drop(cards()[0]);
+      expect(lifeAtVynticsApi.update).not.toHaveBeenCalled();
+    });
+    it("shows a failure message and reloads the real order", async () => {
+      vi.mocked(lifeAtVynticsApi.list).mockResolvedValue([lifeFixture, second]);
+      vi.mocked(lifeAtVynticsApi.update).mockRejectedValue(new ApiError({ kind: "service_unavailable", message: "x" }));
+      render(<LifeList />);
+      await screen.findByText("Position 2");
+      fireEvent.dragStart(cards()[0], { dataTransfer });
+      fireEvent.drop(cards()[1]);
+      expect(await screen.findByText(/could not move this image/i)).toBeInTheDocument();
+      await waitFor(() => expect(lifeAtVynticsApi.list).toHaveBeenCalledTimes(2));
+    });
+    it("is not draggable with a single image", async () => {
+      vi.mocked(lifeAtVynticsApi.list).mockResolvedValue([lifeFixture]);
+      render(<LifeList />);
+      await screen.findByText("Position 2");
+      expect(cards()[0]).toHaveAttribute("draggable", "false");
+    });
   });
 });

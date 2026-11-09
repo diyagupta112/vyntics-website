@@ -14,7 +14,7 @@ export function ClientMarquee() {
     <section className={styles.section} aria-labelledby="client-marquee-title">
       <Container className={styles.headingContainer}>
         <p id="client-marquee-title" className={styles.heading}>
-          Our clients. Our partnerships. Our impact.
+          In production at
         </p>
       </Container>
 
