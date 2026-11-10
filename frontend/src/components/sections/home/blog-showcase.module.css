@@ -32,8 +32,10 @@
 .orbit { position: absolute; width: 0.48rem; aspect-ratio: 1; top: 48%; right: 4rem; border-radius: 50%; background: var(--color-white); box-shadow: 0 0 1.8rem var(--color-white); }
 .cardContent { position: absolute; inset: auto 0 0; min-width: 0; padding: clamp(1.25rem, 2vw, 2rem); color: #ffffff; border: 0; background: linear-gradient(0deg, rgb(7 10 17 / 96%) 0%, rgb(7 10 17 / 82%) 48%, transparent 100%); }
 .copy { min-width: 0; max-width: 45rem; transition: opacity 180ms ease; }
+.articleTitle { margin: 0; color: #fff; font-size: clamp(1.25rem, 2vw, 1.8rem); font-weight: 750; line-height: 1.2; letter-spacing: -0.025em; overflow-wrap: anywhere; text-shadow: 0 2px 12px rgb(0 0 0 / 35%); }
 .card:not(.activeCard) .cardContent { inset: 0; display: flex; align-items: flex-end; justify-content: center; padding: 0.75rem 0.45rem; background: linear-gradient(0deg, rgb(7 10 17 / 82%), transparent 75%); }
-.card:not(.activeCard) .copy { writing-mode: vertical-rl; transform: rotate(180deg); }
+.card:not(.activeCard) .copy { max-height: 100%; writing-mode: vertical-rl; transform: rotate(180deg); }
+.card:not(.activeCard) .articleTitle { max-height: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 0.85rem; line-height: 1.4; }
 .metadata { margin-top: 0.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; color: rgb(255 255 255 / 72%); font-size: 0.82rem; }
 .readStory { width: fit-content; margin-top: 0.7rem; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 750; }
 .readStory svg { width: 1.1rem; }
