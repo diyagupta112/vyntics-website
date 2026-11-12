@@ -7,7 +7,7 @@ import styles from "./hero.module.css";
 const POSTER = "/chatbot-product-poster.jpg";
 
 // Matches the staggered entrance in hero.module.css (headline, intro line, button, then the frame).
-const ENTRANCE_MS = 1100;
+const ENTRANCE_MS = 2000;
 
 function Sources() {
   return (
