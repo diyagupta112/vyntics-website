@@ -12,7 +12,7 @@ import { ArrowFillButton } from "@/components/ui/arrow-fill-button";
 
 export const metadata: Metadata = {
   title: "About Vyntics | Data Engineering & AI Consulting",
-  description: "Vyntics is an expert-led data and AI consulting company helping organizations turn complex data into trusted decisions, automation, and production systems.",
+  description: "Analytics meets velocity. AI does the work. Vyntics is an expert-led data and AI consulting company helping organizations turn complex data into trusted decisions, automation, and production systems.",
 };
 
 function ArrowIcon() {
@@ -31,6 +31,7 @@ export default function AboutPage() {
           <div className={styles.heroCopy}>
             <p className={styles.eyebrow}>AI and data you can rely on</p>
             <h1>Converting Data Into A Competitive Advantage</h1>
+            <p className={styles.descriptor}>Analytics meets velocity. AI does the work.</p>
             <p className={styles.lead}>
               We are Vyntics, a group of engineers and strategists that assist businesses in transforming complicated data into reliable choices, practical automation, and long-lasting systems.
             </p>

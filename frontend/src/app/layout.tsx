@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     default: "Vyntics",
     template: "%s | Vyntics",
   },
-  description: "Vyntics company website",
+  description: "Analytics meets velocity. AI does the work. Vyntics delivers custom AI, data engineering, analytics, cloud, and CRM solutions that help businesses turn complex problems into impactful outcomes.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

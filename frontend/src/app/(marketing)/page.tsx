@@ -19,8 +19,8 @@ import mobileStyles from "./home-mobile.module.css";
 
 export const metadata: Metadata = {
   // absolute skips the root "%s | Vyntics" template, which would append the brand twice.
-  title: { absolute: "Vyntics | Custom AI, Data & Cloud Solutions" },
-  description: "Vyntics delivers custom AI, data engineering, analytics, cloud, and CRM solutions that help businesses turn complex problems into impactful outcomes.",
+  title: { absolute: "Vyntics | AI at velocity. Custom AI and data solutions." },
+  description: "Analytics meets velocity. AI does the work. Vyntics delivers custom AI, data engineering, analytics, cloud, and CRM solutions that help businesses turn complex problems into impactful outcomes.",
 };
 
 async function LatestBlogs() {
