@@ -164,7 +164,6 @@ export function SiteFooter() {
                 </span>
                 <span>VYNTICS</span>
               </Link>
-              <p className={styles.tagline}>AI at velocity.</p>
             </div>
             <section className={styles.contact} aria-label="Get in touch">
               <a className={styles.email} href="mailto:contact@vyntics.com">
