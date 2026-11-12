@@ -4,7 +4,7 @@
   margin-top: calc(var(--header-height) * -1);
   color: var(--color-foreground);
   /* Warm paper tone in light mode; dark mode keeps the page background. */
-  background: #f0f0eb;
+  background: linear-gradient(to bottom, #f0f0eb 0%, #f0f0eb 60%, var(--color-page) 100%);
   isolation: isolate;
 }
 
