@@ -287,7 +287,7 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
     top:0;
     left:calc(var(--divider-k) * (100% + 1.5rem) / 5 - .75rem);
     width:1px;
-    height:75%;
+    height:100%;
     font-size:.85rem;
     background:rgb(255 255 255 / 12%);
   }
@@ -317,7 +317,11 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
 
 /* Nudge only the Partners & Recognitions strip up; the sections below keep their position. */
 @media(min-width:1201px) {
-  .recognitions { margin-top:-1.25rem; }
+  /* The whole Partners & Recognitions block moves up together: the strip (top line, heading, badges, separators)
+     and the line under it, which belongs to the links row and is redrawn so the Company row itself stays put. */
+  .recognitions { margin-top:-2.25rem; transform:translateY(-15px); }
+  .linksRow { border-top-color:transparent; }
+  .linksRow::after { content:""; position:absolute; left:0; right:0; top:-16px; height:1px; background:rgb(255 255 255 / 10%); pointer-events:none; }
 }
 
 /* OpenAI badge in the footer: crop the artwork to the logo mark so the "OpenAI Select Partner" text on the image is not shown
@@ -352,4 +356,3 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
   .linksRow::before { top:3rem; bottom:2rem; }
 }
 
-.tagline { margin:.75rem 0 0; color:var(--color-muted); font-size:.9rem; line-height:1.4; }

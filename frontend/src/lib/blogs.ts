@@ -13,3 +13,8 @@ export async function getBlogs(service?: ServiceIdentifier): Promise<{ status: "
     return { status: "success", blogs: blogs.sort((a, b) => Date.parse(b.published_at) - Date.parse(a.published_at)) };
   } catch { return { status: "error", blogs: [] }; }
 }
+
+/** Featured blogs only, newest first, at most `limit` (used by the home page and the blogs page hero). */
+export function latestFeatured(blogs: Blog[], limit = 5): Blog[] {
+  return blogs.filter((blog) => blog.is_featured === true).sort((a, b) => Date.parse(b.published_at) - Date.parse(a.published_at)).slice(0, limit);
+}

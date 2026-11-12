@@ -34,6 +34,8 @@
 .copy { min-width: 0; max-width: 45rem; transition: opacity 180ms ease; }
 .card:not(.activeCard) .cardContent { inset: 0; display: flex; align-items: flex-end; justify-content: center; padding: 0.75rem 0.45rem; background: linear-gradient(0deg, rgb(7 10 17 / 82%), transparent 75%); }
 .card:not(.activeCard) .copy { writing-mode: vertical-rl; transform: rotate(180deg); }
+.title { margin: 0; color: #ffffff; font-size: clamp(1.1rem, 1.7vw, 1.55rem); font-weight: 750; line-height: 1.25; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+.card:not(.activeCard) .title { display: block; max-height: 15rem; font-size: 0.9rem; font-weight: 700; white-space: nowrap; text-overflow: ellipsis; }
 .metadata { margin-top: 0.75rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem; color: rgb(255 255 255 / 72%); font-size: 0.82rem; }
 .readStory { width: fit-content; margin-top: 0.7rem; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 750; }
 .readStory svg { width: 1.1rem; }

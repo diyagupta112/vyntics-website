@@ -136,6 +136,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
 
                   <div className={styles.cardContent}>
                     <div className={styles.copy}>
+                      <h3 className={styles.title}>{article.title}</h3>
                       {isActive && <>
                         <p className={styles.metadata}>{article.publishedAt}<span aria-hidden="true">·</span>{article.readTime}</p>
                         <span className={styles.readStory}>Read the story <ArrowIcon /></span>

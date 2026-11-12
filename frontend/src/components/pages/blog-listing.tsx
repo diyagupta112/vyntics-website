@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import type { Blog } from "@/lib/blogs";
+import { latestFeatured, type Blog } from "@/lib/blogs";
 import { explorationServices } from "@/content/service-exploration";
 import styles from "./blog-listing.module.css";
 import { coverImgProps } from "@/lib/cover-image";
@@ -30,7 +30,7 @@ export function BlogListing({ blogs, unavailable }: { blogs: Blog[]; unavailable
   const [focused, setFocused] = useState(false);
   const [touching, setTouching] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const slides = blogs.filter((blog) => blog.is_featured === true);
+  const slides = latestFeatured(blogs);
   const goToSlide = useCallback((index: number) => {
     const viewport = carouselRef.current;
     if (!viewport || !slides.length) return;

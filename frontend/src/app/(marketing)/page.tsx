@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { getBlogs } from "@/lib/blogs";
+import { getBlogs, latestFeatured } from "@/lib/blogs";
 import { getBadges } from "@/lib/badges";
 import { getTestimonials } from "@/lib/testimonials";
 import { Approach } from "@/components/sections/home/approach";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 async function LatestBlogs() {
   const result = await getBlogs();
-  return <BlogShowcase blogs={result.blogs.slice(0, 5)} unavailable={result.status === "error"} />;
+  return <BlogShowcase blogs={latestFeatured(result.blogs)} unavailable={result.status === "error"} />;
 }
 
 async function HomeTestimonials() {
