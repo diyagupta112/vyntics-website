@@ -13,17 +13,29 @@ NonEmptyString = Annotated[
     str,
     StringConstraints(strip_whitespace=True, min_length=1),
 ]
+ShortText = Annotated[
+    str,
+    StringConstraints(strip_whitespace=True, min_length=1, max_length=200),
+]
+LongText = Annotated[
+    str,
+    StringConstraints(strip_whitespace=True, min_length=1, max_length=10_000),
+]
+PageReference = Annotated[
+    str,
+    StringConstraints(strip_whitespace=True, min_length=1, max_length=500),
+]
 
 
 class ContactCreateRequest(RequestSchema):
     """Visitor-controlled fields accepted by the contact form."""
 
-    name: NonEmptyString
+    name: ShortText
     email: EmailStr
-    company: str | None = None
-    subject: NonEmptyString
-    message: NonEmptyString
-    source_page: NonEmptyString
+    company: Annotated[str, StringConstraints(max_length=200)] | None = None
+    subject: ShortText
+    message: LongText
+    source_page: PageReference
 
 
 class ContactSubmissionReceipt(ResponseSchema):
