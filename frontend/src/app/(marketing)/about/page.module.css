@@ -657,3 +657,12 @@
   .companyIntroVisual figcaption { align-items: flex-start; flex-direction: column; }
   .companyIntroVisual figcaption strong { text-align: left; }
 }
+
+.descriptor {
+  max-width: 44rem;
+  margin-top: 1.1rem;
+  color: var(--color-foreground);
+  font-size: clamp(1rem, 1.25vw, 1.12rem);
+  font-weight: 600;
+  line-height: 1.5;
+}

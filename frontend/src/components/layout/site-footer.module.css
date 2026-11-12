@@ -351,3 +351,5 @@ a.badgeItem:focus-visible { outline:2px solid color-mix(in srgb,var(--color-prim
   .linksRow { padding-block:3rem 2rem; }
   .linksRow::before { top:3rem; bottom:2rem; }
 }
+
+.tagline { margin:.75rem 0 0; color:var(--color-muted); font-size:.9rem; line-height:1.4; }
