@@ -133,7 +133,7 @@ export function HeroVideo() {
       </button>
 
       <p className={styles.caption}>
-        Example of our work: a compliance chatbot that answers from your own documents and cites the source. Vyntics
+        Example of our work: a compliance tool that answers from your own documents and cites the source. Vyntics
         delivers custom AI, data engineering, analytics, cloud, and CRM solutions.
       </p>
 
