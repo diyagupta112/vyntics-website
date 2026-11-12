@@ -16,6 +16,7 @@ type Testimonial = {
     logoWidth: number;
     logoHeight: number;
     logoClass: string;
+    remote?: boolean;
   };
 };
 
@@ -44,6 +45,16 @@ const defaultTestimonials: Testimonial[] = [
 function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
   const company = testimonial.company;
 
+  if (company?.remote) {
+    return (
+      <span className={styles.companyAvatar}>
+        {/* Logos uploaded through the admin live on dynamic hosts. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img alt={`${company.name} logo`} className={styles.companyLogo} decoding="async" loading="lazy" src={company.logoSrc} />
+      </span>
+    );
+  }
+
   if (company) {
     return (
       <span className={styles.companyAvatar}>
@@ -68,7 +79,7 @@ function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
 
 export function Testimonials({ testimonials: apiTestimonials }: { testimonials?: ApiTestimonial[] }) {
   const testimonials = apiTestimonials?.length
-    ? apiTestimonials.slice().sort((a, b) => a.display_order - b.display_order).map((item): Testimonial => ({ text: item.quote, name: item.author_name, role: [item.author_role, item.company_name].filter(Boolean).join(", ") }))
+    ? apiTestimonials.slice().sort((a, b) => a.display_order - b.display_order).map((item): Testimonial => ({ text: item.quote, name: item.author_name, role: [item.author_role, item.company_name].filter(Boolean).join(", "), company: item.company_logo_url ? { name: item.company_name ?? item.author_name, logoSrc: item.company_logo_url, logoWidth: 0, logoHeight: 0, logoClass: "", remote: true } : undefined }))
     : defaultTestimonials;
   // Repeat the reviews so each half fills even a wide viewport.
   const marqueeTestimonials = [...testimonials, ...testimonials];
