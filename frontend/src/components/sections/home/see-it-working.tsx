@@ -8,7 +8,7 @@ export function SeeItWorking() {
       <Container className={styles.inner}>
         <div className={styles.head}>
           <h2 id="see-it-working-title">See it working</h2>
-          <p>How one of our compliance chatbots answers a question, step by step.</p>
+          <p>How one of our compliance tools answers a question, step by step.</p>
         </div>
         <HeroVideo />
       </Container>

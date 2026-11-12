@@ -46,7 +46,7 @@ export function HeroIntro({ run, onDone }: { run: boolean; onDone: () => void })
       {scene === 1 && (
         <div className={styles.cineScene} style={{ animationDuration: `${SCENES[1].duration + 400}ms` }}>
           <span className={styles.cineMark} />
-          <p className={styles.cineTitle}>Vyntics AI Chatbot</p>
+          <p className={styles.cineTitle}>AI Compliance Tool</p>
           <p className={styles.cineSub}>Answers from your own documents, with a source for every response</p>
         </div>
       )}
