@@ -89,6 +89,7 @@ export function HeroVideo() {
 
   const open = () => {
     loop.current?.pause();
+    document.documentElement.style.overflow = "hidden";
     dialog.current?.showModal();
     if (full.current) {
       full.current.currentTime = 0;
@@ -96,7 +97,11 @@ export function HeroVideo() {
     }
   };
 
+  // Page scroll is locked while the dialog is open; also restored if the component unmounts.
+  useEffect(() => () => { document.documentElement.style.overflow = ""; }, []);
+
   const close = () => {
+    document.documentElement.style.overflow = "";
     full.current?.pause();
     if (inView.current && phaseRef.current === "video") void loop.current?.play().catch(() => {});
   };
