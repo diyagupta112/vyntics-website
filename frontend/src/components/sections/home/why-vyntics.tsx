@@ -50,7 +50,7 @@ export function WhyVyntics() {
       <Container>
         <div className={styles.headingBlock}>
           <p className={styles.badge}>Reasons for Vyntics</p>
-          <h2 id="why-vyntics-title">Created by Professionals, You’re the Owner</h2>
+          <h2 id="why-vyntics-title">A Partner You Can Trust</h2>
           <p>There should be no barriers between you and the workers. From the initial call to launch and beyond, you work with the same engineers.</p>
         </div>
 

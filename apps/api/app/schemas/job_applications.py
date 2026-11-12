@@ -36,16 +36,16 @@ CurrentCompany: TypeAlias = Annotated[
 class JobApplicationCreateRequest(RequestSchema):
     """Applicant-controlled multipart fields for a career application."""
 
-    name: str
+    name: Annotated[str, Field(max_length=200)]
     email: EmailStr
-    phone: str
+    phone: Annotated[str, Field(max_length=30)]
     experience_years: Annotated[int, Field(ge=0)]
     experience_months: Annotated[int, Field(ge=0, le=11)]
     currently_working: bool
     current_company: CurrentCompany | None = None
     notice_period: NoticePeriod
     resume: UploadFile | None = None
-    cover_letter: str | None = None
+    cover_letter: Annotated[str, Field(max_length=10_000)] | None = None
 
     @field_validator("resume")
     @classmethod

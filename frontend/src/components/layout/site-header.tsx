@@ -159,9 +159,6 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
   const [active, setActive] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
-  // The home hero is dark, so the header is dark while it sits over the hero.
-  const [overHero, setOverHero] = useState(pathname === "/");
-  const [atTop, setAtTop] = useState(true);
   const lastScrollY = useRef(0);
   const menuCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -234,11 +231,6 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
       const servicesBounds = services?.getBoundingClientRect();
       const headerHeight = document.querySelector<HTMLElement>(`.${styles.header}`)?.offsetHeight ?? 80;
       const inServices = Boolean(servicesBounds && servicesBounds.top <= headerHeight && servicesBounds.bottom > headerHeight);
-      const heroBounds = pathname === "/"
-        ? document.querySelector<HTMLElement>("[data-home-hero]")?.getBoundingClientRect()
-        : null;
-      setOverHero(Boolean(heroBounds && heroBounds.bottom > headerHeight));
-      setAtTop(currentScrollY <= 16);
 
       if (mobileOpen || inServices || currentScrollY <= 16) {
         setHeaderVisible(true);
@@ -287,7 +279,7 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
 
   return (
       <header
-        className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}${overHero ? ` ${styles.headerDark}` : ""}${overHero && atTop && !mobileOpen ? ` ${styles.headerClear}` : ""}`}
+        className={`${styles.header} ${headerVisible ? styles.headerVisible : styles.headerHidden}`}
       >
         <div className={styles.inner}>
         <Link className={styles.logoLink} href="/" aria-label={`${siteConfig.name} home`} onClick={() => setMobileOpen(false)}>
@@ -315,7 +307,7 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
           {badges}
 
           <div className={styles.actions}>
-            <ArrowFillButton className={styles.demoButton} href="/contact-us">Book a demo</ArrowFillButton>
+            <ArrowFillButton className={styles.demoButton} href="/contact-us">Book a call</ArrowFillButton>
             {ENABLE_THEME_TOGGLE && (
               <span className={styles.themeSlot}>
                 <ThemeToggle />
@@ -365,7 +357,7 @@ export function SiteHeader({ badges, mobileBadges }: { badges?: ReactNode; mobil
                     <Link className={styles.mobileDirectLink} aria-current={matchesRoute(pathname, item.href) ? "page" : undefined} href={item.href} key={item.label} onClick={() => setMobileOpen(false)}>{item.label}</Link>
                   ),
                 )}
-                <ArrowFillButton className={styles.mobileDemoButton} href="/contact-us" onClick={() => setMobileOpen(false)}>Book a demo</ArrowFillButton>
+                <ArrowFillButton className={styles.mobileDemoButton} href="/contact-us" onClick={() => setMobileOpen(false)}>Book a call</ArrowFillButton>
                 {mobileBadges}
               </Container>
             </motion.nav>

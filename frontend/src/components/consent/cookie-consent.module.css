@@ -1,7 +1,7 @@
 .toast {
   position: fixed;
   bottom: 1rem;
-  right: 1rem;
+  left: 1rem;
   z-index: 1000;
   width: min(25rem, calc(100vw - 2rem));
   padding: 1.5rem 1.25rem 1.125rem;
@@ -61,15 +61,16 @@
   box-shadow: 0 0.5rem 1.1rem color-mix(in srgb, var(--color-primary) 30%, transparent);
 }
 
+/* Same size and weight as Accept All, so declining is as easy to see as accepting. */
 .reject {
-  border-color: rgb(11 11 15 / 32%);
-  background: #ffffff;
-  color: #0b0b0f;
+  border-color: #0b0b0f;
+  background: #0b0b0f;
+  color: #ffffff;
 }
 
 .reject:hover {
-  border-color: #0b0b0f;
-  background: rgb(11 11 15 / 5%);
+  border-color: #2a2a33;
+  background: #2a2a33;
 }
 
 .button:focus-visible {
@@ -97,6 +98,41 @@
   from {
     opacity: 0;
     transform: translateY(0.75rem);
+  }
+}
+
+@media (max-width: 640px) {
+  /* A slim bar along the bottom edge instead of a card, so it covers less of the page. */
+  .toast {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    padding: 0.875rem 1rem calc(0.875rem + env(safe-area-inset-bottom));
+    border-width: 1px 0 0;
+    border-radius: 0.875rem 0.875rem 0 0;
+  }
+
+  .title {
+    margin-bottom: 0.25rem;
+    font-size: 0.9375rem;
+  }
+
+  .text {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .actions {
+    flex-wrap: nowrap;
+    margin-top: 0.75rem;
+  }
+
+  .button {
+    flex: 1 1 0;
+    padding: 0.4rem 0.5rem;
+    white-space: normal;
+    line-height: 1.2;
   }
 }
 

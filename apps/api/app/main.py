@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.router import api_router
 from app.auth.supabase import SupabaseTokenVerifier
-from app.core.config import Settings, get_settings
+from app.core.config import Environment, Settings, get_settings
 from app.core.exceptions import register_exception_handlers
 from app.core.logging_config import configure_logging
 from app.db.session import Database, create_database, dispose_database
@@ -51,10 +51,14 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             application.state.database = None
             application.state.storage_gateway = None
 
+    docs_enabled = settings.environment is not Environment.PRODUCTION
     application = FastAPI(
         title=settings.app_name,
         debug=settings.debug,
         lifespan=lifespan,
+        docs_url="/docs" if docs_enabled else None,
+        redoc_url="/redoc" if docs_enabled else None,
+        openapi_url="/openapi.json" if docs_enabled else None,
     )
     application.state.settings = settings
     application.state.database = None

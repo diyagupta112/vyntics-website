@@ -10,9 +10,11 @@ import { ClientMarquee } from "@/components/sections/home/client-marquee";
 import { ContactCta } from "@/components/sections/home/contact-cta";
 import { FeaturedWork } from "@/components/sections/home/featured-work";
 import { Hero } from "@/components/sections/home/hero";
+import { HomeRecognitions, HomeRecognitionsSkeleton } from "@/components/sections/home/home-recognitions";
 import { Testimonials } from "@/components/sections/home/testimonials";
 import { WhyVyntics } from "@/components/sections/home/why-vyntics";
 import { LifeAtVynticsPreview } from "@/components/sections/home/life-at-vyntics-preview";
+import { SeeItWorking } from "@/components/sections/home/see-it-working";
 import mobileStyles from "./home-mobile.module.css";
 
 export const metadata: Metadata = {
@@ -40,6 +42,8 @@ export default function HomePage() {
     <div data-home-page className={mobileStyles.page}>
       <Hero />
       <ClientMarquee />
+      <Suspense fallback={<HomeRecognitionsSkeleton />}><HomeRecognitions /></Suspense>
+      <SeeItWorking />
       <Suspense fallback={<Capabilities linkCards />}><HomeServices /></Suspense>
       <Suspense fallback={<FeaturedWork loading eyebrow="Case studies" description="We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice" expanded />}><FeaturedWork eyebrow="Case studies" description="We build production AI and data systems that are accurate, useful, and ready to ship. Here's what that looks like in practice" expanded /></Suspense>
       <Suspense fallback={null}><HomeTestimonials /></Suspense>

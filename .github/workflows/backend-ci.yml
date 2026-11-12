@@ -1,0 +1,118 @@
+name: Backend CI
+
+on:
+  pull_request:
+    paths: ["apps/api/**", "supabase/**", ".github/**"]
+  push:
+    branches: [main]
+    paths: ["apps/api/**", "supabase/**", ".github/**"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backend-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vyntics_test
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/api
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: vyntics_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: apps/api/pyproject.toml
+
+      - name: Install dependencies and check tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]" ruff mypy pytest-cov pip-audit
+
+      - name: Lint (ruff)
+        run: ruff check app tests
+
+      # Report only for now: the code has never been type-checked, so this would flood with old, harmless errors.
+      # Tests, migrations, boot, lint and security below still block the build.
+      - name: Type check (mypy, report only)
+        continue-on-error: true
+        run: mypy app --ignore-missing-imports
+
+      - name: Apply migrations to an empty database
+        working-directory: .
+        run: |
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f .github/ci/supabase-stub.sql
+          for f in $(ls supabase/migrations/*.sql | sort); do
+            echo "Applying $f"
+            psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -q -f "$f"
+          done
+
+      - name: Tests with coverage (database tests on, no skips allowed)
+        env:
+          APP_ENVIRONMENT: test
+          RUN_DATABASE_INTEGRATION_TESTS: "1"
+        run: |
+          pytest --cov=app --cov-report=term-missing --cov-fail-under=${COVERAGE_GATE:-0} --junitxml=junit.xml
+          python - <<'PY'
+          import sys, xml.etree.ElementTree as ET
+          root = ET.parse("junit.xml").getroot()
+          suites = [root] if root.tag == "testsuite" else list(root)
+          skipped = sum(int(s.get("skipped", 0)) for s in suites)
+          total = sum(int(s.get("tests", 0)) for s in suites)
+          print(f"tests={total} skipped={skipped}")
+          if total == 0 or skipped:
+              sys.exit("Failing: tests were skipped or none ran. Every test must run in CI.")
+          PY
+
+      - name: Boot the app and call /health
+        env:
+          APP_ENVIRONMENT: test
+        run: |
+          uvicorn app.main:app --port 8000 &
+          for i in $(seq 1 30); do
+            code=$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8000/health || true)
+            [ "$code" = "200" ] && { echo "health ok"; exit 0; }
+            sleep 1
+          done
+          echo "Failing: /health did not return 200"; exit 1
+
+      - name: Dependency vulnerability scan (pip-audit)
+        run: pip-audit --skip-editable
+
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan the repo history for secrets (gitleaks)
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.18.4/gitleaks_8.18.4_linux_x64.tar.gz | tar -xz gitleaks
+          ./gitleaks detect --source . --redact --no-banner --verbose

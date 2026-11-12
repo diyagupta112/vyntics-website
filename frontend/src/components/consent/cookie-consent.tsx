@@ -31,8 +31,8 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <section className={styles.toast} role="region" aria-labelledby="cookie-consent-title">
-      <h2 id="cookie-consent-title" className={styles.title}>{settingsOpen ? "Cookie settings" : "We use cookies!"}</h2>
+    <section className={styles.toast} role="region" aria-labelledby="cookie-consent-title" data-cookie-toast>
+      <h2 id="cookie-consent-title" className={styles.title}>{settingsOpen ? "Cookie settings" : "We use cookies"}</h2>
       <p className={styles.text}>
         We use cookies to keep Vyntics working smoothly and understand how our website is used. You can accept all
         cookies or reject optional cookies. For more information, please read our{" "}

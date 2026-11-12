@@ -90,7 +90,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
         <header className={styles.header}>
           <div className={styles.headingBlock}>
             <p className={styles.eyebrow}>Thoughts from the industry</p>
-            <h2 id="blogs-title">Useful data and AI concepts</h2>
+            <h2 id="blogs-title">Knowledge and Insights Across Technology</h2>
             <p>Helpful manuals for developing dependable systems outside of the demonstration</p>
           </div>
         </header>
@@ -189,5 +189,5 @@ function BlogCover({ src }: { src: string }) {
   if (failed) return null;
   // Decorative cover; the article title provides the accessible name.
   // eslint-disable-next-line @next/next/no-img-element
-  return <img className={styles.coverImage} {...coverImgProps(src, "(max-width: 720px) 100vw, 480px")} alt="" loading="lazy" onError={() => setFailed(true)} />;
+  return <img className={styles.coverImage} {...coverImgProps(src, "(max-width: 720px) 100vw, 1000px")} alt="" loading="lazy" onError={() => setFailed(true)} />;
 }

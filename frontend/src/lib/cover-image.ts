@@ -12,6 +12,6 @@ export function isOptimizableCover(src: string) {
 /** src/srcSet/sizes for a plain <img> cover (width and height attributes stay with the caller). Storage covers are served resized and compressed; any other host keeps its original URL. */
 export function coverImgProps(src: string, sizes: string, width = 960, height = 540) {
   if (!isOptimizableCover(src)) return { src };
-  const { props } = getImageProps({ src, alt: "", width, height, sizes });
+  const { props } = getImageProps({ src, alt: "", width, height, sizes, quality: 90 });
   return { src: props.src, srcSet: props.srcSet, sizes: props.sizes };
 }

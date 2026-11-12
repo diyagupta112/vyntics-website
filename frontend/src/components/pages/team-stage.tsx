@@ -30,7 +30,7 @@ function Portrait({ member, tone, featured = false, modal = false }: {
   return (
     <div className={className}>
       {member.photo_url && !imageFailed ? (
-        <img className={styles.portraitImage} src={member.photo_url} alt={`${member.name}, Vyntics team member`} onError={() => setImageFailed(true)} />
+        <img className={styles.portraitImage} src={member.photo_url} loading="lazy" decoding="async" alt={`${member.name}, Vyntics team member`} onError={() => setImageFailed(true)} />
       ) : (
         <span aria-label={member.name}>{getInitials(member.name)}</span>
       )}
