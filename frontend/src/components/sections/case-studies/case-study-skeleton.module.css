@@ -1,6 +1,6 @@
 .featured { margin-top:1.75rem; }
 .featuredCard { cursor:default; height:auto; min-height:26rem; box-shadow:none; }
-.media { width:100%; height:100%; box-shadow:none; background:color-mix(in srgb,var(--color-border) 55%,var(--color-surface)); }
+.media { width:100%; height:100%; box-shadow:none; background:var(--skeleton-base) linear-gradient(100deg,transparent 30%,var(--skeleton-shine) 50%,transparent 70%) 0 0 / 220% 100% no-repeat; }
 .featuredTitle > span { height:clamp(1.65rem,2.5vw,2.25rem); }
 .summary { margin-top:.85rem; }
 .chips { display:flex; flex-wrap:wrap; gap:.45rem; }

@@ -50,7 +50,7 @@ export function InnerServiceDetail({ service }: { service: InnerServiceDetailCon
           </div>
           {image && <div className={styles.heroImage}>
             <div className={styles.heroImageFrame}>
-              <Image className={imageStyles.image} src={image.src} alt={image.alt} fill preload sizes="(max-width: 760px) 100vw, 50vw" />
+              <Image suppressHydrationWarning className={imageStyles.image} src={image.src} alt={image.alt} fill preload sizes="(max-width: 760px) 100vw, 50vw" />
             </div>
           </div>}
         </Container>

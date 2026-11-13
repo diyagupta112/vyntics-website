@@ -14,12 +14,12 @@ const socials = [
   { name: "X", href: siteConfig.socialLinks.twitter, color: "#0b0b0f", Icon: TwitterIcon },
   { name: "YouTube", href: siteConfig.socialLinks.youtube, color: "#e0352b", Icon: YouTubeIcon },
 ];
-const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(location.name)}&ll=${location.latitude},${location.longitude}&z=18&output=embed`;
+const mapEmbedUrl = `https://www.google.com/maps?q=${location.latitude},${location.longitude}&ll=${location.latitude},${location.longitude}&z=18&output=embed`;
 
 export function ContactUs() {
   return <>
     <section className={styles.hero} aria-labelledby="contact-us-title">
-      <Image className={styles.heroImage} src="/images/contact-us.jpg" alt="Colleagues talking around a meeting table in a bright office" fill priority sizes="100vw" />
+      <Image suppressHydrationWarning className={styles.heroImage} src="/images/contact-us.jpg" alt="Colleagues talking around a meeting table in a bright office" fill priority sizes="100vw" />
       <div className={styles.heroOverlay} aria-hidden="true" />
       <div className={styles.heroCopy}>
         <h1 id="contact-us-title">Contact us</h1>

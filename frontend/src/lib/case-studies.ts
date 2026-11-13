@@ -1,3 +1,4 @@
+import { publicFetch } from "./public-cache.ts";
 import { cache } from "react";
 import { getItemsForService, serviceContentPath, type RelatedService, type ServiceIdentifier } from "./related-services.ts";
 
@@ -98,7 +99,7 @@ async function request(path: string): Promise<unknown> {
   let response: Response;
 
   try {
-    response = await fetch(`${apiBaseUrl()}${path}`, { cache: "no-store" });
+    response = await fetch(`${apiBaseUrl()}${path}`, { ...publicFetch("case-studies") });
   } catch {
     throw new CaseStudyApiError("The case studies service could not be reached.");
   }

@@ -1,10 +1,11 @@
 .loading { min-height: 65svh; padding-block: clamp(5rem, 10vw, 8rem); }
 .loading > div { display: grid; gap: 1.2rem; }
-.loading span { display: block; border-radius: 0.45rem; background: color-mix(in srgb, var(--color-border) 65%, var(--color-surface)); animation: pulse 1.4s ease-in-out infinite; }
+.loading span { display: block; border-radius: 0.45rem; background: var(--skeleton-base) linear-gradient(100deg, transparent 30%, var(--skeleton-shine) 50%, transparent 70%) 0 0 / 220% 100% no-repeat; }
+@media (prefers-reduced-motion: no-preference) { .loading span { animation: skeletonSweep 1.5s linear infinite; } }
 .short { width: 9rem; height: 0.8rem; }
 .title { width: min(42rem, 82%); height: clamp(4rem, 8vw, 6rem); }
 .copy { width: min(38rem, 90%); height: 1.2rem; }
 .cards { margin-top: 1.5rem; display: flex; gap: 1rem; }
 .cards span { width: 9rem; height: 3.5rem; }
-@keyframes pulse { 50% { opacity: 0.45; } }
+@keyframes skeletonSweep { from { background-position: 150% 0; } to { background-position: -70% 0; } }
 @media (prefers-reduced-motion: reduce) { .loading span { animation: none; } }

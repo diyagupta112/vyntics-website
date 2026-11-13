@@ -4,7 +4,7 @@ const services = [
   {
     name: "RAG & Knowledge Assistants",
     href: "/services/ai-solutions/rag-knowledge-assistants",
-    image: "/images/technology-ai.png",
+    image: "/images/technology-ai.webp",
     imageAlt: "Robot holding a tablet, illustrating AI assistants.",
     introduction: "Give teams fast answers from approved company knowledge, with the source evidence attached to every important claim.",
   },

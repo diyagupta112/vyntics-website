@@ -50,7 +50,7 @@ function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
       <span className={styles.companyAvatar}>
         {/* Logos uploaded through the admin live on dynamic hosts. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img alt={`${company.name} logo`} className={styles.companyLogo} decoding="async" loading="lazy" src={company.logoSrc} />
+        <img suppressHydrationWarning alt={`${company.name} logo`} className={styles.companyLogo} decoding="async" loading="lazy" src={company.logoSrc} />
       </span>
     );
   }
@@ -58,7 +58,7 @@ function TestimonialMark({ testimonial }: { testimonial: Testimonial }) {
   if (company) {
     return (
       <span className={styles.companyAvatar}>
-        <Image
+        <Image suppressHydrationWarning
           alt={`${company.name} logo`}
           className={`${styles.companyLogo} ${company.logoClass}`}
           height={company.logoHeight}

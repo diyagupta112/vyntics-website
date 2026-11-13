@@ -37,7 +37,7 @@ export async function FeaturedWork({ studies, heading = "Solutions That Drive Bu
           <h2 id="featured-work-title">{heading}</h2>{description && <p>{description}</p>}
         </div></div>
         {loading ? <FeaturedCaseStudySkeleton /> : showcased.length > 0 ? <FeaturedCaseStudyCarousel studies={showcased} />
-          : <p role="status">{loading ? "Loading case studies…" : unavailable ? "Case studies are temporarily unavailable. Please try again later." : "No case studies available yet."}</p>}
+          : <p role="status">{unavailable ? "Case studies are temporarily unavailable. Please try again later." : "No case studies available yet."}</p>}
         {children}
       </Container>
     </section>

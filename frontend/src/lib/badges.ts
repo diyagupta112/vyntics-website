@@ -1,3 +1,4 @@
+import { publicFetch } from "./public-cache.ts";
 import { cache } from "react";
 
 /** Public /badges contract; tier, recognition date, and logo alt are not exposed. */
@@ -33,7 +34,7 @@ export function isBadge(value: unknown): value is Badge {
 
 export const getBadges = cache(async (): Promise<Badge[]> => {
   const base = (process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
-  const response = await fetch(`${base}/badges`, { cache: "no-store", signal: AbortSignal.timeout(5000) });
+  const response = await fetch(`${base}/badges`, { ...publicFetch("badges"), signal: AbortSignal.timeout(5000) });
   if (!response.ok) throw new Error("The recognitions request failed.");
   const payload: unknown = await response.json();
   if (!payload || typeof payload !== "object" || !("data" in payload) || !Array.isArray(payload.data) || !payload.data.every(isBadge)) {

@@ -12,8 +12,8 @@ const storageHostname = (() => {
 const nextConfig: NextConfig = {
   compiler: { styledComponents: true },
   images: {
-    // Next rounds any requested quality (including the default 75) to the nearest value listed here.
-    qualities: [90],
+    // Next rounds any requested quality to the nearest value listed here, so 75 (the default) and 90 are both honored.
+    qualities: [75, 90],
     formats: ["image/avif", "image/webp"],
     remotePatterns: storageHostname ? [{ protocol: "https", hostname: storageHostname, pathname: "/storage/v1/object/public/**" }] : [],
   },

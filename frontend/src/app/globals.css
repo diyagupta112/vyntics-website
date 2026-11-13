@@ -279,3 +279,58 @@ a[class*="heroAction"]:not([data-arrow-fill])::before { display: none; }
   box-shadow: 0 0.5rem 1.1rem color-mix(in srgb, var(--color-primary) 30%, transparent);
   transform: translateY(-1px);
 }
+
+/* Skeleton tokens: a solid light grey with a lighter band that moves across it. */
+:root {
+  --skeleton-base: #e5e7eb;
+  --skeleton-shine: #f3f4f6;
+}
+
+/* Image skeletons. The script in layout.tsx sets data-img-loading while an image downloads and data-img-reveal when the placeholder was visible. Images that are already cached are never
+   tagged. :where() keeps specificity at zero so component styles always win. */
+:where(img[data-img-loading], [data-skeleton]) {
+  background-color: var(--skeleton-base);
+  background-image: linear-gradient(100deg, transparent 30%, var(--skeleton-shine) 50%, transparent 70%);
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+}
+
+:where(img[data-img-loading], img[data-img-failed]) {
+  color: transparent;
+}
+
+/* A failed image keeps a plain grey box (no shimmer, no icon or text), so no empty or white frame is left behind. */
+:where(img[data-img-failed]) {
+  background-color: var(--skeleton-base);
+}
+
+/* Images in article bodies have no fixed size, so they would collapse to nothing while loading. Reserve a neutral
+   minimum height; once loaded the placeholder rule goes away and the image takes its natural aspect ratio. */
+:where(figure > img[data-img-loading]:not([width]):not([height])) {
+  display: block;
+  width: 100%;
+  min-height: 14rem;
+}
+
+:where(img[data-img-reveal]) {
+  animation: img-reveal 320ms ease-out;
+}
+
+@keyframes img-reveal {
+  from { opacity: 0; }
+}
+
+@keyframes skeleton-shimmer {
+  from { background-position: 150% 0; }
+  to { background-position: -70% 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :where(img[data-img-loading], [data-skeleton]) {
+    animation: skeleton-shimmer 1.5s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(img[data-img-reveal]) { animation: none; }
+}

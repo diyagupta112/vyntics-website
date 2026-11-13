@@ -161,7 +161,10 @@ export async function POST(request: Request) {
           messages: [{ role: "system", content: systemPrompt }, ...messages],
         }),
       });
-      if (!response.ok) return Response.json({ error: "upstream_error" }, { status: 502 });
+      if (!response.ok) {
+        console.error("Chat: Groq returned", response.status, (await response.text()).slice(0, 300));
+        return Response.json({ error: "upstream_error" }, { status: 502 });
+      }
       const data = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
       reply = data.choices?.[0]?.message?.content?.trim();
     } else {
@@ -178,9 +181,13 @@ export async function POST(request: Request) {
       const data = (await response.json()) as { content?: Array<{ type: string; text?: string }> };
       reply = data.content?.find((part) => part.type === "text")?.text?.trim();
     }
-    if (!reply) return Response.json({ error: "empty" }, { status: 502 });
+    if (!reply) {
+      console.error("Chat: the model returned an empty reply");
+      return Response.json({ error: "empty" }, { status: 502 });
+    }
     return Response.json({ reply: toPlainText(reply) });
-  } catch {
+  } catch (error) {
+    console.error("Chat: request to the AI provider failed", error);
     return Response.json({ error: "upstream_error" }, { status: 502 });
   }
 }

@@ -334,6 +334,9 @@
 }
 
 .placeholderCard { overflow: hidden; }
+/* Only while the team list is loading: the shared grey skeleton instead of the tinted placeholder portraits. */
+.loadingStage .memberPortrait, .loadingStage .founderPortrait { background: var(--skeleton-base) linear-gradient(100deg, transparent 30%, var(--skeleton-shine) 50%, transparent 70%) 0 0 / 220% 100% no-repeat; }
+@media (prefers-reduced-motion: no-preference) { .loadingStage .memberPortrait, .loadingStage .founderPortrait { animation: skeletonSweep 1.5s linear infinite; } }
 
 .profileDialog {
   width: min(49rem, calc(100% - 2rem));
@@ -437,7 +440,7 @@
 .closeButton:focus-visible { outline: 3px solid rgb(20 83 219 / 28%); outline-offset: 2px; }
 
 .loadingBlock { width: 100%; margin-top: 1.5rem; display: grid; gap: 0.65rem; }
-.loadingBlock span { height: 0.7rem; border-radius: 62.4375rem; background: rgb(20 83 219 / 10%); animation: shimmer 1.2s ease-in-out infinite alternate; }
+.loadingBlock span { height: 0.7rem; border-radius: 62.4375rem; background: var(--skeleton-base) linear-gradient(100deg, transparent 30%, var(--skeleton-shine) 50%, transparent 70%) 0 0 / 220% 100% no-repeat; animation: skeletonSweep 1.5s linear infinite; }
 .loadingBlock span:nth-child(2) { width: 88%; }
 .loadingBlock span:nth-child(3) { width: 62%; }
 .loadingBlock p { margin-top: 0.3rem; color: rgb(11 11 15 / 54%); font-size: 0.78rem; }
@@ -445,9 +448,9 @@
 .dialogError { margin-top: 1.5rem; color: rgb(11 11 15 / 66%); font-size: 0.88rem; line-height: 1.55; }
 .dialogError button { margin-top: 1rem; padding: 0.7rem 1rem; color: #ffffff; border: 0; border-radius: 0.65rem; background: var(--team-accent); font: inherit; font-weight: 700; cursor: pointer; }
 
-@keyframes shimmer {
-  from { opacity: 0.48; }
-  to { opacity: 1; }
+@keyframes skeletonSweep {
+  from { background-position: 150% 0; }
+  to { background-position: -70% 0; }
 }
 
 @media (prefers-reduced-motion: no-preference) {

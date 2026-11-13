@@ -23,7 +23,7 @@ type Entry = { key: number; index: number; exiting: boolean };
 
 function Thumbnail({ item, semantic = false }: { item: RecognitionUpdate; semantic?: boolean }) {
   return <span className={`${styles.thumbnail} ${item.type === "testimonial" && !item.image ? styles.avatar : ""}`} data-badge={item.id}>
-    {item.image ? <Image src={item.image} alt={semantic ? item.imageAlt ?? "" : ""} width={72} height={72} loading="eager" unoptimized />
+    {item.image ? <Image suppressHydrationWarning src={item.image} alt={semantic ? item.imageAlt ?? "" : ""} width={72} height={72} loading="eager" unoptimized />
       : item.type === "testimonial" ? <span aria-hidden="true">{item.initials ?? ""}</span>
       : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 8 4v6c0 4-8 8-8 8s-8-4-8-8V7l8-4Zm-4 9 3 3 5-6" /></svg>}
   </span>;

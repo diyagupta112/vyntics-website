@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLayoutEffect, useRef } from "react";
 import { Container } from "@/components/ui/container";
+import { useNearViewport } from "@/components/ui/near-viewport";
 import { BadgeLogo } from "@/components/sections/recognitions/badge-logo";
 import { serviceSitemap } from "@/content/service-sitemap";
 import type { Badge } from "@/lib/badges";
@@ -44,7 +45,7 @@ const capabilityDetails: ReadonlyArray<{
   {
     pillar: "ai-solutions",
     anchor: "services-ai",
-    image: "/images/technology-ai.png",
+    image: "/images/technology-ai.webp",
     imageAlt: "Humanoid service robot in a workplace",
     imagePosition: "58% center",
     description:
@@ -58,7 +59,7 @@ const capabilityDetails: ReadonlyArray<{
   {
     pillar: "cloud-foundations",
     anchor: "services-cloud",
-    image: "/images/technology-Cloud%20Operations.png",
+    image: "/images/technology-Cloud%20Operations.webp",
     imageAlt: "Engineers monitoring cloud infrastructure",
     imagePosition: "58% center",
     description:
@@ -138,6 +139,8 @@ export function Capabilities({
   badges = [],
 }: CapabilitiesProps = {}) {
   const showcaseRef = useRef<HTMLDivElement>(null);
+  // The stage viewport clips off-screen panels, so watch the whole showcase (vertical distance) and load panels after the first together.
+  const nearShowcase = useNearViewport(showcaseRef, "800px");
 
   useLayoutEffect(() => {
     if (!linkCards) return;
@@ -313,11 +316,11 @@ export function Capabilities({
         <div ref={showcaseRef} className={styles.showcase} role="region" tabIndex={0} aria-label="Service details. Scroll or use the left and right arrow keys to explore services.">
           <div className={styles.showcaseViewport} data-service-viewport>
             <div className={styles.showcaseTrack} data-service-track>
-              {capabilities.map((capability) => (
+              {capabilities.map((capability, panelIndex) => (
                 <article id={capability.anchor} className={styles.showcasePanel} key={capability.pillar} data-service-card>
                   <Link className={styles.cardLink} href={capability.href} aria-label={`Explore ${capability.title}`} data-service-main-link />
                   <div className={styles.showcaseMedia} data-home-service-media>
-                    <Image
+                    {(panelIndex === 0 || nearShowcase) ? <Image
                       className={styles.showcaseImage}
                       src={capability.image}
                       alt={capability.imageAlt}
@@ -325,8 +328,10 @@ export function Capabilities({
                       // The panel is tall and narrow, so the cover crop displays these landscape photos much wider than the panel itself.
                       sizes="(max-width: 960px) 100vw, 1400px"
                       quality={90}
+                      // Panels after the first only mount once the showcase is near, so they must not wait again for native lazy loading (the stage clips them, which would delay the download until they are on screen).
+                      loading={panelIndex === 0 ? undefined : "eager"}
                       style={{ objectPosition: capability.imagePosition }}
-                    />
+                    /> : <span className={styles.showcasePlaceholder} aria-hidden="true" />}
                     <span className={styles.showcaseImageShade} aria-hidden="true" />
                   </div>
                   <div className={styles.showcaseCopy} data-home-service-copy>

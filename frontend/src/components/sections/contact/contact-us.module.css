@@ -1,5 +1,5 @@
 /* Full-width hero in the same layout as the legal pages: the photograph spans the page and the text sits centered over it. */
-.hero { position: relative; display: grid; place-items: center; min-height: clamp(16rem, 28vw, 22rem); margin-bottom: clamp(1.5rem, 3vw, 2.5rem); padding: 3rem var(--page-gutter, 1.5rem); overflow: hidden; isolation: isolate; background: var(--color-ink); text-align: center; }
+.hero { position: relative; display: grid; place-items: center; min-height: clamp(16rem, 28vw, 22rem); margin-bottom: clamp(1.5rem, 3vw, 2.5rem); padding: 3rem var(--page-gutter, 1.5rem); overflow: hidden; isolation: isolate; background: var(--skeleton-base); text-align: center; }
 .heroImage { z-index: -2; object-fit: cover; object-position: center 40%; }
 .heroOverlay { position: absolute; inset: 0; z-index: -1; background: rgb(0 0 0 / 48%); }
 .heroCopy { max-width: 36rem; padding: clamp(1.25rem, 3vw, 2.25rem); text-align: center; color: #fff; }

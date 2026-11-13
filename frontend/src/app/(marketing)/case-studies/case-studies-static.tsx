@@ -7,7 +7,7 @@ function ArrowIcon() { return <svg viewBox="0 0 20 20" aria-hidden="true"><path 
 export function CaseStudiesHero() { return (
       <section className={styles.hero} aria-labelledby="case-studies-title">
         <div className={styles.heroCarousel} aria-hidden="true">
-          <Image className={styles.heroImage} src="/images/case-studies/team-project-discussion.jpg" alt="Vyntics team discussing a technology project together" fill sizes="100vw" loading="eager" fetchPriority="high" />
+          <Image suppressHydrationWarning className={styles.heroImage} src="/images/case-studies/team-project-discussion.jpg" alt="Vyntics team discussing a technology project together" fill sizes="100vw" loading="eager" fetchPriority="high" />
         </div>
         <div className={styles.heroShade} aria-hidden="true" />
         <Container className={styles.heroInner}>

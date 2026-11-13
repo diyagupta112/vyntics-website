@@ -16,7 +16,7 @@ export function AiWhy() {
   return <section id="ai-why" className={styles.section} aria-labelledby="ai-why-title">
     <Container className={styles.layout}>
       <div className={styles.image} data-reveal="ai-why-image">
-        <Image src={aiImage} alt="Vyntics team discussing an AI project around a meeting table with laptops and printed charts" fill quality={90} sizes="(max-width: 900px) 100vw, 1000px" />
+        <Image suppressHydrationWarning src={aiImage} alt="Vyntics team discussing an AI project around a meeting table with laptops and printed charts" fill quality={90} sizes="(max-width: 900px) 100vw, 1000px" />
       </div>
       <div className={styles.content}>
         <header data-reveal="ai-why-heading" data-reveal-delay="90">

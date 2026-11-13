@@ -29,7 +29,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
       title: "Cloud Migration Services For Your Next Move",
       introduction: "Our cloud migration services help you move applications and data with a clear cloud migration strategy, tested cutover steps, and an operating plan your team can use.",
       outcome: "Move with a clear plan and a tested path to production.", cta: "Discuss your cloud migration",
-      expectedImage: "/images/services/our-services-section/cloud-migration-v2.png", imageAlt: "Cloud architecture and workload migration planning",
+      expectedImage: "/images/services/our-services-section/cloud-migration-v2.webp", imageAlt: "Cloud architecture and workload migration planning",
     },
     signs: {
       id: "migration-signs", title: "Signs You Need To Migrate",
@@ -98,7 +98,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
   devops: {
     key: "devops", slug: "devops-reliability", name: "DevOps & Reliability", keyword: "DevOps consulting services",
     seoTitle: "DevOps Consulting Services | Vyntics", seoDescription: "Vyntics DevOps consulting services help you improve CI/CD pipelines, infrastructure as code, monitoring, and production reliability.",
-    hero: { title: "DevOps Consulting Services For Reliable Releases", introduction: "Our DevOps consulting services help your team make deployments repeatable, see production issues sooner, and recover with clearer operating procedures.", outcome: "Release faster, break less", cta: "Get a free DevOps assessment", expectedImage: "/images/services/our-services-section/devops-and-reliability-2.png", imageAlt: "Developer working with code and system monitoring on two screens" },
+    hero: { title: "DevOps Consulting Services For Reliable Releases", introduction: "Our DevOps consulting services help your team make deployments repeatable, see production issues sooner, and recover with clearer operating procedures.", outcome: "Release faster, break less", cta: "Get a free DevOps assessment", expectedImage: "/images/services/our-services-section/devops-and-reliability-2.webp", imageAlt: "Developer working with code and system monitoring on two screens" },
     signs: { id: "devops-signs", title: "Signs You Need DevOps", introduction: "Repeated release and reliability problems make it harder to deliver changes with confidence. These signals help show where a more consistent approach can help.", items: [
       { title: "Shipping a release takes a long time and a lot of effort", description: "Releases rely on remembered commands, individual access or manual checks instead of a CI/CD pipeline." },
       { title: "Outages keep happening, and the team is always busy restoring service", description: "Changes often go live without enough testing or an easy rollback, so problems reach users first." },
@@ -154,7 +154,7 @@ export const cloudSubPages: Record<CloudSubPageKey, CloudSubPage> = {
   cost: {
     key: "cost", slug: "cloud-cost-optimization", name: "Cloud Cost Optimization", keyword: "cloud cost optimization services",
     seoTitle: "Cloud Cost Optimization Services | Vyntics", seoDescription: "Vyntics cloud cost optimization services help you review spend, rightsize resources, evaluate commitments, and build practical FinOps controls.",
-    hero: { title: "Cloud Cost Optimization Services", introduction: "Our cloud cost optimization services help you reduce cloud costs by connecting your bill to resource usage, ownership, and the performance your applications need.", outcome: "Pay only for the cloud you actually use", cta: "Get a free cloud cost audit", expectedImage: "/images/services/our-services-section/cloud-cost-optimization.png", imageAlt: "Laptop displaying a cloud cost dashboard with usage and spending charts" },
+    hero: { title: "Cloud Cost Optimization Services", introduction: "Our cloud cost optimization services help you reduce cloud costs by connecting your bill to resource usage, ownership, and the performance your applications need.", outcome: "Pay only for the cloud you actually use", cta: "Get a free cloud cost audit", expectedImage: "/images/services/our-services-section/cloud-cost-optimization.webp", imageAlt: "Laptop displaying a cloud cost dashboard with usage and spending charts" },
     signs: { id: "cost-signs", title: "Why Cloud Bills Keep Growing", introduction: "A rising bill can reflect real demand, avoidable waste, or a mix of both. We investigate the reasons before changing resources.", items: [
       { title: "Your cloud bill keeps rising, even in months when little has changed", description: "Unused development environments or resources with little activity continue to generate charges." },
       { title: "Monitoring shows servers using only a fraction of what you pay for", description: "Capacity was chosen for a peak or an early estimate, but actual usage no longer supports that size." },

@@ -1,5 +1,14 @@
 import { timingSafeEqual } from "node:crypto";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
+import { PUBLIC_CACHE_TAGS, type PublicCacheTag } from "@/lib/public-cache";
+
+// Also clears cached public API data. Body is optional: {"tags": ["blogs", "team"]}.
+// With no body (the existing trigger), every public data tag is cleared.
+async function requestedTags(request: Request): Promise<PublicCacheTag[]> {
+  const body = await request.json().catch(() => null) as { tags?: unknown } | null;
+  if (!body || !Array.isArray(body.tags)) return [...PUBLIC_CACHE_TAGS];
+  return PUBLIC_CACHE_TAGS.filter((tag) => (body.tags as unknown[]).includes(tag));
+}
 
 export async function POST(request: Request) {
   const secret = process.env.SITEMAP_REVALIDATION_SECRET;
@@ -13,6 +22,8 @@ export async function POST(request: Request) {
     return Response.json({ error: "Unauthorized." }, { status: 401 });
   }
 
+  const tags = await requestedTags(request);
+  for (const tag of tags) revalidateTag(tag, { expire: 0 });
   revalidatePath("/sitemap.xml");
-  return Response.json({ revalidated: true, message: "Sitemap will regenerate on its next request." });
+  return Response.json({ revalidated: true, tags, message: "Cached data cleared. The sitemap will regenerate on its next request." });
 }

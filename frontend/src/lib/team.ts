@@ -1,3 +1,4 @@
+import { publicFetch } from "./public-cache.ts";
 export type TeamMember = {
   id: string;
   name: string;
@@ -55,7 +56,7 @@ function apiBaseUrl() {
 export async function getTeamMembers(): Promise<TeamMember[]> {
   try {
     const response = await fetch(`${apiBaseUrl()}/our-team`, {
-      cache: "no-store",
+      ...publicFetch("team"),
       signal: AbortSignal.timeout(5000),
     });
     if (!response.ok) return [];

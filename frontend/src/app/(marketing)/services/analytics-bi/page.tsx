@@ -38,8 +38,8 @@ function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
-function ReservedContent({ count, message }: { count: number; message: string }) {
-  return <div><p className={styles.contentState} role="status">{message}</p><div className={count === 2 ? styles.projectGrid : styles.insightsGrid} aria-hidden="true">{Array.from({ length: count }, (_, index) => <div className={styles.reservedSlot} key={index}><span>{String(index + 1).padStart(2, "0")}</span><div /><div /></div>)}</div></div>;
+function ReservedContent({ count, message, loading = false }: { count: number; message?: string; loading?: boolean }) {
+  return <div>{!loading && <p className={styles.contentState} role="status">{message}</p>}<div className={count === 2 ? styles.projectGrid : styles.insightsGrid} aria-hidden={loading ? undefined : "true"} role={loading ? "status" : undefined} aria-label={loading ? "Loading content" : undefined}>{Array.from({ length: count }, (_, index) => <div className={styles.reservedSlot} data-skeleton={loading ? "" : undefined} key={index}><span>{String(index + 1).padStart(2, "0")}</span><div /><div /></div>)}</div></div>;
 }
 
 async function AnalyticsProjects() {
@@ -114,7 +114,7 @@ export default function AnalyticsBiPage() {
       <section className={`${styles.workBridge} ${styles.noTopRule}`} aria-labelledby="analytics-work-title" data-cloud-section="Case studies">
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>CASE STUDIES</p><h2 id="analytics-work-title">Case Studies</h2><p className={styles.contentState}>{analyticsContent.caseStudiesIntroduction}</p></header>
-          <Suspense fallback={<ReservedContent count={2} message="Loading case studies…" />}><AnalyticsProjects /></Suspense>
+          <Suspense fallback={<ReservedContent count={2} loading />}><AnalyticsProjects /></Suspense>
           <Link className={styles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
       </section>
@@ -124,7 +124,7 @@ export default function AnalyticsBiPage() {
       <section className={`${styles.context} ${styles.noTopRule}`} aria-labelledby="analytics-insights-title" data-cloud-section="Related insights">
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="analytics-insights-title">Related Insights</h2></header>
-          <Suspense fallback={<ReservedContent count={3} message="Loading related insights…" />}><AnalyticsInsights /></Suspense>
+          <Suspense fallback={<ReservedContent count={3} loading />}><AnalyticsInsights /></Suspense>
           <ArrowFillButton compact alignEnd className={styles.secondaryAction} href="/blog">View all insights</ArrowFillButton>
         </Container>
       </section>

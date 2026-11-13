@@ -16,7 +16,7 @@ export function DataWhy() {
   return <section id="data-why" className={styles.section} aria-labelledby="data-why-title">
     <Container className={styles.layout}>
       <div className={styles.image} data-reveal="data-why-image">
-        <Image src={dataImage} alt="Vyntics data engineering team joining hands over a meeting table in a show of teamwork" fill quality={90} sizes="(max-width: 900px) 100vw, 1000px" />
+        <Image suppressHydrationWarning src={dataImage} alt="Vyntics data engineering team joining hands over a meeting table in a show of teamwork" fill quality={90} sizes="(max-width: 900px) 100vw, 1000px" />
       </div>
       <div className={styles.content}>
         <header data-reveal="data-why-heading" data-reveal-delay="90">

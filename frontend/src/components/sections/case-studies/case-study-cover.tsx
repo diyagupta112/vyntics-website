@@ -13,6 +13,6 @@ export function CaseStudyCover({ src, title, className, optimized = false }: { s
       <span style={{ fontSize: ".8rem" }}>Project preview unavailable</span>
     </div>
   );
-  if (optimized) return <Image unoptimized={!isOptimizableCover(src)} className={className} src={src} alt={`${title} project cover`} width={960} height={540} sizes={COVER_SIZES} onError={() => setFailedSource(src)} />;
-  return <img className={className} {...coverImgProps(src, COVER_SIZES)} alt={`${title} project cover`} width="960" height="540" onError={() => setFailedSource(src)} />;
+  if (optimized) return <Image suppressHydrationWarning unoptimized={!isOptimizableCover(src)} className={className} src={src} alt={`${title} project cover`} width={960} height={540} sizes={COVER_SIZES} onError={() => setFailedSource(src)} />;
+  return <img suppressHydrationWarning className={className} {...coverImgProps(src, COVER_SIZES)} alt={`${title} project cover`} width="960" height="540" onError={() => setFailedSource(src)} />;
 }

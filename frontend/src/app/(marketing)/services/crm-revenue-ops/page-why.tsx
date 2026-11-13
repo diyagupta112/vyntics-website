@@ -9,7 +9,7 @@ export function PageWhy() {
   return <section id="crm-why" className={styles.section} aria-labelledby="crm-why-title" data-cloud-section="Why Vyntics for crm">
     <Container className={styles.layout}>
         <div className={styles.image} data-reveal="crm-why-image">
-          <Image src={content.whyImage.src} alt={content.whyImage.alt} fill sizes="(max-width: 900px) 100vw, 40vw" />
+          <Image suppressHydrationWarning src={content.whyImage.src} alt={content.whyImage.alt} fill sizes="(max-width: 900px) 100vw, 40vw" />
         </div>
         <div className={styles.content}>
           <header data-reveal="crm-why-heading" data-reveal-delay="90">

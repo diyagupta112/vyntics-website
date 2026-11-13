@@ -176,7 +176,7 @@ export function BlogShowcase({ blogs, unavailable = false, loading = false }: { 
           </div>
 
         </div>
-        </> : <p className={styles.empty} role="status">{loading ? "Loading articles…" : unavailable ? "Articles are temporarily unavailable. Please try again later." : "No articles available yet."}</p>}
+        </> : loading ? <div className={styles.expandingCards} role="status" aria-label="Loading articles"><div data-skeleton="" style={{ flex: 1, borderRadius: "1.15rem" }} /><div data-skeleton="" style={{ flex: 0.6, borderRadius: "1.15rem" }} /><div data-skeleton="" style={{ flex: 0.6, borderRadius: "1.15rem" }} /></div> : <p className={styles.empty} role="status">{unavailable ? "Articles are temporarily unavailable. Please try again later." : "No articles available yet."}</p>}
         {articles.length === 0 && <div className={styles.viewAllRow}>
           <ArrowFillButton compact className={styles.viewAll} href="/blog">View all Blogs</ArrowFillButton>
         </div>}
@@ -190,5 +190,5 @@ function BlogCover({ src }: { src: string }) {
   if (failed) return null;
   // Decorative cover; the article title provides the accessible name.
   // eslint-disable-next-line @next/next/no-img-element
-  return <img className={styles.coverImage} {...coverImgProps(src, "(max-width: 720px) 100vw, 1000px")} alt="" loading="lazy" onError={() => setFailed(true)} />;
+  return <img suppressHydrationWarning className={styles.coverImage} {...coverImgProps(src, "(max-width: 720px) 100vw, 1000px")} alt="" loading="lazy" onError={() => setFailed(true)} />;
 }

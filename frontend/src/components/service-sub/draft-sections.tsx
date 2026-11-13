@@ -103,7 +103,7 @@ function MigrationBenefits({ section, visual }: { section: SubSection; visual?: 
           </ol>
         </div>
         <div className={improvements.visual} data-reveal={`${section.id}-image`} data-reveal-delay="90">
-          <Image src={image.src} alt={image.alt} fill sizes="(max-width: 960px) 100vw, (max-width: 1440px) 43vw, 500px" />
+          <Image suppressHydrationWarning src={image.src} alt={image.alt} fill sizes="(max-width: 960px) 100vw, (max-width: 1440px) 43vw, 500px" />
         </div>
       </div>
     </Container>

@@ -1,9 +1,9 @@
 import type { StaticImageData } from "next/image";
-import akashImage from "../../../../public/images/careers/team/akash-chaurasia.png";
-import diyaImage from "../../../../public/images/careers/team/diya-gupta.png";
-import vedImage from "../../../../public/images/careers/team/ved-sharma.png";
-import vibhuImage from "../../../../public/images/careers/team/vibhu-pratap.png";
-import vipulImage from "../../../../public/images/careers/team/vipul-sharma.png";
+import akashImage from "../../../../public/images/careers/team/akash-chaurasia.webp";
+import diyaImage from "../../../../public/images/careers/team/diya-gupta.webp";
+import vedImage from "../../../../public/images/careers/team/ved-sharma.webp";
+import vibhuImage from "../../../../public/images/careers/team/vibhu-pratap.webp";
+import vipulImage from "../../../../public/images/careers/team/vipul-sharma.webp";
 
 export type TeamTestimonial = {
   id: string;

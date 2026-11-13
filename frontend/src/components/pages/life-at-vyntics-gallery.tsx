@@ -3,6 +3,7 @@
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import type { LifeAtVynticsImage } from "@/lib/life-at-vyntics";
+import { coverImgProps } from "@/lib/cover-image";
 import { clampRatio, composeBatch, shapeOf, type Block, type Placed } from "@/lib/life-at-vyntics-layout";
 import styles from "./life-at-vyntics.module.css";
 
@@ -80,7 +81,7 @@ export function LifeAtVynticsGallery({ images }: { images: LifeAtVynticsImage[] 
   const tile = ({ image, number, ratio }: Placed, extra?: string) => <figure key={image.id}
     className={extra ? `${styles.tile} ${extra}` : styles.tile} data-shape={shapeOf(ratio)}
     style={vars({ "--r": ratio.toFixed(3), "--rm": stackRatio(ratio).toFixed(3) })}>
-    {!broken.has(image.id) && <img className={styles.image} src={image.image_url} alt={`Vyntics team moment ${number}`} loading="lazy" decoding="async"
+    {!broken.has(image.id) && <img suppressHydrationWarning className={styles.image} {...coverImgProps(image.image_url, "(max-width: 720px) 100vw, 640px", 960, 720)} alt={`Vyntics team moment ${number}`} loading="lazy" decoding="async"
       onError={() => setBroken(current => new Set(current).add(image.id))} />}
   </figure>;
 

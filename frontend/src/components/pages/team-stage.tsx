@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import type { TeamMember, TeamMemberSummary } from "@/lib/team";
 import { isTeamMember } from "@/lib/team";
+import { coverImgProps } from "@/lib/cover-image";
 import styles from "./team-showcase.module.css";
 
 const portraitTones = ["violet", "blue", "teal", "cyan", "indigo"] as const;
@@ -30,7 +31,7 @@ function Portrait({ member, tone, featured = false, modal = false }: {
   return (
     <div className={className}>
       {member.photo_url && !imageFailed ? (
-        <img className={styles.portraitImage} src={member.photo_url} loading="lazy" decoding="async" alt={`${member.name}, Vyntics team member`} onError={() => setImageFailed(true)} />
+        <img suppressHydrationWarning className={styles.portraitImage} {...coverImgProps(member.photo_url, "(max-width: 720px) 90vw, 480px", 640, 800)} loading="lazy" decoding="async" alt={`${member.name}, Vyntics team member`} onError={() => setImageFailed(true)} />
       ) : (
         <span aria-label={member.name}>{getInitials(member.name)}</span>
       )}
@@ -69,6 +70,10 @@ function MemberCard({ member, index, compact = false, onOpen }: {
   );
 }
 
+// Remembers fetched profiles for a minute so reopening a member does not repeat the request. Expires so edits show up.
+const DETAIL_TTL_MS = 60_000;
+const detailCache = new Map<string, { at: number; member: TeamMember }>();
+
 type DetailState = { status: "loading" } | { status: "success"; member: TeamMember } | { status: "error" };
 
 function TeamMemberDialog({ summary, onDismiss }: { summary: TeamMemberSummary; onDismiss: () => void }) {
@@ -93,6 +98,11 @@ function TeamMemberDialog({ summary, onDismiss }: { summary: TeamMemberSummary; 
   }, []);
 
   useEffect(() => {
+    const cached = detailCache.get(summary.id);
+    if (cached && Date.now() - cached.at < DETAIL_TTL_MS && requestKey === 0) {
+      setDetail({ status: "success", member: cached.member });
+      return;
+    }
     const controller = new AbortController();
     const baseUrl = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://127.0.0.1:8000").replace(/\/$/, "");
     void fetch(`${baseUrl}/our-team/${encodeURIComponent(summary.id)}`, { cache: "no-store", signal: controller.signal })
@@ -100,6 +110,7 @@ function TeamMemberDialog({ summary, onDismiss }: { summary: TeamMemberSummary; 
         if (!response.ok) throw new Error("Team member request failed");
         const payload: unknown = await response.json();
         if (!isTeamMember(payload) || payload.id !== summary.id) throw new Error("Invalid team member response");
+        detailCache.set(summary.id, { at: Date.now(), member: payload });
         setDetail({ status: "success", member: payload });
       })
       .catch((error: unknown) => {
@@ -134,7 +145,7 @@ function TeamMemberDialog({ summary, onDismiss }: { summary: TeamMemberSummary; 
           <p className={styles.dialogRole}>{displayedMember.role}</p>
 
           {detail.status === "loading" ? (
-            <div className={styles.loadingBlock} role="status" aria-live="polite"><span /><span /><span /><p>Loading profile…</p></div>
+            <div className={styles.loadingBlock} role="status" aria-live="polite" aria-label="Loading profile"><span /><span /><span /></div>
           ) : detail.status === "error" ? (
             <div className={styles.dialogError} role="alert">
               <p>We could not load this profile. Please try again.</p>

@@ -11,9 +11,9 @@ function PlaceholderCard({ compact = false, tone = "blue" }: { compact?: boolean
   );
 }
 
-function PlaceholderTeamStage() {
+function PlaceholderTeamStage({ loading = false }: { loading?: boolean }) {
   return (
-    <div className={`${styles.teamStage} ${styles.placeholderStage}`} aria-hidden="true">
+    <div className={`${styles.teamStage} ${styles.placeholderStage}${loading ? ` ${styles.loadingStage}` : ""}`} aria-hidden="true">
       <div className={styles.sideColumn}>
         <PlaceholderCard tone="violet" />
         <PlaceholderCard tone="blue" />
@@ -29,6 +29,24 @@ function PlaceholderTeamStage() {
         <PlaceholderCard tone="cyan" />
       </div>
     </div>
+  );
+}
+
+// Same section and heading as the loaded team, with the existing placeholder stage, shown while the team list loads.
+export function TeamShowcaseSkeleton() {
+  return (
+    <section id="team" className={styles.page} aria-labelledby="team-title" aria-busy="true">
+      <Container className={styles.teamContainer}>
+        <header className={styles.heading}>
+          <p>Meet Vyntics</p>
+          <div className={styles.titleRow}>
+            <h2 id="team-title">Our Team</h2>
+          </div>
+          <p className={styles.intro}>The people responsible for the systems we design, build, and deliver.</p>
+        </header>
+        <PlaceholderTeamStage loading />
+      </Container>
+    </section>
   );
 }
 

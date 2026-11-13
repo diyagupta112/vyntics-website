@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Suspense, type CSSProperties } from "react";
 import { FeaturedWork } from "@/components/sections/home/featured-work";
 import { Container } from "@/components/ui/container";
+import { NearViewport } from "@/components/ui/near-viewport";
 import { ProcessStack } from "./process-stack";
 import styles from "./page.module.css";
 
@@ -13,9 +14,9 @@ export const metadata: Metadata = {
 };
 
 const technologyGroups = [
-  { label: "AI Solutions", image: "/images/technology-ai.png", description: "AI systems designed for practical business applications, intelligent automation, and grounded responses.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "LangChain", "Google Gemini", "Pinecone", "LangGraph", "PGVector", "RAG", "LLM Assessment"] },
+  { label: "AI Solutions", image: "/images/technology-ai.webp", description: "AI systems designed for practical business applications, intelligent automation, and grounded responses.", tools: ["OpenAI", "Azure OpenAI", "Anthropic", "LangChain", "Google Gemini", "Pinecone", "LangGraph", "PGVector", "RAG", "LLM Assessment"] },
   { label: "Data Engineering", image: "/images/technology-Data-Engineering.jpg", description: "Ingestion, transformation, storage, modeling, and controlled access are all reliable.", tools: ["Snowflake", "dbt", "PostgreSQL", "Python", "SQL", "Apache Spark", "Apache Airflow", "Kafka", "AWS Glue", "Amazon S3"] },
-  { label: "Cloud Foundations", image: "/images/technology-Cloud%20Operations.png", description: "Infrastructure that is observable, secure, and built on dependability and affordability.", tools: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "AWS Fargate", "GitHub Actions", "CI/CD", "Observability"] },
+  { label: "Cloud Foundations", image: "/images/technology-Cloud%20Operations.webp", description: "Infrastructure that is observable, secure, and built on dependability and affordability.", tools: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes", "Terraform", "AWS Fargate", "GitHub Actions", "CI/CD", "Observability"] },
   { label: "CRM & Revenue Ops", image: "/images/technology-CRM.jpg", description: "Automation throughout the customer lifetime, sales processes, and linked customer data.", tools: ["Salesforce", "HubSpot", "Dynamics 365", "Zoho CRM", "Salesforce Flow", "HubSpot Workflows", "Power Automate", "n8n", "REST APIs", "MuleSoft"] },
   { label: "Analytics & BI", image: "/images/technology-Analytics%26BI.jpg", description: "Data is transformed into understandable decisions through shared metrics and reporting layers.", tools: ["Power BI", "Tableau", "QuickSight", "Looker", "Grafana", "DAX", "Power Query", "Semantic models", "KPI modeling"] },
 ] as const;
@@ -43,6 +44,14 @@ const process = [
   },
 ] as const;
 
+// The card photos are CSS backgrounds, so next/image cannot optimize them. JPEG and PNG sources go through the Next.js
+// image optimizer URL (AVIF or WebP, quality 90, 1080px wide) instead of shipping the original; WebP files are used as they are.
+function cardImageUrl(src: string) {
+  return /\.(jpe?g|png)$/i.test(src) ? `/_next/image?url=${encodeURIComponent(src)}&w=1080&q=90` : src;
+}
+
+const technologyBackgrounds = technologyGroups.map((group) => cardImageUrl(group.image));
+
 export default function TechnologiesPage() {
   return (
     <>
@@ -64,12 +73,12 @@ export default function TechnologiesPage() {
             <h2 id="technology-landscape">One Interconnected Landscape Of Engineering</h2>
             <p>We integrate the layers into a single, manageable system, from raw data to a functional application.</p>
           </div>
-          <div className={styles.landscapeGrid}>
+          <NearViewport className={styles.landscapeGrid} backgrounds={technologyBackgrounds}>
             {technologyGroups.map((group) => (
               <article
                 key={group.label}
                 className={styles.landscapeCard}
-                style={{ "--card-image": `url("${group.image}")` } as CSSProperties}
+                style={{ "--card-image": `url("${cardImageUrl(group.image)}")` } as CSSProperties}
                 tabIndex={0}
               >
                 <div className={styles.cardHeading}>
@@ -81,7 +90,7 @@ export default function TechnologiesPage() {
                 </div>
               </article>
             ))}
-          </div>
+          </NearViewport>
         </Container>
       </section>
 

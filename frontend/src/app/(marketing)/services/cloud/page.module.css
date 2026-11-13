@@ -72,6 +72,8 @@
 .insightsGrid > a { margin-top:0; }
 .contentState { max-width:42rem; margin-top:1.5rem; color:var(--color-muted); font-size:.9rem; line-height:1.7; }
 .reservedSlot { padding:1.5rem; min-height:10rem; border:1px solid var(--color-border); border-radius:.7rem; background:var(--color-surface); }
+.reservedSlot[data-skeleton] { border-color:transparent; background:var(--skeleton-base) linear-gradient(100deg,transparent 30%,var(--skeleton-shine) 50%,transparent 70%) 0 0 / 220% 100% no-repeat; }
+.reservedSlot[data-skeleton] > * { visibility:hidden; }
 .reservedSlot > span { display:block; color:var(--color-muted); font-size:.65rem; }
 .reservedSlot > div { width:65%; height:1px; margin-top:2rem; background:var(--color-border); }
 .reservedSlot > div:last-child { width:40%; margin-top:1rem; }

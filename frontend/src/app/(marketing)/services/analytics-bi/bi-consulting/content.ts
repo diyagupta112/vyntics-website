@@ -13,7 +13,7 @@ export const biConsultingService = {
     introduction: "We help businesses choose, implement, improve, migrate, and support Power BI, Tableau, and Amazon QuickSight environments around their reporting needs and users.",
     outcome: "Build a BI Environment Your Team Can Use and maintain.",
     cta: "Discuss your BI environment",
-    expectedImage: "/images/services/our-services-section/bi-consulting.png",
+    expectedImage: "/images/services/our-services-section/bi-consulting.webp",
     imageAlt: "Presenter reviewing reporting charts on a tablet beside a whiteboard",
   },
 } as const;

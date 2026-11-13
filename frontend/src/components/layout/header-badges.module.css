@@ -8,9 +8,9 @@
 .image { width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .letter { color: var(--color-foreground); font-size: .95rem; font-weight: 600; }
 .link:hover, .link:focus-visible { transform: translateY(-2px); box-shadow: 0 4px 12px rgb(0 0 0 / 12%); }
-.skeleton { background: rgb(15 23 42 / 8%); animation: headerBadgePulse 1.4s ease-in-out infinite; }
+.skeleton { background: var(--skeleton-base) linear-gradient(100deg, transparent 30%, var(--skeleton-shine) 50%, transparent 70%) 0 0 / 220% 100% no-repeat; animation: headerBadgeShimmer 1.5s linear infinite; }
 :global(html[data-theme="dark"]) .skeleton { background: rgb(255 255 255 / 8%); }
-@keyframes headerBadgePulse { 50% { opacity: .5; } }
+@keyframes headerBadgeShimmer { from { background-position: 150% 0; } to { background-position: -70% 0; } }
 .drawer { display: block; margin-top: 1rem; }
 @media (max-width: 1279px) {
   .bar .tile { width: 2.5rem; height: 2.5rem; }

@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import styles from "./skeleton.module.css";
 
 export function Skeleton({ className = "", style }: { className?: string; style?: CSSProperties }) {
-  return <span aria-hidden="true" className={`${styles.block} ${className}`} style={style} />;
+  return <span aria-hidden="true" data-skeleton="" className={`${styles.block} ${className}`} style={style} />;
 }
 
 export function SkeletonLines({ widths = ["100%", "90%", "72%"], className = "" }: { widths?: string[]; className?: string }) {

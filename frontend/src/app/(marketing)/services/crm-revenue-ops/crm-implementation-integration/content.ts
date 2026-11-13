@@ -13,7 +13,7 @@ export const crmImplementationService = {
     introduction: "Set up a new CRM, switch from an existing system, or connect customer data across the tools your teams use.",
     outcome: "Implement a CRM your team can use, update, and maintain.",
     cta: "Discuss your CRM implementation",
-    expectedImage: "/images/services/our-services-section/crm-implementation.png",
+    expectedImage: "/images/services/our-services-section/crm-implementation.webp",
     imageAlt: "Team collaborating around a CRM implementation workspace",
   },
 } as const;

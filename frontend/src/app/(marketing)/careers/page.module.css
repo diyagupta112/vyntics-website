@@ -64,7 +64,7 @@
 .stateCard > p { max-width: 36rem; margin-top: 0.7rem; color: var(--color-muted); line-height: 1.6; }
 .stateCard a { margin-top: 1.3rem; color: var(--color-primary); }
 .skeletonCard { min-height: 16.5rem; padding: 1.5rem; display: grid; align-content: start; gap: 0.8rem; border: 1px solid var(--color-border); border-radius: 0.85rem; background: var(--color-surface); }
-.skeletonCard span { height: 1rem; border-radius: 0.4rem; background: color-mix(in srgb, var(--color-border) 65%, var(--color-surface)); animation: pulse 1.4s ease-in-out infinite; }
+.skeletonCard span { height: 1rem; border-radius: 0.4rem; background: var(--skeleton-base) linear-gradient(100deg, transparent 30%, var(--skeleton-shine) 50%, transparent 70%) 0 0 / 220% 100% no-repeat; animation: skeletonSweep 1.5s linear infinite; }
 .skeletonCard span:first-child { width: 32%; }
 .skeletonCard span:nth-child(2) { width: 70%; height: 2.5rem; margin-top: 1rem; }
 .skeletonCard span:last-child { width: 88%; }
@@ -75,6 +75,7 @@
 .contactInner > p:not(.eyebrow) { max-width: 40rem; margin-top: 1rem; color: var(--color-muted); line-height: 1.65; }
 .contactEmail { min-height: 3.1rem; margin-top: 1.35rem; padding-inline: 1.15rem; display: inline-flex; align-items: center; color: #fff; border-radius: 0.7rem; background: var(--color-primary); box-shadow: 0 0.8rem 2rem rgb(20 83 219 / 24%); font-size: 0.95rem; font-weight: 700; cursor: pointer; user-select: text; }
 @keyframes pulse { 50% { opacity: 0.46; } }
+@keyframes skeletonSweep { from { background-position: 150% 0; } to { background-position: -70% 0; } }
 @media (hover: hover) and (pointer: fine) {
   .primaryButton:hover svg,
   .openingLink:hover svg,

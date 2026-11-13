@@ -89,7 +89,7 @@ function renderNode(value: JsonValue, key: string, imageContext: string): ReactN
   if (type === "image") {
     const src = safeUrl(attrs.src ?? attrs.url ?? attrs.image_url ?? attrs.imageUrl);
     const caption = typeof attrs.caption === "string" ? attrs.caption : typeof value.caption === "string" ? value.caption : undefined;
-    return src ? <figure key={key}><img src={src} alt={typeof attrs.alt === "string" ? attrs.alt : caption?.trim() ?? ""} loading="lazy" decoding="async" />{caption ? <figcaption>{caption}</figcaption> : null}</figure> : null;
+    return src ? <figure key={key}><img suppressHydrationWarning src={src} alt={typeof attrs.alt === "string" ? attrs.alt : caption?.trim() ?? ""} loading="lazy" decoding="async" />{caption ? <figcaption>{caption}</figcaption> : null}</figure> : null;
   }
   if (type === "video") {
     const src = safeUrl(attrs.src ?? attrs.url ?? value.video_url ?? value.videoUrl);

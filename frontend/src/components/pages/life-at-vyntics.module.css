@@ -76,8 +76,8 @@
 .moreButton:hover:not(:disabled) { background: color-mix(in srgb, var(--color-primary) 86%, #000); border-color: color-mix(in srgb, var(--color-primary) 86%, #000); transform: translateY(-1px); box-shadow: 0 0.5rem 1.1rem color-mix(in srgb, var(--color-primary) 30%, transparent); }
 .moreButton:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 0.25rem; }
 
-.skeleton { background: linear-gradient(100deg, color-mix(in srgb, var(--color-primary) 6%, var(--color-surface)) 30%, color-mix(in srgb, var(--color-primary) 12%, var(--color-surface)) 50%, color-mix(in srgb, var(--color-primary) 6%, var(--color-surface)) 70%) 0 0 / 220% 100%; animation: life-shimmer 1.6s ease-in-out infinite; }
-@keyframes life-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+.skeleton { background: var(--skeleton-base) linear-gradient(100deg, transparent 30%, var(--skeleton-shine) 50%, transparent 70%) 0 0 / 220% 100% no-repeat; animation: life-shimmer 1.5s linear infinite; }
+@keyframes life-shimmer { from { background-position: 150% 0; } to { background-position: -70% 0; } }
 
 .srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 

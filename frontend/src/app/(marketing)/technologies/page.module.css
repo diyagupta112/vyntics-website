@@ -1,6 +1,6 @@
 .hero,.landscape,.toolIndex,.processSection,.clientWork,.credentials{position:relative;padding-block:clamp(4.5rem,8vw,7rem)}
 .hero{padding-block:0;overflow:hidden;isolation:isolate;background:var(--color-background)}
-.hero::before{position:absolute;z-index:-2;inset:0;content:"";background:url("/images/technology-hero-office.jpg") 92% center / auto 90% no-repeat;filter:saturate(.88) contrast(.96);opacity:.78;pointer-events:none}
+.hero::before{position:absolute;z-index:-2;inset:0;content:"";background:url("/_next/image?url=%2Fimages%2Ftechnology-hero-office.jpg&w=1920&q=90") 92% center / auto 90% no-repeat;filter:saturate(.88) contrast(.96);opacity:.78;pointer-events:none}
 .hero::after{position:absolute;z-index:-1;inset:0;content:"";background:linear-gradient(90deg,color-mix(in srgb,var(--color-background) 96%,transparent),color-mix(in srgb,var(--color-background) 64%,transparent) 45%,color-mix(in srgb,var(--color-background) 14%,transparent) 80%,transparent),linear-gradient(180deg,color-mix(in srgb,var(--color-background) 10%,transparent),transparent 62%,color-mix(in srgb,var(--color-background) 68%,transparent));pointer-events:none}
 .heroGrid{min-height:calc(100svh - 5rem);padding-block:clamp(3rem,7vh,5rem);display:flex;align-items:center}
 .eyebrow{color:var(--color-brand);font-size:.69rem;font-weight:760;letter-spacing:.16em;text-transform:uppercase}
@@ -16,8 +16,17 @@
 .sectionHeading>p:last-child,.stickyHeading>p:last-child{max-width:39rem;margin-top:1rem;color:var(--color-muted);font-size:.94rem;line-height:1.7}
 .landscapeGrid{margin-top:clamp(1.1rem,2.5vh,1.75rem);padding:clamp(.65rem,1vw,.9rem);display:flex;gap:.7rem;border:1px solid var(--color-border);border-radius:1.45rem;background:color-mix(in srgb,var(--color-surface) 96%,var(--color-primary));box-shadow:0 1rem 3rem rgb(20 83 219/.05)}
 .landscapeCard{position:relative;height:clamp(16rem,39vh,20rem);min-width:0;flex:1 1 0;overflow:hidden;border:1px solid var(--color-border);border-radius:1rem;background:#08111d;box-shadow:0 .75rem 2rem rgb(20 83 219/.06);outline:none;transition:flex 420ms cubic-bezier(.2,.8,.2,1),transform 280ms ease,border-color 260ms ease,box-shadow 280ms ease,filter 280ms ease}
-.landscapeCard::after{position:absolute;z-index:0;inset:-1px;content:"";background-image:var(--card-image);background-position:center;background-size:cover;transition:transform 650ms cubic-bezier(.2,.8,.2,1),filter 300ms ease}
+.landscapeCard::after{position:absolute;z-index:0;inset:-1px;content:"";background-position:center;background-size:cover;opacity:0;transition:transform 650ms cubic-bezier(.2,.8,.2,1),filter 300ms ease,opacity 450ms ease}
+.landscapeGrid[data-near="true"] .landscapeCard::after{background-image:var(--card-image)}
+.landscapeGrid:not([data-bg-ready="true"]) .landscapeCard{background-color:var(--skeleton-base);background-image:linear-gradient(100deg,transparent 30%,var(--skeleton-shine) 50%,transparent 70%);background-size:220% 100%;background-repeat:no-repeat}
+.landscapeGrid:not([data-bg-ready="true"]) .landscapeCard::before{opacity:0}
+@media(prefers-reduced-motion:no-preference){.landscapeGrid:not([data-bg-ready="true"]) .landscapeCard{animation:cardSkeletonSweep 1.5s linear infinite}}
+@keyframes cardSkeletonSweep{from{background-position:150% 0}to{background-position:-70% 0}}
+.landscapeGrid[data-bg-ready="true"] .landscapeCard::after{opacity:1}
+@media(prefers-reduced-motion:reduce){.landscapeCard::after{transition:transform 650ms cubic-bezier(.2,.8,.2,1),filter 300ms ease}}
 .landscapeCard::before{position:absolute;z-index:1;inset:0;content:"";pointer-events:none;background:linear-gradient(180deg,rgb(4 8 18/.04) 25%,rgb(4 8 18/.34) 65%,rgb(4 8 18/.8));transition:background 280ms ease}
+@media(prefers-reduced-motion:no-preference){.landscapeCard::before{transition:background 280ms ease,opacity 450ms ease}.landscapeCard{transition:flex 420ms cubic-bezier(.2,.8,.2,1),transform 280ms ease,border-color 260ms ease,box-shadow 280ms ease,filter 280ms ease,background-color 0s linear 450ms}}
+/* The dark card base returns only after the photo has finished fading in, so the grey never flashes dark first. */
 .cardHeading{position:absolute;z-index:3;right:0;bottom:0;left:0;min-height:4.3rem;padding:1rem 1.1rem;display:flex;align-items:center;color:#fff;background:rgb(4 8 18/.58);border-top:1px solid rgb(255 255 255/.18);backdrop-filter:blur(.75rem)}
 .cardHeading h3{font-size:.94rem;letter-spacing:-.025em;text-transform:capitalize}
 .cardDetails{position:absolute;z-index:2;inset:0 0 4.25rem;padding:1.25rem;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;background:linear-gradient(180deg,rgb(4 8 18/.08),rgb(4 8 18/.9) 72%);opacity:0;transform:translateY(1.5rem);pointer-events:none;transition:opacity 240ms ease,transform 320ms cubic-bezier(.2,.8,.2,1)}
@@ -95,3 +104,5 @@
 .toolIndex{padding-bottom:calc(var(--space-section) * .5)}
 @media(min-width:1700px){.processViewport{height:clamp(25rem,66vh,38rem)}}
 @media(min-width:1700px){.processCard{padding:2rem}.processNumber{font-size:2rem}.processStage{font-size:.72rem}.processCard h3{margin-top:2.25rem;font-size:clamp(1.9rem,2.4vw,2.6rem)}.processCard p{max-width:42rem;margin-top:1rem;font-size:1.05rem}.processPoints{margin-top:1.75rem;padding-top:1.4rem;gap:.85rem 1.25rem}.processPoints li{padding-left:1.1rem;font-size:.92rem}.processPoints li::before{top:.55rem;width:.45rem}}
+/* Without JavaScript the card photos never get marked ready, so skip the placeholder and show them directly. */
+@media(scripting:none){.landscapeGrid:not([data-bg-ready="true"]) .landscapeCard{background-color:#08111d;background-image:none;animation:none}.landscapeGrid:not([data-bg-ready="true"]) .landscapeCard::before{opacity:1}.landscapeCard::after{background-image:var(--card-image);opacity:1}}

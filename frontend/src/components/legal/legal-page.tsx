@@ -27,7 +27,7 @@ export function LegalPage({ title, image, imageAlt, updated, intro = [], section
   const tocItems = sections.map(section => ({ id: slugify(section.title), title: section.title }));
   return <>
     <section className={styles.hero} aria-labelledby={titleId}>
-      <Image className={styles.heroImage} src={image} alt={imageAlt} fill preload sizes="100vw" />
+      <Image suppressHydrationWarning className={styles.heroImage} src={image} alt={imageAlt} fill preload sizes="100vw" />
       <div className={styles.heroShade} aria-hidden="true" />
       <h1 id={titleId}>{title}</h1>
       <p className={styles.updated}><span aria-hidden="true">*</span>Last updated: {updated}</p>

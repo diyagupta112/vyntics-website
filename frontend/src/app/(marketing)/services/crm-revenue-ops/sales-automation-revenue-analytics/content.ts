@@ -12,7 +12,7 @@ export const salesAutomationService = {
     introduction: "We help sales and revenue teams reduce manual admin, strengthen follow-through, and see what is happening across their pipeline and revenue.",
     outcome: "Connect sales process automation with reporting your team can use.",
     cta: "Discuss sales automation",
-    expectedImage: "/images/services/our-services-section/sales-automation.png",
+    expectedImage: "/images/services/our-services-section/sales-automation.webp",
     imageAlt: "Team reviewing an automated lead follow-up workflow on a laptop",
   },
 } as const;

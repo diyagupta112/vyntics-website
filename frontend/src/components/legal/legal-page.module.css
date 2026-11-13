@@ -1,4 +1,4 @@
-.hero { position:relative; display:grid; place-items:center; min-height:clamp(13rem,26vw,19rem); padding:3rem var(--page-gutter,1.5rem); overflow:hidden; isolation:isolate; background:var(--color-ink); color:var(--color-white); text-align:center; }
+.hero { position:relative; display:grid; place-items:center; min-height:clamp(13rem,26vw,19rem); padding:3rem var(--page-gutter,1.5rem); overflow:hidden; isolation:isolate; background:var(--skeleton-base); color:var(--color-white); text-align:center; }
 .heroImage { z-index:-2; object-fit:cover; object-position:center 55%; }
 .heroShade { position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg,rgb(11 19 38 / 50%),rgb(11 19 38 / 68%)); }
 .hero h1 { font-size:clamp(2.3rem,5vw,3.75rem); font-weight:650; line-height:1.1; letter-spacing:-.045em; }

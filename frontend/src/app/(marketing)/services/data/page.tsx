@@ -109,7 +109,7 @@ export default function DataEngineeringPage() {
       <section className={`${cloudStyles.context} ${styles.noDivider}`} aria-labelledby="insights-title">
         <Container>
           <header className={cloudStyles.sectionHeading}><p className={cloudStyles.eyebrow}>RELATED INSIGHTS</p><h2 id="insights-title">Related Insights</h2></header>
-          <Suspense fallback={<p className={cloudStyles.contentState} role="status">Loading data engineering insights…</p>}><DataInsights /></Suspense>
+          <Suspense fallback={<div className={cloudStyles.insightsGrid} role="status" aria-label="Loading insights">{[0, 1, 2].map((index) => <div className={cloudStyles.reservedSlot} data-skeleton="" key={index}><span /><div /><div /></div>)}</div>}><DataInsights /></Suspense>
           <ArrowFillButton compact alignEnd className={cloudStyles.secondaryAction} href="/blog">View all insights</ArrowFillButton>
         </Container>
       </section>

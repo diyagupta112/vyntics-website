@@ -1,13 +1,13 @@
 .loading { padding-block: clamp(3rem, 6vw, 5rem); min-height: 100svh; }
 .loading > div { display: grid; gap: 1rem; }
-.eyebrowSkeleton, .titleSkeleton, .copySkeleton, .mediaSkeleton { display: block; overflow: hidden; border-radius: 0.5rem; background: color-mix(in srgb, var(--color-primary) 8%, var(--color-border)); }
+.eyebrowSkeleton, .titleSkeleton, .copySkeleton, .mediaSkeleton { display: block; overflow: hidden; border-radius: 0.5rem; background: var(--skeleton-base); }
 .eyebrowSkeleton { width: 7rem; height: 0.75rem; }
 .titleSkeleton { width: min(72vw, 42rem); height: clamp(4rem, 10vw, 7rem); }
 .copySkeleton { width: min(82vw, 34rem); height: 1.1rem; }
 .mediaSkeleton { width: 100%; height: 18rem; margin-top: 2rem; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .eyebrowSkeleton, .titleSkeleton, .copySkeleton, .mediaSkeleton { background: linear-gradient(90deg, color-mix(in srgb, var(--color-primary) 7%, var(--color-border)), color-mix(in srgb, var(--color-primary) 14%, var(--color-border)), color-mix(in srgb, var(--color-primary) 7%, var(--color-border))); background-size: 220% 100%; animation: shimmer 1.5s linear infinite; }
+  .eyebrowSkeleton, .titleSkeleton, .copySkeleton, .mediaSkeleton { background: var(--skeleton-base) linear-gradient(100deg, transparent 30%, var(--skeleton-shine) 50%, transparent 70%) 0 0 / 220% 100% no-repeat; animation: shimmer 1.5s linear infinite; }
 }
 
 .message { min-height: 72svh; display: grid; align-items: center; padding-block: 5rem; }
@@ -20,4 +20,4 @@
 .actions button { border-color: var(--color-primary); border-radius: 0.6rem; background: var(--color-primary); color: #fff; font-weight: 650; cursor: pointer; transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease; }
 .actions button:hover { border-color: color-mix(in srgb, var(--color-primary) 86%, #000); background: color-mix(in srgb, var(--color-primary) 86%, #000); transform: translateY(-1px); box-shadow: 0 0.5rem 1.1rem color-mix(in srgb, var(--color-primary) 30%, transparent); }
 .actions button:focus-visible, .actions a:focus-visible { outline: 3px solid color-mix(in srgb, var(--color-primary) 42%, transparent); outline-offset: 3px; }
-@keyframes shimmer { to { background-position: -220% 0; } }
+@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -70% 0; } }

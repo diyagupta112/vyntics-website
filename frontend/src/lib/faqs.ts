@@ -1,3 +1,4 @@
+import { publicFetch } from "./public-cache.ts";
 export type Faq = { question: string; answer: string };
 
 type FaqRecord = { question: unknown; answer: unknown; sub_page: unknown };
@@ -17,7 +18,7 @@ export async function getFaqs(page: string, subPage?: string): Promise<Faq[]> {
   const query = new URLSearchParams({ page });
   if (subPage) query.set("sub_page", subPage);
   try {
-    const response = await fetch(`${base}/faqs?${query}`, { cache: "no-store", signal: AbortSignal.timeout(5000) });
+    const response = await fetch(`${base}/faqs?${query}`, { ...publicFetch("faqs"), signal: AbortSignal.timeout(5000) });
     if (!response.ok) return [];
     const payload: unknown = await response.json();
     if (!payload || typeof payload !== "object" || !Array.isArray((payload as { data?: unknown }).data)) return [];

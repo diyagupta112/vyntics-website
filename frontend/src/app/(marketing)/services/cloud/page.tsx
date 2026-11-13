@@ -32,8 +32,8 @@ function ArrowIcon() {
   return <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4" /></svg>;
 }
 
-function ReservedContent({ count, message }: { count: number; message: string }) {
-  return <div><p className={styles.contentState} role="status">{message}</p><div className={count === 2 ? styles.projectGrid : styles.insightsGrid} aria-hidden="true">{Array.from({ length: count }, (_, index) => <div className={styles.reservedSlot} key={index}><span>{String(index + 1).padStart(2, "0")}</span><div /><div /></div>)}</div></div>;
+function ReservedContent({ count, message, loading = false }: { count: number; message?: string; loading?: boolean }) {
+  return <div>{!loading && <p className={styles.contentState} role="status">{message}</p>}<div className={count === 2 ? styles.projectGrid : styles.insightsGrid} aria-hidden={loading ? undefined : "true"} role={loading ? "status" : undefined} aria-label={loading ? "Loading content" : undefined}>{Array.from({ length: count }, (_, index) => <div className={styles.reservedSlot} data-skeleton={loading ? "" : undefined} key={index}><span>{String(index + 1).padStart(2, "0")}</span><div /><div /></div>)}</div></div>;
 }
 
 async function CloudProjects() {
@@ -81,7 +81,7 @@ export default function CloudFoundationsPage() {
             services={canonicalCloudServices.map((service, index) => ({
               name: service.title,
               href: `/services/cloud-foundations/${service.slug}`,
-              image: ["/images/services/our-services-section/cloud-migration-v2.png", "/images/services/our-services-section/devops-and-reliability-2.png", "/images/services/our-services-section/cloud-cost-optimization.png"][index],
+              image: ["/images/services/our-services-section/cloud-migration-v2.webp", "/images/services/our-services-section/devops-and-reliability-2.webp", "/images/services/our-services-section/cloud-cost-optimization.webp"][index],
               imageAlt: ["Team reviewing cloud migration progress on a large screen.", "Developer working with code and system monitoring on two screens.", "Laptop displaying a cloud cost dashboard with usage and spending charts."][index],
               introduction: cloudServiceIntroductions[index].summary,
               points: cloudServiceIntroductions[index].includes,
@@ -117,7 +117,7 @@ export default function CloudFoundationsPage() {
       <section className={`${styles.workBridge} ${styles.noTopRule}`} aria-labelledby="cloud-work-title" data-cloud-section="Case studies">
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>CASE STUDIES</p><h2 id="cloud-work-title">Case Studies</h2><p className={styles.contentState}>Explore how we’ve helped businesses solve complex technology challenges and turn them into practical outcomes.</p></header>
-          <Suspense fallback={<ReservedContent count={2} message="Loading case studies…" />}><CloudProjects /></Suspense>
+          <Suspense fallback={<ReservedContent count={2} loading />}><CloudProjects /></Suspense>
           <Link className={styles.secondaryAction} href="/case-studies">Explore all case studies <ArrowIcon /></Link>
         </Container>
       </section>
@@ -127,7 +127,7 @@ export default function CloudFoundationsPage() {
       <section className={styles.context} aria-labelledby="cloud-insights-title" data-cloud-section="Related insights">
         <Container>
           <header className={styles.sectionHeading}><p className={styles.eyebrow}>RELATED INSIGHTS</p><h2 id="cloud-insights-title">Related Insights</h2></header>
-          <Suspense fallback={<ReservedContent count={3} message="Loading cloud insights…" />}><CloudInsights /></Suspense>
+          <Suspense fallback={<ReservedContent count={3} loading />}><CloudInsights /></Suspense>
           <ArrowFillButton compact alignEnd className={styles.secondaryAction} href="/blog">View all insights</ArrowFillButton>
         </Container>
       </section>

@@ -185,11 +185,18 @@
   position: relative;
   min-height: 0;
   overflow: hidden;
-  background: #10141d;
+  background: var(--skeleton-base);
 }
 
 .showcaseImage {
   object-fit: cover;
+}
+
+/* Static grey stand-in for panels whose image has not been activated yet. */
+.showcasePlaceholder {
+  position: absolute;
+  inset: 0;
+  background: var(--skeleton-base);
 }
 
 .showcaseImageShade {

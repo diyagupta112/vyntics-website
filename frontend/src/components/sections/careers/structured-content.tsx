@@ -96,7 +96,7 @@ function renderNode(node: JsonValue, key: string): ReactNode {
     const attrs = isObject(node.attrs) ? node.attrs : {};
     const src = safeImageUrl(attrs.url);
     // eslint-disable-next-line @next/next/no-img-element -- backend image hosts are dynamic
-    return src ? <figure key={key}><img src={src} alt={typeof attrs.alt === "string" ? attrs.alt : ""} loading="lazy" decoding="async" /></figure> : null;
+    return src ? <figure key={key}><img suppressHydrationWarning src={src} alt={typeof attrs.alt === "string" ? attrs.alt : ""} loading="lazy" decoding="async" /></figure> : null;
   }
   if (node.type === "doc" || node.type === "document") {
     return <div key={key}>{children}</div>;

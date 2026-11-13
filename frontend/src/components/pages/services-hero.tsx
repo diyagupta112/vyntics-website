@@ -44,7 +44,7 @@ export function ServicesHero({ service, headingId, eyebrow, title, description, 
           </clipPath>
         </defs></svg>
         <div className={styles.imageArea} style={{ clipPath: `url(#${mask})` }}>
-          <Image src={image.image} alt={image.alt} fill preload={!visual} quality={service === "analytics-bi" ? 90 : 75} sizes={service === "analytics-bi" ? "(max-width: 560px) 180vw, (max-width: 900px) 120vw, 90vw" : "(max-width: 900px) 100vw, 60vw"} className={styles.image} style={{ objectPosition: image.position }} />
+          <Image suppressHydrationWarning src={image.image} alt={image.alt} fill preload={!visual} quality={service === "analytics-bi" ? 90 : 75} sizes={service === "analytics-bi" ? "(max-width: 560px) 180vw, (max-width: 900px) 120vw, 90vw" : "(max-width: 900px) 100vw, 60vw"} className={styles.image} style={{ objectPosition: image.position }} />
         </div>
         {visual && <div className={styles.media} style={{ "--hero-mask": `url(#${mask})` } as CSSProperties}>{visual}</div>}
         {badge && <div className={styles.badge} data-reveal={`${id}-category`} data-reveal-delay="90"><span>{badge.label}</span><strong>{badge.title}</strong></div>}

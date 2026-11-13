@@ -9,7 +9,7 @@ export function AnalyticsWhy() {
   return <section id="analytics-why" className={styles.section} aria-labelledby="analytics-why-title" data-cloud-section="Why Vyntics for analytics">
     <Container className={styles.layout}>
         <div className={styles.image} data-reveal="analytics-why-image">
-          <Image src={analyticsContent.whyImage.src} alt={analyticsContent.whyImage.alt} fill sizes="(max-width: 900px) 100vw, 40vw" />
+          <Image suppressHydrationWarning src={analyticsContent.whyImage.src} alt={analyticsContent.whyImage.alt} fill sizes="(max-width: 900px) 100vw, 40vw" />
         </div>
         <div className={styles.content}>
           <header data-reveal="analytics-why-heading" data-reveal-delay="90">

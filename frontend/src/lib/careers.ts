@@ -1,3 +1,4 @@
+import { publicFetch } from "./public-cache.ts";
 export type CareerListItem = {
   id: string;
   slug: string;
@@ -101,7 +102,7 @@ function isCareer(value: unknown): value is Career {
 export async function getCareers(): Promise<CareersResult> {
   try {
     const response = await fetch(`${apiBaseUrl()}/careers`, {
-      cache: "no-store",
+      ...publicFetch("careers"),
       signal: AbortSignal.timeout(5000),
     });
     if (!response.ok) return { status: "error" };
@@ -124,7 +125,7 @@ export async function getCareer(slug: string): Promise<CareerResult> {
     const response = await fetch(
       `${apiBaseUrl()}/careers/${encodeURIComponent(slug)}`,
       {
-        cache: "no-store",
+        ...publicFetch("careers"),
         signal: AbortSignal.timeout(5000),
       },
     );

@@ -17,7 +17,7 @@ export function Hero() {
             clause behind every answer.
           </p>
           <div className={styles.actions}>
-            <ArrowFillButton className={styles.cta} href="/contact-us">Book a free AI audit</ArrowFillButton>
+            <ArrowFillButton className={styles.cta} href="#contact">Book a free AI audit</ArrowFillButton>
             <HeroDemoButton className={styles.secondary} />
           </div>
         </div>

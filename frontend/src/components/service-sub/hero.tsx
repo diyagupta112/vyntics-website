@@ -31,7 +31,7 @@ export function CloudSubHero({ page, opticalAlign = false, showOutcome = true, p
         </div>
       </div>
       <div className={`${heroStyles.visual} ${styles.heroVisual}`}>
-        <div className={styles.heroFrame}><Image className={imageStyles.image} src={image.src} alt={image.alt} fill preload sizes="(max-width:900px) 100vw, 60vw" /></div>
+        <div className={styles.heroFrame}><Image suppressHydrationWarning className={imageStyles.image} src={image.src} alt={image.alt} fill preload sizes="(max-width:900px) 100vw, 60vw" /></div>
       </div>
     </Container>
     <ScrollReveals scope={`#${id}`} />

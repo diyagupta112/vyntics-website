@@ -13,7 +13,7 @@ export const dashboardService = {
     introduction: "We help leaders and teams replace hours of manual reporting with focused dashboards and executive reporting built around the questions they need to answer.",
     outcome: "Bring KPIs, trends, and exceptions into a view your team can use.",
     cta: "Discuss your dashboards",
-    expectedImage: "/images/services/our-services-section/dashboards-and-analytics.png",
+    expectedImage: "/images/services/our-services-section/dashboards-and-analytics.webp",
     imageAlt: "Laptop displaying an analytics dashboard with charts and KPI summaries",
   },
 } as const;

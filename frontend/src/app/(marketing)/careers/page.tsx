@@ -83,7 +83,7 @@ export default function CareersPage() {
   return (
     <>
       <section className={styles.hero} aria-labelledby="careers-title">
-        <Image className={styles.heroImage} src="/images/careers/careers-team-hero.png" alt="Vyntics team collaborating around a wooden table with laptops and tablets in a bright office" fill preload sizes="100vw" />
+        <Image suppressHydrationWarning className={styles.heroImage} src="/images/careers/careers-team-hero.webp" alt="Vyntics team collaborating around a wooden table with laptops and tablets in a bright office" fill preload sizes="100vw" />
         <div className={styles.heroOverlay} aria-hidden="true" />
         <Container className={styles.heroInner}>
           <RevealBlock className={styles.heroCopy}>

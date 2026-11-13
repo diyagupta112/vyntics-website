@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { LifeAtVyntics, LifeAtVynticsSkeleton } from "@/components/pages/life-at-vyntics";
-import { TeamShowcase } from "@/components/pages/team-showcase";
+import { TeamShowcase, TeamShowcaseSkeleton } from "@/components/pages/team-showcase";
 import { Container } from "@/components/ui/container";
 import styles from "./page.module.css";
 import { TechnologyOrb } from "./technology-orb";
@@ -134,7 +134,9 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <TeamShowcase />
+      <Suspense fallback={<TeamShowcaseSkeleton />}>
+        <TeamShowcase />
+      </Suspense>
 
       <Suspense fallback={<LifeAtVynticsSkeleton />}>
         <LifeAtVyntics />

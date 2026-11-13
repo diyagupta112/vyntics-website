@@ -4,6 +4,7 @@ import { cache } from "react";
 import type { Metadata } from "next";
 import type { Blog } from "@/lib/blogs";
 import { getBlogs } from "@/lib/blogs";
+import { publicFetch } from "@/lib/public-cache";
 import { blogExtensions } from "@/content/blog-extensions";
 import { RelatedBlogCard } from "@/components/pages/related-blog-card";
 import type { JsonObject } from "@/lib/careers";
@@ -20,7 +21,7 @@ const getBlog = cache(async (slug: string) => {
     const payload = await preview.json();
     return payload.data.find((post: Blog) => post.slug === slug) as (Blog & { content: JsonObject; seo_title: string; meta_description: string }) | undefined;
   }
-  const response = await fetch(`${base}/blogs/${encodeURIComponent(slug)}`, { cache: "no-store", signal: AbortSignal.timeout(5000) });
+  const response = await fetch(`${base}/blogs/${encodeURIComponent(slug)}`, { ...publicFetch("blogs"), signal: AbortSignal.timeout(5000) });
   if (response.status === 404) return null;
   if (!response.ok) throw new Error("Blog unavailable");
   return await response.json() as Blog & { content: JsonObject; seo_title: string; meta_description: string };
@@ -43,7 +44,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
   return <article><header className={articleStyles.hero}>{/^(https?:\/\/|\/)/.test(blog.cover_image_url) && (
     // Backend image hosts are dynamic.
     // eslint-disable-next-line @next/next/no-img-element
-    <img className={articleStyles.cover} {...coverImgProps(blog.cover_image_url, "100vw", 1920, 1080)} alt="" fetchPriority="high" />
+    <img suppressHydrationWarning className={articleStyles.cover} {...coverImgProps(blog.cover_image_url, "100vw", 1920, 1080)} alt="" fetchPriority="high" />
   )}<div className={articleStyles.shade} /><div className={articleStyles.heroInner}><Link className={articleStyles.back} href="/blog">← All blogs</Link><div className={articleStyles.heroBottom}><a className={articleStyles.scroll} href="#article-content">Scroll to read <span aria-hidden="true">↓</span></a><div className={articleStyles.meta}><span>{blog.author}</span><time dateTime={blog.published_at}>{new Intl.DateTimeFormat("en", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(blog.published_at))}</time><span>{blog.read_time} min read</span><span className={articleStyles.heroCategory}>{blog.category}</span></div></div></div></header>
     <div id="article-content" className={articleStyles.readingLayout}>
       <aside className={articleStyles.leftSidebar} aria-label="About this article"><div className={articleStyles.infoCard}><p className={articleStyles.sideLabel}>ABOUT THIS ARTICLE</p><dl><div><dt>Author</dt><dd>{blog.author}</dd></div><div><dt>{blog.status && blog.status !== "published" ? "Created" : "Published"}</dt><dd><time dateTime={blog.published_at}>{new Intl.DateTimeFormat("en", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(blog.published_at))}</time></dd></div><div><dt>Reading time</dt><dd>{blog.read_time} min read</dd></div><div><dt>Category</dt><dd>{blog.category}</dd></div></dl></div></aside>

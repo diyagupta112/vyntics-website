@@ -28,6 +28,27 @@ export function ContactLinkScroll() {
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
       window.history.replaceState(null, "", `#${id}`);
+      if (reduce) return;
+      // Pinned or horizontal scroll sections and late-loading content can cancel a smooth scroll midway.
+      // Once scrolling stops short of the target, aim again, until it arrives or the visitor scrolls themselves.
+      let lastY = -1;
+      let retries = 0;
+      let cancelled = false;
+      const cancel = () => { cancelled = true; };
+      window.addEventListener("wheel", cancel, { once: true, passive: true });
+      window.addEventListener("touchstart", cancel, { once: true, passive: true });
+      const timer = window.setInterval(() => {
+        const y = window.scrollY;
+        const stopped = y === lastY;
+        lastY = y;
+        if (cancelled || retries >= 10) { window.clearInterval(timer); return; }
+        if (!stopped) return;
+        const off = Math.abs(target.getBoundingClientRect().top);
+        const atBottom = window.innerHeight + y >= document.documentElement.scrollHeight - 2;
+        if (off <= 4 || atBottom) { window.clearInterval(timer); return; }
+        retries += 1;
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 200);
     };
     // Capture phase, so the framework's own link handling does not jump or navigate away first.
     document.addEventListener("click", onClick, true);
